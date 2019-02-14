@@ -1,0 +1,17 @@
+.navbar{
+    @extend .container-fluid;
+    height: $navbar-height;
+    background: url('../images/components/navbar/bg.png') $navbar-bgcolor repeat-x;
+    color: $text-invert;
+    display: flex;
+    align-items: center;
+    .navbar-title{
+        flex: 1;
+        font-size: 42px;
+        line-height: 42px;
+        font-weight: bold;
+        text-transform: uppercase;
+        text-align: center;
+        @include ellipsis(100%);
+    }
+}
