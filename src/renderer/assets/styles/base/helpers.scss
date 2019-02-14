@@ -1,0 +1,22 @@
+.flex{
+    flex: 1;
+}
+
+.counter{
+    position: relative;
+    @include embed_image('~@/assets/images/icons/red/counter.png', 64px, 64px);
+    > span{
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 62px;
+        height: 62px;
+        font-size: 30px;
+        top: 0px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        margin: auto;
+    }
+}

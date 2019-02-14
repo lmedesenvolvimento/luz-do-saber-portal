@@ -10,7 +10,7 @@ if (process.env.NODE_ENV !== 'development') {
 
 let mainWindow
 const winURL = process.env.NODE_ENV === 'development'
-  ? `http://localhost:9080`
+  ? `http://0.0.0.0:9080`
   : `file://${__dirname}/index.html`
 
 function createWindow () {
@@ -22,6 +22,9 @@ function createWindow () {
     useContentSize: true,
     width: 1170
   })
+
+  mainWindow.maximize()
+  // mainWindow.setFullScreen(true)
 
   mainWindow.loadURL(winURL)
 

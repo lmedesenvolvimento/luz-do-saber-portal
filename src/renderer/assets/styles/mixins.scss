@@ -1,3 +1,20 @@
 @mixin  baloo_bhaina{
     font-family: "Baloo Bhaina", Helvetica, sans-serif;
 }
+
+@mixin  itim_regular{
+    font-family: "Itim Regular", Helvetica, sans-serif;
+}
+
+@mixin embed_image($url, $width, $height){  
+    &::before{
+        background-repeat: no-repeat;
+        background-color: transparent;
+        background-image: url($url);
+        background-size: $width $height ;
+        display: inline-block;
+        width: $width; 
+        height: $height;
+        content:"";
+    }    
+}

@@ -2,3 +2,13 @@
   font-family: "Baloo Bhaina";
   src: url("~@/assets/fonts/BalooBhaina-Regular.ttf") format("truetype")
 }
+
+@font-face {
+  font-family: "Itim Regular";
+  src: url("~@/assets/fonts/Itim-Regular.ttf") format("truetype")
+}
+
+.subtitle{
+    @include itim_regular;
+    text-transform: uppercase;
+}

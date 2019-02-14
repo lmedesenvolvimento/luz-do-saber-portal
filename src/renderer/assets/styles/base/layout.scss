@@ -1,0 +1,15 @@
+html, body{
+    line-height: 1.15;
+    // overflow: hidden;
+}
+
+body{
+    padding-top: $navbar-height;
+}
+
+
+@media only screen and (min-width: 75em){    
+    .container{
+        width: 88rem;
+    }
+}

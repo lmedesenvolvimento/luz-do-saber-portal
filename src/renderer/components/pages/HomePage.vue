@@ -1,9 +1,14 @@
 <template>
     <div class="page-container">
         <ls-navbar>
-            <div class="navbar-title">Baloo Bhaina</div>
+            <div class="icon-home"></div>
+            <span class="flex"></span>
+            <div class="navbar-title">Começar</div>
+            <span class="flex"></span>
         </ls-navbar>
-        <h1>Hello Electron</h1>    
+        <div class="container">
+            <ls-gameplay></ls-gameplay>
+        </div>
     </div>
 </template>
 <script>

@@ -1,11 +1,44 @@
-// Theme
+/******
+*
+* Theme
+*
+*****/
 
 $bg-color: #fff;
 
 $text-color: #5F4343;
 $text-invert: #fff;
 
-$navbar-bgcolor: #B63030;
+$navbar-bgcolor: #C62222;
 
-// Layout
+/******
+*
+* Layout
+*
+*****/
+
 $navbar-height: 94px;
+
+// Icons
+$icon-width: 80px;
+$icon-height: 80px;
+
+$icon-names: (
+    'icon-home',
+    'icon-next',
+    'icon-prev'
+);
+
+$icon-themes: (
+    '~@/assets/images/icons/red/'
+);
+
+// $icon-themes: (
+//     '~@/assets/images/icons/red/',
+//     '~@/assets/images/icons/blue/',
+//     '~@/assets/images/icons/green/',
+//     '~@/assets/images/icons/yellow/',
+// );
+
+// Cards
+$card-heading-bg-color: transparentize(#f4f4f4, 0.5);

@@ -1,0 +1,64 @@
+.gameplay{
+    position: relative;
+    padding-top: 12px;
+    .gameplay-description{
+        @extend .subtitle;
+        text-align: center;
+        font-size: 28px;
+        color: #717171;
+        margin: 24px 0px;
+    }
+    .step-bars{
+        position: absolute;
+        display: flex;
+        background-color: #f4f4f4;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 8px;
+        padding-bottom: 4px;
+        .bar{
+            flex: 1;
+            height: 8px;
+            margin-right: 8px;
+            background-color: #ddd;
+            &.active{
+                background-color: $navbar-bgcolor;
+            }
+            &:last-child{                
+                margin-right: 0px;
+            }
+        }
+    }
+    .gameplay-footer-status{
+        padding: 0px 48px;
+        min-width: 20%;
+        text-align: center;
+        .title, .subtitle{
+            text-transform: uppercase;
+        }
+        .title{
+            font-size: 40px;
+            color: #00A8C8;
+            margin-bottom: -10px;
+        }
+        .subtitle{
+            @include itim_regular;
+            font-size: 16px;
+            color: #717171;
+            font-weight: 100;
+        }
+    }
+    .gameplay-footer-divider{
+        display: block;
+        width: 1px;
+        height: 75%;
+        background-color: #ddd;
+    }
+    .exercise-sample{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        box-sizing: border-box;
+    }
+}

@@ -1,5 +1,5 @@
-import Navbar from '@/components/ui/Navbar';
 
 export default {
-    'ls-navbar': Navbar
+    'ls-navbar': require('@/components/ui/Navbar').default,
+    'ls-gameplay': require('@/components/ui/Gameplay').default
 };
