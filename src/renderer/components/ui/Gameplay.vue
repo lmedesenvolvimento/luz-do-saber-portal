@@ -52,6 +52,8 @@
 <script>
 import moment from 'moment'
 
+import { setInterval, clearInterval } from 'timers'
+
 const WAIT_TIME = 1000
 
 export default {
@@ -72,7 +74,7 @@ export default {
                     disabled: false
                 },
                 {
-                    value: 'Wedson',
+                    value: 'Sávio',
                     disabled: false
                 },
                 {
