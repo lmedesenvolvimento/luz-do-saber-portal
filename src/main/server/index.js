@@ -1,5 +1,9 @@
 const express = require('express');
-const PORT = 9003;
+const PORT = 9000;
+
+const uuidv4 = require('uuid/v4');
+
+const faker = require('faker');
 
 import db from '../database';
 
@@ -11,7 +15,7 @@ export default function boostrapAPI(){
     });
 
     app.get('/posts/new', (req, res) => {
-        let post = { id: 1, title: 'lowdb is awesome' }
+        let post = { _id: uuidv4(), title: faker.fake('{{lorem.words}}'), created_at: new Date(), updated_at: new Date() }
         // Add a post
         db.get('posts').push(post).write();
 
@@ -19,13 +23,13 @@ export default function boostrapAPI(){
     });
 
     app.get('/posts', (req, res) => {
-        let posts = db.get('posts').value();    
+        let posts = db.get('posts').value()
 
         res.send(posts);
     });
     
     app.listen(PORT, () => {
-        console.log(`ExpressJS app listening on port ${PORT}!`)
+        console.log(`API up listening on port ${PORT}!`)
     });
 
     return app;
