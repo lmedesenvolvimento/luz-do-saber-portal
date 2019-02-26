@@ -1,47 +1,31 @@
 <template>
-    <div class="card gameplay">
+    <div class="gameplay">
         <div class="step-bars">
-            <div class="bar active"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
+            <div class="bar" v-for="(activity, index) in activities" :key="index" v-bind:class="{'active': isActiveActivity(index)}"></div>            
         </div>
-        <div class="card-heading">
+        <div class="gameplay-heading">
             <div class="gameplay-counter counter">
-                <span>1</span>
+                <span>{{ currentPosition }}</span>
             </div>
-            <div class="card-heading-title">Crachá</div>
+            <div class="gameplay-heading-title">{{ getTitle }}</div>
         </div>
-        <div class="card-body">
-            <div class="gameplay-description">
-                <p>Encontre o crachá que tem seu nome:</p>
-                <div class="exercise-sample">
-                    <div 
-                        class="image-selector" 
-                        v-on:click="onSelectName(index)"
-                        v-bind:class="{ 'disabled': name.disabled }" 
-                        v-bind:key="index" 
-                        v-for="(name, index) in names" 
-                        :title="name.value">
-                    </div>
-                </div>
+        <div class="gameplay-body">
+            <div class="gameplay-description"> {{ getDescription }} </div>
+            <div class="gameplay-activity-container">
+                <ls-activity :activity="currentActivity"></ls-activity>                
             </div>
         </div>
-        <div class="card-footer">
-            <div class="card-footer-actions">
+        <div class="gameplay-footer">
+            <div class="gameplay-footer-actions">
                 <div class="flex"></div>
-                <div class="card-footer-action">
-                    <div class="gameplay-footer-status">
-                        <div class="subtitle">Tempo</div>
-                        <div class="title">{{ getDuration }}</div>
-                    </div>
+                <div class="gameplay-footer-action">
+                    <ls-timer></ls-timer>
                 </div>
                 <div class="gameplay-footer-divider"></div>
-                <div class="card-footer-action">
+                <div class="gameplay-footer-action">
                     <div class="gameplay-footer-status">
                         <div class="subtitle">Tentativas</div>
-                        <div class="title">{{ chanceCounter }}</div>
+                        <div class="title">0</div>
                     </div>
                 </div>
                 <div class="flex"></div>
@@ -50,70 +34,37 @@
     </div>
 </template>
 <script>
-import moment from 'moment'
-
-import { setInterval, clearInterval } from 'timers'
-
-const WAIT_TIME = 1000
-
 export default {
-    name: 'ls-gameplay',
+    props: {
+        activities: Array,
+    },
     data(){
         return {
-            names: [
-                {
-                    value: 'Cármem',
-                    disabled: false
-                },
-                {
-                    value: 'Maximilianno',
-                    disabled: false
-                },
-                {
-                    value: 'Lúcia',
-                    disabled: false
-                },
-                {
-                    value: 'Sávio',
-                    disabled: false
-                },
-                {
-                    value: 'Camila',
-                    disabled: false
-                },
-                {
-                    value: 'Cláudia',
-                    disabled: false
-                }
-            ],
-            correctOption: 3,
-            chanceCounter: 0,
-            now: 0,
-            timer: null
+            position: 0
         }
     },
+    components: {
+        'ls-timer': require('@/components/ui/Timer').default,
+        'ls-activity': require('@/components/ui/Activity').default
+    },
     methods: {
-        onSelectName(index){
-            if(this.names[index].disabled) return
-
-            if(this.correctOption === index){
-                clearInterval(this.timer)
-                alert("Parabéns você concluiu!!!")
-            } else{
-                this.names[index].disabled = true
-                this.chanceCounter++
-            }
+        isActiveActivity(index){
+            return index === this.position
         }
     },
     computed: {
-        getDuration(){
-            return moment(this.now).format('mm:ss')
+        getTitle(){
+          return this.currentActivity.title.text  
+        },
+        getDescription(){
+          return this.currentActivity.statement.text
+        },
+        currentActivity(){
+            return this.activities[this.position]
+        },
+        currentPosition(){
+            return this.position + 1
         }
-    },
-    created(){
-        this.timer = setInterval(() => {
-            this.now += WAIT_TIME
-        }, WAIT_TIME)
     }
 }
 </script>

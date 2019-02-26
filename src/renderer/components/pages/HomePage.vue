@@ -7,13 +7,20 @@
             <span class="flex"></span>
         </ls-navbar>
         <div class="container">
-            <ls-gameplay></ls-gameplay>
+            <ls-gameplay :activities="activities"></ls-gameplay>
         </div>
     </div>
 </template>
 <script>
 import ui from '@/components/ui'
+import { ACTIVITY_LIST } from '@/index.const'
+
 export default {
-    components: { ...ui }
+    components: { ...ui },
+    data(){
+        return {
+            activities: [ACTIVITY_LIST]
+        }
+    }
 }
 </script>

@@ -42,3 +42,19 @@ $icon-themes: (
 
 // Cards
 $card-heading-bg-color: transparentize(#f4f4f4, 0.5);
+
+// Fontsizes
+$font-size-variants: (
+    small: 12px,
+    normal: 18px,
+    big: 24px
+);
+
+$font-displays: (
+    d1: 1rem,
+    d2: 2rem,
+    d3: 3rem,
+    d4: 4rem,
+    d5: 5rem,
+    d6: 6rem
+);

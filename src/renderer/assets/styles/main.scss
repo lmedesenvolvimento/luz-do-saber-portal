@@ -1,11 +1,14 @@
 @import '~bourbon/core/bourbon';
-@import '~flexboxgrid';
 @import '~normalize.css/normalize';
+
+@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap-vue/src/index.scss';
 
 @import 'variables.scss';
 @import 'mixins.scss';
 @import 'base/base.scss';
 
+@import 'components/item.scss';
 @import 'components/navbar.scss';
 @import 'components/gameplay.scss';
 @import 'components/image-selector.scss';

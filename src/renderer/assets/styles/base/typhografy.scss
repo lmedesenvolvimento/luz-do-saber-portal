@@ -12,3 +12,9 @@
     @include itim_regular;
     text-transform: uppercase;
 }
+
+@each $size in map-keys($map: $font-size-variants) {
+    &.#{$size} {
+      font-size: map-get($font-size-variants, $size);
+    } 
+}
