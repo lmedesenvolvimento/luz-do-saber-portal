@@ -6,9 +6,14 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
+      path: '/home',
       name: 'home-page',
-      component: require('@/components/pages/HomePage').default
+      component: require('@/components/pages/HomePage.vue').default
+    },
+    {
+      path: '/',
+      name: 'components',
+      component: require('@/components/pages/ComponentPage.vue').default
     },
     {
       path: '*',

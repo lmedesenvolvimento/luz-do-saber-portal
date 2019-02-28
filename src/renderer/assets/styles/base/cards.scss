@@ -1,16 +1,16 @@
-.card{
-    @include card_boxshadow();
-    border-radius: 1.25rem;
-    overflow: hidden;
-    .card-body{
-        border: 1.25px solid #000;
-        border-top-left-radius: 1.25rem;
-        border-top-right-radius: 1.25rem;
-        @include card_boxshadow_inset;
-    }
-    .card-footer{
-        @include ellipsis(100%);
-        text-align: center;
-        font-size: 24px;        
-    }
-}
+// .card{
+//     @include card_boxshadow();
+//     border-radius: 1.25rem;
+//     overflow: hidden;
+//     .card-body{
+//         border: 1.25px solid #000;
+//         border-top-left-radius: 1.25rem;
+//         border-top-right-radius: 1.25rem;
+//         @include card_boxshadow_inset;
+//     }
+//     .card-footer{
+//         @include ellipsis(100%);
+//         text-align: center;
+//         font-size: 24px;        
+//     }
+// }
