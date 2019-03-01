@@ -1,23 +1,17 @@
 <template>
     <div v-bind:class="activity.type">
-        <ListCorrectItems v-if="activity.subtype === ActivityTypes.subtypes.itemsCorretos" :activity="activity" :valueColSize="valueColSize"></ListCorrectItems>
+        <ls-list-correct-item v-if="activity.subtype === ActivityTypes.subtypes.itemsCorretos" :activity="activity" :answer="answer" :valueColSize="valueColSize"></ls-list-correct-item>
     </div>
 </template>
 <script>
 import { TOTAL_COLUMNS } from '@/index.const'
-import { ActivityTypes } from '@/components/ui/types'
 
-import ListCorrectItems from './ListCorrectItems'
+import ActitivitiesComponents, { ListMixin } from './index'
 
 export default {
-    props: {
-        activity: Object
-    },
-    components: { ListCorrectItems },
-    data(){
-        return {
-            ActivityTypes: ActivityTypes
-        }
+    mixins: [ListMixin],
+    components:{
+        ...ActitivitiesComponents
     },
     computed: {
         valueColSize(){

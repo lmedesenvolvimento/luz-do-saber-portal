@@ -1,7 +1,9 @@
 <template>
     <div class="page-container">
         <ls-navbar>
-            <div class="icon-home"></div>
+            <router-link to="/componentes">
+                <div class="icon-home"></div>
+            </router-link>            
             <span class="flex"></span>
             <div class="navbar-title">Começar</div>
             <span class="flex"></span>

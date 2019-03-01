@@ -1,6 +1,6 @@
 <template>
     <div class="activity">
-        <List v-if="activity.type === ActivityTypes.types.lista" :activity="activity"></List>
+        <List v-if="activity.type === ActivityTypes.types.lista" :activity="activity" :answer="answer"></List>
     </div>
 </template>
 <script>
@@ -15,11 +15,13 @@ export default {
     components: { List },
     data(){
         return {
-            ActivityTypes: ActivityTypes
+            ActivityTypes: ActivityTypes,
+            answer: {
+                value: null,
+                isValid: false,
+                dirty: false
+            }
         }
-    },
-    created(){
-        console.log(this.activity)
     }
 }
 </script>

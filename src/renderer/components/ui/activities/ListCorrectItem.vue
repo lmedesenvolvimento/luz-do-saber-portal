@@ -5,7 +5,7 @@
             <b-col class="activity-values">
                 <b-row align-v="center" align-h="center">
                     <b-col :sm="valueColSize" v-for="(item, position) in getItems" v-bind:key="position">                        
-                        <Item :item="item" :template="activity.item_template.value"></Item>
+                        <ls-item :item="item" :answer="answer" :template="activity.item_template.value"></ls-item>
                     </b-col>                    
                 </b-row>
             </b-col>
@@ -13,14 +13,14 @@
     </div>
 </template>
 <script>
-import Item from '@/components/ui/items/Item'
+import ActitivitiesComponents, { ListMixin } from './index'
 
 export default {
-    props: {
-        activity: Object,
-        valueColSize: Number
+    mixins: [ListMixin],
+    components: {
+        ...ActitivitiesComponents
     },
-    components: { Item },
+    props: ['valueColSize'],
     computed: {
         hasKeys(){
             return this.activity.items.keys.length

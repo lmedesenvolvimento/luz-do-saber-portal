@@ -34,6 +34,7 @@
     </div>
 </template>
 <script>
+import ui from '@/components/ui'
 export default {
     props: {
         activities: Array,
@@ -45,7 +46,8 @@ export default {
     },
     components: {
         'ls-timer': require('@/components/ui/Timer').default,
-        'ls-activity': require('@/components/ui/Activity').default
+        'ls-activity': require('@/components/ui/Activity').default,
+        ...ui
     },
     methods: {
         isActiveActivity(index){

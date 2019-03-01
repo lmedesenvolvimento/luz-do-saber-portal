@@ -110,6 +110,10 @@
                         </ls-card-select>
                     </b-row>
                     <p>Resposta: {{ select2 }}</p>
+                    <hr>
+                    <router-link to="/">
+                        Voltar
+                    </router-link>
                 </b-card-body>
             </b-card>
         </div>
