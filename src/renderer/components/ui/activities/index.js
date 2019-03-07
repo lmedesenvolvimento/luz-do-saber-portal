@@ -1,12 +1,10 @@
-import ItemComponents from '@/components/ui/items'
+import { mapState } from 'vuex'
 
+import ItemComponents from '@/components/ui/items'
 import { ActivityTypes } from '@/components/ui/types'
 
+
 export const ListMixin = {
-    props: {
-        activity: Object,
-        answer: Object
-    },
     components: {
         ...ItemComponents
     },
@@ -14,6 +12,9 @@ export const ListMixin = {
         return {
             ActivityTypes: ActivityTypes
         }
+    },
+    computed: {
+        ...mapState('Activity', ['activity', 'answer'])
     }
 }
 
