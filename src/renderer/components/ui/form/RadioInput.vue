@@ -9,7 +9,9 @@ export default {
         checked: null,
         value: null,
         label: String,
-        variant: String
+        variant: String,
+        hasError: Boolean,
+        hasSuccess: Boolean
     },
     methods: {
         onChange(event){

@@ -26,3 +26,39 @@
         content:"";
     }    
 }
+
+@mixin custom_scroll_bar(){
+    &::-webkit-scrollbar {
+        width: 7px;
+        height: 7px;
+    }
+    &::-webkit-scrollbar-button {
+        width: 0px;
+        height: 0px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: transparentize(#999, 0.75);
+        border: 0px none #ffffff;
+        border-radius: 50px;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+        background: transparentize(#999, 0.3);
+    }
+    &::-webkit-scrollbar-thumb:active {
+        background: transparentize(#999, 0.1);
+    }
+    &::-webkit-scrollbar-track {
+        background: transparent;
+        border: 0px none #ffffff;
+        border-radius: 50px;
+    }
+    &::-webkit-scrollbar-track:hover {
+        background: transparent;
+    }
+    &::-webkit-scrollbar-track:active {
+        background: transparent;
+    }
+    &::-webkit-scrollbar-corner {
+        background: transparent;
+    }
+}

@@ -1,6 +1,6 @@
 <template>
     <div class="activity">
-        <List v-if="activity.type === ActivityTypes.types.lista"></List>
+        <List></List>
     </div>
 </template>
 <script>
@@ -13,6 +13,9 @@ export default {
         activity: Object
     },
     components: { List },
+    created(){
+        console.log(this.activity)
+    },
     data(){
         return {
             ActivityTypes: ActivityTypes            

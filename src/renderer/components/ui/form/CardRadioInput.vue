@@ -2,7 +2,7 @@
     <div class="card-radio-input" v-bind:class="$attrs.class">
         <label>
                 <b-card 
-                    v-bind:class="{ 'checked': isChecked }" :bg-variant="variant">
+                    v-bind:class="{ 'invalid': ( isChecked && hasError ), 'valid': ( isChecked && hasSuccess ) }">
                     <slot name="img"></slot>
                     <b-card-body>
                         <slot></slot>
@@ -13,6 +13,7 @@
                     class="input"
                     type="radio"
                     v-bind="$attrs"
+                    v-bind:checked="checked"
                     v-on:change="onChange"
                 />
         </label>
@@ -21,7 +22,7 @@
 <script>
 import RadioInput from './RadioInput.vue'
 export default {
-    mixins: [RadioInput]    
+    mixins: [RadioInput]
 }
 </script>
 <style lang="scss">
@@ -36,8 +37,12 @@ export default {
             }
         }
         .card{
-            &.checked{
-                background-color: #999 !important;
+            &.valid{
+                background-color: green;
+                color: white;
+            }
+            &.invalid{
+                background-color: red;
                 color: white;
             }
         }

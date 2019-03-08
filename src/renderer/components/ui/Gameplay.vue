@@ -13,7 +13,6 @@
             <div class="gameplay-description"> {{ getDescription }} </div>
             <div class="gameplay-activity-container">
                 <ls-activity :activity="activity" v-if="activity"></ls-activity>                
-                {{ this.answer }}
             </div>
         </div>
         <div class="gameplay-footer">
@@ -26,7 +25,7 @@
                 <div class="gameplay-footer-action">
                     <div class="gameplay-footer-status">
                         <div class="subtitle">Tentativas</div>
-                        <div class="title">0</div>
+                        <div class="title">{{ log.errors.total }}</div>
                     </div>
                 </div>
                 <div class="flex"></div>
@@ -71,7 +70,7 @@ export default {
         getCurrentPosition(){
             return ( this.position + 1 )
         },
-        ...mapState('Activity', ['activity','answer'])
+        ...mapState('Activity', ['activity','answer', 'log'])
     }
 }
 </script>

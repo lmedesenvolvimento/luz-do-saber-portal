@@ -8,7 +8,12 @@ let initialAnswer = {
 
 const state = {
     activity: null,
-    answer: clone(initialAnswer)
+    answer: clone(initialAnswer),
+    log: {
+        errors: {
+            total: 0
+        }
+    }
 }
 
 const mutations = {
@@ -23,6 +28,7 @@ const mutations = {
     TRIGGER_FAIL(state){
         state.answer.isValid = false
         state.answer.isInvalid = !state.answer.isValid
+        state.log.errors.total += 1
     },
     RESET_ANSWER(state){
         state.answer = clone(initialAnswer)
