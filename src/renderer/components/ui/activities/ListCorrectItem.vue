@@ -5,7 +5,7 @@
             <b-col class="activity-values">
                 <b-row align-v="center" align-h="center">
                     <b-col :sm="valueColSize" v-for="(item, position) in getItems" v-bind:key="position">                        
-                        <ls-item :item="item" :input="input" :hasError="feedback.$isInvalid" :hasSuccess="feedback.$isValid" :template="activity.item_template.value"></ls-item>
+                        <Item :item="item" :input="input" :hasError="feedback.$isInvalid" :hasSuccess="feedback.$isValid" :template="activity.item_template.value"></Item>
                     </b-col>                    
                 </b-row>
             </b-col>

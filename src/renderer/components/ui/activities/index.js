@@ -1,16 +1,14 @@
 import Vue from 'vue'
 import { mapState, mapActions } from 'vuex'
 
-import ItemComponents from '@/components/ui/items'
+import Item from '@/components/ui/items/Item'
 import { ActivityTypes } from '@/components/ui/types'
-
-import { clone } from 'lodash'
 
 const TIMEOUT = 800
 
 export const ListMixin = {
     components: {
-        ...ItemComponents
+        Item
     },
     props:{
         valueColSize: Number,

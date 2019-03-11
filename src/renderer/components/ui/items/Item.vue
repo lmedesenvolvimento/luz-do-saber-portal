@@ -1,36 +1,35 @@
 <template>
     <div :class="item.type">
-        <div class="item">
-            <ls-card-input 
-                class="col-sm" 
-                v-model="input.value" 
-                label="item.text" 
-                :value="item.id" 
+        <div class="item" v-if="isPrimitiveItem">
+            <ls-item-text
+                v-if="template.type === Types.primitive.text"
+                :item="item"
+                :input="input"
                 :hasError="hasError" 
-                :hasSuccess="hasSuccess" 
-                name="base-input">
-                <b-card-text>{{ item.text }}</b-card-text>
-                <template slot="img">
-                    <b-card-img :src="require('@/assets/images/components/examples/cracha-1.png')" />
-                </template>
-            </ls-card-input>
-        </div>        
+                :hasSuccess="hasSuccess"
+            ></ls-item-text>
+        </div>
+        <div class="item" v-else-if="!isPrimitiveItem">
+            <ls-item-cracha-box
+                v-if="template.custom === Types.custom.crachaBox"
+                :item="item"
+                :input="input"
+                :hasError="hasError" 
+                :hasSuccess="hasSuccess"
+            ></ls-item-cracha-box>
+        </div>
     </div>  
 </template>
 <script>
-import { mapState } from 'vuex'
-import FormInputs from '@/components/ui/form'
+import ItemComponents, { ItemProps } from './index.js'
 
 export default {
-    props: {
-        item: Object,
-        input:  Object,
-        template: Object,
-        hasError: Boolean,
-        hasSuccess: Boolean
-    },
-    components: {
-        ...FormInputs
-    }    
+    mixins: [ ItemProps ],
+    components: { ...ItemComponents },
+    computed: {
+        isPrimitiveItem(){
+            return this.template.custom ? false : true
+        }
+    }
 }
 </script>
