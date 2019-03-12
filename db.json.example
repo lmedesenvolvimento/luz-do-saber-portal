@@ -1,0 +1,468 @@
+{
+  "modules": [
+    {
+      "id": 1,
+      "slug": "comecar",
+      "title": "Começar",
+      "description": null,
+      "order": 1,
+      "themes_url": "/game/comecar",
+      "themes": [
+        {
+          "target_audience": "general",
+          "modulo_id": 1,
+          "id": 1,
+          "slug": "meu-nome",
+          "title": "Meu Nome",
+          "description": null,
+          "order": 1,
+          "units_url": "/game/comecar/meu-nome",
+          "cover_url": null,
+          "units": [
+            {
+              "id": 1,
+              "theme_id": 1,
+              "slug": "meu-nome",
+              "title": "Meu Nome",
+              "description": null,
+              "order": 1,
+              "questions_url": "/game/comecar/meu-nome/meu-nome",
+              "cover_url": null,
+              "questions": [
+                {
+                  "id": 1,
+                  "order": 1,
+                  "module_id": 1,
+                  "theme_id": 1,
+                  "unit_id": 1,
+                  "module": {
+                    "id": 1,
+                    "slug": "comecar",
+                    "title": "Começar",
+                    "order": 1
+                  },
+                  "theme": {
+                    "id": 1,
+                    "slug": "meu-nome",
+                    "title": "Meu Nome",
+                    "order": 1
+                  },
+                  "unit": {
+                    "id": 1,
+                    "slug": "meu-nome",
+                    "title": "Meu Nome",
+                    "order": 1
+                  },
+                  "type": {
+                    "id": 1,
+                    "title": "Atividade - Texto",
+                    "slug": "atividade-texto"
+                  },
+                  "total_correct_items": 1,
+                  "title": {
+                    "type": "texto",
+                    "text": "CRACHÁ",
+                    "image": null,
+                    "audio": null
+                  },
+                  "statement": {
+                    "type": "texto",
+                    "text": "ENCONTRE O CRACHÁ QUE TEM SEU NOME",
+                    "image": null,
+                    "audio": null
+                  },
+                  "item_template": {
+                    "key": {
+                      "total_per_line": 0,
+                      "custom": null,
+                      "tags": null
+                    },
+                    "value": {
+                      "type": "texto",
+                      "name": "Componente de Texto",
+                      "slug": "componente-de-texto",
+                      "total_per_line": 3,
+                      "custom": "cracha-box",
+                      "tags": null
+                    }
+                  },
+                  "items": {
+                    "keys": [],
+                    "values": []
+                  }
+                }
+              ]
+            },
+            {
+              "id": 2,
+              "theme_id": 1,
+              "slug": "letras-do-meu-nome",
+              "title": "Letras do Meu Nome",
+              "description": null,
+              "order": 2,
+              "questions_url": "/game/comecar/meu-nome/letras-do-meu-nome",
+              "cover_url": null,
+              "questions": [
+                {
+                  "id": 2,
+                  "order": 2,
+                  "module_id": 1,
+                  "theme_id": 1,
+                  "unit_id": 2,
+                  "module": {
+                    "id": 1,
+                    "slug": "comecar",
+                    "title": "Começar",
+                    "order": 1
+                  },
+                  "theme": {
+                    "id": 1,
+                    "slug": "meu-nome",
+                    "title": "Meu Nome",
+                    "order": 1
+                  },
+                  "unit": {
+                    "id": 2,
+                    "slug": "letras-do-meu-nome",
+                    "title": "Letras do Meu Nome",
+                    "order": 2
+                  },
+                  "type": {
+                    "id": 1,
+                    "title": "Atividade - Texto",
+                    "slug": "atividade-texto"
+                  },
+                  "total_correct_items": 2,
+                  "title": {
+                    "type": "texto",
+                    "text": "LIGUE A LETRA INICIAL",
+                    "image": null,
+                    "audio": null
+                  },
+                  "statement": {
+                    "type": "texto",
+                    "text": "LIGUE A LETRA AOS NOMES COM A MESMA INICIAL",
+                    "image": null,
+                    "audio": null
+                  },
+                  "item_template": {
+                    "key": {
+                      "type": "texto",
+                      "name": "Componente de Texto",
+                      "slug": "componente-de-texto",
+                      "total_per_line": 1,
+                      "custom": null,
+                      "tags": null
+                    },
+                    "value": {
+                      "type": "texto",
+                      "name": "Componente de Texto",
+                      "slug": "componente-de-texto",
+                      "total_per_line": 1,
+                      "custom": null,
+                      "tags": null
+                    }
+                  },
+                  "items": {
+                    "keys": [
+                      {
+                        "value_ids": [
+                          9,
+                          10
+                        ],
+                        "id": 8,
+                        "type": "letra",
+                        "text": "A",
+                        "first_letter": "A",
+                        "last_letter": "A",
+                        "total_letters": 1
+                      }
+                    ],
+                    "values": [
+                      {
+                        "id": 9,
+                        "key_id": 8,
+                        "type": "substantivo_proprio",
+                        "text": "AMANDA",
+                        "first_letter": "A",
+                        "last_letter": "A",
+                        "total_letters": 6
+                      },
+                      {
+                        "id": 10,
+                        "key_id": 8,
+                        "type": "substantivo_proprio",
+                        "text": "AMANDA",
+                        "first_letter": "A",
+                        "last_letter": "A",
+                        "total_letters": 6
+                      },
+                      {
+                        "id": 11,
+                        "type": "substantivo_proprio",
+                        "text": "BIANCA",
+                        "first_letter": "B",
+                        "last_letter": "A",
+                        "total_letters": 6
+                      },
+                      {
+                        "id": 12,
+                        "type": "substantivo_proprio",
+                        "text": "CARLA",
+                        "first_letter": "C",
+                        "last_letter": "A",
+                        "total_letters": 5
+                      },
+                      {
+                        "id": 13,
+                        "type": "substantivo_proprio",
+                        "text": "DÉBORA",
+                        "first_letter": "D",
+                        "last_letter": "A",
+                        "total_letters": 6
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "id": 3,
+              "theme_id": 1,
+              "slug": "meus-amigos",
+              "title": "Meus Amigos",
+              "description": null,
+              "order": 3,
+              "questions_url": "/game/comecar/meu-nome/meus-amigos",
+              "cover_url": null,
+              "questions": []
+            },
+            {
+              "id": 4,
+              "theme_id": 1,
+              "slug": "minha-familia",
+              "title": "Minha Família",
+              "description": null,
+              "order": 4,
+              "questions_url": "/game/comecar/meu-nome/minha-familia",
+              "cover_url": null,
+              "questions": []
+            }
+          ]
+        },
+        {
+          "target_audience": "general",
+          "modulo_id": 1,
+          "id": 2,
+          "slug": "gente-tem-sobrenome",
+          "title": "Gente tem sobrenome",
+          "description": null,
+          "order": 2,
+          "units_url": "/game/comecar/gente-tem-sobrenome",
+          "cover_url": null,
+          "units": []
+        },
+        {
+          "target_audience": "general",
+          "modulo_id": 1,
+          "id": 3,
+          "slug": "historia-de-vaqueiro",
+          "title": "História de vaqueiro",
+          "description": null,
+          "order": 3,
+          "units_url": "/game/comecar/historia-de-vaqueiro",
+          "cover_url": null,
+          "units": []
+        },
+        {
+          "target_audience": "general",
+          "modulo_id": 1,
+          "id": 4,
+          "slug": "sitio-do-pica-pau-amarelo",
+          "title": "Sítio do pica-pau amarelo",
+          "description": null,
+          "order": 4,
+          "units_url": "/game/comecar/sitio-do-pica-pau-amarelo",
+          "cover_url": null,
+          "units": []
+        },
+        {
+          "target_audience": "general",
+          "modulo_id": 1,
+          "id": 5,
+          "slug": "convite-de-aniversario",
+          "title": "Convite de aniversário",
+          "description": null,
+          "order": 5,
+          "units_url": "/game/comecar/convite-de-aniversario",
+          "cover_url": null,
+          "units": []
+        },
+        {
+          "target_audience": "general",
+          "modulo_id": 1,
+          "id": 6,
+          "slug": "receitas-da-tia-nastacia",
+          "title": "Receitas da tia Nastácia",
+          "description": null,
+          "order": 6,
+          "units_url": "/game/comecar/receitas-da-tia-nastacia",
+          "cover_url": null,
+          "units": []
+        },
+        {
+          "target_audience": "general",
+          "modulo_id": 1,
+          "id": 7,
+          "slug": "pega-varetas",
+          "title": "Pega-Varetas",
+          "description": null,
+          "order": 7,
+          "units_url": "/game/comecar/pega-varetas",
+          "cover_url": null,
+          "units": []
+        },
+        {
+          "target_audience": "general",
+          "modulo_id": 1,
+          "id": 8,
+          "slug": "um-dois-feijao-com-arroz",
+          "title": "Um, dois, feijão com arroz",
+          "description": null,
+          "order": 8,
+          "units_url": "/game/comecar/um-dois-feijao-com-arroz",
+          "cover_url": null,
+          "units": []
+        },
+        {
+          "target_audience": "general",
+          "modulo_id": 1,
+          "id": 9,
+          "slug": "brincar-de-que",
+          "title": "Brincar de quê",
+          "description": null,
+          "order": 9,
+          "units_url": "/game/comecar/brincar-de-que",
+          "cover_url": null,
+          "units": []
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "slug": "ler",
+      "title": "Ler",
+      "description": null,
+      "order": 2,
+      "themes_url": "/game/ler",
+      "themes": [
+        {
+          "target_audience": "general",
+          "modulo_id": 2,
+          "id": 10,
+          "slug": "associacao",
+          "title": "Associação",
+          "description": null,
+          "order": 10,
+          "units_url": "/game/ler/associacao",
+          "cover_url": null,
+          "units": [
+            {
+              "id": 5,
+              "theme_id": 10,
+              "slug": "associacao",
+              "title": "Associação",
+              "description": null,
+              "order": 1,
+              "questions_url": "/game/ler/associacao/associacao",
+              "cover_url": null,
+              "questions": []
+            }
+          ]
+        },
+        {
+          "target_audience": "general",
+          "modulo_id": 2,
+          "id": 11,
+          "slug": "questionarios",
+          "title": "Questionários",
+          "description": null,
+          "order": 11,
+          "units_url": "/game/ler/questionarios",
+          "cover_url": null,
+          "units": [
+            {
+              "id": 6,
+              "theme_id": 11,
+              "slug": "questionarios",
+              "title": "Questionários",
+              "description": null,
+              "order": 1,
+              "questions_url": "/game/ler/questionarios/questionarios",
+              "cover_url": null,
+              "questions": []
+            }
+          ]
+        },
+        {
+          "target_audience": "general",
+          "modulo_id": 2,
+          "id": 12,
+          "slug": "clicar-e-ouvir",
+          "title": "Clicar e Ouvir",
+          "description": null,
+          "order": 12,
+          "units_url": "/game/ler/clicar-e-ouvir",
+          "cover_url": null,
+          "units": [
+            {
+              "id": 7,
+              "theme_id": 12,
+              "slug": "clicar-e-ouvir",
+              "title": "Clicar e Ouvir",
+              "description": null,
+              "order": 1,
+              "questions_url": "/game/ler/clicar-e-ouvir/clicar-e-ouvir",
+              "cover_url": null,
+              "questions": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "slug": "escrever",
+      "title": "Escrever",
+      "description": null,
+      "order": 3,
+      "themes_url": "/game/escrever",
+      "themes": [
+        {
+          "target_audience": "general",
+          "modulo_id": 3,
+          "id": 13,
+          "slug": "escrever",
+          "title": "Escrever",
+          "description": null,
+          "order": 13,
+          "units_url": "/game/escrever/escrever",
+          "cover_url": null,
+          "units": [
+            {
+              "id": 8,
+              "theme_id": 13,
+              "slug": "escrever",
+              "title": "Escrever",
+              "description": null,
+              "order": 1,
+              "questions_url": "/game/escrever/escrever/escrever",
+              "cover_url": null,
+              "questions": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
