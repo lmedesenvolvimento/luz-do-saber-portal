@@ -26,9 +26,20 @@ import ItemComponents, { ItemProps } from './index.js'
 export default {
     mixins: [ ItemProps ],
     components: { ...ItemComponents },
+    created(){
+        console.log(this.input)
+    },
     computed: {
         isPrimitiveItem(){
             return this.template.custom ? false : true
+        }
+    },
+    watch:{
+        input: {
+            handler(newVal){
+                console.log(newVal)
+            },
+            deep: true
         }
     }
 }

@@ -2,7 +2,7 @@
     <div class="card-radio-input" v-bind:class="$attrs.class">
         <label>
                 <b-card 
-                    v-bind:class="{ 'invalid': ( isChecked && hasError ), 'valid': ( isChecked && hasSuccess ) }">
+                    v-bind:class="{ 'invalid': checked.$invalid, 'valid': checked.$valid }">
                     <slot name="img"></slot>
                     <b-card-body>
                         <slot></slot>
@@ -16,6 +16,7 @@
                     v-bind:checked="checked"
                     v-on:change="onChange"
                 />
+                {{ checked }}
         </label>
     </div>
 </template>

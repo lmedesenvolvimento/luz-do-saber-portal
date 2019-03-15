@@ -17,6 +17,4 @@ const boostrapAPI = () => {
     return app;
 }
 
-boostrapAPI()
-
 module.exports = boostrapAPI

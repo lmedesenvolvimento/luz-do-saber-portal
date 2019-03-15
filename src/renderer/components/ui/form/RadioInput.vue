@@ -1,4 +1,5 @@
 <script>
+import { mapActions } from 'vuex'
 export default {
     model: {
         prop: 'checked',
@@ -13,15 +14,25 @@ export default {
         hasError: Boolean,
         hasSuccess: Boolean
     },
-    methods: {
-        onChange(event){
-            this.$emit('change', this.value)
+    computed: {
+        isValid(){
+            return ( this.checked.$valid && this.checked.data.id === this.value )
+        },
+        isInvalid(){
+            return ( this.checked.$invalid && this.checked.data.id === this.value )
         }
     },
-    computed: {
-        isChecked(){
-            return this.value === this.checked
-        }
+    methods: {
+        onChange(event){
+            if (this.isValid || this.isInvalid) return
+            
+            this.setAnswer({ 
+                ref: this.checked.parent_ref, 
+                key: this.checked.type, 
+                data: this.value
+            })
+        },
+        ...mapActions('Activity', ['setAnswer'])
     }
   }
 </script>

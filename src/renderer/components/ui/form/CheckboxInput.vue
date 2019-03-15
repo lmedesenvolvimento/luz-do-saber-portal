@@ -12,12 +12,12 @@ export default {
         },
         $addInList(){
             if (find(this.checked, val => val === this.value)) return
-            this.$emit('change', this.checked.concat(this.value))
+            this.setAnswer({ ref: this.checked.parent_ref, data: this.checked})
         },
         $removeInList(){
             let indexOf = findIndex(this.checked, val => val === this.value)
             this.checked.splice(indexOf, 1)
-            this.$emit('change', this.checked)
+            this.setAnswer({ ref: this.checked.parent_ref, data: this.checked})
         }
     },
     computed: {

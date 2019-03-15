@@ -1,6 +1,6 @@
 <template>
     <div v-bind:class="activity.type.slug">
-        <ls-list-correct-item v-if="hasOne" :input="input" :valueColSize="valueColSize"></ls-list-correct-item>
+        <ls-list-correct-item v-if="hasOne" :valueColSize="valueColSize"></ls-list-correct-item>
     </div>
 </template>
 <script>
@@ -8,19 +8,16 @@ import { clone } from 'lodash'
 import { mapState, mapActions } from 'vuex'
 
 import { TOTAL_COLUMNS } from '@/index.const'
-import ActitivitiesComponents, { ListMixin } from './index'
+import ActitivitiesComponents from './index'
+import { CreateAnswersMixins } from './mixins'
 
 export default {
+    mixins: [CreateAnswersMixins],
     components:{
         ...ActitivitiesComponents
     },
-    data(){
-        return {
-            input: Object,
-        }
-    },
-    created(){
-        this.input = clone(this.answer)
+    mounted() {
+        this.createAnswersArray()
     },
     computed: {
         valueColSize(){
@@ -29,7 +26,10 @@ export default {
         hasOne(){
             return this.activity.total_correct_items === 1
         },
-        ...mapState('Activity', ['activity', 'answer'])
-    }    
+        ...mapState('Activity', ['activity', 'answer', 'responses'])
+    },
+    methods: {
+        ...mapActions('Activity', ['setAnswers'])
+    }
 }
 </script>
