@@ -1,4 +1,4 @@
-import { clone, findIndex } from 'lodash'
+import { findIndex } from 'lodash'
 
 const state = {
     activity: null,
@@ -15,15 +15,33 @@ const mutations = {
         let indexOf = findIndex(state.answer, { ref: ref })
         state.answer[indexOf][key].data = data
     },
-    SET_ANSWER_FAIL_STATUS(state, ref) {
-        let indexOf = findIndex(state.answer, { ref: ref })
-        state.answer[indexOf].key.$invalid = true
-        state.answer[indexOf].value.$invalid = true
+    SET_ANSWER_FAIL_STATUS(state, { key, value, ref }) {
+        let indexOfAnswer = findIndex(state.answer, { ref: ref })
+        let indexOfKey    = findIndex(state.activity.items.keys, { id: key.data.id })
+        let indexOfValue  = findIndex(state.activity.items.values, { id: value.data.id })
+
+        // set answer with fail answer
+        state.answer[indexOfAnswer].$invalid = true
+        state.answer[indexOfAnswer].$invalid = true
+        // set key with fail
+        state.activity.items.keys[indexOfKey].$invalid = true
+        // set value with fail
+        state.activity.items.values[indexOfValue].$invalid = true
+
+        console.log(state.activity.items.values, state.activity.items.keys)
     },
-    SET_ANSWER_SUCCESS_STATUS(state, ref) {
-        let indexOf = findIndex(state.answer, { ref: ref })
-        state.answer[indexOf].key.$valid = true
-        state.answer[indexOf].value.$valid = true
+    SET_ANSWER_SUCCESS_STATUS(state, { key, value, ref }) {
+        let indexOfAnswer = findIndex(state.answer, { ref: ref })
+        let indexOfKey = findIndex(state.activity.items.keys, { id: key.data.id })
+        let indexOfValue = findIndex(state.activity.items.values, { id: value.data.id })
+
+        // set answer with fail answer
+        state.answer[indexOfAnswer].$valid = true
+        state.answer[indexOfAnswer].$valid = true
+        // set key with fail
+        state.activity.items.keys[indexOfKey].$valid = true
+        // set value with fail
+        state.activity.items.values[indexOfValue].$valid = true
     },
     SET_ANSWERS(state, payload){
         state.answer = payload
@@ -79,10 +97,10 @@ const isValidate = (response, commit) => {
     if (key.data && value.data) {
         // if value id is present in key
         if (key.data.value_ids.includes(value.data.id)) {
-            commit('SET_ANSWER_SUCCESS_STATUS', ref)
+            commit('SET_ANSWER_SUCCESS_STATUS', { key, value, ref })
             return true
         } else {            
-            commit('SET_ANSWER_FAIL_STATUS', ref)
+            commit('SET_ANSWER_FAIL_STATUS', { key, value, ref })
             commit('TRIGGER_FAIL')
             return false
         }

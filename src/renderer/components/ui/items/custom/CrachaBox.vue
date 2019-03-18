@@ -3,9 +3,7 @@
         class="col-sm" 
         v-model="input" 
         label="item.text" 
-        :value="item" 
-        :hasError="input.$invalid" 
-        :hasSuccess="input.$valid" 
+        :item="item"
         :name="activity.type.slug">
         <b-card-text>{{ item.text }} {{ input.data ? input.data.id : '' }}</b-card-text>
         <template slot="img">
@@ -16,11 +14,11 @@
 <script>
 import { ItemProps } from '../index.js'
 export default {
-    mixins: [ItemProps],
-    watch: {
-        input(newVal){
-            console.log(newVal)
-        }
-    }
+    mixins: [ItemProps]
+    // watch: {
+    //     input(newVal){
+    //         console.log(newVal)
+    //     }
+    // }
 }
 </script>

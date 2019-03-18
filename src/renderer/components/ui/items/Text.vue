@@ -3,9 +3,7 @@
         class="col-sm" 
         v-model="input.value" 
         label="item.text" 
-        :value="item.id" 
-        :hasError="hasError" 
-        :hasSuccess="hasSuccess" 
+        :item="item"
         :name="activity.type.slug">
         <b-card-text>{{ item.text }}</b-card-text>        
     </ls-card-input>

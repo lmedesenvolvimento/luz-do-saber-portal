@@ -8,28 +8,18 @@ export default {
     inheritAttrs: false,
     props: {
         checked: null,
-        value: null,
         label: String,
         variant: String,
-        hasError: Boolean,
-        hasSuccess: Boolean
-    },
-    computed: {
-        isValid(){
-            return ( this.checked.$valid && this.checked.data.id === this.value )
-        },
-        isInvalid(){
-            return ( this.checked.$invalid && this.checked.data.id === this.value )
-        }
+        item: Object
     },
     methods: {
         onChange(event){
-            if (this.isValid || this.isInvalid) return
-            
+            if (this.item.$valid || this.item.$invalid) return
+
             this.setAnswer({ 
                 ref: this.checked.parent_ref, 
                 key: this.checked.type, 
-                data: this.value
+                data: this.item
             })
         },
         ...mapActions('Activity', ['setAnswer'])

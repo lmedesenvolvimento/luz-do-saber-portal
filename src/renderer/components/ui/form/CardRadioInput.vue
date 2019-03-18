@@ -1,8 +1,8 @@
 <template>
-    <div class="card-radio-input" v-bind:class="$attrs.class">
+    <div class="card-radio-input" v-bind:class="$attrs.class" v-if="item">
         <label>
                 <b-card 
-                    v-bind:class="{ 'invalid': checked.$invalid, 'valid': checked.$valid }">
+                    v-bind:class="{ 'invalid': item.$invalid, 'valid': item.$valid }">
                     <slot name="img"></slot>
                     <b-card-body>
                         <slot></slot>
@@ -16,7 +16,7 @@
                     v-bind:checked="checked"
                     v-on:change="onChange"
                 />
-                {{ checked }}
+                {{ item }}
         </label>
     </div>
 </template>

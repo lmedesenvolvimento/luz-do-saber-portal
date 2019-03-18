@@ -6,9 +6,7 @@ export const ItemProps = {
     props: {
         item: Object,
         input:  Object,
-        template: Object,
-        hasError: Boolean,
-        hasSuccess: Boolean
+        template: Object
     },
     data(){
         return {

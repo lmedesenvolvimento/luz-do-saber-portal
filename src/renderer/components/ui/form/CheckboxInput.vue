@@ -11,19 +11,14 @@ export default {
                 : this.$removeInList()
         },
         $addInList(){
-            if (find(this.checked, val => val === this.value)) return
+            if (find(this.checked, val => val === this.item)) return
             this.setAnswer({ ref: this.checked.parent_ref, data: this.checked})
         },
         $removeInList(){
-            let indexOf = findIndex(this.checked, val => val === this.value)
+            let indexOf = findIndex(this.checked, val => val === this.item)
             this.checked.splice(indexOf, 1)
             this.setAnswer({ ref: this.checked.parent_ref, data: this.checked})
         }
-    },
-    computed: {
-        isChecked(){
-            return this.checked.includes(this.value)
-        }
-    }
+    }    
 }
 </script>

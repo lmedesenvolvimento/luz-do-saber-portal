@@ -5,8 +5,8 @@
                 v-if="template.type === Types.primitive.text"
                 :item="item"
                 :input="input"
-                :hasError="hasError" 
-                :hasSuccess="hasSuccess"
+                :hasError="item.$invalid" 
+                :hasSuccess="item.$valid"
             ></ls-item-text>
         </div>
         <div class="item" v-else-if="!isPrimitiveItem">
@@ -14,8 +14,6 @@
                 v-if="template.custom === Types.custom.crachaBox"
                 :item="item"
                 :input="input"
-                :hasError="hasError" 
-                :hasSuccess="hasSuccess"
             ></ls-item-cracha-box>
         </div>
     </div>  
@@ -26,20 +24,9 @@ import ItemComponents, { ItemProps } from './index.js'
 export default {
     mixins: [ ItemProps ],
     components: { ...ItemComponents },
-    created(){
-        console.log(this.input)
-    },
     computed: {
         isPrimitiveItem(){
             return this.template.custom ? false : true
-        }
-    },
-    watch:{
-        input: {
-            handler(newVal){
-                console.log(newVal)
-            },
-            deep: true
         }
     }
 }

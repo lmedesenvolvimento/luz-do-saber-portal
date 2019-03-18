@@ -21,10 +21,8 @@ export default {
     methods: {
         onHidden(){
             this.hideAlertActivitySuccess()
-            this.resetAnswer()
         },
         ...mapActions(['hideAlertActivitySuccess']),
-        ...mapActions('Activity', ['resetAnswer'])
     },
     watch: {
         isVisibleActivityAlertSuccess(value){
