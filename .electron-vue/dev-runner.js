@@ -114,6 +114,8 @@ function startMain () {
 }
 
 function startElectron () {
+  process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = true
+
   var args = [
     '--inspect=5858',
     path.join(__dirname, '../dist/electron/main.js')
