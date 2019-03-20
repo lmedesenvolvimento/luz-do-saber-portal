@@ -25,7 +25,10 @@ function createWindow () {
   mainWindow = new BrowserWindow({
     height: 640,
     useContentSize: true,
-    width: 1170
+    width: 1170,
+    webPreferences: {
+      webSecurity: false
+    }
   })
 
   mainWindow.maximize()

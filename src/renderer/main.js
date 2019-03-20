@@ -1,12 +1,16 @@
 import '@/assets/styles/main.scss'
 
 import Vue from 'vue'
+import { sync } from 'vuex-router-sync'
 import BootstrapVue from 'bootstrap-vue'
 import axios from 'axios'
 
 import App from './App'
 import router from './router'
 import store from './store'
+
+// merge router with store
+sync(store, router)
 
 Vue.use(BootstrapVue)
 
