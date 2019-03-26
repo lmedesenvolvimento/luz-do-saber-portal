@@ -72,6 +72,9 @@ const actions = {
             console.warn(error)
         }
     },
+    destroyActivity({ commit }){
+        commit('SET_ACTIVITY', null)
+    },
     setAnswer({ commit, dispatch }, payload){
         commit('REGISTER_ANSWER', payload)
         dispatch('triggerValidation')

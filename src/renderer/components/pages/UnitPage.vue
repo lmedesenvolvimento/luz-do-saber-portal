@@ -8,8 +8,8 @@
             <div class="navbar-title">{{ unit.title }}</div>
             <span class="flex"></span>
         </ls-navbar>
-        <div class="container" v-if="unit">            
-            <ls-gameplay :unit="unit"></ls-gameplay>
+        <div class="container">            
+            <ls-gameplay></ls-gameplay>
         </div>
     </div>
 </template>

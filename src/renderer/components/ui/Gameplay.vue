@@ -15,13 +15,7 @@
             </div>
             <div class="gameplay-heading-title">{{ getTitle }}</div>
         </div>
-        <div class="gameplay-body">
-            <div class="gameplay-description"> {{ getDescription }} </div>
-            <div class="gameplay-activity-container">
-                <router-view></router-view>
-                <!-- <ls-activity :activity="activity" v-if="activity"></ls-activity>                 -->
-            </div>
-        </div>
+        <router-view ></router-view>        
         <div class="gameplay-footer">
             <div class="gameplay-footer-actions">
                 <div class="flex"></div>
@@ -48,9 +42,6 @@ import alerts from '@/components/alerts'
 import { mapActions, mapState } from 'vuex'
 
 export default {
-    props: {
-        unit: Object,
-    },
     data(){
         return {
             position: 1
@@ -74,12 +65,8 @@ export default {
         getDescription(){
           return this.activity && this.activity.statement ? this.activity.statement.text : ''
         },                
+        ...mapState('Unit', ['unit']),
         ...mapState('Activity', ['activity','answer', 'log'])
-    },
-    watch: {
-        activity(newVal){
-            console.log(newVal)
-        }
-    }
+    }    
 }
 </script>
