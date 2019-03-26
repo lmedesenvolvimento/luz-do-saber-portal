@@ -1,7 +1,7 @@
-import axios from 'axios'
+import API from '@/services/Http'
 
 const state = {
-    activeModule: {},
+    activeModule: null,
     modules: []
 }
 
@@ -16,13 +16,13 @@ const mutations = {
 
 const actions = {
     async fetchModule({ commit }, slug){
-        let { data } = await axios.get(`${process.env.BASE_API_URL}/game/${slug}`)
+        let { data } = await API.get(`/game/${slug}`)
         commit('SET_ACTIVE_MODULE', data)
 
     },
     async fetchModules({ commit }){
-        let { data } = await axios.get(`${process.env.BASE_API_URL}/game`)
-        commit('SET_MODULES', data)
+        let { data } = await API.get(`/game`)
+        commit('SET_MODULES', data.modulos)
     }
 }
 

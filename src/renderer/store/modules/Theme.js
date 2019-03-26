@@ -1,4 +1,4 @@
-import axios from 'axios'
+import API from '@/services/Http'
 
 const state = {
     theme: {}
@@ -12,7 +12,7 @@ const mutations = {
 
 const actions = {
     async fetchTheme({ commit }, params){
-        let { data } = await axios.get(`${process.env.BASE_API_URL}/game/${params.module_slug}/${params.theme_slug}`)
+        let { data } = await API.get(`/game/${params.module_slug}/${params.theme_slug}`)
         commit('SET_THEME',data)
     }
 }

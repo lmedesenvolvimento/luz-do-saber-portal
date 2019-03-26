@@ -21,6 +21,18 @@ export default new Router({
       component: require('@/components/pages/ThemePage.vue').default
     },
     {
+      path: '/game/:module_slug/:theme_slug/:unit_slug',
+      name: 'unit',
+      component: require('@/components/pages/UnitPage.vue').default,
+      children: [
+        {
+          name: 'activity',
+          path: ':position',
+          component: require('@/components/pages/ActivityPage.vue').default
+        }
+      ]
+    },
+    {
       path: '/componentes',
       name: 'components',
       component: require('@/components/pages/ComponentPage.vue').default

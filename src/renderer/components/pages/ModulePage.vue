@@ -12,10 +12,10 @@
                                 </router-link>
                             </li>
                         </ul>
-                        <b-btn variant="light" v-on:click='historyBack'>
-                            Voltar
-                        </b-btn>
                     </b-card-body>
+                    <b-btn variant="link" :to="historyBack">
+                        Voltar
+                    </b-btn>
                 </b-card>                
             </b-card>
         </div>

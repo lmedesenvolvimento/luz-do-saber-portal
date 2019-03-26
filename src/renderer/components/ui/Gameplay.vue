@@ -1,18 +1,25 @@
 <template>
     <div class="gameplay">
         <div class="step-bars">
-            <div class="bar" v-for="(value, index) in activities" :key="index" v-bind:class="{'active': activity === value}"></div>            
+            <router-link 
+                class="bar" 
+                v-for="(value, index) in unit.questions" 
+                :key="index" 
+                :to="{ name: 'activity', params: { position: (index + 1) }}"
+                v-bind:class="{'active': getPosition === (index + 1)}" >
+            </router-link>
         </div>
         <div class="gameplay-heading">
             <div class="gameplay-counter counter">
-                <span>{{ getCurrentPosition }}</span>
+                <span>{{ getPosition }}</span>
             </div>
             <div class="gameplay-heading-title">{{ getTitle }}</div>
         </div>
         <div class="gameplay-body">
             <div class="gameplay-description"> {{ getDescription }} </div>
             <div class="gameplay-activity-container">
-                <ls-activity :activity="activity" v-if="activity"></ls-activity>                
+                <router-view></router-view>
+                <!-- <ls-activity :activity="activity" v-if="activity"></ls-activity>                 -->
             </div>
         </div>
         <div class="gameplay-footer">
@@ -42,35 +49,37 @@ import { mapActions, mapState } from 'vuex'
 
 export default {
     props: {
-        activities: Array,
+        unit: Object,
     },
     data(){
         return {
-            position: 0
+            position: 1
         }
-    },
-    created(){
-        this.selectActivity(this.activities[0]) // get first
     },
     components: {
         'ls-timer': require('@/components/ui/helpers/Timer').default,
         'ls-activity': require('@/components/ui/activities/BaseActivity').default,
         ...alerts
     },
-    methods: {
-        ...mapActions('Activity', ['selectActivity'])
+    created(){
+        this.$router.push({ name: 'activity', params: { position: this.position }})
     },
     computed: {
+        getPosition(){
+            return this.activity ? this.activity.position : ''
+        },
         getTitle(){
           return this.activity ? this.activity.title.text : ''
         },
         getDescription(){
-          return this.activity ? this.activity.statement.text : ''
+          return this.activity && this.activity.statement ? this.activity.statement.text : ''
         },                
-        getCurrentPosition(){
-            return ( this.position + 1 )
-        },
         ...mapState('Activity', ['activity','answer', 'log'])
+    },
+    watch: {
+        activity(newVal){
+            console.log(newVal)
+        }
     }
 }
 </script>

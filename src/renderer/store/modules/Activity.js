@@ -1,4 +1,5 @@
 import { findIndex } from 'lodash'
+import API from '@/services/Http'
 
 const state = {
     activity: null,
@@ -46,7 +47,7 @@ const mutations = {
     SET_ANSWERS(state, payload){
         state.answer = payload
     },
-    SELECT_ACTIVITY(state, activity){
+    SET_ACTIVITY(state, activity){
         state.activity = activity
     },
     TRIGGER_SUCCESS(state){
@@ -62,8 +63,14 @@ const mutations = {
 
 
 const actions = {
-    selectActivity({ commit }, activity) {
-        commit('SELECT_ACTIVITY', activity)
+    async fetchActivity({ commit }, payload) {
+        try{
+            let { module_slug, theme_slug, unit_slug, position } = payload
+            let { data } = await API.get(`/game/${module_slug}/${theme_slug}/${unit_slug}/${position}`)
+            commit('SET_ACTIVITY', Object.assign(data.question, { position: position }))
+        } catch (error) {
+            console.warn(error)
+        }
     },
     setAnswer({ commit, dispatch }, payload){
         commit('REGISTER_ANSWER', payload)

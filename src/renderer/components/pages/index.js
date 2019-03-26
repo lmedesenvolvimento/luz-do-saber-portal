@@ -1,7 +1,14 @@
+import { dropRight } from 'lodash'
+
 export const RouteMixin = {
-    methods: {
-        historyBack() {
-            this.$router.go(-1)
+    computed: {
+        historyBack() {            
+            let backURL = dropRight(this.$route.fullPath.split('/')).join('/')
+            return backURL
+        },
+        historyBackUnit(){
+            let backURL = dropRight(this.$route.fullPath.split('/'), 2).join('/')
+            return backURL
         }
     }
 }
