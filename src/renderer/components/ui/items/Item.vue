@@ -5,8 +5,6 @@
                 v-if="template.type === Types.primitive.text"
                 :item="item"
                 :input="input"
-                :hasError="item.$invalid" 
-                :hasSuccess="item.$valid"
             ></ls-item-text>
         </div>
         <div class="item" v-else-if="!isPrimitiveItem">

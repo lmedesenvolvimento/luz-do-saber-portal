@@ -1,5 +1,7 @@
-import { findIndex } from 'lodash'
+import Vue from 'vue'
+import { findIndex, clone } from 'lodash'
 import API from '@/services/Http'
+import qs from 'qs'
 
 const state = {
     activity: null,
@@ -11,38 +13,51 @@ const state = {
     }
 }
 
+// Ler documentação quando for nessessário atualizar Lista ou multinível
+// https://br.vuejs.org/v2/guide/list.html#Limitacoes
+// https://br.vuejs.org/v2/guide/reactivity.html#Como-as-Alteracoes-sao-Monitoradas
+
 const mutations = {
     REGISTER_ANSWER(state, { ref, key, data }) { // ref= uid_response, type_response, id_response
         let indexOf = findIndex(state.answer, { ref: ref })
         state.answer[indexOf][key].data = data
     },
-    SET_ANSWER_FAIL_STATUS(state, { key, value, ref }) {
-        let indexOfAnswer = findIndex(state.answer, { ref: ref })
-        let indexOfKey    = findIndex(state.activity.items.keys, { id: key.data.id })
-        let indexOfValue  = findIndex(state.activity.items.values, { id: value.data.id })
+    SET_ANSWER_FAIL_STATUS(state, { key, value, ref }) {        
+        let answer = clone(state.answer)
+        let activity = clone(state.activity)
+
+        let indexOfAnswer = findIndex(answer, { ref: ref })
+        let indexOfKey    = findIndex(activity.items.keys, { id: key.data.id })
+        let indexOfValue  = findIndex(activity.items.values, { id: value.data.id })
 
         // set answer with fail answer
-        state.answer[indexOfAnswer].$invalid = true
-        state.answer[indexOfAnswer].$invalid = true
+        answer[indexOfAnswer].$invalid = true
         // set key with fail
-        state.activity.items.keys[indexOfKey].$invalid = true
+        activity.items.keys[indexOfKey].$invalid = true
         // set value with fail
-        state.activity.items.values[indexOfValue].$invalid = true
+        activity.items.values[indexOfValue].$invalid = true
 
-        console.log(state.activity.items.values, state.activity.items.keys)
+        Vue.set(state, 'answer', answer)
+        Vue.set(state, 'activity', activity)
     },
     SET_ANSWER_SUCCESS_STATUS(state, { key, value, ref }) {
-        let indexOfAnswer = findIndex(state.answer, { ref: ref })
-        let indexOfKey = findIndex(state.activity.items.keys, { id: key.data.id })
-        let indexOfValue = findIndex(state.activity.items.values, { id: value.data.id })
+        let answer = clone(state.answer)
+        let activity = clone(state.activity)
 
-        // set answer with fail answer
-        state.answer[indexOfAnswer].$valid = true
-        state.answer[indexOfAnswer].$valid = true
+        let indexOfAnswer = findIndex(answer, { ref: ref })
+        let indexOfKey = findIndex(activity.items.keys, { id: key.data.id })
+        let indexOfValue = findIndex(activity.items.values, { id: value.data.id })
+
+        // set answer with success answer
+        answer[indexOfAnswer].$valid = true
         // set key with fail
-        state.activity.items.keys[indexOfKey].$valid = true
+        activity.items.keys[indexOfKey].$valid = true
         // set value with fail
-        state.activity.items.values[indexOfValue].$valid = true
+        activity.items.values[indexOfValue].$valid = true
+
+
+        Vue.set(state, 'answer', answer)
+        Vue.set(state, 'activity', activity)
     },
     SET_ANSWERS(state, payload){
         state.answer = payload
@@ -65,8 +80,10 @@ const mutations = {
 const actions = {
     async fetchActivity({ commit }, payload) {
         try{
-            let { module_slug, theme_slug, unit_slug, position } = payload
-            let { data } = await API.get(`/game/${module_slug}/${theme_slug}/${unit_slug}/${position}`)
+            let { module_slug, theme_slug, unit_slug, position } = payload.params
+            let extenalParams = getExtenalParams(payload.question)            
+            let { data } = await API.get(`/game/${module_slug}/${theme_slug}/${unit_slug}/${position}`, extenalParams)
+
             commit('SET_ACTIVITY', Object.assign(data.question, { position: position }))
         } catch (error) {
             console.warn(error)
@@ -74,6 +91,7 @@ const actions = {
     },
     destroyActivity({ commit }){
         commit('SET_ACTIVITY', null)
+        commit('SET_ANSWERS', [])
     },
     setAnswer({ commit, dispatch }, payload){
         commit('REGISTER_ANSWER', payload)
@@ -114,6 +132,28 @@ const isValidate = (response, commit) => {
             commit('TRIGGER_FAIL')
             return false
         }
+    }
+}
+
+function getExtenalParams(question){
+    let external_params = []
+
+    switch (question.external_param_type) {
+        case 'substantivo_proprio':
+            external_params.push({ 'name': 'Ronaldo' })
+            break;    
+        default:
+            break;
+    }
+    if (external_params.length) {
+        return {
+            params: { external_params },
+            paramsSerializer: (params) => {
+                return qs.stringify(params, { encode: false });
+            }
+        }
+    } else { 
+        return { params: null }
     }
 }
 

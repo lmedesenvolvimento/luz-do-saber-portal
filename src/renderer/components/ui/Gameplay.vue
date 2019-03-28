@@ -6,7 +6,7 @@
                 v-for="(value, index) in unit.questions" 
                 :key="index" 
                 :to="{ name: 'activity', params: { position: (index + 1) }}"
-                v-bind:class="{'active': getPosition === (index + 1)}" >
+                v-bind:class="{'active': getPosition === ( index + 1 )}" >
             </router-link>
         </div>
         <div class="gameplay-heading">
@@ -42,18 +42,13 @@ import alerts from '@/components/alerts'
 import { mapActions, mapState } from 'vuex'
 
 export default {
-    data(){
-        return {
-            position: 1
-        }
-    },
     components: {
         'ls-timer': require('@/components/ui/helpers/Timer').default,
         'ls-activity': require('@/components/ui/activities/BaseActivity').default,
         ...alerts
     },
     created(){
-        this.$router.push({ name: 'activity', params: { position: this.position }})
+        this.$router.push({ name: 'activity', params: { position: 1 }})
     },
     computed: {
         getPosition(){

@@ -13,9 +13,6 @@ export default {
         activity: Object
     },
     components: { List },
-    created(){
-        console.log(this.activity)
-    },
     data(){
         return {
             ActivityTypes: ActivityTypes            

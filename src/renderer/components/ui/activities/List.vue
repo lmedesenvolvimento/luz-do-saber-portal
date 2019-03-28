@@ -24,7 +24,7 @@ export default {
             return Math.abs(TOTAL_COLUMNS / this.activity.item_template.value.total_per_line)
         },
         hasOne(){
-            return this.activity.total_correct_items === 1
+            return this.activity.total_correct_items === 1 || this.activity.total_correct_items === 99
         },
         ...mapState('Activity', ['activity', 'answer', 'responses'])
     },

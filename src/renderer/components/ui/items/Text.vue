@@ -1,7 +1,7 @@
 <template>
     <ls-card-input 
         class="col-sm" 
-        v-model="input.value" 
+        v-model="input" 
         label="item.text" 
         :item="item"
         :name="activity.type.slug">
