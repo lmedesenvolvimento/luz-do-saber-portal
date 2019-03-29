@@ -1,5 +1,5 @@
 <template>
-    <div :class="item.type">
+    <div v-bind:class="item.type ? item.type : ''">
         <div class="item" v-if="isPrimitiveItem">
             <ls-item-text
                 v-if="template.type === Types.primitive.text"

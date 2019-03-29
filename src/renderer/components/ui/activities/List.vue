@@ -1,6 +1,6 @@
 <template>
     <div v-bind:class="activity.type.slug">
-        <ls-list-correct-item v-if="hasOne" :valueColSize="valueColSize"></ls-list-correct-item>
+        <ls-list-correct-item :valueColSize="valueColSize"></ls-list-correct-item>
     </div>
 </template>
 <script>
@@ -24,7 +24,7 @@ export default {
             return Math.abs(TOTAL_COLUMNS / this.activity.item_template.value.total_per_line)
         },
         hasOne(){
-            return this.activity.total_correct_items === 1 || this.activity.total_correct_items === 99
+            return this.activity.total_correct_items === 1
         },
         ...mapState('Activity', ['activity', 'answer', 'responses'])
     },

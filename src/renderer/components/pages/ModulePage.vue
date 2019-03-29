@@ -1,5 +1,5 @@
 <template>
-    <div id="module" class="page-container">        
+    <div id="module" class="page-container" v-bind:class="activeModule ? activeModule.slug : ''">
         <div class="container">
             <b-card class="mt-5">
                 <b-card>

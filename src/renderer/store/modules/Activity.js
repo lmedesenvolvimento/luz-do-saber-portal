@@ -7,6 +7,9 @@ const state = {
     activity: null,
     answer: [],
     log: {
+        timer: {
+            totalSeconds: 0
+        },
         errors: {
             total: 0
         }
@@ -17,11 +20,7 @@ const state = {
 // https://br.vuejs.org/v2/guide/list.html#Limitacoes
 // https://br.vuejs.org/v2/guide/reactivity.html#Como-as-Alteracoes-sao-Monitoradas
 
-const mutations = {
-    REGISTER_ANSWER(state, { ref, key, data }) { // ref= uid_response, type_response, id_response
-        let indexOf = findIndex(state.answer, { ref: ref })
-        state.answer[indexOf][key].data = data
-    },
+const mutations = {    
     SET_ANSWER_FAIL_STATUS(state, { key, value, ref }) {        
         let answer = clone(state.answer)
         let activity = clone(state.activity)
@@ -40,6 +39,7 @@ const mutations = {
         Vue.set(state, 'answer', answer)
         Vue.set(state, 'activity', activity)
     },
+
     SET_ANSWER_SUCCESS_STATUS(state, { key, value, ref }) {
         let answer = clone(state.answer)
         let activity = clone(state.activity)
@@ -59,19 +59,31 @@ const mutations = {
         Vue.set(state, 'answer', answer)
         Vue.set(state, 'activity', activity)
     },
+
     SET_ANSWERS(state, payload){
         state.answer = payload
     },
+
     SET_ACTIVITY(state, activity){
         state.activity = activity
     },
-    TRIGGER_SUCCESS(state){
-        state.answer.isValid = true
-        state.answer.isInvalid = !state.answer.isValid
+
+    SET_TIMER(state, miliseconds){
+        
     },
+
+    REGISTER_ANSWER(state, { ref, key, data }) { // ref= uid_response, type_response, id_response
+        let indexOf = findIndex(state.answer, { ref: ref })
+        state.answer[indexOf][key].data = data
+    },
+    
+    // Dispatch success process on question finish
+    TRIGGER_SUCCESS(state){
+        return false
+    },
+
+    // Dispatch fail process
     TRIGGER_FAIL(state){
-        state.answer.isValid = false
-        state.answer.isInvalid = !state.answer.isValid
         state.log.errors.total += 1
     }
 }
@@ -89,25 +101,41 @@ const actions = {
             console.warn(error)
         }
     },
+    
+    // clear list answer
     destroyActivity({ commit }){
         commit('SET_ACTIVITY', null)
         commit('SET_ANSWERS', [])
     },
+    
+    // update specific answer
     setAnswer({ commit, dispatch }, payload){
         commit('REGISTER_ANSWER', payload)
         dispatch('triggerValidation')
     },
+    
+    // update list answer
     setAnswers({ commit }, payload){
         commit('SET_ANSWERS', payload)
     },
+
+    // Timer Actions
+    updateTimer({ commit }, miliseconds){
+        commit('SET_TIMER', miliseconds)
+    },
+    
+    // Feedback Actions
     emitSuccess({commit, dispatch}){
         commit('TRIGGER_SUCCESS')
         dispatch('showAlertActivitySuccess', null, { root: true })
     },
+    
     emitFail({commit, dispatch}){
         commit('TRIGGER_FAIL')
         dispatch('showAlertActivityFail', null, { root: true })
     },
+    
+    // Every user bind input form
     triggerValidation({ state, dispatch, commit }){        
         let errors = state.answer.map((response) => isValidate(response, commit))
         // check if all reponses is answered

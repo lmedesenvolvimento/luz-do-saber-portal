@@ -13,10 +13,8 @@
                     class="input"
                     type="radio"
                     v-bind="$attrs"
-                    v-bind:checked="checked"
                     v-on:change="onChange"
                 />
-                {{ item }}
         </label>
     </div>
 </template>
@@ -29,7 +27,7 @@ export default {
 <style lang="scss">
     .card-radio-input{        
         .input{
-            display: none;
+            visibility: hidden;
         }
         label{
             display: block;

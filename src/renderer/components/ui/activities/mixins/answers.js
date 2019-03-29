@@ -1,23 +1,22 @@
 import uniqid from 'uniqid'
-import { first } from 'lodash'
+import { first, filter, range } from 'lodash'
 
 export const CreateAnswersMixins = {
     methods: {
         createAnswersArray() {
-            this.createAnswersHasOne()
-        },
-        createAnswersHasOne() {
+            // Create answer number based with total_correct_items
+            let { items, total_correct_items } = this.activity
             let answers = []
-            let key = this.getFirstKey()
-            
-            answers.push(createAnswer(key))
+
+            range(0, total_correct_items).forEach(position => {
+                // get key with has values_ids
+                let key = filter(items.keys, k => k.value_ids)[position]
+                let answer = key ? createAnswer(key) : createAnswer(first(items.keys))
+                answers.push(answer)
+            })
 
             this.setAnswers(answers)
-        },
-        getFirstKey() {
-            let { keys } = this.activity.items
-            return first(keys)
-        }
+        }        
     }
 }
 
@@ -27,7 +26,7 @@ function createAnswer(key){
         ref: id,
         key: {
             parent_ref: id,
-            data: key,
+            data: key ? key : null,
             type: 'key'
         },
         value: {

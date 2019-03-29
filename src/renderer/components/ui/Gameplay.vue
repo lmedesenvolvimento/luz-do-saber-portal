@@ -6,7 +6,7 @@
                 v-for="(value, index) in unit.questions" 
                 :key="index" 
                 :to="{ name: 'activity', params: { position: (index + 1) }}"
-                v-bind:class="{'active': getPosition === ( index + 1 )}" >
+                v-bind:class="{'active': getPosition == ( index + 1 )}" >
             </router-link>
         </div>
         <div class="gameplay-heading">

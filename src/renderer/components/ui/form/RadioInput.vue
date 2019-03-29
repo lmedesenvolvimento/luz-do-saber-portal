@@ -14,7 +14,10 @@ export default {
     },
     methods: {
         onChange(event){
+            console.log("Binded")
+            
             if (this.item.$valid || this.item.$invalid) return
+
 
             this.setAnswer({ 
                 ref: this.checked.parent_ref, 

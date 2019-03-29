@@ -23,13 +23,16 @@ export default {
             isReady: false
         }
     },
-    mounted(){        
+    created(){        
         let { params } = this.$route
         
         this.fetchActivity({ 
             params, 
             question: this.getQuestion
         })
+    },
+    beforeDestroy(){
+        this.destroyActivity()
     },
     computed: {
         hasDescription(){
