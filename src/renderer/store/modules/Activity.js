@@ -17,6 +17,10 @@ const state = {
     }
 }
 
+const ClusterTypes = [
+    'atividade-texto-imagem'
+]
+
 // Ler documentação quando for nessessário atualizar Lista ou multinível
 // https://br.vuejs.org/v2/guide/list.html#Limitacoes
 // https://br.vuejs.org/v2/guide/reactivity.html#Como-as-Alteracoes-sao-Monitoradas
@@ -68,23 +72,14 @@ const actions = {
     },
     
     // update specific answer
-    setAnswer({ commit, dispatch }, { vm, type, data }){
-        let answer = clone(state.answer)
-        let indexOfAnswer = findIndex(state.answer, a => a.value.data.includes(data))
-        
-        if (indexOfAnswer === -1){
-            vm.invalid = true
-            // register total error
-            dispatch('emitFail')
+    setAnswer({ commit, dispatch }, payload){
+        // Check if activity types is agroup
+        if (ClusterTypes.includes(state.activity.type.slug)) {
+            validationInSelection(state, payload)
         } else {
-            // notify user feedback
-            vm.valid = true
-            // register in store
-            answer[indexOfAnswer].valid = true
-            // force reactive changes
-            Vue.set(answer, indexOfAnswer, answer)
+            validationInAnswer(state, payload)
         }
-       
+        
         // Check if activity is finish
         let totalCorrectItems = filter(state.answer, { valid: true }).length
         
@@ -111,10 +106,63 @@ const actions = {
     
     emitFail({commit}){
         commit('TRIGGER_FAIL')
-    }    
+    }
+}
+
+// Validations
+function validationInAnswer(state, { vm, type, data }){
+    let indexOfAnswer = findIndex(state.answer, a => a.value.data.includes(data))
+
+    let answer = clone(state.answer)
+
+    if (indexOfAnswer === -1) {
+        vm.invalid = true
+        // register total error
+        dispatch('emitFail')
+    } else {
+        // notify user feedback
+        vm.valid = true
+        // register in store
+        answer[indexOfAnswer].valid = true
+        // force reactive changes
+        Vue.set(answer, indexOfAnswer, answer)
+    }
+}
+
+function validationInSelection(state, { vm, type, data }){
+    let { selection } = state    
+
+    selection[type] = {
+        data,
+        vm
+    }
+
+    vm.selected = true
+
+    if (type === 'key') {
+        if (selection.value) {
+            selection.key.vm.selected = false
+            selection.value.vm.selected = false
+            Vue.set(state, 'selection', {})
+        }
+    } else {
+        if (selection.key) {
+            selection.key.vm.selected = false
+            selection.value.vm.selected = false
+            Vue.set(state, 'selection', {})
+        }
+    }
+
+    console.log(selection)
+}
+
+function clearSelection(selection){
+    selection.key.vm.selected = false
+    selection.value.vm.selected = false
 }
 
 
+// Helpers
 function getExtenalParams(question){
     let external_params = []
 

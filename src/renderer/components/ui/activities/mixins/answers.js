@@ -21,7 +21,10 @@ export const CreateAnswersMixins = {
 }
 
 function createAnswer(key){
+    if (!key) return
+    
     let id = uniqid()
+
     return {
         ref: id,
         key: {

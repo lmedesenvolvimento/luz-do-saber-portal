@@ -1,6 +1,7 @@
 export default {
     primitive: {
-        text: 'texto'
+        text: 'texto',
+        image: 'imagem'
     },
     custom: {
         crachaBox: 'cracha-box'

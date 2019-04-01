@@ -7,7 +7,7 @@
                         v-if="answer.length"
                         :item="item"
                         :type="'key'"
-                        :template="activity.item_template.value">
+                        :template="activity.item_template.key">
                     </Item>
                 </b-col>
             </b-col>

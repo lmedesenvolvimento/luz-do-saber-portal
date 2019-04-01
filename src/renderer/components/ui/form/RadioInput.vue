@@ -15,7 +15,8 @@ export default {
     data(){
         return {
             valid: false,
-            invalid: false
+            invalid: false,
+            selected: false
         }
     },
     methods: {

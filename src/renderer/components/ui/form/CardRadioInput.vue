@@ -2,7 +2,7 @@
     <div class="card-radio-input" v-bind:class="$attrs.class" v-if="item">
         <label>
                 <b-card 
-                    v-bind:class="{ 'invalid': invalid, 'valid': valid }">
+                    v-bind:class="{ 'invalid': invalid, 'valid': valid, 'selected': selected }">
                     <slot name="img"></slot>
                     <b-card-body>
                         <slot></slot>
@@ -43,6 +43,9 @@ export default {
             &.invalid{
                 background-color: red;
                 color: white;
+            }
+            &.selected{
+                background-color: #ccc;
             }
         }
     }

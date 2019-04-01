@@ -6,6 +6,12 @@
                 :type="type"
                 :item="item"
             ></ls-item-text>
+            
+            <ls-item-text
+                v-if="template.type === Types.primitive.image"
+                :type="type"
+                :item="item"
+            ></ls-item-text>
         </div>
         <div class="item" v-else-if="!isPrimitiveItem">
             <ls-item-cracha-box
