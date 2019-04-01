@@ -7,22 +7,25 @@ export default {
     },
     inheritAttrs: false,
     props: {
-        checked: null,
+        type: String,
         label: String,
         variant: String,
         item: Object
     },
+    data(){
+        return {
+            valid: false,
+            invalid: false
+        }
+    },
     methods: {
         onChange(event){
-            console.log("Binded")
+            if (this.$valid || this.$invalid) return
             
-            if (this.item.$valid || this.item.$invalid) return
-
-
             this.setAnswer({ 
-                ref: this.checked.parent_ref, 
-                key: this.checked.type, 
-                data: this.item
+                type: this.type, 
+                data: this.item.id,
+                vm: this
             })
         },
         ...mapActions('Activity', ['setAnswer'])

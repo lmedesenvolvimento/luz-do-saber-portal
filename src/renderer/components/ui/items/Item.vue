@@ -3,15 +3,15 @@
         <div class="item" v-if="isPrimitiveItem">
             <ls-item-text
                 v-if="template.type === Types.primitive.text"
+                :type="type"
                 :item="item"
-                :input="input"
             ></ls-item-text>
         </div>
         <div class="item" v-else-if="!isPrimitiveItem">
             <ls-item-cracha-box
                 v-if="template.custom === Types.custom.crachaBox"
+                :type="type"
                 :item="item"
-                :input="input"
             ></ls-item-cracha-box>
         </div>
     </div>  

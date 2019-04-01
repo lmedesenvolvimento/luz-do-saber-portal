@@ -1,5 +1,5 @@
 import uniqid from 'uniqid'
-import { first, filter, range } from 'lodash'
+import { filter, range } from 'lodash'
 
 export const CreateAnswersMixins = {
     methods: {
@@ -11,7 +11,7 @@ export const CreateAnswersMixins = {
             range(0, total_correct_items).forEach(position => {
                 // get key with has values_ids
                 let key = filter(items.keys, k => k.value_ids)[position]
-                let answer = key ? createAnswer(key) : createAnswer(first(items.keys))
+                let answer = createAnswer(key)
                 answers.push(answer)
             })
 
@@ -26,12 +26,12 @@ function createAnswer(key){
         ref: id,
         key: {
             parent_ref: id,
-            data: key ? key : null,
+            data: key.id,
             type: 'key'
         },
         value: {
             parent_ref: id,
-            data: null, // Number or Array
+            data: key.value_ids, // Number or Array
             type: 'value'
         }
     }

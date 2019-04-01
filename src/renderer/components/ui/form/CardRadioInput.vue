@@ -2,7 +2,7 @@
     <div class="card-radio-input" v-bind:class="$attrs.class" v-if="item">
         <label>
                 <b-card 
-                    v-bind:class="{ 'invalid': item.$invalid, 'valid': item.$valid }">
+                    v-bind:class="{ 'invalid': invalid, 'valid': valid }">
                     <slot name="img"></slot>
                     <b-card-body>
                         <slot></slot>

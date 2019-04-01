@@ -5,7 +5,7 @@ import FormInputs from '@/components/ui/form'
 export const ItemProps = {
     props: {
         item: Object,
-        input:  Object,
+        type: String,
         template: Object
     },
     data(){

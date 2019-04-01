@@ -1,11 +1,12 @@
 import Vue from 'vue'
-import { findIndex, clone } from 'lodash'
+import { filter, findIndex, clone } from 'lodash'
 import API from '@/services/Http'
 import qs from 'qs'
 
 const state = {
     activity: null,
     answer: [],
+    selection: {},
     log: {
         timer: {
             totalSeconds: 0
@@ -20,46 +21,7 @@ const state = {
 // https://br.vuejs.org/v2/guide/list.html#Limitacoes
 // https://br.vuejs.org/v2/guide/reactivity.html#Como-as-Alteracoes-sao-Monitoradas
 
-const mutations = {    
-    SET_ANSWER_FAIL_STATUS(state, { key, value, ref }) {        
-        let answer = clone(state.answer)
-        let activity = clone(state.activity)
-
-        let indexOfAnswer = findIndex(answer, { ref: ref })
-        let indexOfKey    = findIndex(activity.items.keys, { id: key.data.id })
-        let indexOfValue  = findIndex(activity.items.values, { id: value.data.id })
-
-        // set answer with fail answer
-        answer[indexOfAnswer].$invalid = true
-        // set key with fail
-        activity.items.keys[indexOfKey].$invalid = true
-        // set value with fail
-        activity.items.values[indexOfValue].$invalid = true
-
-        Vue.set(state, 'answer', answer)
-        Vue.set(state, 'activity', activity)
-    },
-
-    SET_ANSWER_SUCCESS_STATUS(state, { key, value, ref }) {
-        let answer = clone(state.answer)
-        let activity = clone(state.activity)
-
-        let indexOfAnswer = findIndex(answer, { ref: ref })
-        let indexOfKey = findIndex(activity.items.keys, { id: key.data.id })
-        let indexOfValue = findIndex(activity.items.values, { id: value.data.id })
-
-        // set answer with success answer
-        answer[indexOfAnswer].$valid = true
-        // set key with fail
-        activity.items.keys[indexOfKey].$valid = true
-        // set value with fail
-        activity.items.values[indexOfValue].$valid = true
-
-
-        Vue.set(state, 'answer', answer)
-        Vue.set(state, 'activity', activity)
-    },
-
+const mutations = {        
     SET_ANSWERS(state, payload){
         state.answer = payload
     },
@@ -68,13 +30,10 @@ const mutations = {
         state.activity = activity
     },
 
-    SET_TIMER(state, miliseconds){
-        
-    },
-
-    REGISTER_ANSWER(state, { ref, key, data }) { // ref= uid_response, type_response, id_response
-        let indexOf = findIndex(state.answer, { ref: ref })
-        state.answer[indexOf][key].data = data
+    REGISTER_ANSWER(state, { type, data }) { // ref= uid_response, type_response, id_response
+        // let indexOf = findIndex(state.answer, { ref: ref })
+        // state.answer[indexOf][key].data = data
+        state.selection[type] = data
     },
     
     // Dispatch success process on question finish
@@ -109,9 +68,29 @@ const actions = {
     },
     
     // update specific answer
-    setAnswer({ commit, dispatch }, payload){
-        commit('REGISTER_ANSWER', payload)
-        dispatch('triggerValidation')
+    setAnswer({ commit, dispatch }, { vm, type, data }){
+        let answer = clone(state.answer)
+        let indexOfAnswer = findIndex(state.answer, a => a.value.data.includes(data))
+        
+        if (indexOfAnswer === -1){
+            vm.invalid = true
+            // register total error
+            dispatch('emitFail')
+        } else {
+            // notify user feedback
+            vm.valid = true
+            // register in store
+            answer[indexOfAnswer].valid = true
+            // force reactive changes
+            Vue.set(answer, indexOfAnswer, answer)
+        }
+       
+        // Check if activity is finish
+        let totalCorrectItems = filter(state.answer, { valid: true }).length
+        
+        if (totalCorrectItems === state.activity.total_correct_items ){
+            dispatch('emitSuccess')
+        }
     },
     
     // update list answer
@@ -130,38 +109,11 @@ const actions = {
         dispatch('showAlertActivitySuccess', null, { root: true })
     },
     
-    emitFail({commit, dispatch}){
+    emitFail({commit}){
         commit('TRIGGER_FAIL')
-        dispatch('showAlertActivityFail', null, { root: true })
-    },
-    
-    // Every user bind input form
-    triggerValidation({ state, dispatch, commit }){        
-        let errors = state.answer.map((response) => isValidate(response, commit))
-        // check if all reponses is answered
-        if (errors.length === state.activity.total_correct_items) {
-            // if all responses is right
-            if (!errors.includes(false)) {
-                dispatch('emitSuccess')
-            }
-        }
-    }
+    }    
 }
 
-const isValidate = (response, commit) => {
-    let { key, value, ref } = response
-    if (key.data && value.data) {
-        // if value id is present in key
-        if (key.data.value_ids.includes(value.data.id)) {
-            commit('SET_ANSWER_SUCCESS_STATUS', { key, value, ref })
-            return true
-        } else {            
-            commit('SET_ANSWER_FAIL_STATUS', { key, value, ref })
-            commit('TRIGGER_FAIL')
-            return false
-        }
-    }
-}
 
 function getExtenalParams(question){
     let external_params = []

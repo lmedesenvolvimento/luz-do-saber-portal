@@ -1,11 +1,11 @@
 <template>
     <ls-card-input 
         class="col-sm" 
-        v-model="input" 
         label="item.text" 
+        :type="type"
         :item="item"
         :name="activity.type.slug">
-        <b-card-text>{{ item.text }}</b-card-text>
+        <b-card-text>{{ item.text }} {{ type }}</b-card-text>
         <template slot="img">
             <b-card-img :src="require('@/assets/images/components/examples/cracha-1.png')" />
         </template>

@@ -2,20 +2,22 @@
     <div class="container-fluid">
         <b-row>
             <b-col class="activity-keys" v-if="hasKeys">
-                <Item 
-                    v-if="answer.length"
-                    :item="item" 
-                    :input="answer[0].value"
-                    :template="activity.item_template.value">
-                </Item>
+                <b-col :sm="valueColSize" v-for="(item, position) in getKeys" v-bind:key="position"> 
+                    <Item 
+                        v-if="answer.length"
+                        :item="item"
+                        :type="'key'"
+                        :template="activity.item_template.value">
+                    </Item>
+                </b-col>
             </b-col>
             <b-col class="activity-values">
                 <b-row align-v="center" align-h="center">
                     <b-col :sm="valueColSize" v-for="(item, position) in getValues" v-bind:key="position"> 
                         <Item 
                             v-if="answer.length"
-                            :item="item" 
-                            :input="answer[0].value"
+                            :item="item"
+                            :type="'value'"
                             :template="activity.item_template.value">
                         </Item>
                     </b-col>                    
