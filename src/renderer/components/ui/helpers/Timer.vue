@@ -25,7 +25,8 @@ export default {
     },
     computed: {
         getDuration(){
-            return moment(this.log.timer.totalSeconds).format('mm:ss')
+            let totalSeconds = (this.log.timer.totalSeconds * 1000)
+            return moment(totalSeconds).format('mm:ss')
         },
         ...mapState('Activity', ['log'])
     },
