@@ -8,6 +8,8 @@ npm-debug.log
 npm-debug.log.*
 thumbs.db
 !.gitkeep
+package-*.json
+yarn.lock
 
 # Env
 .env.development
