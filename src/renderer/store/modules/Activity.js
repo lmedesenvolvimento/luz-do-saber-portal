@@ -33,7 +33,11 @@ const mutations = {
     },
 
     SET_ACTIVITY(state, activity){
-        state.activity = activity
+        Vue.set(state, 'activity', activity)
+    },
+
+    INCREMENT_TIMER(state, activity){
+      state.log.timer.totalSeconds += 1000  
     },
 
     REGISTER_ANSWER(state, { type, data }) { // ref= uid_response, type_response, id_response
@@ -70,6 +74,7 @@ const mutations = {
     TRIGGER_FAIL(state){
         state.log.errors.total ++
     }
+    
 }
 
 
@@ -105,8 +110,8 @@ const actions = {
         // Check if activity is finish
         let totalCorrectItems = filter(state.answer, { valid: true }).length
         
-        if (totalCorrectItems === state.activity.total_correct_items ){
-            dispatch('emitSuccess')
+        if (totalCorrectItems === state.activity.total_correct_items){
+            dispatch('triggerSuccess')
         }
     },
     
@@ -121,14 +126,13 @@ const actions = {
     },
     
     // Feedback Actions
-    emitSuccess({commit, dispatch}){
+    triggerSuccess({commit, dispatch}){
         commit('TRIGGER_SUCCESS')
         dispatch('showAlertActivitySuccess', null, { root: true })
     },
-    
-    emitFail({commit}){
-        commit('CLEAR_SELECTION')
-        commit('TRIGGER_FAIL')
+
+    incrementTimer({ commit }){
+        commit('INCREMENT_TIMER')
     }
 }
 
@@ -158,7 +162,6 @@ function validationInSelection({ state, dispatch, commit }, { vm, type, data }){
 
     vm.selected = true
 
-
     if (selection.key && selection.value) {
         let indexOfAnswer = findIndex(state.answer, a => a.key.data === selection.key.data)
         let isCorrect = ( indexOfAnswer !== -1 ) && state.answer[indexOfAnswer].value.data.includes(selection.value.data)
@@ -167,10 +170,11 @@ function validationInSelection({ state, dispatch, commit }, { vm, type, data }){
             // notify user feedback
             selection.key.vm.valid = true
             selection.value.vm.valid = true
-
+            
             commit('CLEAR_SELECTION')
             commit('COMPUTED_ANSWER', indexOfAnswer)
         } else {
+            // notify user feedback
             selection.key.vm.invalid = true
             selection.value.vm.invalid = true
 
