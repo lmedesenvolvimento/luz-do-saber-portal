@@ -13,7 +13,7 @@
                     class="input"
                     type="radio"
                     v-bind="$attrs"
-                    v-on:change="onChange"
+                    v-on:change.prevent="onChange"
                 />
         </label>
     </div>

@@ -54,6 +54,7 @@ export default {
     watch: {
         $route (newVal) {
             this.destroyActivity()
+
             this.fetchActivity({ 
                 params: newVal.params, 
                 question: this.getQuestion

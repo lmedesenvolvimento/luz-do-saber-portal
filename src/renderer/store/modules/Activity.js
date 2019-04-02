@@ -3,18 +3,20 @@ import { filter, findIndex, clone } from 'lodash'
 import API from '@/services/Http'
 import qs from 'qs'
 
+const initialStateLog = {
+    timer: {
+        totalSeconds: 0
+    },
+    errors: {
+        total: 0
+    }
+}
+
 const state = {
     activity: null,
     answer: [],
     selection: {},
-    log: {
-        timer: {
-            totalSeconds: 0
-        },
-        errors: {
-            total: 0
-        }
-    }
+    log: Object.assign({}, initialStateLog)
 }
 
 const ClusterTypes = [
@@ -39,6 +41,25 @@ const mutations = {
         // state.answer[indexOf][key].data = data
         state.selection[type] = data
     },
+
+    COMPUTED_ANSWER(state, indexOfAnswer){
+        let answer = clone(state.answer)
+        // register in store
+        answer[indexOfAnswer].valid = true
+        // force reactive changes
+        Vue.set(answer, indexOfAnswer, answer)
+    },
+
+    CLEAR_SELECTION(state) {
+        state.selection.key.vm.selected = false
+        state.selection.value.vm.selected = false
+        Vue.set(state, 'selection', {})
+    },
+
+    CLEAR_LOG(state){
+        state.log.errors.total = 0
+        state.log.timer.totalSeconds = 0
+    },
     
     // Dispatch success process on question finish
     TRIGGER_SUCCESS(state){
@@ -47,7 +68,7 @@ const mutations = {
 
     // Dispatch fail process
     TRIGGER_FAIL(state){
-        state.log.errors.total += 1
+        state.log.errors.total ++
     }
 }
 
@@ -69,15 +90,16 @@ const actions = {
     destroyActivity({ commit }){
         commit('SET_ACTIVITY', null)
         commit('SET_ANSWERS', [])
+        commit('CLEAR_LOG')
     },
     
     // update specific answer
-    setAnswer({ commit, dispatch }, payload){
+    setAnswer({ commit, dispatch, state }, payload){
         // Check if activity types is agroup
         if (ClusterTypes.includes(state.activity.type.slug)) {
-            validationInSelection(state, payload)
+            validationInSelection({ state, dispatch, commit }, payload)
         } else {
-            validationInAnswer(state, payload)
+            validationInAnswer({ state, dispatch, commit }, payload)
         }
         
         // Check if activity is finish
@@ -105,32 +127,29 @@ const actions = {
     },
     
     emitFail({commit}){
+        commit('CLEAR_SELECTION')
         commit('TRIGGER_FAIL')
     }
 }
 
 // Validations
-function validationInAnswer(state, { vm, type, data }){
+function validationInAnswer({ state, dispatch, commit }, { vm, type, data }){
     let indexOfAnswer = findIndex(state.answer, a => a.value.data.includes(data))
-
-    let answer = clone(state.answer)
 
     if (indexOfAnswer === -1) {
         vm.invalid = true
         // register total error
-        dispatch('emitFail')
+        commit('TRIGGER_FAIL')
     } else {
         // notify user feedback
         vm.valid = true
-        // register in store
-        answer[indexOfAnswer].valid = true
-        // force reactive changes
-        Vue.set(answer, indexOfAnswer, answer)
+
+        commit('COMPUTED_ANSWER', indexOfAnswer)
     }
 }
 
-function validationInSelection(state, { vm, type, data }){
-    let { selection } = state    
+function validationInSelection({ state, dispatch, commit }, { vm, type, data }){
+    let { selection } = state
 
     selection[type] = {
         data,
@@ -139,27 +158,28 @@ function validationInSelection(state, { vm, type, data }){
 
     vm.selected = true
 
-    if (type === 'key') {
-        if (selection.value) {
-            selection.key.vm.selected = false
-            selection.value.vm.selected = false
-            Vue.set(state, 'selection', {})
-        }
-    } else {
-        if (selection.key) {
-            selection.key.vm.selected = false
-            selection.value.vm.selected = false
-            Vue.set(state, 'selection', {})
+
+    if (selection.key && selection.value) {
+        let indexOfAnswer = findIndex(state.answer, a => a.key.data === selection.key.data)
+        let isCorrect = ( indexOfAnswer !== -1 ) && state.answer[indexOfAnswer].value.data.includes(selection.value.data)
+        
+        if (isCorrect){
+            // notify user feedback
+            selection.key.vm.valid = true
+            selection.value.vm.valid = true
+
+            commit('CLEAR_SELECTION')
+            commit('COMPUTED_ANSWER', indexOfAnswer)
+        } else {
+            selection.key.vm.invalid = true
+            selection.value.vm.invalid = true
+
+            commit('CLEAR_SELECTION')
+            commit('TRIGGER_FAIL')
         }
     }
-
-    console.log(selection)
 }
 
-function clearSelection(selection){
-    selection.key.vm.selected = false
-    selection.value.vm.selected = false
-}
 
 
 // Helpers

@@ -4,15 +4,18 @@ import { filter, range } from 'lodash'
 export const CreateAnswersMixins = {
     methods: {
         createAnswersArray() {
+            if (!this.activity) return
             // Create answer number based with total_correct_items
             let { items, total_correct_items } = this.activity
             let answers = []
 
             range(0, total_correct_items).forEach(position => {
                 // get key with has values_ids
-                let key = filter(items.keys, k => k.value_ids)[position]
-                let answer = createAnswer(key)
-                answers.push(answer)
+                let key = filter(items.keys, k => k.value_ids.length)[position]
+                if (key){
+                    let answer = createAnswer(key)
+                    answers.push(answer)
+                }
             })
 
             this.setAnswers(answers)

@@ -1,5 +1,7 @@
 <script>
 import { mapActions } from 'vuex'
+import { invalid } from 'moment';
+import { setTimeout } from 'timers';
 export default {
     model: {
         prop: 'checked',
@@ -21,7 +23,7 @@ export default {
     },
     methods: {
         onChange(event){
-            if (this.$valid || this.$invalid) return
+            if (this.valid || this.invalid) return
             
             this.setAnswer({ 
                 type: this.type, 
@@ -30,6 +32,14 @@ export default {
             })
         },
         ...mapActions('Activity', ['setAnswer'])
+    },
+    watch: {
+        invalid(newVal){
+            if(newVal){
+                // return for selected status
+                setTimeout(_ => this.invalid = false, 800)
+            }
+        }
     }
   }
 </script>
