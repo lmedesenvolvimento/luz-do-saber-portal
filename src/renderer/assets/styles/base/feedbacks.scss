@@ -33,9 +33,22 @@
         margin-top: 10px;
     }
      .modal-header {   
-         background: url(../images/components/feedback/texture.png) #C62222 repeat-x;
+         
          color: #ddd;  
-         height: 140px;              
+         height: 140px; 
+         
+         
+         &.comecar{
+             background: url(../images/components/feedback/texture.png) #c72929 repeat-x;
+         }
+
+         &.ler {
+             background: url(../images/components/feedback/texture.png) #10a444 repeat-x;
+         }
+
+         &.escrever {
+             background: url(../images/components/feedback/texture.png) #0675bc repeat-x;
+         }
     }
     .feedback-content {        
         display: flex;

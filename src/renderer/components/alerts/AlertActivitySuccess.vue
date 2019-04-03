@@ -1,7 +1,7 @@
 <template>
     <div>
-        <b-modal :centered="true" content-class="feedback" :hide-footer="true" v-model="isVisible">
-            <template slot="modal-header">
+        <b-modal :centered="true" content-class="feedback" :header-class="moduleSlug" :hide-footer="true" v-model="isVisible">
+            <template slot="modal-header" >
                 <div class="feedback-header">
                      <div class="feedback-stars feedback-header-item">
                          
@@ -65,7 +65,8 @@ export default {
             isVisible: false,
             imgStarEmpty: require('@/assets/images/components/feedback/star-empty.png'),
             imgStarFull: require('@/assets/images/components/feedback/star-full.png'),
-            activityName: ""
+            activityName: "",
+            moduleSlug: "",
          }
     },
     computed: {
@@ -86,8 +87,12 @@ export default {
             this.isVisible = value
         },
         activity(value){
-            // console.log("damis yeye", value.title.text)
+            // console.log("damis yeye", value)
             this.activityName = value.title.text
+            this.moduleSlug = value.module.slug
+        },
+        moduleSlug(value) {
+            console.log("module slug", value)
         }
     }
 }
