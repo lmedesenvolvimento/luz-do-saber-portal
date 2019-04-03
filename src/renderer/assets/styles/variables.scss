@@ -10,6 +10,7 @@ $text-color: #5F4343;
 $text-invert: #fff;
 
 $navbar-bgcolor: #C62222;
+$navbar-title-size: 32px;
 
 /******
 *
@@ -17,11 +18,11 @@ $navbar-bgcolor: #C62222;
 *
 *****/
 
-$navbar-height: 94px;
+$navbar-height: 70px;
 
 // Icons
-$icon-width: 80px;
-$icon-height: 80px;
+$icon-width: 62px;
+$icon-height: 62px;
 
 $icon-names: (
     'icon-home',
@@ -58,3 +59,8 @@ $font-displays: (
     d5: 5rem,
     d6: 6rem
 );
+
+
+// Gameplay
+$gameplay-header-height: 100px;
+$gameplay-footer-height: 50px;

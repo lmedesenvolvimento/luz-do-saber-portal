@@ -12,8 +12,8 @@
     user-select: none;
     z-index: 80;
     .navbar-title{
-        font-size: 42px;
-        max-height: 42px;
+        font-size: $navbar-title-size;
+        max-height: $navbar-title-size;
         text-transform: uppercase;
         text-align: center;
         @include ellipsis(100%);

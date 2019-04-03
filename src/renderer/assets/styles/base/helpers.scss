@@ -4,15 +4,15 @@
 
 .counter{
     position: relative;
-    @include embed_image('~@/assets/images/icons/red/counter.png', 64px, 64px);
+    @include embed_image('~@/assets/images/icons/red/counter.png', 50px, 50px);
     > span{
         position: absolute;
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 62px;
-        height: 62px;
-        font-size: 30px;
+        width: 48px;
+        height: 48px;
+        font-size: 25px;
         top: 0px;
         bottom: 0px;
         left: 0px;

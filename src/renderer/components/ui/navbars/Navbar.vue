@@ -4,7 +4,5 @@
     </nav>
 </template>
 <script>
-export default {
-    name: 'ls-navbar'
-}
+export default {}
 </script>
