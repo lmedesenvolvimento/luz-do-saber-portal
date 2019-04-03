@@ -4,6 +4,10 @@
             <template slot="modal-header">
                 <div class="feedback-header">
                      <div class="feedback-stars feedback-header-item">
+                         
+                        <!-- <img :src="imgStarEmpty" class="feedback-small-stars" alt="star-empty"> 
+                        <img :src="imgStarEmpty" class="feedback-small-stars" alt="star-empty"> 
+                        <img :src="imgStarEmpty" class="feedback-small-stars" alt="star-empty">  -->
                         <img v-if="stars<1" :src="imgStarEmpty" class="feedback-small-stars" alt="star-empty"> 
                         <img v-else :src="imgStarFull" class="feedback-small-stars" alt="star-full">
                         <img v-if="stars<2" :src="imgStarEmpty" alt="star-empty"> 
@@ -12,7 +16,7 @@
                         <img v-else :src="imgStarFull" class="feedback-small-stars" alt="star-full">
                     </div>
                     <div class="feedback-header-item "><h5 class="feedback-rounded-number">1</h5></div>
-                    <div class="feedback-header-item"><h5>CRACHÁ</h5></div>
+                    <div class="feedback-header-item"><h5>{{activityName}}</h5></div>
                 </div>                
             </template>
             <br>
@@ -60,14 +64,15 @@ export default {
             stars: 2,
             isVisible: false,
             imgStarEmpty: require('@/assets/images/components/feedback/star-empty.png'),
-            imgStarFull: require('@/assets/images/components/feedback/star-full.png')
+            imgStarFull: require('@/assets/images/components/feedback/star-full.png'),
+            activityName: ""
          }
     },
     computed: {
         ...mapState({
             isVisibleActivityAlertSuccess: state => state.Alert.isVisibleActivityAlertSuccess
         }),
-        ...mapState('Modules',['activeModule'])
+        ...mapState('Activity',['activity']),
     },
     methods: {
         onHidden(){
@@ -77,12 +82,13 @@ export default {
     },
     watch: {
         isVisibleActivityAlertSuccess(value){
-            console.log(value)
+            // console.log(value)
             this.isVisible = value
+        },
+        activity(value){
+            // console.log("damis yeye", value.title.text)
+            this.activityName = value.title.text
         }
-    },
-    created() {
-        console.log("yeye module", this.activeModule)
     }
 }
 </script>
