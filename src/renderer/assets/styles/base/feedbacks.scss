@@ -36,18 +36,19 @@
          
          color: #ddd;  
          height: 140px; 
-         
+         background-image: url('~@/assets/images/components/feedback/texture.png');
+         background-repeat: repeat-x;
          
          &.comecar{
-             background: url(../images/components/feedback/texture.png) #c72929 repeat-x;
+             background-color: #c72929;
          }
 
          &.ler {
-             background: url(../images/components/feedback/texture.png) #10a444 repeat-x;
+             background-color:  #10a444;
          }
 
          &.escrever {
-             background: url(../images/components/feedback/texture.png) #0675bc repeat-x;
+            background-color: #0675bc;
          }
     }
     .feedback-content {        
