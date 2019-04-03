@@ -6,11 +6,11 @@
        
         
     }
-    .feedback-header {
+     .feedback-header {
         margin: 0 auto;
         display: flex;
         flex-direction: column;
-    }
+     }
     .feedback-header-item {        
         display: block;
         margin: 0 auto;
@@ -32,10 +32,10 @@
         width: 128px;
         margin-top: 10px;
     }
-    .modal-header {   
-        background: url(../images/components/feedback/texture.png) #C62222 repeat-x;
-        color: #ddd;  
-        height: 140px;              
+     .modal-header {   
+         background: url(../images/components/feedback/texture.png) #C62222 repeat-x;
+         color: #ddd;  
+         height: 140px;              
     }
     .feedback-content {        
         display: flex;

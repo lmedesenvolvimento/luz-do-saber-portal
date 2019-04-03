@@ -33,7 +33,6 @@
             </div>
         </div>
         <ls-alert-activity-success></ls-alert-activity-success>
-        <ls-alert-activity-fail></ls-alert-activity-fail>        
     </div>
 </template>
 <script>

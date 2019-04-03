@@ -4,12 +4,12 @@
             <template slot="modal-header">
                 <div class="feedback-header">
                      <div class="feedback-stars feedback-header-item">
-                        <img v-if="stars<1" :src="require('@/assets/images/components/feedback/star-empty.png')" class="feedback-small-stars" alt="star-empty"> 
-                        <img v-else :src="require('@/assets/images/components/feedback/star-full.png')" class="feedback-small-stars" alt="star-full">
-                        <img v-if="stars<2" :src="require('@/assets/images/components/feedback/star-empty.png')" alt="star-empty"> 
-                        <img v-else :src="require('@/assets/images/components/feedback/star-full.png')" alt="star-full">
-                        <img v-if="stars<3" :src="require('@/assets/images/components/feedback/star-empty.png')" class="feedback-small-stars" alt="star-empty"> 
-                        <img v-else :src="require('@/assets/images/components/feedback/star-full.png')" class="feedback-small-stars" alt="star-full">
+                        <img v-if="stars<1" :src="imgStarEmpty" class="feedback-small-stars" alt="star-empty"> 
+                        <img v-else :src="imgStarFull" class="feedback-small-stars" alt="star-full">
+                        <img v-if="stars<2" :src="imgStarEmpty" alt="star-empty"> 
+                        <img v-else :src="imgStarFull" alt="star-full">
+                        <img v-if="stars<3" :src="imgStarEmpty" class="feedback-small-stars" alt="star-empty"> 
+                        <img v-else :src="imgStarFull" class="feedback-small-stars" alt="star-full">
                     </div>
                     <div class="feedback-header-item "><h5 class="feedback-rounded-number">1</h5></div>
                     <div class="feedback-header-item"><h5>CRACHÁ</h5></div>
@@ -58,13 +58,16 @@ export default {
     data(){
         return {
             stars: 2,
-            isVisible: false
-        }
+            isVisible: false,
+            imgStarEmpty: require('@/assets/images/components/feedback/star-empty.png'),
+            imgStarFull: require('@/assets/images/components/feedback/star-full.png')
+         }
     },
     computed: {
         ...mapState({
             isVisibleActivityAlertSuccess: state => state.Alert.isVisibleActivityAlertSuccess
-        })
+        }),
+        ...mapState('Modules',['activeModule'])
     },
     methods: {
         onHidden(){
@@ -77,6 +80,9 @@ export default {
             console.log(value)
             this.isVisible = value
         }
+    },
+    created() {
+        console.log("yeye module", this.activeModule)
     }
 }
 </script>
