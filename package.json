@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "author": "Damis Garcia <damisgarcia@gmail.com>",
   "description": "An electron-vue project",
-  "license": null,
+  "license": "GNU General Public License.",
   "main": "./dist/electron/main.js",
   "scripts": {
     "build": "node .electron-vue/build.js",
@@ -65,6 +65,8 @@
     "electron-packager": "^12.1.0",
     "electron-rebuild": "^1.8.1",
     "electron-winstaller": "^2.7.0",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.2.2",
     "file-loader": "^1.1.11",
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "0.4.0",
