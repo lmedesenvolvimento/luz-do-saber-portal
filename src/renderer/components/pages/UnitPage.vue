@@ -1,6 +1,6 @@
 <template>
     <div id="unit" class="page-container" v-if="unit">
-        <ls-navbar>
+        <ls-navbar :navbar-title="unit.title" :navbar-subtitle="'Lorem Ipsum'" :navbar-icon="'https://placeimg.com/480/480/tech'">
             <b-btn variant="link" to="/components">
                 <div class="icon-home"></div>
             </b-btn>            

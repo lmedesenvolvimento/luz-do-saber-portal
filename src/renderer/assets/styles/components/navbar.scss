@@ -11,11 +11,32 @@
     align-items: center;
     user-select: none;
     z-index: 80;
+    .title-holder{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+    }
+    .vertical-bar{
+        border-left: 1px white solid;
+        height: 80px;
+        width: 2px;
+        margin: 0 15px;
+    }
+    .icon{
+        display: block;
+        max-width: 64px;
+        margin: 5px;
+    }
+    .subtitle{
+        font-size: 24px;
+    }
     .navbar-title{
-        font-size: 42px;
-        max-height: 42px;
+        font-size: 32px;
+        max-height: 32px;
         text-transform: uppercase;
         text-align: center;
+        overflow: visible !important;
         @include ellipsis(100%);
     }
 }
