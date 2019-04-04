@@ -1,6 +1,90 @@
-body{
-    @include baloo_bhaina;
-    background: url('../images/default-bg.png') $bg-color no-repeat;
-    background-size: cover;
-    color: $text-color;
+body {
+  @include baloo_bhaina;
+  background: url("../images/default-bg.png") $bg-color no-repeat;
+  background-size: cover;
+  color: $text-color;
+}
+.container {
+  padding: 0;
+}
+.card-body {
+  padding: 0;
+}
+.card {
+  padding: 0;
+  background-color: transparent;
+  border-style: none;
+
+}
+
+
+
+.header-unit {
+  background-color: #c72929;
+  padding: 2% 0%;
+  color: #ffffff;
+  line-height: 1;
+  margin: 0 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 10px 10px 0 0;
+  font-size: 24px;
+}
+.theme-unities-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.theme-unit {
+  text-align: center;
+  margin: 3%;
+  width: 325px;
+  padding: 0;
+
+  .unit-body {
+    display: flex;
+    border: 1px solid #ffffff;
+    border-radius: 8px;
+    background-color: #ffffff;
+    div {
+      flex-direction: row;
+      width: 50%;
+      font-family: "Itim Regular";
+
+      .activities-text {
+        width: 100%;
+      }
+      .stars {
+        display: flex;
+        justify-content: center;
+        list-style: none;
+        flex-direction: row;
+        padding: 0;
+      }
+    }
+    .unit-info {
+      // background-color: #ffffff;
+      padding: 2%;
+      div {
+        font-size: 20px;
+        width: 100%;
+        padding: 1px 0px;
+      }
+      .activities-completed {
+        font-family: "Baloo Bhaina";
+        color: #b0b0b0;
+      }
+    }
+    .unit-image {
+      background-color: #c72929;
+      border: 1px solid transparent;
+      border-radius: 0px 8px 8px 0;
+    }
+  }
+
+  .stars > li {
+    margin: 0px 5px;
+  }
 }

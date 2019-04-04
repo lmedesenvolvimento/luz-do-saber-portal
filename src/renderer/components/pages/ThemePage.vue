@@ -4,17 +4,17 @@
       <b-card class="mt-5">
         <b-card>
           <b-card-body v-if="theme">
-            <ls-navbar>
+            <!-- <ls-navbar>
               <b-btn variant="link" to="/components">
                 <div class="icon-home"></div>
               </b-btn>
               <span class="flex"></span>
               <div class="navbar-title">{{ theme.title }}</div>
               <span class="flex"></span>
-            </ls-navbar>
+            </ls-navbar>-->
 
-            <ul>
-              <li v-for="unit in theme.units" :key="unit.id">
+            <ul class="theme-unities-list">
+              <li class="theme-unit" v-for="unit in theme.units" :key="unit.id">
                 <router-link
                   :to="{ 
                         name: 'unit', 
@@ -24,7 +24,22 @@
                             unit_slug: unit.slug
                         }
                     }"
-                >{{ unit.title }}</router-link>
+                >
+                  <div class="header-unit">{{ unit.title }}</div>
+                </router-link>
+                <div class="unit-body">
+                  <div class="unit-info">
+                    <div>ATIVIDADES:</div>
+                    <div class="activities-completed">0/5</div>
+                    <div>----------</div>
+                    <ul class="stars">
+                      <li>star</li>
+                      <li>star</li>
+                      <li>star</li>
+                    </ul>
+                  </div>
+                  <div class="unit-image"></div>
+                </div>
               </li>
             </ul>
             <b-btn variant="link" :to="historyBack">Voltar</b-btn>
