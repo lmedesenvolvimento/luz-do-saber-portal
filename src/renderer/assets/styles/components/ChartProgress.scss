@@ -24,6 +24,9 @@
             margin: auto;
             border-radius: 50%;
         }
+        .radial-container {
+            margin-top: 19px;
+        }
         .radial-progress-container, .img-container{
             position: absolute;
             top: 0;
@@ -98,4 +101,8 @@
             height: 110px;
         }
     }
+}
+
+.front-page-logo {
+    max-width: 32%;
 }
