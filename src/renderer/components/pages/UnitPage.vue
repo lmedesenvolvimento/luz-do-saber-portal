@@ -1,5 +1,5 @@
 <template>
-    <div id="unit" class="page-container" v-if="unit">
+    <div v-if="unit" id="unit" class="page-container">
         <ls-navbar>
             <b-btn variant="link" to="/components">
                 <div class="icon-home"></div>
@@ -8,9 +8,7 @@
             <div class="navbar-title">{{ unit.title }}</div>
             <span class="flex"></span>
         </ls-navbar>
-        <div class="container">            
-            <ls-gameplay></ls-gameplay>
-        </div>
+        <ls-gameplay></ls-gameplay>
     </div>
 </template>
 
@@ -21,17 +19,17 @@ import { RouteMixin } from './index'
 import ui from '@/components/ui'
 
 export default {
-    mixins: [ RouteMixin ],
     components: { ...ui },
-    created(){
-        this.fetchUnit(this.$route.params)
-    },
+    mixins: [ RouteMixin ],
     computed: {
         ...mapState('Unit', ['unit'])
     },
+    created(){
+        this.fetchUnit(this.$route.params)
+    },
     methods: {
         ...mapActions('Unit', ['fetchUnit'])
-    }
+    },
 }
 </script>
 

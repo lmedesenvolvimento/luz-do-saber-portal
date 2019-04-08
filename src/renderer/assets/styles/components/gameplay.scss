@@ -3,8 +3,10 @@
     flex-direction: column;
     flex: 1;
     background-color: white;
-    max-height: 1024px;
-    margin: 24px;    
+    width: 90vw;
+    max-width: 1024px;
+    max-height: calc(81vh - 150px);
+    margin: 24px auto;
     box-shadow: 3px 3px 18px transparentize($color: #000, $amount: 0.9);
     border-bottom-left-radius: 8px; 
     border-bottom-right-radius: 8px; 
@@ -13,8 +15,8 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        height: 100px;
-        background-color: $card-heading-bg-color;  
+        min-height: $gameplay-header-height;
+        background-color: $gameplay-heading-bg-color;  
         border-bottom: 1.5px solid #ddd;
         padding: 0px 8px;
         flex: 1;
@@ -26,12 +28,15 @@
         }
     }
     .gameplay-footer{        
-        background-color: $card-heading-bg-color;  
-        border-top: 1.5px solid #ddd;
-        border-bottom: 0px solid transparent;
+        background-color: $gameplay-heading-bg-color;
+        border-top: 1.5px solid $gameplay-border-color;
+        border-left: 1px solid $gameplay-border-color;
+        border-right: 1px solid $gameplay-border-color;
+        border-bottom: 1px solid $gameplay-border-color;
         border-bottom-left-radius: 8px; 
         border-bottom-right-radius: 8px; 
-        height: $gameplay-footer-height;
+        max-height: $gameplay-footer-height;
+        flex: 1;
         padding: 4px 16px;
         .gameplay-footer-actions{
             display: flex;
@@ -42,15 +47,18 @@
         }
     }
     .gameplay-body{
+        @include custom_scroll_bar;
         padding: 24px 24px;
         background-color: white;
+        border-left: $gameplay-border-color 1px solid;
+        border-right: $gameplay-border-color 1px solid;
         flex: 1;
         display: flex;
+        min-height: 70vh;
+        max-height: 70vh;
         flex-direction: column;
-        min-height: 30vh;
-        height: 70vh;
-        // overflow-x: hidden;
-        // overflow-y: auto;
+        overflow-x: hidden;
+        overflow-y: auto;
     }
 }
 
