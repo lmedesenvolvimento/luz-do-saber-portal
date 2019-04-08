@@ -1,0 +1,75 @@
+.feedback {
+    background: url(../images/components/feedback/comecar/background-comecar.png);
+    background-position-x: -80px;
+    border: hidden;
+    .modal-body{
+       
+        
+    }
+     .feedback-header {
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+     }
+    .feedback-header-item {        
+        display: block;
+        margin: 0 auto;
+    }
+    .feedback-rounded-number {
+        display: flex;
+        border: solid 2px;
+        padding-top: 6px;
+        align-items: center;
+        justify-content: center;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+    }
+    .feedback-stars {
+        margin-top: -100px;
+    }
+    .feedback-small-stars {
+        width: 128px;
+        margin-top: 10px;
+    }
+     .modal-header {   
+         
+         color: #ddd;  
+         height: 140px; 
+         background-image: url('~@/assets/images/components/feedback/texture.png');
+         background-repeat: repeat-x;
+         
+         &.comecar{
+             background-color: #c72929;
+         }
+
+         &.ler {
+             background-color:  #10a444;
+         }
+
+         &.escrever {
+            background-color: #0675bc;
+         }
+    }
+    .feedback-content {        
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0px 8px;
+        flex: 1;
+        .feedback-itim {
+            font-family: "Itim Regular", Helvetica, sans-serif;
+        }
+        .feedback-golden {
+            color: goldenrod;
+        }
+    }
+    .feedback-footer-buttons {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+
+
