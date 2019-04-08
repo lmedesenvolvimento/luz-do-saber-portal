@@ -32,8 +32,8 @@
         font-size: 24px;
     }
     .navbar-title{
-        font-size: 32px;
-        max-height: 32px;
+        font-size: $navbar-title-size;
+        max-height: $navbar-title-size;
         text-transform: uppercase;
         text-align: center;
         overflow: visible !important;

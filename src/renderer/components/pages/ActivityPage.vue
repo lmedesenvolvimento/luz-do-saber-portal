@@ -1,14 +1,14 @@
 <template>
-    <transition name="page">
-        <div id="gameplay" v-if="activity">
-            <div class="gameplay-body">
-                <div class="gameplay-description" v-if="hasDescription">{{ getDescription }} </div>
+    <div class="gameplay-body">
+        <transition name="page">
+            <div v-if="activity" key="gameplay">
+                <div v-if="hasDescription" class="gameplay-description">{{ getDescription }} </div>
                 <div class="gameplay-activity-container">
                     <BaseActivity></BaseActivity>
                 </div>
             </div>
-        </div>
-    </transition>
+        </transition>
+    </div>
 </template>
 
 <script>
