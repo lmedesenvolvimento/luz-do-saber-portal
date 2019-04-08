@@ -6,5 +6,6 @@
             "language": "vue",
             "autoFix": true
         }
-    ]
+    ],
+    "vetur.format.options.tabSize": 4
 }
