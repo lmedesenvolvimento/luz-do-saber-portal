@@ -1,73 +1,72 @@
 <template>
-  <div id="theme" class="page-container">
-    <div class="container">
-      <b-card class="mt-5">
-        <b-card>
-          <b-card-body v-if="theme">
-            <!-- <ls-navbar>
-              <b-btn variant="link" to="/components">
-                <div class="icon-home"></div>
-              </b-btn>
-              <span class="flex"></span>
-              <div class="navbar-title">{{ theme.title }}</div>
-              <span class="flex"></span>
-            </ls-navbar>-->
+    <div id="theme" class="page-container">
+        <ls-navbar
+            :navbar-title="'TEMA '+theme.title"
+            :navbar-subtitle="'Unidades'"
+            :navbar-icon="'https://placeimg.com/480/480/tech'"
+        />
 
-            <ul class="theme-unities-list">
-              <li class="theme-unit" v-for="unit in theme.units" :key="unit.id">
-                <router-link
-                  :to="{ 
-                        name: 'unit', 
-                        params: { 
-                            module_slug: $route.params.module_slug, 
-                            theme_slug: theme.slug,
-                            unit_slug: unit.slug
-                        }
-                    }"
-                >
-                  <div class="header-unit">{{ unit.title }}</div>
-                </router-link>
-                <div class="unit-body">
-                  <div class="unit-info">
-                    <div>ATIVIDADES:</div>
-                    <div class="activities-completed">0/5</div>
-                    <div>----------</div>
-                    <ul class="stars">
-                      <li>star</li>
-                      <li>star</li>
-                      <li>star</li>
-                    </ul>
-                  </div>
-                  <div class="unit-image"></div>
-                </div>
-              </li>
-            </ul>
+        <div class="container">            
+            <b-row v-if="theme" class="m-5 theme-unities-list">
+                <b-col v-for="unit in theme.units" :key="unit.id" class="mx-5 my-4 theme-unit">
+                    <router-link
+                        :to="{ 
+                            name: 'unit', 
+                            params: { 
+                                module_slug: $route.params.module_slug, 
+                                theme_slug: theme.slug,
+                                unit_slug: unit.slug
+                            }
+                        }"
+                    >
+                        <b-row class="mx-5 p-3 header-unit">
+                            <div class="unit-title">{{ unit.title }}</div>
+                        </b-row>
+                        <b-row class="unit-body">
+                            <b-col class="mw-50 unit-info">
+                                <b-row>ATIVIDADES:</b-row>
+                                <b-row class="px-5 py-2 activities-completed">0/5</b-row>
+                                <b-row class="mx-5 line" />
+                                <b-row class="px-5 py-3 stars">
+                                    <b-col>
+                                        <div class="star" />
+                                    </b-col>
+                                    <b-col>
+                                        <div class="star" />
+                                    </b-col>
+                                    <b-col>
+                                        <div class="star" />
+                                    </b-col>
+                                </b-row>
+                            </b-col>
+                            <b-col class="mw-50 unit-image" />
+                        </b-row>
+                    </router-link>
+                </b-col>     
+            </b-row>
             <b-btn variant="link" :to="historyBack">Voltar</b-btn>
-          </b-card-body>
-        </b-card>
-      </b-card>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
-import { RouteMixin } from "./index";
+import { mapState, mapActions } from 'vuex';
+import { RouteMixin } from './index';
 
-import ui from "@/components/ui";
+import ui from '@/components/ui';
 
 export default {
-  mixins: [RouteMixin],
-  components: { ...ui },
-  created() {
-    this.fetchTheme(this.$route.params);
-  },
-  computed: {
-    ...mapState("Theme", ["theme"])
-  },
-  methods: {
-    ...mapActions("Theme", ["fetchTheme"])
-  }
+    components: { ...ui },
+    mixins: [RouteMixin],
+    created() {
+        this.fetchTheme(this.$route.params);
+    },
+    computed: {
+        ...mapState('Theme', ['theme'])
+    },
+    methods: {
+        ...mapActions('Theme', ['fetchTheme'])
+    }
 };
 </script>
 

@@ -4,87 +4,84 @@ body {
   background-size: cover;
   color: $text-color;
 }
-.container {
-  padding: 0;
-}
-.card-body {
-  padding: 0;
-}
-.card {
-  padding: 0;
-  background-color: transparent;
-  border-style: none;
-
-}
-
-
-
-.header-unit {
-  background-color: #c72929;
-  padding: 2% 0%;
-  color: #ffffff;
-  line-height: 1;
-  margin: 0 10%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  border-radius: 10px 10px 0 0;
-  font-size: 24px;
+a:hover {
+	text-decoration: none;
 }
 .theme-unities-list {
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+	justify-content: center;
+}
+.header-unit {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: #c72929;
+	border-radius: 10px 10px 0 0;
+	box-shadow: 1px 1px 8px #3a3a3a;
+	.unit-title {
+		@include ellipsis;
+		line-height: 1;
+		color: #ffffff;
+		font-size: 24px;
+	}
+
 }
 .theme-unit {
-  text-align: center;
-  margin: 3%;
-  width: 325px;
-  padding: 0;
+	text-align: center;
+	max-width: 425px;
+	min-width: 325px;
+	padding: 0;
+	.unit-body {
+		display: flex;
+		border: 2px solid #ffffff;
+		border-radius: 8px;
+		background-color: #ffffff;
+		display: flex;
+		align-items: center;
+		box-shadow: 1px 1px 8px #3a3a3a;
 
-  .unit-body {
-    display: flex;
-    border: 1px solid #ffffff;
-    border-radius: 8px;
-    background-color: #ffffff;
-    div {
-      flex-direction: row;
-      width: 50%;
-      font-family: "Itim Regular";
+		div.col {
+			flex-direction: row;
+			font-family: "Itim Regular";
+		}
 
-      .activities-text {
-        width: 100%;
-      }
-      .stars {
-        display: flex;
-        justify-content: center;
-        list-style: none;
-        flex-direction: row;
-        padding: 0;
-      }
-    }
-    .unit-info {
-      // background-color: #ffffff;
-      padding: 2%;
-      div {
-        font-size: 20px;
-        width: 100%;
-        padding: 1px 0px;
-      }
-      .activities-completed {
-        font-family: "Baloo Bhaina";
-        color: #b0b0b0;
-      }
-    }
-    .unit-image {
-      background-color: #c72929;
-      border: 1px solid transparent;
-      border-radius: 0px 8px 8px 0;
-    }
-  }
+		.unit-info {
+			color: #6f6f6f;
+			div.row {
+				justify-content: center;
+				font-size: 24px;
+			}
+			div.col {
+				width: 100%;
+				padding: 1px 0px;
+			}
+			.activities-completed {
+				font-family: "Baloo Bhaina";
+				color: #b0b0b0;
+			}
 
-  .stars > li {
-    margin: 0px 5px;
-  }
+			.line {
+				border-bottom: 2px solid #b0b0b0;
+			}
+		}
+
+		.unit-image {
+			background-color: #c72929;
+			background-image: url("https://www.shareicon.net/download/2016/05/24/769978_man_512x512.png");
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: center;
+			padding: 0;
+			border: 2px solid transparent;
+			border-radius: 0px 6px 6px 0;
+			min-height: 200px;
+		}
+	}
+
+}
+.star {
+	background-image: url("../images/icons/theme-screen/star.png");
+	background-position: center;
+	min-height: 40px;
+	background-repeat: no-repeat;
+	background-size: contain;
 }
