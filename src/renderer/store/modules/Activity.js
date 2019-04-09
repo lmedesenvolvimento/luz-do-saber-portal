@@ -35,7 +35,7 @@ const mutations = {
     },
 
     INCREMENT_TIMER(state, activity){
-      state.log.timer.totalSeconds += 1  
+        state.log.timer.totalSeconds += 1
     },    
 
     COMPUTED_ANSWER(state, indexOfAnswer){

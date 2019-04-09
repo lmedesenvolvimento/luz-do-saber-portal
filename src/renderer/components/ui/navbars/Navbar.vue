@@ -1,6 +1,6 @@
 <template>
     <nav class="navbar navbar-default">
-        <router-link to="/componentes">
+        <router-link to="/">
             <div class="icon-home"></div>
         </router-link>            
         <span class="flex"></span>

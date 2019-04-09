@@ -1,13 +1,6 @@
 <template>
     <div v-if="unit" id="unit" class="page-container">
-        <ls-navbar>
-            <b-btn variant="link" to="/components">
-                <div class="icon-home"></div>
-            </b-btn>            
-            <span class="flex"></span>
-            <div class="navbar-title">{{ unit.title }}</div>
-            <span class="flex"></span>
-        </ls-navbar>
+        <ls-navbar :navbar-title="unit.title"></ls-navbar>
         <ls-gameplay></ls-gameplay>
     </div>
 </template>

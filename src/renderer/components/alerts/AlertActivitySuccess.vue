@@ -1,10 +1,9 @@
 <template>
     <div>
-        <b-modal :centered="true" content-class="feedback" :header-class="moduleSlug" :hide-footer="true" v-model="isVisible">
-            <template slot="modal-header" >
+        <b-modal :visible="isVisible" :centered="true" content-class="feedback" :header-class="moduleSlug" :hide-footer="true" @hide="onHidden">
+            <template slot="modal-header">
                 <div class="feedback-header">
-                     <div class="feedback-stars feedback-header-item">
-                         
+                    <div class="feedback-stars feedback-header-item">                         
                         <!-- <img :src="imgStarEmpty" class="feedback-small-stars" alt="star-empty"> 
                         <img :src="imgStarEmpty" class="feedback-small-stars" alt="star-empty"> 
                         <img :src="imgStarEmpty" class="feedback-small-stars" alt="star-empty">  -->
@@ -65,9 +64,9 @@ export default {
             isVisible: false,
             imgStarEmpty: require('@/assets/images/components/feedback/star-empty.png'),
             imgStarFull: require('@/assets/images/components/feedback/star-full.png'),
-            activityName: "",
-            moduleSlug: "",
-         }
+            activityName: '',
+            moduleSlug: ''
+        }
     },
     computed: {
         ...mapState({
@@ -75,25 +74,22 @@ export default {
         }),
         ...mapState('Activity',['activity']),
     },
+    watch: {
+        isVisibleActivityAlertSuccess(value){
+            this.isVisible = value
+        },
+        activity(value){
+            if (value) {
+                this.activityName = value.title.text
+                this.moduleSlug = value.module.slug
+            }
+        }
+    },
     methods: {
         onHidden(){
             this.hideAlertActivitySuccess()
         },
         ...mapActions(['hideAlertActivitySuccess']),
-    },
-    watch: {
-        isVisibleActivityAlertSuccess(value){
-            // console.log(value)
-            this.isVisible = value
-        },
-        activity(value){
-            // console.log("damis yeye", value)
-            this.activityName = value.title.text
-            this.moduleSlug = value.module.slug
-        },
-        moduleSlug(value) {
-            console.log("module slug", value)
-        }
-    }
+    }    
 }
 </script>
