@@ -4,6 +4,7 @@ body {
   background-size: cover;
   color: $text-color;
 }
+
 a:hover {
 	text-decoration: none;
 }
@@ -17,8 +18,10 @@ a:hover {
 	background-color: #c72929;
 	border-radius: 10px 10px 0 0;
 	box-shadow: 1px 1px 8px #3a3a3a;
+	
 	.unit-title {
 		@include ellipsis;
+		margin: 0;
 		line-height: 1;
 		color: #ffffff;
 		font-size: 24px;
@@ -27,32 +30,43 @@ a:hover {
 }
 .theme-unit {
 	text-align: center;
-	max-width: 425px;
-	min-width: 325px;
-	padding: 0;
+	max-width: 525px;
+	max-height: 250px;
+
 	.unit-body {
 		display: flex;
 		border: 2px solid #ffffff;
 		border-radius: 8px;
-		background-color: #ffffff;
 		display: flex;
 		align-items: center;
 		box-shadow: 1px 1px 8px #3a3a3a;
+		background-color: #ffffff;
 
-		div.col {
-			flex-direction: row;
-			font-family: "Itim Regular";
-		}
+		font-family: "Itim Regular";
+	
 
 		.unit-info {
+			min-width: 50%;
 			color: #6f6f6f;
+			.stars {
+				padding: 0;
+				.star.col {
+					background-image: url("../images/icons/theme-screen/star.png");
+					background-position: center;
+					background-repeat: no-repeat;
+					background-size: contain;
+					padding: 0;
+					min-height: 50px;
+					margin: 0;
+				}
+			}
 			div.row {
 				justify-content: center;
 				font-size: 24px;
-			}
-			div.col {
-				width: 100%;
-				padding: 1px 0px;
+				h3 {
+					@include ellipsis;
+					margin: 0;
+				}
 			}
 			.activities-completed {
 				font-family: "Baloo Bhaina";
@@ -65,23 +79,16 @@ a:hover {
 		}
 
 		.unit-image {
+			min-width: 50%;
 			background-color: #c72929;
 			background-image: url("https://www.shareicon.net/download/2016/05/24/769978_man_512x512.png");
 			background-size: contain;
 			background-repeat: no-repeat;
 			background-position: center;
-			padding: 0;
 			border: 2px solid transparent;
 			border-radius: 0px 6px 6px 0;
-			min-height: 200px;
+			min-height: 220px;
 		}
 	}
 
-}
-.star {
-	background-image: url("../images/icons/theme-screen/star.png");
-	background-position: center;
-	min-height: 40px;
-	background-repeat: no-repeat;
-	background-size: contain;
 }

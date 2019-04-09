@@ -7,8 +7,8 @@
         />
 
         <div class="container">            
-            <b-row v-if="theme" class="m-5 theme-unities-list">
-                <b-col v-for="unit in theme.units" :key="unit.id" class="mx-5 my-4 theme-unit">
+            <b-row v-if="theme" class="my-5 theme-unities-list">
+                <b-col v-for="unit in theme.units" :key="unit.id" class="m-5 theme-unit">
                     <router-link
                         :to="{ 
                             name: 'unit', 
@@ -19,27 +19,21 @@
                             }
                         }"
                     >
-                        <b-row class="mx-5 p-3 header-unit">
-                            <div class="unit-title">{{ unit.title }}</div>
+                        <b-row class="mx-4 p-3 header-unit">
+                            <h2 class="unit-title">{{ unit.title }}</h2>
                         </b-row>
                         <b-row class="unit-body">
-                            <b-col class="mw-50 unit-info">
-                                <b-row>ATIVIDADES:</b-row>
-                                <b-row class="px-5 py-2 activities-completed">0/5</b-row>
-                                <b-row class="mx-5 line" />
-                                <b-row class="px-5 py-3 stars">
-                                    <b-col>
-                                        <div class="star" />
-                                    </b-col>
-                                    <b-col>
-                                        <div class="star" />
-                                    </b-col>
-                                    <b-col>
-                                        <div class="star" />
-                                    </b-col>
+                            <b-col class="px-5 py-2 unit-info">
+                                <b-row><h3>ATIVIDADES:</h3></b-row>
+                                <b-row class="py-2 activities-completed">0/5</b-row>
+                                <b-row class="line" />
+                                <b-row class="py-3 stars">
+                                    <b-col class="star" />
+                                    <b-col class="star" />
+                                    <b-col class="star" />
                                 </b-row>
                             </b-col>
-                            <b-col class="mw-50 unit-image" />
+                            <b-col class="unit-image" />
                         </b-row>
                     </router-link>
                 </b-col>     
