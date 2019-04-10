@@ -1,8 +1,8 @@
 <template>
     <div class="container-fluid">
         <b-row>
-            <b-col class="activity-keys" v-if="hasKeys">
-                <b-col :sm="valueColSize" v-for="(item, position) in getKeys" v-bind:key="position"> 
+            <b-col v-if="hasKeys" class="activity-keys">
+                <b-col v-for="(item, position) in getKeys" :key="position" :sm="valueColSize"> 
                     <Item 
                         v-if="answer.length"
                         :item="item"
@@ -13,7 +13,7 @@
             </b-col>
             <b-col class="activity-values">
                 <b-row align-v="center" align-h="center">
-                    <b-col :sm="valueColSize" v-for="(item, position) in getValues" v-bind:key="position"> 
+                    <b-col align-self="center" v-for="(item, position) in getValues" :key="position" :sm="valueColSize"> 
                         <Item 
                             v-if="answer.length"
                             :item="item"
