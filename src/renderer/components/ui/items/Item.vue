@@ -1,6 +1,6 @@
 <template>
-    <div v-bind:class="item.type ? item.type : ''">
-        <div class="item" v-if="isPrimitiveItem">
+    <div :class="item.type ? item.type : ''">
+        <div v-if="isPrimitiveItem">
             <ls-item-text
                 v-if="template.type === Types.primitive.text"
                 :type="type"
@@ -13,7 +13,7 @@
                 :item="item"
             ></ls-item-text>
         </div>
-        <div class="item" v-else-if="!isPrimitiveItem">
+        <div v-else-if="!isPrimitiveItem" class="item">
             <ls-item-cracha-box
                 v-if="template.custom === Types.custom.crachaBox"
                 :type="type"
@@ -26,8 +26,8 @@
 import ItemComponents, { ItemProps } from './index.js'
 
 export default {
-    mixins: [ ItemProps ],
     components: { ...ItemComponents },
+    mixins: [ ItemProps ],
     computed: {
         isPrimitiveItem(){
             return this.template.custom ? false : true

@@ -3,11 +3,11 @@ import { mapActions } from 'vuex'
 import { invalid } from 'moment';
 import { setTimeout } from 'timers';
 export default {
+    inheritAttrs: false,
     model: {
         prop: 'checked',
         event: 'change'
     },
-    inheritAttrs: false,
     props: {
         type: String,
         label: String,
@@ -21,6 +21,14 @@ export default {
             selected: false
         }
     },
+    watch: {
+        invalid(newVal){
+            if(newVal){
+                // return for selected status
+                setTimeout(_ => this.invalid = false, 800)
+            }
+        }
+    },
     methods: {
         onChange(event){
             if (this.valid || this.invalid) return
@@ -32,14 +40,6 @@ export default {
             })
         },
         ...mapActions('Activity', ['setAnswer'])
-    },
-    watch: {
-        invalid(newVal){
-            if(newVal){
-                // return for selected status
-                setTimeout(_ => this.invalid = false, 800)
-            }
-        }
-    }
-  }
+    }    
+}
 </script>
