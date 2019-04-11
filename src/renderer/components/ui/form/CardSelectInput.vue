@@ -2,7 +2,6 @@
     <div class="card-select-input" v-bind:class="$attrs.class">
         <label>
                 <b-card 
-                    v-bind:class="{ 'checked': isChecked }" 
                     :bg-variant="variant">
                     <slot name="img"></slot>
                     <b-card-body>
