@@ -64,52 +64,7 @@
                             </template>
                         </ls-card-input>
                     </b-row>
-                    <p>Resposta: {{ radio3 }}</p>
-
-                    <h4>Selecionar vários Cards</h4>
-                    <b-row>
-                        <ls-card-select class="col-sm" label="Card 1" :value="1" name="base-input2">
-                            <b-card-text>Radio 1</b-card-text>
-                        </ls-card-select>
-                        <ls-card-select class="col-sm" label="Card 2" :value="2" name="base-input2">
-                            <b-card-text>Radio 2</b-card-text>
-                        </ls-card-select>
-                        <ls-card-select class="col-sm" label="Card 3" :value="3" name="base-input2">
-                            <b-card-text>Radio 3</b-card-text>
-                        </ls-card-select>
-                        <ls-card-select class="col-sm" label="Card 4" :value="4" name="base-input2">
-                            <b-card-text>Radio 4</b-card-text>
-                            
-                        </ls-card-select>
-                    </b-row>
-                    <p>Resposta: {{ select1 }}</p>
-                    <b-row>
-                        <ls-card-select class="col-sm" label="Card 1" :value="1" name="base-input3">
-                            <b-card-text>Radio 1</b-card-text>
-                            <template slot="img">
-                                <b-card-img src="https://placekitten.com/480/210" alt="Image" bottom />
-                            </template>
-                        </ls-card-select>
-                        <ls-card-select class="col-sm" label="Card 2" :value="2" name="base-input3">
-                            <b-card-text>Radio 2</b-card-text>
-                            <template slot="img">
-                                <b-card-img src="https://placekitten.com/480/210" alt="Image" bottom />
-                            </template>
-                        </ls-card-select>
-                        <ls-card-select class="col-sm" label="Card 3" :value="3" name="base-input3">
-                            <b-card-text>Radio 3</b-card-text>
-                            <template slot="img">
-                                <b-card-img src="https://placekitten.com/480/210" alt="Image" bottom />
-                            </template>
-                        </ls-card-select>
-                        <ls-card-select class="col-sm" label="Card 4" :value="4" name="base-input3">
-                            <b-card-text>Radio 4</b-card-text>
-                            <template slot="img">
-                                <b-card-img src="https://placekitten.com/480/210" alt="Image" bottom />
-                            </template>
-                        </ls-card-select>
-                    </b-row>
-                    <p>Resposta: {{ select2 }}</p>
+                    <p>Resposta: {{ radio3 }}</p>                    
                     <hr>
                     <router-link to="/">
                         Voltar
