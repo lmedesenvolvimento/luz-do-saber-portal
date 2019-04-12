@@ -34,7 +34,7 @@ import { mapState, mapActions } from 'vuex'
 export default {
     data(){
         return {
-            stars: 3,
+            stars: 2,
             isVisible: false,
             imgStarEmpty: require('@/assets/images/components/feedback/star-empty.png'),
             imgStarFull: require('@/assets/images/components/feedback/star-full.png'),
