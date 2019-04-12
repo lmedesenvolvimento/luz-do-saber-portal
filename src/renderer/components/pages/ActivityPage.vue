@@ -23,17 +23,6 @@ export default {
             isReady: false
         }
     },
-    created(){        
-        let { params } = this.$route
-        
-        this.fetchActivity({ 
-            params, 
-            question: this.getQuestion
-        })
-    },
-    beforeDestroy(){
-        this.destroyActivity()
-    },
     computed: {
         hasDescription(){
             return this.activity && this.activity.statement
@@ -48,18 +37,28 @@ export default {
         ...mapState('Unit', ['unit']),
         ...mapState('Activity', ['activity'])
     },
-    methods: {
-        ...mapActions('Activity', ['fetchActivity', 'destroyActivity'])
-    },
     watch: {
         $route (newVal) {
             this.destroyActivity()
-
             this.fetchActivity({ 
                 params: newVal.params, 
                 question: this.getQuestion
             })
         }
+    },
+    created(){        
+        let { params } = this.$route
+        
+        this.fetchActivity({ 
+            params, 
+            question: this.getQuestion
+        })
+    },
+    beforeDestroy(){
+        this.destroyActivity()
+    },    
+    methods: {
+        ...mapActions('Activity', ['fetchActivity', 'destroyActivity'])
     }
 }
 </script>

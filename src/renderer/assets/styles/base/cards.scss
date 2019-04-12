@@ -1,32 +1,9 @@
+.card-display{
+    @include custom-card;
+}
+
 .card-input{
-    padding: 8px 0px;
-    .card {
-        padding: 0.25rem;
-        border-radius: 1rem;
-        box-shadow: 0px 0px 6px transparentize($color: $card-input-box-shadow-color, $amount: 0.60);
-        border: 1px solid #fff;
-        .card-body {
-            border-radius: 0.9rem;
-            border: 1px solid $card-input-dark-border-color;
-            text-align: center;
-            font-size: 24px;
-            padding: 1rem;
-            @include card-body-box-shadow($card-input-box-shadow-color);
-        }
-        &.valid{
-            .card-body {
-                @include card-body-box-shadow($card-input-box-shadow-success-color, 0.0);
-            }
-        }
-        &.invalid{
-            .card-body {
-                @include card-body-box-shadow($card-input-box-shadow-danger-color, 0.0);
-            }
-        }
-        &.selected{
-            background-color: #ccc;
-        }
-    }
+    @include custom-card(true);
 }
 
 // .card{
