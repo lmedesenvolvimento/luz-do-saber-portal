@@ -41,7 +41,6 @@ export default {
     },
     created(){
         this.fetchModules()
-        console.log(this.modules);
         
     },
     methods: {
