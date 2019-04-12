@@ -1,9 +1,11 @@
 @mixin  baloo_bhaina{
     font-family: "Baloo Bhaina", Helvetica, sans-serif;
+    text-transform: uppercase;
 }
 
 @mixin  itim_regular{
     font-family: "Itim Regular", Helvetica, sans-serif;
+    text-transform: uppercase;
 }
 
 @mixin card_boxshadow {
@@ -70,4 +72,9 @@
 
 @mixin shitzu-porko {
     font-family: 'Shitzu Porko Light', Arial, Helvetica, sans-serif;
+}
+
+// Card
+@mixin card-body-box-shadow($color, $amount: 0.9) {
+ box-shadow: inset 0px 0px 0px 6px transparentize($color, $amount);   
 }

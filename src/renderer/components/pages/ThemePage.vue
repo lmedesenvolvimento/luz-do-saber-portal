@@ -14,8 +14,8 @@
                                         module_slug: $route.params.module_slug, 
                                         theme_slug: theme.slug,
                                         unit_slug: unit.slug
-                                    }
-                                 }">
+                                    }}"
+                                >
                                     {{ unit.title }}
                                 </router-link>
                             </li>
@@ -36,11 +36,11 @@ import { RouteMixin } from './index'
 
 export default {
     mixins: [RouteMixin],
-    created(){
-        this.fetchTheme(this.$route.params)
-    },
     computed: {
         ...mapState('Theme', ['theme'])
+    },
+    created(){
+        this.fetchTheme(this.$route.params)
     },
     methods: {
         ...mapActions('Theme', ['fetchTheme'])

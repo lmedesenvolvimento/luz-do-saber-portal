@@ -43,6 +43,11 @@ $icon-themes: (
 // );
 
 // Cards
+$card-input-dark-border-color: #2B1F17;
+$card-input-box-shadow-intesity: 6px;
+$card-input-box-shadow-color: $card-input-dark-border-color;
+$card-input-box-shadow-success-color: #7DB239;
+$card-input-box-shadow-danger-color: #C72929;
 
 // Fontsizes
 $font-size-variants: (
