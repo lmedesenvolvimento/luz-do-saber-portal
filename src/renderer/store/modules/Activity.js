@@ -145,9 +145,15 @@ const actions = {
     }
 }
 
+const getters = {
+    totalStars(state){
+        return state.log.pointings.totalStars
+    }
+}
 export default {
     namespaced: true,
     state,
     actions,
-    mutations
+    mutations,
+    getters
 }

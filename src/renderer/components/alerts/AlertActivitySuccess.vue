@@ -4,88 +4,146 @@
             <template slot="modal-header">
                 <div class="feedback-header">
                     <div class="feedback-stars feedback-header-item">                         
-                        <!-- <img :src="imgStarEmpty" class="feedback-small-stars" alt="star-empty"> 
-                        <img :src="imgStarEmpty" class="feedback-small-stars" alt="star-empty"> 
-                        <img :src="imgStarEmpty" class="feedback-small-stars" alt="star-empty">  -->
-                        <img v-if="stars<1" :src="imgStarEmpty" class="feedback-small-stars" alt="star-empty"> 
-                        <img v-else :src="imgStarFull" class="feedback-small-stars" alt="star-full">
-                        <img v-if="stars<2" :src="imgStarEmpty" alt="star-empty"> 
-                        <img v-else :src="imgStarFull" alt="star-full">
-                        <img v-if="stars<3" :src="imgStarEmpty" class="feedback-small-stars" alt="star-empty"> 
-                        <img v-else :src="imgStarFull" class="feedback-small-stars" alt="star-full">
+                        <img :src="star(0)" class="feedback-small-stars" alt="star"> 
+                        <img :src="star(1)" alt="star"> 
+                        <img :src="star(2)" class="feedback-small-stars" alt="star">                        
                     </div>
-                    <div class="feedback-header-item "><h5 class="feedback-rounded-number">1</h5></div>
-                    <div class="feedback-header-item"><h5>{{activityName}}</h5></div>
+                    <div class="feedback-header-item "><h5 class="feedback-rounded-number">{{ activityPosition }}</h5></div>
+                    <div class="feedback-header-item"><h5>{{ activityName }}</h5></div>
                 </div>                
             </template>
             <br>
-            <div v-if="stars==0" class="feedback-content">
-                <img :src="require('@/assets/images/components/feedback/expression-star-0.png')" alt="expression-star-0">                 
+            <div class="feedback-content">
+                <img :src="expressionStar" alt="expression-star">                 
                 <br>
-                <h5>QUE PENA!</h5>
-                <div class="feedback-itim"><h5>VOCÊ NÃO CONSEGUIU <span class="feedback-golden">NENHUMA ESTRELA</span>.</h5></div>
-                <div class="feedback-itim"><h5>TENTE NOVAMENTE!</h5></div>
-            </div> 
-            <div v-else-if="stars==1" class="feedback-content">
-                <img :src="require('@/assets/images/components/feedback/expression-star-1.png')" alt="expression-star-1">                 
-                <br>
-                <h5>QUASE!</h5>
-                <div class="feedback-itim"><h5>VOCÊ CONSEGUIU <span class="feedback-golden">UMA ESTRELA</span>.</h5></div>
-                <div class="feedback-itim"><h5>VAMOS TENTAR NOVAMENTE?</h5></div>
-            </div>
-            <div v-else-if="stars==2" class="feedback-content">
-                <img :src="require('@/assets/images/components/feedback/expression-star-2.png')" alt="expression-star-2">                 
-                <br>
-                <h5>MUITO BEM!</h5>
-                <div class="feedback-itim"><h5>VOCE CONSEGUIU <span class="feedback-golden">DUAS ESTRELAS</span>.</h5></div>
-                <div class="feedback-itim"><h5>DESEJA TENTAR NOVAMENTE?</h5></div>
-            </div>
-            <div v-else-if="stars==3" class="feedback-content">
-                <img :src="require('@/assets/images/components/feedback/expression-star-3.png')" alt="expression-star-3">                
-                <br>
-                <h5>PARABÉNS!</h5>
-                <div class="feedback-itim"><h5>VOCÊ COMPLETOU A ATIVIDADE</h5></div>
-                <div class="feedback-itim"><h5>COM <span class="feedback-golden">EXCELÊNCIA</span>!</h5></div>
-            </div>   
+                <h5>{{ feedbackText1 }}</h5>
+                <div v-if="totalStars==3" class="feedback-itim"><h5>{{ feedbackText5 }}</h5></div>
+                <div class="feedback-itim"><h5>{{ feedbackText2 }} <span class="feedback-golden">{{ feedbackText3 }}</span>{{ feedbackText4 }}</h5></div>
+                <div v-if="totalStars!=3" class="feedback-itim"><h5>{{ feedbackText5 }}</h5></div>
+            </div>             
             <br>
             <div class="feedback-footer-buttons">
-                <img :src="require('@/assets/images/components/feedback/comecar/redo-button.png')" alt="redo-button"> 
-                <img :src="require('@/assets/images/components/feedback/comecar/next-button.png')" alt="next-button"> 
+                <div class="icon-redo"></div> 
+                <div class="icon-next"></div>              
             </div>  
         </b-modal>    
     </div> 
 </template>
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
 export default {
     data(){
         return {
-            stars: 2,
             isVisible: false,
-            imgStarEmpty: require('@/assets/images/components/feedback/star-empty.png'),
-            imgStarFull: require('@/assets/images/components/feedback/star-full.png'),
             activityName: '',
-            moduleSlug: ''
+            moduleSlug: '',
+            activityPosition: 0
         }
     },
     computed: {
+        feedbackText1: function () {
+            switch(this.totalStars){
+            case 0: 
+                return 'Que Pena!'
+            case 1:
+                return 'Quase!'
+            case 2: 
+                return 'Muito Bem!'
+            case 3:
+                return 'Parabéns!'
+            default:
+                return ''
+            }
+        },
+        feedbackText2: function () {
+            switch(this.totalStars){
+            case 0: 
+                return 'Você não conseguiu'
+            case 1:
+                return 'Você conseguiu'
+            case 2: 
+                return 'Você conseguiu'
+            case 3:
+                return 'com'
+            default:
+                return ''
+            }
+        },
+        feedbackText3: function () {
+            switch(this.totalStars){
+            case 0: 
+                return 'Nenhuma Estrela'
+            case 1:
+                return 'Uma Estrela'
+            case 2: 
+                return 'Duas Estrelas'
+            case 3:
+                return 'Excelência'
+            default:
+                return ''
+            }
+        },
+        feedbackText4: function () {
+            if(this.totalStars == 3){
+                return '!';
+            }
+            return '.'
+        },
+        feedbackText5: function () {
+            switch(this.totalStars){
+            case 0: 
+                return 'Tente novamente!'
+            case 1:
+                return 'Vamos tentar novamente?'
+            case 2: 
+                return 'Deseja tentar novamente?'
+            case 3:
+                return 'Você completou a atividade';
+            default:
+                return ''
+            }
+        },
+        expressionStar: function () {
+            switch(this.totalStars) {
+            case 0:
+                return require('@/assets/images/components/feedback/expression-star-0.png')
+            case 1:
+                return require('@/assets/images/components/feedback/expression-star-1.png')
+            case 2:
+                return require('@/assets/images/components/feedback/expression-star-2.png')
+            case 3:
+                return require('@/assets/images/components/feedback/expression-star-3.png')
+            default:
+                return ''
+            }
+        },
         ...mapState({
             isVisibleActivityAlertSuccess: state => state.Alert.isVisibleActivityAlertSuccess
         }),
-        ...mapState('Activity',['activity']),
+        ...mapState('Activity',['activity','log']),
+        ...mapGetters('Activity',['totalStars'])
     },
     watch: {
         isVisibleActivityAlertSuccess(value){
             this.isVisible = value
         },
         activity(value){
+            console.log('activity', value)
             if (value) {
                 this.activityName = value.title.text
                 this.moduleSlug = value.module.slug
+                this.activityPosition = value.position
             }
         }
     },
-    methods: {
+    methods: {        
+        star: function (num) {
+            if (this.totalStars > num){
+                return require('@/assets/images/components/feedback/star-full.png')
+            } else {
+                return require('@/assets/images/components/feedback/star-empty.png')
+            }
+        },
         onHidden(){
             this.hideAlertActivitySuccess()
         },
