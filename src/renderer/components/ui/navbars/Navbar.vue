@@ -12,7 +12,7 @@
                 class="icon"
             >
             
-            <div v-if ="navbarIcon" class="vertical-bar"></div>
+            <div v-if="navbarIcon" class="vertical-bar"></div>
 
             <div class="titles">
                 <div v-if="navbarTitle" class="navbar-title">{{ navbarTitle }}</div>

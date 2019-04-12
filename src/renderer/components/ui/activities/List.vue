@@ -1,6 +1,6 @@
 <template>
-    <div v-bind:class="activity.type.slug">
-        <ls-list-correct-item :valueColSize="valueColSize"></ls-list-correct-item>
+    <div :class="activity.type.slug">
+        <ls-list-correct-item :value-col-size="valueColSize"></ls-list-correct-item>
     </div>
 </template>
 <script>
@@ -12,13 +12,10 @@ import ActitivitiesComponents from './index'
 import { CreateAnswersMixins } from './mixins'
 
 export default {
-    mixins: [CreateAnswersMixins],
     components:{
         ...ActitivitiesComponents
     },
-    mounted() {
-        this.createAnswersArray()
-    },
+    mixins: [CreateAnswersMixins],
     computed: {
         valueColSize(){
             return Math.abs(TOTAL_COLUMNS / this.activity.item_template.value.total_per_line)
@@ -27,6 +24,9 @@ export default {
             return this.activity.total_correct_items === 1
         },
         ...mapState('Activity', ['activity', 'answer', 'responses'])
+    },
+    mounted() {
+        this.createAnswersArray()
     },
     methods: {
         ...mapActions('Activity', ['setAnswers'])
