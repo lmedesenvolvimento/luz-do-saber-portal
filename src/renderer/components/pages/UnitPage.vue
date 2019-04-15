@@ -1,15 +1,15 @@
 <template>
-    <div id="unit" class="page-container" v-if="unit">
+    <div v-if="unit" id="unit" class="page-container">
         <ls-navbar :navbar-title="unit.title" :navbar-subtitle="'Lorem Ipsum'" :navbar-icon="'https://placeimg.com/480/480/tech'">
             <b-btn variant="link" to="/components">
-                <div class="icon-home"></div>
+                <div class="icon-home" />
             </b-btn>            
-            <span class="flex"></span>
+            <span class="flex" />
             <div class="navbar-title">{{ unit.title }}</div>
-            <span class="flex"></span>
+            <span class="flex" />
         </ls-navbar>
         <div class="container">            
-            <ls-gameplay></ls-gameplay>
+            <ls-gameplay />
         </div>
     </div>
 </template>
@@ -21,8 +21,8 @@ import { RouteMixin } from './index'
 import ui from '@/components/ui'
 
 export default {
-    mixins: [ RouteMixin ],
     components: { ...ui },
+    mixins: [ RouteMixin ],
     created(){
         this.fetchUnit(this.$route.params)
     },

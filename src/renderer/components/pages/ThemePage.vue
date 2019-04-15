@@ -5,10 +5,9 @@
             :navbar-subtitle="'Unidades'"
             :navbar-icon="'https://placeimg.com/480/480/tech'"
         />
-
-        <div class="container">            
-            <b-row v-if="theme" class="my-5 theme-unities-list">
-                <b-col v-for="unit in theme.units" :key="unit.id" class="m-5 theme-unit">
+        <div class="container">
+            <b-col v-if="theme" class="my-5 theme-unities-list">
+                <b-col v-for="unit in theme.units" :key="unit.id" class="mx-4 my-4 theme-unit">
                     <router-link
                         :to="{ 
                             name: 'unit', 
@@ -23,11 +22,11 @@
                             <h2 class="unit-title">{{ unit.title }}</h2>
                         </b-row>
                         <b-row class="unit-body">
-                            <b-col class="px-5 py-2 unit-info">
+                            <b-col class="unit-info px-5">
                                 <b-row><h3>ATIVIDADES:</h3></b-row>
-                                <b-row class="py-2 activities-completed">0/5</b-row>
+                                <b-row class="my-2 activities-completed">0/5</b-row>
                                 <b-row class="line" />
-                                <b-row class="py-3 stars">
+                                <b-row class="my-3 stars">
                                     <b-col class="star" />
                                     <b-col class="star" />
                                     <b-col class="star" />
@@ -36,9 +35,9 @@
                             <b-col class="unit-image" />
                         </b-row>
                     </router-link>
-                </b-col>     
-            </b-row>
-            <b-btn variant="link" :to="historyBack">Voltar</b-btn>
+                </b-col>
+            </b-col>
+            <b-btn variant="link" :to="historyBack" class="m-2">Voltar</b-btn>
         </div>
     </div>
 </template>

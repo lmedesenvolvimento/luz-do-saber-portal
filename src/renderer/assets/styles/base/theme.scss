@@ -8,56 +8,62 @@ body {
 a:hover {
 	text-decoration: none;
 }
+
 .theme-unities-list {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
 	justify-content: center;
 }
-.header-unit {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	background-color: #c72929;
-	border-radius: 10px 10px 0 0;
-	box-shadow: 1px 1px 8px #3a3a3a;
-	
-	.unit-title {
-		@include ellipsis;
-		margin: 0;
-		line-height: 1;
-		color: #ffffff;
-		font-size: 24px;
-	}
 
-}
 .theme-unit {
 	text-align: center;
+	min-width: 250px;
 	max-width: 525px;
-	max-height: 250px;
-
-	.unit-body {
+	// min-height: 250px;
+	flex-basis: 42%;
+	.header-unit {
 		display: flex;
-		border: 2px solid #ffffff;
-		border-radius: 8px;
-		display: flex;
+		flex-direction: column;
 		align-items: center;
+		background-color: #c72929;
+		border-radius: 10px 10px 0 0;
 		box-shadow: 1px 1px 8px #3a3a3a;
-		background-color: #ffffff;
-
-		font-family: "Itim Regular";
+		
+		.unit-title {
+			@include ellipsis;
+			margin: 0;
+			line-height: 1;
+			color: #ffffff;
+			font-size: 24px;
+		}
 	
-
+	}
+	.unit-body {
+		background-image: url("../images/components/unity/background-card-unidades.png");
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: 104% 104%;
+		border: solid .1em #fff;
+		border-radius: 12px;
+		box-shadow: 1px 1px 10px #3a3a3a;
+		background-color: #c72929;
+		font-family: "Itim Regular";
+		align-items: center;
+		display: flex;
 		.unit-info {
 			min-width: 50%;
 			color: #6f6f6f;
 			.stars {
-				padding: 0;
-				.star.col {
+				justify-content: center;
+				align-items: center;
+				.star {
 					background-image: url("../images/icons/theme-screen/star.png");
 					background-position: center;
 					background-repeat: no-repeat;
 					background-size: contain;
+					min-height: 40px;
 					padding: 0;
-					min-height: 50px;
-					margin: 0;
 				}
 			}
 			div.row {
@@ -80,13 +86,10 @@ a:hover {
 
 		.unit-image {
 			min-width: 50%;
-			background-color: #c72929;
-			background-image: url("https://www.shareicon.net/download/2016/05/24/769978_man_512x512.png");
+			background-image: url("https://image.flaticon.com/icons/png/128/145/145867.png");
 			background-size: contain;
 			background-repeat: no-repeat;
 			background-position: center;
-			border: 2px solid transparent;
-			border-radius: 0px 6px 6px 0;
 			min-height: 220px;
 		}
 	}
