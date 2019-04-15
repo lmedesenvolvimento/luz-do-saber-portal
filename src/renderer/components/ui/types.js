@@ -6,5 +6,5 @@ export const ActivityTypes = {
 
 export const ActivitySubtypes = {
     default: 'padrao',
-    metade: 'esconder-itens-metade'
+    hideHalf: 'esconder-itens-metade'
 }
