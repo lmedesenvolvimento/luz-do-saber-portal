@@ -52,6 +52,12 @@ let rendererConfig = {
         use: 'vue-html-loader'
       },
       {
+        enforce: 'pre',
+        test: /\.(js|vue)$/,
+        loader: 'eslint-loader',
+        exclude: /node_modules/
+      },
+      {
         test: /\.js$/,
         use: 'babel-loader',
         exclude: /node_modules/

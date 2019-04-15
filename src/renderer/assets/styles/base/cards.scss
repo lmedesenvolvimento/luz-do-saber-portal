@@ -1,3 +1,11 @@
+.card-display{
+    @include custom-card;
+}
+
+.card-input{
+    @include custom-card(true);
+}
+
 // .card{
 //     @include card_boxshadow();
 //     border-radius: 1.25rem;

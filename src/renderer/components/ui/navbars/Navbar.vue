@@ -1,12 +1,18 @@
 <template>
-  <nav class="navbar navbar-default">
-    <router-link to="/componentes">
-      <div class="icon-home"></div>
-    </router-link>
-    <span class="flex"></span>
+    <nav class="navbar navbar-default">
+        <router-link to="/">
+            <div class="icon-home"></div>
+        </router-link>            
+        <span class="flex"></span>
 
-    <div class="title-holder">
-      <img v-if="navbarIcon" :src="navbarIcon" class="icon">
+        <div class="title-holder">
+            <img 
+                v-if="navbarIcon"
+                :src="navbarIcon" 
+                class="icon"
+            >
+            
+            <div v-if="navbarIcon" class="vertical-bar"></div>
 
       <div v-if="navbarIcon" class="vertical-bar"></div>
 

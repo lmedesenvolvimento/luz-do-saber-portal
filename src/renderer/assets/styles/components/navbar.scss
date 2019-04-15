@@ -5,7 +5,7 @@
     height: $navbar-height;
     top: 0;
     left: 0;
-    background: url('../images/components/navbar/bg.png') $navbar-bgcolor repeat-x;
+    background: url('../images/components/navbar/navbar-bg.png') $navbar-bgcolor repeat-x;
     color: $text-invert;
     display: flex;
     align-items: center;
@@ -32,8 +32,8 @@
         font-size: 24px;
     }
     .navbar-title{
-        font-size: 32px;
-        max-height: 32px;
+        font-size: $navbar-title-size;
+        max-height: $navbar-title-size;
         text-transform: uppercase;
         text-align: center;
         overflow: visible !important;

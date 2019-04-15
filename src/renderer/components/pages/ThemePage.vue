@@ -57,6 +57,9 @@ export default {
     computed: {
         ...mapState('Theme', ['theme'])
     },
+    created(){
+        this.fetchTheme(this.$route.params)
+    },
     methods: {
         ...mapActions('Theme', ['fetchTheme'])
     }

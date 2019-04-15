@@ -1,20 +1,23 @@
 <template>
-    <div class="card-radio-input" v-bind:class="$attrs.class" v-if="item">
+    <div class="card-input card-radio-input" :class="$attrs.class">
         <label>
-                <b-card 
-                    v-bind:class="{ 'invalid': invalid, 'valid': valid, 'selected': selected }">
+            <b-card 
+                no-body
+                :class="{ 'invalid': invalid, 'valid': valid, 'selected': selected }"
+            >
+                <b-card-body>
                     <slot name="img"></slot>
-                    <b-card-body>
-                        <slot></slot>
-                    </b-card-body>
-                </b-card>
-                <input
-                    :name="$attrs.name" 
-                    class="input"
-                    type="radio"
-                    v-bind="$attrs"
-                    v-on:change.prevent="onChange"
-                />
+                    <slot></slot>
+                </b-card-body>
+            </b-card>
+
+            <input
+                :name="$attrs.name" 
+                type="radio"
+                v-bind="$attrs"
+                class="input"
+                @change.prevent="onChange"
+            />
         </label>
     </div>
 </template>
@@ -27,25 +30,15 @@ export default {
 <style lang="scss">
     .card-radio-input{        
         .input{
+            display: block;
             visibility: hidden;
+            width: 0px;
+            height: 0px;
         }
         label{
             display: block;
             &:hover{
                 cursor: pointer;
-            }
-        }
-        .card{
-            &.valid{
-                background-color: green;
-                color: white;
-            }
-            &.invalid{
-                background-color: red;
-                color: white;
-            }
-            &.selected{
-                background-color: #ccc;
             }
         }
     }

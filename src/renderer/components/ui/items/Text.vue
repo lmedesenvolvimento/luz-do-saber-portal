@@ -4,8 +4,9 @@
         label="item.text" 
         :type="type"
         :item="item"
-        :name="activity.type.slug">
-        <b-card-text>{{ item.text }}</b-card-text>        
+        :name="activity.type.slug"
+    >
+        {{ item.text }}
     </ls-card-input>
 </template>
 <script>
