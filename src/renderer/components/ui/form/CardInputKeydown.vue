@@ -1,40 +1,59 @@
 <template>
-    <div class="card-input card-radio-input" :class="$attrs.class">
+    <div class="card-input card-input-text" :class="$attrs.class">
         <label>
-            <b-card 
+            <!-- <b-card 
                 no-body
                 :class="{ 'invalid': invalid, 'valid': valid, 'selected': selected }"
+            > -->
+            <b-card 
+                no-body
             >
                 <b-card-body>
-                    <slot name="img"></slot>
-                    <slot></slot>
+                    <input
+                        v-model.trim="model"
+                        :name="$attrs.name" 
+                        :maxlength="maxLength || false"
+                        type="text"
+                        v-bind="$attrs"
+                    />
                 </b-card-body>
             </b-card>
-
-            <input
-                :name="$attrs.name" 
-                type="text"
-                v-bind="$attrs"
-                class="input"
-                @keydown="onChange"
-            />
         </label>
     </div>
 </template>
 <script>
 import RadioInput from './RadioInput.vue'
 export default {
-    mixins: [RadioInput]
+    mixins: [RadioInput],
+    props:{
+        maxLength: Number,
+        value: {
+            type: String,
+            default: '',
+            required: true
+        }
+    },
+    data(){
+        return {
+            model: ''
+        }
+    },
+    watch: {
+        model(value){
+            console.log('VALUE',value, this.activity)
+            // if (this.valid || this.invalid) return
+            
+            // this.setAnswer({ 
+            //     type: this.type, 
+            //     data: this.item.id,
+            //     vm: this
+            // })
+        }
+    }
 }
 </script>
 <style lang="scss">
-    .card-radio-input{        
-        .input{
-            display: block;
-            visibility: hidden;
-            width: 0px;
-            height: 0px;
-        }
+    .card-input-text{
         label{
             display: block;
             &:hover{
