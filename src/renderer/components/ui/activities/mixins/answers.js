@@ -1,7 +1,11 @@
 import uniqid from 'uniqid'
 import { filter, range } from 'lodash'
+import { mapState, mapActions } from 'vuex'
 
 export const CreateAnswersMixins = {
+    computed: {
+        ...mapState('Activity', ['activity'])
+    },    
     methods: {
         createAnswersArray() {
             if (!this.activity) return
@@ -19,11 +23,12 @@ export const CreateAnswersMixins = {
             })
 
             this.setAnswers(answers)
-        }        
+        },
+        ...mapActions('Activity', ['setAnswers'])        
     }
 }
 
-function createAnswer(key){
+export function createAnswer(key){
     if (!key) return
     
     let id = uniqid()

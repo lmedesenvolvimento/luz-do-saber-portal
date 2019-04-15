@@ -43,7 +43,7 @@
             flex-direction: flex;
             align-items: center;
             width: 100%;
-            height: $gameplay-footer-height;
+            height: ($gameplay-footer-height - 8px);
         }
     }
     .gameplay-body{

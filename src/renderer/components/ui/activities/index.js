@@ -1,4 +1,4 @@
 
 export default {
-    'ls-list-correct-item': require('./ListCorrectItem.vue').default
+    'ls-activity-default': require('./Default.vue').default
 }
