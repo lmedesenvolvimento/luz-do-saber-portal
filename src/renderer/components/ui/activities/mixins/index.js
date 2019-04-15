@@ -1,10 +1,7 @@
-import Vue from 'vue'
-import { mapState, mapActions } from 'vuex'
+import { mapState } from 'vuex'
 
 import Item from '@/components/ui/items/Item'
 import { ActivityTypes } from '@/components/ui/types'
-
-const TIMEOUT = 800
 
 export const ListMixin = {
     components: {

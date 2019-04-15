@@ -27,22 +27,12 @@
     </div>
 </template>
 <script>
-import Vue from 'vue'
-import { first } from 'lodash'
-import { mapActions } from 'vuex'
-import ActitivitiesComponents from './index'
-import { ListMixin } from './mixins'
+import { ListMixin, CreateAnswersMixins } from './mixins'
 
 export default {
-    components: {
-        ...ActitivitiesComponents
-    },
-    mixins: [ListMixin],
-    methods: {
-        isValid(value){
-            let { keys } = this.activity.items
-            return first(keys).value_ids.includes(value)
-        }
+    mixins: [ListMixin, CreateAnswersMixins],
+    mounted() {
+        this.createAnswersArray()
     }
 }
 </script>
