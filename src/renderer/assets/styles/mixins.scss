@@ -1,9 +1,11 @@
 @mixin  baloo_bhaina{
     font-family: "Baloo Bhaina", Helvetica, sans-serif;
+    text-transform: uppercase;
 }
 
 @mixin  itim_regular{
     font-family: "Itim Regular", Helvetica, sans-serif;
+    text-transform: uppercase;
 }
 
 @mixin card_boxshadow {
@@ -61,4 +63,53 @@
     &::-webkit-scrollbar-corner {
         background: transparent;
     }
+}
+
+@mixin fill {
+    width: 100%;
+    height: 100%;
+}
+
+@mixin shitzu-porko {
+    font-family: 'Shitzu Porko Light', Arial, Helvetica, sans-serif;
+}
+
+@mixin custom-card($input: false){
+    padding: 8px 0px;
+    .card {
+        padding: 0.25rem;
+        border-radius: 1rem;
+        box-shadow: 0px 0px 6px transparentize($color: $card-input-box-shadow-color, $amount: 0.60);
+        border: 1px solid #fff;
+        .card-body {
+            border-radius: 0.9rem;
+            @if $input {                
+                border: 1px solid $card-input-dark-border-color;
+            } @else {                
+                border: 1px solid transparent;
+            }
+            text-align: center;
+            font-size: 24px;
+            padding: 1rem;
+            @include card-body-box-shadow($card-input-box-shadow-color);
+        }
+        &.valid{
+            .card-body {
+                @include card-body-box-shadow($card-input-box-shadow-success-color, 0.0);
+            }
+        }
+        &.invalid{
+            .card-body {
+                @include card-body-box-shadow($card-input-box-shadow-danger-color, 0.0);
+            }
+        }
+        &.selected{
+            background-color: #ccc;
+        }
+    }
+}
+
+// Card
+@mixin card-body-box-shadow($color, $amount: 0.9) {
+ box-shadow: inset 0px 0px 0px 6px transparentize($color, $amount);   
 }

@@ -1,0 +1,9 @@
+.gameplay-activity-container{
+    .container, .container-fluid {
+      .col,
+      [class*="col-"] {
+        padding-right: 0.25rem;
+        padding-left: 0.25rem;
+      }
+    }
+}

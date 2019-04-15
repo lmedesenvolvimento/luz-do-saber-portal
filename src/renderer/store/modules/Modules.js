@@ -21,7 +21,7 @@ const actions = {
 
     },
     async fetchModules({ commit }){
-        let { data } = await API.get(`/game`)
+        let { data } = await API.get('/game')
         commit('SET_MODULES', data.modulos)
     }
 }

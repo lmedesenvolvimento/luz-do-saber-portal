@@ -35,7 +35,7 @@ const mutations = {
     },
 
     INCREMENT_TIMER(state, activity){
-      state.log.timer.totalSeconds += 1  
+        state.log.timer.totalSeconds += 1
     },    
 
     COMPUTED_ANSWER(state, indexOfAnswer){
@@ -145,9 +145,15 @@ const actions = {
     }
 }
 
+const getters = {
+    totalStars(state){
+        return state.log.pointings.totalStars
+    }
+}
 export default {
     namespaced: true,
     state,
     actions,
-    mutations
+    mutations,
+    getters
 }

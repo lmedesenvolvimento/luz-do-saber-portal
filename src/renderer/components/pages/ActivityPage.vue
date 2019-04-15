@@ -1,14 +1,14 @@
 <template>
-    <transition name="page">
-        <div id="gameplay" v-if="activity">
-            <div class="gameplay-body">
-                <div class="gameplay-description" v-if="hasDescription">{{ getDescription }} </div>
+    <div class="gameplay-body">
+        <transition name="page">
+            <div v-if="activity" key="gameplay">
+                <div v-if="hasDescription" class="gameplay-description">{{ getDescription }} </div>
                 <div class="gameplay-activity-container">
                     <BaseActivity></BaseActivity>
                 </div>
             </div>
-        </div>
-    </transition>
+        </transition>
+    </div>
 </template>
 
 <script>
@@ -22,17 +22,6 @@ export default {
         return {
             isReady: false
         }
-    },
-    created(){        
-        let { params } = this.$route
-        
-        this.fetchActivity({ 
-            params, 
-            question: this.getQuestion
-        })
-    },
-    beforeDestroy(){
-        this.destroyActivity()
     },
     computed: {
         hasDescription(){
@@ -48,18 +37,28 @@ export default {
         ...mapState('Unit', ['unit']),
         ...mapState('Activity', ['activity'])
     },
-    methods: {
-        ...mapActions('Activity', ['fetchActivity', 'destroyActivity'])
-    },
     watch: {
         $route (newVal) {
             this.destroyActivity()
-
             this.fetchActivity({ 
                 params: newVal.params, 
                 question: this.getQuestion
             })
         }
+    },
+    created(){        
+        let { params } = this.$route
+        
+        this.fetchActivity({ 
+            params, 
+            question: this.getQuestion
+        })
+    },
+    beforeDestroy(){
+        this.destroyActivity()
+    },    
+    methods: {
+        ...mapActions('Activity', ['fetchActivity', 'destroyActivity'])
     }
 }
 </script>

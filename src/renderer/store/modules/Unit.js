@@ -1,4 +1,4 @@
-import axios from 'axios'
+import API from '@/services/Http'
 
 const state = {
     unit: null
@@ -12,7 +12,7 @@ const mutations = {
 
 const actions = {
     async fetchUnit({ commit }, params){
-        let { data } = await axios.get(`${process.env.BASE_API_URL}/game/${params.module_slug}/${params.theme_slug}/${params.unit_slug}`)
+        let { data } = await API.get(`/game/${params.module_slug}/${params.theme_slug}/${params.unit_slug}`)
         commit('SET_UNIT', data)
     }
 }

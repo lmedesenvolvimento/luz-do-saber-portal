@@ -1,33 +1,153 @@
 <template>
-    <b-modal ref="modal" title="Sucesso" @hidden="onHidden">
-        <p>Parabéns tudo certo!</p>
-        <template slot="modal-ok">Urru!</template>
-        <template slot="modal-cancel">Fechar</template>
-    </b-modal>
+    <div>
+        <b-modal :visible="isVisible" :centered="true" content-class="feedback" :header-class="moduleSlug" :hide-footer="true" @hide="onHidden">
+            <template slot="modal-header">
+                <div class="feedback-header">
+                    <div class="feedback-stars feedback-header-item">                         
+                        <img :src="star(0)" class="feedback-small-stars" alt="star"> 
+                        <img :src="star(1)" alt="star"> 
+                        <img :src="star(2)" class="feedback-small-stars" alt="star">                        
+                    </div>
+                    <div class="feedback-header-item "><h5 class="feedback-rounded-number">{{ activityPosition }}</h5></div>
+                    <div class="feedback-header-item"><h5>{{ activityName }}</h5></div>
+                </div>                
+            </template>
+            <br>
+            <div class="feedback-content">
+                <img :src="expressionStar" alt="expression-star">                 
+                <br>
+                <h5>{{ feedbackText1 }}</h5>
+                <div v-if="totalStars==3" class="feedback-itim"><h5>{{ feedbackText5 }}</h5></div>
+                <div class="feedback-itim"><h5>{{ feedbackText2 }} <span class="feedback-golden">{{ feedbackText3 }}</span>{{ feedbackText4 }}</h5></div>
+                <div v-if="totalStars!=3" class="feedback-itim"><h5>{{ feedbackText5 }}</h5></div>
+            </div>             
+            <br>
+            <div class="feedback-footer-buttons">
+                <div class="icon-redo"></div> 
+                <div class="icon-next"></div>              
+            </div>  
+        </b-modal>    
+    </div> 
 </template>
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
 export default {
     data(){
         return {
-            isVisible: false
+            isVisible: false,
+            activityName: '',
+            moduleSlug: '',
+            activityPosition: 0
         }
     },
     computed: {
+        feedbackText1: function () {
+            switch(this.totalStars){
+            case 0: 
+                return 'Que Pena!'
+            case 1:
+                return 'Quase!'
+            case 2: 
+                return 'Muito Bem!'
+            case 3:
+                return 'Parabéns!'
+            default:
+                return ''
+            }
+        },
+        feedbackText2: function () {
+            switch(this.totalStars){
+            case 0: 
+                return 'Você não conseguiu'
+            case 1:
+                return 'Você conseguiu'
+            case 2: 
+                return 'Você conseguiu'
+            case 3:
+                return 'com'
+            default:
+                return ''
+            }
+        },
+        feedbackText3: function () {
+            switch(this.totalStars){
+            case 0: 
+                return 'Nenhuma Estrela'
+            case 1:
+                return 'Uma Estrela'
+            case 2: 
+                return 'Duas Estrelas'
+            case 3:
+                return 'Excelência'
+            default:
+                return ''
+            }
+        },
+        feedbackText4: function () {
+            if(this.totalStars == 3){
+                return '!';
+            }
+            return '.'
+        },
+        feedbackText5: function () {
+            switch(this.totalStars){
+            case 0: 
+                return 'Tente novamente!'
+            case 1:
+                return 'Vamos tentar novamente?'
+            case 2: 
+                return 'Deseja tentar novamente?'
+            case 3:
+                return 'Você completou a atividade';
+            default:
+                return ''
+            }
+        },
+        expressionStar: function () {
+            switch(this.totalStars) {
+            case 0:
+                return require('@/assets/images/components/feedback/expression-star-0.png')
+            case 1:
+                return require('@/assets/images/components/feedback/expression-star-1.png')
+            case 2:
+                return require('@/assets/images/components/feedback/expression-star-2.png')
+            case 3:
+                return require('@/assets/images/components/feedback/expression-star-3.png')
+            default:
+                return ''
+            }
+        },
         ...mapState({
             isVisibleActivityAlertSuccess: state => state.Alert.isVisibleActivityAlertSuccess
-        })
+        }),
+        ...mapState('Activity',['activity','log']),
+        ...mapGetters('Activity',['totalStars'])
     },
-    methods: {
+    watch: {
+        isVisibleActivityAlertSuccess(value){
+            this.isVisible = value
+        },
+        activity(value){
+            console.log('activity', value)
+            if (value) {
+                this.activityName = value.title.text
+                this.moduleSlug = value.module.slug
+                this.activityPosition = value.position
+            }
+        }
+    },
+    methods: {        
+        star: function (num) {
+            if (this.totalStars > num){
+                return require('@/assets/images/components/feedback/star-full.png')
+            } else {
+                return require('@/assets/images/components/feedback/star-empty.png')
+            }
+        },
         onHidden(){
             this.hideAlertActivitySuccess()
         },
         ...mapActions(['hideAlertActivitySuccess']),
-    },
-    watch: {
-        isVisibleActivityAlertSuccess(value){
-            value ? this.$refs.modal.show() : this.$refs.modal.hide()
-        }
-    }
+    }    
 }
 </script>
