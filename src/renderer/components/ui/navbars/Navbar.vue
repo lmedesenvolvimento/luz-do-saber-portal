@@ -14,23 +14,21 @@
             
             <div v-if="navbarIcon" class="vertical-bar"></div>
 
-      <div v-if="navbarIcon" class="vertical-bar"></div>
+            <div class="titles">
+                <div v-if="navbarTitle" class="navbar-title">{{ navbarTitle }}</div>
+                <div v-if="navbarSubtitle" class="subtitle">{{ navbarSubtitle }}</div>
+            </div>
+        </div>
 
-      <div class="titles">
-        <div v-if="navbarTitle" class="navbar-title">{{ navbarTitle }}</div>
-        <div v-if="navbarSubtitle" class="subtitle">{{ navbarSubtitle }}</div>
-      </div>
-    </div>
-
-    <span class="flex"></span>
-  </nav>
+        <span class="flex"></span>
+    </nav>
 </template>
 <script>
 export default {
-  props: {
-    navbarIcon: String,
-    navbarTitle: String,
-    navbarSubtitle: String
-  }
+    props: {
+        navbarIcon: String,
+        navbarTitle: String,
+        navbarSubtitle: String
+    }
 };
 </script>

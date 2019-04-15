@@ -32,7 +32,9 @@
                                     <b-col class="star" />
                                 </b-row>
                             </b-col>
-                            <b-col class="unit-image" />
+                            <b-col class="pt-4 container-unit-image"> 
+                                <b-col class="unit-image" />
+                            </b-col>
                         </b-row>
                     </router-link>
                 </b-col>

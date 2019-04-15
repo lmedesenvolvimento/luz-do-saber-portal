@@ -62,7 +62,7 @@ a:hover {
 					background-position: center;
 					background-repeat: no-repeat;
 					background-size: contain;
-					min-height: 40px;
+					min-height: 50px;
 					padding: 0;
 				}
 			}
@@ -83,15 +83,15 @@ a:hover {
 				border-bottom: 2px solid #b0b0b0;
 			}
 		}
-
-		.unit-image {
+		.container-unit-image {
 			min-width: 50%;
-			background-image: url("https://image.flaticon.com/icons/png/128/145/145867.png");
-			background-size: contain;
-			background-repeat: no-repeat;
-			background-position: center;
-			min-height: 220px;
+			.unit-image {
+				background-image: url("https://image.flaticon.com/icons/png/128/145/145867.png");
+				background-size: contain;
+				background-repeat: no-repeat;
+				background-position: center;
+				min-height: 220px;
+			}
 		}
 	}
-
 }
