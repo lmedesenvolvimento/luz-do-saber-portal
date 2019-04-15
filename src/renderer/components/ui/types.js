@@ -5,5 +5,6 @@ export const ActivityTypes = {
 }
 
 export const ActivitySubtypes = {
-    default: 'padrao'
+    default: 'padrao',
+    vogais: 'vogais'
 }

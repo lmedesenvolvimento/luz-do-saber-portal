@@ -28,7 +28,7 @@ export const CreateAnswersMixins = {
     }
 }
 
-function createAnswer(key){
+export function createAnswer(key){
     if (!key) return
     
     let id = uniqid()
