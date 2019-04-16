@@ -23,7 +23,7 @@
             </div>             
             <br>
             <div class="feedback-footer-buttons">
-                <div class="icon-redo"></div> 
+                <div class="icon-redo" @click="resetActivity"></div> 
                 <div class="icon-next"></div>              
             </div>  
         </b-modal>    
@@ -120,6 +120,7 @@ export default {
         ...mapState({
             isVisibleActivityAlertSuccess: state => state.Alert.isVisibleActivityAlertSuccess
         }),
+        ...mapState('Unit',['unit']),
         ...mapState('Activity',['activity','log']),
         ...mapGetters('Activity',['totalStars'])
     },
@@ -147,7 +148,19 @@ export default {
         onHidden(){
             this.hideAlertActivitySuccess()
         },
+        resetActivity(){
+            let { params } = this.$route
+            const question = this.unit.questions[(params.position - 1)]
+            console.log(question)
+            this.destroyActivity()
+            this.fetchActivity({ 
+                params, 
+                question
+            })
+            this.onHidden();
+        },        
         ...mapActions(['hideAlertActivitySuccess']),
+        ...mapActions('Activity',['fetchActivity','destroyActivity'])
     }    
 }
 </script>
