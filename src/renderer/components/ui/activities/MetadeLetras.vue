@@ -1,6 +1,7 @@
 <template>
     <div>
-        <p v-for="(item, index) in activity.items.keys" :key="index">{{ item.text }}</p>
+        <p v-for="(item, index) in aux" :key="index">{{ item }}</p>
+        <p>{{ aux }}</p>
     </div>
 </template>
 
@@ -9,20 +10,30 @@ import { ListMixin, CreateAnswersMixins } from './mixins'
 
 export default {
     mixins: [ListMixin, CreateAnswersMixins],
+    data(){
+        return {
+            aux: []
+        }
+    },
+    created(){
+        this.ActivityToArray(this.activity)
+    },
     mounted(){
-        console.log(this.activity, 'atividade')
-        console.log(this.activity.items, 'items')
-
-        let count = Object.keys(this.activity.items.keys)
         
-        // let count = 0
+    },
+    methods: {
+        ActivityToArray(o){
+            console.log(o, 'atividade')
+            console.log(o.items, 'items')
 
-        // for (let item in this.activity.items){
-        //     aux.push(item)
-        //     count++
-        // }
+            let count = Object.keys(o.items.keys)
 
-        console.log(aux, 'aux')
-    }
+            for (let i = 0; i < count.length; i++){
+                this.aux[i] = o.items.keys[i].text
+            }
+
+            console.log(this.aux, 'auxaaa')
+        }
+    },
 }
 </script>
