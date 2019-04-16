@@ -1,18 +1,17 @@
 <template>
     <div class="card-input card-input-text" :class="$attrs.class">
         <label>
-            <!-- <b-card 
-                no-body
-                :class="{ 'invalid': invalid, 'valid': valid, 'selected': selected }"
-            > -->
             <b-card 
                 no-body
+                :class="{ 'invalid': invalid, 'valid': valid }"
             >
                 <b-card-body>
                     <input
-                        v-model.trim="model"
+                        v-model.lazy="model"
                         :name="$attrs.name" 
                         :maxlength="maxLength || false"
+                        :placeholder="value.text"
+                        :disabled="valid || invalid"
                         type="text"
                         v-bind="$attrs"
                     />
@@ -23,14 +22,14 @@
 </template>
 <script>
 import RadioInput from './RadioInput.vue'
+import { setTimeout } from 'timers'
 export default {
     mixins: [RadioInput],
     props:{
         maxLength: Number,
         value: {
-            type: String,
-            default: '',
-            required: true
+            type: Object,
+            default: null,
         }
     },
     data(){
@@ -40,15 +39,26 @@ export default {
     },
     watch: {
         model(value){
-            console.log('VALUE',value, this.activity)
-            // if (this.valid || this.invalid) return
+            if (this.valid) return
+
+            if (this.model.toLowerCase() === this.value.text.toLowerCase()) {
+                this.setAnswer({ 
+                    type: this.type, 
+                    data: this.value.id,
+                    vm: this
+                })
+            } else {
+                this.setAnswer({ 
+                    type: this.type, 
+                    data: -1,
+                    vm: this
+                })
+            }
             
-            // this.setAnswer({ 
-            //     type: this.type, 
-            //     data: this.item.id,
-            //     vm: this
-            // })
         }
+    },
+    mounted(){
+        console.log(this.value)
     }
 }
 </script>
