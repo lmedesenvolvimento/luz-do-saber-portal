@@ -91,6 +91,7 @@
             text-align: center;
             font-size: 24px;
             padding: 1rem;
+            transition: box-shadow 0.2s ease-in-out;
             @include card-body-box-shadow($card-input-box-shadow-color);
         }
         &.valid{

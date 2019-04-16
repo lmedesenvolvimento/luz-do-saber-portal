@@ -1,6 +1,8 @@
 import qs from 'qs'
 import { findIndex } from 'lodash'
 
+import { setTimeout } from 'timers'
+
 export const PointingsTypes = {
     LostByAttempt: 'lost_a_star_by_attempt',
     LostByTime: 'lost_a_star_by_time'
