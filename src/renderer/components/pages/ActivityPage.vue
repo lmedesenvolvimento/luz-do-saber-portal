@@ -13,7 +13,6 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import { setTimeout } from 'timers';
 export default {
     components: {
         BaseActivity: require('@/components/ui/activities/BaseActivity').default,

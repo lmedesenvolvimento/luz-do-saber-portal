@@ -27,10 +27,10 @@
     </div>
 </template>
 <script>
-import { ListMixin, CreateAnswersMixins } from './mixins'
+import { MapMixins, ListMixin, CreateAnswersMixins } from './mixins'
 
 export default {
-    mixins: [ListMixin, CreateAnswersMixins],
+    mixins: [MapMixins, ListMixin, CreateAnswersMixins],
     mounted() {
         this.createAnswersArray()
     }

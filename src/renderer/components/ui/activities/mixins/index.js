@@ -25,9 +25,8 @@ export const ListMixin = {
         },
         getValues() {
             return this.activity.items.values
-        },        
-        ...mapState('Activity', ['activity', 'answer'])
+        }
     }
 }
 
-export { CreateAnswersMixins } from './answers'
+export { CreateAnswersMixins, MapMixins, createAnswer } from './answers'

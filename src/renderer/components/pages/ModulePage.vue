@@ -16,6 +16,9 @@
                     <b-btn variant="link" :to="historyBack">
                         Voltar
                     </b-btn>
+                    <b-btn variant="link" to="/componentes">
+                        Componentes
+                    </b-btn>                    
                 </b-card>                
             </b-card>
         </div>
