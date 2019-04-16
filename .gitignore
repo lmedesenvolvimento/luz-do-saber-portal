@@ -18,4 +18,4 @@ yarn.lock
 db.json
 
 # Deploy Web
-docker-web-app/public/*
+docker-web-app/public/**
