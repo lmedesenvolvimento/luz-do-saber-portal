@@ -24,7 +24,7 @@
             <br>
             <div class="feedback-footer-buttons">
                 <div class="icon-redo" @click="resetActivity"></div> 
-                <div class="icon-next"></div>              
+                <div class="icon-next" @click="nextActivity"></div>              
             </div>  
         </b-modal>    
     </div> 
@@ -151,14 +151,21 @@ export default {
         resetActivity(){
             let { params } = this.$route
             const question = this.unit.questions[(params.position - 1)]
-            console.log(question)
             this.destroyActivity()
             this.fetchActivity({ 
                 params, 
                 question
             })
             this.onHidden();
-        },        
+        },    
+        nextActivity(){
+            let { params } = this.$route
+            this.destroyActivity()
+            const newPosition = parseInt(params.position) + 1;
+            let newPath = `/game/${params.module_slug}/${params.theme_slug}/${params.unit_slug}/${newPosition}`            
+            this.$router.push({path: newPath})
+            this.onHidden();
+        }, 
         ...mapActions(['hideAlertActivitySuccess']),
         ...mapActions('Activity',['fetchActivity','destroyActivity'])
     }    
