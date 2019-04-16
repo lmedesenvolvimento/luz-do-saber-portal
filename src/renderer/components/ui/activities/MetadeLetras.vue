@@ -1,5 +1,7 @@
 <template>
-    <div></div>
+    <div>
+        <p v-for="(item, index) in activity.items" :key="index">{{ item }}, {{ index }}</p>
+    </div>
 </template>
 
 <script>
