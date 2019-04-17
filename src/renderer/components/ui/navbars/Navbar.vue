@@ -1,6 +1,6 @@
 <template>
     <nav class="navbar navbar-default">
-        <router-link to="/componentes">
+        <router-link to="/">
             <div class="icon-home"></div>
         </router-link>            
         <span class="flex"></span>
@@ -12,7 +12,7 @@
                 class="icon"
             >
             
-            <div v-if ="navbarIcon" class="vertical-bar"></div>
+            <div v-if="navbarIcon" class="vertical-bar"></div>
 
             <div class="titles">
                 <div v-if="navbarTitle" class="navbar-title">{{ navbarTitle }}</div>

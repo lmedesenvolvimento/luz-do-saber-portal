@@ -1,13 +1,13 @@
 <template>
     <div class="gameplay">
         <div class="step-bars">
-            <router-link 
-                class="bar" 
+            <div
                 v-for="(value, index) in unit.questions" 
-                :key="index" 
-                :to="{ name: 'activity', params: { position: (index + 1) }}"
-                v-bind:class="{'active': getPosition == ( index + 1 )}" >
-            </router-link>
+                :key="index"
+                class="bar" 
+                :class="{'active': getPosition == ( index + 1 )}"
+                @click="goActivity(index + 1)" 
+            ></div>
         </div>
         <div class="gameplay-heading">
             <div class="gameplay-counter counter">
@@ -15,7 +15,7 @@
             </div>
             <div class="gameplay-heading-title">{{ getTitle }}</div>
         </div>
-        <router-view ></router-view>        
+        <router-view />
         <div class="gameplay-footer">
             <div class="gameplay-footer-actions">
                 <div class="flex"></div>
@@ -43,24 +43,26 @@ import { mapActions, mapState } from 'vuex'
 export default {
     components: {
         'ls-timer': require('@/components/ui/helpers/Timer').default,
-        'ls-activity': require('@/components/ui/activities/BaseActivity').default,
         ...alerts
-    },
-    created(){
-        this.$router.push({ name: 'activity', params: { position: 1 }})
     },
     computed: {
         getPosition(){
-            return this.activity ? this.activity.position : ''
+            return this.navigator.order
         },
         getTitle(){
-          return this.activity ? this.activity.title.text : ''
+            return this.activity ? this.activity.title.text : ''
         },
         getDescription(){
-          return this.activity && this.activity.statement ? this.activity.statement.text : ''
+            return this.activity && this.activity.statement ? this.activity.statement.text : ''
         },                
-        ...mapState('Unit', ['unit']),
+        ...mapState('Unit', ['unit', 'navigator']),
         ...mapState('Activity', ['activity','answer', 'log'])
-    }    
+    }, 
+    created(){
+        this.$router.push({ name: 'activity', params: { position: 1 }})
+    },  
+    methods: {
+        ...mapActions('Unit', ['goActivity'])
+    }
 }
 </script>

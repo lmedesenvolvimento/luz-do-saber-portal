@@ -2,11 +2,7 @@
     background: url(../images/components/feedback/comecar/background-comecar.png);
     background-position-x: -80px;
     border: hidden;
-    .modal-body{
-       
-        
-    }
-     .feedback-header {
+    .feedback-header {
         margin: 0 auto;
         display: flex;
         flex-direction: column;
@@ -18,7 +14,6 @@
     .feedback-rounded-number {
         display: flex;
         border: solid 2px;
-        padding-top: 6px;
         align-items: center;
         justify-content: center;
         width: 35px;
@@ -53,6 +48,7 @@
     }
     .feedback-content {        
         display: flex;
+        text-transform: uppercase;
         flex-direction: column;
         align-items: center;
         justify-content: center;

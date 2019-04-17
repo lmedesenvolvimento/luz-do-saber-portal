@@ -1,3 +1,21 @@
+.card-display{
+    @include custom-card;
+}
+
+.card-input{
+    @include custom-card(true);
+    &.card-input-text{
+        input{
+            background: transparent;
+            outline: none;
+            border: none;
+            width: 100%;
+            text-align: center;
+            text-transform: uppercase;
+        }
+    }
+}
+
 // .card{
 //     @include card_boxshadow();
 //     border-radius: 1.25rem;

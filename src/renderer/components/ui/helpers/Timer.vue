@@ -17,18 +17,18 @@ export default {
             timer: null
         }
     },
-    created(){
-        this.timer = setInterval(_ => this.incrementTimer(), WAIT_TIME)
-    },
-    beforeDestroy(){
-        clearInterval(this.timer)
-    },
     computed: {
         getDuration(){
             let totalSeconds = (this.log.timer.totalSeconds * 1000)
             return moment(totalSeconds).format('mm:ss')
         },
         ...mapState('Activity', ['log'])
+    },
+    created(){
+        this.timer = setInterval(_ => this.incrementTimer(), WAIT_TIME)
+    },
+    beforeDestroy(){
+        clearInterval(this.timer)
     },
     methods: {
         ...mapActions('Activity', ['incrementTimer'])

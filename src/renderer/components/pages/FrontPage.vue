@@ -21,7 +21,7 @@
                                     />
                                 </router-link>
                             </div>
-                        </b-row>
+                        </b-row>                        
                     </b-container>
                 </b-row>
             </b-container>

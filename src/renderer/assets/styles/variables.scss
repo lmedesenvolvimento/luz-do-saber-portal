@@ -10,6 +10,7 @@ $text-color: #5F4343;
 $text-invert: #fff;
 
 $navbar-bgcolor: #C62222;
+$navbar-title-size: 32px;
 
 /******
 *
@@ -17,16 +18,17 @@ $navbar-bgcolor: #C62222;
 *
 *****/
 
-$navbar-height: 94px;
+$navbar-height: 70px;
 
 // Icons
-$icon-width: 80px;
-$icon-height: 80px;
+$icon-width: 62px;
+$icon-height: 62px;
 
 $icon-names: (
     'icon-home',
     'icon-next',
     'icon-prev',
+    'icon-redo',
 );
 
 $icon-themes: (
@@ -41,20 +43,32 @@ $icon-themes: (
 // );
 
 // Cards
-$card-heading-bg-color: transparentize(#f4f4f4, 0.5);
+$card-input-dark-border-color: #2B1F17;
+$card-input-box-shadow-intesity: 6px;
+$card-input-box-shadow-color: $card-input-dark-border-color;
+$card-input-box-shadow-success-color: #7DB239;
+$card-input-box-shadow-danger-color: #C72929;
 
 // Fontsizes
 $font-size-variants: (
     small: 12px,
     normal: 18px,
     big: 24px
-);
+    );
+    
+    $font-displays: (
+        d1: 1rem,
+        d2: 2rem,
+        d3: 3rem,
+        d4: 4rem,
+        d5: 5rem,
+        d6: 6rem
+        );
+        
+        
+// Gameplay
+$gameplay-heading-bg-color: lighten(#f4f4f4, 2.5);
+$gameplay-header-height: 100px;
+$gameplay-footer-height: 50px;
 
-$font-displays: (
-    d1: 1rem,
-    d2: 2rem,
-    d3: 3rem,
-    d4: 4rem,
-    d5: 5rem,
-    d6: 6rem
-);
+$gameplay-border-color: #ddd;

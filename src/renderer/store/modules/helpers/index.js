@@ -1,6 +1,8 @@
 import qs from 'qs'
 import { findIndex } from 'lodash'
 
+import { setTimeout } from 'timers'
+
 export const PointingsTypes = {
     LostByAttempt: 'lost_a_star_by_attempt',
     LostByTime: 'lost_a_star_by_time'
@@ -77,11 +79,11 @@ export function getExtenalParams(question) {
     let external_params = []
 
     switch (question.external_param_type) {
-        case 'substantivo_proprio':
-            external_params.push({ 'name': 'Ronaldo' })
-            break;
-        default:
-            break;
+    case 'substantivo_proprio':
+        external_params.push({ 'name': 'Ronaldo' })
+        break
+    default:
+        break;
     }
     if (external_params.length) {
         return {

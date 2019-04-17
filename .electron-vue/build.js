@@ -2,6 +2,8 @@
 
 process.env.NODE_ENV = 'production'
 
+require('dotenv').config({ path: '.env' })
+
 const { say } = require('cfonts')
 const chalk = require('chalk')
 const del = require('del')
@@ -19,8 +21,6 @@ const errorLog = chalk.bgRed.white(' ERROR ') + ' '
 const okayLog = chalk.bgBlue.white(' OKAY ') + ' '
 const isCI = process.env.CI || false
 
-require('dotenv').config({ path: '.env' })
-
 if (process.env.BUILD_TARGET === 'clean') clean()
 else if (process.env.BUILD_TARGET === 'web') web()
 else build()
@@ -33,7 +33,7 @@ function clean () {
 
 function build () {
   greeting()
-
+  
   del.sync(['dist/electron/*', '!.gitkeep'])
 
   const tasks = ['main', 'renderer']
