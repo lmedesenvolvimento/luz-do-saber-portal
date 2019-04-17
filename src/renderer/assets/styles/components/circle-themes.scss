@@ -1,0 +1,70 @@
+.progress-chart{
+    display: flex;
+    max-width: 483px;
+    transition: all 0.2s ease-in;
+    background-color: #ccc;
+    .col {
+        padding: 0;
+    }
+    .title-container{
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        text-align: center;
+        border-radius: 4px;
+        font-weight: bold;
+        text-transform: uppercase;
+        background-color: white;
+        color: '#b0b0b0b0' 
+    }
+    .img-container{
+        border-radius: 50%;
+        max-height: 190px;
+        .img-fluid {
+            background-color: white;
+        }
+    }
+    .container-circle {
+        background-color: black;
+        max-width: 190px; 
+        max-height: 190px;
+        // padding: 100px 150px;
+    }
+    .chart-progress-container{
+        width: 100%;
+    }
+
+    &:hover{
+        cursor: pointer;
+        transform: scale(1.05);
+
+        .chart-progress-label{
+            color: white !important;
+        }
+    }
+}
+
+@include media-breakpoint-down(md){
+.chart-progress{
+    margin: 36px auto;
+}
+}
+
+// @include media-breakpoint-down(xs){
+// .chart-progress{
+//     .chart-progress-label{
+//         max-width: 90%;
+//         font-size: 21px;
+//     }
+//     .img-container{
+//         width: 110px;
+//         height: 110px;
+//     }
+// }
+// }
+
+.front-page-logo {
+max-width: 32%;
+}
