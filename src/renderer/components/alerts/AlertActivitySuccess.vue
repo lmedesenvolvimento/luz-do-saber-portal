@@ -23,14 +23,16 @@
             </div>             
             <br>
             <div class="feedback-footer-buttons">
-                <div class="icon-redo"></div> 
-                <div class="icon-next"></div>              
+                <div class="icon-redo" @click="resetActivity"></div> 
+                <div class="icon-next" @click="nextActivity"></div>              
             </div>  
         </b-modal>    
     </div> 
 </template>
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex'
+import { find } from 'lodash'
+
 export default {
     data(){
         return {
@@ -120,6 +122,7 @@ export default {
         ...mapState({
             isVisibleActivityAlertSuccess: state => state.Alert.isVisibleActivityAlertSuccess
         }),
+        ...mapState('Unit',['unit']),
         ...mapState('Activity',['activity','log']),
         ...mapGetters('Activity',['totalStars'])
     },
@@ -147,7 +150,27 @@ export default {
         onHidden(){
             this.hideAlertActivitySuccess()
         },
+        resetActivity(){
+            let { params } = this.$route
+            const question = find(this.unit.questions, { order: this.activity.order })
+
+            this.destroyActivity()
+            this.fetchActivity({ 
+                params, 
+                question
+            })
+            this.onHidden();
+        },    
+        nextActivity(){
+            let { params } = this.$route
+            this.destroyActivity()
+            const newPosition = ( this.activity.order + 1 )
+            let newPath = `/game/${params.module_slug}/${params.theme_slug}/${params.unit_slug}/${newPosition}`            
+            this.$router.push({path: newPath})
+            this.onHidden()
+        }, 
         ...mapActions(['hideAlertActivitySuccess']),
+        ...mapActions('Activity',['fetchActivity','destroyActivity'])
     }    
 }
 </script>

@@ -13,6 +13,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import { find } from 'lodash'
 export default {
     components: {
         BaseActivity: require('@/components/ui/activities/BaseActivity').default,
@@ -30,6 +31,7 @@ export default {
             return this.hasDescription ? this.activity.statement.text : ''
         },
         getQuestion(){
+            // return find(this.unit.questions, question => question.order.toString() === params.position)
             let { params } = this.$route
             return this.unit.questions[(params.position - 1)]
         },
@@ -39,6 +41,7 @@ export default {
     watch: {
         $route (newVal) {
             this.destroyActivity()
+
             this.fetchActivity({ 
                 params: newVal.params, 
                 question: this.getQuestion
