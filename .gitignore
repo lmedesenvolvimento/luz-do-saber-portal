@@ -16,3 +16,6 @@ yarn.lock
 
 # Local Database
 db.json
+
+# Deploy Web
+docker-web-app/public/**
