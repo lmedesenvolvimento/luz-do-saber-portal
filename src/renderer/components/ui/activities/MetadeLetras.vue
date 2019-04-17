@@ -4,14 +4,34 @@
             <p v-if="!item.hide">{{ item.text }}</p>
             <p v-if="item.hide">escondido</p>
         </div>
+
+        <b-row>
+            <b-col
+                v-for="item in activity.items.keys" 
+                :key="item.id" 
+                cols="2"
+            >
+                <ls-card-input-text
+                    v-if="item.hide"
+                    name="base-input" 
+                    :value="item" 
+                    :max-length="1" 
+                    type="value"
+                />
+
+                <ls-card-display v-if="!item.hide">{{ item.text }}</ls-card-display>
+            </b-col>
+        </b-row>
     </div>
 </template>
 
 <script>
 import { ListMixin, MapMixins, CreateAnswersMixins } from './mixins'
 import { sampleSize, drop } from 'lodash'
+import form from '../form'
 
 export default {
+    components: { ...form },
     mixins: [ListMixin, MapMixins, CreateAnswersMixins],
     // data(){
     //     return {
