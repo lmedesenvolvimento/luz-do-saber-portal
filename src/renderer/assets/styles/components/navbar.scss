@@ -13,7 +13,7 @@
     user-select: none;
     z-index: 80;
     .title-holder{
-        display: flex;
+        display: flex !important;
         align-items: center;
         justify-content: center;
         flex-direction: row;
