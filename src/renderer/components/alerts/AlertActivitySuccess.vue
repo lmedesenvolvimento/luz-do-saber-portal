@@ -131,7 +131,6 @@ export default {
             this.isVisible = value
         },
         activity(value){
-            console.log('activity', value)
             if (value) {
                 this.activityName = value.title.text
                 this.moduleSlug = value.module.slug
@@ -155,18 +154,16 @@ export default {
             const question = find(this.unit.questions, { order: this.activity.order })
 
             this.destroyActivity()
+            
             this.fetchActivity({ 
                 params, 
                 question
             })
+
             this.onHidden();
         },    
         nextActivity(){
-            let { params } = this.$route
-            this.destroyActivity()
-            const newPosition = ( this.activity.order + 1 )
-            let newPath = `/game/${params.module_slug}/${params.theme_slug}/${params.unit_slug}/${newPosition}`            
-            this.$router.push({path: newPath})
+            this.$store.dispatch('Unit/nextActivity')            
             this.onHidden()
         }, 
         ...mapActions(['hideAlertActivitySuccess']),
