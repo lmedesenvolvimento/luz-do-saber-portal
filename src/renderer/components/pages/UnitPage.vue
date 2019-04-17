@@ -40,11 +40,3 @@ export default {
 <style>
 
 </style>
-
-    <div v-if="unit" id="unit" class="page-container">
-        <ls-navbar :navbar-title="unit.title"></ls-navbar>
-        <ls-gameplay></ls-gameplay>
-    mixins: [ RouteMixin ],
-    created(){
-        this.fetchUnit(this.$route.params)
-    },
