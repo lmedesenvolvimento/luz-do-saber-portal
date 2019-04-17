@@ -1,7 +1,6 @@
 <script>
 import { mapActions } from 'vuex'
 import { invalid } from 'moment';
-import { setTimeout } from 'timers';
 export default {
     inheritAttrs: false,
     model: {
@@ -24,8 +23,10 @@ export default {
     watch: {
         invalid(newVal){
             if(newVal){
-                // return for selected status
-                setTimeout(_ => this.invalid = false, 800)
+                // force render
+                this.$nextTick(() => {
+                    if(newVal) setTimeout( _ => this.invalid = false, 600)
+                })
             }
         }
     },

@@ -4,6 +4,8 @@
 
 .counter{
     position: relative;
+    width: 48px;
+    height: 48px;
     @include embed_image('~@/assets/images/icons/red/counter.png', 50px, 50px);
     > span{
         position: absolute;
@@ -17,7 +19,6 @@
         bottom: 0px;
         left: 0px;
         right: 0px;
-        margin: auto;
     }
 }
 
