@@ -8,6 +8,7 @@
     background: url('../images/components/navbar/navbar-bg.png') $navbar-bgcolor repeat-x;
     color: $text-invert;
     display: flex;
+    flex-wrap: nowrap;
     align-items: center;
     user-select: none;
     z-index: 80;
@@ -16,6 +17,7 @@
         align-items: center;
         justify-content: center;
         flex-direction: row;
+        @include ellipsis;
     }
     .vertical-bar{
         border-left: 2px white solid;
@@ -37,6 +39,6 @@
         text-transform: uppercase;
         text-align: center;
         overflow: visible !important;
-        @include ellipsis(100%);
+        @include ellipsis;
     }
 }
