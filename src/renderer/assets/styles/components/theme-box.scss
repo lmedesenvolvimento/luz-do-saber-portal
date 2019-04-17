@@ -18,15 +18,14 @@ a:hover {
 
 .theme-unit {
 	text-align: center;
-	min-width: 250px;
-	max-width: 525px;
-	// min-height: 250px;
-	flex-basis: 42%;
+	min-width: 220px;
+	max-width: 360px;
+	flex-basis: 33%;
 	.header-unit {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		background-color: #c72929;
+		background-color: #C72929;
 		border-radius: 10px 10px 0 0;
 		box-shadow: 1px 1px 8px #3a3a3a;
 		
@@ -44,10 +43,10 @@ a:hover {
 		background-position: center;
 		background-repeat: no-repeat;
 		background-size: 104% 104%;
-		border: solid .1em #fff;
+		border: solid .2em #fff;
 		border-radius: 12px;
-		box-shadow: 1px 1px 10px #3a3a3a;
-		background-color: #c72929;
+		box-shadow: 1px 1px 14px #3a3a3a;
+		background-color: #C72929;
 		font-family: "Itim Regular";
 		align-items: center;
 		display: flex;
@@ -62,7 +61,7 @@ a:hover {
 					background-position: center;
 					background-repeat: no-repeat;
 					background-size: contain;
-					min-height: 50px;
+					min-height: 40px;
 					padding: 0;
 				}
 			}
@@ -72,6 +71,7 @@ a:hover {
 				h3 {
 					@include ellipsis;
 					margin: 0;
+					font-size: 20px;
 				}
 			}
 			.activities-completed {
@@ -80,17 +80,19 @@ a:hover {
 			}
 
 			.line {
-				border-bottom: 2px solid #b0b0b0;
+				border-bottom: 1px solid #b0b0b0;
 			}
 		}
 		.container-unit-image {
 			min-width: 50%;
+			padding: 0;
 			.unit-image {
 				background-image: url("https://image.flaticon.com/icons/png/128/145/145867.png");
 				background-size: contain;
 				background-repeat: no-repeat;
 				background-position: center;
-				min-height: 220px;
+				padding: 0;
+				min-height: 175px;
 			}
 		}
 	}
