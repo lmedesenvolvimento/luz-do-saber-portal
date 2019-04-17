@@ -31,6 +31,8 @@
 </template>
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex'
+import { find } from 'lodash'
+
 export default {
     data(){
         return {
@@ -150,7 +152,8 @@ export default {
         },
         resetActivity(){
             let { params } = this.$route
-            const question = this.unit.questions[(params.position - 1)]
+            const question = find(this.unit.questions, { order: this.activity.order })
+
             this.destroyActivity()
             this.fetchActivity({ 
                 params, 
@@ -161,10 +164,10 @@ export default {
         nextActivity(){
             let { params } = this.$route
             this.destroyActivity()
-            const newPosition = parseInt(params.position) + 1;
+            const newPosition = ( this.activity.order + 1 )
             let newPath = `/game/${params.module_slug}/${params.theme_slug}/${params.unit_slug}/${newPosition}`            
             this.$router.push({path: newPath})
-            this.onHidden();
+            this.onHidden()
         }, 
         ...mapActions(['hideAlertActivitySuccess']),
         ...mapActions('Activity',['fetchActivity','destroyActivity'])
