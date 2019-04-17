@@ -23,6 +23,7 @@
         .gameplay-heading-title{
             font-size: 25px;
             line-height: 40px;
+            min-height: 40px;
             text-transform: uppercase;
             @include ellipsis(100%);
         }
@@ -103,6 +104,9 @@
             }
             &:last-child{                
                 margin-right: 0px;
+            }
+            &:hover, &:active{
+                cursor: pointer;
             }
         }
     }

@@ -31,11 +31,10 @@ export default {
             return this.hasDescription ? this.activity.statement.text : ''
         },
         getQuestion(){
-            // return find(this.unit.questions, question => question.order.toString() === params.position)
             let { params } = this.$route
-            return this.unit.questions[(params.position - 1)]
+            return find(this.unit.questions, { order: this.navigator.order })   
         },
-        ...mapState('Unit', ['unit']),
+        ...mapState('Unit', ['unit','navigator']),
         ...mapState('Activity', ['activity'])
     },
     watch: {

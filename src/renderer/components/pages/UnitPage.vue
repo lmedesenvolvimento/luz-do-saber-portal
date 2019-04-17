@@ -15,7 +15,15 @@ export default {
     components: { ...ui },
     mixins: [ RouteMixin ],
     computed: {
-        ...mapState('Unit', ['unit'])
+        ...mapState('Unit', ['unit', 'navigator'])
+    },
+    watch: {
+        navigator: {
+            handler(val){
+                console.log(val)
+            },
+            deep: true
+        }
     },
     created(){
         this.fetchUnit(this.$route.params)
