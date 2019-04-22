@@ -2,7 +2,7 @@
     <div>
         <b-row>
             <b-col
-                v-for="item in activity.items.keys" 
+                v-for="item in activity.items.values" 
                 :key="item.id" 
                 cols="2"
             >
@@ -27,6 +27,8 @@ import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from './mixin
 import { sampleSize, drop, range } from 'lodash'
 import form from '../form'
 
+import { mapActions } from 'vuex'
+
 export default {
     components: { ...form },
     mixins: [ListMixin, MapMixins, CreateAnswersMixins],
@@ -46,7 +48,7 @@ export default {
             for (let item in this.activity.items.keys){
                 if (aux[i] === this.activity.items.keys[item])
                     // esconde as letras selecionadas
-                    this.activity.items.keys[item].hide = true
+                    this.activity.items.values[item].hide = true
             }
         })
 
@@ -55,6 +57,8 @@ export default {
 
         //seta as respostas
         this.setAnswersArray(this.answers)
+        // atualiza total de respostas válidas
+        this.setActivityAttrs({ total_correct_items: this.answers.length })
     },
     mounted(){
     },
@@ -69,7 +73,8 @@ export default {
 
             this.setAnswers(answers)
             console.log('respostas', answers)
-        }
+        },
+        ...mapActions('Activity', ['setActivityAttrs'])
     }
 }
 </script>
