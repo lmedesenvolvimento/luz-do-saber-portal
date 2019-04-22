@@ -40,9 +40,7 @@ export default {
         ...mapState('Modules', ['modules'])
     },
     created(){
-        this.fetchModules()
-        console.log(this.modules);
-        
+        this.fetchModules()       
     },
     methods: {
         getModuleImage(module){

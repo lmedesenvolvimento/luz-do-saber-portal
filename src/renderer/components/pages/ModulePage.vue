@@ -4,7 +4,7 @@
             <navbar
                 :navbar-title="'MÓDULO: '+activeModule.slug "
                 :navbar-subtitle="'TEMAS'"
-                :navbar-icon="'@/assets/images/btn-start.png'"
+                :navbar-icon="getModuleImage(activeModule)"
             />
             <b-row class="mt-5">
                 <div class="circle">
@@ -47,16 +47,16 @@ export default {
     },  
     methods: {
         getModuleImage(module){
-            // switch (module.slug) {
-            // case 'comecar':
-            //     return require('@/assets/images/btn-start.png')
-            // case 'ler':
-            //     return require('@/assets/images/btn-read.png')
-            // case 'escrever':
-            //     return require('@/assets/images/btn-write.png')
-            // default:
-            //     break;
-            // }
+            switch (module.slug) {
+            case 'comecar':
+                return require('@/assets/images/btn-start.png')
+            case 'ler':
+                return require('@/assets/images/btn-read.png')
+            case 'escrever':
+                return require('@/assets/images/btn-write.png')
+            default:
+                break;
+            }
         },
         getModuleColor(module){
             switch (module.slug) {
