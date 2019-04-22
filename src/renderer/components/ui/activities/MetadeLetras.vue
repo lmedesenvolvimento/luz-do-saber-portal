@@ -29,11 +29,6 @@ import { mapActions } from 'vuex'
 export default {
     components: { ...form },
     mixins: [ListMixin, MapMixins, CreateAnswersMixins],
-    data(){
-        return {
-            answers: []
-        }
-    },
     created(){
         //definindo quantidade de respostas. se par, 50% das letras somem, se impar 50% arredondado pra baixo + 1
         let size = (this.activity.items.keys.length % 2 === 0) ? this.activity.items.keys.length / 2 : Math.floor(this.activity.items.keys.length / 2) + 1
@@ -48,9 +43,6 @@ export default {
                     this.activity.items.values[item].hide = true
             }
         })
-
-        //guardando pra poder exibir como debug na tela 
-        this.answers = keys
 
         //seta as respostas
         this.setAnswersArray(keys)
