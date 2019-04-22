@@ -2,7 +2,8 @@
         position: relative;
         transition: all 0.2s ease-in;
         .card{
-            max-width: 240px;
+            // max-width: 240px;
+            width: 240px;
             margin: auto;
         }
         .card-body{
@@ -104,5 +105,5 @@
 }
 
 .front-page-logo {
-    max-width: 32%;
+    max-width: 320px;
 }

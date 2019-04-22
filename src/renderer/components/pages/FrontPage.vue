@@ -30,7 +30,7 @@
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
-import VueCircle from './CircleProgress'
+import VueCircle from '@/components/ui/CircleProgress'
 
 export default {
     components: {
