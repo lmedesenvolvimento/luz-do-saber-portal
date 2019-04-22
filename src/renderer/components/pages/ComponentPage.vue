@@ -15,7 +15,7 @@
                             <ls-card-input-text
                                 name="base-input" 
                                 :value="item" 
-                                :max-length="10" 
+                                :max-length="1" 
                                 type="value"
                             />
                         </b-col>
@@ -91,7 +91,7 @@ export default {
     },
     mounted(){
         this.getUnit()
-        setTimeout(this.getActivity.bind(this), 1000)
+        setTimeout(this.getActivity.bind(this), 2000)
     },
     methods: {
         getActivity(){
@@ -108,7 +108,7 @@ export default {
                     question: this.unit.questions[0]
                 })
 
-                setTimeout(() => console.log(this.activity), 3000)
+                setTimeout(() => console.log(this.activity), 2000)
             } catch (error) {
                 console.warn(error)
             }
