@@ -32,7 +32,7 @@
 import { mapState, mapActions } from 'vuex';
 import { RouteMixin } from './index';
 
-import ThemesBox from './ThemesBox'
+import ThemesBox from '../ui/pages/ThemesBox'
 import Navbar from '../ui/navbars/Navbar';
 
 export default {
