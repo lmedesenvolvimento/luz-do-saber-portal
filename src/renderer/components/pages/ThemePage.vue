@@ -1,40 +1,45 @@
 <template>
-    <div id="theme" class="page-container">        
+    <div id="theme" class="page-container">
+        <navbar
+            :navbar-title="'TEMA '+theme.title"
+            :navbar-subtitle="'Unidades'"
+            :navbar-icon="'https://placeimg.com/480/480/tech'"
+        />
         <div class="container">
-            <b-card class="mt-5">
-                <b-card>
-                    <b-card-body v-if="theme">
-                        <h2>Thema</h2>
-                        <h1>{{ theme.title }}</h1>
-                        <ul>
-                            <li v-for="unit in theme.units" :key="unit.id">
-                                <router-link :to="{ 
-                                    name: 'unit', 
-                                    params: { 
-                                        module_slug: $route.params.module_slug, 
-                                        theme_slug: theme.slug,
-                                        unit_slug: unit.slug
-                                    }}"
-                                >
-                                    {{ unit.title }}
-                                </router-link>
-                            </li>
-                        </ul>
-                        <b-btn variant="link" :to="historyBack">
-                            Voltar
-                        </b-btn>
-                    </b-card-body>
-                </b-card>                
-            </b-card>
+            <div class="py-5">
+                <b-col v-if="theme" class="my-5 theme-unities-list">
+                    <b-col v-for="unit in theme.units" :key="unit.id" class="mx-5 my-4 theme-unit">
+                        <router-link
+                            :to="{ 
+                                name: 'unit', 
+                                params: { 
+                                    module_slug: $route.params.module_slug, 
+                                    theme_slug: theme.slug,
+                                    unit_slug: unit.slug
+                                }
+                            }"
+                        >
+                            <themes-box :unit="unit" />
+                        </router-link>
+                    </b-col>
+                </b-col>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
-import { RouteMixin } from './index'
+import { mapState, mapActions } from 'vuex';
+import { RouteMixin } from './index';
+
+import ThemesBox from './ThemesBox'
+import Navbar from '../ui/navbars/Navbar';
 
 export default {
+    components: { 
+        ThemesBox,
+        Navbar, 
+    },
     mixins: [RouteMixin],
     computed: {
         ...mapState('Theme', ['theme'])
@@ -45,9 +50,8 @@ export default {
     methods: {
         ...mapActions('Theme', ['fetchTheme'])
     }
-}
+};
 </script>
 
 <style>
-
 </style>

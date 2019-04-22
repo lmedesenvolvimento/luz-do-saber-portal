@@ -17,9 +17,9 @@
             <div class="titles">
                 <div v-if="navbarTitle" class="navbar-title">{{ navbarTitle }}</div>
                 <div v-if="navbarSubtitle" class="subtitle">{{ navbarSubtitle }}</div>
-            </div>                
+            </div>
         </div>
-        
+
         <span class="flex"></span>
     </nav>
 </template>
@@ -30,5 +30,5 @@ export default {
         navbarTitle: String,
         navbarSubtitle: String
     }
-}
+};
 </script>
