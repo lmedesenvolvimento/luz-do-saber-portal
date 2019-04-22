@@ -12,6 +12,11 @@
             width: 100%;
             text-align: center;
             text-transform: uppercase;
+            border-bottom: 2px solid transparentize($card-input-dark-border-color, 1);
+            transition: border-bottom 0.2s ease-in;
+            &:focus{                
+                border-bottom: 2px solid $card-input-dark-border-color;
+            }
         }
     }
 }
