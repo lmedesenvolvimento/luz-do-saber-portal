@@ -8,7 +8,7 @@
                     <h4>Input Text Card</h4>
                     <b-row>
                         <b-col
-                            v-for="item in activity.items.values" 
+                            v-for="(item, index) in activity.items.values" 
                             :key="item.id" 
                             cols="2"
                         >
@@ -17,6 +17,7 @@
                                 :value="item" 
                                 :max-length="1" 
                                 type="value"
+                                :autofocus="index === 0"
                             />
                         </b-col>
                     </b-row>
