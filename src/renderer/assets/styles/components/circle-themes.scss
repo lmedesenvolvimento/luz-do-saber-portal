@@ -27,10 +27,9 @@
         }
     }
     .container-circle {
-        background-color: black;
+        background-color: transparent;
         max-width: 190px; 
         max-height: 190px;
-        // padding: 100px 150px;
     }
     .chart-progress-container{
         width: 100%;
@@ -51,20 +50,6 @@
     margin: 36px auto;
 }
 }
-
-// @include media-breakpoint-down(xs){
-// .chart-progress{
-//     .chart-progress-label{
-//         max-width: 90%;
-//         font-size: 21px;
-//     }
-//     .img-container{
-//         width: 110px;
-//         height: 110px;
-//     }
-// }
-// }
-
 .front-page-logo {
 max-width: 32%;
 }
