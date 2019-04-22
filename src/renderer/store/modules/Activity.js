@@ -28,13 +28,14 @@ const state = {
 const mutations = {        
     SET_ANSWERS(state, payload){
         state.answer = payload
+        console.log('SET_ANSWER',state.answer)
     },
 
     SET_ACTIVITY(state, activity){
         Vue.set(state, 'activity', activity)
     },
 
-    INCREMENT_TIMER(state, activity){
+    INCREMENT_TIMER(state){
         state.log.timer.totalSeconds += 1
     },    
 
@@ -127,6 +128,10 @@ const actions = {
     // update list answer
     setAnswers({ commit }, payload){
         commit('SET_ANSWERS', payload)
+    },
+
+    setActivityAttrs({ commit, state }, attrs){
+        commit('SET_ACTIVITY', Object.assign(state.activity, attrs))
     },
 
     // Timer Actions

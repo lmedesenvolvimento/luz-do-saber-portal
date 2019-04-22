@@ -41,7 +41,10 @@ export default {
         model(value){
             if (this.valid) return
 
+            console.log(this.model.toLowerCase(), this.value.text.toLowerCase())
+
             if (this.model.toLowerCase() === this.value.text.toLowerCase()) {
+                console.log(this.type, this.value.id)
                 this.setAnswer({ 
                     type: this.type, 
                     data: this.value.id,
