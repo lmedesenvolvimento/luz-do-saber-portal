@@ -3,8 +3,8 @@
         <b-row>
             <b-col
                 v-for="item in activity.items.values" 
-                :key="item.id" 
-                cols="2"
+                :key="item.id"
+                :sm="valueColSize"
             >
                 <ls-card-input-text
                     v-if="item.hide"
