@@ -141,9 +141,9 @@ export default {
     methods: {        
         star: function (num) {
             if (this.totalStars > num){
-                return require('@/assets/images/components/feedback/star-full.png')
+                return require('@/assets/images/icons/star-full.png')
             } else {
-                return require('@/assets/images/components/feedback/star-empty.png')
+                return require('@/assets/images/icons/star-empty.png')
             }
         },
         onHidden(){
