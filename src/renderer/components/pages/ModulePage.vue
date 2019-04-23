@@ -1,71 +1,37 @@
 <template>
     <div id="module" class="page-container" :class="activeModule ? activeModule.slug : ''">
-        <div v-if="activeModule" class="container">
-            <navbar
-                :navbar-title="'MÓDULO: '+activeModule.slug "
-                :navbar-subtitle="'TEMAS'"
-                :navbar-icon="getModuleImage(activeModule)"
-            />
-            <b-row>
-                <b-list-group horizontal class="circle-list">
-                    <b-list-group v-for="theme in activeModule.themes" :key="theme.id">
-                        <router-link :to="{ name: 'theme', params: { module_slug: $route.params.module_slug, theme_slug: theme.slug } }">
+        <div class="centerlize">
+            <div v-if="activeModule" class="container">
+                <navbar
+                    :navbar-title="'MÓDULO: '+activeModule.slug "
+                    :navbar-subtitle="'TEMAS'"
+                    :navbar-icon="getModuleImage(activeModule)"
+                />
+                <b-row>
+                    <b-list-group horizontal class="circle-list">
+                        <b-list-group v-for="theme in activeModule.themes" :key="theme.id">
+                            <router-link :to="{ name: 'theme', params: { module_slug: $route.params.module_slug, theme_slug: theme.slug } }">
+                                <vue-circle
+                                    class="m-5"
+                                    :label="theme.title"
+                                    :image="getThemeImage(theme.slug)"
+                                    :progress="50"
+                                    :color="getModuleColor(activeModule)"
+                                />
+                            </router-link>
+                        </b-list-group>
+                        <b-list-group v-for="index in 3" :key="index">
                             <vue-circle
-                                class="m-4"
-                                :label="theme.title"
-                                :image="getThemeImage(theme.slug)"
+                                class="m-5"
+                                :label="'Título'"
+                                :image="'https://image.flaticon.com/icons/png/128/145/145867.png'"
                                 :progress="50"
-                                :color="getModuleColor(activeModule)"
+                                :color="{ color: '#C72929' }"
                             />
-                        </router-link>
+                        </b-list-group>
                     </b-list-group>
-                    <b-list-group>
-                        <vue-circle
-                            class="m-4"
-                            :label="'Título'"
-                            :image="'https://image.flaticon.com/icons/png/128/145/145867.png'"
-                            :progress="50"
-                            :color="{ color: '#EC2727' }"
-                        />
-                    </b-list-group>
-                    <b-list-group>
-                        <vue-circle
-                            class="m-4"
-                            :label="'Título'"
-                            :image="'https://image.flaticon.com/icons/png/128/145/145867.png'"
-                            :progress="50"
-                            :color="{ color: '#EC2727' }"
-                        />
-                    </b-list-group>
-                    <b-list-group>
-                        <vue-circle
-                            class="m-4"
-                            :label="'Título'"
-                            :image="'https://image.flaticon.com/icons/png/128/145/145867.png'"
-                            :progress="50"
-                            :color="{ color: '#EC2727' }"
-                        />
-                    </b-list-group>
-                    <b-list-group>
-                        <vue-circle
-                            class="m-4"
-                            :label="'Título'"
-                            :image="'https://image.flaticon.com/icons/png/128/145/145867.png'"
-                            :progress="50"
-                            :color="{ color: '#EC2727' }"
-                        />
-                    </b-list-group>
-                    <b-list-group>
-                        <vue-circle
-                            class="m-4"
-                            :label="'Título'"
-                            :image="'https://image.flaticon.com/icons/png/128/145/145867.png'"
-                            :progress="50"
-                            :color="{ color: '#EC2727' }"
-                        />
-                    </b-list-group>
-                </b-list-group>
-            </b-row>
+                </b-row>
+            </div>
         </div>
     </div>
 </template>
@@ -104,7 +70,7 @@ export default {
         getModuleColor(module){
             switch (module.slug) {
             case 'comecar':
-                return  { color: '#EC2727' }
+                return  { color: '#C72929' }
             case 'ler':
                 return { color: '#00963F' }
             case 'escrever':
