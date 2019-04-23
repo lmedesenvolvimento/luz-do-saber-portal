@@ -11,9 +11,10 @@
                     name="base-input" 
                     :value="item"
                     type="value"
+                    :bg-color="setColor()"
                 />
 
-                <ls-card-display v-if="!item.hide">{{ item.text }}</ls-card-display>
+                <ls-card-display v-if="!item.hide" :bg-color="setColor()">{{ item.text }}</ls-card-display>
             </b-col>
         </b-row>
     </div>
@@ -61,6 +62,9 @@ export default {
             })
 
             this.setAnswers(answers)
+        },
+        setColor(){
+            return 'background-color: #' + Math.floor(Math.random()*16777215).toString(16) + ' !important;'
         },
         ...mapActions('Activity', ['setActivityAttrs'])
     }

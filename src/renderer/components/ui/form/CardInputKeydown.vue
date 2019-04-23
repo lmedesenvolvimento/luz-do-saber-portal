@@ -5,17 +5,20 @@
                 no-body
                 :class="{ 'invalid': invalid, 'valid': valid }"
             >
-                <b-card-body>
-                    <input
-                        v-model.lazy="model"
-                        :name="$attrs.name" 
-                        :maxlength="maxLength || false"
-                        :placeholder="value.text"
-                        :disabled="valid || invalid"
-                        type="text"
-                        v-bind="$attrs"
-                    />
-                </b-card-body>
+                <div class="bgColor" :style="bgColor">
+                    <b-card-body>
+                        <input
+                            v-model.lazy="model"
+                            :name="$attrs.name" 
+                            :maxlength="maxLength || false"
+                            :placeholder="value.text"
+                            :disabled="valid || invalid"
+                            type="text"
+                            v-bind="$attrs"
+                        />
+                    </b-card-body>
+                </div>
+                
             </b-card>
         </label>
     </div>
@@ -30,7 +33,8 @@ export default {
         value: {
             type: Object,
             default: null,
-        }
+        },
+        bgColor: String,
     },
     data(){
         return {

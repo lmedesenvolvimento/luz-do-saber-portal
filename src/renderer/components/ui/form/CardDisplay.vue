@@ -4,16 +4,24 @@
             <b-card 
                 no-body
             >
-                <b-card-body>
-                    <slot name="img"></slot>
-                    <slot></slot>
-                </b-card-body>
+                <div class="bgColor" :style="bgColor">
+                    <b-card-body>
+                        
+                        <slot name="img"></slot>
+                        <slot :style="bgColor"></slot>
+                        
+                    </b-card-body>
+                </div>
             </b-card>            
         </label>
     </div>
 </template>
 <script>
-export default {}
+export default {
+    props: {
+        bgColor: String
+    }
+}
 </script>
-<style lang="scss">    
+<style lang="scss">
 </style>

@@ -77,12 +77,19 @@
 @mixin custom-card($input: false){
     padding: 8px 0px;
     .card {
+        $border-radius: 0.9rem;
+
         padding: 0.25rem;
         border-radius: 1rem;
         box-shadow: 0px 0px 6px transparentize($color: $card-input-box-shadow-color, $amount: 0.60);
         border: 1px solid #fff;
+
+        .bgColor{
+            border-radius: $border-radius;
+        }
+
         .card-body {
-            border-radius: 0.9rem;
+            border-radius: $border-radius;
             @if $input {                
                 border: 1px solid $card-input-dark-border-color;
             } @else {                
