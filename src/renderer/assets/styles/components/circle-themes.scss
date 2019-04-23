@@ -1,4 +1,3 @@
-
 .circle-list {
     list-style: none;
     padding: 0;
@@ -6,6 +5,7 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    margin-top: 15%;
 }
 
 .circle-and-box{
@@ -13,7 +13,7 @@
     display: flex;
     transition: all 0.2s ease-in;
     background-color: transparent;
-    min-width: 250px;
+    min-width: 350px;
     .col {
         padding: 0;
     }
@@ -37,6 +37,7 @@
         background-color: transparent;
         display: flex;
         justify-content: center;
+        max-width: 130px;
     }
     .circle {
         max-height: 130px;
