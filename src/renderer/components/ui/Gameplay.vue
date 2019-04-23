@@ -1,13 +1,13 @@
 <template>
     <div class="gameplay">
         <div class="step-bars">
-            <router-link 
+            <div
                 v-for="(value, index) in unit.questions" 
-                :key="index" 
-                :to="{ name: 'activity', params: { position: (index + 1) }}"
+                :key="index"
                 class="bar" 
                 :class="{'active': getPosition == ( index + 1 )}"
-            />
+                @click="goActivity(index + 1)" 
+            ></div>
         </div>
         <div class="gameplay-heading">
             <div class="gameplay-counter counter">
@@ -47,7 +47,7 @@ export default {
     },
     computed: {
         getPosition(){
-            return this.activity ? this.activity.position : ''
+            return this.navigator.order
         },
         getTitle(){
             return this.activity ? this.activity.title.text : ''
@@ -55,11 +55,14 @@ export default {
         getDescription(){
             return this.activity && this.activity.statement ? this.activity.statement.text : ''
         },                
-        ...mapState('Unit', ['unit']),
+        ...mapState('Unit', ['unit', 'navigator']),
         ...mapState('Activity', ['activity','answer', 'log'])
     }, 
     created(){
         this.$router.push({ name: 'activity', params: { position: 1 }})
     },  
+    methods: {
+        ...mapActions('Unit', ['goActivity'])
+    }
 }
 </script>
