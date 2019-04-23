@@ -1,6 +1,7 @@
 <template>
     <div class="activity">
         <ls-activity-default v-if="subtypes.default === activity.subtype.slug" :value-col-size="valueColSize"></ls-activity-default>
+        <ls-activity-half v-if="subtypes.hideHalf === activity.subtype.slug" :value-col-size="valueColSize"></ls-activity-half>
     </div>
 </template>
 <script>
