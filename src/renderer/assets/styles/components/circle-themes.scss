@@ -1,55 +1,63 @@
-.progress-chart{
+
+.circle-list {
+    list-style: none;
+    padding: 0;
     display: flex;
-    max-width: 483px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.circle-and-box{
+    margin: 0;
+    display: flex;
     transition: all 0.2s ease-in;
-    background-color: #ccc;
+    background-color: transparent;
+    min-width: 250px;
     .col {
         padding: 0;
     }
-    .title-container{
+    .title-module-container{
         padding: 0;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 22px;
         text-align: center;
         border-radius: 4px;
         font-weight: bold;
         text-transform: uppercase;
         background-color: white;
-        color: '#b0b0b0b0' 
-    }
-    .img-container{
-        border-radius: 50%;
-        max-height: 190px;
-        .img-fluid {
-            background-color: white;
+        h3 {
+            font-size: 22px;
+            margin: 0;
+            color: #b0b0b0 !important;
         }
     }
     .container-circle {
         background-color: transparent;
-        max-width: 190px; 
-        max-height: 190px;
+        display: flex;
+        justify-content: center;
     }
-    .chart-progress-container{
-        width: 100%;
+    .circle {
+        max-height: 130px;
+    }
+
+    .img-container{
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;        
+        border-radius: 50%;
+        min-width: 100px;
+        min-height: 100px;
+        .img-fluid {
+            max-width: 80px;
+            min-height: 80px;
+        }
     }
 
     &:hover{
         cursor: pointer;
         transform: scale(1.05);
-
-        .chart-progress-label{
-            color: white !important;
-        }
     }
-}
-
-@include media-breakpoint-down(md){
-.chart-progress{
-    margin: 36px auto;
-}
-}
-.front-page-logo {
-max-width: 32%;
 }
