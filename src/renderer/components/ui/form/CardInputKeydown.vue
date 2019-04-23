@@ -5,18 +5,20 @@
                 no-body
                 :class="{ 'invalid': invalid, 'valid': valid }"
             >
-                <b-card-body>
-                    <input
-                        v-model="model"
-                        :name="$attrs.name" 
-                        :maxlength="1"
-                        :disabled="valid"
-                        type="text"
-                        v-bind="$attrs"
-                        selectionDirection="backward"
-                        @keydown="onKeyDown($event)"
-                    />
-                </b-card-body>
+                <div class="bg-color" :style="bgColor">
+                    <b-card-body>
+                        <input
+                            v-model="model"
+                            :name="$attrs.name" 
+                            :maxlength="1"
+                            :disabled="valid"
+                            type="text"
+                            v-bind="$attrs"
+                            selectionDirection="backward"
+                            @keydown="onKeyDown($event)"
+                        />
+                    </b-card-body>
+                </div>
             </b-card>
         </label>
     </div>
@@ -32,7 +34,8 @@ export default {
         value: {
             type: Object,
             default: null,
-        }
+        },
+        bgColor: String,
     },
     data(){
         return {
@@ -43,7 +46,10 @@ export default {
         model(value){
             if (this.valid) return
 
+            console.log(this.model.toLowerCase(), this.value.text.toLowerCase())
+
             if (this.model.toLowerCase() === this.value.text.toLowerCase()) {
+                console.log(this.type, this.value.id)
                 this.setAnswer({ 
                     type: this.type, 
                     data: this.value.id,
