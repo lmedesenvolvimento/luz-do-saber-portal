@@ -8,15 +8,16 @@
                     <h4>Input Text Card</h4>
                     <b-row>
                         <b-col
-                            v-for="item in activity.items.values" 
+                            v-for="(item, index) in activity.items.values" 
                             :key="item.id" 
                             cols="2"
                         >
                             <ls-card-input-text
                                 name="base-input" 
                                 :value="item" 
-                                :max-length="10" 
+                                :max-length="1" 
                                 type="value"
+                                :autofocus="index === 0"
                             />
                         </b-col>
                     </b-row>
@@ -91,7 +92,7 @@ export default {
     },
     mounted(){
         this.getUnit()
-        setTimeout(this.getActivity.bind(this), 1000)
+        setTimeout(this.getActivity.bind(this), 2000)
     },
     methods: {
         getActivity(){
@@ -108,7 +109,7 @@ export default {
                     question: this.unit.questions[0]
                 })
 
-                setTimeout(() => console.log(this.activity), 3000)
+                setTimeout(() => console.log(this.activity), 2000)
             } catch (error) {
                 console.warn(error)
             }

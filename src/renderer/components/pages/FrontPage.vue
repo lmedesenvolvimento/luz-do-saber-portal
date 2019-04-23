@@ -9,7 +9,7 @@
                         </b-row>
 
                         <b-row align-v="center" align-h="center">
-                            <div v-for="m in modules" :key="m.id">
+                            <b-col v-for="m in modules" :key="m.id">
                                 <router-link class="clean-links" :to="{ name: 'module', params: { module_slug: m.slug } }" replace>
                                     <!-- {{ m.title }} -->
                                     <vue-circle
@@ -20,7 +20,7 @@
                                         :color="getModuleColor(m)"
                                     />
                                 </router-link>
-                            </div>
+                            </b-col>
                         </b-row>                        
                     </b-container>
                 </b-row>
@@ -30,7 +30,7 @@
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
-import VueCircle from './CircleProgress'
+import VueCircle from '@/components/ui/CircleProgress'
 
 export default {
     components: {
@@ -41,7 +41,6 @@ export default {
     },
     created(){
         this.fetchModules()
-        console.log(this.modules);
         
     },
     methods: {

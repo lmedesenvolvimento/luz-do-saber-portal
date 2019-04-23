@@ -8,17 +8,17 @@
                 <div class="bg-color" :style="bgColor">
                     <b-card-body>
                         <input
-                            v-model.lazy="model"
+                            v-model="model"
                             :name="$attrs.name" 
-                            :maxlength="maxLength || false"
-                            :placeholder="value.text"
-                            :disabled="valid || invalid"
+                            :maxlength="1"
+                            :disabled="valid"
                             type="text"
                             v-bind="$attrs"
+                            selectionDirection="backward"
+                            @keydown="onKeyDown($event)"
                         />
                     </b-card-body>
                 </div>
-                
             </b-card>
         </label>
     </div>
@@ -26,6 +26,7 @@
 <script>
 import RadioInput from './RadioInput.vue'
 import { setTimeout } from 'timers'
+import { trim, dropRight } from 'lodash'
 export default {
     mixins: [RadioInput],
     props:{
@@ -38,7 +39,7 @@ export default {
     },
     data(){
         return {
-            model: ''
+            model: null
         }
     },
     watch: {
@@ -64,8 +65,11 @@ export default {
             
         }
     },
-    mounted(){
-        console.log(this.value)
+    methods: {
+        onKeyDown(event){
+            // replace input value for new key if invalid
+            if ( this.model && (event.key.length <= 1) ) this.model = event.key
+        }
     }
 }
 </script>
