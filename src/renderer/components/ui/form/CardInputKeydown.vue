@@ -5,7 +5,7 @@
                 no-body
                 :class="{ 'invalid': invalid, 'valid': valid }"
             >
-                <div class="bgColor" :style="bgColor">
+                <div class="bg-color" :style="bgColor">
                     <b-card-body>
                         <input
                             v-model.lazy="model"

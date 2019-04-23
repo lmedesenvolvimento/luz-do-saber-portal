@@ -4,7 +4,7 @@
             <b-card 
                 no-body
             >
-                <div class="bgColor" :style="bgColor">
+                <div class="bg-color" :style="bgColor">
                     <b-card-body>
                         
                         <slot name="img"></slot>
