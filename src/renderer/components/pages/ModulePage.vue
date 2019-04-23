@@ -1,36 +1,34 @@
 <template>
     <div id="module" class="page-container" :class="activeModule ? activeModule.slug : ''">
-        <div class="centerlize">
-            <div v-if="activeModule" class="container">
-                <navbar
-                    :navbar-title="'MÓDULO: '+activeModule.slug "
-                    :navbar-subtitle="'TEMAS'"
-                    :navbar-icon="getModuleImage(activeModule)"
-                />
-                <b-row>
-                    <b-list-group horizontal class="circle-list">
-                        <b-list-group v-for="theme in activeModule.themes" :key="theme.id">
-                            <router-link :to="{ name: 'theme', params: { module_slug: $route.params.module_slug, theme_slug: theme.slug } }">
-                                <vue-circle
-                                    class="m-5"
-                                    :label="theme.title"
-                                    :image="getThemeImage(theme.slug)"
-                                    :progress="50"
-                                    :color="getModuleColor(activeModule)"
-                                />
-                            </router-link>
-                        </b-list-group>
-                        <b-list-group v-for="index in 3" :key="index">
+        <div v-if="activeModule" class="container">
+            <navbar
+                :navbar-title="'MÓDULO: '+activeModule.slug "
+                :navbar-subtitle="'TEMAS'"
+                :navbar-icon="getModuleImage(activeModule)"
+            />
+            <div class="centralize">
+                <div class="circle-list">
+                    <b-col v-for="theme in activeModule.themes" :key="theme.id">
+                        <router-link :to="{ name: 'theme', params: { module_slug: $route.params.module_slug, theme_slug: theme.slug } }">
                             <vue-circle
-                                class="m-5"
-                                :label="'Título'"
-                                :image="'https://image.flaticon.com/icons/png/128/145/145867.png'"
+                                class="my-5 mx-4"
+                                :label="theme.title"
+                                :image="getThemeImage(theme.slug)"
                                 :progress="50"
-                                :color="{ color: '#C72929' }"
+                                :color="getModuleColor(activeModule)"
                             />
-                        </b-list-group>
-                    </b-list-group>
-                </b-row>
+                        </router-link>
+                    </b-col>
+                    <b-col v-for="n in 3" :key="n">
+                        <vue-circle
+                            class="my-5 mx-4"
+                            :label="'Título do modulo'"
+                            :image="'https://image.flaticon.com/icons/png/128/145/145867.png'"
+                            :progress="50"
+                            :color="{ color: '#C72929' }"
+                        />
+                    </b-col>
+                </div>
             </div>
         </div>
     </div>
