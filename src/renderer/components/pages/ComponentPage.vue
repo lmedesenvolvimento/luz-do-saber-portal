@@ -60,6 +60,39 @@
                             </ls-card-input>                            
                         </b-col>                        
                     </b-row>
+                    <h4>Soltar e Arrastar</h4>
+                    <b-row>
+                        <b-col
+                            v-for="key in activity.items.keys"
+                            :key="key.id"
+                            cols="4"
+                        >
+                            <ls-card-draggable 
+                                label="item.text" 
+                                name="card-input"
+                                type="key"
+                                :item="key"
+                            >
+                                {{ key.text }}
+                            </ls-card-draggable>                            
+                        </b-col>
+                    </b-row>
+                    <b-row>                           
+                        <b-col
+                            v-for="item in activity.items.values"
+                            :key="item.id"
+                            cols="4"
+                        >
+                            <ls-card-draggable 
+                                label="item.text" 
+                                name="card-input"
+                                type="key"
+                                :item="key"
+                            >
+                                {{ item.text }}
+                            </ls-card-draggable>                            
+                        </b-col>                                  
+                    </b-row>
                     <hr>
                     <router-link to="/">
                         Voltar
