@@ -6,15 +6,22 @@
                 :key="item.id"
                 :sm="valueColSize"
             >
-                <ls-card-input-text
+                <Item
                     v-if="item.hide"
-                    name="base-input" 
-                    :value="item"
-                    type="value"
-                    :bg-color="setColor()"
+                    :item="item"
+                    :type="'value'"
+                    :template="activity.item_template.value"
                 />
 
-                <ls-card-display v-if="!item.hide" :bg-color="setColor()">{{ item.text }}</ls-card-display>
+                <Item
+                    v-if="!item.hide"
+                    :item="item"
+                    :type="'key'"
+                    :template="activity.item_template.key"
+                />
+                
+
+                <!-- <ls-card-display v-if="!item.hide" :bg-color="setColor()">{{ item.text }}</ls-card-display> -->
             </b-col>
         </b-row>
     </div>
@@ -23,12 +30,13 @@
 <script>
 import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from './mixins'
 import { sampleSize, drop, range } from 'lodash'
-import form from '../form'
+
+import Item from '@/components/ui/items/Item'
 
 import { mapActions } from 'vuex'
 
 export default {
-    components: { ...form },
+    components: { Item },
     mixins: [ListMixin, MapMixins, CreateAnswersMixins],
     created(){
         //definindo quantidade de respostas. se par, 50% das letras somem, se impar 50% arredondado pra baixo + 1

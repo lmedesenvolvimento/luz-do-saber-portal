@@ -5,5 +5,8 @@ export default {
     },
     custom: {
         crachaBox: 'cracha-box'
+    },
+    tags: {
+        input: 'input'
     }
 }
