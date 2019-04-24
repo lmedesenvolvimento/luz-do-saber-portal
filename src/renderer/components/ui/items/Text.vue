@@ -5,6 +5,7 @@
             name="base-input" 
             :value="item"
             type="value"
+            :bg-color="fillBackgroundColor"
         />          
 
         <ls-card-display 
@@ -14,6 +15,7 @@
             :type="type"
             :item="item"
             :name="activity.type.slug"
+            :bg-color="fillBackgroundColor"
         >
             {{ item.text }}
         </ls-card-display>
@@ -25,6 +27,7 @@
             :type="type"
             :item="item"
             :name="activity.type.slug"
+            :bg-color="fillBackgroundColor"
         >
             {{ item.text }}
         </ls-card-input>        

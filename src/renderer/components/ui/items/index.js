@@ -20,7 +20,13 @@ export const ItemProps = {
         },
         hasTags(){
             return ( this.template && this.template.tags ) ? true : false
-        },        
+        },
+        fillBackgroundColor(){
+            return this.item.type ? `#${this.getRandomColor}`: null
+        },
+        getRandomColor(){
+            return Math.floor(Math.random()*16777215).toString(16)
+        },
         ...mapState('Activity', ['activity'])
     }
 }

@@ -5,7 +5,7 @@
                 no-body
                 :class="{ 'invalid': invalid, 'valid': valid }"
             >
-                <div class="bg-color" :style="bgColor">
+                <fill-background :bg-color="bgColor">
                     <b-card-body>
                         <input
                             v-model="model"
@@ -18,7 +18,7 @@
                             @keydown="onKeyDown($event)"
                         />
                     </b-card-body>
-                </div>
+                </fill-background>
             </b-card>
         </label>
     </div>
@@ -27,15 +27,20 @@
 import RadioInput from './RadioInput.vue'
 import { setTimeout } from 'timers'
 import { trim, dropRight } from 'lodash'
+
+import FillBackground from '@/components/ui/helpers/FillBackground'
+
 export default {
+    components: {
+        FillBackground
+    },
     mixins: [RadioInput],
     props:{
         maxLength: Number,
         value: {
             type: Object,
             default: null,
-        },
-        bgColor: String,
+        }
     },
     data(){
         return {

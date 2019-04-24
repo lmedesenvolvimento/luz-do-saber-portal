@@ -11,7 +11,8 @@ export default {
         type: String,
         label: String,
         variant: String,
-        item: Object
+        item: Object,
+        bgColor: String
     },
     data(){
         return {
