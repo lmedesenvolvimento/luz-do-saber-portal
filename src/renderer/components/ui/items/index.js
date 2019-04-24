@@ -15,6 +15,12 @@ export const ItemProps = {
     },
     components: { ...FormInputs },
     computed: {
+        isInput(){
+            return this.hasTags && /^input/.test(this.template.tags)
+        },
+        hasTags(){
+            return ( this.template && this.template.tags ) ? true : false
+        },        
         ...mapState('Activity', ['activity'])
     }
 }
