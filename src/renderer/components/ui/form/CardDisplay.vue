@@ -4,20 +4,25 @@
             <b-card 
                 no-body
             >
-                <div class="bg-color" :style="bgColor">
+                <fill-background :bg-color="bgColor">
                     <b-card-body>
                         
                         <slot name="img"></slot>
-                        <slot :style="bgColor"></slot>
+                        <slot></slot>
                         
                     </b-card-body>
-                </div>
+                </fill-background>
             </b-card>            
         </label>
     </div>
 </template>
 <script>
+import FillBackground from '@/components/ui/helpers/FillBackground'
+
 export default {
+    components:{
+        FillBackground
+    },
     props: {
         bgColor: String
     }
