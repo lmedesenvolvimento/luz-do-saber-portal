@@ -1,7 +1,13 @@
 <script>
 import { mapActions } from 'vuex'
 import { invalid } from 'moment';
+
+import FillBackground from '@/components/ui/helpers/FillBackground'
+
 export default {
+    components:{
+        FillBackground
+    },
     inheritAttrs: false,
     model: {
         prop: 'checked',

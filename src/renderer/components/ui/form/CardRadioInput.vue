@@ -5,10 +5,12 @@
                 no-body
                 :class="{ 'invalid': invalid, 'valid': valid, 'selected': selected }"
             >
-                <b-card-body>
-                    <slot name="img"></slot>
-                    <slot></slot>
-                </b-card-body>
+                <fill-background :bg-color="bgColor">
+                    <b-card-body>
+                        <slot name="img"></slot>
+                        <slot></slot>
+                    </b-card-body>
+                </fill-background>
             </b-card>
 
             <input
