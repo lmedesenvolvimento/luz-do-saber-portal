@@ -7,10 +7,7 @@
 <script>
 export default {
     props: {
-        bgColor: {
-            type: String,
-            required: true
-        }
+        bgColor: String
     }
 }
 </script>
