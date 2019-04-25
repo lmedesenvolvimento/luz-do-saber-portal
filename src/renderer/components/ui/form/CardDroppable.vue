@@ -3,6 +3,7 @@
         <div class="card-input card-droppable">
             <b-card
                 no-body
+                :class="{ 'invalid': invalid, 'valid': valid }"
             >
                 <b-card-body>
                     <slot name="img"></slot>
@@ -21,8 +22,23 @@ export default {
     components: { Drop },
     mixins: [RadioInput],
     methods: {
-        onDrop(data, event){
-            console.log(data, event)
+        onDrop(transferData, nativeElement){
+            if (this.valid) return
+
+            if ( transferData.value_ids && transferData.value_ids.includes(this.item.id) ) {                
+                this.setAnswer({ 
+                    type: this.type,
+                    data: this.item.id,
+                    vm: this
+                })
+                transferData.valid = true
+            } else {
+                this.setAnswer({ 
+                    type: this.type, 
+                    data: -1,
+                    vm: this
+                })
+            }
         }
     }
 }

@@ -5,6 +5,7 @@
                 v-for="item in activity.items.values" 
                 :key="item.id"
                 :sm="valueColSize"
+                class="item"
             >
                 <Item
                     v-if="item.hide"
@@ -55,10 +56,7 @@ export default {
 
         //seta as respostas
         this.setAnswersArray(keys)
-        // atualiza total de respostas válidas
         this.setActivityAttrs({ total_correct_items: keys.length })
-    },
-    mounted(){
     },
     methods: {
         setAnswersArray(a){
