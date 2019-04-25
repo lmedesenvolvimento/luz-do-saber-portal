@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <b-row class="circle-and-box">
+        <div class="circle-and-box">
             <b-col class="container-circle">
                 <vue-circle class="circle"
                             :progress="50"
@@ -23,7 +23,7 @@
             <b-col v-if="label" class="my-3 title-module-container">
                 <h3>{{ label }}</h3>
             </b-col>
-        </b-row>
+        </div>
     </div>
 </template>
 
