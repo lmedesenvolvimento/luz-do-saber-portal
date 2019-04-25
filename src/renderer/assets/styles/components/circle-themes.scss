@@ -1,51 +1,37 @@
-.centralize {
-    display: flex;
-    justify-content: center;
-}
 .circle-list {
-    list-style: none;
-    padding: 0;
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
     margin-top: 10%;
 }
 .circle-and-box{
-    margin: 0;
     display: flex;
     transition: all 0.2s ease-in;
-    background-color: transparent;
     min-width: 300px;
-    flex-basis: 400px;
-    max-width: 450px;
+    max-width: 400px;
     .col {
         padding: 0;
     }
     .title-module-container{
-        position: relative;
-        left: -50px;
-        padding: 0 0 0 50px;
         display: flex;
         align-items: center;
         justify-content: center;
         text-align: center;
         border-radius: 6px;
-        font-weight: bold;
-        text-transform: uppercase;
+        margin-left: -65px;
         background-color: white;
         z-index: -1;
         box-shadow: 0px 0px 36px 1px rgba(123, 123, 132, 0.48);
+        max-height: 100px;
         h3 {
+            padding: 0 0 0 65px;
             font-size: 22px;
             margin: 0;
             color: #6f6f6f !important;
+            text-transform: uppercase;
             word-wrap: break-word;
         }
     }
     .container-circle {
-        background-color: transparent;
-        display: flex;
-        justify-content: center;
         max-width: 130px;
     }
     .circle {
