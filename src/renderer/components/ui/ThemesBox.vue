@@ -27,7 +27,13 @@ export default {
         unit: {
             type: Object,
             require: true
+        },
+        themeSlug: {
+            type: String
         }
+    },
+    methods: {
+
     }
 }
 </script>

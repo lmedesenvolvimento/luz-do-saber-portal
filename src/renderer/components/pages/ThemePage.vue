@@ -19,7 +19,7 @@
                                 }
                             }"
                         >
-                            <themes-box :unit="unit" />
+                            <themes-box :unit="unit" :theme-slug="theme.slug" />
                         </router-link>
                     </b-col>
                 </b-col>
