@@ -2,4 +2,8 @@
     position: relative;
     user-select: none;
     outline: none;
+    &.col-sm-1{
+        min-width: $item-min-width;
+        flex: 1;
+    }
 }

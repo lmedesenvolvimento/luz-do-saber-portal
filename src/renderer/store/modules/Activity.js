@@ -28,7 +28,6 @@ const state = {
 const mutations = {        
     SET_ANSWERS(state, payload){
         state.answer = payload
-        console.log('SET_ANSWER',state.answer)
     },
 
     SET_ACTIVITY(state, activity){
@@ -131,7 +130,8 @@ const actions = {
     },
 
     setActivityAttrs({ commit, state }, attrs){
-        commit('SET_ACTIVITY', Object.assign(state.activity, attrs))
+        let newState = Object.assign(clone(state.activity), attrs)
+        commit('SET_ACTIVITY', newState)
     },
 
     // Timer Actions

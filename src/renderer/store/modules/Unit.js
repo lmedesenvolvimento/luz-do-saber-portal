@@ -45,6 +45,9 @@ const actions = {
             commit('SET_NAVIGATOR_ORDER', newOrder)
             router.push({name: 'activity', params: { position: newOrder, ...navigator.params }})
         }
+    },
+    setNavigatorOrder({commit}, orderNumber){
+        commit('SET_NAVIGATOR_ORDER', orderNumber)
     }
 }
 

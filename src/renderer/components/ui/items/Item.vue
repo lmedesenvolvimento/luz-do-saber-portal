@@ -1,6 +1,6 @@
 <template>
     <div :class="item.type ? item.type : ''">
-        <div v-if="isPrimitiveItem">                    
+        <div v-if="isPrimitiveItem">
             <ls-item-text
                 v-if="template.type === Types.primitive.image"
                 :type="type"

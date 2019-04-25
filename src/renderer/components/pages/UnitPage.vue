@@ -21,26 +21,18 @@ import { RouteMixin } from './index'
 import ui from '@/components/ui'
 
 export default {
-    components: { ...ui },
-    created(){
-        this.fetchUnit(this.$route.params)
-    },
+    components: { ...ui },    
     computed: {
         ...mapState('Unit', ['unit', 'navigator'])
-    },
-    watch: {
-        navigator: {
-            handler(val){
-                console.log(val)
-            },
-            deep: true
-        }
-    },
+    }, 
     created(){
         this.fetchUnit(this.$route.params)
     },
+    beforeDestroy(){
+        this.setNavigatorOrder(1)
+    },
     methods: {
-        ...mapActions('Unit', ['fetchUnit'])
+        ...mapActions('Unit', ['fetchUnit', 'setNavigatorOrder'])
     },
 }
 </script>
