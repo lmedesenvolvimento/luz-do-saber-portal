@@ -1,7 +1,7 @@
 <template>
     <div class="page-container">        
-        <div class="container">
-            <b-card>
+        <b-container>
+            <b-card no-body="">
                 <b-card-body v-if="activity">
                     <h1>Formulário</h1>
                     <hr>
@@ -83,14 +83,14 @@
                             :key="item.id"
                             cols="4"
                         >
-                            <ls-card-draggable 
+                            <ls-card-droppable
                                 label="item.text" 
                                 name="card-input"
-                                type="key"
-                                :item="key"
+                                type="value"
+                                :item="item"
                             >
                                 {{ item.text }}
-                            </ls-card-draggable>                            
+                            </ls-card-droppable>                            
                         </b-col>                                  
                     </b-row>
                     <hr>
@@ -99,17 +99,24 @@
                     </router-link>
                 </b-card-body>
             </b-card>
-        </div>
+        </b-container>
+        <ls-alert-activity-success />
     </div>
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
 import ui from '@/components/ui'
-import form from '../ui/form';
+import alerts from '@/components/alerts'
+
+import { CreateAnswersMixins } from '@/components/ui/activities/mixins'
 import { setTimeout } from 'timers'
 
 export default {
-    components: { ...ui },
+    components: { 
+        ...ui,
+        ...alerts
+    },
+    mixins: [CreateAnswersMixins],
     data(){
         return{
             radio1: null,
@@ -142,7 +149,9 @@ export default {
                     question: this.unit.questions[0]
                 })
 
-                setTimeout(() => console.log(this.activity), 2000)
+                setTimeout(() => {
+                    this.createAnswersArray()
+                }, 2000)
             } catch (error) {
                 console.warn(error)
             }
@@ -156,7 +165,7 @@ export default {
 
             this.fetchUnit(params)
         },
-        ...mapActions('Activity', ['fetchActivity', 'destroyActivity']),
+        ...mapActions('Activity', ['fetchActivity', 'destroyActivity', 'setAnswers']),
         ...mapActions('Unit', ['fetchUnit'])
     }
 }
