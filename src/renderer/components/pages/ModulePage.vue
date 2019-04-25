@@ -10,7 +10,7 @@
                 <b-col v-for="theme in activeModule.themes" :key="theme.id">
                     <router-link :to="{ name: 'theme', params: { module_slug: $route.params.module_slug, theme_slug: theme.slug } }">
                         <vue-circle
-                            class="my-5 mx-4"
+                            class="my-3 mx-4"
                             :label="theme.title"
                             :image="getThemeImage(theme.slug)"
                             :progress="50"
@@ -76,12 +76,8 @@ export default {
             switch (themeSlug) {
             case 'meu-nome':
                 return 'https://image.flaticon.com/icons/png/128/145/145867.png'
-            case 'ler':
-                return require('@/assets/images/btn-read.png')
-            case 'escrever':
-                return require('@/assets/images/btn-write.png')
             default:
-                break;
+                return 'https://image.flaticon.com/icons/png/128/145/145867.png'
             }
         }, 
         ...mapActions('Modules', ['fetchModule'])
