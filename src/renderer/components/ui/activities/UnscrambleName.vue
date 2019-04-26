@@ -1,39 +1,46 @@
 <template>
     <div class="container-fluid">
-        <b-col v-if="hasKeys" class="activity-keys">
+        <b-col>
             <b-row align-v="center" align-h="center">
-                <b-col v-for="(item, position) in getKeys" :key="position" align-self="center" :sm="valueColSize" class="item" @click="teste(item)"> 
-                    <ls-card-draggable 
-                        v-if="answer.length"
-                        :item="item"
-                        @click="console.log('a')"
+                <b-col v-for="key in activity.items.keys"
+                       :key="key.id"
+                >
+                    <ls-card-draggable
+                        label="item.text" 
+                        name="card-input"
+                        type="key"
+                        :item="key"
                     >
-                        {{ item.text }}
-                    </ls-card-draggable> 
-                </b-col>
-            </b-row>            
-        </b-col> 
-        <b-col class="activity-values">
-            <b-row align-v="center" align-h="center">
-                <b-col v-for="(item, position) in getValues" :key="position" align-self="center" :sm="valueColSize" class="item" @click="checkLetterOrder()"> 
-                    <ls-card-droppable                         
-                        v-if="answer.length"
-                        :item="item"                                               
-                    >
-                        {{ item.text }}
-                    </ls-card-droppable>
+                        {{ key.text }}
+                    </ls-card-draggable>
                 </b-col>                    
             </b-row>
-        </b-col>       
-        <p>{{ progress }}</p>                
-        <!-- <p v-for="(item, position) in getKeys" :key="position">{{ item.id }}</p> -->
-        
+        </b-col>
+        <ls-card-display>
+            <b-col v-if="hasKeys">
+                <b-row align-v="center" align-h="center">
+                    <b-col v-for="item in activity.items.values" 
+                           :key="item.id"
+                    >
+                        <ls-card-droppable
+                            label="item.text" 
+                            name="card-input"
+                            type="value"
+                            :item="item"
+                        >
+                            {{ item.text }}
+                        </ls-card-droppable> 
+                    </b-col>
+                </b-row>            
+            </b-col>  
+        </ls-card-display>                   
     </div>
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
 import ui from '@/components/ui'
 import alerts from '@/components/alerts'
+import { sortBy, shuffle } from 'lodash'
 import { MapMixins, ListMixin, CreateAnswersMixins } from './mixins'
 
 export default {
@@ -44,19 +51,18 @@ export default {
     mixins: [MapMixins, ListMixin, CreateAnswersMixins],
     data () {
         return {
-            progress: 0
+            
         }
     },
     created(){
-        this.setActivityAttrs({ total_correct_items: 7 })
+        this.setActivityAttrs({ total_correct_items: this.getKeys.length })
     },
     mounted() {
         this.createAnswersArray()
+        this.activity.items.values = sortBy(this.activity.items.values, ['id'])
+        this.activity.items.keys = shuffle(this.activity.items.keys)
     },
-    methods: {
-        teste(a){
-            console.log(a)
-        },
+    methods: {        
         ...mapActions('Activity', ['setActivityAttrs'])
     },    
 }
