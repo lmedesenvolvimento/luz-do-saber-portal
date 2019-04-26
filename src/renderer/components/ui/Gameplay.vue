@@ -59,7 +59,12 @@ export default {
         ...mapState('Activity', ['activity','answer', 'log'])
     }, 
     created(){
-        this.$router.push({ name: 'activity', params: { position: 1 }})
+        this.$router.push({ 
+            name: 'activity', 
+            params: { 
+                position: this.$route.params.position ? parseInt(this.$route.params.position) : 1
+            }
+        })
     },  
     methods: {
         ...mapActions('Unit', ['goActivity'])

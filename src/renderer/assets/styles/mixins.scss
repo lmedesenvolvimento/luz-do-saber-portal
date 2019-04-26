@@ -130,6 +130,21 @@
     }
 }
 
+@mixin custom-dropcard-content{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 90%;
+    height: 85%;
+    margin: auto;
+    background-color: $card-empty-color;
+    border-radius: 0.9rem;
+    box-shadow: inset 0px 9px 1px 1px $card-empty-shadow-color;
+    content: '';
+}
+
 // Card
 @mixin card-body-box-shadow($color, $amount: 0.9) {
  box-shadow: inset 0px 0px 0px 6px transparentize($color, $amount);   
