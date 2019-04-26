@@ -26,7 +26,6 @@
                             name="card-input"
                             :item="key"
                         >
-                            {{ key.text }}
                         </ls-card-droppable> 
                     </b-col>
                 </b-row>            
