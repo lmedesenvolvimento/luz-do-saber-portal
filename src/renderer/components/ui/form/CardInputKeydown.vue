@@ -49,7 +49,7 @@ export default {
     },
     watch: {
         model(value){
-            if (this.valid) return
+            if (this.valid && !this.model) return
 
             if (this.model.toLowerCase() === this.value.text.toLowerCase()) {
                 this.setAnswer({ 
