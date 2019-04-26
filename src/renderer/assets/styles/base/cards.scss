@@ -29,15 +29,7 @@
     @include custom-card;
     .dragging, .dropped{
         &::before{
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: $card-empty-color;
-            border-radius: 0.9rem;
-            box-shadow: inset 0px 6px 1px 1px $card-empty-shadow-color;
-            content: '';
+            @include custom-dropcard-content;
         }
     }   
 }
@@ -46,15 +38,7 @@
     @include custom-card;
     .card{
         &:not(.valid)::before{
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: $card-empty-color;
-            border-radius: 0.9rem;
-            box-shadow: inset 0px 6px 1px 1px $card-empty-shadow-color;
-            content: '';
+            @include custom-dropcard-content;
         }
     }    
 }

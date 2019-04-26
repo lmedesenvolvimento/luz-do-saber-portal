@@ -88,13 +88,16 @@ const mutations = {
 
 
 const actions = {
-    async fetchActivity({ commit }, payload) {
+    async fetchActivity({ commit, dispatch }, payload) {
         try{
             let { module_slug, theme_slug, unit_slug, position } = payload.params
             let extenalParams = getExtenalParams(payload.question)            
             let { data } = await API.get(`/game/${module_slug}/${theme_slug}/${unit_slug}/${position}`, extenalParams)
 
             commit('SET_ACTIVITY', Object.assign(data.question, { position: position }))
+
+            // update store unit
+            dispatch('Unit/setNavigatorOrder', position, { root: true })
         } catch (error) {
             console.warn(error)
         }
