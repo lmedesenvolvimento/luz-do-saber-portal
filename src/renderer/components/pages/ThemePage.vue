@@ -9,7 +9,7 @@
             <div class="mt-5 centralize">
                 <div class="mt-5">
                     <b-list-group v-if="theme" horizontal class="mt-5 theme-unities-list">
-                        <b-list-group-item v-for="unit in theme.units" :key="unit.id" class="mx-5 my-4 flex-fill theme-unit">
+                        <b-list-group-item v-for="unit in theme.units" :key="unit.id" class="mx-5 my-4 theme-unit">
                             <router-link
                                 :to="{ 
                                     name: 'unit', 
@@ -20,10 +20,10 @@
                                     }
                                 }"
                             >
-                                <themes-box :unit="unit" :theme-slug="getThemeColor(theme.slug)" />
+                                <themes-box :unit="unit" :theme-color="getThemeColor(theme)" />
                             </router-link>
                         </b-list-group-item>
-                        <b-list-group-item v-show="emptyCellUnit" class="mx-5 my-4 flex-fill theme-unit" />
+                        <b-list-group-item v-show="emptyCellUnit" class="mx-5 my-4 theme-unit" />
                     </b-list-group>
                 </div>
             </div>
@@ -62,13 +62,13 @@ export default {
 
     methods: {
         getThemeColor(theme){
-            switch (theme.slug) {
-            case 'comecar':
-                return  { color: '#C72929' }
-            case 'ler':
-                return { color: '#00963F' }
-            case 'escrever':
-                return { color: '#007CB2' }
+            switch (theme.modulo_id) {
+            case 1:
+                return '#C72929'
+            case 2:
+                return '#00963F'
+            case 3:
+                return '#007CB2'
             default:
                 break;
             }
