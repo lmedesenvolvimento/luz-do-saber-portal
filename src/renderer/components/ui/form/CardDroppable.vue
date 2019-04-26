@@ -25,7 +25,7 @@ export default {
         onDrop(transferData, nativeElement){
             if (this.valid) return
 
-            if ( transferData.value_ids && transferData.value_ids.includes(this.item.id) ) {                
+            if ( transferData.text === this.item.text ) {                
                 this.setAnswer({ 
                     type: this.type,
                     data: this.item.id,
