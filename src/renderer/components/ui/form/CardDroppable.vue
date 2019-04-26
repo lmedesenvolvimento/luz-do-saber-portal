@@ -27,14 +27,15 @@ export default {
 
             if ( transferData.text === this.item.text ) {                
                 this.setAnswer({ 
-                    type: this.type,
-                    data: this.item.id,
+                    type: 'value',
+                    data: transferData.id,
                     vm: this
                 })
+
                 transferData.valid = true
             } else {
                 this.setAnswer({ 
-                    type: this.type, 
+                    type: 'value', 
                     data: -1,
                     vm: this
                 })
