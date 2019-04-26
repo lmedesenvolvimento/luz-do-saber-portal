@@ -15,9 +15,9 @@ a:hover {
 }
 
 .theme-unit {
-	flex-basis: 330px;
 	min-width: 220px;
-	max-width: 425px;
+	flex-basis: 400px;
+	max-width: 525px;
 	background-color: transparent;
 
 	border: none;
@@ -25,7 +25,6 @@ a:hover {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		background-color: #C72929;
 		border-radius: 10px 10px 0 0;
 		box-shadow: 1px 1px 8px #3a3a3a;
 		
@@ -46,7 +45,7 @@ a:hover {
 		border: solid .2em #fff;
 		border-radius: 12px;
 		box-shadow: 1px 1px 14px #3a3a3a;
-		background-color: #C72929;
+		// background-color: #C72929;
 		font-family: "Itim Regular";
 		align-items: center;
 		display: flex;
