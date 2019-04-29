@@ -22,6 +22,12 @@
                 :item="item"
                 :template="template"
             ></ls-item-cracha-box>
+            <ls-item-block-text
+                v-if="template.custom === Types.custom.blockText"
+                :type="type"
+                :item="item"
+                :template="template"
+            ></ls-item-block-text>
         </div>
     </div>  
 </template>
@@ -34,7 +40,8 @@ export default {
     computed: {
         isPrimitiveItem(){
             return this.template.custom ? false : true
-        }
+        },
+        
     }
 }
 </script>
