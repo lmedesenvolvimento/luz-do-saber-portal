@@ -1,41 +1,33 @@
 <template>
     <div class="container-fluid">
-        <b-col>
-            <b-row align-v="center" align-h="center">
-                <b-col v-for="key in activity.items.values"
-                       :key="key.id"
-                       :sm="colSizes.value"
-                >
-                    <ls-card-draggable
-                        label="item.text" 
-                        name="card-input"
-                        type="key"
-                        :item="key"
-                    >
-                        {{ key.text }}
-                    </ls-card-draggable>
-                </b-col>                    
-            </b-row>
-        </b-col>
-        <ls-card-display>
-            <b-col v-if="hasKeys">
-                <b-row align-v="center" align-h="center">
-                    <b-col v-for="item in activity.items.keys" 
-                           :key="item.id"
-                           :sm="colSizes.key"
-                    >
-                        <ls-card-droppable
-                            label="item.text" 
-                            name="card-input"
-                            type="value"
-                            :item="item"
-                        >
-                            {{ item.text }}
-                        </ls-card-droppable> 
-                    </b-col>
-                </b-row>            
-            </b-col>  
-        </ls-card-display>                   
+        <b-row align-v="center" align-h="center">
+            <b-col 
+                v-for="item in activity.items.values"
+                :key="item.id"
+                :sm="valueColSize"
+                class="item"
+            >
+                <Item
+                    :item="item"
+                    :type="'value'"
+                    :template="activity.item_template.value"
+                />
+            </b-col>                    
+        </b-row>
+        <b-row align-v="center" align-h="center">
+            <b-col 
+                v-for="item in activity.items.keys"
+                :key="item.id"
+                :sm="keyColSize"
+                class="item"
+            >
+                <Item
+                    :item="item"
+                    :type="'key'"
+                    :template="activity.item_template.value"
+                />
+            </b-col>                    
+        </b-row>
     </div>
 </template>
 
@@ -46,16 +38,19 @@ import { sampleSize, drop, range } from 'lodash'
 import ui from '@/components/ui'
 import alerts from '@/components/alerts'
 
+import Item from '@/components/ui/items/Item'
+
 import { mapState, mapActions } from 'vuex'
 
 export default {
-    components: { ...ui, ...alerts },
+    components: { Item },
     mixins: [ListMixin, MapMixins, CreateAnswersMixins],
     props: {
         colSizes: Object
     },
     mounted(){
         this.createAnswersArray()
+        console.log(this.activity.item_template.value)
     }
 }
 </script>
