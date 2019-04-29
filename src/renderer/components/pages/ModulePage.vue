@@ -1,5 +1,5 @@
 <template>
-    <div id="module" class="page-container mt-5" :class="activeModule ? activeModule.slug : ''">
+    <div id="module" class="page-container" :class="activeModule ? activeModule.slug : ''">
         <div v-if="activeModule" class="container">
             <navbar
                 :navbar-title="'MÓDULO: '+activeModule.slug "
@@ -30,12 +30,16 @@
                 <b-col v-show="emptyCellTheme" class="my-3 mx-4 circle-box flex-fill" />
             </b-col>
         </div>
-        <b-btn variant="link" :to="historyBack">
-            Voltar
-        </b-btn>
-        <b-btn variant="link" to="/componentes">
-            Componentes
-        </b-btn>
+        <b-card class="mt-5">
+            <b-card-body>
+                <b-btn variant="link" :to="historyBack">
+                    Voltar
+                </b-btn>
+                <b-btn variant="link" to="/componentes">
+                    Componentes
+                </b-btn>
+            </b-card-body>
+        </b-card>
     </div>
 </template>
 
