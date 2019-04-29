@@ -31,12 +31,12 @@ const actions = {
     },
     nextActivity({ commit, state, dispatch }){
         let { navigator } = state
-        let newOrder = ( navigator.order + 1 )    
+        let newOrder = parseInt(navigator.order) + 1
         dispatch('goActivity', newOrder)
     },
     prevActivity({ commit, state, dispatch }){
         if (state.unit === null) return                
-        let newOrder = ( state.navigator.order - 1 )
+        let newOrder = parseInt(state.navigator.order) - 1
         commit('SET_NAVIGATOR_ORDER', newOrder)
     },
     goActivity({ commit }, newOrder){
@@ -45,6 +45,9 @@ const actions = {
             commit('SET_NAVIGATOR_ORDER', newOrder)
             router.push({name: 'activity', params: { position: newOrder, ...navigator.params }})
         }
+    },
+    setNavigatorOrder({commit}, orderNumber){
+        commit('SET_NAVIGATOR_ORDER', orderNumber)
     }
 }
 

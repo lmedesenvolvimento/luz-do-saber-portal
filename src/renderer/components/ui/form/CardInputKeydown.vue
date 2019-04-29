@@ -49,12 +49,9 @@ export default {
     },
     watch: {
         model(value){
-            if (this.valid) return
-
-            console.log(this.model.toLowerCase(), this.value.text.toLowerCase())
+            if (this.valid && !this.model) return
 
             if (this.model.toLowerCase() === this.value.text.toLowerCase()) {
-                console.log(this.type, this.value.id)
                 this.setAnswer({ 
                     type: this.type, 
                     data: this.value.id,
@@ -66,8 +63,7 @@ export default {
                     data: -1,
                     vm: this
                 })
-            }
-            
+            }            
         }
     },
     methods: {

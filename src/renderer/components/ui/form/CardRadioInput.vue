@@ -14,11 +14,11 @@
             </b-card>
 
             <input
-                :name="$attrs.name" 
+                class="input"    
                 type="radio"
+                :name="$attrs.name" 
                 v-bind="$attrs"
-                class="input"
-                @change.prevent="onChange"
+                @click.prevent="onChange"
             />
         </label>
     </div>
