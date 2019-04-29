@@ -14,6 +14,12 @@
                 :item="item"
                 :template="template"
             ></ls-item-cracha-box>
+            <ls-item-completa-letras
+                v-if="template.custom === Types.custom.completaLetras"
+                :type="type"
+                :item="item"
+                :template="template"
+            ></ls-item-completa-letras>
         </div>
     </div>  
 </template>
