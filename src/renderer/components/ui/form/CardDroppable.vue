@@ -6,7 +6,6 @@
                 :class="{ 'invalid': invalid, 'valid': valid }"
             >
                 <b-card-body>
-                    <slot name="img"></slot>
                     <slot name="transfer-data">
                         <div> {{ transferData.text }} </div>
                     </slot>
@@ -58,5 +57,4 @@ export default {
 </script>
 
 <style>
-
 </style>
