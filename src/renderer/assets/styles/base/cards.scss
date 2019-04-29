@@ -37,7 +37,7 @@
 .card-input.card-droppable{
     @include custom-card;
     .card{
-        &:not(.valid)::before{
+        &:not(.valid):not(.invalid)::before{
             @include custom-dropcard-content;
         }
     }    

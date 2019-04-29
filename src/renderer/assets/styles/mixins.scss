@@ -120,14 +120,6 @@
             background-color: #ccc;
         }
     }
-
-    :not([draggable]){
-        .card{
-            &:hover, &:focus {
-                transform: scale(1.05);
-            }
-        }        
-    }
 }
 
 @mixin custom-dropcard-content{

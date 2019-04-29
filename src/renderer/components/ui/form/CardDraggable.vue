@@ -6,8 +6,9 @@
                     no-body                
                 >
                     <b-card-body>
-                        <slot name="img"></slot>
-                        <slot></slot>
+                        <slot name="transfer-data">
+                            <div> {{ item.text }} </div>
+                        </slot>
                     </b-card-body>
                 </b-card>
             </div>
@@ -28,6 +29,7 @@
 
 <script>
 import { Drag } from 'vue-drag-drop'
+import { setTimeout } from 'timers';
 
 export default {
     components: { Drag },
@@ -61,7 +63,10 @@ export default {
             if (transferData.valid) {
                 this.dropped = true
             }
-            this.dragging = false
+            
+            setTimeout(() => {
+                this.dragging = false
+            }, 600)
         }
     }    
 }
