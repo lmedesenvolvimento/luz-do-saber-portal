@@ -3,6 +3,10 @@
 }
 
 .card-input{
+    background-color: transparent !important;
+}
+
+.card-input{
     @include custom-card(true);
     &.card-input-text{
         input{
@@ -19,6 +23,24 @@
             }
         }
     }
+}
+
+.card-input.card-draggable{
+    @include custom-card;
+    .dragging, .dropped{
+        &::before{
+            @include custom-dropcard-content;
+        }
+    }   
+}
+
+.card-input.card-droppable{
+    @include custom-card;
+    .card{
+        &:not(.valid):not(.invalid)::before{
+            @include custom-dropcard-content;
+        }
+    }    
 }
 
 // .card{

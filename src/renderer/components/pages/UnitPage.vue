@@ -1,5 +1,5 @@
 <template>
-    <div id="unit" class="page-container" v-if="unit">
+    <div v-if="unit" id="unit" class="page-container">
         <ls-navbar :navbar-title="unit.title" :navbar-subtitle="'Lorem Ipsum'" :navbar-icon="'https://placeimg.com/480/480/tech'">
             <b-btn variant="link" to="/components">
                 <div class="icon-home"></div>
@@ -8,9 +8,7 @@
             <div class="navbar-title">{{ unit.title }}</div>
             <span class="flex"></span>
         </ls-navbar>
-        <div class="container">            
-            <ls-gameplay></ls-gameplay>
-        </div>
+        <ls-gameplay></ls-gameplay>
     </div>
 </template>
 
@@ -22,25 +20,17 @@ import ui from '@/components/ui'
 
 export default {
     components: { ...ui },
-    created(){
-        this.fetchUnit(this.$route.params)
-    },
     computed: {
         ...mapState('Unit', ['unit', 'navigator'])
-    },
-    watch: {
-        navigator: {
-            handler(val){
-                console.log(val)
-            },
-            deep: true
-        }
-    },
+    }, 
     created(){
         this.fetchUnit(this.$route.params)
     },
+    beforeDestroy(){
+        this.setNavigatorOrder(1)
+    },
     methods: {
-        ...mapActions('Unit', ['fetchUnit'])
+        ...mapActions('Unit', ['fetchUnit', 'setNavigatorOrder'])
     },
 }
 </script>

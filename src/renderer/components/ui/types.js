@@ -5,6 +5,8 @@ export const ActivityTypes = {
 }
 
 export const ActivitySubtypes = {
-    default: 'padrao',
-    hideHalf: 'esconder-itens-metade'
+    default: 'padrao-linha',
+    column: 'padrao-coluna',
+    hideHalf: 'esconder-itens-metade',
+    unscramble: 'desembaralhar-nome'
 }

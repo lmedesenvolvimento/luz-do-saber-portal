@@ -1,50 +1,58 @@
 <template>
     <div class="container-fluid">
-        <b-col v-if="hasKeys" class="activity-keys">
+        <b-col>
             <b-row align-v="center" align-h="center">
-                <b-col v-for="(item, position) in getKeys" :key="position" align-self="center" :sm="valueColSize" class="item"> 
-                    <Item 
-                        v-if="answer.length"
-                        :item="item"
-                        :type="'key'"
-                        :template="activity.item_template.key"
-                    />
-                </b-col>
-            </b-row>            
-        </b-col>
-        <p>{{ progress }}</p>
-        <!-- <p v-for="(item, position) in getKeys" :key="position">{{ item.id }}</p> -->
-        <b-col class="activity-values">
-            <b-row align-v="center" align-h="center">
-                <b-col v-for="(item, position) in getValues" :key="position" align-self="center" :sm="valueColSize" class="item" @click="checkLetterOrder()"> 
-                    <Item                         
-                        v-if="answer.length"
+                <b-col v-for="item in activity.items.values"
+                       :key="item.id"
+                >
+                    <Item
                         :item="item"
                         :type="'value'"
-                        :template="activity.item_template.value"                        
-                    />
+                        :template="activity.item_template.value"
+                    >                        
+                    </Item>
                 </b-col>                    
             </b-row>
         </b-col>
+        <ls-card-display>
+            <b-col v-if="hasKeys">
+                <b-row align-v="center" align-h="center">
+                    <b-col v-for="key in activity.items.keys" 
+                           :key="key.id"
+                    >
+                        <Item
+                            :item="key"
+                            :type="'key'"
+                            :template="activity.item_template.key"
+                        >                        
+                        </Item>
+                    </b-col>
+                </b-row>            
+            </b-col>  
+        </ls-card-display>                   
     </div>
 </template>
 <script>
+import { mapState, mapActions } from 'vuex'
+import ui from '@/components/ui'
+import alerts from '@/components/alerts'
+import { sortBy, shuffle } from 'lodash'
 import { MapMixins, ListMixin, CreateAnswersMixins } from './mixins'
 
 export default {
+    components: { 
+        ...ui,
+        ...alerts
+    },
     mixins: [MapMixins, ListMixin, CreateAnswersMixins],
-    data () {
-        return {
-            progress: 0
-        }
+    created(){
+        this.setActivityAttrs({ total_correct_items: this.getKeys.length })
     },
     mounted() {
         this.createAnswersArray()
     },
-    methods: {
-        checkLetterOrder() {
-            
-        }
+    methods: {        
+        ...mapActions('Activity', ['setActivityAttrs'])
     },    
 }
 </script>

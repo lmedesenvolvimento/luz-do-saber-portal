@@ -28,7 +28,6 @@ const state = {
 const mutations = {        
     SET_ANSWERS(state, payload){
         state.answer = payload
-        console.log('SET_ANSWER',state.answer)
     },
 
     SET_ACTIVITY(state, activity){
@@ -89,13 +88,16 @@ const mutations = {
 
 
 const actions = {
-    async fetchActivity({ commit }, payload) {
+    async fetchActivity({ commit, dispatch }, payload) {
         try{
             let { module_slug, theme_slug, unit_slug, position } = payload.params
             let extenalParams = getExtenalParams(payload.question)            
             let { data } = await API.get(`/game/${module_slug}/${theme_slug}/${unit_slug}/${position}`, extenalParams)
 
             commit('SET_ACTIVITY', Object.assign(data.question, { position: position }))
+
+            // update store unit
+            dispatch('Unit/setNavigatorOrder', position, { root: true })
         } catch (error) {
             console.warn(error)
         }
@@ -131,7 +133,8 @@ const actions = {
     },
 
     setActivityAttrs({ commit, state }, attrs){
-        commit('SET_ACTIVITY', Object.assign(state.activity, attrs))
+        let newState = Object.assign(clone(state.activity), attrs)
+        commit('SET_ACTIVITY', newState)
     },
 
     // Timer Actions
