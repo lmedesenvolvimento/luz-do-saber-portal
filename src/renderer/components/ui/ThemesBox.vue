@@ -15,7 +15,7 @@
                 </b-row>
             </b-col>
             <b-col class="pt-4 container-unit-image"> 
-                <div class="align-self-stretch unit-image" />
+                <div class="unit-image" />
             </b-col>
         </b-row>
     </div>
