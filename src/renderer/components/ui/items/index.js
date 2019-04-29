@@ -39,5 +39,6 @@ export const ItemProps = {
 
 export default {
     'ls-item-text': require('./Text.vue').default,
-    'ls-item-cracha-box': require('./custom/CrachaBox.vue').default
+    'ls-item-cracha-box': require('./custom/CrachaBox.vue').default,
+    'ls-item-completa-letras': require('./custom/CompletaLetras.vue').default
 }
