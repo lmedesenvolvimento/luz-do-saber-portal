@@ -3,7 +3,7 @@
         <ls-activity-default v-if="subtypes.default === activity.subtype.slug" :value-col-size="valueColSize"></ls-activity-default>
         <ls-activity-half v-if="subtypes.hideHalf === activity.subtype.slug" :value-col-size="valueColSize"></ls-activity-half>
         <ls-activity-unscramble v-if="subtypes.unscramble === activity.subtype.slug" :value-col-size="valueColSize"></ls-activity-unscramble>
-        <ls-activity-number-letter v-if="subtypes.numberLetter === activity.subtype.slug" :value-col-size="valueColSize"></ls-activity-number-letter>
+        <ls-activity-number-letter v-if="subtypes.column === activity.subtype.slug" :value-col-size="valueColSize"></ls-activity-number-letter>
     </div>
 </template>
 <script>
