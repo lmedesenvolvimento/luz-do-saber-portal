@@ -4,7 +4,8 @@ export default {
         image: 'imagem'
     },
     custom: {
-        crachaBox: 'cracha-box'
+        crachaBox: 'cracha-box',
+        blockText: 'texto-em-blocos'
     },
     tags: {
         input: 'input'
