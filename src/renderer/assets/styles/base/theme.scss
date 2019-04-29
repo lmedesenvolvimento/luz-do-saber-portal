@@ -1,14 +1,11 @@
 body,html {
-  width: 100%;
-  height: 100%;
-  #app{
-    @include custom_scroll_bar;    
-  }
+    width: 100%;
+    height: 100%;
 }
 
 body {
-    @include baloo_bhaina;
-    background: url("../images/default-bg.png") $bg-color no-repeat;
-    background-size: cover;
-    color: $text-color;
-  }
+      @include baloo_bhaina;
+      background: url("../images/default-bg.png") $bg-color no-repeat;
+      background-size: cover;
+      color: $text-color;
+}

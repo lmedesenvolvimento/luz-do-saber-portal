@@ -39,9 +39,6 @@ const mutations = {
     },    
 
     COMPUTED_ANSWER(state, indexOfAnswer){
-        
-        console.log(state.answer)
-
         let answer = clone(state.answer)
         // register in store
         answer[indexOfAnswer].valid = true
