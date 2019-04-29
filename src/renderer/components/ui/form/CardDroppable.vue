@@ -6,8 +6,9 @@
                 :class="{ 'invalid': invalid, 'valid': valid }"
             >
                 <b-card-body>
-                    <slot name="img"></slot>
-                    <slot></slot>
+                    <slot name="transfer-data">
+                        <div> {{ transferData.text }} </div>
+                    </slot>
                 </b-card-body>
             </b-card>
         </div>
@@ -21,20 +22,31 @@ import RadioInput from './RadioInput.vue'
 export default {
     components: { Drop },
     mixins: [RadioInput],
+    data(){
+        return {
+            transferData: {}
+        }
+    },
+    created(){
+        this.transferData = this.item
+    },
     methods: {
         onDrop(transferData, nativeElement){
             if (this.valid) return
 
+            this.transferData = transferData
+
             if ( transferData.text === this.item.text ) {                
                 this.setAnswer({ 
-                    type: this.type,
-                    data: this.item.id,
+                    type: 'value',
+                    data: transferData.id,
                     vm: this
                 })
+
                 transferData.valid = true
             } else {
                 this.setAnswer({ 
-                    type: this.type, 
+                    type: 'value', 
                     data: -1,
                     vm: this
                 })
@@ -45,5 +57,4 @@ export default {
 </script>
 
 <style>
-
 </style>
