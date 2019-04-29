@@ -2,16 +2,16 @@
     <div class="container-fluid">
         <b-col>
             <b-row align-v="center" align-h="center">
-                <b-col v-for="key in activity.items.keys"
-                       :key="key.id"
+                <b-col v-for="item in activity.items.values"
+                       :key="item.id"
                 >
                     <ls-card-draggable
                         label="item.text" 
                         name="card-input"
                         type="key"
-                        :item="key"
+                        :item="item"
                     >
-                        {{ key.text }}
+                        {{ item.text }}
                     </ls-card-draggable>
                 </b-col>                    
             </b-row>
@@ -19,7 +19,7 @@
         <ls-card-display>
             <b-col v-if="hasKeys">
                 <b-row align-v="center" align-h="center">
-                    <b-col v-for="item in activity.items.values" 
+                    <b-col v-for="item in activity.items.keys" 
                            :key="item.id"
                     >
                         <ls-card-droppable
