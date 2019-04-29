@@ -1,13 +1,18 @@
 .circle-list {
     display: flex;
+    align-items: center;
     flex-wrap: wrap;
     margin-top: 8%;
+    justify-content: center;
+}
+.circle-box {
+    min-width: 300px;
+    max-width: 450px;
 }
 .circle-and-box{
     display: flex;
     transition: all 0.2s ease-in;
-    min-width: 300px;
-    max-width: 400px;
+
     .col {
         padding: 0;
     }

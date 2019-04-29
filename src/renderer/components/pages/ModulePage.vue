@@ -6,8 +6,8 @@
                 :navbar-subtitle="'TEMAS'"
                 :navbar-icon="getModuleImage(activeModule)"
             />
-            <div class="circle-list">
-                <b-col v-for="theme in activeModule.themes" :key="theme.id">
+            <b-col class="circle-list">
+                <b-col v-for="theme in activeModule.themes" :key="theme.id" class="circle-box flex-fill">
                     <router-link :to="{ name: 'theme', params: { module_slug: $route.params.module_slug, theme_slug: theme.slug } }">
                         <vue-circle
                             class="my-3 mx-4"
@@ -18,7 +18,16 @@
                         />
                     </router-link>
                 </b-col>
-            </div>
+                <!-- <b-col v-for="(index) in 4" :key="index" class="circle-box flex-fill">
+                    <vue-circle
+                        class="my-3 mx-4"
+                        :label="'Título do Tema'"
+                        :image="'https://image.flaticon.com/icons/png/128/145/145867.png'"
+                        :progress="50"
+                        :color="{ color: '#C72929' }"
+                    />
+                </b-col> -->
+            </b-col>
             <b-btn variant="link" :to="historyBack">
                 Voltar
             </b-btn>
