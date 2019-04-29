@@ -19,7 +19,7 @@
         </ls-card-draggable>
 
         <ls-card-droppable
-            v-else-if="type === 'key'"
+            v-else-if="isDrop"
             label="key.text" 
             name="card-input"
             :item="item"

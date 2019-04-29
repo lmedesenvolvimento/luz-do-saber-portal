@@ -1,6 +1,6 @@
 <template>
     <div class="container-fluid">
-        <b-row>
+        <b-row align-h="center">
             <b-col v-if="hasKeys" class="activity-keys">
                 <b-col v-for="(item, position) in getKeys" :key="position" :sm="valueColSize" class="item"> 
                     <Item 
