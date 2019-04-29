@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <b-row class="progress-chart">
+        <div class="circle-and-box">
             <b-col class="container-circle">
                 <div class="img-container" :style="{'background-color': color.color }">
                     <vue-circle class="circle"
@@ -22,7 +22,7 @@
             <b-col v-if="label" class="my-3 title-container">
                 {{ label }}
             </b-col>
-        </b-row>
+        </div>
     </div>
 </template>
 

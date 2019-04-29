@@ -19,7 +19,7 @@ import { RouteMixin } from './index'
 import ui from '@/components/ui'
 
 export default {
-    components: { ...ui },    
+    components: { ...ui },
     computed: {
         ...mapState('Unit', ['unit', 'navigator'])
     }, 
