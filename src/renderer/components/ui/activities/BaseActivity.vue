@@ -3,6 +3,7 @@
         <ls-activity-default v-if="subtypes.default === activity.subtype.slug" :value-col-size="valueColSize"></ls-activity-default>
         <ls-activity-half v-if="subtypes.hideHalf === activity.subtype.slug" :value-col-size="valueColSize"></ls-activity-half>
         <ls-activity-unscramble v-if="subtypes.unscramble === activity.subtype.slug" :value-col-size="valueColSize"></ls-activity-unscramble>
+        <ls-activity-rearrange-name v-if="subtypes.rearrangeName === activity.subtype.slug" :value-col-size="valueColSize"></ls-activity-rearrange-name>
     </div>
 </template>
 <script>
