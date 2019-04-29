@@ -18,7 +18,7 @@
                         />
                     </router-link>
                 </b-col>
-                <b-col v-for="(index) in 4" :key="index" class="my-3 mx-4 circle-box flex-fill">
+                <!-- <b-col v-for="(index) in 4" :key="index" class="my-3 mx-4 circle-box flex-fill">
                     <vue-circle
                         class=""
                         :label="'Título do Tema'"
@@ -26,7 +26,7 @@
                         :progress="50"
                         :color="{ color: '#C72929' }"
                     />
-                </b-col>
+                </b-col> -->
                 <b-col v-show="emptyCellTheme" class="my-3 mx-4 circle-box flex-fill" />
             </b-col>
         </div>
