@@ -63,10 +63,15 @@ export default {
             if (transferData.valid) {
                 this.dropped = true
             }
-            
-            setTimeout(() => {
+
+            if (transferData.invalid) {
+                setTimeout(() => {
+                    this.dragging = false
+                    transferData.invalid = false
+                }, 600)
+            } else {
                 this.dragging = false
-            }, 600)
+            }
         }
     }    
 }

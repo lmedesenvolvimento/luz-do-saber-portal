@@ -50,6 +50,8 @@ export default {
                     data: -1,
                     vm: this
                 })
+
+                transferData.invalid = true
             }
         }
     }
