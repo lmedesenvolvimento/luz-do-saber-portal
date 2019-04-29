@@ -5,29 +5,25 @@
             :navbar-subtitle="'Unidades'"
             :navbar-icon="'https://placeimg.com/480/480/tech'"
         />
-        <div class="mt-5 container">
-            <div class="mt-5 centralize">
-                <div class="mt-5">
-                    <b-list-group v-if="theme" horizontal class="mt-5 theme-unities-list">
-                        <b-list-group-item v-for="unit in theme.units" :key="unit.id" class="mx-5 my-4 theme-unit">
-                            <router-link
-                                :to="{ 
-                                    name: 'unit', 
-                                    params: { 
-                                        module_slug: $route.params.module_slug, 
-                                        theme_slug: theme.slug,
-                                        unit_slug: unit.slug
-                                    }
-                                }"
-                            >
-                                <themes-box :unit="unit" :theme-color="getThemeColor(theme)" />
-                            </router-link>
-                        </b-list-group-item>
-                        <b-list-group-item v-show="emptyCellUnit" class="mx-5 my-4 theme-unit" />
-                    </b-list-group>
-                </div>
-            </div>
-        </div>
+        <b-col class="mt-5 container">
+            <b-row v-if="theme" class="mt-5 theme-unities-list">
+                <b-col v-for="unit in theme.units" :key="unit.id" class="mx-5 my-4 flex-fill theme-unit-box">
+                    <router-link
+                        :to="{ 
+                            name: 'unit', 
+                            params: { 
+                                module_slug: $route.params.module_slug, 
+                                theme_slug: theme.slug,
+                                unit_slug: unit.slug
+                            }
+                        }"
+                    >
+                        <themes-box :unit="unit" :theme-color="getThemeColor(theme)" />
+                    </router-link>
+                </b-col>
+                <b-col v-show="emptyCellUnit" class="mx-5 my-4 theme-unit-box" />
+            </b-row>
+        </b-col>
     </div>
 </template>
 
@@ -75,7 +71,7 @@ export default {
         },
         alignEmptySpaces() {
             var list = document.getElementsByClassName('theme-unities-list')[0]
-            var numUnities = list.getElementsByClassName('theme-unit').length
+            var numUnities = list.getElementsByClassName('theme-unit-box').length
 
             if (numUnities % 2 == 0){
                 return true
