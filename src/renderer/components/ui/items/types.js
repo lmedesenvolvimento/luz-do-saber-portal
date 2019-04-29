@@ -4,7 +4,8 @@ export default {
         image: 'imagem'
     },
     custom: {
-        crachaBox: 'cracha-box'
+        crachaBox: 'cracha-box',
+        completaLetras: 'completa-letras'
     },
     tags: {
         input: 'input'
