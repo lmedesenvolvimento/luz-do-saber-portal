@@ -5,13 +5,12 @@
                 <b-col v-for="item in activity.items.values"
                        :key="item.id"
                 >
-                    <ls-card-draggable
-                        label="item.text" 
-                        name="card-input"
+                    <Item
                         :item="item"
-                    >
-                        {{ item.text }}
-                    </ls-card-draggable>
+                        :type="'value'"
+                        :template="activity.item_template.value"
+                    >                        
+                    </Item>
                 </b-col>                    
             </b-row>
         </b-col>
@@ -21,12 +20,12 @@
                     <b-col v-for="key in activity.items.keys" 
                            :key="key.id"
                     >
-                        <ls-card-droppable
-                            label="key.text" 
-                            name="card-input"
+                        <Item
                             :item="key"
-                        >
-                        </ls-card-droppable> 
+                            :type="'key'"
+                            :template="activity.item_template.key"
+                        >                        
+                        </Item>
                     </b-col>
                 </b-row>            
             </b-col>  
@@ -46,11 +45,6 @@ export default {
         ...alerts
     },
     mixins: [MapMixins, ListMixin, CreateAnswersMixins],
-    data () {
-        return {
-            
-        }
-    },
     created(){
         this.setActivityAttrs({ total_correct_items: this.getKeys.length })
     },
