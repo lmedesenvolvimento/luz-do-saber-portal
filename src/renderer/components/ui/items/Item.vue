@@ -2,14 +2,6 @@
     <div :class="item.type ? item.type : ''">
         <div v-if="isPrimitiveItem">
             <ls-item-text
-                v-if="template.type === Types.primitive.image"
-                :type="type"
-                :item="item"
-                :template="template"
-            ></ls-item-text>
-
-            <ls-item-text
-                v-else
                 :type="type"
                 :item="item"
                 :template="template"
