@@ -7,5 +7,6 @@ export const ActivityTypes = {
 export const ActivitySubtypes = {
     default: 'padrao',
     hideHalf: 'esconder-itens-metade',
-    unscramble: 'desembaralhar-nome'
+    unscramble: 'desembaralhar-nome',
+    scratchLetter: 'risca-letras',
 }
