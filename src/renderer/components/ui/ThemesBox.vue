@@ -14,8 +14,8 @@
                     <b-col class="star" />
                 </b-row>
             </b-col>
-            <b-col class="pt-2 container-unit-image"> 
-                <b-col class="unit-image" />
+            <b-col class="pt-4 container-unit-image"> 
+                <div class="align-self-stretch unit-image" />
             </b-col>
         </b-row>
     </div>
