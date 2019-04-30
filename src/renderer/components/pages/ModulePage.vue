@@ -21,7 +21,7 @@
                 <b-col v-show="emptyCellTheme" class="my-3 mx-4 circle-box flex-fill" />
             </b-col>
         </div>
-        <b-card class="mt-5">
+        <b-card class="footbar">
             <b-card-body>
                 <b-btn variant="link" :to="historyBack">
                     Voltar
@@ -53,6 +53,7 @@ export default {
     },
     computed: {
         ...mapState('Modules', ['activeModule'])
+        
     },
     created(){
         this.fetchModule(this.$route.params.module_slug)
