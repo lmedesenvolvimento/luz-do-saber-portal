@@ -6,7 +6,9 @@
         :item="item"
         :name="activity.type.slug"
     >
-        <b-card-text>{{ item.text }}</b-card-text>
+        <div class="cracha-text">
+            <p>{{ item.text }}</p>
+        </div>
         <template slot="img">
             <b-card-img :src="require('@/assets/images/components/examples/cracha-1.png')" />
         </template>
