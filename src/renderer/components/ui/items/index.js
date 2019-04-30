@@ -28,7 +28,7 @@ export const ItemProps = {
             return ( this.template && this.template.tags ) ? true : false
         },
         fillBackgroundColor(){
-            return this.item.type === 'letra' ? `#${this.getRandomColor}`: null
+            return this.item.type === 'letra' ? `#${this.getRandomColor} !important`: null
         },
         getRandomColor(){
             return Math.floor(Math.random()*16777215).toString(16)
