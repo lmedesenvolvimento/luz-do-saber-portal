@@ -2,8 +2,8 @@
     <div id="module" class="page-container" :class="activeModule ? activeModule.slug : ''">
         <div v-if="activeModule" class="container">
             <navbar
-                :navbar-title="'MÓDULO: '+activeModule.slug "
-                :navbar-subtitle="'TEMAS'"
+                :navbar-title="renderNavTitle"
+                :navbar-subtitle="'Temas'"
                 :navbar-icon="getModuleImage(activeModule)"
             />
             <b-col class="circle-list">
@@ -52,8 +52,10 @@ export default {
         }
     },
     computed: {
-        ...mapState('Modules', ['activeModule'])
-        
+        ...mapState('Modules', ['activeModule']),
+        renderNavTitle(){
+            return this.activeModule.slug ? 'Módulo ' + this.activeModule.slug : ''
+        },
     },
     created(){
         this.fetchModule(this.$route.params.module_slug)
