@@ -1,6 +1,6 @@
 <template>
     <div class="container-fluid">
-        <b-row>
+        <!-- <b-row>
             <b-col v-if="hasKeys" class="activity-keys">
                 <b-col v-for="(item, position) in getKeys" :key="position" :sm="valueColSize" class="item"> 
                     <Item 
@@ -11,16 +11,26 @@
                     />
                 </b-col>
             </b-col>
-        </b-row>
+        </b-row> -->        
+        <b-row>
+            <b-col>
+                <b-row align-v="center" align-h="center">
+                    <ls-card-display v-for="index in getKeys[0].text.length" :key="index" style="padding: 10px">
+                        {{ getKeys[0].text[index - 1] }}
+                    </ls-card-display>
+                </b-row>                
+            </b-col>            
+        </b-row>        
         <b-row>
             <b-col class="activity-values">
                 <b-row align-v="center" align-h="center">
-                    <b-col v-for="(item, position) in getValues" :key="position" align-self="center" :sm="valueColSize" class="item"> 
+                    <b-col v-for="(item, position) in getValues" :key="position" align-self="center" :sm="valueColSize" class="item" style="padding-right: 110px"> 
                         <Item 
                             v-if="answer.length"
                             :item="item"
                             :type="'value'"
                             :template="activity.item_template.value"
+                            style="width: 110px"
                         />
                     </b-col>                    
                 </b-row>
@@ -30,11 +40,16 @@
 </template>
 <script>
 import { MapMixins, ListMixin, CreateAnswersMixins } from './mixins'
+import FormProps from '../form'
 
 export default {
+    components: {
+        ...FormProps
+    },
     mixins: [MapMixins, ListMixin, CreateAnswersMixins],
     mounted() {
         this.createAnswersArray()
-    }
+    },
+    
 }
 </script>
