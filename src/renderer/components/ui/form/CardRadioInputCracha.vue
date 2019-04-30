@@ -1,15 +1,15 @@
 <template>
     <div class="card-input card-radio-input" :class="$attrs.class">
         <label>
-            <b-card 
+            <div 
                 no-body
                 :class="{ 'invalid': invalid, 'valid': valid, 'selected': selected }"
             >
-                <b-card-body>
+                <div>
                     <slot name="img"></slot>
                     <slot></slot>
-                </b-card-body>
-            </b-card>
+                </div>
+            </div>
 
             <input
                 :name="$attrs.name" 
