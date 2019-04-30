@@ -1,7 +1,6 @@
 import { mapState } from 'vuex'
 
 import Item from '@/components/ui/items/Item'
-import { ActivityTypes } from '@/components/ui/types'
 
 export const ListMixin = {
     components: {
@@ -9,11 +8,6 @@ export const ListMixin = {
     },
     props: {
         valueColSize: Number
-    },
-    data() {
-        return {
-            ActivityTypes: ActivityTypes,
-        }
     },
     computed: {
         hasKeys() {
