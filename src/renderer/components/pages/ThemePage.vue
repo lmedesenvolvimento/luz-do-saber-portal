@@ -1,12 +1,12 @@
 <template>
-    <div id="theme" class="mt-5 d-flex align-items-center page-container">
+    <div id="theme" class="d-flex align-items-center page-container">
         <navbar
-            :navbar-title="'TEMA '+theme.title"
+            :navbar-title="renderNavTitle"
             :navbar-subtitle="'Unidades'"
             :navbar-icon="'https://placeimg.com/480/480/tech'"
         />
-        <div class="mt-5 container">
-            <b-col v-if="theme" class="mt-5 theme-unities-list">
+        <div class="container">
+            <b-col v-if="theme" class="theme-unities-list">
                 <b-col v-for="unit in theme.units" :key="unit.id" class="mx-5 my-4 flex-fill theme-unit-box">
                     <router-link
                         :to="{ 
@@ -21,7 +21,6 @@
                         <themes-box :unit="unit" :theme-color="getThemeColor(theme)" />
                     </router-link>
                 </b-col>
-                <!-- <b-col v-show="emptyCellUnit" class="mx-5 my-4 theme-unit-box" /> -->
             </b-col>
         </div>
     </div>
@@ -46,6 +45,9 @@ export default {
         }
     },
     computed: {
+        renderNavTitle(){
+            return this.theme.title ? 'Tema ' + this.theme.title : ''
+        },
         ...mapState('Theme', ['theme']),
         
     },
