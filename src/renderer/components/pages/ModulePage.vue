@@ -21,7 +21,7 @@
                 <b-col v-show="emptyCellTheme" class="my-3 mx-4 circle-box flex-fill" />
             </b-col>
         </div>
-        <b-card class="footbar">
+        <b-card class="mt-5">
             <b-card-body>
                 <b-btn variant="link" :to="historyBack">
                     Voltar
