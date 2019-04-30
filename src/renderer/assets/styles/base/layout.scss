@@ -7,7 +7,7 @@ body{
     #app{
         height: 100%;
         padding-top: $navbar-height;
-        padding-bottom: $navbar-height;
+        padding-bottom: 0px;
         overflow: auto;
     }
 }
