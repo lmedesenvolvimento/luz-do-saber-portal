@@ -6,8 +6,12 @@
                 :class="{ 'invalid': invalid, 'valid': valid, 'selected': selected }"
             >
                 <div>
-                    <slot name="img"></slot>
-                    <slot></slot>
+                    <div class="cracha-container">
+                        <b-card-img class="cracha-img" :src="renderCrachaImage" />
+                        <div class="cracha-text">
+                            <slot></slot>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -24,7 +28,18 @@
 <script>
 import RadioInput from './RadioInput.vue'
 export default {
-    mixins: [RadioInput]
+    mixins: [RadioInput],
+    computed: {
+        renderCrachaImage(){
+            if (this.valid){
+                return require('@/assets/images/btn-read.png')
+            } else if (this.invalid) {
+                return require('@/assets/images/btn-write.png')
+            } else {                
+                return require('@/assets/images/components/examples/cracha-1.png')
+            }
+        }
+    }
 }
 </script>
 <style lang="scss">

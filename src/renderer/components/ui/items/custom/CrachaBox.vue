@@ -6,12 +6,7 @@
         :item="item"
         :name="activity.type.slug"
     >
-        <div class="cracha-text">
-            <p>{{ item.text }}</p>
-        </div>
-        <template slot="img">
-            <b-card-img :src="require('@/assets/images/components/examples/cracha-1.png')" />
-        </template>
+        {{ item.text }}
     </ls-card-input-cracha>
 </template>
 <script>
