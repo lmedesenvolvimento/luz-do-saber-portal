@@ -8,5 +8,6 @@ export const ActivitySubtypes = {
     default: 'padrao-linha',
     column: 'padrao-coluna',
     hideHalf: 'esconder-itens-metade',
-    unscramble: 'desembaralhar-nome'
+    unscramble: 'desembaralhar-nome',
+    rearrangeName: 'monte-seu-nome',
 }
