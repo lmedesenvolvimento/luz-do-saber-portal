@@ -1,38 +1,36 @@
 <template>
     <div class="container-fluid">
-        <b-col>
-            <b-row align-v="center" align-h="center">
-                <b-col v-for="key in activity.items.keys"
-                       :key="key.id"
-                >
-                    <ls-card-draggable
-                        label="item.text" 
-                        name="card-input"
-                        type="key"
-                        :item="key"
-                    >
-                        {{ key.text }}
-                    </ls-card-draggable>
-                </b-col>                    
-            </b-row>
-        </b-col>
+        <b-row align-v="center" align-h="center">
+            <b-col 
+                v-for="item in activity.items.values"
+                :key="item.id"
+                :sm="valueColSize"
+                class="item"
+            >
+                <Item
+                    :item="item"
+                    :type="'value'"
+                    :template="activity.item_template.value"
+                >                        
+                </Item>
+            </b-col>                    
+        </b-row>
         <ls-card-display>
-            <b-col v-if="hasKeys">
-                <b-row align-v="center" align-h="center">
-                    <b-col v-for="item in activity.items.values" 
-                           :key="item.id"
-                    >
-                        <ls-card-droppable
-                            label="item.text" 
-                            name="card-input"
-                            type="value"
-                            :item="item"
-                        >
-                            {{ item.text }}
-                        </ls-card-droppable> 
-                    </b-col>
-                </b-row>            
-            </b-col>  
+            <b-row align-v="center" align-h="center">
+                <b-col 
+                    v-for="key in activity.items.keys" 
+                    :key="key.id"
+                    :sm="valueColSize"
+                    class="item"
+                >
+                    <Item
+                        :item="key"
+                        :type="'key'"
+                        :template="activity.item_template.key"
+                    >                        
+                    </Item>
+                </b-col>
+            </b-row>
         </ls-card-display>                   
     </div>
 </template>
@@ -49,18 +47,11 @@ export default {
         ...alerts
     },
     mixins: [MapMixins, ListMixin, CreateAnswersMixins],
-    data () {
-        return {
-            
-        }
-    },
     created(){
         this.setActivityAttrs({ total_correct_items: this.getKeys.length })
     },
     mounted() {
         this.createAnswersArray()
-        this.activity.items.values = sortBy(this.activity.items.values, ['id'])
-        this.activity.items.keys = shuffle(this.activity.items.keys)
     },
     methods: {        
         ...mapActions('Activity', ['setActivityAttrs'])

@@ -5,10 +5,13 @@
                 <b-card
                     no-body                
                 >
-                    <b-card-body>
-                        <slot name="img"></slot>
-                        <slot></slot>
-                    </b-card-body>
+                    <fill-background :bg-color="bgColor">
+                        <b-card-body>
+                            <slot name="transfer-data">
+                                <div>{{ item.text }}</div>
+                            </slot>
+                        </b-card-body>
+                    </fill-background>
                 </b-card>
             </div>
         </template>
@@ -17,26 +20,32 @@
             <b-card
                 no-body                
             >
-                <b-card-body :class="{ 'dragging': dragging, 'dropped': dropped }">
-                    <slot name="img"></slot>
-                    <slot></slot>
-                </b-card-body>
+                <fill-background :bg-color="bgColor">
+                    <b-card-body :class="{ 'dragging': dragging, 'dropped': dropped }">
+                        <slot name="img"></slot>
+                        <slot></slot>
+                    </b-card-body>
+                </fill-background>
             </b-card>
         </div>
     </drag>
 </template>
 
 <script>
+import FillBackground from '@/components/ui/helpers/FillBackground'
+
 import { Drag } from 'vue-drag-drop'
+import { setTimeout } from 'timers';
 
 export default {
-    components: { Drag },
+    components: { Drag, FillBackground },
     props:{
         item: {
             type: Object,
             required: true
         },
-        type: String
+        type: String,
+        bgColor: String
     },
     data(){
         return {
@@ -61,7 +70,15 @@ export default {
             if (transferData.valid) {
                 this.dropped = true
             }
-            this.dragging = false
+
+            if (transferData.invalid) {
+                setTimeout(() => {
+                    this.dragging = false
+                    transferData.invalid = false
+                }, 600)
+            } else {
+                this.dragging = false
+            }
         }
     }    
 }

@@ -6,10 +6,12 @@
         <div v-else-if="types.game === activity.type.slug" class="game">        
             <ls-activity-half v-if="gameSubtypes.hideHalf === activity.subtype.slug" :value-col-size="valueColSize"></ls-activity-half>
             <ls-activity-unscramble v-if="gameSubtypes.unscramble === activity.subtype.slug" :value-col-size="valueColSize"></ls-activity-unscramble>
+            <ls-activity-rearrange-name v-if="subtypes.rearrangeName === activity.subtype.slug" :value-col-size="valueColSize" :key-col-size="keyColSize"></ls-activity-rearrange-name>
             <ls-activity-jigsaw v-if="gameSubtypes.jigsaw === activity.subtype.slug" :value-col-size="valueColSize"></ls-activity-jigsaw>
         </div>
     </div>
 </template>
+
 <script>
 import { clone } from 'lodash'
 import { mapState, mapActions } from 'vuex'
@@ -32,6 +34,9 @@ export default {
         },
         types(){
             return BaseTypes
+        },
+        keyColSize(){
+            return Math.abs(TOTAL_COLUMNS / this.activity.item_template.key.total_per_line)
         },
         valueColSize(){
             return Math.abs(TOTAL_COLUMNS / this.activity.item_template.value.total_per_line)

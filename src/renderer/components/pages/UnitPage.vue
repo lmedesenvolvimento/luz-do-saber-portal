@@ -8,9 +8,7 @@
             <div class="navbar-title">{{ unit.title }}</div>
             <span class="flex"></span>
         </ls-navbar>
-        <div class="container">            
-            <ls-gameplay></ls-gameplay>
-        </div>
+        <ls-gameplay></ls-gameplay>
     </div>
 </template>
 
@@ -21,7 +19,7 @@ import { RouteMixin } from './index'
 import ui from '@/components/ui'
 
 export default {
-    components: { ...ui },    
+    components: { ...ui },
     computed: {
         ...mapState('Unit', ['unit', 'navigator'])
     }, 

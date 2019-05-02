@@ -3,10 +3,10 @@
     flex-direction: column;
     flex: 1;
     background-color: white;
-    width: 90vw;
+    width: 100%;
     max-width: 1024px;
-    max-height: calc(81vh - 150px);
-    margin: 24px auto;
+    // max-height: calc(81vh - 150px);
+    margin: 24px auto 0px;
     box-shadow: 3px 3px 18px transparentize($color: #000, $amount: 0.9);
     border-bottom-left-radius: 8px; 
     border-bottom-right-radius: 8px; 
@@ -48,14 +48,14 @@
         }
     }
     .gameplay-body{
-        padding: 24px 24px;
+        padding: 24px 42px 0px;
         background-color: white;
         border-left: $gameplay-border-color 1px solid;
         border-right: $gameplay-border-color 1px solid;
         flex: 1;
         display: flex;
-        min-height: 70vh;
-        max-height: 70vh;
+        min-height: $gameplay-height;
+        max-height: $gameplay-height;
         flex-direction: column;
         > div {
             display: flex;
@@ -71,11 +71,11 @@
     .gameplay-description{
         @extend .subtitle;
         flex: 1;
-        max-height: 3rem;        
+        max-height: 20px;  
         text-align: center;
-        font-size: 28px;
+        font-size: 20px;
         color: #717171;
-        margin: 24px 0px;
+        margin: 4px 0px 16px;
     }
     .gameplay-activity-container{        
         @include custom_scroll_bar;
