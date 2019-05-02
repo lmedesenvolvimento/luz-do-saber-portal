@@ -4,12 +4,11 @@ export const BaseTypes = {
 }
 
 export const ActivitySubtypes = {
-    default: 'padrao',
+    default: 'padrao-linha',
+    column: 'padrao-coluna'
 }
 
 export const GameSubtypes = {
-    default: 'padrao-linha',
-    column: 'padrao-coluna',
     hideHalf: 'esconder-itens-metade',
     unscramble: 'desembaralhar-nome',
     rearrangeName: 'monte-seu-nome',

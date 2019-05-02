@@ -6,7 +6,7 @@
         <div v-else-if="types.game === activity.type.slug" class="game">        
             <ls-activity-half v-if="gameSubtypes.hideHalf === activity.subtype.slug" :value-col-size="valueColSize"></ls-activity-half>
             <ls-activity-unscramble v-if="gameSubtypes.unscramble === activity.subtype.slug" :value-col-size="valueColSize"></ls-activity-unscramble>
-            <ls-activity-rearrange-name v-if="subtypes.rearrangeName === activity.subtype.slug" :value-col-size="valueColSize" :key-col-size="keyColSize"></ls-activity-rearrange-name>
+            <ls-activity-rearrange-name v-if="gameSubtypes.rearrangeName === activity.subtype.slug" :value-col-size="valueColSize" :key-col-size="keyColSize"></ls-activity-rearrange-name>
             <ls-activity-jigsaw v-if="gameSubtypes.jigsaw === activity.subtype.slug" :value-col-size="valueColSize"></ls-activity-jigsaw>
         </div>
     </div>
