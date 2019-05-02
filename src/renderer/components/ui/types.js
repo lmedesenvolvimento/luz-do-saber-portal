@@ -4,8 +4,10 @@ export const BaseTypes = {
 }
 
 export const ActivitySubtypes = {
-    default: 'padrao-linha',
-    column: 'padrao-coluna'
+    row: 'padrao-linha',
+    column: 'padrao-coluna',
+    rowReverse: 'padrao-linha-reverso',
+    columnReverse: 'padrao-column-reverso'
 }
 
 export const GameSubtypes = {
