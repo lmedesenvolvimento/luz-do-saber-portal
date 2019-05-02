@@ -18,16 +18,14 @@
                         />
                     </router-link>
                 </b-col>
-                <b-card class="mx-5 fill cards">
-                    <b-card-body>
-                        <b-btn variant="link" :to="historyBack">
-                            Voltar
-                        </b-btn>
-                        <b-btn variant="link" to="/componentes">
-                            Componentes
-                        </b-btn>
-                    </b-card-body>
-                </b-card>
+                <b-col cols="12">
+                    <b-btn variant="link" :to="historyBack">
+                        Voltar
+                    </b-btn>
+                    <b-btn variant="link" to="/componentes">
+                        Componentes
+                    </b-btn>
+                </b-col>
             </b-row>
         </div>
     </div>
