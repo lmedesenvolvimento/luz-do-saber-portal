@@ -5,20 +5,18 @@
                 no-body
                 :class="{ 'invalid': invalid, 'valid': valid }"
             >
-                <fill-background :bg-color="bgColor">
-                    <b-card-body>
-                        <input
-                            v-model="model"
-                            :name="$attrs.name" 
-                            :maxlength="1"
-                            :disabled="valid"
-                            type="text"
-                            v-bind="$attrs"
-                            selectionDirection="backward"
-                            @keydown="onKeyDown($event)"
-                        />
-                    </b-card-body>
-                </fill-background>
+                <b-card-body>
+                    <input
+                        v-model="model"
+                        :name="$attrs.name" 
+                        :maxlength="1"
+                        :disabled="valid"
+                        type="text"
+                        v-bind="$attrs"
+                        selectionDirection="backward"
+                        @keydown="onKeyDown($event)"
+                    />
+                </b-card-body>
             </b-card>
         </label>
     </div>
@@ -28,12 +26,7 @@ import RadioInput from './RadioInput.vue'
 import { setTimeout } from 'timers'
 import { trim, dropRight } from 'lodash'
 
-import FillBackground from '@/components/ui/helpers/FillBackground'
-
 export default {
-    components: {
-        FillBackground
-    },
     mixins: [RadioInput],
     props:{
         maxLength: Number,
