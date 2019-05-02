@@ -3,7 +3,8 @@ a:hover {
 }
 
 .theme-unit-box {
-	margin: ( $spacer * 3);
+	transition: transform 0.2s ease-in-out;
+	margin: ( $spacer * 2) ($spacer * 4);
 	.header-unit {
 		display: flex;
 		flex-direction: column;
@@ -78,4 +79,8 @@ a:hover {
 			}
 		}
 	}
+	&:hover{
+        cursor: pointer;
+        transform: scale(1.05);
+    }
 }
