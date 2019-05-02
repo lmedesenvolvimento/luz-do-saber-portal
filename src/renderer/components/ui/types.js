@@ -9,5 +9,4 @@ export const ActivitySubtypes = {
     column: 'padrao-coluna',
     hideHalf: 'esconder-itens-metade',
     unscramble: 'desembaralhar-nome',
-    scratchLetter: 'risca-letras',
 }
