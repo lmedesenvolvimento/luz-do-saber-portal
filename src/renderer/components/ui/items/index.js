@@ -2,6 +2,8 @@ import { mapState } from 'vuex'
 import Types from './types'
 import FormInputs from '@/components/ui/form'
 
+import { random } from 'lodash'
+
 export const ItemProps = {
     props: {
         item: Object,
@@ -28,10 +30,16 @@ export const ItemProps = {
             return ( this.template && this.template.tags ) ? true : false
         },
         fillBackgroundColor(){
-            return this.item.type === 'letra' ? `#${this.getRandomColor} !important`: null
+            //return this.item.type === 'letra' ? `#${this.getRandomColor} !important`: null
+            let a = this.availableColors
+            return this.item.type === 'letra' ? `#${this.availableColors[random(a.length)]} !important` : null
+
         },
         getRandomColor(){
             return Math.floor(Math.random()*16777215).toString(16)
+        },
+        availableColors(){
+            return ['cc7200', 'c30374', '8c2db4', '454ebc', '3875c1', '028d8b', 'ffb151', 'f766ae', 'ae67e0', '757bfa', '75c0ff', '64cbc2']
         },
         ...mapState('Activity', ['activity'])
     }
