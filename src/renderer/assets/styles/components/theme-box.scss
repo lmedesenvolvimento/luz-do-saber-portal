@@ -1,19 +1,11 @@
 a:hover {
 	text-decoration: none;
 }
-.theme-unities-list {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	justify-content: center;
-	padding: 0;
-}
 
 .theme-unit-box {
-	// display: flex;
-	padding: 0;
 	min-width: 220px;
 	max-width: 400px;
+	margin: ( $spacer * 3) 0px;
 	.header-unit {
 		display: flex;
 		flex-direction: column;
