@@ -23,15 +23,15 @@ function createWindow () {
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    height: 640,
+    height: 800,
     useContentSize: true,
-    width: 1170,
+    width: 1200,
     webPreferences: {
       webSecurity: false
     }
   })
 
-  mainWindow.maximize()
+  // mainWindow.maximize()
   // mainWindow.setFullScreen(true)
 
   mainWindow.loadURL(winURL)

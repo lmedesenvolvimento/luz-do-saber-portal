@@ -8,7 +8,10 @@ export const ActivitySubtypes = {
 }
 
 export const GameSubtypes = {
+    default: 'padrao-linha',
+    column: 'padrao-coluna',
     hideHalf: 'esconder-itens-metade',
     unscramble: 'desembaralhar-nome',
+    rearrangeName: 'monte-seu-nome',
     jigsaw: 'quebra-cabecas',
 }

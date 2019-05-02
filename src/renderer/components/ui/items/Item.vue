@@ -2,14 +2,6 @@
     <div :class="item.type ? item.type : ''">
         <div v-if="isPrimitiveItem">
             <ls-item-text
-                v-if="template.type === Types.primitive.image"
-                :type="type"
-                :item="item"
-                :template="template"
-            ></ls-item-text>
-
-            <ls-item-text
-                v-else
                 :type="type"
                 :item="item"
                 :template="template"
@@ -22,6 +14,12 @@
                 :item="item"
                 :template="template"
             ></ls-item-cracha-box>
+            <ls-item-completa-letras
+                v-if="template.custom === Types.custom.completaLetras"
+                :type="type"
+                :item="item"
+                :template="template"
+            ></ls-item-completa-letras>
         </div>
     </div>  
 </template>

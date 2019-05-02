@@ -2,8 +2,29 @@
     position: relative;
     user-select: none;
     outline: none;
-    &.col-sm-1{
-        min-width: $item-min-width;
+    label{
+        margin-bottom: 0px;
+    }
+    &.col-sm-1, .col-1{
+        display: inline-flex;
         flex: 1;
+        max-width: none;
+        min-width: $item-min-width;
+        justify-content: center;
+        .letra{
+            display: inline-block;
+            .card{
+                max-height: 71px;
+            }
+            .card-body{
+                padding: 1rem 1.67rem;
+            }
+            .card-input-text{
+                max-width: 5rem;
+                .card-body{
+                    padding: 1rem 1.25rem;
+                }
+            }
+        }
     }
 }
