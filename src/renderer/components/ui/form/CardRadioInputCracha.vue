@@ -32,11 +32,11 @@ export default {
     computed: {
         renderCrachaImage(){
             if (this.valid){
-                return require('@/assets/images/btn-read.png')
+                return require('@/assets/images/cracha-certo.png')
             } else if (this.invalid) {
-                return require('@/assets/images/btn-write.png')
+                return require('@/assets/images/cracha-error.png')
             } else {                
-                return require('@/assets/images/components/examples/cracha-1.png')
+                return require('@/assets/images/cracha-padrao-menor.png')
             }
         }
     }
