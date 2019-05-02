@@ -1,19 +1,10 @@
 a:hover {
 	text-decoration: none;
 }
-.theme-unities-list {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	justify-content: center;
-	padding: 0;
-}
 
 .theme-unit-box {
-	// display: flex;
-	padding: 0;
-	min-width: 220px;
-	max-width: 400px;
+	transition: transform 0.2s ease-in-out;
+	margin: ( $spacer * 2) ($spacer * 4);
 	.header-unit {
 		display: flex;
 		flex-direction: column;
@@ -88,4 +79,8 @@ a:hover {
 			}
 		}
 	}
+	&:hover{
+        cursor: pointer;
+        transform: scale(1.05);
+    }
 }
