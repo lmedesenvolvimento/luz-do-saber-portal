@@ -3,9 +3,7 @@ a:hover {
 }
 
 .theme-unit-box {
-	min-width: 220px;
-	max-width: 400px;
-	margin: ( $spacer * 3) 0px;
+	margin: ( $spacer * 3);
 	.header-unit {
 		display: flex;
 		flex-direction: column;
