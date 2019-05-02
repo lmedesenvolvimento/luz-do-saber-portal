@@ -5,21 +5,23 @@
             :navbar-subtitle="'Unidades'"
             :navbar-icon="'https://placeimg.com/480/480/tech'"
         />
-        <div class="container">
-            <b-row v-if="theme" class="theme-unities-list">
-                <b-col v-for="unit in theme.units" :key="unit.id" cols="6" class="mx-5 my-4 theme-unit-box">
-                    <router-link
-                        :to="{ 
-                            name: 'unit', 
-                            params: { 
-                                module_slug: $route.params.module_slug, 
-                                theme_slug: theme.slug,
-                                unit_slug: unit.slug
-                            }
-                        }"
-                    >
-                        <themes-box :unit="unit" :theme-color="getThemeColor(theme)" />
-                    </router-link>
+        <div class="page-container-wrap-spacing">
+            <b-row v-if="theme">
+                <b-col v-for="unit in theme.units" :key="unit.id" cols="12" md="6">
+                    <div class="theme-unit-box">
+                        <router-link
+                            :to="{ 
+                                name: 'unit', 
+                                params: { 
+                                    module_slug: $route.params.module_slug, 
+                                    theme_slug: theme.slug,
+                                    unit_slug: unit.slug
+                                }
+                            }"
+                        >
+                            <themes-box :unit="unit" :theme-color="getThemeColor(theme)" />
+                        </router-link>
+                    </div>
                 </b-col>
             </b-row>
         </div>
