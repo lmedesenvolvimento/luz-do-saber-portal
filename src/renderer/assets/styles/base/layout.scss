@@ -21,7 +21,9 @@ body{
                 padding-top: $page-container-wrap-spacing;
             }
             @include media-breakpoint-down('md'){                
-                padding-top: $page-container-wrap-spacing-xs;
+                .page-container-wrap-spacing{
+                    padding-top: $page-container-wrap-spacing-xs;
+                }
             }
         }
     }
