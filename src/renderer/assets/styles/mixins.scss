@@ -84,7 +84,7 @@
         border: 1px solid #fff;
         transition: transform 0.2s ease-in-out;
                 
-        .bg-color{
+        .bg-color[style]{
             border-radius: $border-radius;
             color: #fff;
         }
