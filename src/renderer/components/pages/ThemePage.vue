@@ -1,13 +1,13 @@
 <template>
-    <div id="theme" class="d-flex align-items-center page-container">
+    <div id="theme" class="page-container">
         <navbar
             :navbar-title="renderNavTitle"
             :navbar-subtitle="'Unidades'"
             :navbar-icon="'https://placeimg.com/480/480/tech'"
         />
         <div class="container">
-            <b-col v-if="theme" class="theme-unities-list">
-                <b-col v-for="unit in theme.units" :key="unit.id" class="mx-5 my-4 flex-fill theme-unit-box">
+            <b-row v-if="theme" class="theme-unities-list">
+                <b-col v-for="unit in theme.units" :key="unit.id" cols="6" class="mx-5 my-4 theme-unit-box">
                     <router-link
                         :to="{ 
                             name: 'unit', 
@@ -21,7 +21,7 @@
                         <themes-box :unit="unit" :theme-color="getThemeColor(theme)" />
                     </router-link>
                 </b-col>
-            </b-col>
+            </b-row>
         </div>
     </div>
 </template>
@@ -54,10 +54,6 @@ export default {
     created(){
         this.fetchTheme(this.$route.params)
     },
-    updated() {
-        this.emptyCellUnit = this.alignEmptySpaces()
-    },
-
     methods: {
         getThemeColor(theme){
             switch (theme.modulo_id) {
@@ -69,14 +65,6 @@ export default {
                 return '#007CB2'
             default:
                 break;
-            }
-        },
-        alignEmptySpaces() {
-            var list = document.getElementsByClassName('theme-unities-list')[0]
-            var numUnities = list.getElementsByClassName('theme-unit-box').length
-
-            if (numUnities % 2 == 0){
-                return true
             }
         },
         ...mapActions('Theme', ['fetchTheme'])
