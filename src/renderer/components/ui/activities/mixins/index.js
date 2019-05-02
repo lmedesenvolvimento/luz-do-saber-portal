@@ -7,7 +7,16 @@ export const ListMixin = {
         Item
     },
     props: {
-        valueColSize: Number
+        valueColSize: Number,
+        keyColSize: Number,
+        horizontal: {
+            type: Boolean,
+            default: true
+        },
+        reverse: {
+            type: Boolean,
+            default: false
+        }
     },
     computed: {
         hasKeys() {

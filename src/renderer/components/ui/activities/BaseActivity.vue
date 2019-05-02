@@ -1,13 +1,52 @@
 <template>
     <div id="base">        
         <div v-if="types.activity === activity.type.slug" class="activity">        
-            <ls-activity-default v-if="activitySubtypes.default === activity.subtype.slug" :value-col-size="valueColSize"></ls-activity-default>
+            <ls-activity-default 
+                v-if="activitySubtypes.row === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+            />
+            <ls-activity-default 
+                v-else-if="activitySubtypes.rowReverse === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+                :reverse="true"
+            />
+            <ls-activity-default 
+                v-else-if="activitySubtypes.column === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+                :horizontal="false"
+            />
+            <ls-activity-default
+                v-else-if="activitySubtypes.columnReverse === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+                :horizontal="false"
+                :reverse="true"
+            />
         </div>
         <div v-else-if="types.game === activity.type.slug" class="game">        
-            <ls-activity-half v-if="gameSubtypes.hideHalf === activity.subtype.slug" :value-col-size="valueColSize"></ls-activity-half>
-            <ls-activity-unscramble v-if="gameSubtypes.unscramble === activity.subtype.slug" :value-col-size="valueColSize"></ls-activity-unscramble>
-            <ls-activity-rearrange-name v-if="gameSubtypes.rearrangeName === activity.subtype.slug" :value-col-size="valueColSize" :key-col-size="keyColSize"></ls-activity-rearrange-name>
-            <ls-activity-jigsaw v-if="gameSubtypes.jigsaw === activity.subtype.slug" :value-col-size="valueColSize"></ls-activity-jigsaw>
+            <ls-activity-half 
+                v-if="gameSubtypes.hideHalf === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+            />
+            <ls-activity-unscramble 
+                v-if="gameSubtypes.unscramble === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+            />
+            <ls-activity-rearrange-name 
+                v-if="gameSubtypes.rearrangeName === activity.subtype.slug" 
+                :value-col-size="valueColSize" 
+                :key-col-size="keyColSize"
+            />
+            <ls-activity-jigsaw 
+                v-if="gameSubtypes.jigsaw === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+            />
         </div>
     </div>
 </template>
