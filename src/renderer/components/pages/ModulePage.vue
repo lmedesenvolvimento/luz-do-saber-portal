@@ -2,12 +2,12 @@
     <div id="module" class="page-container" :class="activeModule ? activeModule.slug : ''">
         <div v-if="activeModule" class="container">
             <navbar
-                :navbar-title="'MÓDULO: '+activeModule.slug "
-                :navbar-subtitle="'TEMAS'"
+                :navbar-title="renderNavTitle"
+                :navbar-subtitle="'Temas'"
                 :navbar-icon="getModuleImage(activeModule)"
             />
-            <b-col class="mt-5 circle-list">
-                <b-col v-for="theme in activeModule.themes" :key="theme.id" class="my-3 mx-4 circle-box flex-fill">
+            <b-row class="circle-list">
+                <b-col v-for="theme in activeModule.themes" :key="theme.id" cols="6" class="my-3 mx-4 circle-box">
                     <router-link :to="{ name: 'theme', params: { module_slug: $route.params.module_slug, theme_slug: theme.slug } }">
                         <vue-circle
                             class=""
@@ -18,17 +18,7 @@
                         />
                     </router-link>
                 </b-col>
-                <!-- <b-col v-for="(index) in 4" :key="index" class="my-3 mx-4 circle-box flex-fill">
-                    <vue-circle
-                        class=""
-                        :label="'Título do Tema'"
-                        :image="'https://image.flaticon.com/icons/png/128/145/145867.png'"
-                        :progress="50"
-                        :color="{ color: '#C72929' }"
-                    />
-                </b-col> -->
-                <b-col v-show="emptyCellTheme" class="my-3 mx-4 circle-box flex-fill" />
-            </b-col>
+            </b-row>
         </div>
         <b-card class="mt-5">
             <b-card-body>
@@ -61,13 +51,13 @@ export default {
         }
     },
     computed: {
-        ...mapState('Modules', ['activeModule'])
+        ...mapState('Modules', ['activeModule']),
+        renderNavTitle(){
+            return this.activeModule.slug ? 'Módulo ' + this.activeModule.slug : ''
+        },
     },
     created(){
         this.fetchModule(this.$route.params.module_slug)
-    },
-    updated() {
-        this.emptyCellTheme = this.alignEmptySpaces();
     },
     methods: {
         getModuleImage(module){
@@ -100,14 +90,6 @@ export default {
                 return 'https://image.flaticon.com/icons/png/128/145/145867.png'
             default:
                 return 'https://image.flaticon.com/icons/png/128/145/145867.png'
-            }
-        },
-        alignEmptySpaces() {
-            var list = document.getElementsByClassName('circle-list')[0]
-            var numThemes = list.getElementsByClassName('circle-box').length
-
-            if (numThemes % 2 == 0){
-                return true
             }
         },
         ...mapActions('Modules', ['fetchModule'])
