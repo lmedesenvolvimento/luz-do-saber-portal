@@ -1,9 +1,3 @@
-.circle-list {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: center;
-}
 .circle-box {
     min-width: 320px;
     max-width: 460px;
@@ -65,4 +59,8 @@
         cursor: pointer;
         transform: scale(1.05);
     }
+}
+.cards {
+    width: 100%;
+    min-width: 280px;
 }
