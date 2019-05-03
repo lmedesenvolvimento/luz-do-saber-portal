@@ -40,8 +40,7 @@ export default {
         ...mapState('Modules', ['modules'])
     },
     created(){
-        this.fetchModules()
-        
+        this.fetchModules()       
     },
     methods: {
         getModuleImage(module){

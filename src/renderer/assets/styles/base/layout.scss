@@ -7,8 +7,25 @@ body{
     #app{
         height: 100%;
         padding-top: $navbar-height;
-        padding-bottom: $navbar-height;
+        padding-bottom: 0px;
         overflow: auto;
+        .page-container{
+            @extend .fill;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            > * {
+                flex: 1;
+            }
+            .page-container-wrap-spacing{
+                padding-top: $page-container-wrap-spacing;
+            }
+            @include media-breakpoint-down('md'){                
+                .page-container-wrap-spacing{
+                    padding-top: $page-container-wrap-spacing-xs;
+                }
+            }
+        }
     }
 }
 

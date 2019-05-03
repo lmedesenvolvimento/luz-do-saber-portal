@@ -1,14 +1,14 @@
 <template>
     <div id="theme" class="page-container">
         <navbar
-            :navbar-title="'TEMA '+theme.title"
+            :navbar-title="renderNavTitle"
             :navbar-subtitle="'Unidades'"
             :navbar-icon="'https://placeimg.com/480/480/tech'"
         />
-        <div class="container">
-            <div class="py-5">
-                <b-col v-if="theme" class="my-5 theme-unities-list">
-                    <b-col v-for="unit in theme.units" :key="unit.id" class="mx-5 my-4 theme-unit">
+        <div class="page-container-wrap-spacing">
+            <b-row v-if="theme">
+                <b-col v-for="unit in theme.units" :key="unit.id" cols="12" md="6">
+                    <div class="theme-unit-box">
                         <router-link
                             :to="{ 
                                 name: 'unit', 
@@ -19,11 +19,11 @@
                                 }
                             }"
                         >
-                            <themes-box :unit="unit" />
+                            <themes-box :unit="unit" :theme-color="getThemeColor(theme)" />
                         </router-link>
-                    </b-col>
+                    </div>
                 </b-col>
-            </div>
+            </b-row>
         </div>
     </div>
 </template>
@@ -41,13 +41,34 @@ export default {
         Navbar, 
     },
     mixins: [RouteMixin],
+    data() {
+        return {
+            emptyCellUnit: false
+        }
+    },
     computed: {
-        ...mapState('Theme', ['theme'])
+        renderNavTitle(){
+            return this.theme.title ? 'Tema ' + this.theme.title : ''
+        },
+        ...mapState('Theme', ['theme']),
+        
     },
     created(){
         this.fetchTheme(this.$route.params)
     },
     methods: {
+        getThemeColor(theme){
+            switch (theme.modulo_id) {
+            case 1:
+                return '#C72929'
+            case 2:
+                return '#00963F'
+            case 3:
+                return '#007CB2'
+            default:
+                break;
+            }
+        },
         ...mapActions('Theme', ['fetchTheme'])
     }
 };
