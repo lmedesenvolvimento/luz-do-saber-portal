@@ -7,7 +7,7 @@ export const ActivitySubtypes = {
     row: 'padrao-linha',
     column: 'padrao-coluna',
     rowReverse: 'padrao-linha-reverso',
-    columnReverse: 'padrao-column-reverso'
+    columnReverse: 'padrao-coluna-reverso'
 }
 
 export const GameSubtypes = {
