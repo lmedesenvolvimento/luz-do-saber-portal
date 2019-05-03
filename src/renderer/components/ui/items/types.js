@@ -5,7 +5,8 @@ export default {
     },
     custom: {
         crachaBox: 'cracha-box',
-        completaLetras: 'completa-letras'
+        completaLetras: 'completa-letras',
+        textoEmBlocos: 'texto-em-blocos'
     },
     tags: {
         input: 'input'

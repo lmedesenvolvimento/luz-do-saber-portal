@@ -1,4 +1,4 @@
-<template>
+<template>           
     <div id="base">        
         <div v-if="types.activity === activity.type.slug" class="activity">        
             <ls-activity-default 
@@ -26,7 +26,12 @@
                 :reverse="true"
             />
         </div>
-        <div v-else-if="types.game === activity.type.slug" class="game">        
+        <div v-else-if="types.game === activity.type.slug" class="game"> 
+            <!-- <ls-activity-number-letter 
+                v-if="subtypes.column === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+            /> -->
             <ls-activity-half 
                 v-if="gameSubtypes.hideHalf === activity.subtype.slug" 
                 :value-col-size="valueColSize"

@@ -21,6 +21,7 @@ export const ListMixin = {
     computed: {
         hasKeys() {
             let { item_template } = this.activity
+            console.log(item_template)
             return item_template.key.total_per_line ? true : false
         },
         getKeys() {
