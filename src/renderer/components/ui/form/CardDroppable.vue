@@ -5,11 +5,13 @@
                 no-body
                 :class="{ 'invalid': invalid, 'valid': valid }"
             >
-                <b-card-body>
-                    <slot name="transfer-data">
-                        <div> {{ transferData.text }} </div>
-                    </slot>
-                </b-card-body>
+                <fill-background :bg-color="bgColor">
+                    <b-card-body>
+                        <slot name="transfer-data">
+                            <div> {{ transferData.text }}</div>
+                        </slot>
+                    </b-card-body>
+                </fill-background>
             </b-card>
         </div>
     </drop>
@@ -50,6 +52,8 @@ export default {
                     data: -1,
                     vm: this
                 })
+
+                transferData.invalid = true
             }
         }
     }

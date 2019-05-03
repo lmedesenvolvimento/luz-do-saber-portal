@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <b-container fluid>
         <b-row align-h="center">
             <b-col
                 v-for="item in activity.items.values" 
@@ -20,12 +20,9 @@
                     :type="'key'"
                     :template="activity.item_template.key"
                 />
-                
-
-                <!-- <ls-card-display v-if="!item.hide" :bg-color="setColor()">{{ item.text }}</ls-card-display> -->
             </b-col>
         </b-row>
-    </div>
+    </b-container>
 </template>
 
 <script>

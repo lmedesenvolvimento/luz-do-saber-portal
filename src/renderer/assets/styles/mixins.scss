@@ -84,8 +84,9 @@
         border: 1px solid #fff;
         transition: transform 0.2s ease-in-out;
                 
-        .bg-color{
+        .bg-color[style]{
             border-radius: $border-radius;
+            color: #fff;
         }
 
         .card-body {
@@ -108,12 +109,12 @@
         }
         &.valid{
             .card-body {
-                @include card-body-box-shadow($card-input-box-shadow-success-color, 0.0);
+                @include card-body-box-shadow($card-input-box-shadow-success-color, 0.0, 4px);
             }
         }
         &.invalid{
             .card-body {
-                @include card-body-box-shadow($card-input-box-shadow-danger-color, 0.0);
+                @include card-body-box-shadow($card-input-box-shadow-danger-color, 0.0, 4px);
             }
         }
         &.selected{
@@ -138,6 +139,6 @@
 }
 
 // Card
-@mixin card-body-box-shadow($color, $amount: 0.9) {
- box-shadow: inset 0px 0px 0px 6px transparentize($color, $amount);   
+@mixin card-body-box-shadow($color, $amount: 0.9, $border-width: 6px) {
+ box-shadow: inset 0px 0px 0px $border-width transparentize($color, $amount);   
 }

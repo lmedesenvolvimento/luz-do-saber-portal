@@ -1,70 +1,66 @@
-.progress-chart{
+.circle-box {
+    min-width: 320px;
+    max-width: 460px;
+}
+.circle-and-box{
     display: flex;
-    max-width: 483px;
     transition: all 0.2s ease-in;
-    background-color: #ccc;
+    align-items: center;
     .col {
         padding: 0;
     }
-    .title-container{
-        padding: 0;
+    .title-module-container{
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 22px;
         text-align: center;
-        border-radius: 4px;
-        font-weight: bold;
-        text-transform: uppercase;
+        border-radius: 6px;
+        margin-left: -5.5rem;
         background-color: white;
-        color: '#b0b0b0b0' 
-    }
-    .img-container{
-        border-radius: 50%;
-        max-height: 190px;
-        .img-fluid {
-            background-color: white;
+        z-index: -1;
+        box-shadow: 0px 0px 36px 1px rgba(123, 123, 132, 0.48);
+        min-height: 100px;
+        min-width: 100px;
+        h3 {
+            padding: 0 0 0 5.5rem;
+            font-size: 20px;
+            margin: 0;
+            color: #6f6f6f !important;
+            text-transform: uppercase;
+            word-wrap: break-word;
         }
     }
     .container-circle {
-        background-color: black;
-        max-width: 190px; 
-        max-height: 190px;
-        // padding: 100px 150px;
+        max-width: 140px;
+        max-height: 140px;
+        align-items: center;
+        justify-content: center;  
     }
-    .chart-progress-container{
-        width: 100%;
+
+    .img-container{
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;        
+        border-radius: 50%;
+        min-width: 110px;
+        min-height: 110px;
+        .img-fluid {
+            max-width: 80px;
+            min-height: 80px;
+        }
+    }
+    .circle {
+        max-width: 140px;
+        max-height: 140px;
     }
 
     &:hover{
         cursor: pointer;
         transform: scale(1.05);
-
-        .chart-progress-label{
-            color: white !important;
-        }
     }
 }
-
-@include media-breakpoint-down(md){
-.chart-progress{
-    margin: 36px auto;
-}
-}
-
-// @include media-breakpoint-down(xs){
-// .chart-progress{
-//     .chart-progress-label{
-//         max-width: 90%;
-//         font-size: 21px;
-//     }
-//     .img-container{
-//         width: 110px;
-//         height: 110px;
-//     }
-// }
-// }
-
-.front-page-logo {
-max-width: 32%;
+.cards {
+    width: 100%;
+    min-width: 280px;
 }

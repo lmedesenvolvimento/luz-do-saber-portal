@@ -1,18 +1,21 @@
 import { mapState } from 'vuex'
 
 import Item from '@/components/ui/items/Item'
-import { ActivityTypes } from '@/components/ui/types'
 
 export const ListMixin = {
     components: {
         Item
     },
     props: {
-        valueColSize: Number
-    },
-    data() {
-        return {
-            ActivityTypes: ActivityTypes,
+        valueColSize: Number,
+        keyColSize: Number,
+        horizontal: {
+            type: Boolean,
+            default: true
+        },
+        reverse: {
+            type: Boolean,
+            default: false
         }
     },
     computed: {
