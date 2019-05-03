@@ -1,28 +1,29 @@
 <template>
-    <div id="theme" class="mt-5 d-flex align-items-center page-container">
+    <div id="theme" class="page-container">
         <navbar
-            :navbar-title="'TEMA '+theme.title"
+            :navbar-title="renderNavTitle"
             :navbar-subtitle="'Unidades'"
             :navbar-icon="'https://placeimg.com/480/480/tech'"
         />
-        <div class="mt-5 container">
-            <b-col v-if="theme" class="mt-5 theme-unities-list">
-                <b-col v-for="unit in theme.units" :key="unit.id" class="mx-5 my-4 flex-fill theme-unit-box">
-                    <router-link
-                        :to="{ 
-                            name: 'unit', 
-                            params: { 
-                                module_slug: $route.params.module_slug, 
-                                theme_slug: theme.slug,
-                                unit_slug: unit.slug
-                            }
-                        }"
-                    >
-                        <themes-box :unit="unit" :theme-color="getThemeColor(theme)" />
-                    </router-link>
+        <div class="page-container-wrap-spacing">
+            <b-row v-if="theme">
+                <b-col v-for="unit in theme.units" :key="unit.id" cols="12" md="6">
+                    <div class="theme-unit-box">
+                        <router-link
+                            :to="{ 
+                                name: 'unit', 
+                                params: { 
+                                    module_slug: $route.params.module_slug, 
+                                    theme_slug: theme.slug,
+                                    unit_slug: unit.slug
+                                }
+                            }"
+                        >
+                            <themes-box :unit="unit" :theme-color="getThemeColor(theme)" />
+                        </router-link>
+                    </div>
                 </b-col>
-                <!-- <b-col v-show="emptyCellUnit" class="mx-5 my-4 theme-unit-box" /> -->
-            </b-col>
+            </b-row>
         </div>
     </div>
 </template>
@@ -46,16 +47,15 @@ export default {
         }
     },
     computed: {
+        renderNavTitle(){
+            return this.theme.title ? 'Tema ' + this.theme.title : ''
+        },
         ...mapState('Theme', ['theme']),
         
     },
     created(){
         this.fetchTheme(this.$route.params)
     },
-    updated() {
-        this.emptyCellUnit = this.alignEmptySpaces()
-    },
-
     methods: {
         getThemeColor(theme){
             switch (theme.modulo_id) {
@@ -67,14 +67,6 @@ export default {
                 return '#007CB2'
             default:
                 break;
-            }
-        },
-        alignEmptySpaces() {
-            var list = document.getElementsByClassName('theme-unities-list')[0]
-            var numUnities = list.getElementsByClassName('theme-unit-box').length
-
-            if (numUnities % 2 == 0){
-                return true
             }
         },
         ...mapActions('Theme', ['fetchTheme'])
