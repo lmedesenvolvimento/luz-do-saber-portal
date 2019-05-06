@@ -56,7 +56,7 @@ export default {
             return this.activity && this.activity.statement ? this.activity.statement.text : ''
         },                
         ...mapState('Unit', ['unit', 'navigator']),
-        ...mapState('Activity', ['activity','answer', 'log'])
+        ...mapState('Activity', ['activity','answers', 'log'])
     }, 
     created(){
         this.$router.push({ 
