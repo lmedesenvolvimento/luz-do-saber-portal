@@ -1,5 +1,3 @@
-import { mapState } from 'vuex'
-
 import Item from '@/components/ui/items/Item'
 
 export const ListMixin = {

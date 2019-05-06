@@ -5,7 +5,7 @@
                 <b-row class="activity-keys">
                     <b-col v-for="(item, position) in getKeys" :key="position" :sm="keyColSize" class="item"> 
                         <Item 
-                            v-if="answer.length"
+                            v-if="answers"
                             :item="item"
                             :type="'key'"
                             :template="activity.item_template.key"
@@ -17,7 +17,7 @@
                 <b-row class="activity-values" align-v="center" align-h="center">
                     <b-col v-for="(item, position) in getValues" :key="position" align-self="center" :sm="valueColSize" class="item"> 
                         <Item 
-                            v-if="answer.length"
+                            v-if="answers"
                             :item="item"
                             :type="'value'"
                             :template="activity.item_template.value"

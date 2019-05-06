@@ -22,15 +22,20 @@
                 :item="item"
                 :template="template"
             ></ls-card-display-validacao>
-            
             <ls-display-completa-letras
                 v-if="template.custom === Types.custom.displayCompletaLetras"
                 :type="type"
                 :item="item"
                 :template="template"
             ></ls-display-completa-letras>
+            <ls-item-texto-em-blocos
+                v-if="template.custom === Types.custom.textoEmBlocos"
+                :type="type"
+                :item="item"
+                :template="template"
+            ></ls-item-texto-em-blocos>
         </div>
-    </div>  
+    </div>
 </template>
 <script>
 import ItemComponents, { ItemProps } from './index.js'
@@ -41,7 +46,8 @@ export default {
     computed: {
         isPrimitiveItem(){
             return this.template.custom ? false : true
-        }
+        },
+        
     }
 }
 </script>
