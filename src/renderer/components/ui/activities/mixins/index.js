@@ -33,16 +33,9 @@ export const ListMixin = {
             let aux = 0
 
             for (let i = 0; i < 100; i++) {
-                if (aux < c.length - 1) {
-                    //r.push(c[aux])
-                    aux++
-                }
-                else {
-                    aux = 0
-                    //r.push(c[aux])
-                }
+                r.push(`#${c[aux]}`)
 
-                r.push(c[aux])
+                aux = (aux < c.length - 1) ? aux + 1 : 0
             }
 
             return r
