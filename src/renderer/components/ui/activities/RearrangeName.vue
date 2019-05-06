@@ -51,6 +51,8 @@ export default {
     mounted(){
         this.createAnswersArray()
         console.log(this.activity.item_template.value)
+        console.log(this.hasKeys)
+        console.log(this.getColorsArray, 'cores')
     }
 }
 </script>
