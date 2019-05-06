@@ -1,5 +1,9 @@
 import qs from 'qs'
+<<<<<<< HEAD
 import { findIndex } from 'lodash'
+=======
+import { find, values } from 'lodash'
+>>>>>>> master
 
 export const PointingsTypes = {
     LostByAttempt: 'lost_a_star_by_attempt',
@@ -25,10 +29,10 @@ export const initialStateLog = {
 }
 
 // Validations
-export function validationInAnswer({ state,  commit }, { vm, type, data }) {
-    let indexOfAnswer = findIndex(state.answer, a => a.value.data.includes(data))
+export function validationInAnswer({ state, commit }, { vm, type, data }) {
+    let answer = find(values(state.answers), a => a.value.data.includes(data))
 
-    if (indexOfAnswer === -1) {
+    if (!answer) {
         vm.invalid = true
         // register total error
         commit('TRIGGER_FAIL')
@@ -36,7 +40,7 @@ export function validationInAnswer({ state,  commit }, { vm, type, data }) {
         // notify user feedback
         vm.valid = true
 
-        commit('COMPUTED_ANSWER', indexOfAnswer)
+        commit('COMPUTED_ANSWER', answer.ref)
     }
 }
 
@@ -51,8 +55,8 @@ export function validationInSelection({ state, commit }, { vm, type, data }) {
     vm.selected = true
 
     if (selection.key && selection.value) {
-        let indexOfAnswer = findIndex(state.answer, a => a.key.data === selection.key.data)
-        let isCorrect = (indexOfAnswer !== -1) && state.answer[indexOfAnswer].value.data.includes(selection.value.data)
+        let answer = find( values(state.answers), a => a.key.data === selection.key.data)
+        let isCorrect = answer && state.answers[answer.ref].value.data.includes(selection.value.data)
 
         if (isCorrect) {
             // notify user feedback
