@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { filter, find, clone } from 'lodash'
+import { filter, find, clone, values } from 'lodash'
 import API from '@/services/Http'
 
 import { 
@@ -15,7 +15,7 @@ import {
 
 const state = {
     activity: null,
-    answer: [],
+    answers: null,
     selection: {},
     log: Object.assign({}, initialStateLog)
 }
@@ -27,7 +27,7 @@ const state = {
 
 const mutations = {        
     SET_ANSWERS(state, payload){
-        state.answer = payload
+        state.answers = payload
     },
 
     SET_ACTIVITY(state, activity){
@@ -38,12 +38,8 @@ const mutations = {
         state.log.timer.totalSeconds += 1
     },    
 
-    COMPUTED_ANSWER(state, indexOfAnswer){
-        let answer = clone(state.answer)
-        // register in store
-        answer[indexOfAnswer].valid = true
-        // force reactive changes
-        Vue.set(answer, indexOfAnswer, answer)
+    COMPUTED_ANSWER(state, ref){
+        state.answers[ref].valid = true
     },
 
     CLEAR_SELECTION(state) {
@@ -106,7 +102,7 @@ const actions = {
     // clear list answer
     destroyActivity({ commit }){
         commit('SET_ACTIVITY', null)
-        commit('SET_ANSWERS', [])
+        commit('SET_ANSWERS', null)
         commit('CLEAR_LOG')
     },
     
@@ -120,7 +116,7 @@ const actions = {
         }
         
         // Check if activity is finish
-        let totalCorrectItems = filter(state.answer, { valid: true }).length
+        let totalCorrectItems = filter( values(state.answers), { valid: true }).length
         
         if (totalCorrectItems === state.activity.total_correct_items){
             dispatch('triggerSuccess')
@@ -129,7 +125,13 @@ const actions = {
     
     // update list answer
     setAnswers({ commit }, payload){
-        commit('SET_ANSWERS', payload)
+        let answers = {}
+        // Covert array for hash object
+        payload.forEach((answer)=> {
+            answers[answer.ref] = answer
+        })
+
+        commit('SET_ANSWERS', answers)
     },
 
     setActivityAttrs({ commit, state }, attrs){
