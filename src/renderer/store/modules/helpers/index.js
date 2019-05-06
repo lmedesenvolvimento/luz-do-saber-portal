@@ -1,8 +1,6 @@
 import qs from 'qs'
 import { findIndex } from 'lodash'
 
-import { setTimeout } from 'timers'
-
 export const PointingsTypes = {
     LostByAttempt: 'lost_a_star_by_attempt',
     LostByTime: 'lost_a_star_by_time'
@@ -27,7 +25,7 @@ export const initialStateLog = {
 }
 
 // Validations
-export function validationInAnswer({ state, dispatch, commit }, { vm, type, data }) {
+export function validationInAnswer({ state,  commit }, { vm, type, data }) {
     let indexOfAnswer = findIndex(state.answer, a => a.value.data.includes(data))
 
     if (indexOfAnswer === -1) {
@@ -42,7 +40,7 @@ export function validationInAnswer({ state, dispatch, commit }, { vm, type, data
     }
 }
 
-export function validationInSelection({ state, dispatch, commit }, { vm, type, data }) {
+export function validationInSelection({ state, commit }, { vm, type, data }) {
     let { selection } = state
 
     selection[type] = {
