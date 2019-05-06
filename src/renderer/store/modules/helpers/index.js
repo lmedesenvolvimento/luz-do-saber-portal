@@ -1,9 +1,5 @@
 import qs from 'qs'
-<<<<<<< HEAD
-import { findIndex } from 'lodash'
-=======
 import { find, values } from 'lodash'
->>>>>>> master
 
 export const PointingsTypes = {
     LostByAttempt: 'lost_a_star_by_attempt',
