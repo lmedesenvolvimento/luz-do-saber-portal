@@ -8,9 +8,12 @@
         <b-col
             v-for="(letter, index) in item.text.split('')" 
             :key="index"
+            :sm="1"
             class="item"
         >
-            <ls-card-display>{{ letter }}</ls-card-display>
+            <div class="letra">
+                <ls-card-display>{{ letter }}</ls-card-display>
+            </div>
         </b-col>
     </b-row>
 </template>
