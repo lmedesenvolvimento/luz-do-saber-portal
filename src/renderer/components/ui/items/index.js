@@ -31,7 +31,7 @@ export const ItemProps = {
         },
         fillBackgroundColor(){
             let a = this.availableColors
-            return this.item.type === 'letra' ? `#${this.availableColors[random(a.length - 1)]} !important` : null
+            return (this.item.type === 'letra' || this.item.type === 'caractere_especial' || this.item.type === 'numero') ? `#${this.availableColors[random(a.length - 1)]} !important` : null
         },
         getRandomColor(){
             return Math.floor(Math.random()*16777215).toString(16)
