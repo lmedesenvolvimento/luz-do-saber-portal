@@ -8,6 +8,7 @@ export default {
         cardDisplayValidacao: 'card-display-com-validacao',
         displayCompletaLetras: 'completa-letras',
         // display18Items:
+        textoEmBlocos: 'texto-em-blocos'
     },
     tags: {
         input: 'input'

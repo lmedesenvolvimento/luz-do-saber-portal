@@ -8,20 +8,80 @@
                             <img class="front-page-logo" src="@/assets/images/logo-1.png" alt="Logo Luz do Saber">
                         </b-row>
 
-                        <b-row align-v="center" align-h="center">
-                            <b-col v-for="m in modules" :key="m.id">
-                                <router-link class="clean-links" :to="{ name: 'module', params: { module_slug: m.slug } }" replace>
-                                    <!-- {{ m.title }} -->
-                                    <vue-circle
-                                        class="m-5"
-                                        :label="m.title"
-                                        :image="getModuleImage(m)"
-                                        :progress="50"
-                                        :color="getModuleColor(m)"
-                                    />
-                                </router-link>
-                            </b-col>
-                        </b-row>                        
+                        <transition name="fade" mode="out-in">
+                            <div v-if="!isVisibleLerSubModule" key="frontpage-modules">
+                                <b-row align-v="center" align-h="center">
+                                    <b-col v-for="m in modules" :key="m.id">
+                                        <a 
+                                            v-if="m.slug === 'ler'"
+                                            class="clean-links" 
+                                            @click="toggleVisibleLerSubModule"
+                                        >
+                                            <vue-circle
+                                                class="m-5"
+                                                :label="m.title"
+                                                :image="getModuleImage(m)"
+                                                :progress="50"
+                                                :color="getModuleColor(m)"
+                                            />
+                                        </a>
+                                        <router-link 
+                                            v-else
+                                            class="clean-links" 
+                                            :to="{ name: 'module', params: { module_slug: m.slug } }" 
+                                            replace
+                                        >
+                                            <vue-circle
+                                                class="m-5"
+                                                :label="m.title"
+                                                :image="getModuleImage(m)"
+                                                :progress="50"
+                                                :color="getModuleColor(m)"
+                                            />
+                                        </router-link>
+                                    </b-col>
+                                </b-row>                        
+                            </div>
+                            <div v-else key="frontpage-ler">
+                                <b-row align-v="center" align-h="center">
+                                    <div>
+                                        <router-link 
+                                            class="clean-links" 
+                                            :to="{ name: 'module', params: { module_slug: 'ler' } }" 
+                                            replace
+                                        >
+                                            <vue-circle
+                                                class="m-5"
+                                                :label="'1º Ano'"
+                                                :image="require('@/assets/images/btn-first-year.png')"
+                                                :progress="50"
+                                                :color="{ color: '#00963F' }"
+                                            />
+                                        </router-link>
+                                    </div>                                    
+                                    <div>
+                                        <router-link 
+                                            class="clean-links" 
+                                            :to="{ name: 'module', params: { module_slug: 'ler' } }" 
+                                            replace
+                                        >
+                                            <vue-circle
+                                                class="m-5"
+                                                :label="'2º Ano'"
+                                                :image="require('@/assets/images/btn-second-year.png')"
+                                                :progress="50"
+                                                :color="{ color: '#00963F' }"
+                                            />
+                                        </router-link>
+                                    </div>                                    
+                                    <b-col cols="12" class="my-3">
+                                        <a class="d-block btn" @click="toggleVisibleLerSubModule">
+                                            <b-img center :src="require('@/assets/images/btn-close.png')" width="51" height="51" />
+                                        </a>
+                                    </b-col>
+                                </b-row>
+                            </div>
+                        </transition>
                     </b-container>
                 </b-row>
             </b-container>
@@ -36,6 +96,11 @@ export default {
     components: {
         VueCircle
     },
+    data(){
+        return {
+            isVisibleLerSubModule: false
+        }
+    },
     computed: {        
         ...mapState('Modules', ['modules'])
     },
@@ -43,6 +108,9 @@ export default {
         this.fetchModules()       
     },
     methods: {
+        toggleVisibleLerSubModule(){
+            this.isVisibleLerSubModule = !this.isVisibleLerSubModule
+        },
         getModuleImage(module){
             switch (module.slug) {
             case 'comecar':

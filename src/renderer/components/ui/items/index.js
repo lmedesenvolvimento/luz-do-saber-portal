@@ -41,7 +41,7 @@ export const ItemProps = {
         availableColors(){
             return ['cc7200', 'c30374', '8c2db4', '454ebc', '3875c1', '028d8b', 'ffb151', 'f766ae', 'ae67e0', '757bfa', '75c0ff', '64cbc2']
         },
-        ...mapState('Activity', ['activity'])
+        ...mapState('Activity', ['activity', 'answers'])
     }
 }
 
@@ -50,4 +50,5 @@ export default {
     'ls-item-cracha-box': require('./custom/CrachaBox.vue').default,
     'ls-card-display-validacao': require('./custom/CardDisplayValidacao.vue').default,
     'ls-display-completa-letras': require('./custom/DisplayCompletaLetras.vue').default,
+    'ls-item-texto-em-blocos': require('./custom/TextoEmBlocos.vue').default,
 }
