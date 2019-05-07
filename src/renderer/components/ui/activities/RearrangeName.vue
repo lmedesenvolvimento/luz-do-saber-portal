@@ -2,12 +2,11 @@
     <div class="container-fluid">
         <b-row align-v="center" align-h="center">
             <b-col 
-                v-for="(item, index) in activity.items.values"
+                v-for="item in activity.items.values"
                 :key="item.id"
                 :sm="valueColSize"
                 class="item"
-            >   
-                {{ getColorsArray[index] }}
+            >
                 <Item
                     :item="item"
                     :type="'value'"
@@ -17,12 +16,11 @@
         </b-row>
         <b-row align-v="center" align-h="center">
             <b-col 
-                v-for="(item, index) in activity.items.keys"
+                v-for="item in activity.items.keys"
                 :key="item.id"
                 :sm="keyColSize"
                 class="item"
             >
-                {{ getColorsArray[index] }}
                 <Item
                     :item="item"
                     :type="'key'"
@@ -50,10 +48,8 @@ export default {
     props: {
         colSizes: Object
     },
-    mounted(){
+    created(){
         this.createAnswersArray()
-        console.log('cores')
-        console.log(this.getColorsArray)
     }
 }
 </script>
