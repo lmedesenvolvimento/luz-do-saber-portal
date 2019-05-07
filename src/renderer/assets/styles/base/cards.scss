@@ -39,9 +39,6 @@
     @include custom-card;
     .card{
         &:not(.valid):not(.invalid){
-            > .bg-color{
-                background-color: transparent !important;
-            }
             &::before{
                 @include custom-dropcard-content;
             }
