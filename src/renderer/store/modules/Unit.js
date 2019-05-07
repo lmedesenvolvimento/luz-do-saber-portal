@@ -1,7 +1,7 @@
 import router from '@/router'
 import API from '@/services/Http'
 
-import { omit } from 'lodash'
+import { omit, dropRight } from 'lodash'
 
 const state = {
     unit: null,
@@ -29,12 +29,17 @@ const actions = {
         commit('SET_UNIT', data)
         commit('SET_NAVIGATOR_PARAMS', params)
     },
-    nextActivity({ commit, state, dispatch }){
+    nextActivity({ state, dispatch }){
         let { navigator } = state
         let newOrder = parseInt(navigator.order) + 1
-        dispatch('goActivity', newOrder)
+        if (newOrder > state.unit.questions.length) {
+            let currentUnitPath = dropRight(router.currentRoute.fullPath.split('/'), 2).join('/')
+            router.replace({ path: currentUnitPath})
+        } else {
+            dispatch('goActivity', newOrder)
+        }
     },
-    prevActivity({ commit, state, dispatch }){
+    prevActivity({ commit, state }){
         if (state.unit === null) return                
         let newOrder = parseInt(state.navigator.order) - 1
         commit('SET_NAVIGATOR_ORDER', newOrder)
