@@ -57,6 +57,9 @@
         min-height: $gameplay-height;
         max-height: $gameplay-height;
         flex-direction: column;
+        @include media-breakpoint-down('md'){
+            padding: 0px 4px 0px;
+        }
          > * {
             display: flex;
             flex-direction: column;
@@ -81,8 +84,12 @@
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    &:last-child{
+                    &.activity-values{
+                        @include custom_scroll_bar;
                         align-items: flex-start;
+                        max-height: 100%;
+                        overflow-x: hidden;
+                        overflow-y: auto;
                     }
                 }
             }
@@ -102,6 +109,12 @@
         color: #717171;
         margin: 0px;
         padding: 24px 0px 16px;
+        @include ellipsis;
+        @include media-breakpoint-down('sm'){
+            font-size: 14px;
+            padding-left: 16px;
+            padding-right: 16px;
+        }
     }
     .gameplay-activity-container{        
         @include custom_scroll_bar;
@@ -112,6 +125,9 @@
         overflow-y: auto;
         padding: 0px 15px;
         margin-top: -60px;
+        @include media-breakpoint-down('md'){
+            margin-top: 0px;
+        }
     }
     .step-bars{
         position: absolute;

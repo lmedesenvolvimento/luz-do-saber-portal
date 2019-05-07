@@ -74,7 +74,7 @@
                                             />
                                         </router-link>
                                     </div>                                    
-                                    <b-col cols="12" class="my-3">
+                                    <b-col cols="12" class="my-1">
                                         <a class="d-block btn" @click="toggleVisibleLerSubModule">
                                             <b-img center :src="require('@/assets/images/btn-close.png')" width="51" height="51" />
                                         </a>
