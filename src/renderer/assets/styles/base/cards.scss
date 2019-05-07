@@ -38,8 +38,13 @@
 .card-input.card-droppable{
     @include custom-card;
     .card{
-        &:not(.valid):not(.invalid)::before{
-            @include custom-dropcard-content;
+        &:not(.valid):not(.invalid){
+            > .bg-color{
+                background-color: transparent !important;
+            }
+            &::before{
+                @include custom-dropcard-content;
+            }
         }
     }    
 }
