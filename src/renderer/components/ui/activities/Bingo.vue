@@ -9,19 +9,19 @@
                 </div>
             </b-col>
             <b-col align-v="center" align-h="center">
-                <b-row v-for="item in getValues" :key="item" :sm="valueColSize">
+                <b-row v-for="item in getValues" :key="item" :sm="valueColSize" :class="{bingoCardPlayer: item === getValues[0]}">
                     <ls-card-display>
                         <b-row v-if="item === getValues[0]" align-v="center" align-h="center" style="margin: 10px">
                             <p>sua cartela</p>
                         </b-row>
                         <b-row> 
                             <b-col>
-                                <b-row v-if="item === getValues[0]" class="bingoCard" align-v="center" align-h="center">
+                                <b-row v-if="item === getValues[0]" class="bingoCardLetter" align-v="center" align-h="center">
                                     <ls-card-input v-for="letter in item.text" :key="letter.id" style="margin-left: 10px">
                                         {{ letter }}
                                     </ls-card-input>                                    
                                 </b-row>
-                                <b-row v-else class="bingoCard" align-v="center" align-h="center">
+                                <b-row v-else class="bingoCardLetter" align-v="center" align-h="center">
                                     <ls-card-display v-for="letter in item.text" :key="letter.id" style="margin-left: 10px">
                                         {{ letter }}
                                     </ls-card-display>                                    
@@ -62,7 +62,10 @@ export default {
 </script>
 
 <style>
-    .bingoCard{
+    .bingoCardPlayer .card-body{
+        background-color: orange;
+    }
+    .bingoCardLetter{
         width: 600px;
         padding: 0 10px 0 10px;
     }
@@ -76,6 +79,9 @@ export default {
         width: 25px;
         height: 25px;
         margin: 2px;
+    }
+    .bingoCardLetter .card-body{
+        background-color: white;
     }
 </style>
 
