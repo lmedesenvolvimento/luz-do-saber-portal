@@ -17,4 +17,5 @@ export const GameSubtypes = {
     jigsaw: 'quebra-cabecas',
     friendsName: 'meus-amigos-fotos',
     bingo: 'bingo',
+    matchFriendsInitial: 'encaixe-letras',
 }
