@@ -39,10 +39,13 @@ const actions = {
             dispatch('goActivity', newOrder)
         }
     },
-    prevActivity({ commit, state }){
+    prevActivity({ dispatch, state }){
         if (state.unit === null) return                
+        
         let newOrder = parseInt(state.navigator.order) - 1
-        commit('SET_NAVIGATOR_ORDER', newOrder)
+        if (newOrder <= 0) return
+
+        dispatch('goActivity', newOrder)
     },
     goActivity({ commit }, newOrder){
         let { unit, navigator } = state
