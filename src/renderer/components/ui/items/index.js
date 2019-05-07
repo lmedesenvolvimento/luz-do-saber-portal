@@ -29,18 +29,6 @@ export const ItemProps = {
         hasTags(){
             return ( this.template && this.template.tags ) ? true : false
         },
-        fillBackgroundColor(){
-            //return this.item.type === 'letra' ? `#${this.getRandomColor} !important`: null
-            let a = this.availableColors
-            return this.item.type === 'letra' ? `#${this.availableColors[random(a.length)]} !important` : null
-
-        },
-        getRandomColor(){
-            return Math.floor(Math.random()*16777215).toString(16)
-        },
-        availableColors(){
-            return ['cc7200', 'c30374', '8c2db4', '454ebc', '3875c1', '028d8b', 'ffb151', 'f766ae', 'ae67e0', '757bfa', '75c0ff', '64cbc2']
-        },
         ...mapState('Activity', ['activity'])
     }
 }
@@ -48,5 +36,6 @@ export const ItemProps = {
 export default {
     'ls-item-text': require('./Text.vue').default,
     'ls-item-cracha-box': require('./custom/CrachaBox.vue').default,
-    'ls-item-completa-letras': require('./custom/CompletaLetras.vue').default
+    'ls-item-completa-letras': require('./custom/CompletaLetras.vue').default,
+    'ls-item-texto-em-blocos': require('./custom/TextoEmBlocos.vue').default,
 }

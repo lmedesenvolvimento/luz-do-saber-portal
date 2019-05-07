@@ -35,3 +35,16 @@ body{
         width: 88rem;
     }
 }
+
+// Links{
+a {
+    &.btn{
+        transition: transform 0.2s ease-in-out;
+        &:hover, &:active{
+            transform: scale(1.1);
+        }        
+    }
+    &:hover, &:active{
+        cursor: pointer;
+    }
+}
