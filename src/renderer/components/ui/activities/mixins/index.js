@@ -48,12 +48,20 @@ export const ListMixin = {
         addColors(){
             for (var key in this.activity.items.values) {
                 if (this.activity.items.values.hasOwnProperty(key)) {
-                    this.activity.items.values[key].color = this.getColorsArray[key];
+                    if (this.activity.items.values[key].type === 'letra' || this.activity.items.values[key].type === 'caractere_especial' || this.activity.items.values[key].type === 'numero'){
+                        this.activity.items.values[key].color = this.getColorsArray[key]
+                    }
+                    else {
+                        this.activity.items.values[key].color = null
+                    }
                 }
             }
             for (var key in this.activity.items.keys) {
-                if (this.activity.items.keys.hasOwnProperty(key)) {
-                    this.activity.items.keys[key].color = this.getColorsArray[key];
+                if (this.activity.items.keys[key].type === 'letra' || this.activity.items.keys[key].type === 'caractere_especial' || this.activity.items.keys[key].type === 'numero') {
+                    this.activity.items.keys[key].color = this.getColorsArray[key]
+                }
+                else {
+                    this.activity.items.keys[key].color = null
                 }
             }
         }
