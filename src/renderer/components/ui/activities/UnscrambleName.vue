@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid">
         <b-row class="column" align-v="center" align-h="center">
-            <b-col>
+            <b-col class="activity-keys">
                 <b-row>
                     <b-col 
                         v-for="item in activity.items.values"
@@ -18,7 +18,7 @@
                     </b-col>
                 </b-row>
             </b-col>
-            <b-col>
+            <b-col class="activity-values">
                 <b-row>
                     <ls-card-display>
                         <b-row align-v="center" align-h="center">

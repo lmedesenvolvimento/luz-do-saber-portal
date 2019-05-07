@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid">
         <b-row class="column">
-            <b-col>
+            <b-col class="activity-keys">
                 <b-row align-v="center" align-h="center">
                     <ls-card-display v-for="index in getKeys[0].text.length" :key="index" style="padding: 10px; margin: 130px 0 130px 0">
                         {{ getKeys[0].text[index - 1] }}
