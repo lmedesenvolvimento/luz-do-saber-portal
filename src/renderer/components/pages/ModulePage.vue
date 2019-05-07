@@ -1,5 +1,10 @@
 <template>
-    <div id="module" v-if="activeModule" class="page-container" :class="activeModule ? activeModule.slug : ''">
+    <div 
+        v-if="activeModule" 
+        id="module" 
+        class="page-container" 
+        :class="activeModule ? activeModule.slug : ''"
+    >
         <navbar
             :navbar-title="renderNavTitle"
             :navbar-subtitle="'Temas'"
