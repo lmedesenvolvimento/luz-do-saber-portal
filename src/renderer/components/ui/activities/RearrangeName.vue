@@ -54,9 +54,8 @@ export default {
     props: {
         colSizes: Object
     },
-    mounted(){
+    created(){
         this.createAnswersArray()
-        console.log(this.activity.item_template.value)
     }
 }
 </script>
