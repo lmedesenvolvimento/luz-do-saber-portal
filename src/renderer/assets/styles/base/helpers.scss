@@ -1,7 +1,3 @@
-.flex{
-    flex: 1;
-}
-
 .counter{
     position: relative;
     width: 48px;
@@ -29,4 +25,30 @@
 .fill{
     width: 100%;
     height: 100%;
+}
+
+// Flexbox
+.row{
+    &.column{
+        flex-direction: column;
+    }
+    &.reverse{
+        flex-direction: row-reverse;
+    }
+    &.reverse-column{
+        flex-direction: column-reverse;
+    }
+}
+
+.flex{
+    flex: 1;
+}
+.flex-2{
+    flex: 2;
+}
+.flex-3{
+    flex: 3;
+}
+.flex-4{
+    flex: 4;
 }

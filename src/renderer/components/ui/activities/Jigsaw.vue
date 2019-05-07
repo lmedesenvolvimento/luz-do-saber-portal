@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <b-row align-h="center">
+    <div class="container-fluid">
+        <b-row align-h="center" align-v="center">
             <b-col
                 v-for="item in activity.items.values" 
                 :key="item.id"

@@ -39,16 +39,6 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.row{
-    &.column{
-        flex-direction: column;
-    }
-    &.reverse{
-        flex-direction: row-reverse;
-    }
-    &.reverse-column{
-        flex-direction: column-reverse;
-    }
-}
+<style>
+
 </style>
