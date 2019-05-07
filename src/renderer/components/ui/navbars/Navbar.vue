@@ -1,20 +1,20 @@
 <template>
     <nav class="navbar navbar-default">
+        <b-btn v-if="!backToUnity" variant="link" :to="historyBack">
+            <div class="icon-prev"></div>
+        </b-btn>
+
+        <b-btn v-else variant="link" :to="historyBackUnity">
+            <div class="icon-prev"></div>
+        </b-btn>
+
         <router-link to="/">
             <div class="icon-home"></div>
         </router-link>
 
-        <b-btn v-if="!backToUnity" variant="link" :to="historyBack">
+        <!-- <b-btn @click="checkRoute">
             Voltar
-        </b-btn>
-
-        <b-btn v-else variant="link" :to="historyBackUnity">
-            Voltar
-        </b-btn>
-
-        <b-btn @click="checkRoute">
-            Voltar
-        </b-btn>
+        </b-btn> -->
 
         <span class="flex"></span>
 
@@ -49,15 +49,6 @@ export default {
     data: function() {
         return {
             backToUnity: false
-        }
-    },
-    computed: {
-        returnToUnity(){
-            if (this.historyBack === '/game/comecar/meu-nome/meu-primeiro-nome') {
-                this.backToUnity = true;
-            }
-            
-            return this.backToUnity;
         }
     }
 };
