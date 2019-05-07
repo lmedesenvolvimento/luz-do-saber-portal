@@ -5,7 +5,7 @@
             name="base-input" 
             :value="item"
             type="value"
-            :bg-color="fillBackgroundColor"
+            :bg-color="item.color"
         />
 
         <ls-card-draggable
@@ -13,7 +13,7 @@
             label="item.text" 
             :item="item"
             :name="activity.type.slug"
-            :bg-color="fillBackgroundColor"
+            :bg-color="item.color"
         >
             {{ item.text }}
         </ls-card-draggable>
@@ -23,7 +23,7 @@
             label="key.text" 
             name="card-input"
             :item="item"
-            :bg-color="fillBackgroundColor"
+            :bg-color="item.color"
         >
             {{ item.text }}
         </ls-card-droppable>
@@ -34,7 +34,7 @@
             label="item.text" 
             :item="item"
             :name="activity.type.slug"
-            :bg-color="fillBackgroundColor"
+            :bg-color="item.color"
         >
             {{ item.text }}
         </ls-card-display>
@@ -45,7 +45,7 @@
             :type="type"
             :item="item"
             :name="activity.type.slug"
-            :bg-color="fillBackgroundColor"
+            :bg-color="item.color"
         >
             {{ item.text }}
         </ls-card-input>        
