@@ -1,6 +1,6 @@
 <template>
     <nav class="navbar navbar-default">
-        <b-btn variant="link" :to="customRouteLink">
+        <b-btn variant="link" :to="custom ? historyBackUnit : historyBack">
             <div class="icon-prev"></div>
         </b-btn>
 
@@ -42,15 +42,6 @@ export default {
     data: function() {
         return {
             customRouteLink: ''
-        }
-    },
-    methods: {
-        setHistory: function () {
-            if (this.custom) {
-                this.customRouteLink = this.historyBackUnit;
-            } else {
-                this.customRouteLink = this.historyBack;
-            }
         }
     }
 };
