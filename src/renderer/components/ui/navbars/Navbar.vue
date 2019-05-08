@@ -47,8 +47,6 @@ export default {
     },
     methods: {
         setHistory: function () {
-            console.log(this.custom);
-
             if (this.custom) {
                 this.customRouteLink = this.historyBackUnit;
             } else {
