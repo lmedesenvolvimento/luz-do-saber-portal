@@ -13,7 +13,12 @@
                     </b-col>
                 </b-row>
             </b-col>
-            <b-col class="activity-values">
+            <b-col 
+                :class="{ 
+                    'flex-4': getValues.length >= 12 
+                }"
+                class="activity-values" 
+            >
                 <b-row align-v="center" align-h="center">
                     <b-col v-for="(item, position) in getValues" :key="position" align-self="center" :md="valueColSize" :sm="6" class="item"> 
                         <Item 

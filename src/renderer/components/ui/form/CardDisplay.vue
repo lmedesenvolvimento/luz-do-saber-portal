@@ -2,6 +2,7 @@
     <div class="card-display" :class="$attrs.class">
         <b-card 
             no-body
+            :class="{ 'invalid': invalid, 'valid': valid }"
         >
             <fill-background :bg-color="bgColor">
                 <b-card-body>                    
@@ -20,7 +21,9 @@ export default {
         FillBackground
     },
     props: {
-        bgColor: String
+        bgColor: String,
+        valid: Boolean,
+        invalid: Boolean
     }
 }
 </script>
