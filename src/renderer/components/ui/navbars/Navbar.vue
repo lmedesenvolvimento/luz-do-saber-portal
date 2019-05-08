@@ -1,20 +1,13 @@
 <template>
     <nav class="navbar navbar-default">
-        <b-btn v-if="!backToUnity" variant="link" :to="historyBack">
-            <div class="icon-prev"></div>
-        </b-btn>
-
-        <b-btn v-else variant="link" :to="historyBackUnity">
+        {{ setHistory() }}
+        <b-btn variant="link" :to="customRouteLink">
             <div class="icon-prev"></div>
         </b-btn>
 
         <router-link to="/">
             <div class="icon-home"></div>
         </router-link>
-
-        <!-- <b-btn @click="checkRoute">
-            Voltar
-        </b-btn> -->
 
         <span class="flex"></span>
 
@@ -45,10 +38,22 @@ export default {
         navbarIcon: String,
         navbarTitle: String,
         navbarSubtitle: String,
+        custom: Boolean,
     },
     data: function() {
         return {
-            backToUnity: false
+            customRouteLink: ''
+        }
+    },
+    methods: {
+        setHistory: function () {
+            console.log(this.custom);
+
+            if (this.custom) {
+                this.customRouteLink = this.historyBackUnit;
+            } else {
+                this.customRouteLink = this.historyBack;
+            }
         }
     }
 };
