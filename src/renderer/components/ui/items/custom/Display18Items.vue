@@ -1,36 +1,30 @@
 <template>
     <div>
         <ls-card-draggable
-            v-if="type === 'value'"
+            v-if="isDrag"
             label="item.text" 
-            name="card-input"
-            type="value"
             :item="item"
+            :name="activity.type.slug"
             :bg-color="item.color"
         >
             {{ item.text }}
         </ls-card-draggable>
-
-        <ls-card-droppable
-            v-if="type === 'key'"
-            label="item.text" 
-            name="card-input"
-            type="key"
+        
+        <ls-card-input
+            v-else
+            :type="'value'"
             :item="item"
+            :template="template"
             :bg-color="item.color"
         >
             {{ item.text }}
-        </ls-card-droppable> 
+        </ls-card-input>
     </div>
 </template>
-
 <script>
 import { ItemProps } from '../index.js'
 export default {
-    mixins: [ItemProps]
+    mixins: [ItemProps],
+    
 }
 </script>
-
-<style>
-
-</style>

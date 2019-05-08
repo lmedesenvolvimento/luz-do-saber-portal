@@ -112,6 +112,14 @@
                         overflow-y: auto;
                     }
                 }
+                &.reverse-column{
+                    > .activity-values{
+                        align-items: center;
+                    }
+                    > .activity-keys{
+                        align-items: flex-start;
+                    }
+                }
             }
          }
     }
