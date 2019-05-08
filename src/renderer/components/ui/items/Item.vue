@@ -22,12 +22,12 @@
                 :item="item"
                 :template="template"
             ></ls-card-display-validacao>
-            <ls-display-completa-letras
-                v-if="template.custom === Types.custom.displayCompletaLetras"
+            <ls-display-18-items
+                v-if="template.custom === Types.custom.display18Items"
                 :type="type"
                 :item="item"
                 :template="template"
-            ></ls-display-completa-letras>
+            ></ls-display-18-items>
             <ls-item-texto-em-blocos
                 v-if="template.custom === Types.custom.textoEmBlocos"
                 :type="type"

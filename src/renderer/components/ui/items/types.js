@@ -6,8 +6,7 @@ export default {
     custom: {
         crachaBox: 'cracha-box',
         cardDisplayValidacao: 'card-display-com-validacao',
-        displayCompletaLetras: 'completa-letras',
-        // display18Items:
+        display18Items: 'display-18-items',
         textoEmBlocos: 'texto-em-blocos'
     },
     tags: {
