@@ -9,7 +9,7 @@
                     :type="type"
                     :item="item"
                 >
-                    <div :class="{'invisble':!isValid}">{{ item.text }} </div>
+                    <div :class="{'invisible':!isValid}">{{ item.text }} </div>
                 </ls-card-display>
             </b-row>
             
@@ -39,8 +39,3 @@ export default {
 
 }
 </script>
-<style>
-.invisble{
-    visibility: hidden;
-}
-</style>
