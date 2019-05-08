@@ -1,8 +1,21 @@
 <template>
     <nav class="navbar navbar-default">
+        <b-btn v-if="!backToUnity" variant="link" :to="historyBack">
+            <div class="icon-prev"></div>
+        </b-btn>
+
+        <b-btn v-else variant="link" :to="historyBackUnity">
+            <div class="icon-prev"></div>
+        </b-btn>
+
         <router-link to="/">
             <div class="icon-home"></div>
-        </router-link>            
+        </router-link>
+
+        <!-- <b-btn @click="checkRoute">
+            Voltar
+        </b-btn> -->
+
         <span class="flex"></span>
 
         <div class="title-holder">
@@ -24,11 +37,19 @@
     </nav>
 </template>
 <script>
+import { RouteMixin } from '../../pages/index'
+
 export default {
+    mixins: [RouteMixin],
     props: {
         navbarIcon: String,
         navbarTitle: String,
-        navbarSubtitle: String
+        navbarSubtitle: String,
+    },
+    data: function() {
+        return {
+            backToUnity: false
+        }
     }
 };
 </script>
