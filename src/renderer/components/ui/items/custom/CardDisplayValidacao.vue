@@ -1,6 +1,6 @@
 <template>
     <b-container fluid>
-        <b-col>
+        <b-col >
             <b-row v-if="isValid"> X</b-row>
             <b-row>
                 <ls-card-display
@@ -9,7 +9,7 @@
                     :type="type"
                     :item="item"
                 >
-                    {{ letter }} 
+                    <div :class="{'invisble':!isValid}">{{ item.text }} </div>
                 </ls-card-display>
             </b-row>
             
@@ -19,13 +19,12 @@
 <script>
 import { find, values } from 'lodash'
 import { ItemProps } from '../index.js'
-import Activity from '../../../../store/modules/Activity';
+// import Activity from '../../../../store/modules/Activity';
 
 export default {
     mixins: [ItemProps],
     data() {
         return {
-            letter: '__',
             isValid: false
         }
     },
@@ -34,11 +33,6 @@ export default {
             let res = find(values(this.answers), (value) => value.key.data === this.item.id && value.valid === true)
 
             if( res ){
-                
-                let foundLetter = find(this.activity.items.keys, (value => { return value.id === res.key.data }))
-                console.log('letter', foundLetter.text)
-                console.log('res key data', res.key.data)
-                this.letter = foundLetter.text
                 this.isValid = true;
             }
         }
@@ -46,3 +40,8 @@ export default {
 
 }
 </script>
+<style>
+.invisble{
+    visibility: hidden;
+}
+</style>
