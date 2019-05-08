@@ -1,20 +1,13 @@
 <template>
-    <b-container fluid>
-        <b-col >
-            <b-row v-if="isValid"> X</b-row>
-            <b-row>
-                <ls-card-display
-                    label="item.text" 
-                    :name="activity.type.slug"
-                    :type="type"
-                    :item="item"
-                >
-                    <div :class="{'invisible':!isValid}">{{ item.text }} </div>
-                </ls-card-display>
-            </b-row>
-            
-        </b-col>
-    </b-container>
+    <ls-card-display
+        label="item.text" 
+        :name="activity.type.slug"
+        :type="type"
+        :item="item"
+        :valid="isValid"
+    >
+        <div :class="{'invisible':!isValid}">{{ item.text }} </div>
+    </ls-card-display>
 </template>
 <script>
 import { find, values } from 'lodash'
