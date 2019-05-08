@@ -10,6 +10,22 @@
             ></div>
         </div>
         <div class="gameplay-heading">
+            <div class="gameplay-navigation">
+                <transition name="fade" mode="in-out">
+                    <div v-if="getPosition > 1" key="nav-prev" class="gameplay-navigation-prev">
+                        <b-btn variant="link" @click.stop="prevActivity">
+                            <div class="icon-prev"></div>
+                        </b-btn>
+                    </div>
+                </transition>
+                <transition name="fade" mode="in-out">
+                    <div v-if="getPosition < unit.questions.length" key="nav-next" class="gameplay-navigation-next">
+                        <b-btn variant="link" @click.stop="nextActivity">
+                            <div class="icon-next"></div>
+                        </b-btn>
+                    </div>
+                </transition>
+            </div>
             <div class="gameplay-counter counter">
                 <span>{{ getPosition }}</span>
             </div>
@@ -67,7 +83,7 @@ export default {
         })
     },  
     methods: {
-        ...mapActions('Unit', ['goActivity'])
+        ...mapActions('Unit', ['goActivity', 'nextActivity', 'prevActivity'])
     }
 }
 </script>

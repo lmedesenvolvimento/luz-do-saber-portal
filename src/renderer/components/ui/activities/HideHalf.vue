@@ -1,25 +1,29 @@
 <template>
     <b-container fluid>
-        <b-row align-h="center">
-            <b-col
-                v-for="item in activity.items.values" 
-                :key="item.id"
-                :sm="valueColSize"
-                class="item"
-            >
-                <Item
-                    v-if="item.hide"
-                    :item="item"
-                    :type="'value'"
-                    :template="activity.item_template.value"
-                />
+        <b-row align-h="center" align-v="center">
+            <b-col class="activity-keys">
+                <b-row align-h="center" align-v="center">
+                    <b-col
+                        v-for="item in activity.items.values" 
+                        :key="item.id"
+                        :sm="valueColSize"
+                        class="item"
+                    >
+                        <Item
+                            v-if="item.hide"
+                            :item="item"
+                            :type="'value'"
+                            :template="activity.item_template.value"
+                        />
 
-                <Item
-                    v-if="!item.hide"
-                    :item="item"
-                    :type="'key'"
-                    :template="activity.item_template.key"
-                />
+                        <Item
+                            v-if="!item.hide"
+                            :item="item"
+                            :type="'key'"
+                            :template="activity.item_template.key"
+                        />
+                    </b-col>
+                </b-row>
             </b-col>
         </b-row>
     </b-container>
