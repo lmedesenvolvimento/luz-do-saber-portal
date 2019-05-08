@@ -39,6 +39,7 @@ const mutations = {
     },    
 
     COMPUTED_ANSWER(state, ref){
+        // force update complext object
         let answers = clone(state.answers)
         answers[ref].valid = true
         Vue.set(state, 'answers', answers)
