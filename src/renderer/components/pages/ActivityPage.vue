@@ -3,7 +3,7 @@
         <transition name="page">
             <div v-if="activity" key="gameplay">
                 <div v-if="hasDescription" class="gameplay-description">{{ getDescription }} </div>
-                <div class="gameplay-activity-container">
+                <div class="gameplay-activity-container" :class="{'no-description': !hasDescription}">
                     <BaseActivity></BaseActivity>
                 </div>
             </div>

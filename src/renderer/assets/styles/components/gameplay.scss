@@ -148,6 +148,9 @@
         @include media-breakpoint-down('md'){
             margin-top: 0px;
         }
+        &.no-description{
+            margin-top: 0px;
+        }
     }
     .step-bars{
         position: absolute;
