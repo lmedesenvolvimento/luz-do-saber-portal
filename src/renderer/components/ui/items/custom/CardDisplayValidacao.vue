@@ -19,7 +19,6 @@
 <script>
 import { find, values } from 'lodash'
 import { ItemProps } from '../index.js'
-// import Activity from '../../../../store/modules/Activity';
 
 export default {
     mixins: [ItemProps],
