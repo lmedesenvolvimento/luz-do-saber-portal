@@ -1,6 +1,8 @@
 import qs from 'qs'
 import { find, values } from 'lodash'
 
+import db from '@/services/Session'
+
 export const PointingsTypes = {
     LostByAttempt: 'lost_a_star_by_attempt',
     LostByTime: 'lost_a_star_by_time'
@@ -75,10 +77,11 @@ export function validationInSelection({ state, commit }, { vm, type, data }) {
 // HTTP REQUESTS
 export function getExtenalParams(question) {
     let external_params = []
+    let currentUser = db.get('data').value()
 
     switch (question.external_param_type) {
     case 'substantivo_proprio':
-        external_params.push({ 'name': 'Ronaldo' })
+        external_params.push({ 'name': currentUser.name })
         break
     default:
         break;
