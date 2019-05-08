@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-modal :visible="isVisible" :centered="true" content-class="feedback" :header-class="moduleSlug" :hide-footer="true" @hide="onHidden">
+        <b-modal :visible="isVisible" :centered="true" content-class="feedback" :header-class="renderModuleSlug" :hide-footer="true" @hide="onHidden">
             <template slot="modal-header">
                 <div class="feedback-header">
                     <div class="feedback-stars feedback-header-item">                         
@@ -8,8 +8,8 @@
                         <img :src="star(1)" alt="star"> 
                         <img :src="star(2)" class="feedback-small-stars" alt="star">                        
                     </div>
-                    <div class="feedback-header-item "><h5 class="feedback-rounded-number">{{ activityPosition }}</h5></div>
-                    <div class="feedback-header-item"><h5>{{ activityName }}</h5></div>
+                    <div class="feedback-header-item "><h5 class="feedback-rounded-number">{{ renderActivityPosition }}</h5></div>
+                    <div class="feedback-header-item"><h5>{{ renderActivityName }}</h5></div>
                 </div>                
             </template>
             <br>
@@ -37,9 +37,6 @@ export default {
     data(){
         return {
             isVisible: false,
-            activityName: '',
-            moduleSlug: '',
-            activityPosition: 0
         }
     },
     computed: {
@@ -119,6 +116,15 @@ export default {
                 return ''
             }
         },
+        renderModuleSlug(){
+            return this.activity ? this.activity.module.slug : ''
+        },
+        renderActivityPosition(){
+            return this.activity ? this.activity.position : ''
+        },
+        renderActivityName(){
+            return this.activity ? this.activity.title.text : ''
+        },        
         ...mapState({
             isVisibleActivityAlertSuccess: state => state.Alert.isVisibleActivityAlertSuccess
         }),
@@ -130,13 +136,6 @@ export default {
         isVisibleActivityAlertSuccess(value){
             this.isVisible = value
         },
-        activity(value){
-            if (value) {
-                this.activityName = value.title.text
-                this.moduleSlug = value.module.slug
-                this.activityPosition = value.position
-            }
-        }
     },
     methods: {        
         star: function (num) {

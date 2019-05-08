@@ -1,18 +1,22 @@
 <template>
-    <div>
-        <b-row align-h="center">
-            <b-col
-                v-for="item in activity.items.values" 
-                :key="item.id"
-                :sm="valueColSize"
-                class="item"
-            >
-                <div v-for="key in keys" :key="key.id" class="peca">                
-                    <div class="total" :class="'p'+key.id">
-                        <div class="inicial">{{ inicial }}</div>
-                        <div class="name">{{ name }}</div>
-                    </div>
-                </div>
+    <div class="container-fluid">
+        <b-row align-h="center" align-v="center">
+            <b-col class="activity-keys">
+                <b-row align-h="center" align-v="center">
+                    <b-col
+                        v-for="item in activity.items.values" 
+                        :key="item.id"
+                        :sm="valueColSize"
+                        class="item"
+                    >
+                        <div v-for="key in keys" :key="key.id" class="peca">                
+                            <div class="total" :class="'p'+key.id">
+                                <div class="inicial">{{ inicial }}</div>
+                                <div class="name">{{ name }}</div>
+                            </div>
+                        </div>
+                    </b-col>
+                </b-row>
             </b-col>
         </b-row>
     </div>
