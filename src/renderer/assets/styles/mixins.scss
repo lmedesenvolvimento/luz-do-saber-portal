@@ -105,6 +105,7 @@
         &.valid, &.invalid{
             .bg-color{
                 background-color: transparent !important;
+                color: $text-color !important;
             }
         }
         &.valid{
