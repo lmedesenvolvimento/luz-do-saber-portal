@@ -7,8 +7,7 @@
                 :template="template"
             ></ls-item-text>            
         </div>
-        <div v-else-if="!isPrimitiveItem" class="item">
-            
+        <div v-else-if="!isPrimitiveItem" class="item">            
             <ls-item-cracha-box
                 v-if="template.custom === Types.custom.crachaBox"
                 :type="type"
