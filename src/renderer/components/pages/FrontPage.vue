@@ -9,7 +9,32 @@
                         </b-row>
 
                         <transition name="fade" mode="out-in">
-                            <div v-if="!isVisibleLerSubModule" key="frontpage-modules">
+                            <div v-if="!authorized" key="login">
+                                <b-form @submit.prevent="submitLogin">
+                                    <b-card no-body class="mx-5">
+                                        <h4 slot="header">Login</h4>
+                                        <b-card-body>
+                                            <b-form-group
+                                                id="input-group-name"
+                                                label="Informe seu nome:"
+                                                label-for="input-name"
+                                            >
+                                                <b-form-input
+                                                    id="input-name"
+                                                    v-model="user.name"
+                                                    v-focus="true"
+                                                    type="text"
+                                                    required
+                                                ></b-form-input>
+                                            </b-form-group>     
+                                        </b-card-body>
+                                        <b-card-footer>
+                                            <b-button type="submit" variant="primary" class="mt-3">Confirmar</b-button>
+                                        </b-card-footer>                               
+                                    </b-card>
+                                </b-form>
+                            </div>
+                            <div v-else-if="authorized && !isVisibleLerSubModule" key="frontpage-modules">
                                 <b-row align-v="center" align-h="center">
                                     <b-col v-for="m in modules" :key="m.id">
                                         <a 
@@ -42,7 +67,7 @@
                                     </b-col>
                                 </b-row>                        
                             </div>
-                            <div v-else key="frontpage-ler">
+                            <div v-else-if="authorized && isVisibleLerSubModule" key="frontpage-ler">
                                 <b-row align-v="center" align-h="center">
                                     <div>
                                         <router-link 
@@ -74,7 +99,7 @@
                                             />
                                         </router-link>
                                     </div>                                    
-                                    <b-col cols="12" class="my-3">
+                                    <b-col cols="12" class="my-1">
                                         <a class="d-block btn" @click="toggleVisibleLerSubModule">
                                             <b-img center :src="require('@/assets/images/btn-close.png')" width="51" height="51" />
                                         </a>
@@ -92,22 +117,31 @@
 import { mapActions, mapState } from 'vuex'
 import VueCircle from '@/components/ui/CircleProgress'
 
+import db, { createDatabase } from '@/services/Session'
+
 export default {
     components: {
         VueCircle
     },
     data(){
         return {
-            isVisibleLerSubModule: false
+            authorized: false,
+            isVisibleLerSubModule: false,
+            user: { name: '' }
         }
     },
-    computed: {        
+    computed: {                
         ...mapState('Modules', ['modules'])
     },
     created(){
-        this.fetchModules()       
+        this.fetchModules()
+        this.authorized = db.get('data').value() ? true : false
     },
     methods: {
+        submitLogin(){
+            createDatabase(this.user.name)
+            this.authorized = true
+        },
         toggleVisibleLerSubModule(){
             this.isVisibleLerSubModule = !this.isVisibleLerSubModule
         },

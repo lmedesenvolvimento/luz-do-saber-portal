@@ -83,6 +83,7 @@ export default {
             return Math.abs(TOTAL_COLUMNS / this.activity.item_template.key.total_per_line)
         },
         valueColSize(){
+            console.log(this.activity.item_template.value.total_per_line)
             return Math.abs(TOTAL_COLUMNS / this.activity.item_template.value.total_per_line)
         },
         ...mapState('Activity', ['activity'])
