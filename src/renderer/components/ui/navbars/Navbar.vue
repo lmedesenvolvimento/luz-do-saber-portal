@@ -1,6 +1,5 @@
 <template>
     <nav class="navbar navbar-default">
-        {{ setHistory() }}
         <b-btn variant="link" :to="customRouteLink">
             <div class="icon-prev"></div>
         </b-btn>
