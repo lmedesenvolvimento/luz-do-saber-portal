@@ -2,8 +2,6 @@ import { mapState } from 'vuex'
 import Types from './types'
 import FormInputs from '@/components/ui/form'
 
-import { random } from 'lodash'
-
 export const ItemProps = {
     props: {
         item: Object,
@@ -29,7 +27,7 @@ export const ItemProps = {
         hasTags(){
             return ( this.template && this.template.tags ) ? true : false
         },
-        ...mapState('Activity', ['activity'])
+        ...mapState('Activity', ['activity','answers'])
     }
 }
 
