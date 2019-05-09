@@ -6,7 +6,7 @@
             name="card-input"
             type="key"
             :item="item"
-            :bg-color="fillBackgroundColor"
+            :bg-color="item.color"
         >
             {{ item.text }}
         </ls-card-draggable>
@@ -17,7 +17,7 @@
                 name="card-input"
                 type="value"
                 :item="item"
-                :bg-color="fillBackgroundColor"
+                :bg-color="item.color"
             >
                 {{ item['first_letter'] }}
             </ls-card-droppable>
