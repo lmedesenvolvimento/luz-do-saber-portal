@@ -80,11 +80,19 @@ export function getExtenalParams(question) {
 
     switch (question.external_param_type) {
     case 'substantivo_proprio':
-        external_params.push({ 'name': user.data.name })
+        if (question.external_param_total < 1) {
+            values(user.friends).forEach((friend) => {
+                external_params.push({ 'name': friend.name })
+            })
+        }
+        else {
+            external_params.push({ 'name': user.data.name })
+        }
         break
     default:
         break;
     }
+
     if (external_params.length) {
         return {
             params: { external_params },
