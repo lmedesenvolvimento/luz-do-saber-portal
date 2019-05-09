@@ -9,7 +9,7 @@
                         </b-row>
 
                         <transition name="fade" mode="out-in">
-                            <div v-if="!authorized" key="login">
+                            <div v-if="!isAuthorized" key="login">
                                 <b-form @submit.prevent="submitLogin">
                                     <b-card no-body class="mx-5">
                                         <h4 slot="header">Login</h4>
@@ -34,7 +34,7 @@
                                     </b-card>
                                 </b-form>
                             </div>
-                            <div v-else-if="authorized && !isVisibleLerSubModule" key="frontpage-modules">
+                            <div v-else-if="isAuthorized && !isVisibleLerSubModule" key="frontpage-modules">
                                 <b-row align-v="center" align-h="center">
                                     <b-col v-for="m in modules" :key="m.id">
                                         <a 
@@ -67,7 +67,7 @@
                                     </b-col>
                                 </b-row>                        
                             </div>
-                            <div v-else-if="authorized && isVisibleLerSubModule" key="frontpage-ler">
+                            <div v-else-if="isAuthorized && isVisibleLerSubModule" key="frontpage-ler">
                                 <b-row align-v="center" align-h="center">
                                     <div>
                                         <router-link 
@@ -117,30 +117,30 @@
 import { mapActions, mapState } from 'vuex'
 import VueCircle from '@/components/ui/CircleProgress'
 
-import db, { createDatabase } from '@/services/Session'
-
 export default {
     components: {
         VueCircle
     },
     data(){
         return {
-            authorized: false,
             isVisibleLerSubModule: false,
             user: { name: '' }
         }
     },
     computed: {                
-        ...mapState('Modules', ['modules'])
+        isAuthorized(){
+            return this.currentUser ? true : false
+        },
+        ...mapState('Modules', ['modules']),
+        ...mapState('User', ['currentUser'])
     },
     created(){
         this.fetchModules()
-        this.authorized = db.get('data').value() ? true : false
+        this.recoveryUserDatabase()
     },
     methods: {
         submitLogin(){
-            createDatabase(this.user.name)
-            this.authorized = true
+            this.createUserDatabase(this.user)
         },
         toggleVisibleLerSubModule(){
             this.isVisibleLerSubModule = !this.isVisibleLerSubModule
@@ -169,7 +169,8 @@ export default {
                 break;
             }
         },
-        ...mapActions('Modules',['fetchModules'])
+        ...mapActions('Modules',['fetchModules']),
+        ...mapActions('User',['createUserDatabase','recoveryUserDatabase'])
     }
 }
 </script>
