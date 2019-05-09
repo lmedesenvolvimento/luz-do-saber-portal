@@ -1,16 +1,17 @@
 <template>
     <div class="container-fluid">        
-        <b-row align-v="center">
+        <b-row align-v="start">
             <b-col cols="3" align-v="center" align-h="center">
-                <div class="title">{{ getDuration }}</div>
-                <!-- <ls-timer></ls-timer> -->
+                <div class="bingoCounter">
+                    <h2>{{ getDuration }}</h2>
+                </div>
                 <div>                   
                     <div v-for="bingoLetter in alphabet" :key="bingoLetter" :class="{bingoLetter, bingoRaffleLetter: searchString(raffleLetters,bingoLetter)}" @click="raffle(bingoLetter)">
                         {{ bingoLetter }}
                     </div>
                 </div>                
             </b-col>
-            <b-col cols="9" align-v="center" align-h="center" style="max-height: 100%;overflow: auto;">
+            <b-col cols="9" align-v="center" align-h="center">
                 <b-row v-for="item in getValues" :key="item" :sm="valueColSize" :class="{bingoCardPlayer: item === getValues[0]}">
                     <ls-card-display>
                         <b-row v-if="item === getValues[0]" align-v="center" align-h="center" style="margin: 10px">
@@ -48,27 +49,22 @@ import { setInterval, clearInterval, clearImmediate } from 'timers'
 export default {    
     components: { 
         ...ui,
-        ...alerts,
-        // 'ls-timer': require('@/components/ui/helpers/Timer').default
+        ...alerts
     },
     mixins: [MapMixins, ListMixin, CreateAnswersMixins], 
     data() {
         return {
             alphabet: ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'],
             raffleLetters: [],
-            timer: null
+            timer: 10000
         }
     },
     computed: {
-        getDuration(){
-            let totalSeconds = (this.log.timer.totalSeconds * 1000)
-            return moment(totalSeconds).format('s')
+        getDuration(){           
+            return moment(this.timer).format('m:ss')
         },
         ...mapState('Activity', ['log'])
-    },
-    created(){
-        this.timer = 10
-    },
+    },    
     beforeDestroy(){
         clearInterval(this.timer)
     }, 
@@ -85,12 +81,21 @@ export default {
             }
             return false;
         },
-        ...mapActions('Activity', ['setActivityAttrs', 'incrementTimer'])
+        ...mapActions('Activity', ['setActivityAttrs'])
     },    
 }
 </script>
 
 <style>
+    .bingoCounter{
+        color: #13c5c4;
+        border: solid 4px;
+        text-align: center;
+        width: 100px;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 10px;
+    }
     .bingoCardPlayer .card-body{
         background-color: #ffb141;
     }
