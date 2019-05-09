@@ -1,6 +1,14 @@
 <template>
     <div>
-        <b-modal :visible="isVisible" :centered="true" content-class="feedback" :header-class="renderModuleSlug" :hide-footer="true" @hide="onHidden">
+        <b-modal 
+            ref="alert-success-modal"
+            content-class="feedback" 
+            :centered="true" 
+            :header-class="renderModuleSlug" 
+            :hide-footer="true" 
+            :no-close-on-backdrop="true"
+            @hide="onHidden"
+        >
             <template slot="modal-header">
                 <div class="feedback-header">
                     <div class="feedback-stars feedback-header-item">                         
@@ -134,7 +142,7 @@ export default {
     },
     watch: {
         isVisibleActivityAlertSuccess(value){
-            this.isVisible = value
+            value ? this.$refs['alert-success-modal'].show() : this.$refs['alert-success-modal'].hide()
         },
     },
     methods: {        
