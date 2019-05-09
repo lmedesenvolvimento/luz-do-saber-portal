@@ -4,12 +4,12 @@ import SessionStorageAdapter from './SessionStorageAdapter'
 let adapter = new SessionStorageAdapter('currentUser')
 let db = lowdb(adapter)
 
-export function createDatabase(firstName){
+export function createDatabase(payload){
     db.defaults({
-        data: {
-            name: firstName
+        currentUser: {
+            name: payload.name
         },
-        friends:[]
+        friends: {}
     }).write()
 }
 
