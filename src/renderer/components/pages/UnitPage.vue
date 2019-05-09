@@ -1,13 +1,7 @@
 <template>
     <div v-if="unit" id="unit" class="page-container">
-        <ls-navbar :navbar-title="unit.title" :navbar-subtitle="'Lorem Ipsum'" :navbar-icon="'https://placeimg.com/480/480/tech'">
-            <b-btn variant="link" to="/components">
-                <div class="icon-home"></div>
-            </b-btn>            
-            <span class="flex"></span>
-            <div class="navbar-title">{{ unit.title }}</div>
-            <span class="flex"></span>
-        </ls-navbar>
+        <navbar :navbar-title="unit.title" :navbar-subtitle="'Lorem Ipsum'" :navbar-icon="'https://placeimg.com/480/480/tech'" :custom="true">
+        </navbar>
         <ls-gameplay></ls-gameplay>
     </div>
 </template>
@@ -15,6 +9,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import { RouteMixin } from './index'
+import Navbar from '../ui/navbars/Navbar'
 
 import ui from '@/components/ui'
 

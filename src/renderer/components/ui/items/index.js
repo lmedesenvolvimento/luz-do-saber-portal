@@ -2,8 +2,6 @@ import { mapState } from 'vuex'
 import Types from './types'
 import FormInputs from '@/components/ui/form'
 
-import { random } from 'lodash'
-
 export const ItemProps = {
     props: {
         item: Object,
@@ -29,13 +27,14 @@ export const ItemProps = {
         hasTags(){
             return ( this.template && this.template.tags ) ? true : false
         },
-        ...mapState('Activity', ['activity'])
+        ...mapState('Activity', ['activity','answers'])
     }
 }
 
 export default {
     'ls-item-text': require('./Text.vue').default,
     'ls-item-cracha-box': require('./custom/CrachaBox.vue').default,
-    'ls-item-completa-letras': require('./custom/CompletaLetras.vue').default,
+    'ls-card-display-validacao': require('./custom/CardDisplayValidacao.vue').default,
+    'ls-display-18-items': require('./custom/Display18Items.vue').default,
     'ls-item-texto-em-blocos': require('./custom/TextoEmBlocos.vue').default,
 }
