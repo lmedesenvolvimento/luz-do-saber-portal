@@ -79,8 +79,9 @@ export default {
     data() {
         return {
             alphabet: ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'],
+            unraffleLetters: [],
             raffleLetters: [],
-            timer: 3000,
+            timer: 10000,
             actualRaffleLetter: '',
             showTimer: true
         }
@@ -93,6 +94,7 @@ export default {
     },
     created(){
         this.actualizeTimer();
+        this.unraffleLetters = this.alphabet.slice(0);
     },        
     beforeDestroy(){
         clearInterval(this.timer)
@@ -107,11 +109,14 @@ export default {
                 setTimeout(() => {
                     this.timer -= 1000;
                     this.actualizeTimer();
-                },1000)
+                },1000) 
             }
             // quando chega a zero, e exibindo o contador, ele seleciona aleatoriamente uma letra do alfabeto
             else if (this.showTimer){
-                const letter = this.alphabet[Math.floor(Math.random()*this.alphabet.length)]
+                const letterIndex = Math.floor(Math.random()*this.unraffleLetters.length);
+                const letter = this.unraffleLetters[letterIndex];
+                this.unraffleLetters.splice(letterIndex,1);
+                console.log(this.unraffleLetters);
                 this.actualRaffleLetter = letter;
                 this.showTimer = false;
                 this.raffle(letter);
