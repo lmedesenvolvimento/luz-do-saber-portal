@@ -3,29 +3,52 @@
         <b-row align-v="start">
             <b-col cols="3" align-v="center" align-h="center">
                 <div class="bingoCounter">
-                    <h2>{{ getDuration }}</h2>
+                    <h2 v-if="showTimer">{{ getDuration }}</h2>
+                    <h2 v-else>{{ actualRaffleLetter }}</h2>
                 </div>
                 <div>                   
-                    <div v-for="bingoLetter in alphabet" :key="bingoLetter" :class="{bingoLetter, bingoRaffleLetter: searchString(raffleLetters,bingoLetter)}" @click="raffle(bingoLetter)">
+                    <div 
+                        v-for="bingoLetter in alphabet"
+                        :key="bingoLetter" 
+                        :class="{bingoLetter, bingoRaffleLetter: searchString(raffleLetters,bingoLetter)}" 
+                        @click="raffle(bingoLetter)"
+                    >
                         {{ bingoLetter }}
                     </div>
                 </div>                
             </b-col>
-            <b-col cols="9" align-v="center" align-h="center">
-                <b-row v-for="item in getValues" :key="item" :sm="valueColSize" :class="{bingoCardPlayer: item === getValues[0]}">
+            <b-col cols="9" align-v="center" align-h="center">                
+                <b-row 
+                    v-for="(item, position) in getValues" 
+                    :key="position" 
+                    :sm="valueColSize" 
+                    :class="{bingoCardPlayer: item === getValues[0]}"
+                >
                     <ls-card-display>
-                        <b-row v-if="item === getValues[0]" align-v="center" align-h="center" style="margin: 10px">
+                        <b-row 
+                            v-if="item === getValues[0]" 
+                            align-v="center" align-h="center" 
+                            style="margin: 10px"
+                        >
                             <p>sua cartela</p>
                         </b-row>
                         <b-row> 
                             <b-col>
                                 <b-row v-if="item === getValues[0]" class="bingoCardLetter" align-v="center" align-h="center">
-                                    <ls-card-input v-for="letter in item.text" :key="letter" style="margin-left: 10px">
+                                    <ls-card-input 
+                                        v-for="letter in item.text"
+                                        :key="letter" style="margin-left: 10px"
+                                    >
                                         {{ letter }}
                                     </ls-card-input>                                    
                                 </b-row>
                                 <b-row v-else class="bingoCardLetter" align-v="center" align-h="center">
-                                    <ls-card-display v-for="letter in item.text" :key="letter" :class="{bingoCardRaffleLetter: searchString(raffleLetters, letter)}" style="margin-left: 10px">
+                                    <ls-card-display 
+                                        v-for="letter in item.text" 
+                                        :key="letter" 
+                                        :class="{bingoCardRaffleLetter: searchString(raffleLetters, letter)}" 
+                                        style="margin-left: 10px"
+                                    >
                                         {{ letter }}
                                     </ls-card-display>                                    
                                 </b-row>                       
@@ -42,9 +65,10 @@ import { mapState, mapActions } from 'vuex'
 import ui from '@/components/ui'
 import alerts from '@/components/alerts'
 import { sortBy, shuffle } from 'lodash'
-import { MapMixins, ListMixin, CreateAnswersMixins } from './mixins'
+import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from './mixins'
 import moment from 'moment'
-import { setInterval, clearInterval, clearImmediate } from 'timers'
+import { setInterval, clearInterval, clearImmediate, setTimeout } from 'timers'
+import activities from '.';
 
 export default {    
     components: { 
@@ -56,30 +80,71 @@ export default {
         return {
             alphabet: ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'],
             raffleLetters: [],
-            timer: 10000
+            timer: 3000,
+            actualRaffleLetter: '',
+            showTimer: true
         }
     },
     computed: {
         getDuration(){           
             return moment(this.timer).format('m:ss')
-        },
+        },        
         ...mapState('Activity', ['log'])
-    },    
+    },
+    created(){
+        this.actualizeTimer();
+    },        
     beforeDestroy(){
         clearInterval(this.timer)
     }, 
     mounted() {
         this.createAnswersArray()
     },
-    methods: {       
+    methods: {    
+        actualizeTimer(){
+            // decresce o contador até zero
+            if(this.timer > 0){
+                setTimeout(() => {
+                    this.timer -= 1000;
+                    this.actualizeTimer();
+                },1000)
+            }
+            // quando chega a zero, e exibindo o contador, ele seleciona aleatoriamente uma letra do alfabeto
+            else if (this.showTimer){
+                const letter = this.alphabet[Math.floor(Math.random()*this.alphabet.length)]
+                this.actualRaffleLetter = letter;
+                this.showTimer = false;
+                this.raffle(letter);
+                this.timer = 5000;
+                this.actualizeTimer();
+            } 
+            // quando chega a zero, e exibindo a letra sorteada, ele reinicia a contagem regressiva
+            else {
+                this.showTimer = true;
+                this.timer = 5000;
+                this.actualizeTimer();
+            }             
+        },
+        // marca a letra como sorteada, trocando sua cor   
         raffle(letter) {
             this.raffleLetters.push(letter);
         },
+        // verifica se a letra já foi sorteada, percorrendo o vetor raffleLetters
         searchString(arr, str) {
             for(let i = 0; i < arr.length;i++){
                 if (arr[i].match(str)) return true;
             }
             return false;
+        },
+        setAnswersArray(a){
+            let answers = []
+
+            a.forEach(a => {
+                let key = createAnswer(a, a.value_ids[0])
+                answers.push(key)
+            })
+
+            this.setAnswers(answers)
         },
         ...mapActions('Activity', ['setActivityAttrs'])
     },    
