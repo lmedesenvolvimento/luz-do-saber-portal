@@ -4,7 +4,7 @@
             <b-col class="activity-keys">
                 <b-row align-v="center" align-h="center">
                     <b-col 
-                        v-for="item in activity.items.values"
+                        v-for="(item) in activity.items.values"
                         :key="item.id"
                         :sm="1"
                         class="item"
@@ -16,15 +16,10 @@
                         />
                         <ls-card-display
                         > 
-                            {{ dropaLetra(item.text) }}  
+                            {{ findKeyId(item.id)}}
                         </ls-card-display>      
                     </b-col>            
-                    <!-- <ls-card-display
-                        v-for="item in activity.items.keys"
-                        :key="item.id"
-                    > 
-                        {{ dropaLetra(item.text) }} 
-                    </ls-card-display>         -->
+
                 </b-row>
             </b-col>
             <b-col class="activity-values">
@@ -32,7 +27,7 @@
                     <ls-card-display>
                         <b-row>
                             <b-col 
-                                v-for="item in activity.items.values"
+                                v-for="item in newArrayValues"
                                 :key="item.id"
                                 :sm="valueColSize"
                                 class="item"
@@ -61,6 +56,7 @@ import alerts from '@/components/alerts'
 import Item from '@/components/ui/items/Item'
 
 import { mapState, mapActions } from 'vuex'
+import { shuffle } from 'lodash'
 
 export default {
     components: { 
@@ -71,18 +67,35 @@ export default {
     props: {
         colSizes: Object
     },
+    created()
+    {
+        console.log(shuffle(this.activity.items.values));
+    },
     mounted(){
         this.createAnswersArray()
-        console.log(this.activity.item_template.value)
+    },
+    computed: {
+        newArrayValues() {
+            return shuffle(this.activity.items.values)
+        }
     },
     methods: {
-        dropaLetra(nome){
+        dropFirstLetter(nome){
             return nome.substring(1)
+        },
+        findKeyId(value_id)
+        {
+            for (let i = 0; i < this.activity.items.keys.length; i++) {
+                if (this.activity.items.keys[i]['value_ids'][0] === value_id)
+                {
+                    return this.dropFirstLetter(this.activity.items.keys[i].text)
+                }                
+            }
         }
     }
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>
