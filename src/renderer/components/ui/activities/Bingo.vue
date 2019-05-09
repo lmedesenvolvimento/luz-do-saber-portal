@@ -3,7 +3,7 @@
         <b-row align-v="start">
             <b-col cols="3" align-v="center" align-h="center">
                 <div class="bingoCounter">
-                    <h2 v-if="showTimer">{{ getDuration }}</h2>
+                    <h2 v-if="showTimer" style="color: #13c5c4;">{{ getDuration }}</h2>
                     <h2 v-else>{{ actualRaffleLetter }}</h2>
                 </div>
                 <div>                   
@@ -30,7 +30,7 @@
                             align-v="center" align-h="center" 
                             style="margin: 10px"
                         >
-                            <p>sua cartela</p>
+                            <p style="color: white">sua cartela</p>
                         </b-row>
                         <b-row> 
                             <b-col>
@@ -93,6 +93,7 @@ export default {
         ...mapState('Activity', ['log'])
     },
     created(){
+
         this.actualizeTimer();
         this.unraffleLetters = this.alphabet.slice(0);
     },        
@@ -141,16 +142,6 @@ export default {
             }
             return false;
         },
-        setAnswersArray(a){
-            let answers = []
-
-            a.forEach(a => {
-                let key = createAnswer(a, a.value_ids[0])
-                answers.push(key)
-            })
-
-            this.setAnswers(answers)
-        },
         ...mapActions('Activity', ['setActivityAttrs'])
     },    
 }
@@ -158,12 +149,12 @@ export default {
 
 <style>
     .bingoCounter{
-        color: #13c5c4;
         border: solid 4px;
+        border-color: #13c5c4; 
         text-align: center;
         width: 100px;
-        margin-left: auto;
-        margin-right: auto;
+        margin: auto;
+        padding-top: 5px;
         border-radius: 10px;
     }
     .bingoCardPlayer .card-body{
