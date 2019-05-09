@@ -4,7 +4,7 @@ import { mapState, mapActions } from 'vuex'
 
 export const MapMixins = {
     computed: {
-        ...mapState('Activity', ['activity', 'answers'])
+        ...mapState('Activity', ['activity', 'answers', 'currentUser'])
     },    
     methods: {
         ...mapActions('Activity', ['setAnswers'])

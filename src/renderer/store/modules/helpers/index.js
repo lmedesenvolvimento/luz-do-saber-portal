@@ -37,7 +37,6 @@ export function validationInAnswer({ state, commit }, { vm, type, data }) {
     } else {
         // notify user feedback
         vm.valid = true
-
         commit('COMPUTED_ANSWER', answer.ref)
     }
 }
@@ -77,15 +76,23 @@ export function validationInSelection({ state, commit }, { vm, type, data }) {
 // HTTP REQUESTS
 export function getExtenalParams(question) {
     let external_params = []
-    let currentUser = db.get('data').value()
+    let user = db.value()
 
     switch (question.external_param_type) {
     case 'substantivo_proprio':
-        external_params.push({ 'name': currentUser.name })
+        if (question.external_param_total < 1) {
+            values(user.friends).forEach((friend) => {
+                external_params.push({ 'name': friend.name })
+            })
+        }
+        else {
+            external_params.push({ 'name': user.data.name })
+        }
         break
     default:
         break;
     }
+
     if (external_params.length) {
         return {
             params: { external_params },
