@@ -21,21 +21,27 @@
                 <b-row>
                     <ls-card-display class="bingoCard bingoCardPlayer">
                         <b-row align-v="center" align-h="center">
-                            <p>sua cartela</p>
+                            <p style="color: white">sua cartela</p>
                         </b-row>
                         <b-row align-v="center" align-h="center">                       
                             <b-row
-                                v-for="(item, position) in getValues[0].letters" 
+                                v-for="(item, position) in getKeys[0].letters" 
                                 :key="position" 
                                 :sm="valueColSize" 
                                 class="item bingoCardLetter"
                             >
-                                <Item 
+                                <ls-card-input
+                                    v-if="answers"
+                                    :item="item"
+                                >
+                                    {{ item.text }}
+                                </ls-card-input>
+                                <!-- <Item 
                                     v-if="answers"
                                     :item="item"
                                     :type="'value'"
                                     :template="activity.item_template.key"
-                                /> 
+                                />  -->
                             </b-row>
                         </b-row>
                     </ls-card-display> 
@@ -50,7 +56,7 @@
                                 class="item bingoCardLetter"
                             >
                                 <ls-card-display                                      
-                                    :class="{bingoCardRaffleLetter: searchString(raffleLetters, item.text)}" 
+                                    :class="{bingoCardRaffleLetter: searchString(raffleLetters, normalizeString(item.text))}" 
                                     style="margin-left: 10px"
                                 >
                                     {{ item.text }}
@@ -59,47 +65,7 @@
                         </b-row>
                     </ls-card-display>
                 </b-row>
-            </b-col>
-            <!-- <b-col cols="9" align-v="center" align-h="center">                                              
-                <b-row 
-                    v-for="(item, position) in getValues" 
-                    :key="position" 
-                    :sm="valueColSize" 
-                    :class="{bingoCardPlayer: item === getValues[0]}"
-                >
-                    <ls-card-display>
-                        <b-row 
-                            v-if="item === getValues[0]" 
-                            align-v="center" align-h="center" 
-                            style="margin: 10px"
-                        >
-                            <p style="color: white">sua cartela</p>
-                        </b-row>
-                        <b-row> 
-                            <b-col>
-                                <b-row v-if="item === getValues[0]" class="bingoCardLetter" align-v="center" align-h="center">
-                                    <ls-card-input 
-                                        v-for="letter in item.text"
-                                        :key="letter" style="margin-left: 10px"
-                                    >
-                                        {{ letter }}
-                                    </ls-card-input>                                    
-                                </b-row>
-                                <b-row v-else class="bingoCardLetter" align-v="center" align-h="center">
-                                    <ls-card-display 
-                                        v-for="letter in item.text" 
-                                        :key="letter" 
-                                        :class="{bingoCardRaffleLetter: searchString(raffleLetters, letter)}" 
-                                        style="margin-left: 10px"
-                                    >
-                                        {{ letter }}
-                                    </ls-card-display>                                    
-                                </b-row>                       
-                            </b-col> 
-                        </b-row>
-                    </ls-card-display>
-                </b-row>
-            </b-col> -->
+            </b-col>            
         </b-row>
     </div>
 </template>
@@ -107,7 +73,7 @@
 import { mapState, mapActions } from 'vuex'
 import ui from '@/components/ui'
 import alerts from '@/components/alerts'
-import { sortBy, shuffle } from 'lodash'
+import { range } from 'lodash'
 import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from './mixins'
 import moment from 'moment'
 import { setInterval, clearInterval, clearImmediate, setTimeout } from 'timers'
@@ -135,11 +101,11 @@ export default {
         },        
         ...mapState('Activity', ['log'])
     },
-    created(){
+    created(){        
         // inicia o contador
         this.actualizeTimer();
-        this.unraffleLetters = this.alphabet.slice(0);        
-        this.setActivityAttrs({ total_correct_items: 7 })
+        this.unraffleLetters = this.alphabet.slice(0);  
+
     },        
     beforeDestroy(){
         clearInterval(this.timer)
@@ -147,7 +113,18 @@ export default {
     mounted() {
         this.createAnswersArray()
     },
-    methods: {    
+    methods: {  
+        // ignora a acentuação das letras dos nomes na hora de comparar com as letras do bingo
+        normalizeString (string) {
+            return string.split('').map(function (letter) {
+                let i = this.accents.indexOf(letter)
+                return (i !== -1) ? this.out[i] : letter
+            }.bind({
+                accents: 'ÀÁÂÃÄÅĄàáâãäåąßÒÓÔÕÕÖØÓòóôõöøóÈÉÊËĘèéêëęðÇĆçćÐÌÍÎÏìíîïÙÚÛÜùúûüÑŃñńŠŚšśŸÿýŽŻŹžżź',
+                out: 'AAAAAAAaaaaaaaBOOOOOOOOoooooooEEEEEeeeeeeCCccDIIIIiiiiUUUUuuuuNNnnSSssYyyZZZzzz'
+            })
+            ).join('')
+        },      
         actualizeTimer(){
             // decresce o contador até zero
             if(this.timer > 0){
@@ -210,6 +187,9 @@ export default {
     .bingoCardLetter{        
         margin: 5px;
     }   
+    .bingoCardLetter .card-body{
+        background-color: white;
+    }
     .bingoCardRaffleLetter .card-body{
         background-color: palegreen;
     } 
