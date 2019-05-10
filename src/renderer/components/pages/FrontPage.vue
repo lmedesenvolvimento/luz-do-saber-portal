@@ -10,27 +10,40 @@
 
                         <transition name="fade" mode="out-in">
                             <div v-if="!isAuthorized" key="login">
-                                <b-form @submit.prevent="submitLogin">
-                                    <b-card no-body class="mx-5">
-                                        <h4 slot="header">Login</h4>
+                                <b-form @submit.prevent="submitLogin" class="d-flex justify-content-center">
+                                    <b-card no-body class="mx-5 front-page-login">
                                         <b-card-body>
-                                            <b-form-group
-                                                id="input-group-name"
-                                                label="Informe seu nome:"
-                                                label-for="input-name"
-                                            >
-                                                <b-form-input
-                                                    id="input-name"
-                                                    v-model="user.name"
-                                                    v-focus="true"
-                                                    type="text"
-                                                    required
-                                                ></b-form-input>
-                                            </b-form-group>     
+                                            <h5>Digite seu nome abaixo para continuar.</h5>
                                         </b-card-body>
-                                        <b-card-footer>
-                                            <b-button type="submit" variant="primary" class="mt-3">Confirmar</b-button>
-                                        </b-card-footer>                               
+                                        <b-card-body>
+                                            <div class="card-input card-input-text mt-2">
+                                                <label>
+                                                    <b-card 
+                                                        no-body
+                                                        :class="{ 'invalid': invalid, 'valid': valid }"
+                                                    >
+                                                        <b-card-body>
+                                                            <input
+                                                                id="input-name"
+                                                                v-model="user.name"
+                                                                v-focus="true"
+                                                                type="text"
+                                                                maxlength="10"
+                                                                required
+                                                            />
+                                                        </b-card-body>
+                                                    </b-card>
+                                                </label>
+                                            </div>
+                                        </b-card-body>               
+                                        <b-card-body>
+                                            <h6>Máximo de 10 letras.</h6>
+                                        </b-card-body>
+                                        <b-card-body>
+                                            <b-button type="submit" variant="link" class="mt-3">
+                                                <div class="icon-next"></div>
+                                            </b-button>
+                                        </b-card-body>             
                                     </b-card>
                                 </b-form>
                             </div>
