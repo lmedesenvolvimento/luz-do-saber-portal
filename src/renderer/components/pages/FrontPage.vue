@@ -16,29 +16,6 @@
                                             <h5>Digite seu nome abaixo para continuar.</h5>
                                         </b-card-body>
                                         <b-card-body>
-                                            <!-- <b-form-group
-                                                id="input-group-name"
-                                                label="digite seu nome abaixo para continuar."
-                                                label-for="input-name"
-                                            > -->
-                                            <!-- <div class="card ">
-                                                <b-form-input
-                                                    id="input-name"
-                                                    v-model="user.name"
-                                                    v-focus="true"
-                                                    type="text"
-                                                    required
-                                                    class="card-input card-input-text"
-                                                ></b-form-input>
-                                            </div> -->
-                                            <!-- <input
-                                                id="input-name"
-                                                v-model="user.name"
-                                                v-focus="true"
-                                                type="text"
-                                                required
-                                                class="card-input card-input-text"
-                                            /> -->
                                             <div class="card-input card-input-text">
                                                 <label>
                                                     <b-card 
@@ -58,8 +35,6 @@
                                                     </b-card>
                                                 </label>
                                             </div>
-                                            
-                                            <!-- </b-form-group>      -->
                                         </b-card-body>               
                                         <b-card-body>
                                             <h6>Máximo de 10 letras.</h6>
