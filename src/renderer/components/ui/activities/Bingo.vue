@@ -17,7 +17,50 @@
                     </div>
                 </div>                
             </b-col>
-            <b-col cols="9" align-v="center" align-h="center">                
+            <b-col cols="9" align-v="center" align-h="center">
+                <b-row>
+                    <ls-card-display class="bingoCard bingoCardPlayer">
+                        <b-row align-v="center" align-h="center">
+                            <p>sua cartela</p>
+                        </b-row>
+                        <b-row align-v="center" align-h="center">                       
+                            <b-row
+                                v-for="(item, position) in getValues[0].letters" 
+                                :key="position" 
+                                :sm="valueColSize" 
+                                class="item bingoCardLetter"
+                            >
+                                <Item 
+                                    v-if="answers"
+                                    :item="item"
+                                    :type="'value'"
+                                    :template="activity.item_template.key"
+                                /> 
+                            </b-row>
+                        </b-row>
+                    </ls-card-display> 
+                </b-row>
+                <b-row v-for="i in 3" :key="i">
+                    <ls-card-display class="bingoCard">
+                        <b-row align-v="center" align-h="center">
+                            <b-row
+                                v-for="(item, position) in getValues[i].letters" 
+                                :key="position" 
+                                :sm="valueColSize"
+                                class="item bingoCardLetter"
+                            >
+                                <ls-card-display                                      
+                                    :class="{bingoCardRaffleLetter: searchString(raffleLetters, item.text)}" 
+                                    style="margin-left: 10px"
+                                >
+                                    {{ item.text }}
+                                </ls-card-display>
+                            </b-row>
+                        </b-row>
+                    </ls-card-display>
+                </b-row>
+            </b-col>
+            <!-- <b-col cols="9" align-v="center" align-h="center">                                              
                 <b-row 
                     v-for="(item, position) in getValues" 
                     :key="position" 
@@ -56,7 +99,7 @@
                         </b-row>
                     </ls-card-display>
                 </b-row>
-            </b-col>
+            </b-col> -->
         </b-row>
     </div>
 </template>
@@ -93,9 +136,10 @@ export default {
         ...mapState('Activity', ['log'])
     },
     created(){
-
+        // inicia o contador
         this.actualizeTimer();
-        this.unraffleLetters = this.alphabet.slice(0);
+        this.unraffleLetters = this.alphabet.slice(0);        
+        this.setActivityAttrs({ total_correct_items: 7 })
     },        
     beforeDestroy(){
         clearInterval(this.timer)
@@ -141,7 +185,7 @@ export default {
                 if (arr[i].match(str)) return true;
             }
             return false;
-        },
+        },        
         ...mapActions('Activity', ['setActivityAttrs'])
     },    
 }
@@ -157,19 +201,18 @@ export default {
         padding-top: 5px;
         border-radius: 10px;
     }
+    .bingoCard{
+        width: 800px;
+    }
     .bingoCardPlayer .card-body{
-        background-color: #ffb141;
+        background-color: #ffb141;       
     }
-    .bingoCardLetter{
-        width: 600px;
-        padding: 0 10px 0 10px;
-    }
-    .bingoCardLetter .card-body{
-        background-color: white;
-    }
+    .bingoCardLetter{        
+        margin: 5px;
+    }   
     .bingoCardRaffleLetter .card-body{
         background-color: palegreen;
-    }
+    } 
     .bingoLetter{
         display: inline-grid;
         text-align: center;
