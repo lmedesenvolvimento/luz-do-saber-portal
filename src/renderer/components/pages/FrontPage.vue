@@ -10,8 +10,8 @@
 
                         <transition name="fade" mode="out-in">
                             <div v-if="!isAuthorized" key="login">
-                                <b-form @submit.prevent="submitLogin" class="d-flex justify-content-center">
-                                    <b-card no-body class="mx-5 front-page-login">
+                                <b-form class="d-flex justify-content-center" @submit.prevent="submitLogin">
+                                    <b-card no-body class="mx-5 front-page-login card shadow">
                                         <b-card-body>
                                             <h5>Digite seu nome abaixo para continuar.</h5>
                                         </b-card-body>
