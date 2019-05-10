@@ -12,7 +12,6 @@
                             <div v-if="!isAuthorized" key="login">
                                 <b-form @submit.prevent="submitLogin">
                                     <b-card no-body class="mx-5">
-                                        <h4 slot="header">Login</h4>
                                         <b-card-body>
                                             <b-form-group
                                                 id="input-group-name"
