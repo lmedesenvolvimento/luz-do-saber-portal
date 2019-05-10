@@ -107,3 +107,15 @@
 .front-page-logo {
     max-width: 320px;
 }
+
+.front-page-login{
+    @include itim_regular;
+    padding: 30px;
+
+    .card-body{
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        padding: 0;
+    }
+}
