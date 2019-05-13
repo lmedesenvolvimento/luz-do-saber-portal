@@ -1,5 +1,6 @@
+import Vue from 'vue'
 import qs from 'qs'
-import { find, values } from 'lodash'
+import { filter, find, values } from 'lodash'
 
 import db from '@/services/Session'
 
@@ -9,7 +10,8 @@ export const PointingsTypes = {
 }
 
 export const ClusterTypes = [
-    'atividade-texto-imagem'
+    'atividade-texto-imagem',
+    'atividade-texto-texto'
 ]
 
 export const MaxStars = 3
@@ -43,6 +45,18 @@ export function validationInAnswer({ state, commit }, { vm, type, data }) {
 
 export function validationInSelection({ state, commit }, { vm, type, data }) {
     let { selection } = state
+    let dataIsPresent = values(selection).filter(v => v.data === data).length
+    
+    if (dataIsPresent) {
+        return false
+    }
+
+    if (selection[type]) {
+        vm.invalid = true
+        selection[type].vm.invalid = true
+
+        Vue.set(state, 'selection', {})
+    }
 
     selection[type] = {
         data,
@@ -52,16 +66,20 @@ export function validationInSelection({ state, commit }, { vm, type, data }) {
     vm.selected = true
 
     if (selection.key && selection.value) {
-        let answer = find( values(state.answers), a => a.key.data === selection.key.data)
-        let isCorrect = answer && state.answers[answer.ref].value.data.includes(selection.value.data)
+        let filterAsnswer = filter(values(state.answers), a => a.key.data === selection.key.data)
+        
+        let answer = find(
+            filterAsnswer, 
+            a => a.value.data.includes(selection.value.data)
+        )
 
-        if (isCorrect) {
+        if (answer) {
             // notify user feedback
             selection.key.vm.valid = true
             selection.value.vm.valid = true
 
             commit('CLEAR_SELECTION')
-            commit('COMPUTED_ANSWER', indexOfAnswer)
+            commit('COMPUTED_ANSWER', answer.ref)
         } else {
             // notify user feedback
             selection.key.vm.invalid = true
