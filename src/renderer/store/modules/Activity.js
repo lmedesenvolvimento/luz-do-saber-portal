@@ -38,7 +38,7 @@ const mutations = {
         state.log.timer.totalSeconds += 1
     },    
 
-    COMPUTED_ANSWER(state, ref){
+    COMPUTED_ANSWER(state, ref){        
         // force update complext object
         let answers = clone(state.answers)
         answers[ref].valid = true

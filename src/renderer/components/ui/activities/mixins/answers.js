@@ -7,7 +7,7 @@ export const MapMixins = {
         ...mapState('Activity', ['activity', 'answers', 'currentUser'])
     },    
     methods: {
-        ...mapActions('Activity', ['setAnswers'])
+        ...mapActions('Activity', ['setAnswers','setActivityAttrs'])
     }
 }
 
