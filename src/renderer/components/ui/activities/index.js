@@ -6,4 +6,5 @@ export default {
     'ls-activity-number-letter': require('./NumberLetter.vue').default,
     'ls-activity-jigsaw': require('./Jigsaw.vue').default,
     'ls-activity-rearrange-name': require('./RearrangeName.vue').default,
+    'ls-activity-friends-name': require('./FriendsName.vue').default,
 }
