@@ -20,7 +20,6 @@
                                                 <label>
                                                     <b-card 
                                                         no-body
-                                                        :class="{ 'invalid': invalid, 'valid': valid }"
                                                     >
                                                         <b-card-body>
                                                             <input
