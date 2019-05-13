@@ -25,23 +25,39 @@
                         </b-row>
                         <b-row align-v="center" align-h="center">                       
                             <b-row
-                                v-for="(item, position) in getKeys[0].letters" 
+                                v-for="(item, position) in playerLetters" 
                                 :key="position" 
                                 :sm="valueColSize" 
                                 class="item bingoCardLetter"
                             >
-                                <ls-card-input
+                                <!-- <ls-card-input
                                     v-if="answers"
                                     :item="item"
                                 >
                                     {{ item.text }}
-                                </ls-card-input>
-                                <!-- <Item 
-                                    v-if="answers"
-                                    :item="item"
-                                    :type="'value'"
-                                    :template="activity.item_template.key"
-                                />  -->
+                                </ls-card-input> -->
+                                <div class="card-input card-radio-input" :class="$attrs.class">
+                                    <label>
+                                        <b-card 
+                                            no-body
+                                            :class="{ 'invalid': item.invalid, 'valid': item.valid }"
+                                        >
+                                            <b-card-body>
+                                                {{ item.text }}
+                                            </b-card-body>
+                                        </b-card>
+
+                                        <input
+                                            v-model="item.selected"                                            
+                                            class="input"    
+                                            type="checkbox"
+                                            true-value="valid"
+                                            false-value="invalid"
+                                            :name="`input-${position}`"
+                                            @change.stop="checkRaffle(item)"
+                                        />
+                                    </label>
+                                </div>
                             </b-row>
                         </b-row>
                     </ls-card-display> 
@@ -73,11 +89,9 @@
 import { mapState, mapActions } from 'vuex'
 import ui from '@/components/ui'
 import alerts from '@/components/alerts'
-import { range } from 'lodash'
+import { range, filter } from 'lodash'
 import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from './mixins'
 import moment from 'moment'
-import { setInterval, clearInterval, clearImmediate, setTimeout } from 'timers'
-import activities from '.';
 
 export default {    
     components: { 
@@ -87,6 +101,7 @@ export default {
     mixins: [MapMixins, ListMixin, CreateAnswersMixins], 
     data() {
         return {
+            playerLetters: [],
             alphabet: ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'],
             unraffleLetters: [],
             raffleLetters: [],
@@ -95,25 +110,57 @@ export default {
             showTimer: true
         }
     },
-    computed: {
+    computed: {        
         getDuration(){           
             return moment(this.timer).format('m:ss')
         },        
         ...mapState('Activity', ['log'])
     },
-    created(){        
+    created(){ 
+        this.createAnswersArray()
         // inicia o contador
         this.actualizeTimer();
-        this.unraffleLetters = this.alphabet.slice(0);  
+        this.unraffleLetters = this.alphabet.slice(0);          
+        // this.setActivityAttrs({ total_correct_items: 7 })
 
-    },        
-    beforeDestroy(){
-        clearInterval(this.timer)
-    }, 
-    mounted() {
-        this.createAnswersArray()
     },
+    mounted(){
+        this.getKeys[0].letters.forEach(letter => {
+            this.playerLetters.push(Object.assign({}, letter))
+        })
+    },
+    
     methods: {  
+        checkRaffle (item) {    
+            if(item.valid || item.invalid) return
+
+            if(this.searchString(this.raffleLetters, this.normalizeString(item.text))){
+                item.valid = true
+
+                if(filter(this.playerLetters, { valid: true }).length === 2){
+                    console.log(this.activity)
+                    this.setAnswer({ 
+                        type: 'value', 
+                        data: 66,
+                        vm: {}
+                    })
+                }
+
+            }else{
+                setTimeout(()=> {
+                    delete item.invalid
+                }, 1000)
+
+                item.invalid = true
+
+                this.setAnswer({ 
+                    type: 'value', 
+                    data: -1,
+                    vm: {}
+                })
+            }
+            
+        },
         // ignora a acentuação das letras dos nomes na hora de comparar com as letras do bingo
         normalizeString (string) {
             return string.split('').map(function (letter) {
@@ -138,7 +185,6 @@ export default {
                 const letterIndex = Math.floor(Math.random()*this.unraffleLetters.length);
                 const letter = this.unraffleLetters[letterIndex];
                 this.unraffleLetters.splice(letterIndex,1);
-                console.log(this.unraffleLetters);
                 this.actualRaffleLetter = letter;
                 this.showTimer = false;
                 this.raffle(letter);
@@ -152,6 +198,9 @@ export default {
                 this.actualizeTimer();
             }             
         },
+        isRaffle(letter){
+
+        },
         // marca a letra como sorteada, trocando sua cor   
         raffle(letter) {
             this.raffleLetters.push(letter);
@@ -162,8 +211,8 @@ export default {
                 if (arr[i].match(str)) return true;
             }
             return false;
-        },        
-        ...mapActions('Activity', ['setActivityAttrs'])
+        },                    
+        ...mapActions('Activity', ['setActivityAttrs','setAnswer'])
     },    
 }
 </script>
@@ -185,7 +234,7 @@ export default {
         background-color: #ffb141;       
     }
     .bingoCardLetter{        
-        margin: 5px;
+        margin: -5px 5px -5px 5px;
     }   
     .bingoCardLetter .card-body{
         background-color: white;
