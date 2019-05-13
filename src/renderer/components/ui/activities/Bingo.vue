@@ -137,7 +137,7 @@ export default {
             if(this.searchString(this.raffleLetters, this.normalizeString(item.text))){
                 item.valid = true
 
-                if(filter(this.playerLetters, { valid: true }).length === 2){
+                if(filter(this.playerLetters, { valid: true }).length === this.playerLetters.length){
                     console.log(this.activity)
                     this.setAnswer({ 
                         type: 'value', 
@@ -149,7 +149,7 @@ export default {
             }else{
                 setTimeout(()=> {
                     delete item.invalid
-                }, 1000)
+                }, 300)
 
                 item.invalid = true
 
