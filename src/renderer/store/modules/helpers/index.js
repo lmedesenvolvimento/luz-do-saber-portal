@@ -3,6 +3,7 @@ import qs from 'qs'
 import { filter, find, values } from 'lodash'
 
 import db from '@/services/Session'
+import LeaderLine from '@/services/LeaderLine'
 
 export const PointingsTypes = {
     LostByAttempt: 'lost_a_star_by_attempt',
@@ -26,6 +27,11 @@ export const initialStateLog = {
     pointings: {
         totalStars: 0
     }
+}
+
+export function clearConnection(state) {
+    state.connections.forEach(line => line.remove())
+    Vue.set(state, 'connections', [])
 }
 
 // Validations
@@ -54,8 +60,7 @@ export function validationInSelection({ state, commit }, { vm, type, data }) {
     if (selection[type]) {
         vm.invalid = true
         selection[type].vm.invalid = true
-
-        Vue.set(state, 'selection', {})
+        clearConnection(state)
     }
 
     selection[type] = {
@@ -78,12 +83,26 @@ export function validationInSelection({ state, commit }, { vm, type, data }) {
             selection.key.vm.valid = true
             selection.value.vm.valid = true
 
+            let leaderLine = new LeaderLine (
+                selection.key.vm.$el,
+                selection.value.vm.$el
+            )
+
+            state.connections.push(leaderLine)
+
             commit('CLEAR_SELECTION')
             commit('COMPUTED_ANSWER', answer.ref)
         } else {
             // notify user feedback
             selection.key.vm.invalid = true
             selection.value.vm.invalid = true
+
+            let line = new LeaderLine(
+                selection.value.vm.$el,
+                selection.key.vm.$el
+            )
+
+            setTimeout( _=> line.remove(), 600)
 
             commit('CLEAR_SELECTION')
             commit('TRIGGER_FAIL')
