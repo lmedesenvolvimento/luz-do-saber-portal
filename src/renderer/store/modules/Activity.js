@@ -9,6 +9,7 @@ import {
     MaxStars,
     validationInAnswer,
     validationInSelection,
+    clearConnection,
     getExtenalParams
 } from './helpers'
 
@@ -16,8 +17,9 @@ import {
 const state = {
     activity: null,
     answers: null,
-    selection: {},
-    log: Object.assign({}, initialStateLog)
+    connections: [],
+    log: Object.assign({}, initialStateLog),
+    selection: {}
 }
 
 
@@ -49,6 +51,10 @@ const mutations = {
         state.selection.key.vm.selected = false
         state.selection.value.vm.selected = false
         Vue.set(state, 'selection', {})
+    },
+    
+    CLEAR_CONNECTIONS(state) {
+        clearConnection(state)
     },
 
     CLEAR_LOG(state){
@@ -89,6 +95,8 @@ const mutations = {
 const actions = {
     async fetchActivity({ commit, dispatch }, payload) {
         try{
+            commit('CLEAR_CONNECTIONS')
+
             let { module_slug, theme_slug, unit_slug, position } = payload.params
             let extenalParams = getExtenalParams(payload.question)            
             let { data } = await API.get(`/game/${module_slug}/${theme_slug}/${unit_slug}/${position}`, extenalParams)
