@@ -1,6 +1,8 @@
 import { mapState } from 'vuex'
-import Types from './types'
+import { ActivityTypes, ItemTypes } from '@/constants'
 import FormInputs from '@/components/ui/form'
+
+import { values } from 'lodash'
 
 export const ItemProps = {
     props: {
@@ -10,11 +12,15 @@ export const ItemProps = {
     },
     data(){
         return {
-            Types: Types
+            Types: ItemTypes,
+            ActivityTypes: ActivityTypes
         }
     },
     components: { ...FormInputs },
     computed: {
+        isJoinInput(){
+            return values(ActivityTypes.activity.join).includes(this.activity.type.slug)
+        },
         isInput(){
             return this.hasTags && /input/.test(this.template.tags)
         },
