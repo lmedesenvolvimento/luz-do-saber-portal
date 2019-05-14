@@ -1,6 +1,6 @@
 <template>
     <div class="container-fluid">
-        <b-row align-v="center" align-h="center">
+        <b-row class="m-4" align-v="center" align-h="center">
             <b-row class="activity-values" align-v="center" align-h="center">
                 <b-col
                     v-for="(item) in activity.items.values"
