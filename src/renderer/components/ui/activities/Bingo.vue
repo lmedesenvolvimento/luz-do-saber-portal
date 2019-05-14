@@ -29,13 +29,7 @@
                                 :key="position" 
                                 :sm="valueColSize" 
                                 class="item bingoCardLetter"
-                            >
-                                <!-- <ls-card-input
-                                    v-if="answers"
-                                    :item="item"
-                                >
-                                    {{ item.text }}
-                                </ls-card-input> -->
+                            >                                
                                 <div class="card-input card-radio-input" :class="$attrs.class">
                                     <label>
                                         <b-card 
@@ -76,7 +70,7 @@
                                     style="margin-left: 10px"
                                 >
                                     {{ item.text }}
-                                </ls-card-display>
+                                </ls-card-display>                                
                             </b-row>
                         </b-row>
                     </ls-card-display>
@@ -89,7 +83,7 @@
 import { mapState, mapActions } from 'vuex'
 import ui from '@/components/ui'
 import alerts from '@/components/alerts'
-import { range, filter } from 'lodash'
+import { shuffle, range, filter } from 'lodash'
 import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from './mixins'
 import moment from 'moment'
 
@@ -102,12 +96,14 @@ export default {
     data() {
         return {
             playerLetters: [],
+            scramblePlayerLetters: [],
             alphabet: ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'],
             unraffleLetters: [],
             raffleLetters: [],
             timer: 10000,
             actualRaffleLetter: '',
-            showTimer: true
+            showTimer: true,
+            isAllPlayerLetterRaffled: false
         }
     },
     computed: {        
@@ -119,24 +115,39 @@ export default {
     created(){ 
         this.createAnswersArray()
         // inicia o contador
-        this.actualizeTimer();
+        this.actualizeBingoTimer();
         this.unraffleLetters = this.alphabet.slice(0);          
         // this.setActivityAttrs({ total_correct_items: 7 })
 
     },
     mounted(){
+        //insere as letras dojogador num array
         this.getKeys[0].letters.forEach(letter => {
             this.playerLetters.push(Object.assign({}, letter))
         })
+        // para podermos dar prioridade as letras do usuário na chamada do bingo, criamos um vetor com as letras, sem repetições
+        this.playerLetters.forEach(letter => {
+            if(!this.searchString(this.scramblePlayerLetters, this.normalizeString(letter.text))){
+                this.scramblePlayerLetters.push(letter.text)
+            }            
+        })
+        // embaralhamos o vetor de letras
+        this.scramblePlayerLetters = shuffle(this.scramblePlayerLetters);
+        console.log(this.playerLetters)
+        console.log(this.scramblePlayerLetters)
     },
-    
-    methods: {  
+    destroyed() {
+        delete this.unraffleLetters
+        delete this.actualizeBingoTimer
+    },
+    methods: {
         checkRaffle (item) {    
+            // caso o item já tenha sido checado, retornamos aqui mesmo
             if(item.valid || item.invalid) return
-
+            //testa se o item já pode ser marcado na cartela do jogador
             if(this.searchString(this.raffleLetters, this.normalizeString(item.text))){
                 item.valid = true
-
+                // insere o id da resposta do jogador
                 if(filter(this.playerLetters, { valid: true }).length === this.playerLetters.length){
                     console.log(this.activity)
                     this.setAnswer({ 
@@ -145,7 +156,7 @@ export default {
                         vm: {}
                     })
                 }
-
+            // caso a letra marcada ainda não tiver saído no bingo
             }else{
                 setTimeout(()=> {
                     delete item.invalid
@@ -172,34 +183,43 @@ export default {
             })
             ).join('')
         },      
-        actualizeTimer(){
+        actualizeBingoTimer(){
             // decresce o contador até zero
             if(this.timer > 0){
                 setTimeout(() => {
                     this.timer -= 1000;
-                    this.actualizeTimer();
+                    this.actualizeBingoTimer();
                 },1000) 
             }
             // quando chega a zero, e exibindo o contador, ele seleciona aleatoriamente uma letra do alfabeto
             else if (this.showTimer){
-                const letterIndex = Math.floor(Math.random()*this.unraffleLetters.length);
-                const letter = this.unraffleLetters[letterIndex];
-                this.unraffleLetters.splice(letterIndex,1);
-                this.actualRaffleLetter = letter;
+                // os primeiros valores sorteados são referentes as letras embaralhadas do nome do jogador
+                if(this.scramblePlayerLetters.length > 0){                    
+                    this.unraffleLetters.splice( this.unraffleLetters.indexOf(this.scramblePlayerLetters[0]) ,1);
+                    this.actualRaffleLetter = this.scramblePlayerLetters[0];
+                    this.raffle(this.scramblePlayerLetters[0]);
+                    this.scramblePlayerLetters.shift();                    
+                    
+                }
+                // após todas as letras do nome do jogador terem sido sorteadas, letras remanescentes são sorteadas aleatoriamente 
+                else {
+                    const letterIndex = Math.floor(Math.random()*this.unraffleLetters.length);
+                    const letter = this.unraffleLetters[letterIndex];
+                    this.unraffleLetters.splice(letterIndex,1);
+                    this.actualRaffleLetter = letter;
+                    this.raffle(letter);
+                }
                 this.showTimer = false;
-                this.raffle(letter);
                 this.timer = 5000;
-                this.actualizeTimer();
-            } 
+                this.actualizeBingoTimer();
+            }             
             // quando chega a zero, e exibindo a letra sorteada, ele reinicia a contagem regressiva
             else {
                 this.showTimer = true;
                 this.timer = 5000;
-                this.actualizeTimer();
-            }             
-        },
-        isRaffle(letter){
-
+                this.actualizeBingoTimer();
+            }
+            console.log(this.unraffleLetters)            
         },
         // marca a letra como sorteada, trocando sua cor   
         raffle(letter) {
@@ -239,7 +259,7 @@ export default {
     .bingoCardLetter .card-body{
         background-color: white;
     }
-    .bingoCardRaffleLetter .card-body {
+    .bingoCardRaffleLetter .card-body{
         background-color: palegreen;
         /* box-shadow: inset 0px 0px 0px 6px transparentize(green, 0.9); */
     }
