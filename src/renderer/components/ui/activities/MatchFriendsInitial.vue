@@ -5,7 +5,7 @@
                 <b-col
                     v-for="(item) in activity.items.values"
                     :key="item.id"
-                    class="my-3 item"
+                    class="my-3 flex-fill item"
                     cols="12"
                     md="6"
                     sm="12"
@@ -100,15 +100,17 @@ export default {
 <style lang="scss">
     .activity-values{
         .item{
+            width: 100%;
             .drop-and-name{
                 display: flex;
-                justify-content: center;
+                justify-content: left;
                 align-items: center;
+                padding: 0 !important;
                 .name{
                     justify-content: center;
                     width: 100%;
                     position: relative;
-                    right: 1.2rem;
+                    right: 0.9rem;
                     .card-body{
                         padding-left: 0.9rem;
                         text-align: left;
@@ -126,7 +128,7 @@ export default {
         flex-grow: 1;
         .card-display{
             width: 100%;
-            padding: 0 50px 0 50px;
+            padding: 0 20px 0 20px;
         }
     }
     
