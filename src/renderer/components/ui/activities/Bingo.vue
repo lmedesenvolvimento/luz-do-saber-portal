@@ -13,7 +13,7 @@
                         :class="{bingoLetter, bingoRaffleLetter: searchString(raffleLetters,bingoLetter)}" 
                         @click="raffle(bingoLetter)"
                     >
-                        {{ bingoLetter }}
+                        <h4>{{ bingoLetter }}</h4>                        
                     </div>
                 </div>                
             </b-col>
@@ -239,13 +239,13 @@ export default {
     .bingoCardLetter .card-body{
         background-color: white;
     }
-    .bingoCardRaffleLetter .card-body{
+    .bingoCardRaffleLetter .card-body {
         background-color: palegreen;
-    } 
+        /* box-shadow: inset 0px 0px 0px 6px transparentize(green, 0.9); */
+    }
     .bingoLetter{
         display: inline-grid;
         text-align: center;
-        padding-top: 5px;
         color: white;
         background-color: #dfd9db;
         border-radius: 15px;
