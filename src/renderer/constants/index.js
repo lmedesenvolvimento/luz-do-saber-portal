@@ -27,6 +27,7 @@ export const GameSubtypes = {
     boxWords: 'caixa-de-palavras',
     friendsName: 'meus-amigos-fotos',
     dominoName: 'domino-de-nomes',
+    matchFriendsInitial: 'encaixe-letras',
 }
 
 export const ItemTypes = {
