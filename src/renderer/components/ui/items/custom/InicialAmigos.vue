@@ -39,7 +39,7 @@ export default {
 
 <style lang="scss">
     .names{
-        width: 90px;
+        width: 100px;
         height: 110px;
         .card-input.card-droppable{
             height: 90px;
@@ -49,6 +49,7 @@ export default {
                 .bg-color{
                     min-height: 80px;
                     .card-body{
+                        font-size: 30px !important;
                         min-height: 80px;
                         display: flex;
                         align-items: center;
@@ -59,7 +60,7 @@ export default {
         }
     }
     .letters{
-        width: 90px;
+        width: 100px;
         height: 110px;
         .card-input.card-draggable{
             height: 90px;
@@ -69,6 +70,7 @@ export default {
                 .bg-color{
                     min-height: 80px;
                     .card-body{
+                        font-size: 30px !important;
                         min-height: 80px;
                         display: flex;
                         align-items: center;
@@ -78,20 +80,23 @@ export default {
             }
         }
         .card-input.draggshadow{
-                min-height: 90px;
-                .card{
-                    height: 90px;
-                    max-height: 90px;
-                    .bg-color{
+            width: 100px;
+            min-height: 90px;
+            .card{
+                height: 90px;
+                max-height: 90px;
+                .bg-color{
+                    font-size: 32px;
+                    min-height: 80px;
+                    .card-body{
+                        font-size: 30px !important;
                         min-height: 80px;
-                        .card-body{
-                            min-height: 80px;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                        }
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
                     }
                 }
             }
+        }
     }
 </style>
