@@ -1,6 +1,7 @@
 <template>
     <div>
         <ls-card-draggable
+            class="letters"
             v-if="type === 'value'"
             label="item.text" 
             name="card-input"
@@ -12,6 +13,7 @@
         </ls-card-draggable>
         <div v-if="type==='key'">
             <ls-card-droppable
+                class="names"
                 v-if="type === 'key'"
                 label="item.text" 
                 name="card-input"
@@ -35,6 +37,61 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss">
+    .names{
+        width: 90px;
+        height: 110px;
+        .card-input.card-droppable{
+            height: 90px;
+            .card{
+                height: 90px;
+                max-height: 90px;
+                .bg-color{
+                    min-height: 80px;
+                    .card-body{
+                        min-height: 80px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
+            }
+        }
+    }
+    .letters{
+        width: 90px;
+        height: 110px;
+        .card-input.card-draggable{
+            height: 90px;
+            .card{
+                height: 90px;
+                max-height: 90px;
+                .bg-color{
+                    min-height: 80px;
+                    .card-body{
+                        min-height: 80px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+                }
+            }
+        }
+        .card-input.draggshadow{
+                min-height: 90px;
+                .card{
+                    height: 90px;
+                    max-height: 90px;
+                    .bg-color{
+                        min-height: 80px;
+                        .card-body{
+                            min-height: 80px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        }
+                    }
+                }
+            }
+    }
 </style>

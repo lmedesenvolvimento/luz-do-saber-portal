@@ -1,47 +1,48 @@
 <template>
     <div class="container-fluid">
-        <b-row class="column" align-v="center" align-h="center">
-            <b-col class="activity-keys">
-                <b-row align-v="center" align-h="center">
-                    <b-col 
-                        v-for="(item) in activity.items.values"
-                        :key="item.id"
-                        :sm="1"
-                        class="item"
-                    >
+        <b-row align-v="center" align-h="center">
+            <b-row class="activity-values" align-v="center" align-h="center">
+                <b-col
+                    v-for="(item) in activity.items.values"
+                    :key="item.id"
+                    class="my-3 item"
+                    cols="12"
+                    md="6"
+                    sm="12"
+                >
+                    <b-col class="drop-and-name">
                         <Item
+                            class="drop"
                             :item="item"
                             :type="'key'"
                             :template="activity.item_template.value"
                         />
-                        <ls-card-display
-                        > 
-                            {{ findKeyId(item.id)}}
-                        </ls-card-display>      
-                    </b-col>            
-
-                </b-row>
-            </b-col>
-            <b-col class="activity-values">
-                <b-row align-v="center" align-h="center">
-                    <ls-card-display>
-                        <b-row>
-                            <b-col 
-                                v-for="item in newArrayValues"
-                                :key="item.id"
-                                :sm="valueColSize"
-                                class="item"
-                            >
-                                <Item
-                                    :item="item"
-                                    :type="'value'"
-                                    :template="activity.item_template.value"
-                                />
-                            </b-col>
-                        </b-row>                    
-                    </ls-card-display>
-                </b-row>
-            </b-col>
+                        <ls-card-display class="name"> 
+                            {{ findKeyId(item.id) }}
+                        </ls-card-display>
+                    </b-col>
+                </b-col>
+            </b-row>
+            <b-row class="pb-4 activity-keys" align-v="center" align-h="center">
+                <ls-card-display>
+                    <b-row>
+                        <b-col 
+                            v-for="item in newArrayValues"
+                            :key="item.id"
+                            class="item"
+                            cols="12"
+                            md="3"
+                            sm="6"
+                        >
+                            <Item
+                                :item="item"
+                                :type="'value'"
+                                :template="activity.item_template.value"
+                            />
+                        </b-col>
+                    </b-row>                    
+                </ls-card-display>
+            </b-row>
         </b-row>
     </div>
 </template>
@@ -67,17 +68,17 @@ export default {
     props: {
         colSizes: Object
     },
+    computed: {
+        newArrayValues() {
+            return shuffle(this.activity.items.values)
+        }
+    },
     created()
     {
         console.log(shuffle(this.activity.items.values));
     },
     mounted(){
         this.createAnswersArray()
-    },
-    computed: {
-        newArrayValues() {
-            return shuffle(this.activity.items.values)
-        }
     },
     methods: {
         dropFirstLetter(nome){
@@ -96,6 +97,38 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss">
+    .activity-values{
+        .item{
+            .drop-and-name{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .name{
+                    justify-content: center;
+                    width: 100%;
+                    position: relative;
+                    right: 1.2rem;
+                    .card-body{
+                        padding-left: 0.9rem;
+                        text-align: left;
+                    }
+                }
+                .drop{
+                    z-index: 1;
+                }
 
+            }
+        }          
+        
+    }
+    .activity-keys{
+        flex-grow: 1;
+        .card-display{
+            width: 100%;
+            padding: 0 50px 0 50px;
+        }
+    }
+    
+   
 </style>
