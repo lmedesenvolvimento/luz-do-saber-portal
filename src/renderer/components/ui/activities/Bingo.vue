@@ -19,7 +19,9 @@
             </b-col>
             <b-col cols="9" align-v="center" align-h="center">
                 <b-row>
-                    <ls-card-display class="bingoCard bingoCardPlayer">
+                    <ls-card-display 
+                        class="bingoCard bingoCardPlayer"
+                    >
                         <b-row align-v="center" align-h="center">
                             <p style="color: white">sua cartela</p>
                         </b-row>
@@ -56,8 +58,14 @@
                         </b-row>
                     </ls-card-display> 
                 </b-row>
-                <b-row v-for="i in 3" :key="i">
-                    <ls-card-display class="bingoCard">
+                <b-row 
+                    v-for="i in 3" 
+                    :key="i"
+                >
+                    <ls-card-display 
+                        class="bingoCard" 
+                        :valid="searchStringInArray(raffleLetters, normalizeString(getValues[i].text).split(''))"                       
+                    >                        
                         <b-row align-v="center" align-h="center">
                             <b-row
                                 v-for="(item, position) in getValues[i].letters" 
@@ -66,8 +74,8 @@
                                 class="item bingoCardLetter"
                             >
                                 <ls-card-display                                      
-                                    :class="{bingoCardRaffleLetter: searchString(raffleLetters, normalizeString(item.text))}" 
                                     style="margin-left: 10px"
+                                    :valid="searchString(raffleLetters, normalizeString(item.text))"
                                 >
                                     {{ item.text }}
                                 </ls-card-display>                                
@@ -100,10 +108,9 @@ export default {
             alphabet: ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'],
             unraffleLetters: [],
             raffleLetters: [],
-            timer: 10000,
+            timer: 5000,
             actualRaffleLetter: '',
-            showTimer: true,
-            isAllPlayerLetterRaffled: false
+            showTimer: true
         }
     },
     computed: {        
@@ -114,11 +121,10 @@ export default {
     },
     created(){ 
         this.createAnswersArray()
+        //preenchee um vetor com o alfabeto, que perderá letras a cada jogada
+        this.unraffleLetters = this.alphabet.slice(0);
         // inicia o contador
-        this.actualizeBingoTimer();
-        this.unraffleLetters = this.alphabet.slice(0);          
-        // this.setActivityAttrs({ total_correct_items: 7 })
-
+        this.actualizeBingoTimer();        
     },
     mounted(){
         //insere as letras dojogador num array
@@ -132,11 +138,10 @@ export default {
             }            
         })
         // embaralhamos o vetor de letras
-        this.scramblePlayerLetters = shuffle(this.scramblePlayerLetters);
-        console.log(this.playerLetters)
-        console.log(this.scramblePlayerLetters)
+        this.scramblePlayerLetters = shuffle(this.scramblePlayerLetters);        
     },
     destroyed() {
+        // impede que continuem sendo chamados após sair da fase
         delete this.unraffleLetters
         delete this.actualizeBingoTimer
     },
@@ -149,7 +154,6 @@ export default {
                 item.valid = true
                 // insere o id da resposta do jogador
                 if(filter(this.playerLetters, { valid: true }).length === this.playerLetters.length){
-                    console.log(this.activity)
                     this.setAnswer({ 
                         type: 'value', 
                         data: 66,
@@ -185,41 +189,43 @@ export default {
         },      
         actualizeBingoTimer(){
             // decresce o contador até zero
-            if(this.timer > 0){
-                setTimeout(() => {
-                    this.timer -= 1000;
+            if(this.unraffleLetters.length > 0){
+                if(this.timer > 0){
+                    setTimeout(() => {
+                        this.timer -= 1000;
+                        this.actualizeBingoTimer();
+                    },1000) 
+                }
+                // quando chega a zero, e exibindo o contador, ele seleciona aleatoriamente uma letra do alfabeto
+                else if (this.showTimer){
+                    // os primeiros valores sorteados são referentes as letras embaralhadas do nome do jogador
+                    if(this.scramblePlayerLetters.length > 0){                    
+                        this.unraffleLetters.splice( this.unraffleLetters.indexOf(this.scramblePlayerLetters[0]) ,1);
+                        this.actualRaffleLetter = this.scramblePlayerLetters[0];
+                        this.raffle(this.scramblePlayerLetters[0]);
+                        this.scramblePlayerLetters.shift();                    
+                        
+                    }
+                    // após todas as letras do nome do jogador terem sido sorteadas, letras remanescentes são sorteadas aleatoriamente 
+                    else {
+                        const letterIndex = Math.floor(Math.random()*this.unraffleLetters.length);
+                        const letter = this.unraffleLetters[letterIndex];
+                        this.unraffleLetters.splice(letterIndex,1);
+                        this.actualRaffleLetter = letter;
+                        this.raffle(letter);
+                    }
+                    this.showTimer = false;
+                    this.timer = 5000;
                     this.actualizeBingoTimer();
-                },1000) 
-            }
-            // quando chega a zero, e exibindo o contador, ele seleciona aleatoriamente uma letra do alfabeto
-            else if (this.showTimer){
-                // os primeiros valores sorteados são referentes as letras embaralhadas do nome do jogador
-                if(this.scramblePlayerLetters.length > 0){                    
-                    this.unraffleLetters.splice( this.unraffleLetters.indexOf(this.scramblePlayerLetters[0]) ,1);
-                    this.actualRaffleLetter = this.scramblePlayerLetters[0];
-                    this.raffle(this.scramblePlayerLetters[0]);
-                    this.scramblePlayerLetters.shift();                    
-                    
-                }
-                // após todas as letras do nome do jogador terem sido sorteadas, letras remanescentes são sorteadas aleatoriamente 
+                }             
+                // quando chega a zero, e exibindo a letra sorteada, ele reinicia a contagem regressiva
                 else {
-                    const letterIndex = Math.floor(Math.random()*this.unraffleLetters.length);
-                    const letter = this.unraffleLetters[letterIndex];
-                    this.unraffleLetters.splice(letterIndex,1);
-                    this.actualRaffleLetter = letter;
-                    this.raffle(letter);
+                    this.showTimer = true;
+                    this.timer = 5000;
+                    this.actualizeBingoTimer();
                 }
-                this.showTimer = false;
-                this.timer = 5000;
-                this.actualizeBingoTimer();
-            }             
-            // quando chega a zero, e exibindo a letra sorteada, ele reinicia a contagem regressiva
-            else {
-                this.showTimer = true;
-                this.timer = 5000;
-                this.actualizeBingoTimer();
             }
-            console.log(this.unraffleLetters)            
+                  
         },
         // marca a letra como sorteada, trocando sua cor   
         raffle(letter) {
@@ -230,6 +236,17 @@ export default {
             for(let i = 0; i < arr.length;i++){
                 if (arr[i].match(str)) return true;
             }
+            return false;
+        },
+        // pesquisa se todas letras de um nome já saíram
+        searchStringInArray(arr, str) {
+            let counter = 0;            
+            for(let i = 0; i < arr.length;i++){
+                for (let j = 0; j < str.length; j++){
+                    if (arr[i].match(str[j])) counter++;
+                }
+            }
+            if (counter == str.length) return true;
             return false;
         },                    
         ...mapActions('Activity', ['setActivityAttrs','setAnswer'])
@@ -258,11 +275,7 @@ export default {
     }   
     .bingoCardLetter .card-body{
         background-color: white;
-    }
-    .bingoCardRaffleLetter .card-body{
-        background-color: palegreen;
-        /* box-shadow: inset 0px 0px 0px 6px transparentize(green, 0.9); */
-    }
+    }    
     .bingoLetter{
         display: inline-grid;
         text-align: center;
