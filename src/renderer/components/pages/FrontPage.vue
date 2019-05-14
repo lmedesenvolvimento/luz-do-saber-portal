@@ -9,32 +9,44 @@
                         </b-row>
 
                         <transition name="fade" mode="out-in">
-                            <div v-if="!authorized" key="login">
-                                <b-form @submit.prevent="submitLogin">
-                                    <b-card no-body class="mx-5">
-                                        <h4 slot="header">Login</h4>
+                            <div v-if="!isAuthorized" key="login">
+                                <b-form class="d-flex justify-content-center" @submit.prevent="submitLogin">
+                                    <b-card no-body class="mx-5 front-page-login card shadow">
                                         <b-card-body>
-                                            <b-form-group
-                                                id="input-group-name"
-                                                label="Informe seu nome:"
-                                                label-for="input-name"
-                                            >
-                                                <b-form-input
-                                                    id="input-name"
-                                                    v-model="user.name"
-                                                    v-focus="true"
-                                                    type="text"
-                                                    required
-                                                ></b-form-input>
-                                            </b-form-group>     
+                                            <h5>Digite seu nome abaixo para continuar.</h5>
                                         </b-card-body>
-                                        <b-card-footer>
-                                            <b-button type="submit" variant="primary" class="mt-3">Confirmar</b-button>
-                                        </b-card-footer>                               
+                                        <b-card-body>
+                                            <div class="card-input card-input-text mt-2">
+                                                <label>
+                                                    <b-card 
+                                                        no-body
+                                                    >
+                                                        <b-card-body>
+                                                            <input
+                                                                id="input-name"
+                                                                v-model="user.name"
+                                                                v-focus="true"
+                                                                type="text"
+                                                                maxlength="10"
+                                                                required
+                                                            />
+                                                        </b-card-body>
+                                                    </b-card>
+                                                </label>
+                                            </div>
+                                        </b-card-body>               
+                                        <b-card-body>
+                                            <h6>Máximo de 10 letras.</h6>
+                                        </b-card-body>
+                                        <b-card-body>
+                                            <b-button type="submit" variant="link" class="mt-3">
+                                                <div class="icon-next"></div>
+                                            </b-button>
+                                        </b-card-body>             
                                     </b-card>
                                 </b-form>
                             </div>
-                            <div v-else-if="authorized && !isVisibleLerSubModule" key="frontpage-modules">
+                            <div v-else-if="isAuthorized && !isVisibleLerSubModule" key="frontpage-modules">
                                 <b-row align-v="center" align-h="center">
                                     <b-col v-for="m in modules" :key="m.id">
                                         <a 
@@ -67,7 +79,7 @@
                                     </b-col>
                                 </b-row>                        
                             </div>
-                            <div v-else-if="authorized && isVisibleLerSubModule" key="frontpage-ler">
+                            <div v-else-if="isAuthorized && isVisibleLerSubModule" key="frontpage-ler">
                                 <b-row align-v="center" align-h="center">
                                     <div>
                                         <router-link 
@@ -117,30 +129,30 @@
 import { mapActions, mapState } from 'vuex'
 import VueCircle from '@/components/ui/CircleProgress'
 
-import db, { createDatabase } from '@/services/Session'
-
 export default {
     components: {
         VueCircle
     },
     data(){
         return {
-            authorized: false,
             isVisibleLerSubModule: false,
             user: { name: '' }
         }
     },
     computed: {                
-        ...mapState('Modules', ['modules'])
+        isAuthorized(){
+            return this.currentUser ? true : false
+        },
+        ...mapState('Modules', ['modules']),
+        ...mapState('User', ['currentUser'])
     },
     created(){
         this.fetchModules()
-        this.authorized = db.get('data').value() ? true : false
+        this.recoveryUserDatabase()
     },
     methods: {
         submitLogin(){
-            createDatabase(this.user.name)
-            this.authorized = true
+            this.createUserDatabase(this.user)
         },
         toggleVisibleLerSubModule(){
             this.isVisibleLerSubModule = !this.isVisibleLerSubModule
@@ -169,7 +181,8 @@ export default {
                 break;
             }
         },
-        ...mapActions('Modules',['fetchModules'])
+        ...mapActions('Modules',['fetchModules']),
+        ...mapActions('User',['createUserDatabase','recoveryUserDatabase'])
     }
 }
 </script>
