@@ -39,64 +39,12 @@ export default {
 
 <style lang="scss">
     .names{
-        width: 100px;
-        height: 110px;
-        .card-input.card-droppable{
-            height: 90px;
-            .card{
-                height: 90px;
-                max-height: 90px;
-                .bg-color{
-                    min-height: 80px;
-                    .card-body{
-                        font-size: 30px !important;
-                        min-height: 80px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                    }
-                }
-            }
-        }
+        width: 80px;
     }
     .letters{
-        width: 100px;
-        height: 110px;
-        .card-input.card-draggable{
-            height: 90px;
-            .card{
-                height: 90px;
-                max-height: 90px;
-                .bg-color{
-                    min-height: 80px;
-                    .card-body{
-                        font-size: 30px !important;
-                        min-height: 80px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                    }
-                }
-            }
+        width: 80px;
         }
         .card-input.draggshadow{
-            width: 100px;
-            min-height: 90px;
-            .card{
-                height: 90px;
-                max-height: 90px;
-                .bg-color{
-                    font-size: 32px;
-                    min-height: 80px;
-                    .card-body{
-                        font-size: 30px !important;
-                        min-height: 80px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                    }
-                }
-            }
-        }
+            width: 80px;
     }
 </style>
