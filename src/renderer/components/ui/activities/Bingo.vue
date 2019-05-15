@@ -1,14 +1,14 @@
 <template>
     <div class="container-fluid">        
         <b-row align-v="start">
-            <b-col cols="4" align-v="center" align-h="center">
-                <b-row align-h="center" class="bingoRoulette">
+            <b-col cols="3" align-v="center" align-h="center">
+                <b-row align-v="center" align-h="center" class="bingoRoulette">
                     <div class="bingoCounter">
                         <h2 v-if="showTimer" style="color: #13c5c4;">{{ getDuration }}</h2>
                         <h2 v-else>{{ actualRaffleLetter }}</h2>
                     </div>
                 </b-row>                
-                <div>                   
+                <b-row align-h="center">                   
                     <div 
                         v-for="bingoLetter in alphabet"
                         :key="bingoLetter" 
@@ -16,15 +16,15 @@
                     >
                         <h4>{{ bingoLetter }}</h4>                        
                     </div>
-                </div>                
+                </b-row>                
             </b-col>
-            <b-col cols="8" align-v="center" align-h="center">
+            <b-col cols="9" align-v="center" align-h="center">
                 <b-row>
                     <ls-card-display 
                         class="bingoCard bingoCardPlayer"
                     >
                         <b-row align-v="center" align-h="center">
-                            <p style="color: white">sua cartela</p>
+                            <p style="color: white">sua cartela</p>                            
                         </b-row>
                         <b-row align-v="center" align-h="center">                       
                             <b-row
@@ -258,8 +258,8 @@ export default {
 
 <style>
     .bingoRoulette{
+        height: 200px;
         border: solid 1px;
-        display: flex;
     }
     .bingoCounter{
         border: solid 4px;
@@ -271,6 +271,7 @@ export default {
     }
     .bingoCard{
         width: 800px;
+        margin: 3px 0 3px 0;
     }
     .bingoCardPlayer .card-body{
         background-color: #ffb141;       
