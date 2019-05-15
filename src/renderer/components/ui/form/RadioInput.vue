@@ -20,7 +20,8 @@ export default {
         label: String,
         variant: String,
         item: Object,
-        bgColor: String
+        bgColor: String,
+        focus: Boolean,
     },
     data(){
         return {
