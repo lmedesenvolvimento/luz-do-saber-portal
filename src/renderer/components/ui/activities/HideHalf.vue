@@ -1,5 +1,5 @@
 <template>
-    <b-container fluid>
+    <b-container fluid class="activity">
         <b-row align-h="center" align-v="center">
             <b-col class="activity-keys">
                 <b-row align-h="center" align-v="center">
@@ -13,6 +13,7 @@
                             v-if="item.hide"
                             :item="item"
                             :type="'value'"
+                            :focus="item.focus"
                             :template="activity.item_template.value"
                         />
 
@@ -31,7 +32,7 @@
 
 <script>
 import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from './mixins'
-import { sampleSize, drop, range } from 'lodash'
+import { sampleSize, drop, range, filter } from 'lodash'
 
 import Item from '@/components/ui/items/Item'
 
@@ -54,6 +55,10 @@ export default {
                     this.activity.items.values[item].hide = true
             }
         })
+
+        let values = filter(this.activity.items.values, v => v.hide)
+
+        values[0].focus = true
 
         //seta as respostas
         this.setAnswersArray(keys)
