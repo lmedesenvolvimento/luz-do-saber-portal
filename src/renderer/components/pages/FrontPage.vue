@@ -28,6 +28,7 @@
                                                                 v-focus="true"
                                                                 type="text"
                                                                 maxlength="11"
+                                                                autocomplete="off"
                                                                 required
                                                             />
                                                         </b-card-body>
