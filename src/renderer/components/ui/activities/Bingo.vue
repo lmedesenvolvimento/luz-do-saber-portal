@@ -11,7 +11,6 @@
                         v-for="bingoLetter in alphabet"
                         :key="bingoLetter" 
                         :class="{bingoLetter, bingoRaffleLetter: searchString(raffleLetters,bingoLetter)}" 
-                        @click="raffle(bingoLetter)"
                     >
                         <h4>{{ bingoLetter }}</h4>                        
                     </div>
@@ -59,7 +58,7 @@
                     </ls-card-display> 
                 </b-row>
                 <b-row 
-                    v-for="i in 3" 
+                    v-for="i in (getValues.length - 1)" 
                     :key="i"
                 >
                     <ls-card-display 
@@ -94,6 +93,7 @@ import alerts from '@/components/alerts'
 import { shuffle, range, filter } from 'lodash'
 import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from './mixins'
 import moment from 'moment'
+import { setTimeout } from 'timers';
 
 export default {    
     components: { 
@@ -121,13 +121,13 @@ export default {
     },
     created(){ 
         this.createAnswersArray()
-        //preenchee um vetor com o alfabeto, que perderá letras a cada jogada
+        //preenche um vetor com o alfabeto, que perderá letras a cada jogada
         this.unraffleLetters = this.alphabet.slice(0);
         // inicia o contador
-        this.actualizeBingoTimer();        
+        this.actualizeBingoTimer();
     },
     mounted(){
-        //insere as letras dojogador num array
+        //insere as letras do jogador num array
         this.getKeys[0].letters.forEach(letter => {
             this.playerLetters.push(Object.assign({}, letter))
         })
