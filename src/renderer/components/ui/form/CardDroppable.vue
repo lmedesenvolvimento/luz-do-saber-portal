@@ -5,13 +5,11 @@
                 no-body
                 :class="{ 'invalid': invalid, 'valid': valid }"
             >
-                <fill-background :bg-color="bgColor">
-                    <b-card-body>
-                        <slot name="transfer-data">
-                            <div> {{ transferData.text }}</div>
-                        </slot>
-                    </b-card-body>
-                </fill-background>
+                <b-card-body>
+                    <slot name="transfer-data">
+                        <div> {{ transferData.text }}</div>
+                    </slot>
+                </b-card-body>
             </b-card>
         </div>
     </drop>
