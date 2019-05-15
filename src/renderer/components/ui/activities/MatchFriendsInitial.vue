@@ -100,10 +100,8 @@ export default {
 <style lang="scss">
     .activity-values{
         .item{
-            // width: 100%;
             .drop-and-name{
                 display: flex;
-                // justify-content: left;
                 align-items: center;
                 padding: 0 !important;
                 .name{
