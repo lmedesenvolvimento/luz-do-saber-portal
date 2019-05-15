@@ -8,7 +8,6 @@
                 <b-card-body>
                     <input
                         v-model="model"
-                        v-focus="focus"
                         :name="$attrs.name" 
                         :maxlength="1"
                         :disabled="valid"
