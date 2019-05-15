@@ -29,6 +29,14 @@ export const initialStateLog = {
     }
 }
 
+export const leaderLineConfig = {
+    startPlug: 'behind',
+    endPlug: 'behind',
+    color: '#212121',
+    path: 'straight',
+    size: 2
+}
+
 export function clearConnection(state) {
     state.connections.forEach(line => line.remove())
     Vue.set(state, 'connections', [])
@@ -84,8 +92,9 @@ export function validationInSelection({ state, commit }, { vm, type, data }) {
             selection.value.vm.valid = true
 
             let leaderLine = new LeaderLine (
-                selection.key.vm.$el,
-                selection.value.vm.$el
+                selection.key.vm.$el.querySelector('.card'),
+                selection.value.vm.$el.querySelector('.card'),
+                leaderLineConfig
             )
 
             state.connections.push(leaderLine)
@@ -98,8 +107,9 @@ export function validationInSelection({ state, commit }, { vm, type, data }) {
             selection.value.vm.invalid = true
 
             let line = new LeaderLine(
-                selection.value.vm.$el,
-                selection.key.vm.$el
+                selection.value.vm.$el.querySelector('.card'),
+                selection.key.vm.$el.querySelector('.card'),
+                leaderLineConfig
             )
 
             setTimeout( _=> line.remove(), 600)
