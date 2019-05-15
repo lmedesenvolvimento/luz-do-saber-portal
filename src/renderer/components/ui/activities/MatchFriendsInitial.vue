@@ -1,11 +1,11 @@
 <template>
     <div class="container-fluid">
-        <b-row class="m-4" align-v="center" align-h="center">
+        <b-row class="m-5" align-v="center" align-h="center">
             <b-row class="activity-values" align-v="center" align-h="center">
                 <b-col
                     v-for="(item) in activity.items.values"
                     :key="item.id"
-                    class="my-3 flex-fill item"
+                    class="my-3 item"
                     cols="12"
                     md="6"
                     sm="12"
@@ -100,24 +100,26 @@ export default {
 <style lang="scss">
     .activity-values{
         .item{
-            width: 100%;
+            // width: 100%;
             .drop-and-name{
                 display: flex;
-                justify-content: left;
+                // justify-content: left;
                 align-items: center;
                 padding: 0 !important;
                 .name{
                     justify-content: center;
                     width: 100%;
                     position: relative;
-                    right: 0.9rem;
+                    right: 2rem;
                     .card-body{
-                        padding-left: 0.9rem;
+                        padding-left: 1.4rem;
                         text-align: left;
+                        font-size: 18px;
                     }
                 }
                 .drop{
                     z-index: 1;
+
                 }
 
             }
