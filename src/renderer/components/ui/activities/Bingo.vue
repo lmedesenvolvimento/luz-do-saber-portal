@@ -1,11 +1,13 @@
 <template>
     <div class="container-fluid">        
         <b-row align-v="start">
-            <b-col cols="3" align-v="center" align-h="center">
-                <div class="bingoCounter">
-                    <h2 v-if="showTimer" style="color: #13c5c4;">{{ getDuration }}</h2>
-                    <h2 v-else>{{ actualRaffleLetter }}</h2>
-                </div>
+            <b-col cols="4" align-v="center" align-h="center">
+                <b-row align-h="center" class="bingoRoulette">
+                    <div class="bingoCounter">
+                        <h2 v-if="showTimer" style="color: #13c5c4;">{{ getDuration }}</h2>
+                        <h2 v-else>{{ actualRaffleLetter }}</h2>
+                    </div>
+                </b-row>                
                 <div>                   
                     <div 
                         v-for="bingoLetter in alphabet"
@@ -16,7 +18,7 @@
                     </div>
                 </div>                
             </b-col>
-            <b-col cols="9" align-v="center" align-h="center">
+            <b-col cols="8" align-v="center" align-h="center">
                 <b-row>
                     <ls-card-display 
                         class="bingoCard bingoCardPlayer"
@@ -255,12 +257,15 @@ export default {
 </script>
 
 <style>
+    .bingoRoulette{
+        border: solid 1px;
+        display: flex;
+    }
     .bingoCounter{
         border: solid 4px;
         border-color: #13c5c4; 
         text-align: center;
-        width: 100px;
-        margin: auto;
+        width: 100px;        
         padding-top: 5px;
         border-radius: 10px;
     }
