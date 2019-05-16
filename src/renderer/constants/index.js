@@ -4,7 +4,8 @@ export const ActivityTypes = {
             text: 'atividade-texto',
         },
         join: {
-            text: 'atividade-texto-texto'
+            text: 'atividade-texto-texto',
+            image: 'atividade-imagem-texto'
         }
     },
     game: 'jogo'
