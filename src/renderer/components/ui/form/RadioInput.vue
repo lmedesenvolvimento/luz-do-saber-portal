@@ -19,6 +19,10 @@ export default {
         label: String,
         variant: String,
         item: Object,
+        image: {
+            type: String,
+            required: false
+        },
         bgColor: String
     },
     data(){

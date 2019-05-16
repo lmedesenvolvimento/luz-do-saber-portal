@@ -1,6 +1,7 @@
 <template>
     <div class="card-display" :class="$attrs.class">
         <b-card 
+            :img-src="image"
             no-body
             :class="{ 'invalid': invalid, 'valid': valid }"
         >
@@ -23,7 +24,11 @@ export default {
     props: {
         bgColor: String,
         valid: Boolean,
-        invalid: Boolean
+        invalid: Boolean,
+        image: {
+            type: String,
+            required: false
+        }
     }
 }
 </script>
