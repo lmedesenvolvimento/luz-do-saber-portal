@@ -1,14 +1,16 @@
 <template>
     <div class="container-fluid">        
-        <b-row align-v="start">
+        <b-row align-v="center">
             <b-col cols="3" align-v="center" align-h="center">
-                <b-row align-v="center" align-h="center" class="bingoRoulette">
+                <b-row class="bingoContainer" align-v="center" align-h="center">
+                    <img class="bingoRoulette" :src="bingoRoulette" alt="">                  
+                    <img class="bingoPanel" :src="bingoCounter" alt="">
                     <div class="bingoCounter">
                         <h2 v-if="showTimer" style="color: #13c5c4;">{{ getDuration }}</h2>
                         <h2 v-else>{{ actualRaffleLetter }}</h2>
-                    </div>
+                    </div>                    
                 </b-row>                
-                <b-row align-h="center">                   
+                <b-row align-h="start">                   
                     <div 
                         v-for="bingoLetter in alphabet"
                         :key="bingoLetter" 
@@ -115,7 +117,15 @@ export default {
             showTimer: true
         }
     },
-    computed: {        
+    computed: {       
+        // retorna as imagens da roleta e do painel interno
+        bingoRoulette() {
+            return require('@/assets/images/components/bingo/globo-bingo.png');
+        },
+        bingoCounter(){
+            return require('@/assets/images/components/bingo/painel-bingo.png');
+        },
+        // ajusta o formato em que o horário será exibido
         getDuration(){           
             return moment(this.timer).format('m:ss')
         },        
@@ -147,7 +157,7 @@ export default {
         delete this.unraffleLetters
         delete this.actualizeBingoTimer
     },
-    methods: {
+    methods: {        
         checkRaffle (item) {    
             // caso o item já tenha sido checado, retornamos aqui mesmo
             if(item.valid || item.invalid) return
@@ -256,18 +266,26 @@ export default {
 }
 </script>
 
-<style>
+<style>    
+    .bingoContainer{
+        display: flex;
+        flex-flow: column;
+        margin: 140px 0 150px 0;
+        
+    }
     .bingoRoulette{
-        height: 200px;
-        border: solid 1px;
+        position: fixed;        
+        z-index: 0;
+    }
+    .bingoPanel{
+        position: fixed;
+        margin-top: 2px;
+        z-index: 1;
     }
     .bingoCounter{
-        border: solid 4px;
-        border-color: #13c5c4; 
-        text-align: center;
-        width: 100px;        
-        padding-top: 5px;
-        border-radius: 10px;
+        position: fixed;
+        margin-top: 4px;
+        z-index: 2;
     }
     .bingoCard{
         width: 800px;
