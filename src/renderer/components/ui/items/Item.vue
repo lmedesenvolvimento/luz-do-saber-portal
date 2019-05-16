@@ -4,6 +4,7 @@
             <ls-item-text
                 :type="type"
                 :item="item"
+                :focus="focus"
                 :template="template"
             ></ls-item-text>            
         </div>

@@ -4,6 +4,7 @@
             v-if="isInput"
             name="base-input" 
             :value="item"
+            :focus="focus"
             type="value"
             :bg-color="item.color"
         />
