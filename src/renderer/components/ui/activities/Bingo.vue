@@ -146,7 +146,7 @@ export default {
         // para podermos dar prioridade as letras do usuário na chamada do bingo, criamos um vetor com as letras, sem repetições
         this.playerLetters.forEach(letter => {
             if(!this.searchString(this.scramblePlayerLetters, this.normalizeString(letter.text))){
-                this.scramblePlayerLetters.push(letter.text)
+                this.scramblePlayerLetters.push(this.normalizeString(letter.text))
             }            
         })
         // embaralhamos o vetor de letras
