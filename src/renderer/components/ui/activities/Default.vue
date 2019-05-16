@@ -34,7 +34,7 @@
     </div>
 </template>
 <script>
-import { MapMixins, ListMixin, CreateAnswersMixins } from './mixins'
+import { MapMixins, ListMixin, CreateAnswersMixins } from '@ui/activities/mixins'
 
 export default {
     mixins: [MapMixins, ListMixin, CreateAnswersMixins],
