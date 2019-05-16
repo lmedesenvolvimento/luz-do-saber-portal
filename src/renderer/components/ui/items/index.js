@@ -8,6 +8,7 @@ export const ItemProps = {
     props: {
         item: Object,
         type: String,
+        focus: Boolean,
         template: Object
     },
     data(){
