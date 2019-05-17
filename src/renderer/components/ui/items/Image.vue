@@ -53,10 +53,14 @@
             class="col-sm" 
             label="item.text" 
             :item="item"
-            :image="'https://placeimg.com/640/480/any'"
+            :image="'https://picsum.photos/300/200'"
             :name="activity.type.slug"
             :bg-color="item.color"
         >
+            <template v-slot:img>
+                <b-card-img class="teste" src="https://picsum.photos/300/200">
+                </b-card-img>
+            </template>
         </ls-card-display>
 
         <ls-card-input 
@@ -68,7 +72,7 @@
             :bg-color="item.color"
         >
             {{ item.text }}
-        </ls-card-input>        
+        </ls-card-input>
     </div>
 </template>
 <script>
@@ -76,25 +80,7 @@ import { ItemProps } from './index.js'
 export default {
     mixins: [ItemProps],
     mounted() {
-        console.log(this.item)
+        // console.log(this.item.images[0].url)
     }
 }
 </script>
-
-<!-- <template>
-    <ls-card-input 
-        class="col-sm" 
-        label="item.text" 
-        :type="type"
-        :item="item"
-        :name="activity.type.slug">
-        <b-card-text>{{ item.text }}</b-card-text>
-    </ls-card-input>
-</template>
-<script>
-import { ItemProps } from './index.js'
-export default {
-    mixins: [ItemProps]
-}
-</script>
--->
