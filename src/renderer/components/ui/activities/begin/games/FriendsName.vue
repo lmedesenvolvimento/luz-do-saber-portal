@@ -31,7 +31,7 @@ import { mapState, mapActions } from 'vuex'
 import ui from '@/components/ui'
 import alerts from '@/components/alerts'
 import { sortBy, shuffle } from 'lodash'
-import { MapMixins, ListMixin, CreateAnswersMixins,createAnswer } from './mixins'
+import { MapMixins, ListMixin, CreateAnswersMixins,createAnswer } from '@ui/activities/mixins'
 
 export default {
     components: { 
@@ -66,6 +66,7 @@ export default {
         }
     },
     created(){
+        console.log('created yeyey')
         this.setActivityAttrs({ total_correct_items: this.getKeys.length })
         this.localFriends =  []
         for(let i = 0; i < 6; i++){

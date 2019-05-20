@@ -20,7 +20,6 @@
                                                 <label>
                                                     <b-card 
                                                         no-body
-                                                        :class="{ 'invalid': invalid, 'valid': valid }"
                                                     >
                                                         <b-card-body>
                                                             <input
@@ -28,7 +27,8 @@
                                                                 v-model="user.name"
                                                                 v-focus="true"
                                                                 type="text"
-                                                                maxlength="10"
+                                                                maxlength="11"
+                                                                autocomplete="off"
                                                                 required
                                                             />
                                                         </b-card-body>
@@ -37,7 +37,7 @@
                                             </div>
                                         </b-card-body>               
                                         <b-card-body>
-                                            <h6>Máximo de 10 letras.</h6>
+                                            <h6>Máximo de 11 letras.</h6>
                                         </b-card-body>
                                         <b-card-body>
                                             <b-button type="submit" variant="link" class="mt-3">

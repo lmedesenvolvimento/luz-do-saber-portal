@@ -1,10 +1,6 @@
+import BeginActivities from '@ui/activities/begin';
 
 export default {
     'ls-activity-default': require('./Default.vue').default,
-    'ls-activity-half': require('./HideHalf.vue').default,
-    'ls-activity-unscramble': require('./UnscrambleName.vue').default,
-    'ls-activity-number-letter': require('./NumberLetter.vue').default,
-    'ls-activity-jigsaw': require('./Jigsaw.vue').default,
-    'ls-activity-rearrange-name': require('./RearrangeName.vue').default,
-    'ls-activity-friends-name': require('./FriendsName.vue').default,
+    ...BeginActivities
 }

@@ -24,8 +24,8 @@
     </div>
 </template>
 <script>
-import { MapMixins, ListMixin, CreateAnswersMixins } from './mixins'
-import FormProps from '../form'
+import { MapMixins, ListMixin, CreateAnswersMixins } from '@ui/activities/mixins'
+import FormProps from '@ui/form'
 import { range } from 'lodash'
 
 export default {

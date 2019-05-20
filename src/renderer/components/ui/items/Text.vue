@@ -4,6 +4,7 @@
             v-if="isInput"
             name="base-input" 
             :value="item"
+            :focus="focus"
             type="value"
             :bg-color="item.color"
         />
@@ -26,7 +27,19 @@
             :bg-color="item.color"
         >
             {{ item.text }}
-        </ls-card-droppable>
+        </ls-card-droppable>        
+
+        <ls-card-input 
+            v-else-if="type === 'key' && isJoinInput"
+            class="col-sm" 
+            label="item.text" 
+            :item="item"
+            :type="type"
+            :name="activity.type.slug"
+            :bg-color="item.color"
+        >
+            {{ item.text }}
+        </ls-card-input>
 
         <ls-card-display 
             v-else-if="type === 'key'"

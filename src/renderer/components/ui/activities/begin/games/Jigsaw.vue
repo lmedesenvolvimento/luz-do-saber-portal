@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from './mixins'
+import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from '@ui/activities/mixins'
 // import { sampleSize, drop, range } from 'lodash'
 
 // import Item from '@/components/ui/items/Item'
@@ -67,7 +67,7 @@ export default {
 .total{
     width: 200px;
     height: 200px;
-    background-image: url('../../../assets/images/components/navbar/navbar-bg.png');
+    background-image: url('~@/assets/images/components/navbar/navbar-bg.png');
     background-color: #C72929;
     color: white;
     display: flex;
