@@ -1,27 +1,33 @@
 <template>
     <div class="container-fluid">
-        <b-row  class="column">  
-            <b-card v-for="(friend, index) in localFriends" :key="index" no-body>
-                <b-card-body>
-                    <div class="card-input card-input-text ">
-                        <label>
-                            <b-card 
-                                no-body
-                            >
-                                <b-card-body>
-                                    <input
-                                        id="input-name"
-                                        v-model="friend.name"
-                                        type="text"
-                                        maxlength="11"
-                                        @blur="addLocalFriend(friend,index)"
-                                    />
-                                </b-card-body>
-                            </b-card>
-                        </label>
-                    </div>
-                </b-card-body>               
-            </b-card>
+        <b-row align-h="center" align-v="center">
+            <b-col class="activity-values">
+                <b-row>
+                    <b-col v-for="(friend, index) in localFriends" :key="index" md="4" cols="12">
+                        <b-card no-body class="my-2">
+                            <b-card-body>
+                                <div class="card-input card-input-text ">
+                                    <label>
+                                        <b-card 
+                                            no-body
+                                        >
+                                            <b-card-body>
+                                                <input
+                                                    id="input-name"
+                                                    v-model="friend.name"
+                                                    type="text"
+                                                    maxlength="11"
+                                                    @blur="addLocalFriend(friend,index)"
+                                                />
+                                            </b-card-body>
+                                        </b-card>
+                                    </label>
+                                </div>
+                            </b-card-body>               
+                        </b-card>
+                    </b-col>
+                </b-row>
+            </b-col>
         </b-row>
     </div>
 </template>
