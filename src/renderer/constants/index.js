@@ -22,6 +22,7 @@ export const GameSubtypes = {
     unscramble: 'desembaralhar-nome',
     rearrangeName: 'monte-seu-nome',
     jigsaw: 'quebra-cabecas',
+    friendsName: 'meus-amigos-fotos',
 }
 
 export const ItemTypes = {
