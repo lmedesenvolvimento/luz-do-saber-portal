@@ -1,5 +1,26 @@
 {
     "include": [
         "./src/renderer/**/*"
-    ]
+    ],
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "*": [
+                "src/renderer/*"
+            ],
+            "@/*": [
+                "src/renderer/*"
+            ],
+            "@ui/*": [
+                "src/renderer/components/ui/*"
+            ],
+            "@assets/*": [
+                "src/renderer/assets/*"
+            ],            
+            "underscore": [
+                "lodash"
+            ]
+        }
+    }
+}
 }
