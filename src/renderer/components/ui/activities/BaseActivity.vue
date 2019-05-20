@@ -52,6 +52,12 @@
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
             />
+            <ls-activity-friends-name     
+                v-if="gameSubtypes.friendsName === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+            />
+            
         </div>
     </div>
 </template>
@@ -94,7 +100,7 @@ export default {
         ...mapState('Activity', ['activity'])
     },
     mounted(){
-        console.log(this.activity)
+        console.log('base activiyt',this.activity)
     }
 }
 </script>
