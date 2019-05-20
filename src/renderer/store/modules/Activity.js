@@ -102,9 +102,6 @@ const actions = {
             let { data } = await API.get(`/game/${module_slug}/${theme_slug}/${unit_slug}/${position}`, extenalParams)
 
             commit('SET_ACTIVITY', Object.assign(data.question, { position: position }))
-
-            // update store unit
-            dispatch('Unit/setNavigatorOrder', position, { root: true })
         } catch (error) {
             console.warn(error)
         }
