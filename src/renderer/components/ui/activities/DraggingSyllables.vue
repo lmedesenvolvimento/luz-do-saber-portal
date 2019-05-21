@@ -22,7 +22,7 @@
                     align-v="center"
                 >
                     <b-col cols="12" md="4">
-                        <ls-card-display v-if="item.images[0].url !== null" class="key-image" :style="{ 'background-image': 'url(' + item.images[0].url + ')' }">
+                        <ls-card-display v-if="item.images[0].url !== null" class="key-image" :style="{ 'background-image': 'url(' + serverUrl + item.images[0].url + ');' }">
                             imagem 
                             <br>
                             aqui
@@ -38,7 +38,7 @@
                                 :type="'value'"
                                 :template="activity.item_template.value"
                             >
-                                {{ getSyllableByValueId(valueId) }}
+                                <!-- {{ getSyllableByValueId(valueId) }} -->
                             </ls-card-droppable>
                         </b-row>
                     </b-col>
@@ -67,6 +67,11 @@ export default {
         this.createAnswersArray()
         this.teste()
     },
+    computed: {
+        serverUrl() {
+            return process.env.BASE_API_URL
+        }
+    },
     methods: {
         getSyllableByValueId(valueId) {
             for (let i = 0; i < this.activity.items.values.length; i++) {
@@ -84,9 +89,7 @@ export default {
             }
 
             for( let i = 0; i < this.activity.items.keys.length; i++){
-                console.log('entrei i '+ i)
                 for(let j = 0; j < this.activity.items.keys[i].value_ids.length; j++){
-                    console.log('entrei j '+j)
                     //if (this.activity.items.keys[i].value_ids.includes(a[i].key_id)){
                     //    console.log(a[i].text)
                     //}
