@@ -1,12 +1,19 @@
 <template>
     <div :class="item.type ? item.type : ''">
+        <div v-if="template.type === 'texto' && template.custom === 'primeira-letra-do-key'">
+            <ls-item-inicial-amigos
+                :type="type"
+                :item="item"
+                :template="template"
+            ></ls-item-inicial-amigos>
+        </div>
         <div v-if="isPrimitiveItem">
             <ls-item-text
                 :type="type"
                 :item="item"
                 :focus="focus"
                 :template="template"
-            ></ls-item-text>            
+            ></ls-item-text>
         </div>
         <div v-else-if="!isPrimitiveItem" class="item">            
             <ls-item-cracha-box

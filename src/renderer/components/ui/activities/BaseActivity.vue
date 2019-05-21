@@ -52,6 +52,16 @@
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
             />
+            <ls-activity-match-friends-initial 
+                v-if="gameSubtypes.matchFriendsInitial === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+            />
+            <ls-activity-dragging-syllables 
+                v-if="gameSubtypes.draggingSyllables === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+            ></ls-activity-dragging-syllables>
         </div>
     </div>
 </template>
