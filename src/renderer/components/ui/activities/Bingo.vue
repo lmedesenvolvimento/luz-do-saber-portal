@@ -62,7 +62,7 @@
                     </ls-card-display> 
                 </b-row>
                 <b-row 
-                    v-for="i in (getValues.length - 1)" 
+                    v-for="i in (getValues.length - 2)" 
                     :key="i"
                 >
                     <ls-card-display 
