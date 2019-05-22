@@ -23,9 +23,10 @@ export default {
     },
     beforeDestroy(){
         this.setNavigatorOrder(1)
+        this.destroyUnit()
     },
     methods: {
-        ...mapActions('Unit', ['fetchUnit', 'setNavigatorOrder'])
+        ...mapActions('Unit', ['fetchUnit', 'setNavigatorOrder', 'destroyUnit'])
     },
 }
 </script>

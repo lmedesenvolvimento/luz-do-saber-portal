@@ -8,4 +8,5 @@ export default {
     'ls-activity-rearrange-name': require('./RearrangeName.vue').default,
     'ls-activity-match-friends-initial': require('./MatchFriendsInitial.vue').default,
     'ls-activity-dragging-syllables': require('./DraggingSyllables.vue').default,
+    'ls-activity-box-of-words': require('./BoxOfWords.vue').default,
 }
