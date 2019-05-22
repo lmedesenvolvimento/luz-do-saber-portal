@@ -1,109 +1,55 @@
 <template>
-    <div class="container-fluid">
+    <div id="dragging-syllables" class="container-fluid">
         <b-row align-h="center" class="reverse">
             <b-col v-if="hasKeys" class="activity-keys">
                 <b-row>
-                    <b-col v-for="(item, position) in getValues" :key="position" :sm="keyColSize" class="item"> 
-                        <ls-card-droppable
-                            v-if="answers"
-                            :item="item"
-                            :type="'key'"
-                            :template="activity.item_template.key"
-                        />
-                        <!-- <b-col cols="12" md="4">
-                            <ls-card-display v-if="item.images[0].url !== null" class="key-image">
-                                <div class="image" :style="{ 'background-image': 'url('+ baseUrl + item.images[0].url + ')' }">
-                                </div>
-                            </ls-card-display>
-                        </b-col>
-                        <b-col cols="12" md="8">
-                            <b-row>
-                                <b-col class="col-droppable-syllables" v-for="valueId in item['value_ids']" :key="valueId">
-                                    <ls-card-display class="droppable-syllables">
-                                        {{ getSyllableByValueId(valueId) }}
-                                    </ls-card-display>
-                                </b-col>
-                            </b-row>
-                        </b-col> -->
-                    </b-col>
-                </b-row>
-            </b-col>
-            <b-col 
-                :class="{ 
-                    'flex-4': getValues.length >= 12 
-                }"
-                class="activity-values" 
-            >
-                <b-row align-v="center" align-h="center">
-                    <b-col v-for="(item, position) in getValues" :key="position" align-self="center" :md="4" :sm="6" class="item"> 
-                        <ls-card-draggable
-                            v-if="answers"
-                            :item="item"
-                            :type="'value'"
-                            :template="activity.item_template.value"
-                        >
-                            {{ item.text }}
-                        </ls-card-draggable>
-                    </b-col>                    
-                </b-row>
-            </b-col>
-        </b-row>
-    </div>
-    <!-- <div>
-        <b-row align-h="center">
-            <b-col cols="12" md="4">
-                <ls-card-display>
-                    <b-row>
-                        <b-col
-                            v-for="item in activity.items.values" 
-                            :key="item.id"
-                            cols="12"
-                            md="6"
-                        >
-                            <ls-card-draggable :item="item">
-                                {{ item.text }}
-                            </ls-card-draggable>
-                        </b-col>
-                    </b-row>  
-                </ls-card-display>            
-            </b-col>
-            <b-col cols="12" md="8">
-                <b-row
-                    v-for="item in activity.items.keys"
-                    :key="item.id"
-                    align-v="center"
-                >
-                    <Item
-                        :item="item"
-                        :type="'value'"
-                        :group="true"
-                        :template="activity.item_template.value"
-                    />
-                    <b-col cols="12" md="4">
-                        <ls-card-display v-if="item.images[0].url !== null" class="key-image" :style="{ 'background-image': 'url(' + serverUrl + item.images[0].url + ');' }">
-                            imagem 
-                            <br>
-                            aqui
-                        </ls-card-display>
-                    </b-col>
-                    <b-col cols="12" md="8">
-                        <b-row>
-                            <ls-card-droppable
-                                v-for="valueId in item['value_ids']"
-                                :key="valueId"
-                                class="drop"
-                                :item="item"
-                                :type="'value'"
-                                :template="activity.item_template.value"
-                            >
-                                {{ getSyllableByValueId(valueId) }}
-                            </ls-card-droppable>
+                    <b-col v-for="(item, position) in getKeys" :key="position" cols="12" md="12" class="item"> 
+                        <b-row class="my-2" align-v="center">
+                            <b-col class="image-col" cols="12" md="3" sm="6">
+                                <ls-card-display v-if="item.images[0].url !== null" class="key-image">
+                                    <div class="image" :style="{ 'background-image': 'url('+ baseUrl + item.images[0].url + ')' }"/>
+                                </ls-card-display>
+                            </b-col>
+                            <b-col cols="12" md="9" sm="6" class="syllables-row">
+                                <b-row>
+                                    <b-col v-for="(syllable, index) in item.syllables" :key="index" cols="12" lg="3" :md="4" :sm="6" class="key-syllables">
+                                        <ls-card-droppable
+                                            v-if="answers"
+                                            :item="item"
+                                            :type="'key'"
+                                            :template="activity.item_template.key"
+                                            :custom-validate="validateBySyllabe"
+                                        >
+                                            <template slot="transfer-data">
+                                                {{ syllable.text }}
+                                            </template>
+                                            
+                                        </ls-card-droppable>
+                                    </b-col>
+                                </b-row>
+                            </b-col>
                         </b-row>
                     </b-col>
                 </b-row>
             </b-col>
+            <b-col class="activity-values" cols="12" lg="5" md="5">
+                <ls-card-display>
+                    <b-row align-v="center" align-h="center" class="values-container">
+                        <b-col v-for="(item, position) in getValues" :key="position" align-self="center" cols="12" :sm="6" :md="6"  lg="4" class="item"> 
+                            <ls-card-draggable 
+                                v-if="answers"
+                                :item="item"
+                                :type="'value'"
+                                :template="activity.item_template.value"
+                            >
+                                {{ item.text }}
+                            </ls-card-draggable>
+                        </b-col>                    
+                    </b-row>
+                </ls-card-display>
+            </b-col>
         </b-row>
-    </div> -->
+    </div>
 </template>
 <script>
 import { MapMixins, ListMixin, CreateAnswersMixins } from './mixins'
@@ -120,16 +66,11 @@ export default {
     mixins: [MapMixins, ListMixin, CreateAnswersMixins],
     computed: {
         baseUrl() {
-            return process.env.BASE_API_URL 
+            return process.env.BASE_API_URL
         }
     },
     mounted() {
         this.createAnswersArray()
-    },
-    computed: {
-        serverUrl() {
-            return process.env.BASE_API_URL
-        }
     },
     methods: {
         getSyllableByValueId(valueId) {
@@ -140,40 +81,44 @@ export default {
                 }
             }
         },
-        teste(val){
-            let a = JSON.parse(JSON.stringify(this.activity.items.values));
-
-            for (let i = 0; i < a.length; i++){
-                a[i].text = this.activity.items.values[i].text
+        validateBySyllabe(transferData, nativeElement, vm){
+            console.log(transferData, nativeElement, vm)
+            if (transferData.text)
+            {
+                vm.valid = true
             }
 
-            for( let i = 0; i < this.activity.items.keys.length; i++){
-                for(let j = 0; j < this.activity.items.keys[i].value_ids.length; j++){
-                    //if (this.activity.items.keys[i].value_ids.includes(a[i].key_id)){
-                    //    console.log(a[i].text)
-                    //}
-                    this.getSyllableByValueId(this.activity.items.keys[i].value_ids[j])
-                }  
-            }
-        }
+        },
+        
     },
 }
 </script>
-<style lang="scss" scoped>
-    // .col-droppable-syllables
-    // {
-    //     // flex-grow: 0;
-    // }
-    // .droppable-syllables
-    // {
-    //     // width: 100px;
-    // }
-    .image
+<style lang="scss">
+
+    #dragging-syllables
     {
-        width: 150px;
-        height: 100px;
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
+        .card-input.card-draggable .card .card-body{
+            font-size: 18px !important;
+        }
+        .card-input.card-droppable .card .card-body
+        {
+            font-size: 18px !important;
+        }
+        .image{
+            width: 100%;
+            min-height: 50px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .values-container
+        {
+            padding: 10px;
+        }
+        .key-syllables, .syllables-row, .activity-keys .card-display, .item, .image-col{
+            padding-right: 10px;
+            padding-left: 10px;
+        }
     }
+
 </style>
