@@ -1,16 +1,21 @@
 <template>
     <drop @drop="onDrop">
-        <div class="card-input card-droppable">
+        <div v-if="answers.length" class="card-input drop-group">
             <b-card
+                v-for="item in answers" 
+                :key="item.id"
                 no-body
+                class="drop-group-item"
                 :class="{ 'invalid': invalid, 'valid': valid }"
             >
                 <b-card-body>
                     <slot name="transfer-data">
-                        <div> {{ transferData.text }}</div>
+                        <div> {{ item.text }}</div>
                     </slot>
                 </b-card-body>
             </b-card>
+        </div>
+        <div v-else class="drop-group">
         </div>
     </drop>
 </template>
@@ -24,7 +29,8 @@ export default {
     mixins: [RadioInput],
     data(){
         return {
-            transferData: {}
+            transferData: {},
+            answers: [],
         }
     },
     created(){
@@ -32,22 +38,14 @@ export default {
     },
     methods: {
         onDrop(transferData, nativeElement){
-            if (this.valid) return
-
             this.transferData = transferData
-
-            this.validationById(transferData)
-        },
-        validationById(transferData){            
-            if (this.item.value_ids.includes(transferData.id)) {                
-                this.setAnswer({ 
-                    type: 'value',
-                    data: transferData.id,
-                    vm: this
-                })
+            
+            if (this.item.value_ids.includes(transferData.id)) {
+                this.answers.push(transferData)
 
                 transferData.valid = true
-            } else {
+            }
+            else {
                 this.setAnswer({ 
                     type: 'value', 
                     data: -1,
@@ -56,7 +54,17 @@ export default {
 
                 transferData.invalid = true
             }
-        }
+
+            if (transferData.valid){
+                for (let i = 0; i < this.answers.length; i++){
+                    this.setAnswer({ 
+                        type: 'value',
+                        data: this.answers[i].id,
+                        vm: this
+                    })
+                }
+            }
+        }        
     }
 }
 </script>
