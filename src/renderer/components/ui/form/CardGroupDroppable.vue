@@ -1,16 +1,27 @@
 <template>
     <drop @drop="onDrop">
-        <div class="card-input card-droppable">
+        <div v-if="answers.length === 0" class="card-input card-droppable">
             <b-card
                 no-body
                 :class="{ 'invalid': invalid, 'valid': valid }"
             >
                 <b-card-body>
-                    <slot v-if="answers.length !== 0" name="transfer-data">
-                        <div v-for="item in a" :key="item.id"> {{ item.text }}</div>
-                    </slot>
-                    <slot v-if="answers.length === 0" name="transfer-data">
+                    <slot name="transfer-data">
                         <div> {{ transferData.text }}</div>
+                    </slot>
+                </b-card-body>
+            </b-card>
+        </div>
+        <div v-if="answers.length !== 0" class="card-input card-droppable">
+            <b-card
+                v-for="item in answers" 
+                :key="item.id"
+                no-body
+                :class="{ 'invalid': invalid, 'valid': valid }"
+            >
+                <b-card-body>
+                    <slot name="transfer-data">
+                        <div> {{ item.text }}</div>
                     </slot>
                 </b-card-body>
             </b-card>
@@ -33,44 +44,38 @@ export default {
     },
     created(){
         this.transferData = this.item
-        console.log(this.transferData)
     },
     methods: {
         onDrop(transferData, nativeElement){
-            if (this.valid) return
-
             this.transferData = transferData
 
             this.validationById(transferData)
         },
         validationById(transferData){
-
-            if (this.item.value_ids.includes(transferData.id)) {                
-                // this.setAnswer({ 
-                //     type: 'value',
-                //     data: transferData.id,
-                //     vm: this
-                // })
-
+            if (this.item.value_ids.includes(transferData.id)) {
                 this.answers.push(transferData)
 
-                console.log('válido')
-
-                //transferData.valid = true
+                transferData.valid = true
             }
             else {
-                // this.setAnswer({ 
-                //     type: 'value', 
-                //     data: -1,
-                //     vm: this
-                // })
+                this.setAnswer({ 
+                    type: 'value', 
+                    data: -1,
+                    vm: this
+                })
 
-                console.log('inválido')
-
-                //transferData.invalid = true
+                transferData.invalid = true
             }
 
-            console.log(this.answers)
+            if (transferData.valid){
+                for (let i = 0; i < this.answers.length; i++){
+                    this.setAnswer({ 
+                        type: 'value',
+                        data: this.answers[i].id,
+                        vm: this
+                    })
+                }
+            }
         }
     }
 }
