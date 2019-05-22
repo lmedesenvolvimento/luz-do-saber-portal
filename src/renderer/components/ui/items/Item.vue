@@ -22,12 +22,6 @@
                 :item="item"
                 :template="template"
             ></ls-card-display-validacao>
-            <ls-memory-card
-                v-if="template.custom === Types.custom.memoryCardText"
-                :type="type"
-                :item="item"
-                :template="template"
-            ></ls-memory-card>
             <ls-display-18-items
                 v-if="template.custom === Types.custom.display18Items"
                 :type="type"
