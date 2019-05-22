@@ -1,6 +1,7 @@
 <template>
     <div id="theme" class="page-container">
         <navbar
+            v-if="theme"
             :navbar-title="renderNavTitle"
             :navbar-subtitle="'Unidades'"
             :navbar-icon="'https://placeimg.com/480/480/tech'"
@@ -56,6 +57,9 @@ export default {
     created(){
         this.fetchTheme(this.$route.params)
     },
+    beforeDestroy(){
+        this.destroyTheme()
+    },
     methods: {
         getThemeColor(theme){
             switch (theme.modulo_id) {
@@ -69,7 +73,7 @@ export default {
                 break;
             }
         },
-        ...mapActions('Theme', ['fetchTheme'])
+        ...mapActions('Theme', ['fetchTheme','destroyTheme'])
     }
 };
 </script>

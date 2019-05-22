@@ -24,6 +24,7 @@ export const GameSubtypes = {
     jigsaw: 'quebra-cabecas',
     matchFriendsInitial: 'encaixe-letras',
     draggingSyllables: 'formacao-de-palavras',
+    boxWords: 'caixa-de-palavras',
 }
 
 export const ItemTypes = {

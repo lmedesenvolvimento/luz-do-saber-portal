@@ -62,6 +62,11 @@
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
             ></ls-activity-dragging-syllables>
+            <ls-activity-box-of-words 
+                v-if="gameSubtypes.boxWords === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+            />
         </div>
     </div>
 </template>
