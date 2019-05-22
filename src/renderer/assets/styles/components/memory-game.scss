@@ -1,0 +1,69 @@
+.memory-game{    
+    .card-display{
+        width: 130px;
+        height: 200px;
+        position: relative;
+        .card{
+            height: 100%;
+            width: 100%;
+            position: inherit;
+            .bg-color{
+                height: 100%;
+                width: 100%;
+                .card-body{
+                    height: 100%;
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                }                
+            }
+        }
+    }
+    .card-face{
+        flex: 0 1 200px;
+        width: 150px;
+        height: 200px;
+        -webkit-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        &.flip{
+            -webkit-animation: flip-scale-up-ver 0.5s linear both;
+            animation: flip-scale-up-ver 0.5s linear both;
+        }
+        &.matched{
+            -webkit-animation: scale-up-center 1.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+            animation: scale-up-center 1.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+            .card-display{
+                -webkit-backface-visibility: visible;
+                backface-visibility: visible;
+                &.front{
+                    visibility: hidden;
+                }
+                &.back{
+                    -webkit-transform: rotateY(0deg);
+                    transform: rotateY(0deg);
+                }
+            }
+        }
+        .card-display{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            &.front{
+                z-index: 20;
+            }
+            &.back{
+                z-index: 10;
+                -webkit-transform: rotateY(180deg);
+                transform: rotateY(180deg);
+            }               
+        }
+    }   
+}

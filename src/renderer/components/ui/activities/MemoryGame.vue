@@ -1,14 +1,29 @@
 <template>
-    <div class="container-fluid">
+    <div class="memory-game container-fluid">
         <b-row align-h="center" align-self="center" :md="valueColSize" :sm="6">
             <b-col class="activity-values">
                 <b-row align-v="center" align-h="center">
-                    <b-col v-for="card in cards" :key="card.key" class="item"> 
-                        <Item
-                            :item="card"
-                            :type="'text'"
-                            :template="activity.item_template.value"
-                        />
+                    <b-col v-for="card in cards" :key="card.key" class="item">
+                        <div class="card-face">                            
+                            <ls-card-display
+                                label="item.text" 
+                                :type="'text'"
+                                :item="card"
+                                bg-color="#02CCC3"
+                                class="front"
+                            >
+                                <div></div>
+                            </ls-card-display>
+                            <ls-card-display
+                                label="item.text" 
+                                :type="'text'"
+                                :item="card"
+                                bg-color="#FFFFFF"
+                                class="back"
+                            >
+                                <div>{{ card.value }}</div>
+                            </ls-card-display>
+                        </div>
                     </b-col>                    
                 </b-row>
             </b-col>
@@ -17,8 +32,10 @@
 </template>
 <script>
 import { MapMixins, ListMixin, CreateAnswersMixins } from './mixins'
+import ItemComponents from '../form/index.js'
 
 export default {
+    components: {... ItemComponents},
     mixins: [MapMixins, ListMixin, CreateAnswersMixins],
     created(){
         this.cards = this.createArray(this.activity.items.keys)
@@ -50,5 +67,4 @@ export default {
 </script>
 
 <style>
-
 </style>
