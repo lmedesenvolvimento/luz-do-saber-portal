@@ -36,7 +36,7 @@ export default {
 
             this.transferData = transferData
 
-            if ( transferData.text === this.item.text ) {                
+            if (this.item.value_ids.includes(transferData.id)) {
                 this.setAnswer({ 
                     type: 'value',
                     data: transferData.id,
