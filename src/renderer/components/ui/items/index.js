@@ -42,6 +42,7 @@ export default {
     'ls-item-text': require('./Text.vue').default,
     'ls-item-cracha-box': require('./custom/CrachaBox.vue').default,
     'ls-card-display-validacao': require('./custom/CardDisplayValidacao.vue').default,
+    'ls-memory-card': require('./custom/MemoryCard.vue').default,
     'ls-display-18-items': require('./custom/Display18Items.vue').default,
     'ls-item-texto-em-blocos': require('./custom/TextoEmBlocos.vue').default,
 }
