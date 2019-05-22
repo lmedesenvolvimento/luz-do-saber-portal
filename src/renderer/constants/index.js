@@ -22,6 +22,7 @@ export const GameSubtypes = {
     unscramble: 'desembaralhar-nome',
     rearrangeName: 'monte-seu-nome',
     jigsaw: 'quebra-cabecas',
+    memoryGame: 'jogo-da-memoria',
 }
 
 export const ItemTypes = {
@@ -33,7 +34,8 @@ export const ItemTypes = {
         crachaBox: 'cracha-box',
         cardDisplayValidacao: 'card-display-com-validacao',
         display18Items: 'display-18-items',
-        textoEmBlocos: 'texto-em-blocos'
+        textoEmBlocos: 'texto-em-blocos',
+        memoryCardText: 'jogo-da-memoria-texto'
     },
     tags: {
         input: 'input'

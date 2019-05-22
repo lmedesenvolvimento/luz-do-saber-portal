@@ -52,6 +52,11 @@
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
             />
+            <ls-activity-memory-game 
+                v-if="gameSubtypes.memoryGame === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+            />
         </div>
     </div>
 </template>
