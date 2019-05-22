@@ -56,7 +56,7 @@ import ui from '@/components/ui'
 import alerts from '@/components/alerts'
 import { mapActions, mapState } from 'vuex'
 
-import { first } from 'lodash'
+import { first,  } from 'lodash'
 
 export default {
     components: {
@@ -77,16 +77,25 @@ export default {
         ...mapState('Activity', ['activity','answers', 'log'])
     }, 
     created(){
-        const firstQuestion = first(this.unit.questions)
+        let firstQuestion = this.unit.questions[0]
+        let position = firstQuestion.order
+
+        if (this.$route.params.position) {
+            const indexOf = (this.$route.params.position - 1)
+            position = this.unit.questions[indexOf].order
+        }
+
+        this.setNavigatorOrder(position)
+
         this.$router.push({ 
             name: 'activity', 
             params: { 
-                position: this.$route.params.position ? parseInt(this.$route.params.position) : firstQuestion.order
+                position
             }
         })
     },  
     methods: {
-        ...mapActions('Unit', ['goActivity', 'nextActivity', 'prevActivity'])
+        ...mapActions('Unit', ['goActivity', 'nextActivity', 'prevActivity','setNavigatorOrder'])
     }
 }
 </script>

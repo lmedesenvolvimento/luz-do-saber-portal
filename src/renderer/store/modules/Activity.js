@@ -124,7 +124,7 @@ const actions = {
         }
         
         // Check if activity is finish
-        let totalCorrectItems = filter( values(state.answers), { valid: true }).length
+        let totalCorrectItems = filter(values(state.answers), { valid: true }).length
         
         if (totalCorrectItems === state.activity.total_correct_items){
             dispatch('triggerSuccess')
