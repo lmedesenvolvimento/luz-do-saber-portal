@@ -125,8 +125,6 @@ export function getExtenalParams(question) {
     let external_params = []
     let user = db.value()
 
-    console.log(question)
-
     switch (question.external_param_type) {
     case 'substantivo_proprio':
         if (question.external_param_total < 1) {
