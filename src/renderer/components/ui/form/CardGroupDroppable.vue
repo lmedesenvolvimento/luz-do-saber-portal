@@ -6,10 +6,10 @@
                 :class="{ 'invalid': invalid, 'valid': valid }"
             >
                 <b-card-body>
-                    <slot v-if="a.length !== 0" name="transfer-data">
+                    <slot v-if="answers.length !== 0" name="transfer-data">
                         <div v-for="item in a" :key="item.id"> {{ item.text }}</div>
                     </slot>
-                    <slot v-if="a.length === 0" name="transfer-data">
+                    <slot v-if="answers.length === 0" name="transfer-data">
                         <div> {{ transferData.text }}</div>
                     </slot>
                 </b-card-body>
@@ -28,7 +28,7 @@ export default {
     data(){
         return {
             transferData: {},
-            a: [],
+            answers: [],
         }
     },
     created(){
@@ -52,7 +52,7 @@ export default {
                 //     vm: this
                 // })
 
-                this.a.push(transferData)
+                this.answers.push(transferData)
 
                 console.log('válido')
 
@@ -70,7 +70,7 @@ export default {
                 //transferData.invalid = true
             }
 
-            console.log(this.a)
+            console.log(this.answers)
         }
     }
 }
