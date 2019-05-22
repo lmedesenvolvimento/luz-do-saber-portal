@@ -68,7 +68,9 @@
             :bg-color="item.color"
         >
             {{ item.text }}
-        </ls-card-input>        
+        </ls-card-input>     
+
+        <ls-checkmark></ls-checkmark>   
     </div>
 </template>
 <script>
