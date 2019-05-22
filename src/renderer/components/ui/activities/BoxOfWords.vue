@@ -52,46 +52,9 @@ import { mapState, mapActions } from 'vuex'
 export default {
     components: { Item },
     mixins: [ListMixin, MapMixins, CreateAnswersMixins],
-    props: {
-        colSizes: Object
-    },
     created(){
         this.createAnswersArray()
-        this.teste()
     },
-    methods: {
-        teste(){
-            let aux = this.activity.items.keys
-            let oa = {}
-
-            let tamanho = 0;
-
-            for(let i = 0; i < aux.length; i++) tamanho += aux[i].value_ids.length
-
-            console.log(oa, 'oa')
-
-            for (let i = 0; i < tamanho; i++) oa[i] = aux[0]
-        },
-        validationById(transferData){            
-            if (this.item.value_ids.includes(transferData.id)) {                
-                this.setAnswer({ 
-                    type: 'value',
-                    data: transferData.id,
-                    vm: this
-                })
-
-                transferData.valid = true
-            } else {
-                this.setAnswer({ 
-                    type: 'value', 
-                    data: -1,
-                    vm: this
-                })
-
-                transferData.invalid = true
-            }
-        }
-    }
 }
 </script>
 

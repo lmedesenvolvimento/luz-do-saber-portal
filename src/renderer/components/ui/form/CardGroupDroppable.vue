@@ -1,6 +1,6 @@
 <template>
     <drop @drop="onDrop">
-        <div class="card-input card-droppable">
+        <div v-if="answers.length === 0" class="card-input card-droppable">
             <b-card
                 no-body
                 :class="{ 'invalid': invalid, 'valid': valid }"
@@ -8,6 +8,20 @@
                 <b-card-body>
                     <slot name="transfer-data">
                         <div> {{ transferData.text }}</div>
+                    </slot>
+                </b-card-body>
+            </b-card>
+        </div>
+        <div v-if="answers.length !== 0" class="card-input card-droppable">
+            <b-card
+                v-for="item in answers" 
+                :key="item.id"
+                no-body
+                :class="{ 'invalid': invalid, 'valid': valid }"
+            >
+                <b-card-body>
+                    <slot name="transfer-data">
+                        <div> {{ item.text }}</div>
                     </slot>
                 </b-card-body>
             </b-card>
@@ -24,7 +38,8 @@ export default {
     mixins: [RadioInput],
     data(){
         return {
-            transferData: {}
+            transferData: {},
+            answers: [],
         }
     },
     created(){
@@ -32,22 +47,17 @@ export default {
     },
     methods: {
         onDrop(transferData, nativeElement){
-            if (this.valid) return
-
             this.transferData = transferData
 
             this.validationById(transferData)
         },
-        validationById(transferData){            
-            if (this.item.value_ids.includes(transferData.id)) {                
-                this.setAnswer({ 
-                    type: 'value',
-                    data: transferData.id,
-                    vm: this
-                })
+        validationById(transferData){
+            if (this.item.value_ids.includes(transferData.id)) {
+                this.answers.push(transferData)
 
                 transferData.valid = true
-            } else {
+            }
+            else {
                 this.setAnswer({ 
                     type: 'value', 
                     data: -1,
@@ -55,6 +65,16 @@ export default {
                 })
 
                 transferData.invalid = true
+            }
+
+            if (transferData.valid){
+                for (let i = 0; i < this.answers.length; i++){
+                    this.setAnswer({ 
+                        type: 'value',
+                        data: this.answers[i].id,
+                        vm: this
+                    })
+                }
             }
         }
     }
