@@ -1,22 +1,11 @@
 <template>
     <drop @drop="onDrop">
-        <div v-if="answers.length === 0" class="card-input card-droppable">
-            <b-card
-                no-body
-                :class="{ 'invalid': invalid, 'valid': valid }"
-            >
-                <b-card-body>
-                    <slot name="transfer-data">
-                        <div> {{ transferData.text }}</div>
-                    </slot>
-                </b-card-body>
-            </b-card>
-        </div>
-        <div v-if="answers.length !== 0" class="card-input card-droppable">
+        <div v-if="answers.length" class="card-input drop-group">
             <b-card
                 v-for="item in answers" 
                 :key="item.id"
                 no-body
+                class="drop-group-item"
                 :class="{ 'invalid': invalid, 'valid': valid }"
             >
                 <b-card-body>
@@ -25,6 +14,8 @@
                     </slot>
                 </b-card-body>
             </b-card>
+        </div>
+        <div v-else class="drop-group">
         </div>
     </drop>
 </template>
@@ -48,10 +39,7 @@ export default {
     methods: {
         onDrop(transferData, nativeElement){
             this.transferData = transferData
-
-            this.validationById(transferData)
-        },
-        validationById(transferData){
+            
             if (this.item.value_ids.includes(transferData.id)) {
                 this.answers.push(transferData)
 
@@ -76,7 +64,7 @@ export default {
                     })
                 }
             }
-        }
+        }        
     }
 }
 </script>

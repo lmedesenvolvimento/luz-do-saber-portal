@@ -1,7 +1,26 @@
 <template>
     <div class="container-fluid">
-        <b-row class="column" align-v="center" align-h="center">
-            <b-col class="activity-keys flex-4">
+        <b-row class="reverse-column" align-v="center" align-h="center">
+            <b-col class="activity-keys">
+                <b-row class="fill" align-v="center" align-h="center">
+                    <b-col 
+                        v-for="item in activity.items.keys"
+                        :key="item.id"
+                        :sm="keyColSize"
+                        class="item"
+                    >
+                        <div class="caixa">
+                            <Item
+                                :item="item"
+                                :type="'key'"
+                                :template="activity.item_template.key"
+                                :group="true"
+                            />
+                        </div>
+                    </b-col>
+                </b-row>
+            </b-col>
+            <b-col class="activity-values flex-4">
                 <b-row align-v="center" align-h="center">
                     <b-col 
                         v-for="item in activity.items.values"
@@ -13,23 +32,6 @@
                             :item="item"
                             :type="'value'"
                             :template="activity.item_template.value"
-                        />
-                    </b-col>
-                </b-row>
-            </b-col>
-            <b-col class="activity-values">
-                <b-row align-v="center" align-h="center">
-                    <b-col 
-                        v-for="item in activity.items.keys"
-                        :key="item.id"
-                        :sm="keyColSize"
-                        class="item"
-                    >
-                        <Item
-                            :item="item"
-                            :type="'key'"
-                            :template="activity.item_template.key"
-                            :group="true"
                         />
                     </b-col>
                 </b-row>
@@ -57,7 +59,17 @@ export default {
     },
 }
 </script>
+<style lang="scss">
+.caixa{
+    .drop-group {
+        border: 3px dotted royalblue;
+        min-height: 50px;
+        padding: 4px;
+    }
 
-<style>
-
+    .drop-group .drop-group-item{
+        margin: 1rem auto;
+    }
+}
 </style>
+
