@@ -6,7 +6,10 @@
                 :class="{ 'invalid': invalid, 'valid': valid }"
             >
                 <b-card-body>
-                    <slot name="transfer-data">
+                    <slot v-if="a.length !== 0" name="transfer-data">
+                        <div v-for="item in a" :key="item.id"> {{ item.text }}</div>
+                    </slot>
+                    <slot v-if="a.length === 0" name="transfer-data">
                         <div> {{ transferData.text }}</div>
                     </slot>
                 </b-card-body>
@@ -24,11 +27,13 @@ export default {
     mixins: [RadioInput],
     data(){
         return {
-            transferData: {}
+            transferData: {},
+            a: [],
         }
     },
     created(){
         this.transferData = this.item
+        console.log(this.transferData)
     },
     methods: {
         onDrop(transferData, nativeElement){
@@ -38,24 +43,34 @@ export default {
 
             this.validationById(transferData)
         },
-        validationById(transferData){            
+        validationById(transferData){
+
             if (this.item.value_ids.includes(transferData.id)) {                
-                this.setAnswer({ 
-                    type: 'value',
-                    data: transferData.id,
-                    vm: this
-                })
+                // this.setAnswer({ 
+                //     type: 'value',
+                //     data: transferData.id,
+                //     vm: this
+                // })
 
-                transferData.valid = true
-            } else {
-                this.setAnswer({ 
-                    type: 'value', 
-                    data: -1,
-                    vm: this
-                })
+                this.a.push(transferData)
 
-                transferData.invalid = true
+                console.log('válido')
+
+                //transferData.valid = true
             }
+            else {
+                // this.setAnswer({ 
+                //     type: 'value', 
+                //     data: -1,
+                //     vm: this
+                // })
+
+                console.log('inválido')
+
+                //transferData.invalid = true
+            }
+
+            console.log(this.a)
         }
     }
 }
