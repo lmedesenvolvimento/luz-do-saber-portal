@@ -23,6 +23,10 @@ const actions = {
     async fetchModules({ commit }){
         let { data } = await API.get('/game')
         commit('SET_MODULES', data.modulos)
+    },
+
+    destroyModules({ commit }){
+        commit('SET_MODULES', [])
     }
 }
 

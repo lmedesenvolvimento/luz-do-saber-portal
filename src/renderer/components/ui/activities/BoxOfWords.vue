@@ -1,7 +1,26 @@
 <template>
     <div class="container-fluid">
-        <b-row class="column" align-v="center" align-h="center">
-            <b-col class="activity-keys flex-4">
+        <b-row class="reverse-column" align-v="center" align-h="center">
+            <b-col class="activity-keys">
+                <b-row class="fill" align-v="center" align-h="center">
+                    <b-col 
+                        v-for="item in activity.items.keys"
+                        :key="item.id"
+                        :sm="keyColSize"
+                        class="item"
+                    >
+                        <div class="caixa">
+                            <Item
+                                :item="item"
+                                :type="'key'"
+                                :template="activity.item_template.key"
+                                :group="true"
+                            />
+                        </div>
+                    </b-col>
+                </b-row>
+            </b-col>
+            <b-col class="activity-values flex-4">
                 <b-row align-v="center" align-h="center">
                     <b-col 
                         v-for="item in activity.items.values"
@@ -13,23 +32,6 @@
                             :item="item"
                             :type="'value'"
                             :template="activity.item_template.value"
-                        />
-                    </b-col>
-                </b-row>
-            </b-col>
-            <b-col class="activity-values">
-                <b-row align-v="center" align-h="center">
-                    <b-col 
-                        v-for="item in activity.items.keys"
-                        :key="item.id"
-                        :sm="keyColSize"
-                        class="item"
-                    >
-                        <Item
-                            :item="item"
-                            :type="'key'"
-                            :template="activity.item_template.key"
-                            :group="true"
                         />
                     </b-col>
                 </b-row>
@@ -52,49 +54,22 @@ import { mapState, mapActions } from 'vuex'
 export default {
     components: { Item },
     mixins: [ListMixin, MapMixins, CreateAnswersMixins],
-    props: {
-        colSizes: Object
-    },
     created(){
         this.createAnswersArray()
-        this.teste()
     },
-    methods: {
-        teste(){
-            let aux = this.activity.items.keys
-            let oa = {}
-
-            let tamanho = 0;
-
-            for(let i = 0; i < aux.length; i++) tamanho += aux[i].value_ids.length
-
-            console.log(oa, 'oa')
-
-            for (let i = 0; i < tamanho; i++) oa[i] = aux[0]
-        },
-        validationById(transferData){            
-            if (this.item.value_ids.includes(transferData.id)) {                
-                this.setAnswer({ 
-                    type: 'value',
-                    data: transferData.id,
-                    vm: this
-                })
-
-                transferData.valid = true
-            } else {
-                this.setAnswer({ 
-                    type: 'value', 
-                    data: -1,
-                    vm: this
-                })
-
-                transferData.invalid = true
-            }
-        }
-    }
 }
 </script>
+<style lang="scss">
+.caixa{
+    .drop-group {
+        border: 3px dotted royalblue;
+        min-height: 50px;
+        padding: 4px;
+    }
 
-<style>
-
+    .drop-group .drop-group-item{
+        margin: 1rem auto;
+    }
+}
 </style>
+

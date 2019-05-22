@@ -56,6 +56,8 @@ import ui from '@/components/ui'
 import alerts from '@/components/alerts'
 import { mapActions, mapState } from 'vuex'
 
+import { first } from 'lodash'
+
 export default {
     components: {
         'ls-timer': require('@/components/ui/helpers/Timer').default,
@@ -75,10 +77,11 @@ export default {
         ...mapState('Activity', ['activity','answers', 'log'])
     }, 
     created(){
+        const firstQuestion = first(this.unit.questions)
         this.$router.push({ 
             name: 'activity', 
             params: { 
-                position: this.$route.params.position ? parseInt(this.$route.params.position) : 1
+                position: this.$route.params.position ? parseInt(this.$route.params.position) : firstQuestion.order
             }
         })
     },  
