@@ -22,6 +22,9 @@ import RadioInput from './RadioInput.vue'
 export default {
     components: { Drop },
     mixins: [RadioInput],
+    props: {
+        customValidate: Function
+    },
     data(){
         return {
             transferData: {}
@@ -34,25 +37,29 @@ export default {
         onDrop(transferData, nativeElement){
             if (this.valid) return
 
-            this.transferData = transferData
+            if (!this.customValidate){
+                this.transferData = transferData
 
-            if (this.item.value_ids.includes(transferData.id)) {
-                this.setAnswer({ 
-                    type: 'value',
-                    data: transferData.id,
-                    vm: this
-                })
+                if (this.item.value_ids.includes(transferData.id)) {
+                    this.setAnswer({ 
+                        type: 'value',
+                        data: transferData.id,
+                        vm: this
+                    })
 
-                transferData.valid = true
+                    transferData.valid = true
+                } else {
+                    this.setAnswer({ 
+                        type: 'value', 
+                        data: -1,
+                        vm: this
+                    })
+
+                    transferData.invalid = true
+                }
             } else {
-                this.setAnswer({ 
-                    type: 'value', 
-                    data: -1,
-                    vm: this
-                })
-
-                transferData.invalid = true
-            }
+                this.customValidate(transferData, nativeElement, this)
+            }           
         }
     }
 }
