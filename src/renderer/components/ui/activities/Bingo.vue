@@ -137,6 +137,7 @@ export default {
         this.unraffleLetters = this.alphabet.slice(0);
         // inicia o contador
         this.actualizeBingoTimer();
+        this.setActivityAttrs({ total_correct_items: 1 })
 
     },
     mounted(){
@@ -149,7 +150,7 @@ export default {
             if(!this.searchString(this.scramblePlayerLetters, this.normalizeString(letter.text))){
                 this.scramblePlayerLetters.push(this.normalizeString(letter.text))
             }            
-        })
+        }) 
         // embaralhamos o vetor de letras
         this.scramblePlayerLetters = shuffle(this.scramblePlayerLetters);        
     },
@@ -172,6 +173,7 @@ export default {
                         data: this.getKeys[0].value_ids[0],
                         vm: {}
                     })
+                    
                 }
             // caso a letra marcada ainda não tiver saído no bingo
             }else{
@@ -262,7 +264,7 @@ export default {
             if (counter == str.length) return true;
             return false;
         },
-        // seta as respostas num array
+        // seta as respostas num array   
         setAnswersArray(a){
             let answers = []
 
@@ -272,7 +274,7 @@ export default {
             })
 
             this.setAnswers(answers)
-        },                    
+        },
         ...mapActions('Activity', ['setActivityAttrs','setAnswer'])
     },    
 }
