@@ -7,7 +7,7 @@
                         <b-row class="my-2" align-v="center">
                             <b-col class="image-col" cols="12" md="3" sm="6">
                                 <ls-card-display v-if="item.images[0].url !== null" class="key-image">
-                                    <div class="image" :style="{ 'background-image': 'url('+ baseUrl + item.images[0].url + ')' }"/>
+                                    <div class="image" :style="{ 'background-image': 'url('+ baseUrl + item.images[0].url + ')' }" />
                                 </ls-card-display>
                             </b-col>
                             <b-col cols="12" md="9" sm="6" class="syllables-row">
@@ -22,8 +22,7 @@
                                         >
                                             <template slot="transfer-data">
                                                 {{ syllable.text }}
-                                            </template>
-                                            
+                                            </template> 
                                         </ls-card-droppable>
                                     </b-col>
                                 </b-row>
@@ -35,7 +34,7 @@
             <b-col class="activity-values" cols="12" lg="5" md="5">
                 <ls-card-display>
                     <b-row align-v="center" align-h="center" class="values-container">
-                        <b-col v-for="(item, position) in getValues" :key="position" align-self="center" cols="12" :sm="6" :md="6"  lg="4" class="item"> 
+                        <b-col v-for="(item, position) in getValues" :key="position" align-self="center" cols="12" :sm="6" :md="6" lg="4" class="item"> 
                             <ls-card-draggable 
                                 v-if="answers"
                                 :item="item"
@@ -71,6 +70,7 @@ export default {
     },
     mounted() {
         this.createAnswersArray()
+        console.log(this.activity);
     },
     methods: {
         getSyllableByValueId(valueId) {
@@ -82,12 +82,18 @@ export default {
             }
         },
         validateBySyllabe(transferData, nativeElement, vm){
-            console.log(transferData, nativeElement, vm)
-            if (transferData.text)
-            {
-                vm.valid = true
-            }
 
+            console.log(transferData, nativeElement, vm);
+            var syllable = vm.$el.innerText.substring(0, vm.$el.innerText.length-1);
+            console.log(transferData.text);
+            console.log(syllable);
+            if (transferData.text === syllable){
+                transferData.valid = true;
+                vm.valid = true;
+            } else {
+                vm.valid = false;
+                vm.invalid = true;
+            }
         },
         
     },
@@ -112,7 +118,7 @@ export default {
             background-position: center;
         }
         .values-container
-        {
+        {  
             padding: 10px;
         }
         .key-syllables, .syllables-row, .activity-keys .card-display, .item, .image-col{
