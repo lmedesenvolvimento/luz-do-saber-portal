@@ -1,6 +1,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import { values } from 'lodash';
+import uniqid from 'uniqid'
 
 import FillBackground from '@/components/ui/helpers/FillBackground'
 import { ActivityTypes } from '@/constants'
@@ -19,11 +20,8 @@ export default {
         label: String,
         variant: String,
         item: Object,
-        image: {
-            type: String,
-            required: false
-        },
-        bgColor: String
+        bgColor: String,
+        focus: Boolean,
     },
     data(){
         return {
@@ -33,6 +31,9 @@ export default {
         }
     },
     computed: {
+        uid(){
+            return uniqid();
+        },
         canSendResponse(){
             // se o tipo da questão não é associação e o input está no estado válido ou inválido
             let inJoinTypes = values(ActivityTypes.activity.join).includes(this.activity.type.slug)

@@ -4,6 +4,7 @@
             v-if="isInput"
             name="base-input" 
             :value="item"
+            :focus="focus"
             type="value"
             :bg-color="item.color"
         />
@@ -27,14 +28,24 @@
         </ls-card-draggable>
 
         <ls-card-droppable
-            v-else-if="isDrop"
+            v-else-if="isDrop && !group"
             label="key.text" 
             name="card-input"
             :item="item"
             :bg-color="item.color"
         >
             {{ item.text }}
-        </ls-card-droppable>        
+        </ls-card-droppable>  
+
+        <ls-card-group-droppable
+            v-else-if="isDrop && group"
+            label="key.text" 
+            name="card-input"
+            :item="item"
+            :bg-color="item.color"
+        >
+            {{ item.text }}
+        </ls-card-group-droppable>        
 
         <ls-card-input 
             v-else-if="type === 'key' && isJoinInput"
@@ -76,6 +87,6 @@
 <script>
 import { ItemProps } from './index.js'
 export default {
-    mixins: [ItemProps]    
+    mixins: [ItemProps],
 }
 </script>

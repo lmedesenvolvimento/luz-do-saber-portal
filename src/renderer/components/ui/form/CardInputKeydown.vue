@@ -8,13 +8,16 @@
                 <b-card-body>
                     <input
                         v-model="model"
+                        v-focus="focus"
                         :name="$attrs.name" 
                         :maxlength="1"
                         :disabled="valid"
+                        :required="true"
                         type="text"
                         v-bind="$attrs"
+                        autocomplete="off"
                         selectionDirection="backward"
-                        @keydown="onKeyDown($event)"
+                        @keypress="onKeyDown($event)"
                     />
                 </b-card-body>
             </b-card>
@@ -37,12 +40,12 @@ export default {
     },
     data(){
         return {
-            model: null
+            model: ''
         }
     },
     watch: {
         model(value){
-            if (this.valid && !this.model) return
+            if ((this.valid || this.invalid) || this.model.length === 0) return
 
             if (this.model.toLowerCase() === this.value.text.toLowerCase()) {
                 this.setAnswer({ 
@@ -50,6 +53,12 @@ export default {
                     data: this.value.id,
                     vm: this
                 })
+
+                let nextElementEmpty = this.$el.closest('.activity').querySelector('input:invalid')
+                
+                if (nextElementEmpty) {
+                    nextElementEmpty.focus()
+                }
             } else {
                 this.setAnswer({ 
                     type: this.type, 
@@ -57,6 +66,13 @@ export default {
                     vm: this
                 })
             }            
+        }
+    },
+    mounted(){
+        let isFirstElement = this.$el.closest('.item') === this.$el.closest('.item').parentElement.firstElementChild
+        
+        if (isFirstElement) {
+            this.$el.querySelector('input').focus()
         }
     },
     methods: {
