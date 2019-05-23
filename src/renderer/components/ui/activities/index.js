@@ -6,5 +6,6 @@ export default {
     'ls-activity-number-letter': require('./NumberLetter.vue').default,
     'ls-activity-jigsaw': require('./Jigsaw.vue').default,
     'ls-activity-rearrange-name': require('./RearrangeName.vue').default,
-    'ls-activity-bingo': require('./Bingo.vue').default
+    'ls-activity-bingo': require('./Bingo.vue').default,
+    'ls-activity-box-of-words': require('./BoxOfWords.vue').default,
 }

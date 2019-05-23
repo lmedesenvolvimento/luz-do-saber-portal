@@ -58,6 +58,9 @@ const actions = {
     },
     setNavigatorOrder({commit}, orderNumber){
         commit('SET_NAVIGATOR_ORDER', orderNumber)
+    },
+    destroyUnit({ commit }){
+        commit('SET_UNIT', null)
     }
 }
 
