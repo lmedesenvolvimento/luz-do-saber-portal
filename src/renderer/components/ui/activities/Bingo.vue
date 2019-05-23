@@ -137,6 +137,7 @@ export default {
         this.unraffleLetters = this.alphabet.slice(0);
         // inicia o contador
         this.actualizeBingoTimer();
+
         this.setActivityAttrs({ total_correct_items: 1 })
 
     },
@@ -171,10 +172,11 @@ export default {
                     this.setAnswer({ 
                         type: 'value', 
                         data: this.getKeys[0].value_ids[0],
-                        vm: {}
+                        vm: this
                     })
                     
                 }
+                console.log(this.getKeys[0].value_ids[0])
             // caso a letra marcada ainda não tiver saído no bingo
             }else{
                 setTimeout(()=> {
@@ -186,7 +188,7 @@ export default {
                 this.setAnswer({ 
                     type: 'value', 
                     data: -1,
-                    vm: {}
+                    vm: this
                 })
             }
             
