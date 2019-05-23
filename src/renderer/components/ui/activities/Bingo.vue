@@ -137,6 +137,7 @@ export default {
         this.unraffleLetters = this.alphabet.slice(0);
         // inicia o contador
         this.actualizeBingoTimer();
+
     },
     mounted(){
         //insere as letras do jogador num array
@@ -168,7 +169,7 @@ export default {
                 if(filter(this.playerLetters, { valid: true }).length === this.playerLetters.length){
                     this.setAnswer({ 
                         type: 'value', 
-                        data: 66,
+                        data: this.getKeys[0].value_ids[0],
                         vm: {}
                     })
                 }
@@ -260,6 +261,17 @@ export default {
             }
             if (counter == str.length) return true;
             return false;
+        },
+        // seta as respostas num array
+        setAnswersArray(a){
+            let answers = []
+
+            a.forEach(a => {
+                let key = createAnswer(a, a.value_ids[0])
+                answers.push(key)
+            })
+
+            this.setAnswers(answers)
         },                    
         ...mapActions('Activity', ['setActivityAttrs','setAnswer'])
     },    
@@ -289,7 +301,7 @@ export default {
     }
     .bingoCard{
         width: 800px;
-        margin: 3px 0 3px 0;
+        margin: 3px 0 3px 30px;
     }
     .bingoCardPlayer .card-body{
         background-color: #ffb141;       
