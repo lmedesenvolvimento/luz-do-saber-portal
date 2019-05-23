@@ -9,6 +9,7 @@ import {
     MaxStars,
     validationInAnswer,
     validationInSelection,
+    clearConnection,
     getExtenalParams
 } from './helpers'
 
@@ -16,8 +17,9 @@ import {
 const state = {
     activity: null,
     answers: null,
-    selection: {},
-    log: Object.assign({}, initialStateLog)
+    connections: [],
+    log: Object.assign({}, initialStateLog),
+    selection: {}
 }
 
 
@@ -49,6 +51,10 @@ const mutations = {
         state.selection.key.vm.selected = false
         state.selection.value.vm.selected = false
         Vue.set(state, 'selection', {})
+    },
+    
+    CLEAR_CONNECTIONS(state) {
+        clearConnection(state)
     },
 
     CLEAR_LOG(state){
@@ -89,14 +95,13 @@ const mutations = {
 const actions = {
     async fetchActivity({ commit, dispatch }, payload) {
         try{
+            commit('CLEAR_CONNECTIONS')
+
             let { module_slug, theme_slug, unit_slug, position } = payload.params
             let extenalParams = getExtenalParams(payload.question)            
             let { data } = await API.get(`/game/${module_slug}/${theme_slug}/${unit_slug}/${position}`, extenalParams)
 
             commit('SET_ACTIVITY', Object.assign(data.question, { position: position }))
-
-            // update store unit
-            dispatch('Unit/setNavigatorOrder', position, { root: true })
         } catch (error) {
             console.warn(error)
         }
@@ -119,7 +124,7 @@ const actions = {
         }
         
         // Check if activity is finish
-        let totalCorrectItems = filter( values(state.answers), { valid: true }).length
+        let totalCorrectItems = filter(values(state.answers), { valid: true }).length
         
         if (totalCorrectItems === state.activity.total_correct_items){
             dispatch('triggerSuccess')

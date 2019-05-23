@@ -1,5 +1,5 @@
 <template>
-    <div class="card-input card-radio-input" :class="$attrs.class">
+    <div :id="`input-${uid}`" class="card-input card-radio-input" :class="$attrs.class">
         <label>
             <b-card 
                 no-body

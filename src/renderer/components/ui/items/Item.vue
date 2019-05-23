@@ -5,6 +5,8 @@
                 v-if="template.type === Types.primitive.text"
                 :type="type"
                 :item="item"
+                :focus="focus"
+                :group="group"
                 :template="template"
             ></ls-item-text>
             <ls-item-image

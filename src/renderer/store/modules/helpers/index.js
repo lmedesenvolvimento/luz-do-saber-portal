@@ -3,6 +3,7 @@ import qs from 'qs'
 import { filter, find, values } from 'lodash'
 
 import db from '@/services/Session'
+import LeaderLine from '@/services/LeaderLine'
 
 export const PointingsTypes = {
     LostByAttempt: 'lost_a_star_by_attempt',
@@ -26,6 +27,27 @@ export const initialStateLog = {
     pointings: {
         totalStars: 0
     }
+}
+
+export const leaderLineConfig = {
+    startPlugOutline: true,
+    startPlug: 'disc',
+    startPlugColor: 'white',
+    startPlugOutlineColor: '#999999',
+    startPlugSize: 4,
+    endPlugOutline: true,
+    endPlug: 'disc',
+    endPlugColor: 'white',
+    endPlugOutlineColor: '#999999',
+    endPlugSize: 4,
+    color: '#212121',
+    path: 'straight',
+    size: 2
+}
+
+export function clearConnection(state) {
+    state.connections.forEach(line => line.remove())
+    Vue.set(state, 'connections', [])
 }
 
 // Validations
@@ -54,8 +76,7 @@ export function validationInSelection({ state, commit }, { vm, type, data }) {
     if (selection[type]) {
         vm.invalid = true
         selection[type].vm.invalid = true
-
-        Vue.set(state, 'selection', {})
+        clearConnection(state)
     }
 
     selection[type] = {
@@ -78,12 +99,28 @@ export function validationInSelection({ state, commit }, { vm, type, data }) {
             selection.key.vm.valid = true
             selection.value.vm.valid = true
 
+            let leaderLine = new LeaderLine (
+                selection.key.vm.$el.querySelector('.card'),
+                selection.value.vm.$el.querySelector('.card'),
+                leaderLineConfig
+            )
+
+            state.connections.push(leaderLine)
+
             commit('CLEAR_SELECTION')
             commit('COMPUTED_ANSWER', answer.ref)
         } else {
             // notify user feedback
             selection.key.vm.invalid = true
             selection.value.vm.invalid = true
+
+            let line = new LeaderLine(
+                selection.value.vm.$el.querySelector('.card'),
+                selection.key.vm.$el.querySelector('.card'),
+                leaderLineConfig
+            )
+
+            setTimeout( _=> line.remove(), 600)
 
             commit('CLEAR_SELECTION')
             commit('TRIGGER_FAIL')
@@ -95,6 +132,8 @@ export function validationInSelection({ state, commit }, { vm, type, data }) {
 export function getExtenalParams(question) {
     let external_params = []
     let user = db.value()
+
+    console.log(question)
 
     switch (question.external_param_type) {
     case 'substantivo_proprio':

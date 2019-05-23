@@ -26,9 +26,6 @@
                     </div>
                 </b-col>
                 <b-col cols="12">
-                    <b-btn variant="link" :to="historyBack">
-                        Voltar
-                    </b-btn>
                     <b-btn variant="link" to="/componentes">
                         Componentes
                     </b-btn>
@@ -64,6 +61,9 @@ export default {
     created(){
         this.fetchModule(this.$route.params.module_slug)
     },
+    beforeDestroy(){
+        this.destroyModules();
+    },
     methods: {
         getModuleImage(module){
             switch (module.slug) {
@@ -97,7 +97,7 @@ export default {
                 return 'https://image.flaticon.com/icons/png/128/145/145867.png'
             }
         },
-        ...mapActions('Modules', ['fetchModule'])
+        ...mapActions('Modules', ['fetchModule', 'destroyModules'])
     }
 }
 </script>
