@@ -70,18 +70,24 @@
             {{ item.text }}
         </ls-card-display>
 
-        <ls-card-input 
-            v-else-if="type === 'value'"
-            label="item.text" 
-            :type="type"
-            :item="item"
-            :name="activity.type.slug"
-            :bg-color="item.color"
-        >
-            {{ item.text }}
-        </ls-card-input>     
+        <div v-else-if="type === 'value'">
+            <ls-checkmark
+                :type="type"
+                :item="item"
+                :bg-color="item.color"
+            >
+            </ls-checkmark>
 
-        <ls-checkmark></ls-checkmark>   
+            <ls-card-input 
+                label="item.text" 
+                :type="type"
+                :item="item"
+                :name="activity.type.slug"
+                :bg-color="item.color"
+            >
+                {{ item.text }}
+            </ls-card-input>
+        </div>
     </div>
 </template>
 <script>
