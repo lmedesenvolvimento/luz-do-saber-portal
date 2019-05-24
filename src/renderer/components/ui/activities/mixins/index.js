@@ -28,7 +28,7 @@ export const ListMixin = {
             return this.activity.items.values
         },
         getColorsArray() {
-            let c = [/*'cc7200', 'c30374', '8c2db4', '454ebc', '3875c1', '028d8b', */'ffb151', 'f766ae', 'ae67e0', '757bfa', '75c0ff', '64cbc2']
+            let c = ['ffb151', 'f766ae', 'ae67e0', '757bfa', '75c0ff', '64cbc2']
             let r = []
             let aux = 0
 
@@ -58,6 +58,26 @@ export const ListMixin = {
             }
             for (var key in this.activity.items.keys) {
                 if (this.activity.items.keys[key].type === 'letra' || this.activity.items.keys[key].type === 'caractere_especial' || this.activity.items.keys[key].type === 'numero') {
+                    this.activity.items.keys[key].color = this.getColorsArray[key]
+                }
+                else {
+                    this.activity.items.keys[key].color = null
+                }
+            }
+        },
+        addColorsToType(type){
+            for (var key in this.activity.items.values) {
+                if (this.activity.items.values.hasOwnProperty(key)) {
+                    if (this.activity.items.values[key].type === type) {
+                        this.activity.items.values[key].color = this.getColorsArray[key]
+                    }
+                    else {
+                        this.activity.items.values[key].color = null
+                    }
+                }
+            }
+            for (var key in this.activity.items.keys) {
+                if (this.activity.items.values[key].type === type) {
                     this.activity.items.keys[key].color = this.getColorsArray[key]
                 }
                 else {
