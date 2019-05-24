@@ -1,7 +1,9 @@
 <template>
     <drop @drop="onDrop">
-        <div v-if="answers.length" class="card-input drop-group" :style="{ 'background-image': 'url('+ baseUrl + item.images[0].url + ') no-repeat', 'max-width': '500px', 'max-height': '500px' }" >
-            <!-- <img :src="baseUrl + item.images[0].url" alt=""> -->
+        <div v-if="answers.length" class="card-input drop-group" :style="{'background-image': 'url('+ baseUrl + item.images[0].url + ') no-repeat'}">
+            <div>
+                {{ item.text }}
+            </div>
             <b-card
                 v-for="item in answers" 
                 :key="item.id"
@@ -17,6 +19,9 @@
             </b-card>
         </div>
         <div v-else class="drop-group">
+            <div>
+                {{ item.text }}
+            </div>
             <img :src="baseUrl + item.images[0].url" alt="">
         </div>
     </drop>
