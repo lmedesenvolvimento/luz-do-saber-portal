@@ -56,31 +56,7 @@ export default {
     mixins: [ListMixin, MapMixins, CreateAnswersMixins],
     created(){
         this.createAnswersArray()
-        console.log(this.getColorsArray)
-        console.log(this.addColors())
-    },
-    methods: {
-        addColors(){
-            for (var key in this.activity.items.values) {
-                if (this.activity.items.values.hasOwnProperty(key)) {
-                    if (this.activity.items.values[key].type === 'substantivo_comum'){
-                        this.activity.items.values[key].color = this.getColorsArray[key]
-                    }
-                    else {
-                        this.activity.items.values[key].color = null
-                    }
-                }
-            }
-            for (var key in this.activity.items.keys) {
-                if (this.activity.items.values[key].type === 'substantivo_comum'){
-                    this.activity.items.keys[key].color = this.getColorsArray[key]
-                }
-                else {
-                    this.activity.items.keys[key].color = null
-                }
-            }
-            return 'owo'
-        }
+        this.addColorsToType('substantivo_comum')
     }
 }
 </script>
@@ -90,6 +66,7 @@ export default {
         border: 3px dotted royalblue;
         min-height: 50px;
         padding: 4px;
+        text-align: center;
     }
 
     .drop-group .drop-group-item{
