@@ -70,15 +70,20 @@
             {{ item.text }}
         </ls-card-display>
 
-        <div v-else-if="type === 'value'">
+        <div
+            v-else-if="type === 'value'"
+            class="special-display"
+        >
             <ls-checkmark
                 :type="type"
                 :item="item"
+                :name="activity.type.slug"
                 :bg-color="item.color"
             >
             </ls-checkmark>
 
             <ls-card-input 
+                class="limited-width-input"
                 label="item.text" 
                 :type="type"
                 :item="item"
@@ -88,6 +93,22 @@
                 {{ item.text }}
             </ls-card-input>
         </div>
+
+        <!-- <ls-card-input 
+            v-else-if="type === 'value'"
+            label="item.text" 
+            :type="type"
+            :item="item"
+            :name="activity.type.slug"
+            :bg-color="item.color"
+        >
+            {{ item.text }}
+        </ls-card-input> -->
+
+        <!--
+            Coloquei os inputs que pertencem aos checkmarks dentro de uma <div>.
+            Fiz isso para ter mais controle sobre o alinhamento dos elementos.
+        -->
     </div>
 </template>
 <script>
@@ -96,3 +117,14 @@ export default {
     mixins: [ItemProps],
 }
 </script>
+<style lang="scss">
+    // Precisei adicionar essa classe à <div> que possui os checkmarks para poder alinhar corretamente
+    .special-display {
+        display: flex;
+        justify-content: space-between;
+
+        .limited-width-input {
+            min-width: 350px;
+        }
+    }
+</style>

@@ -1,5 +1,5 @@
 <template>
-    <div class="card-input card-radio-input check-mark" :class="$attrs.class">
+    <div :id="`input-${uid}`" class="card-input card-radio-input check-mark" :class="$attrs.class">
         <label>
             <b-card 
                 no-body
@@ -7,7 +7,9 @@
             >
                 <fill-background :bg-color="bgColor">
                     <b-card-body>
-                        <slot name="img"></slot>
+                        <img v-if="valid" class="check-image" src="https://picsum.photos/id/988/25/25" alt="">
+                        <slot name="img">
+                        </slot>
                         <slot></slot>
                     </b-card-body>
                 </fill-background>
@@ -35,12 +37,22 @@ export default {
     }
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
     .check-mark {
         max-width: 45px;
-        max-height: 90px;
+        margin-top: 3%;
+
+        .card, .card-input, .card-body {
+            border-radius: 0.4rem !important;
+        }
+
+        .check-image {
+            position: absolute;
+            top: 21.5%;
+            left: 21.5%;
+        }
     }
-    .card-radio-input{        
+    .card-radio-input{
         .input{
             display: block;
             visibility: hidden;
