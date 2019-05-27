@@ -20,7 +20,7 @@
                     </b-col>
                 </b-row>
             </b-col>
-            <b-col class="activity-values flex-4">
+            <b-col class="activity-values">
                 <b-row align-v="center" align-h="center">
                     <b-col 
                         v-for="item in activity.items.values"
