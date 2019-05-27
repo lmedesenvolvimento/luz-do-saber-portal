@@ -24,6 +24,7 @@ export const GameSubtypes = {
     jigsaw: 'quebra-cabecas',
     boxWords: 'caixa-de-palavras',
     friendsName: 'meus-amigos-fotos',
+    dominoName: 'domino-de-nomes',
 }
 
 export const ItemTypes = {
