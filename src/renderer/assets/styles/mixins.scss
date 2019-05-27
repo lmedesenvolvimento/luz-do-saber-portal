@@ -128,6 +128,16 @@
     }
 }
 
+@mixin custom-card-sm($input: false){
+    @include custom-card;
+    .card {
+        .card-body{
+            font-size: 18px;
+            padding: 0.5rem;
+        }
+    }   
+}
+
 @mixin custom-dropcard-content{
     position: absolute;
     top: 0;
