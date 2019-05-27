@@ -23,6 +23,7 @@ export const GameSubtypes = {
     rearrangeName: 'monte-seu-nome',
     jigsaw: 'quebra-cabecas',
     boxWords: 'caixa-de-palavras',
+    friendsName: 'meus-amigos-fotos',
 }
 
 export const ItemTypes = {
