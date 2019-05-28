@@ -5,7 +5,10 @@
                 <b-row class="bingo-container" align-v="center" align-h="center">
                     <img class="bingo-roulette" :src="bingoRoulette" alt="">                  
                     <img class="bingo-panel" :src="bingoCounter" alt="">
-                    <div class="bingo-counter">
+                    <div 
+                        class="bingo-counter"
+                        :class="{'bingo-counter-animation': animateBingoCounter}"
+                    >
                         <h2 v-if="showTimer" style="color: #13c5c4;">{{ getDuration }}</h2>
                         <h2 v-else>{{ actualRaffleLetter }}</h2>
                     </div>                    
@@ -115,7 +118,8 @@ export default {
             raffleLetters: [],
             timer: 5000,
             actualRaffleLetter: '',
-            showTimer: true
+            showTimer: true,
+            animateBingoCounter: false
         }
     },
     computed: {       
@@ -131,6 +135,14 @@ export default {
             return moment(this.timer).format('m:ss')
         },        
         ...mapState('Activity', ['log'])
+    },
+    watch: {
+        showTimer() {
+            this.animateBingoCounter = true;
+            setTimeout(() => {
+                this.animateBingoCounter = false;
+            },1000) 
+        }
     },
     created(){ 
         this.createAnswersArray()
@@ -278,7 +290,7 @@ export default {
             this.setAnswers(answers)
         },
         ...mapActions('Activity', ['setActivityAttrs','setAnswer'])
-    },    
+    },       
 }
 </script>
 
@@ -303,17 +315,19 @@ export default {
 .bingo-counter{
     position: fixed;
     margin-top: 4px;
-    z-index: 2;
-    @include pulse($delay: 2s);
+    z-index: 2;    
+    &.bingo-counter-animation{
+        @include pulse;
+    }
 }
 .bingo-card{
     width: 800px;
-    margin: 3px 0 3px 0;
+    margin: 3px 0 3px 30px;
 }
 .bingo-card-player .card-body{
     background-color: #ffb141;       
 }
-.bingo-card-petter{        
+.bingo-card-letter{        
     margin: -5px 5px -5px 5px;
 }   
 .bingo-card-letter .card-body{
