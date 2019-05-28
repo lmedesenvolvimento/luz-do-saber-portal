@@ -99,7 +99,7 @@ import { mapState, mapActions } from 'vuex'
 import ui from '@/components/ui'
 import alerts from '@/components/alerts'
 import { shuffle, range, filter } from 'lodash'
-import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from './mixins'
+import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from '@ui/activities/mixins'
 import moment from 'moment'
 import { setTimeout } from 'timers';
 
