@@ -16,4 +16,5 @@ export const GameSubtypes = {
     rearrangeName: 'monte-seu-nome',
     jigsaw: 'quebra-cabecas',
     friendsName: 'meus-amigos-fotos',
+    bingo: 'bingo',
 }
