@@ -2,10 +2,10 @@
     <div class="container-fluid">        
         <b-row align-v="center">
             <b-col cols="3" align-v="center" align-h="center">
-                <b-row class="bingoContainer" align-v="center" align-h="center">
-                    <img class="bingoRoulette" :src="bingoRoulette" alt="">                  
-                    <img class="bingoPanel" :src="bingoCounter" alt="">
-                    <div class="bingoCounter">
+                <b-row class="bingo-container" align-v="center" align-h="center">
+                    <img class="bingo-roulette" :src="bingoRoulette" alt="">                  
+                    <img class="bingo-panel" :src="bingoCounter" alt="">
+                    <div class="bingo-counter">
                         <h2 v-if="showTimer" style="color: #13c5c4;">{{ getDuration }}</h2>
                         <h2 v-else>{{ actualRaffleLetter }}</h2>
                     </div>                    
@@ -13,8 +13,9 @@
                 <b-row align-h="start">                   
                     <div 
                         v-for="bingoLetter in alphabet"
-                        :key="bingoLetter" 
-                        :class="{bingoLetter, bingoRaffleLetter: searchString(raffleLetters,bingoLetter)}" 
+                        :key="bingoLetter"
+                        class="bingo-letter" 
+                        :class="{'bingo-raffle-letter': searchString(raffleLetters,bingoLetter)}" 
                     >
                         <h4>{{ bingoLetter }}</h4>                        
                     </div>
@@ -23,7 +24,7 @@
             <b-col cols="9" align-v="center" align-h="center">
                 <b-row>
                     <ls-card-display 
-                        class="bingoCard bingoCardPlayer"
+                        class="bingo-card bingo-card-player"
                     >
                         <b-row align-v="center" align-h="center">
                             <p style="color: white">sua cartela</p>                            
@@ -33,7 +34,7 @@
                                 v-for="(item, position) in playerLetters" 
                                 :key="position" 
                                 :sm="valueColSize" 
-                                class="item bingoCardLetter"
+                                class="item bingo-card-letter"
                             >                                
                                 <div class="card-input card-radio-input" :class="$attrs.class">
                                     <label>
@@ -66,7 +67,7 @@
                     :key="i"
                 >
                     <ls-card-display 
-                        class="bingoCard" 
+                        class="bingo-card" 
                         :valid="searchStringInArray(raffleLetters, normalizeString(getValues[i].text).split(''))"                       
                     >                        
                         <b-row align-v="center" align-h="center">
@@ -74,7 +75,7 @@
                                 v-for="(item, position) in getValues[i].letters" 
                                 :key="position" 
                                 :sm="valueColSize"
-                                class="item bingoCardLetter"
+                                class="item bingo-card-letter"
                             >
                                 <ls-card-display                                      
                                     style="margin-left: 10px"
@@ -138,8 +139,7 @@ export default {
         // inicia o contador
         this.actualizeBingoTimer();
 
-        this.setActivityAttrs({ total_correct_items: 1 })
-
+        console.log(this.activity)
     },
     mounted(){
         //insere as letras do jogador num array
@@ -282,52 +282,55 @@ export default {
 }
 </script>
 
-<style>    
-    .bingoContainer{
-        display: flex;
-        flex-flow: column;
-        margin: 140px 0 150px 0;
-        
-    }
-    .bingoRoulette{
-        position: fixed;        
-        z-index: 0;
-    }
-    .bingoPanel{
-        position: fixed;
-        margin-top: 2px;
-        z-index: 1;
-    }
-    .bingoCounter{
-        position: fixed;
-        margin-top: 4px;
-        z-index: 2;
-    }
-    .bingoCard{
-        width: 800px;
-        margin: 3px 0 3px 30px;
-    }
-    .bingoCardPlayer .card-body{
-        background-color: #ffb141;       
-    }
-    .bingoCardLetter{        
-        margin: -5px 5px -5px 5px;
-    }   
-    .bingoCardLetter .card-body{
-        background-color: white;
-    }    
-    .bingoLetter{
-        display: inline-grid;
-        text-align: center;
-        color: white;
-        background-color: #dfd9db;
-        border-radius: 15px;
-        width: 30px;
-        height: 30px;
-        margin: 2px;
-    }
-    .bingoRaffleLetter{
+<style lang="scss">    
+@import '~animate-scss/_properties';
+@import '~animate-scss/_attention-seekers/attention-seekers';
+.bingo-container{
+    display: flex;
+    flex-flow: column;
+    margin: 140px 0 150px 0;
+    
+}
+.bingo-roulette{
+    position: fixed;        
+    z-index: 0;
+}
+.bingo-panel{
+    position: fixed;
+    margin-top: 2px;
+    z-index: 1;
+}
+.bingo-counter{
+    position: fixed;
+    margin-top: 4px;
+    z-index: 2;
+    @include pulse($delay: 2s);
+}
+.bingo-card{
+    width: 800px;
+    margin: 3px 0 3px 0;
+}
+.bingo-card-player .card-body{
+    background-color: #ffb141;       
+}
+.bingo-card-petter{        
+    margin: -5px 5px -5px 5px;
+}   
+.bingo-card-letter .card-body{
+    background-color: white;
+}    
+.bingo-letter{
+    display: inline-grid;
+    text-align: center;
+    color: white;
+    background-color: #dfd9db;
+    border-radius: 15px;
+    width: 30px;
+    height: 30px;
+    margin: 2px;
+    &.bingo-raffle-letter{
         background-color: #13c5c4;
     }    
+}
 </style>
 
