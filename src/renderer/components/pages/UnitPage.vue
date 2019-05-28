@@ -1,6 +1,6 @@
 <template>
     <div v-if="unit" id="unit" class="page-container">
-        <navbar :navbar-title="unit.title" :navbar-subtitle="'Lorem Ipsum'" :navbar-icon="'https://placeimg.com/480/480/tech'" :custom="true">
+        <navbar :navbar-title="renderNavTitle" :navbar-icon="unitImage" :custom="true">
         </navbar>
         <ls-gameplay></ls-gameplay>
     </div>
@@ -16,7 +16,16 @@ import ui from '@/components/ui'
 export default {
     components: { ...ui },
     computed: {
-        ...mapState('Unit', ['unit', 'navigator'])
+        ...mapState('Unit', ['unit', 'navigator']),
+        renderNavTitle(){
+            return this.unit.title ? this.unit.title : ''
+        },
+        baseUrl(){
+            return process.env.BASE_API_URL ? process.env.BASE_API_URL : 'https://luz-do-saber-staging.herokuapp.com'
+        },
+        unitImage(){
+            return this.unit.cover_url ? this.baseUrl + this.unit.cover_url : 'https://placeimg.com/480/480/tech'
+        },
     }, 
     created(){
         this.fetchUnit(this.$route.params)

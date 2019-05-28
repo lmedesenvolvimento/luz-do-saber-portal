@@ -104,7 +104,7 @@ export default {
         ...mapState('Activity', ['activity'])
     },
     mounted(){
-        console.log('base activiyt',this.activity)
+        console.log('base activity',this.activity)
     }
 }
 </script>
