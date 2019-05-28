@@ -63,6 +63,12 @@ export default {
         ...FormProps,
     },
     mixins: [MapMixins, ListMixin, CreateAnswersMixins],
+    data() {
+        return {
+            correctAnswers: [],
+            teste: String,
+        }
+    },
     computed: {
         baseUrl() {
             return process.env.BASE_API_URL
@@ -70,29 +76,26 @@ export default {
     },
     mounted() {
         this.createAnswersArray()
-        console.log(this.activity);
+        for (let i = 0; i < this.activity.items.keys.length; i++) {
+            this.correctAnswers.push({word: this.activity.items.keys[i].text, syllables:[], correct: false})
+            console.log(this.correctAnswers[i].word)         
+            for (let j = 0; j < this.activity.items.keys[i].syllables.length; j++){
+                this.correctAnswers[i].syllables = this.activity.items.keys[i].syllables[j].text
+                console.log(this.correctAnswers[i].syllables)        
+            }
+        }
+
+        console.log(this.activity)
     },
     methods: {
-        getSyllableByValueId(valueId) {
-            for (let i = 0; i < this.activity.items.values.length; i++) {
-                if (valueId == this.activity.items.values[i].id){
-                    // console.log('Sílaba: '+ this.activity.items.values[i].text)
-                    return this.activity.items.values[i].text;
-                }
-            }
-        },
         validateBySyllabe(transferData, nativeElement, vm){
-
-            console.log(transferData, nativeElement, vm);
-            var syllable = vm.$el.innerText.substring(0, vm.$el.innerText.length-1);
-            console.log(transferData.text);
-            console.log(syllable);
+            var syllable = vm.$el.innerText.substring(0, vm.$el.innerText.length-1)
             if (transferData.text === syllable){
-                transferData.valid = true;
-                vm.valid = true;
+                transferData.valid = true
+                vm.valid = true
             } else {
-                vm.valid = false;
-                vm.invalid = true;
+                vm.valid = false
+                vm.invalid = true
             }
         },
         
@@ -103,6 +106,9 @@ export default {
 
     #dragging-syllables
     {
+        .card-display .card .card-body{
+            font-size: 18px !important;
+        }
         .card-input.card-draggable .card .card-body{
             font-size: 18px !important;
         }
