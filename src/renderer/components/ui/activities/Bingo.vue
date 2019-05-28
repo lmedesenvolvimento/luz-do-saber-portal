@@ -137,6 +137,8 @@ export default {
         this.unraffleLetters = this.alphabet.slice(0);
         // inicia o contador
         this.actualizeBingoTimer();
+
+        console.log(this.activity)
     },
     mounted(){
         //insere as letras do jogador num array
@@ -266,52 +268,55 @@ export default {
 }
 </script>
 
-<style>    
-    .bingoContainer{
-        display: flex;
-        flex-flow: column;
-        margin: 140px 0 150px 0;
-        
-    }
-    .bingoRoulette{
-        position: fixed;        
-        z-index: 0;
-    }
-    .bingoPanel{
-        position: fixed;
-        margin-top: 2px;
-        z-index: 1;
-    }
-    .bingoCounter{
-        position: fixed;
-        margin-top: 4px;
-        z-index: 2;
-    }
-    .bingoCard{
-        width: 800px;
-        margin: 3px 0 3px 0;
-    }
-    .bingoCardPlayer .card-body{
-        background-color: #ffb141;       
-    }
-    .bingoCardLetter{        
-        margin: -5px 5px -5px 5px;
-    }   
-    .bingoCardLetter .card-body{
-        background-color: white;
-    }    
-    .bingoLetter{
-        display: inline-grid;
-        text-align: center;
-        color: white;
-        background-color: #dfd9db;
-        border-radius: 15px;
-        width: 30px;
-        height: 30px;
-        margin: 2px;
-    }
-    .bingoRaffleLetter{
-        background-color: #13c5c4;
-    }    
+<style lang="scss">    
+@import '~animate-scss/_properties';
+@import '~animate-scss/_attention-seekers/attention-seekers';
+.bingoContainer{
+    display: flex;
+    flex-flow: column;
+    margin: 140px 0 150px 0;
+    
+}
+.bingoRoulette{
+    position: fixed;        
+    z-index: 0;
+}
+.bingoPanel{
+    position: fixed;
+    margin-top: 2px;
+    z-index: 1;
+}
+.bingoCounter{
+    position: fixed;
+    margin-top: 4px;
+    z-index: 2;
+    @include pulse($delay: 2s);
+}
+.bingoCard{
+    width: 800px;
+    margin: 3px 0 3px 0;
+}
+.bingoCardPlayer .card-body{
+    background-color: #ffb141;       
+}
+.bingoCardLetter{        
+    margin: -5px 5px -5px 5px;
+}   
+.bingoCardLetter .card-body{
+    background-color: white;
+}    
+.bingoLetter{
+    display: inline-grid;
+    text-align: center;
+    color: white;
+    background-color: #dfd9db;
+    border-radius: 15px;
+    width: 30px;
+    height: 30px;
+    margin: 2px;
+}
+.bingoRaffleLetter{
+    background-color: #13c5c4;
+}    
 </style>
 
