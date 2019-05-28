@@ -24,7 +24,7 @@ export default {
             return process.env.BASE_API_URL ? process.env.BASE_API_URL : 'https://luz-do-saber-staging.herokuapp.com'
         },
         unitImage(){
-            return this.unit.cover_url ? this.baseUrl + this.unit.cover_url : 'https://placeimg.com/480/480/tech'
+            return this.unit.cover_url ? this.baseUrl + this.unit.cover_url : ''
         },
     }, 
     created(){

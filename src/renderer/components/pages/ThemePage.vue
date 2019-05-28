@@ -56,7 +56,7 @@ export default {
 
         },
         themeImage(){
-            return this.theme.cover_url ? this.baseUrl + this.theme.cover_url : 'https://placeimg.com/480/480/tech'
+            return this.theme.cover_url ? this.baseUrl + this.theme.cover_url : ''
         },
         ...mapState('Theme', ['theme']),
         
