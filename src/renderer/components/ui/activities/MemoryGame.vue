@@ -74,7 +74,7 @@ export default {
                 cards[i]['class'] = {flip: false, success: false, fail: false}
             }
 
-            return cards
+            return shuffle(cards)
         },
 
         toggleFlip(index, card){
