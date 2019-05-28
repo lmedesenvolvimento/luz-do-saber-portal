@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from './mixins'
+import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from '@ui/activities/mixins'
 import { sampleSize, drop, range, filter } from 'lodash'
 
 import Item from '@/components/ui/items/Item'
