@@ -59,7 +59,6 @@ export default {
         let values = filter(this.activity.items.values, v => v.hide)
 
         values[0].focus = true
-
         //seta as respostas
         this.setAnswersArray(keys)
         this.setActivityAttrs({ total_correct_items: keys.length })
