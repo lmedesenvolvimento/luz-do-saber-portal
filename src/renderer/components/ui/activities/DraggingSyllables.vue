@@ -78,13 +78,12 @@ export default {
         this.createAnswersArray()
         for (let i = 0; i < this.activity.items.keys.length; i++) {
             this.correctAnswers.push({word: this.activity.items.keys[i].text, syllables:[], correct: false})
-            console.log(this.correctAnswers[i].word)         
+            // console.log(this.correctAnswers[i].word)         
             for (let j = 0; j < this.activity.items.keys[i].syllables.length; j++){
                 this.correctAnswers[i].syllables = this.activity.items.keys[i].syllables[j].text
-                console.log(this.correctAnswers[i].syllables)        
+                // console.log(this.correctAnswers[i].syllables)        
             }
         }
-
         console.log(this.activity)
     },
     methods: {
@@ -93,11 +92,18 @@ export default {
             if (transferData.text === syllable){
                 transferData.valid = true
                 vm.valid = true
+                this.checkWords();
             } else {
                 vm.valid = false
                 vm.invalid = true
             }
         },
+        checkWords(){
+            console.log(document.getElementsByClassName('card-input.card-droppable.card.valid.card-body'))
+            // document.getElementsByClassName('.card-input.card-droppable .card .card-body').forEach(element => {
+            //     console.log('coisas', element)
+            // });
+        }
         
     },
 }
