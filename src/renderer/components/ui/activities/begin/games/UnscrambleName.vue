@@ -47,7 +47,7 @@ import { mapState, mapActions } from 'vuex'
 import ui from '@/components/ui'
 import alerts from '@/components/alerts'
 import { sortBy, shuffle } from 'lodash'
-import { MapMixins, ListMixin, CreateAnswersMixins } from './mixins'
+import { MapMixins, ListMixin, CreateAnswersMixins } from '@ui/activities/mixins'
 
 export default {
     components: { 

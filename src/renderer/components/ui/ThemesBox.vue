@@ -15,7 +15,7 @@
                 </b-row>
             </b-col>
             <b-col class="pt-4 container-unit-image"> 
-                <div class="unit-image" />
+                <div class="unit-image" :style="{ 'background-image': 'url('+ baseUrl + unit.cover_url + ')' }" />
             </b-col>
         </b-row>
     </div>
@@ -32,8 +32,12 @@ export default {
             type: String
         }
     },
+    computed: {
+        baseUrl() {
+            return process.env.BASE_API_URL
+        },
+    },
     methods: {
-
     }
 }
 </script>

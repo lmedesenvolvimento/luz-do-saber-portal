@@ -20,7 +20,7 @@
                     </b-col>
                 </b-row>
             </b-col>
-            <b-col class="activity-values flex-4">
+            <b-col class="activity-values">
                 <b-row align-v="center" align-h="center">
                     <b-col 
                         v-for="item in activity.items.values"
@@ -56,7 +56,8 @@ export default {
     mixins: [ListMixin, MapMixins, CreateAnswersMixins],
     created(){
         this.createAnswersArray()
-    },
+        this.addColorsToType('substantivo_comum')
+    }
 }
 </script>
 <style lang="scss">
@@ -65,6 +66,7 @@ export default {
         border: 3px dotted royalblue;
         min-height: 50px;
         padding: 4px;
+        text-align: center;
     }
 
     .drop-group .drop-group-item{
