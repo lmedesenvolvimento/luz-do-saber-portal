@@ -30,8 +30,16 @@ export const initialStateLog = {
 }
 
 export const leaderLineConfig = {
-    startPlug: 'behind',
-    endPlug: 'behind',
+    startPlugOutline: true,
+    startPlug: 'disc',
+    startPlugColor: 'white',
+    startPlugOutlineColor: '#999999',
+    startPlugSize: 4,
+    endPlugOutline: true,
+    endPlug: 'disc',
+    endPlugColor: 'white',
+    endPlugOutlineColor: '#999999',
+    endPlugSize: 4,
     color: '#212121',
     path: 'straight',
     size: 2
@@ -124,6 +132,8 @@ export function validationInSelection({ state, commit }, { vm, type, data }) {
 export function getExtenalParams(question) {
     let external_params = []
     let user = db.value()
+
+    console.log(question)
 
     switch (question.external_param_type) {
     case 'substantivo_proprio':

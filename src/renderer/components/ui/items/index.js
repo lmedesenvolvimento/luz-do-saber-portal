@@ -9,7 +9,8 @@ export const ItemProps = {
         item: Object,
         type: String,
         focus: Boolean,
-        template: Object
+        template: Object,
+        group: Boolean,
     },
     data(){
         return {

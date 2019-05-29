@@ -18,11 +18,14 @@ export const ActivitySubtypes = {
 }
 
 export const GameSubtypes = {
+    bingo: 'bingo',
     hideHalf: 'esconder-itens-metade',
     unscramble: 'desembaralhar-nome',
     rearrangeName: 'monte-seu-nome',
     jigsaw: 'quebra-cabecas',
     memoryGame: 'jogo-da-memoria',
+    boxWords: 'caixa-de-palavras',
+    friendsName: 'meus-amigos-fotos',
 }
 
 export const ItemTypes = {

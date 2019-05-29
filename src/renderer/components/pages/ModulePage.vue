@@ -13,12 +13,12 @@
         <div class="page-container-wrap-spacing">
             <b-row>
                 <b-col v-for="theme in activeModule.themes" :key="theme.id" cols="12" md="6">
-                    <div class="circle-box">
+                    <div class="my-2 circle-box">
                         <router-link :to="{ name: 'theme', params: { module_slug: $route.params.module_slug, theme_slug: theme.slug } }">
                             <vue-circle
                                 class=""
                                 :label="theme.title"
-                                :image="getThemeImage(theme.slug)"
+                                :image="getThemeImage(theme)"
                                 :progress="50"
                                 :color="getModuleColor(activeModule)"
                             />
@@ -26,9 +26,6 @@
                     </div>
                 </b-col>
                 <b-col cols="12">
-                    <b-btn variant="link" :to="historyBack">
-                        Voltar
-                    </b-btn>
                     <b-btn variant="link" to="/componentes">
                         Componentes
                     </b-btn>
@@ -60,9 +57,15 @@ export default {
         renderNavTitle(){
             return this.activeModule.slug ? 'Módulo ' + this.activeModule.slug : ''
         },
+        baseUrl() {
+            return process.env.BASE_API_URL
+        },
     },
     created(){
         this.fetchModule(this.$route.params.module_slug)
+    },
+    beforeDestroy(){
+        this.destroyModules();
     },
     methods: {
         getModuleImage(module){
@@ -89,15 +92,10 @@ export default {
                 break;
             }
         },
-        getThemeImage(themeSlug) {
-            switch (themeSlug) {
-            case 'meu-nome':
-                return 'https://image.flaticon.com/icons/png/128/145/145867.png'
-            default:
-                return 'https://image.flaticon.com/icons/png/128/145/145867.png'
-            }
+        getThemeImage(theme) {
+            return theme.cover_url ? this.baseUrl + theme.cover_url : 'http://pngimg.com/uploads/book/book_PNG51049.png'
         },
-        ...mapActions('Modules', ['fetchModule'])
+        ...mapActions('Modules', ['fetchModule', 'destroyModules'])
     }
 }
 </script>
