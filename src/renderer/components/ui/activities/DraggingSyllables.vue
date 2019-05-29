@@ -77,14 +77,14 @@ export default {
     mounted() {
         this.createAnswersArray()
         for (let i = 0; i < this.activity.items.keys.length; i++) {
-            this.correctAnswers.push({word: this.activity.items.keys[i].text, syllables:[], correct: false})
+            this.correctAnswers.push({word: this.activity.items.keys[i].text, syllables:[], rightAnswers: []})
             // console.log(this.correctAnswers[i].word)         
             for (let j = 0; j < this.activity.items.keys[i].syllables.length; j++){
-                this.correctAnswers[i].syllables = this.activity.items.keys[i].syllables[j].text
+                this.correctAnswers[i].syllables[j] = this.activity.items.keys[i].syllables[j].text
+                this.correctAnswers[i].rightAnswers[j] = false
                 // console.log(this.correctAnswers[i].syllables)        
             }
         }
-        console.log(this.activity)
     },
     methods: {
         validateBySyllabe(transferData, nativeElement, vm){
@@ -92,17 +92,41 @@ export default {
             if (transferData.text === syllable){
                 transferData.valid = true
                 vm.valid = true
-                this.checkWords();
+                this.addAwnser(syllable);
+                this.checkWords()
             } else {
                 vm.valid = false
                 vm.invalid = true
             }
         },
+        addAwnser(text){
+            for (let i = 0; i < this.correctAnswers.length; i++) {
+                for (let j = 0; j < this.correctAnswers[i].syllables.length; j++) {
+                    if (text === this.correctAnswers[i].syllables[j]){
+                        this.correctAnswers[i].rightAnswers[j] = true;
+                    }               
+                }
+            }
+            console.log(this.correctAnswers);
+        }
+        ,
         checkWords(){
-            console.log(document.getElementsByClassName('card-input.card-droppable.card.valid.card-body'))
-            // document.getElementsByClassName('.card-input.card-droppable .card .card-body').forEach(element => {
-            //     console.log('coisas', element)
-            // });
+            var numRightSyllables = 0;
+            for (let i = 0; i < this.correctAnswers.length; i++) {
+                for (let j = 0; j < this.correctAnswers[i].rightAnswers.length; j++) {
+                    if (this.correctAnswers[i].rightAnswers[j] === true){
+                        numRightSyllables++;
+                        console.log('Num silabas certas ' + numRightSyllables)
+                    }               
+                }
+                var numRightWords = 0;
+                console.log('Num silabas', this.correctAnswers[i].rightAnswers.length)
+                if (numRightSyllables == this.correctAnswers[i].rightAnswers.length)
+                {
+                    numRightWords++;
+                    console.log('terminei '+ numRightWords +' palavra(s)');
+                }
+            }
         }
         
     },
