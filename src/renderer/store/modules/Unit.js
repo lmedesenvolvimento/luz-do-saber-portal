@@ -47,15 +47,20 @@ const actions = {
 
         dispatch('goActivity', newOrder)
     },
-    goActivity({ commit }, newOrder){
+    goActivity({ commit, state }, newOrder){
         let { unit, navigator } = state
+        let question = unit.questions[(newOrder - 1)]
+
         if (unit) {
             commit('SET_NAVIGATOR_ORDER', newOrder)
-            router.push({name: 'activity', params: { position: newOrder, ...navigator.params }})
+            router.push({ name: 'activity', params: { position: question.order, ...navigator.params }})            
         }
     },
     setNavigatorOrder({commit}, orderNumber){
         commit('SET_NAVIGATOR_ORDER', orderNumber)
+    },
+    destroyUnit({ commit }){
+        commit('SET_UNIT', null)
     }
 }
 

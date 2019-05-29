@@ -15,6 +15,7 @@
                         :required="true"
                         type="text"
                         v-bind="$attrs"
+                        autocomplete="off"
                         selectionDirection="backward"
                         @keypress="onKeyDown($event)"
                     />

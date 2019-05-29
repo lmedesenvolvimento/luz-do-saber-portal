@@ -32,7 +32,7 @@ export default {
         },
         getQuestion(){
             let { params } = this.$route
-            return find(this.unit.questions, { order: this.navigator.order })   
+            return this.unit.questions[(this.navigator.order - 1)]
         },
         ...mapState('Unit', ['unit','navigator']),
         ...mapState('Activity', ['activity'])

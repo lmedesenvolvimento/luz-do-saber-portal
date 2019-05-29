@@ -5,6 +5,7 @@
                 :type="type"
                 :item="item"
                 :focus="focus"
+                :group="group"
                 :template="template"
             ></ls-item-text>            
         </div>
