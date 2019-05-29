@@ -1,6 +1,30 @@
 .memory-game{    
     .item{
         padding: 10px 20px;
+        &.fail{
+            &::before{
+                background-image: url('~@/assets/images/icons/fail.png');
+                background-size: 22px 23px;
+                width: 22px;
+                height: 23px;
+                position: absolute;
+                content: '';
+                right: 0px;
+                top: 88px;
+            }
+        }
+        &.success{
+            &::before{
+                background-image: url('~@/assets/images/icons/success.png');
+                background-size: 22px 23px;
+                width: 22px;
+                height: 23px;
+                position: absolute;
+                content: '';
+                right: 0px;
+                top: 88px;
+            }
+        }
     }
     .activity-values{
         height: 80%;
@@ -44,21 +68,6 @@
             -webkit-animation: flip-scale-up-ver 0.5s linear both;
             animation: flip-scale-up-ver 0.5s linear both;
         }
-        &.matched{
-            -webkit-animation: scale-up-center 1.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-            animation: scale-up-center 1.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-            .card-display{
-                -webkit-backface-visibility: visible;
-                backface-visibility: visible;
-                &.front{
-                    visibility: hidden;
-                }
-                &.back{
-                    -webkit-transform: rotateY(0deg);
-                    transform: rotateY(0deg);
-                }
-            }
-        }
         .card-display{
             position: absolute;
             width: 100%;
@@ -75,7 +84,23 @@
                 transform: rotateY(180deg);
             }               
         }
-    }   
+    }
+    @include media-breakpoint-down('md'){                
+        .row{
+            height: 100%;
+        }
+        .card-face{
+            flex: 1 115px;
+            width: 115px;
+            height: 160px;
+        }
+        .item{
+            // width: 140px;
+            &:before{
+                right: -5px!important;
+            }
+        }
+    } 
 }
 
 /* ----------------------------------------------
@@ -114,41 +139,5 @@
     100% {
         -webkit-transform: scale(1) rotateY(180deg);
         transform: scale(1) rotateY(180deg);
-    }
-}
-@-webkit-keyframes scale-up-center {
-    0% {
-        -webkit-transform: scale(1);
-        transform: scale(1);
-    }
-    30% {
-        -webkit-transform: scale(1.5);
-        transform: scale(1.5);
-    }
-    70% {
-        -webkit-transform: scale(1.5);
-        transform: scale(1.5);
-    }
-    100%{
-        -webkit-transform: scale(1);
-        transform: scale(1);
-    }
-}
-@keyframes scale-up-center {
-    0% {
-        -webkit-transform: scale(1);
-        transform: scale(1);
-    }
-    30% {
-        -webkit-transform: scale(1.5);
-        transform: scale(1.5);
-    }
-    70% {
-        -webkit-transform: scale(1.5);
-        transform: scale(1.5);
-    }
-    100%{
-        -webkit-transform: scale(1);
-        transform: scale(1);
     }
 }

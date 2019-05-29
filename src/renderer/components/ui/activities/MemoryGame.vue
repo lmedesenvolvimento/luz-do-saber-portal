@@ -3,7 +3,7 @@
         <b-row align-h="center" align-self="center" :md="valueColSize" :sm="6">
             <b-col class="activity-values">
                 <b-row align-v="center" align-h="center">
-                    <b-col v-for="(card, index) in cards" :key="card.key" class="item">
+                    <b-col v-for="(card, index) in cards" :class="card.class" :key="card.key" class="item">
                         <div class="card-face" :class="card.class" v-on:click="toggleFlip(index, card)">                            
                             <ls-card-display
                                 label="item.text" 
@@ -18,6 +18,8 @@
                                 label="item.text" 
                                 :type="'text'"
                                 :item="card"
+                                :valid="card.class.success"
+                                :invalid="card.class.fail"
                                 bg-color="#FFFFFF"
                                 class="back"
                             >
@@ -72,9 +74,10 @@ export default {
 
             for(let i = 0; i<cards.length; i++){
                 cards[i]['class'] = {flip: false, success: false, fail: false}
+                console.log(cards[i].value)
             }
 
-            return shuffle(cards)
+            return cards
         },
 
         toggleFlip(index, card){
@@ -97,9 +100,10 @@ export default {
             }
         },
         matched(value){
+            this.openedCards[0].class.success = true
+            this.openedCards[1].class.success = true   
             this.matchedCards = _.concat(this.matchedCards, this.openedCards);
             this.openedCards = [];
-            console.log(value)
             this.setAnswer({ 
                 type: 'value',
                 data: value.id,
@@ -108,8 +112,10 @@ export default {
         
         },
         unmatched(){
-            this.openedCards[0].class.fail = true
-            this.openedCards[1].class.fail = true
+            setTimeout(() => {
+                this.openedCards[0].class.fail = true
+                this.openedCards[1].class.fail = true
+            },600)
             this.setAnswer({ 
                 type: 'value', 
                 data: -1,

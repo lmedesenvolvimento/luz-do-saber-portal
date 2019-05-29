@@ -45,7 +45,6 @@ const mutations = {
         let answers = clone(state.answers)
         answers[ref].valid = true
         Vue.set(state, 'answers', answers)
-        console.log(values(state.answers), answers[ref])
     },
 
     CLEAR_SELECTION(state) {
