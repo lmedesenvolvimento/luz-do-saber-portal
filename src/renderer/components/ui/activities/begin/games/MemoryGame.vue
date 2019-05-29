@@ -33,8 +33,8 @@
     </div>
 </template>
 <script>
-import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from './mixins'
-import ItemComponents from '../form/index.js'
+import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from '@ui/activities/mixins'
+import ItemComponents from '@ui/form/index.js'
 import { shuffle, find } from 'lodash'
 
 import { mapActions, mapState } from 'vuex'
@@ -74,10 +74,9 @@ export default {
 
             for(let i = 0; i<cards.length; i++){
                 cards[i]['class'] = {flip: false, success: false, fail: false}
-                console.log(cards[i].value)
             }
 
-            return cards
+            return shuffle(cards)
         },
 
         toggleFlip(index, card){
