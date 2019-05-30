@@ -14,7 +14,7 @@
                         <Item
                             class="drop"
                             :item="item"
-                            :type="'key'"
+                            :type="'value'"
                             :template="activity.item_template.value"
                         />
                         <ls-card-display class="name"> 
@@ -36,8 +36,8 @@
                         >
                             <Item
                                 :item="item"
-                                :type="'value'"
-                                :template="activity.item_template.value"
+                                :type="'key'"
+                                :template="activity.item_template.key"
                             />
                         </b-col>
                     </b-row>                    
