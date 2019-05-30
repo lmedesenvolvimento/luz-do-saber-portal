@@ -1,0 +1,59 @@
+.word-search{
+    .clues{
+        flex-direction: column;
+        height: 450px;
+        align-items: center;
+        justify-content: space-between;
+        display: flex;
+        .clue{
+            min-width: 200px;
+            font-size: 28px;
+        }
+    }
+    .grid{
+        user-select: none;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-areas: "." "." "." "." "." "." "." "." "." "." ".";
+        padding: 6px;
+        .letters{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+            grid-template-rows: 1fr;
+            grid-template-areas: ". . . . . . . . . . .";
+            border: 2px solid rgba(43, 31, 23, 0.1);
+            border-left: 0px;
+            border-right: 0px;
+            &:first-child{
+                border-top: 0px;
+            }
+            &:last-child{
+                border-bottom: 0px;
+            }
+        }
+        .letter{
+            cursor: pointer;
+            padding: 4px 10px;
+            border: 2px solid rgba(43, 31, 23, 0.1);
+            border-top: 0px;
+            border-bottom: 0px;
+            &:first-child{
+                border-left: 0px;
+            }
+            &:last-child{
+                border-right: 0px;
+            }
+            &.red{
+                color: #FF4C1D;
+            }
+        }
+    }
+    .word-canvas{
+        .card-display{
+            .card-body{
+                padding: 0;
+            }
+        }
+    }
+}
