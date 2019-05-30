@@ -1,9 +1,9 @@
 <template>
     <div class="container-fluid">
         <b-row class="m-5" align-v="center" align-h="center">
-            <b-row class="activity-values" align-v="center" align-h="center">
+            <b-row class="activity-keys" align-v="center" align-h="center">
                 <b-col
-                    v-for="(item) in activity.items.values"
+                    v-for="(item) in activity.items.keys"
                     :key="item.id"
                     class="my-3 item"
                     cols="12"
@@ -14,16 +14,16 @@
                         <Item
                             class="drop"
                             :item="item"
-                            :type="'value'"
-                            :template="activity.item_template.value"
+                            :type="'key'"
+                            :template="activity.item_template.key"
                         />
                         <ls-card-display class="name"> 
-                            {{ findKeyId(item.id) }}
+                            {{ dropFirstLetter(item.text) }}
                         </ls-card-display>
                     </b-col>
                 </b-col>
             </b-row>
-            <b-row class="pb-4 activity-keys" align-v="center" align-h="center">
+            <b-row class="pb-4 activity-values" align-v="center" align-h="center">
                 <ls-card-display>
                     <b-row>
                         <b-col 
@@ -36,8 +36,8 @@
                         >
                             <Item
                                 :item="item"
-                                :type="'key'"
-                                :template="activity.item_template.key"
+                                :type="'value'"
+                                :template="activity.item_template.value"
                             />
                         </b-col>
                     </b-row>                    
@@ -72,10 +72,6 @@ export default {
         newArrayValues() {
             return shuffle(this.activity.items.values)
         }
-    },
-    created()
-    {
-        console.log(shuffle(this.activity.items.values));
     },
     mounted(){
         this.createAnswersArray()
