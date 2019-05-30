@@ -23,6 +23,14 @@
                 :item="item"
                 :template="template"
             ></ls-item-cracha-box>
+
+            <ls-item-checkmark
+                v-if="template.custom === Types.custom.checkmark"
+                :type="type"
+                :item="item"
+                :template="template"
+            >
+            </ls-item-checkmark>
             
             <ls-card-display-validacao
                 v-if="template.custom === Types.custom.cardDisplayValidacao"
@@ -59,3 +67,4 @@ export default {
     }
 }
 </script>
+
