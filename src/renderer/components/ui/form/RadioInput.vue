@@ -18,7 +18,7 @@ export default {
     props: {
         type: String,
         label: String,
-        variant: String,
+        size: String,
         item: Object,
         bgColor: String,
         focus: Boolean,
@@ -39,6 +39,9 @@ export default {
             let inJoinTypes = values(ActivityTypes.activity.join).includes(this.activity.type.slug)
             let isValidOrInvalid = ( this.valid || this.invalid )
             return !inJoinTypes && isValidOrInvalid
+        },
+        isCardSm(){
+            return this.size === 'small'
         },
         ...mapState('Activity', ['activity'])
     },
