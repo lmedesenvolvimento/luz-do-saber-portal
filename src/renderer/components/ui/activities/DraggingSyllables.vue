@@ -86,19 +86,22 @@ export default {
         validateBySyllabe(transferData, nativeElement, vm){
             console.log('Draggable',transferData)
             console.log('Droppable',vm.item)
-            if (transferData.key_id === vm.item.id)
-            {
+            if (transferData.key_id === vm.item.id){
                 console.log('Acertou a palavra')
-                if (transferData.text == vm.item.syllable.text)
-                {
-                    console.log('ACERTOU A SILABA POAR')
-                    vm.valid = true;
+                for (var i = 0; i < vm.item.syllables.length; i++){
+                    console.log(vm.item.syllables[i].text)
                 }
-                else{
-                    vm.invalid = true;
-                }
+                vm.valid = true;
+                // if (transferData.text == vm.item.text){
+                //     console.log('ACERTOU A SILABA POAR')
+                //     vm.valid = true;
+                // }
+                // else{
+                //     vm.invalid = true;
+                // }
             }
             else{
+                vm.valid = false;
                 vm.invalid = true;
                 console.log('Errou :(');
 
