@@ -128,6 +128,23 @@
     }
 }
 
+@mixin custom-card-sm($input: false){
+    @include custom-card;
+    .card {
+        border-radius: 0.75rem;
+        padding: 0.15rem;
+        .bg-color {
+            border-radius: 0.6rem !important;
+        }
+        .card-body{
+            font-size: 18px;
+            padding: 0.5rem;
+            border-radius: 0.6rem !important;
+            @include card-body-box-shadow($card-input-box-shadow-color,0.9, 3px);
+        }
+    }   
+}
+
 @mixin custom-dropcard-content{
     position: absolute;
     top: 0;
