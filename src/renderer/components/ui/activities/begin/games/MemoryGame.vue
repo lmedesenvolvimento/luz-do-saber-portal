@@ -52,6 +52,8 @@ export default {
     },
     created(){
         this.cards = this.createArray(this.activity.items)
+        console.log(this.cards)
+        setTimeout(() => this.cards.map( function(c){ c.class.flipped = false }), 6000);
         this.createAnswersArray()
         this.setActivityAttrs({ total_correct_items: this.getKeys.length })
     },
@@ -73,7 +75,7 @@ export default {
             cards = values.concat(values2)
 
             for(let i = 0; i<cards.length; i++){
-                cards[i]['class'] = {flip: false, success: false, fail: false}
+                cards[i]['class'] = {flip: false, flipped: true, success: false, fail: false}
             }
 
             return shuffle(cards)
