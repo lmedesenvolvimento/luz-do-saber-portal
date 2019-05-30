@@ -77,55 +77,31 @@ export default {
     mounted() {
         this.createAnswersArray()
         for (let i = 0; i < this.activity.items.keys.length; i++) {
-            this.correctAnswers.push({word: this.activity.items.keys[i].text, syllables:[], rightAnswers: []})
-            // console.log(this.correctAnswers[i].word)         
             for (let j = 0; j < this.activity.items.keys[i].syllables.length; j++){
-                this.correctAnswers[i].syllables[j] = this.activity.items.keys[i].syllables[j].text
-                this.correctAnswers[i].rightAnswers[j] = false
-                // console.log(this.correctAnswers[i].syllables)        
+                this.activity.items.keys[i].syllable = this.activity.items.keys[i].syllables[j];
             }
         }
     },
     methods: {
         validateBySyllabe(transferData, nativeElement, vm){
-            var syllable = vm.$el.innerText.substring(0, vm.$el.innerText.length-1)
-            if (transferData.text === syllable){
-                transferData.valid = true
-                vm.valid = true
-                this.addAwnser(syllable);
-                this.checkWords()
-            } else {
-                vm.valid = false
-                vm.invalid = true
-            }
-        },
-        addAwnser(text){
-            for (let i = 0; i < this.correctAnswers.length; i++) {
-                for (let j = 0; j < this.correctAnswers[i].syllables.length; j++) {
-                    if (text === this.correctAnswers[i].syllables[j]){
-                        this.correctAnswers[i].rightAnswers[j] = true;
-                    }               
-                }
-            }
-            console.log(this.correctAnswers);
-        }
-        ,
-        checkWords(){
-            var numRightSyllables = 0;
-            for (let i = 0; i < this.correctAnswers.length; i++) {
-                for (let j = 0; j < this.correctAnswers[i].rightAnswers.length; j++) {
-                    if (this.correctAnswers[i].rightAnswers[j] === true){
-                        numRightSyllables++;
-                        console.log('Num silabas certas ' + numRightSyllables)
-                    }               
-                }
-                var numRightWords = 0;
-                console.log('Num silabas', this.correctAnswers[i].rightAnswers.length)
-                if (numRightSyllables == this.correctAnswers[i].rightAnswers.length)
+            console.log('Draggable',transferData)
+            console.log('Droppable',vm.item)
+            if (transferData.key_id === vm.item.id)
+            {
+                console.log('Acertou a palavra')
+                if (transferData.text == vm.item.syllable.text)
                 {
-                    numRightWords++;
-                    console.log('terminei '+ numRightWords +' palavra(s)');
+                    console.log('ACERTOU A SILABA POAR')
+                    vm.valid = true;
                 }
+                else{
+                    vm.invalid = true;
+                }
+            }
+            else{
+                vm.invalid = true;
+                console.log('Errou :(');
+
             }
         }
         
