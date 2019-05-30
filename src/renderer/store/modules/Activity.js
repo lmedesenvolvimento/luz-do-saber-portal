@@ -69,11 +69,11 @@ const mutations = {
         let lostByAttempt = find(pointings, { type: PointingsTypes.LostByAttempt })
         let lostByTime = find(pointings, { type: PointingsTypes.LostByTime })
 
-        if (lostByAttempt) {
+        if (lostByAttempt && lostByAttempt.quantity) {
             penalty += Math.floor(state.log.errors.total / lostByAttempt.quantity)
         }
 
-        if (lostByTime) {
+        if (lostByTime && lostByTime.quantity) {
             penalty += Math.floor(state.log.timer.totalSeconds / lostByTime.quantity)
         }
 

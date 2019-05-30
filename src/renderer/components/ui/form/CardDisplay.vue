@@ -7,7 +7,7 @@
             <fill-background :bg-color="bgColor">
                 <b-card-body>
                     <slot name="img"></slot>
-                    <slot></slot>                    
+                    <slot></slot>
                 </b-card-body>
             </fill-background>
         </b-card>            
@@ -22,11 +22,13 @@ export default {
     },
     props: {
         bgColor: String,
+        size: String,
         valid: Boolean,
-        invalid: Boolean,
-        image: {
-            type: String,
-            required: false
+        invalid: Boolean
+    },
+    computed: {
+        isCardSm(){
+            return this.size === 'small'
         }
     }
 }
