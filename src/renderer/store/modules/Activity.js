@@ -69,11 +69,11 @@ const mutations = {
         let lostByAttempt = find(pointings, { type: PointingsTypes.LostByAttempt })
         let lostByTime = find(pointings, { type: PointingsTypes.LostByTime })
 
-        if (lostByAttempt) {
+        if (lostByAttempt && lostByAttempt.quantity) {
             penalty += Math.floor(state.log.errors.total / lostByAttempt.quantity)
         }
 
-        if (lostByTime) {
+        if (lostByTime && lostByTime.quantity) {
             penalty += Math.floor(state.log.timer.totalSeconds / lostByTime.quantity)
         }
 
@@ -124,7 +124,7 @@ const actions = {
         }
         
         // Check if activity is finish
-        let totalCorrectItems = filter( values(state.answers), { valid: true }).length
+        let totalCorrectItems = filter(values(state.answers), { valid: true }).length
         
         if (totalCorrectItems === state.activity.total_correct_items){
             dispatch('triggerSuccess')

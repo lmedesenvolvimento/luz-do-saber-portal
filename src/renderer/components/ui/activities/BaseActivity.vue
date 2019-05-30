@@ -27,27 +27,27 @@
             />
         </div>
         <div v-else-if="types.game === activity.type.slug" class="game"> 
-            <!-- <ls-activity-number-letter 
-                v-if="subtypes.column === activity.subtype.slug" 
+            <ls-activity-begin-bingo
+                v-if="gameSubtypes.bingo === activity.subtype.slug" 
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
-            /> -->
-            <ls-activity-half 
+            />
+            <ls-activity-begin-half 
                 v-if="gameSubtypes.hideHalf === activity.subtype.slug" 
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
             />
-            <ls-activity-unscramble 
+            <ls-activity-begin-unscramble 
                 v-if="gameSubtypes.unscramble === activity.subtype.slug" 
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
             />
-            <ls-activity-rearrange-name 
+            <ls-activity-begin-rearrange-name 
                 v-if="gameSubtypes.rearrangeName === activity.subtype.slug" 
                 :value-col-size="valueColSize" 
                 :key-col-size="keyColSize"
             />
-            <ls-activity-jigsaw 
+            <ls-activity-begin-jigsaw 
                 v-if="gameSubtypes.jigsaw === activity.subtype.slug" 
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
@@ -62,11 +62,26 @@
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
             ></ls-activity-dragging-syllables>
+            <ls-activity-begin-domino-name
+                v-if="gameSubtypes.dominoName === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+            />
+            <ls-activity-begin-memory-game 
+                v-if="gameSubtypes.memoryGame === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+            />
             <ls-activity-box-of-words 
                 v-if="gameSubtypes.boxWords === activity.subtype.slug" 
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
             />
+            <ls-activity-friends-name     
+                v-if="gameSubtypes.friendsName === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+            />            
         </div>
     </div>
 </template>
@@ -107,6 +122,9 @@ export default {
             return Math.abs(TOTAL_COLUMNS / this.activity.item_template.value.total_per_line)
         },
         ...mapState('Activity', ['activity'])
+    },
+    mounted(){
+        console.log('base activiyt',this.activity)
     }
 }
 </script>
