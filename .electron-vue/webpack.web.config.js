@@ -94,7 +94,8 @@ let webConfig = {
       nodeModules: false
     }),
     new webpack.DefinePlugin({
-      'process.env.IS_WEB': 'true'
+      'process.env.IS_WEB': 'true',
+      'process.env.BASE_API_URL':'"https://luz-do-saber-staging.herokuapp.com"'
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
@@ -105,7 +106,8 @@ let webConfig = {
   },
   resolve: {
     alias: {
-      '@': path.join(__dirname, '../src/renderer'),      
+      '@': path.join(__dirname, '../src/renderer'),
+      '@ui': path.join(__dirname, '../src/renderer/components/ui'),      
       'vue$': 'vue/dist/vue.esm.js'
     },
     extensions: ['.js', '.vue', '.json', '.css', '.scss', '.ttf']
