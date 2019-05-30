@@ -26,6 +26,7 @@ export const GameSubtypes = {
     memoryGame: 'jogo-da-memoria',
     boxWords: 'caixa-de-palavras',
     friendsName: 'meus-amigos-fotos',
+    dominoName: 'domino-de-nomes',
 }
 
 export const ItemTypes = {
