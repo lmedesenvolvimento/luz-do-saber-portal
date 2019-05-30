@@ -48,7 +48,7 @@
             {{ item.text }}
         </ls-card-input> -->
 
-        <ls-card-display 
+        <ls-card-image-display 
             v-if="type === 'key'"
             class="col-sm" 
             label="item.text" 
@@ -61,7 +61,7 @@
                 <b-card-img src="https://picsum.photos/300/200">
                 </b-card-img>
             </template>
-        </ls-card-display>
+        </ls-card-image-display>
 
         <ls-card-input 
             v-else-if="type === 'value'"

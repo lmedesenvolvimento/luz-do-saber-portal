@@ -1,0 +1,28 @@
+.input-horizontal-align {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.check-mark {
+    max-height: 45px;
+    min-width: 45px;
+
+    .card-body {
+        border-radius: 0.4rem !important;
+    }
+
+    .check-image {
+        position: absolute;
+        top: 21.5%;
+        left: 21.5%;
+    }
+}
+
+.limited-width-input {
+    min-width: 300px;
+}
+
+.activity-values {
+    align-items: flex-end !important;
+}
