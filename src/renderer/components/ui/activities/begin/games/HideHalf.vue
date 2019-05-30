@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from './mixins'
+import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from '@ui/activities/mixins'
 import { sampleSize, drop, range, filter } from 'lodash'
 
 import Item from '@/components/ui/items/Item'
@@ -59,7 +59,6 @@ export default {
         let values = filter(this.activity.items.values, v => v.hide)
 
         values[0].focus = true
-
         //seta as respostas
         this.setAnswersArray(keys)
         this.setActivityAttrs({ total_correct_items: keys.length })
