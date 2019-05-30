@@ -57,11 +57,11 @@
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
             />
-            <ls-activity-dragging-syllables 
+            <ls-activity-dragging-syllables
                 v-if="gameSubtypes.draggingSyllables === activity.subtype.slug" 
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
-            ></ls-activity-dragging-syllables>
+            />
             <ls-activity-begin-domino-name
                 v-if="gameSubtypes.dominoName === activity.subtype.slug" 
                 :value-col-size="valueColSize"
