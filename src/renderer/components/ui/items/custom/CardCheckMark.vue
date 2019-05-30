@@ -1,13 +1,29 @@
 <template>
-    <div :id="`input-${uid}`" class="card-input card-radio-input check-mark" :class="$attrs.class">
-        <label>
+    <div :id="`input-${uid}`" class="card-input card-radio-input teste" :class="$attrs.class">
+        <label class="input-horizontal-align">
             <b-card 
+                class="check-mark"
                 no-body
                 :class="{ 'invalid': invalid, 'valid': valid, 'selected': selected }"
             >
                 <fill-background :bg-color="bgColor">
                     <b-card-body>
                         <img v-if="valid" class="check-image" src="https://picsum.photos/id/988/25/25" alt="">
+                        <slot name="img">
+                        </slot>
+                        <slot></slot>
+                    </b-card-body>
+                </fill-background>
+            </b-card>
+
+            <b-card
+                class="limited-width-input"
+                no-body
+                :class="{ 'invalid': invalid, 'valid': valid, 'selected': selected }"
+            >
+                <fill-background :bg-color="bgColor">
+                    <b-card-body>
+                        {{ item.text }}
                         <slot name="img">
                         </slot>
                         <slot></slot>
@@ -29,7 +45,7 @@
 </template>
 
 <script>
-import RadioInput from './RadioInput.vue'
+import RadioInput from '@/components/ui/form/RadioInput.vue'
 
 export default {
     mixins: [RadioInput],
@@ -38,11 +54,16 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+    .input-horizontal-align {
+        display: flex !important;
+        justify-content: space-between;
+        align-items: center;
+    }
     .check-mark {
-        max-width: 45px;
-        margin-top: 3%;
+        max-height: 45px;
+        min-width: 45px;
 
-        .card, .card-input, .card-body {
+        .card-body {
             border-radius: 0.4rem !important;
         }
 
@@ -51,6 +72,9 @@ export default {
             top: 21.5%;
             left: 21.5%;
         }
+    }
+    .limited-width-input {
+        min-width: 300px;
     }
     .card-radio-input{
         .input{

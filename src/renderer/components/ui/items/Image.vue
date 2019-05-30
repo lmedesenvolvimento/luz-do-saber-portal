@@ -58,7 +58,7 @@
             :bg-color="item.color"
         >
             <template v-slot:img>
-                <b-card-img class="teste" src="https://picsum.photos/300/200">
+                <b-card-img src="https://picsum.photos/300/200">
                 </b-card-img>
             </template>
         </ls-card-display>
