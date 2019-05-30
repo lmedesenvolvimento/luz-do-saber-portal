@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from './mixins'
+import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from '@ui/activities/mixins'
 import { sampleSize, drop, range } from 'lodash'
 
 import ui from '@/components/ui'
