@@ -66,7 +66,7 @@
                                         <router-link 
                                             v-else
                                             class="clean-links" 
-                                            :to="{ name: 'module', params: { module_slug: m.slug } }" 
+                                            :to="{ name: 'module', params: { module_slug: m.slug, target_audience: 'geral' } }" 
                                             replace
                                         >
                                             <vue-circle
@@ -85,7 +85,7 @@
                                     <div>
                                         <router-link 
                                             class="clean-links" 
-                                            :to="{ name: 'module', params: { module_slug: 'ler' } }" 
+                                            :to="{ name: 'module', params: { module_slug: 'ler', target_audience: 'primeiro-ano' } }" 
                                             replace
                                         >
                                             <vue-circle
@@ -100,7 +100,7 @@
                                     <div>
                                         <router-link 
                                             class="clean-links" 
-                                            :to="{ name: 'module', params: { module_slug: 'ler' } }" 
+                                            :to="{ name: 'module', params: { module_slug: 'ler', target_audience: 'segundo-ano' } }" 
                                             replace
                                         >
                                             <vue-circle

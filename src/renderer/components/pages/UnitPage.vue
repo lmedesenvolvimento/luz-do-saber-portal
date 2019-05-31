@@ -18,7 +18,7 @@ export default {
     computed: {
         ...mapState('Unit', ['unit', 'navigator'])
     }, 
-    created(){
+    created(){        
         this.fetchUnit(this.$route.params)
     },
     beforeDestroy(){

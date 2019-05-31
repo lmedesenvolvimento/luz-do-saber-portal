@@ -149,9 +149,7 @@ export default {
         //preenche um vetor com o alfabeto, que perderá letras a cada jogada
         this.unraffleLetters = this.alphabet.slice(0);
         // inicia o contador
-        this.actualizeBingoTimer();
-
-        console.log(this.activity)
+        if (this.actualizeBingoTimer) this.actualizeBingoTimer();
     },
     mounted(){
         //insere as letras do jogador num array
