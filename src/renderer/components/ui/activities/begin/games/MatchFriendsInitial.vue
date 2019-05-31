@@ -17,9 +17,6 @@
                             :type="'key'"
                             :template="activity.item_template.key"
                         >
-                            <template slot="transfer-data">
-                                <div> {{ 'a' }}</div>
-                            </template>
                         </ls-card-droppable>
                         <ls-card-display class="name"> 
                             {{ dropFirstLetter(item.text) }}
@@ -109,7 +106,6 @@ export default {
                 padding: 0 !important;
                 .name{
                     justify-content: center;
-                    width: 100%;
                     position: relative;
                     right: 2rem;
                     .card-body{
@@ -119,8 +115,8 @@ export default {
                     }
                 }
                 .drop{
+                    width: 100px;
                     z-index: 1;
-
                 }
 
             }
@@ -128,7 +124,7 @@ export default {
         
     }
     .activity-keys{
-        flex-grow: 1;
+        // flex-grow: 1;
         .card-display{
             width: 100%;
             padding: 0 20px 0 20px;
