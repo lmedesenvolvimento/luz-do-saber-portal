@@ -25,9 +25,9 @@ const actions = {
         commit('SET_MODULES', data.modulos)
     },
 
-    destroyModules({ commit }){
-        commit('SET_MODULES', [])
-    }
+    destroyModule({commit}) {
+        commit('SET_ACTIVE_MODULE', null)
+    }    
 }
 
 export default { 

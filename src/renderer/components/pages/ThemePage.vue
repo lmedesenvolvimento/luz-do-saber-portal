@@ -55,7 +55,7 @@ export default {
         
     },
     created(){
-        this.fetchTheme(this.$route.params)
+        this.fetchTheme(this.$route.params)        
     },
     beforeDestroy(){
         this.destroyTheme()
