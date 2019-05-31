@@ -55,7 +55,6 @@ export default {
     mixins: [ListMixin, MapMixins, CreateAnswersMixins],
     created(){
         this.createAnswersArray()
-        this.addColorsToType('silaba')
     },
     mounted(){
         console.log('e', this.activity.items)
