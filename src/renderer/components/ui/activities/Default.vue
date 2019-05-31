@@ -17,7 +17,7 @@
                 :class="{ 
                     'flex-4': getValues.length >= 12 
                 }"
-                class="activity-values" 
+                class="activity-values checkmark-input-position" 
             >
                 <b-row align-v="center" align-h="center">
                     <b-col v-for="(item, position) in getValues" :key="position" align-self="center" :md="valueColSize" :sm="6" class="item"> 
