@@ -77,7 +77,7 @@ export const ListMixin = {
                 }
             }
             for (var key in this.activity.items.keys) {
-                if (this.activity.items.values[key].type === type) {
+                if (this.activity.items.keys[key].type === type) {
                     this.activity.items.keys[key].color = this.getColorsArray[key]
                 }
                 else {
