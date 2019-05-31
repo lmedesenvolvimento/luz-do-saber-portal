@@ -51,9 +51,7 @@ export default {
     computed: {
         getThemes(){
             const { params } = this.$route
-            return params.target_audience !== 'geral'
-                ? filter(this.activeModule.themes, { target_audience: params.target_audience })
-                : this.activeModule.themes
+            return filter(this.activeModule.themes, { target_audience: params.target_audience })
         },
         renderNavTitle(){
             return this.activeModule.slug ? 'Módulo ' + this.activeModule.slug : ''
