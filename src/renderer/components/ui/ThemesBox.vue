@@ -14,15 +14,21 @@
                     <b-col class="star" />
                 </b-row>
             </b-col>
-            <b-col class="pt-4 container-unit-image"> 
-                <div class="unit-image" :style="{ 'background-image': 'url('+ baseUrl + unit.cover_url + ')' }" />
-            </b-col>
+            <b-col class="container-unit-image"> 
+                <async-image :src="unit.cover_url" class="py-2">
+                    <template slot="image">
+                        <div class="unit-image" :style="{ 'background-image': `url(${unit.cover_url})` }" />
+                    </template>
+                </async-image>
+            </b-col>            
         </b-row>
     </div>
 </template>
 
 <script>
+import AsyncImage from '@ui/AsyncImage'
 export default {
+    components: { AsyncImage },
     props: {
         unit: {
             type: Object,
@@ -31,14 +37,7 @@ export default {
         themeColor: {
             type: String
         }
-    },
-    computed: {
-        baseUrl() {
-            return process.env.BASE_API_URL
-        },
-    },
-    methods: {
-    }
+    }    
 }
 </script>
 <style>
