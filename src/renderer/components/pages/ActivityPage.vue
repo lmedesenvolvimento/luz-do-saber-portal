@@ -14,6 +14,9 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import { find } from 'lodash'
+
+import AudioReader from '@/services/AudioReader'
+
 export default {
     components: {
         BaseActivity: require('@/components/ui/activities/BaseActivity').default,
@@ -40,10 +43,14 @@ export default {
     watch: {
         $route (newVal) {
             this.destroyActivity()
+            
+            AudioReader.stop()
 
             this.fetchActivity({ 
                 params: newVal.params, 
                 question: this.getQuestion
+            }).then(() => {
+                AudioReader.simplePlay(this.activity.statement.audio)
             })
         }
     },
@@ -53,6 +60,8 @@ export default {
         this.fetchActivity({ 
             params, 
             question: this.getQuestion
+        }).then(() => {
+            AudioReader.simplePlay(this.activity.statement.audio)
         })
     },
     beforeDestroy(){
