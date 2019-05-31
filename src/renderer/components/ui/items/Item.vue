@@ -35,6 +35,16 @@
                 :item="item"
                 :template="template"
             ></ls-item-texto-em-blocos>
+            
+            <ls-card-group-droppable
+                v-else-if="isDrop"
+                label="key.text" 
+                name="card-input"
+                :item="item"
+                :bg-color="item.color"
+            >
+                {{ item.text }}
+            </ls-card-group-droppable>   
         </div>
     </div>
 </template>
