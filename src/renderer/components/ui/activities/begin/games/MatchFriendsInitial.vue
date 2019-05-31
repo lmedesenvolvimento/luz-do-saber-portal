@@ -11,16 +11,16 @@
                     sm="12"
                 >
                     <b-col class="drop-and-name">
-                        <Item
+                        <ls-card-droppable
                             class="drop"
                             :item="item"
                             :type="'key'"
                             :template="activity.item_template.key"
                         >
                             <template slot="transfer-data">
-                                {{ item.first_letter }}
-                            </template> 
-                        </Item>
+                                <div> {{ 'a' }}</div>
+                            </template>
+                        </ls-card-droppable>
                         <ls-card-display class="name"> 
                             {{ dropFirstLetter(item.text) }}
                         </ls-card-display>
@@ -77,6 +77,10 @@ export default {
             return shuffle(this.activity.items.values)
         }
     },
+    created()
+    {
+        console.log(shuffle(this.activity.items.values));
+    },
     mounted(){
         this.createAnswersArray()
     },
@@ -101,7 +105,6 @@ export default {
     .activity-values{
         .item{
             .drop-and-name{
-                display: flex;
                 align-items: center;
                 padding: 0 !important;
                 .name{
