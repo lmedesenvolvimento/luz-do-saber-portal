@@ -105,6 +105,8 @@ const actions = {
         } catch (error) {
             console.warn(error)
         }
+        
+        return true
     },
     
     // clear list answer
