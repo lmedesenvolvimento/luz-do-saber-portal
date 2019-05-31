@@ -85,7 +85,7 @@
                                     <div>
                                         <router-link 
                                             class="clean-links" 
-                                            :to="{ name: 'module', params: { module_slug: 'ler', target_audience: 'first_year' } }" 
+                                            :to="{ name: 'module', params: { module_slug: 'ler', target_audience: 'primeiro-ano' } }" 
                                             replace
                                         >
                                             <vue-circle
@@ -100,7 +100,7 @@
                                     <div>
                                         <router-link 
                                             class="clean-links" 
-                                            :to="{ name: 'module', params: { module_slug: 'ler', target_audience: 'second_year' } }" 
+                                            :to="{ name: 'module', params: { module_slug: 'ler', target_audience: 'segundo-ano' } }" 
                                             replace
                                         >
                                             <vue-circle
