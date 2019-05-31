@@ -16,7 +16,11 @@
                             :item="item"
                             :type="'key'"
                             :template="activity.item_template.key"
-                        />
+                        >
+                            <template slot="transfer-data">
+                                {{ item.first_letter }}
+                            </template> 
+                        </Item>
                         <ls-card-display class="name"> 
                             {{ dropFirstLetter(item.text) }}
                         </ls-card-display>
