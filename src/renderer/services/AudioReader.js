@@ -1,8 +1,12 @@
 export default {
     audio: null,
     simplePlay (src) {
-        this.audio = new Audio(src)
-        this.audio.play()
+        try {
+            this.audio = new Audio(src)
+            this.audio.play()
+        } catch (e) {
+            console.warn(e)
+        }
     },
     stop(){
         if (!this.audio) return

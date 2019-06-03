@@ -23,12 +23,14 @@
                 :item="item"
                 :template="template"
             ></ls-card-display-validacao>
+
             <ls-display-18-items
                 v-if="template.custom === Types.custom.display18Items"
                 :type="type"
                 :item="item"
                 :template="template"
             ></ls-display-18-items>
+
             <ls-item-texto-em-blocos
                 v-if="template.custom === Types.custom.textoEmBlocos"
                 :type="type"
@@ -37,7 +39,7 @@
             ></ls-item-texto-em-blocos>
 
             <ls-card-group-droppable
-                if="isDrop"
+                v-if="template.custom === Types.custom.caixaPalavras"
                 label="key.text" 
                 name="card-input"
                 :item="item"
