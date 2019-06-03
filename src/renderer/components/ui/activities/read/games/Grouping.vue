@@ -55,6 +55,7 @@ export default {
     mixins: [ListMixin, MapMixins, CreateAnswersMixins],
     created(){
         this.createAnswersArray()
+        this.addColorsToType('substantivo_comum')
     },
     mounted(){
         console.log('e', this.activity.items)
