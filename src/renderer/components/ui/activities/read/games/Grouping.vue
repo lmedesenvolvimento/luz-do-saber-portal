@@ -55,10 +55,6 @@ export default {
     created(){
         this.createAnswersArray()
         this.addColorsToType('substantivo_comum')
-    },
-    mounted(){
-        console.log('e', this.activity.items)
-        console.log('f', this.activity.item_template)
     }
 }
 </script>
