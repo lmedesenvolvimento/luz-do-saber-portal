@@ -112,9 +112,6 @@ export default {
             return Math.abs(TOTAL_COLUMNS / this.activity.item_template.value.total_per_line)
         },
         ...mapState('Activity', ['activity'])
-    },
-    mounted(){
-        console.log('base activiyt',this.activity)
     }
 }
 </script>

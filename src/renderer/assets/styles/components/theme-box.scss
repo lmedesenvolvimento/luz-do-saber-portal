@@ -46,6 +46,9 @@ a:hover {
 					background-size: contain;
 					min-height: 40px;
 					padding: 0;
+					&.empty {
+						background-image: url("../images/icons/star-empty.png");
+					}
 				}
 			}
 			div.row {
