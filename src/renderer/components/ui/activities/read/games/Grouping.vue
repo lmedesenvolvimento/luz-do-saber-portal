@@ -1,25 +1,6 @@
 <template>
     <div class="container-fluid">
         <b-row class="reverse-column" align-v="center" align-h="center">
-            <b-col class="activity-keys">
-                <b-row class="fill" align-v="center" align-h="center">
-                    <b-col 
-                        v-for="item in activity.items.keys"
-                        :key="item.id"
-                        :sm="keyColSize"
-                        class="item"
-                    >
-                        <div class="caixa">
-                            <Item
-                                :item="item"
-                                :type="'key'"
-                                :template="activity.item_template.key"
-                                :group="true"
-                            />
-                        </div>
-                    </b-col>
-                </b-row>
-            </b-col>
             <b-col class="activity-values">
                 <b-row align-v="center" align-h="center">
                     <b-col 
@@ -36,7 +17,25 @@
                     </b-col>
                 </b-row>
             </b-col>
-        </b-row>        
+        </b-row>
+        <b-col class="activity-keys">
+            <b-row class="fill" align-v="center" align-h="center">
+                <b-col 
+                    v-for="item in activity.items.keys"
+                    :key="item.id"
+                    :sm="keyColSize"
+                    class="item"
+                >
+                    <div class="caixa">
+                        <Item
+                            :item="item"
+                            :type="'key'"
+                            :template="activity.item_template.key"
+                        />
+                    </div>
+                </b-col>
+            </b-row>
+        </b-col>
     </div>
 </template>
 
@@ -59,6 +58,7 @@ export default {
     },
     mounted(){
         console.log('e', this.activity.items)
+        console.log('f', this.activity.item_template)
     }
 }
 </script>
