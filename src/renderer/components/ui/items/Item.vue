@@ -35,9 +35,9 @@
                 :item="item"
                 :template="template"
             ></ls-item-texto-em-blocos>
-            
+
             <ls-card-group-droppable
-                v-else-if="isDrop"
+                if="isDrop"
                 label="key.text" 
                 name="card-input"
                 :item="item"
