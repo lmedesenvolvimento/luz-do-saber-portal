@@ -1,12 +1,12 @@
 <template>
     <div class="word-search container-fluid">
         <b-row class="word-container" align-h="center" align-v="center">
-            <b-col class="word-canvas" cols="8" @mouseleave="allowPainting(false)">
+            <b-col class="word-canvas" @mouseleave="allowPainting(false)">
                 <b-row align-h="center" align-v="center">
                     <ls-card-display>
                         <div class="grid">
                             <div v-for="(r, index) in grid" :key="index" class="letters">
-                                <div v-for="(l, letterIndex) in r" :key="letterIndex" :class="l.class" class="letter" @mousedown="allowPainting(true)" @mouseup="allowPainting(false)" @mousemove="paint(index, letterIndex)">
+                                <div v-for="(l, letterIndex) in r" :key="letterIndex" :class="l.class" class="letter" @mousedown="allowPainting(true)" @mouseup="allowPainting(false)" @mousemove="paint(index,letterIndex)">
                                     {{ l.value }}
                                 </div>
                             </div>
@@ -14,7 +14,7 @@
                     </ls-card-display>
                 </b-row>
             </b-col>
-            <b-col class="clues" cols="4">
+            <b-col class="clues">
                 <b-row v-for="(value, index) in items" :key="index" align-h="center" align-v="center">
                     <ls-card-display :valid="value.valid">
                         <div class="clue">
@@ -85,6 +85,11 @@ export default {
                     })
                 }
             }
+        },
+        touch(event, type, bool){
+            console.log(event)
+            console.log(type)
+            console.log(bool)
         },
         checkIfBelongs(word){
             let answer = ''
