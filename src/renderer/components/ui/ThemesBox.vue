@@ -9,9 +9,9 @@
                 <b-row class="px-3 py-1 activities-completed">{{ totalQuestionsComplete }}/{{ totalQuestions }}</b-row>
                 <b-row class="pt-2 mx-1 line" />
                 <b-row class="px-3 pt-2 pb-3 stars">
-                    <b-col class="star" :class="{'empty': totalStars <= 1}" />
-                    <b-col class="star" :class="{'empty': totalStars <= 2}" />
-                    <b-col class="star" :class="{'empty': totalStars <= 2.5}" />
+                    <b-col class="star" :class="{ 'empty': totalStars <= 1 }" />
+                    <b-col class="star" :class="{ 'empty': totalStars <= 2 }" />
+                    <b-col class="star" :class="{ 'empty': totalStars <= 2.5 }" />
                 </b-row>
             </b-col>
             <b-col class="container-unit-image"> 
@@ -56,12 +56,14 @@ export default {
         totalStars(){
             const stars = this.unit.questions.length ? ( MAX_STARS * this.unit.questions.length ) : 0
             const totalCompleteStars = this.unit.questions.map((q, index) => this.mapTotalCompleteStars(q, index))
-            return mean(totalCompleteStars)
+            return mean(totalCompleteStars) // calc for mean
         }
     },
     methods: {
         mapTotalCompleteStars(question, index){
-            return this.completeQuestions[index] ? this.completeQuestions[index].pointings.totalStars : 0 
+            return this.completeQuestions[index] 
+                ? this.completeQuestions[index].pointings.totalStars 
+                : 0 
         }
     }
 }
