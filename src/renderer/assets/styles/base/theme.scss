@@ -11,13 +11,13 @@ body {
 }
 
 .comecar > .navbar {
-    background-color: #C62222;
+    background: #C62222  url('../images/components/navbar/navbar-bg.png') repeat-x ;
 }
 
 .ler >.navbar {
-    background-color: green;
+    background: green  url('../images/components/navbar/navbar-bg.png') repeat-x ;
 }
 
 .escrever >.navbar {
-    background-color: cadetblue;
+    background: cadetblue  url('../images/components/navbar/navbar-bg.png') repeat-x ;
 }
