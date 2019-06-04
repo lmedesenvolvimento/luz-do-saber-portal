@@ -148,8 +148,7 @@ export default {
         ...mapState('User', ['currentUser'])
     },
     created(){
-        this.fetchModules()
-        this.recoveryUserDatabase()
+        this.fetchModules()        
     },
     methods: {
         submitLogin(){
@@ -183,7 +182,7 @@ export default {
             }
         },
         ...mapActions('Modules',['fetchModules']),
-        ...mapActions('User',['createUserDatabase','recoveryUserDatabase'])
+        ...mapActions('User',['createUserDatabase'])
     }
 }
 </script>
