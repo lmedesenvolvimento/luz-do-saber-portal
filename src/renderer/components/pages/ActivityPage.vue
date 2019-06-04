@@ -54,9 +54,8 @@ export default {
             })
         }
     },
-    created(){        
+    mounted(){        
         let { params } = this.$route
-        
         this.fetchActivity({ 
             params, 
             question: this.getQuestion

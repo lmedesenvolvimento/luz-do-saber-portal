@@ -29,7 +29,6 @@ const actions = {
 const getters = {
     getPointingsActivitiesByUnitId(state){
         return unit_id => {
-            console.log(state, unit_id)
             return chain(state.activities)
                 .values()
                 .filter({ unit_id: unit_id })

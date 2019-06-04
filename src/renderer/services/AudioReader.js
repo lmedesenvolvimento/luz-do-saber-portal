@@ -1,14 +1,13 @@
 export default {
     audio: null,
+    audioTimeoutId: null,
     simplePlay (src) {
         try {
+            if (!src) return
+            if (this.audioTimeoutId) clearTimeout(this.audioTimeoutId)
+            
             this.audio = new Audio(src)
-            const playPromise = this.audio.play()
-            playPromise.then(() =>{
-                console.log('playing...')
-            }).catch(e => {
-                console.log(e)
-            })
+            this.audio.play()            
         } catch (error) {
             console.warn(error)
         }
