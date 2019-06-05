@@ -10,14 +10,14 @@ body {
       color: $text-color;
 }
 
-.comecar > .navbar {
+.comecar .navbar {
     background: #C62222  url('../images/components/navbar/navbar-bg.png') repeat-x ;
 }
 
-.ler >.navbar {
+.ler .navbar {
     background: green  url('../images/components/navbar/navbar-bg.png') repeat-x ;
 }
 
-.escrever >.navbar {
+.escrever .navbar {
     background: cadetblue  url('../images/components/navbar/navbar-bg.png') repeat-x ;
 }
