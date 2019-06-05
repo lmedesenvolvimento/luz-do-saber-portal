@@ -25,6 +25,7 @@ export const GameSubtypes = {
     jigsaw: 'quebra-cabecas',
     memoryGame: 'jogo-da-memoria',
     wordSearch: 'caca-nomes',
+    wordBingo: 'bingo-de-palavras',
     boxWords: 'caixa-de-palavras',
     friendsName: 'meus-amigos-fotos',
     dominoName: 'domino-de-nomes',
