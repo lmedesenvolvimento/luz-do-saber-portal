@@ -9,7 +9,7 @@ $bg-color: #fff;
 $text-color: #5F4343;
 $text-invert: #fff;
 
-$navbar-bgcolor: #C62222;
+$navbar-bgcolor: #b03333;
 $navbar-title-size: 32px;
 
 /******
@@ -22,6 +22,12 @@ $navbar-height: 70px;
 
 $page-container-wrap-spacing: ($spacer * 8);
 $page-container-wrap-spacing-xs: ($spacer * 3);
+
+$theme-colors: (
+    comecar: #b03333,
+    ler: #1b9f49,
+    escrever: #0b84ac
+);
 
 // Icons
 $icon-width: 62px;
@@ -39,13 +45,6 @@ $icon-themes: (
     ler: '~@/assets/images/icons/ler/',
     escrever: '~@/assets/images/icons/escrever/'
 );
-
-// $icon-themes: (
-//     '~@/assets/images/icons/red/',
-//     '~@/assets/images/icons/blue/',
-//     '~@/assets/images/icons/green/',
-//     '~@/assets/images/icons/yellow/',
-// );
 
 // Grid
 $gutter-size: 20px;
