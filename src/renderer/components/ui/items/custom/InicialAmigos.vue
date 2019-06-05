@@ -1,8 +1,8 @@
 <template>
     <div>
         <ls-card-draggable
-            class="letters"
             v-if="type === 'value'"
+            class="letters"
             label="item.text" 
             name="card-input"
             type="key"
@@ -13,8 +13,8 @@
         </ls-card-draggable>
         <div v-if="type==='key'">
             <ls-card-droppable
-                class="names"
                 v-if="type === 'key'"
+                class="names"
                 label="item.text" 
                 name="card-input"
                 type="value"
