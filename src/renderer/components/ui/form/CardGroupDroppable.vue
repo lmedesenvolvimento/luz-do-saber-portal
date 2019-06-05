@@ -1,6 +1,24 @@
 <template>
     <drop @drop="onDrop">
-        <div v-if="answers.length" class="card-input drop-group" :style="{'background-image': 'url('+ baseUrl + item.images[0].url + ') no-repeat'}">
+        <div v-if="answers.length && item.images.length" class="card-input drop-group" :style="{'background-image': `url(${item.images[0].url}) no-repeat`}">
+            <div>
+                {{ item.text }}
+            </div>
+            <b-card
+                v-for="item in answers" 
+                :key="item.id"
+                no-body
+                class="drop-group-item"
+                :class="{ 'invalid': invalid, 'valid': valid }"
+            >
+                <b-card-body>
+                    <slot name="transfer-data">
+                        <div> {{ item.text }}</div>
+                    </slot>
+                </b-card-body>
+            </b-card>
+        </div>
+        <div v-else-if="answers.length" class="card-input drop-group">
             <div>
                 {{ item.text }}
             </div>
@@ -22,7 +40,7 @@
             <div>
                 {{ item.text }}
             </div>
-            <img :src="baseUrl + item.images[0].url" alt="">
+            <img v-if="item.images.length" :src="item.images[0].url" alt="">
         </div>
     </drop>
 </template>
@@ -38,11 +56,6 @@ export default {
         return {
             transferData: {},
             answers: [],
-        }
-    },
-    computed: {
-        baseUrl(){
-            return process.env.BASE_API_URL
         }
     },
     created(){

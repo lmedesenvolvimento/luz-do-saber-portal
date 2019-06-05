@@ -13,6 +13,10 @@ import {
     getExtenalParams
 } from './helpers'
 
+import {
+    mapActivity
+} from './helpers/pointings'
+
 
 const state = {
     activity: null,
@@ -79,7 +83,7 @@ const mutations = {
 
         let totalStars = (MaxStars - penalty)
 
-        state.log.pointings.totalStars = totalStars < 0 ? 0 : totalStars
+        state.log.pointings.totalStars = totalStars < 0 ? 0 : totalStars        
 
         return penalty
     },
@@ -105,6 +109,8 @@ const actions = {
         } catch (error) {
             console.warn(error)
         }
+        
+        return true
     },
     
     // clear list answer
@@ -155,6 +161,12 @@ const actions = {
     // Feedback Actions
     triggerSuccess({commit, dispatch}){
         commit('TRIGGER_SUCCESS')
+                
+        // register user progress
+        let newActivity = Object.assign(state.activity, state.log)
+        let payload = { data: mapActivity(newActivity), type: 'activities' }
+
+        dispatch('Pointings/add', payload, { root: true })        
         dispatch('showAlertActivitySuccess', null, { root: true })
     },
 

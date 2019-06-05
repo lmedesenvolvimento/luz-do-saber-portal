@@ -8,7 +8,7 @@ export const ActivityTypes = {
             image: 'atividade-imagem-texto'
         }
     },
-    game: 'jogo'
+    game: 'jogo',
 }
 
 export const ActivitySubtypes = {
@@ -25,15 +25,18 @@ export const GameSubtypes = {
     rearrangeName: 'monte-seu-nome',
     jigsaw: 'quebra-cabecas',
     memoryGame: 'jogo-da-memoria',
+    wordSearch: 'caca-nomes',
     boxWords: 'caixa-de-palavras',
     friendsName: 'meus-amigos-fotos',
     dominoName: 'domino-de-nomes',
+    grouping: 'agrupamento',
+    matchFriendsInitial: 'encaixe-letras',
 }
 
 export const ItemTypes = {
     primitive: {
         text: 'texto',
-        image: 'imagem'
+        image: 'imagem',
     },
     custom: {
         crachaBox: 'cracha-box',
@@ -44,6 +47,6 @@ export const ItemTypes = {
         checkmark: 'checkmark'
     },
     tags: {
-        input: 'input'
+        input: 'input',
     }
 }

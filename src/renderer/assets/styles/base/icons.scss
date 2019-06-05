@@ -1,15 +1,24 @@
-@each $theme in $icon-themes {
-    @each $icon-name in $icon-names{
-        .#{$icon-name}{
-          @include embed_image("#{$theme}#{$icon-name}.png", $icon-width, $icon-height);
-          max-height: $icon-height;
-          user-select: none;
-          &:hover, &:focus, &:active{
-              cursor: pointer;
-          }
+@each $theme, $value in $icon-themes {
+    @each $icon-name in $icon-names {
+        .#{$theme} {
+            .#{$icon-name} {
+                @include embed_image("#{$value}#{$icon-name}.png", $icon-width, $icon-height);
+                max-height: $icon-height;
+                user-select: none;
+
+                &:hover,
+                &:focus,
+                &:active {
+                    cursor: pointer;
+                }
+            }
         }
     }
+<<<<<<< HEAD
 }
 
 
 // $navbar-bgcolor
+=======
+}
+>>>>>>> master

@@ -4,7 +4,7 @@
             v-if="theme"
             :navbar-title="renderNavTitle"
             :navbar-subtitle="'Unidades'"
-            :navbar-icon="'https://placeimg.com/480/480/tech'"
+            :navbar-icon="themeImage"
         />
         <div class="page-container-wrap-spacing">
             <b-row v-if="theme">
@@ -51,11 +51,18 @@ export default {
         renderNavTitle(){
             return this.theme.title ? 'Tema ' + this.theme.title : ''
         },
+        baseUrl(){
+            return process.env.BASE_API_URL ? process.env.BASE_API_URL : 'https://luz-do-saber-staging.herokuapp.com'
+
+        },
+        themeImage(){
+            return this.theme.cover_url ? this.baseUrl + this.theme.cover_url : ''
+        },
         ...mapState('Theme', ['theme']),
         
     },
     created(){
-        this.fetchTheme(this.$route.params)
+        this.fetchTheme(this.$route.params)        
     },
     beforeDestroy(){
         this.destroyTheme()
