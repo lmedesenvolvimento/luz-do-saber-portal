@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <b-container class="fill">
+        <b-container class="fill" :class="$route.params.module_slug">
             <transition name="page" mode="out-in">
                 <router-view></router-view>
             </transition>
