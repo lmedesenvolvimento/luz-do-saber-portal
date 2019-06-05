@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid">        
+    <div class="container-fluid">
         <b-row align-v="center">
             <b-col cols="3" align-v="center" align-h="center">
                 <b-row class="bingo-container" align-v="center" align-h="center">
@@ -315,7 +315,7 @@ export default {
     margin-top: 4px;
     z-index: 2;    
     &.bingo-counter-animation{
-        @include pulse;
+        @include rubberBand;
     }
 }
 .bingo-card{
