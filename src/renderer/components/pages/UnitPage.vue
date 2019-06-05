@@ -1,5 +1,5 @@
 <template>
-    <div v-if="unit" id="unit" class="page-container">
+    <div v-if="unit" id="unit" class="page-container" :class="$route.params.module_slug">
         <navbar :navbar-title="renderNavTitle" :navbar-icon="unitImage" :custom="true">
         </navbar>
         <ls-gameplay></ls-gameplay>
@@ -20,11 +20,8 @@ export default {
         renderNavTitle(){
             return this.unit.title ? this.unit.title : ''
         },
-        baseUrl(){
-            return process.env.BASE_API_URL ? process.env.BASE_API_URL : 'https://luz-do-saber-staging.herokuapp.com'
-        },
         unitImage(){
-            return this.unit.cover_url ? this.baseUrl + this.unit.cover_url : ''
+            return this.unit.cover_url ? this.unit.cover_url : ''
         },
     }, 
     created(){        
