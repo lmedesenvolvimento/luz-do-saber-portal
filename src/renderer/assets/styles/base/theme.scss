@@ -9,3 +9,11 @@ body {
       background-size: cover;
       color: $text-color;
 }
+
+@each $color, $value in $theme-colors {
+    .#{$color} {
+        .navbar {
+            background-color: $value;
+        }
+    }
+}

@@ -3,7 +3,6 @@
         v-if="activeModule" 
         id="module" 
         class="page-container" 
-        :class="activeModule ? activeModule.slug : ''"
     >
         <navbar
             :navbar-title="renderNavTitle"
@@ -12,7 +11,7 @@
         />
         <div class="page-container-wrap-spacing">
             <b-row>
-                <b-col v-for="theme in activeModule.themes" :key="theme.id" cols="12" md="6">
+                <b-col v-for="theme in getThemes" :key="theme.id" cols="12" md="6">
                     <div class="my-2 circle-box">
                         <router-link :to="{ name: 'theme', params: { module_slug: $route.params.module_slug, theme_slug: theme.slug } }">
                             <vue-circle
@@ -25,11 +24,6 @@
                         </router-link>
                     </div>
                 </b-col>
-                <b-col cols="12">
-                    <b-btn variant="link" to="/componentes">
-                        Componentes
-                    </b-btn>
-                </b-col>
             </b-row>
         </div>
     </div>
@@ -37,6 +31,7 @@
 
 <script>
 import { mapActions, mapState } from 'vuex'
+import { filter } from 'lodash'
 import { RouteMixin } from './index'
 import VueCircle from '../ui/CircleProgressThemes'
 import Navbar from '../ui/navbars/Navbar'
@@ -53,19 +48,24 @@ export default {
         }
     },
     computed: {
-        ...mapState('Modules', ['activeModule']),
+        getThemes(){
+            const { params } = this.$route
+            if (params.target_audience !== 'geral'){
+                return filter(this.activeModule.themes, { target_audience: params.target_audience })
+            } else {
+                return this.activeModule.themes
+            }
+        },
         renderNavTitle(){
             return this.activeModule.slug ? 'Módulo ' + this.activeModule.slug : ''
-        },
-        baseUrl() {
-            return process.env.BASE_API_URL
-        },
+        },        
+        ...mapState('Modules', ['activeModule'])
     },
     created(){
         this.fetchModule(this.$route.params.module_slug)
     },
     beforeDestroy(){
-        this.destroyModules();
+        this.destroyModule();
     },
     methods: {
         getModuleImage(module){
@@ -93,9 +93,9 @@ export default {
             }
         },
         getThemeImage(theme) {
-            return theme.cover_url ? this.baseUrl + theme.cover_url : 'http://pngimg.com/uploads/book/book_PNG51049.png'
+            return theme.cover_url ? theme.cover_url : 'http://pngimg.com/uploads/book/book_PNG51049.png'
         },
-        ...mapActions('Modules', ['fetchModule', 'destroyModules'])
+        ...mapActions('Modules', ['fetchModule', 'destroyModule'])
     }
 }
 </script>
