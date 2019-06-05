@@ -27,7 +27,7 @@ export default {
             return this.unit.cover_url ? this.baseUrl + this.unit.cover_url : ''
         },
     }, 
-    created(){
+    created(){        
         this.fetchUnit(this.$route.params)
     },
     beforeDestroy(){

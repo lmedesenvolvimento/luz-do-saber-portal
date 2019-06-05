@@ -1,5 +1,5 @@
 <template>
-    <div id="theme" class="page-container">
+    <div id="theme" class="page-container" :class="$route.params.module_slug">
         <navbar
             v-if="theme"
             :navbar-title="renderNavTitle"
@@ -62,7 +62,7 @@ export default {
         
     },
     created(){
-        this.fetchTheme(this.$route.params)
+        this.fetchTheme(this.$route.params)        
     },
     beforeDestroy(){
         this.destroyTheme()
