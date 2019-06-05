@@ -1,5 +1,8 @@
 .card-display{
     @include custom-card;
+    &.card-sm{
+        @include custom-card-sm;
+    }
 }
 
 .card-input{

@@ -2,7 +2,7 @@
     position: relative;
     width: 48px;
     height: 48px;
-    @include embed_image('~@/assets/images/icons/red/counter.png', 50px, 50px);
+    @include embed_image('~@/assets/images/icons/comecar/counter.png', 50px, 50px);
     > span{
         position: absolute;
         display: flex;
@@ -28,16 +28,14 @@
 }
 
 // Flexbox
-.row{
-    &.column{
-        flex-direction: column;
-    }
-    &.reverse{
-        flex-direction: row-reverse;
-    }
-    &.reverse-column{
-        flex-direction: column-reverse;
-    }
+.column{
+    flex-direction: column !important;
+}
+.reverse{
+    flex-direction: row-reverse !important;
+}
+.reverse-column{
+    flex-direction: column-reverse !important;
 }
 
 .flex{

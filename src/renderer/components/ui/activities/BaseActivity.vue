@@ -27,11 +27,11 @@
             />
         </div>
         <div v-else-if="types.game === activity.type.slug" class="game"> 
-            <!-- <ls-activity-number-letter 
-                v-if="subtypes.column === activity.subtype.slug" 
+            <ls-activity-begin-bingo
+                v-if="gameSubtypes.bingo === activity.subtype.slug" 
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
-            /> -->
+            />
             <ls-activity-begin-half 
                 v-if="gameSubtypes.hideHalf === activity.subtype.slug" 
                 :value-col-size="valueColSize"
@@ -49,6 +49,21 @@
             />
             <ls-activity-begin-jigsaw 
                 v-if="gameSubtypes.jigsaw === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+            />
+            <ls-activity-begin-domino-name
+                v-if="gameSubtypes.dominoName === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+            />
+            <ls-activity-begin-memory-game 
+                v-if="gameSubtypes.memoryGame === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+            />
+            <ls-activity-begin-word-search 
+                v-if="gameSubtypes.wordSearch === activity.subtype.slug" 
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
             />
@@ -102,9 +117,6 @@ export default {
             return Math.abs(TOTAL_COLUMNS / this.activity.item_template.value.total_per_line)
         },
         ...mapState('Activity', ['activity'])
-    },
-    mounted(){
-        console.log('base activity',this.activity)
     }
 }
 </script>

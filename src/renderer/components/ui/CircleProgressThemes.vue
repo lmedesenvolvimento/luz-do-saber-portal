@@ -15,7 +15,7 @@
                         :show-percent="false"
             >
                 <div class="img-container" :style="{'background-color': color.color }">
-                    <img :src="image" class="img-fluid">
+                    <async-image :src="image" class="img-fluid"></async-image>
                 </div>
             </vue-circle>
         </b-col>
@@ -28,11 +28,13 @@
 </template>
 
 <script>
-import VueCircle from 'vue2-circle-progress';
+import VueCircle from 'vue2-circle-progress'
+import AsyncImage from '@ui/AsyncImage'
 
 export default {
     components: {
-        VueCircle
+        VueCircle,
+        AsyncImage
     },
     props: {
         label: String,

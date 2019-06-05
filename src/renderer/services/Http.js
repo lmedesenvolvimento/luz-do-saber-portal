@@ -7,7 +7,7 @@ const cache = setupCache({
 
 const api = axios.create({
     adapter: cache.adapter,
-    baseURL: process.env.BASE_API_URL ? process.env.BASE_API_URL : 'https://luz-do-saber-staging.herokuapp.com'
+    baseURL: process.env.BASE_API_URL
 })
 
 export default api
