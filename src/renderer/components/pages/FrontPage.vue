@@ -1,5 +1,5 @@
 <template>
-    <div id="frontpage" class="page-container">        
+    <div id="frontpage" class="page-container comecar">
         <main>
             <b-container fluid>
                 <b-row align-v="center" align-h="center" class="flex-2 content">          
@@ -148,8 +148,7 @@ export default {
         ...mapState('User', ['currentUser'])
     },
     created(){
-        this.fetchModules()
-        this.recoveryUserDatabase()
+        this.fetchModules()        
     },
     methods: {
         submitLogin(){
@@ -183,7 +182,7 @@ export default {
             }
         },
         ...mapActions('Modules',['fetchModules']),
-        ...mapActions('User',['createUserDatabase','recoveryUserDatabase'])
+        ...mapActions('User',['createUserDatabase'])
     }
 }
 </script>

@@ -62,8 +62,10 @@
         transform-style: preserve-3d;
         backface-visibility: hidden;
         &.flip{
-            -webkit-animation: flip-scale-up-ver 0.5s linear both;
             animation: flip-scale-up-ver 0.5s linear both;
+        }
+        &.flipped{
+            transform: rotateY(180deg);
         }
         .card-display{
             position: absolute;
