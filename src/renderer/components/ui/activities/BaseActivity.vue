@@ -52,8 +52,8 @@
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
             />
-            <ls-activity-begin-domino-name
-                v-if="gameSubtypes.dominoName === activity.subtype.slug" 
+            <ls-activity-match-friends-initial 
+                v-if="gameSubtypes.matchFriendsInitial === activity.subtype.slug" 
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
             />

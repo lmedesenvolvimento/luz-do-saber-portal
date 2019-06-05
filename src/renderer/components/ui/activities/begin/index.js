@@ -9,4 +9,5 @@ export default {
     'ls-activity-begin-bingo': require('@ui/activities/begin/games/Bingo.vue').default,
     'ls-activity-begin-word-search': require('@ui/activities/begin/games/WordSearch.vue').default,
     'ls-activity-friends-name': require('@ui/activities/begin/games/FriendsName.vue').default,
+    'ls-activity-match-friends-initial': require('@ui/activities/begin/games/MatchFriendsInitial.vue').default,
 }
