@@ -1,5 +1,5 @@
 <template>
-    <div v-if="unit" id="unit" class="page-container" :class="$route.params.module_slug">
+    <div v-if="unit" id="unit" class="page-container">
         <navbar :navbar-title="renderNavTitle" :navbar-icon="unitImage" :custom="true">
         </navbar>
         <ls-gameplay></ls-gameplay>
