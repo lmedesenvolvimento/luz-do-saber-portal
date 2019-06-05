@@ -77,6 +77,11 @@
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
             />            
+            <ls-activity-grouping
+                v-if="gameSubtypes.grouping === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+            />            
         </div>
     </div>
 </template>
