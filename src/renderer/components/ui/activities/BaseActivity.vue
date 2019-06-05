@@ -1,6 +1,6 @@
 <template>           
     <div id="base">        
-        <div v-if="isActivity || isJoinActivity" class="activity">        
+        <div v-if="isActivity || isJoinActivity || isAudioActivity" class="activity">        
             <ls-activity-default 
                 v-if="activitySubtypes.row === activity.subtype.slug" 
                 :value-col-size="valueColSize"
@@ -109,6 +109,9 @@ export default {
         },
         isJoinActivity(){
             return values(ActivityTypes.activity.join).includes(this.activity.type.slug)
+        },
+        isAudioActivity(){
+            return values(ActivityTypes.activity.audio).includes(this.activity.type.slug)
         },
         keyColSize(){
             return Math.abs(TOTAL_COLUMNS / this.activity.item_template.key.total_per_line)
