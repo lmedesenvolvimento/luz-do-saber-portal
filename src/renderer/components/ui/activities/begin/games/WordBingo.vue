@@ -11,8 +11,14 @@
                         <h2>{{ getDuration }}</h2>
                     </div>                    
                 </b-row>                
-                <b-row align-h="start">                   
-                    teste
+                <b-row align-h="start">
+                    <div
+                        v-for="word in raffleWords"
+                        :key="word"
+                        class="bingo-word" 
+                    >
+                        {{ word }}
+                    </div>
                 </b-row>                
             </b-col>
             <b-col cols="9" align-v="center" align-h="center">
@@ -97,7 +103,8 @@ export default {
     mixins: [MapMixins, ListMixin, CreateAnswersMixins],
     data(){
         return {
-            words: []
+            words: [],
+            raffleWords: []
         }
     },
     computed:{
@@ -115,14 +122,15 @@ export default {
         ...mapState('Activity', ['log'])    
     },    
     created(){
+        // pega os valores e os joga numa matriz de palavras
         this.words = [[],[]]
         for(let i = 0; i < this.getValues.length; i++){
             if(i < this.activity.total_correct_items){
-                this.words[0].push(this.getValues[i].text)                
+                this.words[0].push(this.getValues[i].text)                             
             }else{
                 this.words[1].push(this.getValues[i].text)
             }
-            console.log(this.words);
+            this.raffleWords.push(this.getValues[i].text)  
         }
         
     },
@@ -178,14 +186,15 @@ export default {
 .bingo-card-letter .card-body{
     background-color: white;
 }    
-.bingo-letter{
+.bingo-word{
     display: inline-grid;
     text-align: center;
+    padding-top: 20px;
     color: white;
     background-color: #dfd9db;
-    border-radius: 15px;
-    width: 30px;
-    height: 30px;
+    border-radius: 30px;
+    width: 60px;
+    height: 60px;
     margin: 2px;
     &.bingo-raffle-letter{
         background-color: #13c5c4;
