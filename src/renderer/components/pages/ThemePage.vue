@@ -1,5 +1,5 @@
 <template>
-    <div id="theme" class="page-container" :class="$route.params.module_slug">
+    <div id="theme" class="page-container">
         <navbar
             v-if="theme"
             :navbar-title="renderNavTitle"
