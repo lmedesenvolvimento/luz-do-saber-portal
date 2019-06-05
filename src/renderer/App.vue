@@ -9,7 +9,16 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
+    created() {
+        this.recoveryUserDatabase()
+        this.recoveryPointingsDatabase()
+    },
+    methods: {
+        ...mapActions('User',['recoveryUserDatabase']),
+        ...mapActions('Pointings',['recoveryPointingsDatabase'])
+    }
 }
 </script>
 

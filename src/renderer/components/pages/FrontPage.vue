@@ -1,5 +1,5 @@
 <template>
-    <div id="frontpage" class="page-container">        
+    <div id="frontpage" class="page-container comecar">
         <main>
             <b-container fluid>
                 <b-row align-v="center" align-h="center" class="flex-2 content">          
@@ -66,7 +66,7 @@
                                         <router-link 
                                             v-else
                                             class="clean-links" 
-                                            :to="{ name: 'module', params: { module_slug: m.slug } }" 
+                                            :to="{ name: 'module', params: { module_slug: m.slug, target_audience: 'geral' } }" 
                                             replace
                                         >
                                             <vue-circle
@@ -85,7 +85,7 @@
                                     <div>
                                         <router-link 
                                             class="clean-links" 
-                                            :to="{ name: 'module', params: { module_slug: 'ler' } }" 
+                                            :to="{ name: 'module', params: { module_slug: 'ler', target_audience: 'primeiro-ano' } }" 
                                             replace
                                         >
                                             <vue-circle
@@ -100,7 +100,7 @@
                                     <div>
                                         <router-link 
                                             class="clean-links" 
-                                            :to="{ name: 'module', params: { module_slug: 'ler' } }" 
+                                            :to="{ name: 'module', params: { module_slug: 'ler', target_audience: 'segundo-ano' } }" 
                                             replace
                                         >
                                             <vue-circle
@@ -148,8 +148,7 @@ export default {
         ...mapState('User', ['currentUser'])
     },
     created(){
-        this.fetchModules()
-        this.recoveryUserDatabase()
+        this.fetchModules()        
     },
     methods: {
         submitLogin(){
@@ -183,7 +182,7 @@ export default {
             }
         },
         ...mapActions('Modules',['fetchModules']),
-        ...mapActions('User',['createUserDatabase','recoveryUserDatabase'])
+        ...mapActions('User',['createUserDatabase'])
     }
 }
 </script>

@@ -11,17 +11,17 @@ export default new Router({
             component: require('@/components/pages/FrontPage.vue').default
         },
         {
-            path: '/game/:module_slug',
+            path: '/game/:module_slug/:target_audience',
             name: 'module',
             component: require('@/components/pages/ModulePage.vue').default
         },
         {
-            path: '/game/:module_slug/:theme_slug',
+            path: '/game/:module_slug/:target_audience/:theme_slug',
             name: 'theme',
             component: require('@/components/pages/ThemePage.vue').default
         },
         {
-            path: '/game/:module_slug/:theme_slug/:unit_slug',
+            path: '/game/:module_slug/:target_audience/:theme_slug/:unit_slug',
             name: 'unit',
             component: require('@/components/pages/UnitPage.vue').default,
             children: [
@@ -31,11 +31,6 @@ export default new Router({
                     component: require('@/components/pages/ActivityPage.vue').default
                 }
             ]
-        },
-        {
-            path: '/componentes',
-            name: 'components',
-            component: require('@/components/pages/ComponentPage.vue').default
         },
         {
             path: '*',
