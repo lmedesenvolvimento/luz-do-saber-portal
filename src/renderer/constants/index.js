@@ -26,6 +26,7 @@ export const GameSubtypes = {
     matchFriendsInitial: 'encaixe-letras',
     draggingSyllables: 'formacao-de-palavras',
     memoryGame: 'jogo-da-memoria',
+    wordSearch: 'caca-nomes',
     boxWords: 'caixa-de-palavras',
     friendsName: 'meus-amigos-fotos',
     dominoName: 'domino-de-nomes',
