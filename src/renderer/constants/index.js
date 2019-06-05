@@ -38,11 +38,11 @@ export const ItemTypes = {
         image: 'imagem',
     },
     custom: {
-        crachaBox: 'cracha-box',
-        cardDisplayValidacao: 'card-display-com-validacao',
-        display18Items: 'display-18-items',
-        textoEmBlocos: 'texto-em-blocos',
-        memoryCardText: 'jogo-da-memoria-texto',
+        crachaBox: 'game-cracha-box',
+        cardDisplayValidacao: 'game-card-display-com-validacao',
+        display18Items: 'game-display-18-items',
+        textoEmBlocos: 'game-texto-em-blocos',
+        memoryCardText: 'game-jogo-da-memoria-texto',
         caixaPalavras: 'game-caixa-de-palavras',
     },
     tags: {
