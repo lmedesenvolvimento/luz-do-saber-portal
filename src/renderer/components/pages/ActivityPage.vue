@@ -43,7 +43,7 @@ export default {
     watch: {
         $route (newVal) {
             this.destroyActivity()
-            
+
             AudioReader.stop()
 
             this.fetchActivity({ 
@@ -54,9 +54,8 @@ export default {
             })
         }
     },
-    created(){        
+    mounted(){        
         let { params } = this.$route
-        
         this.fetchActivity({ 
             params, 
             question: this.getQuestion
@@ -66,6 +65,7 @@ export default {
     },
     beforeDestroy(){
         this.destroyActivity()
+        AudioReader.stop()
     },    
     methods: {
         ...mapActions('Activity', ['fetchActivity', 'destroyActivity'])

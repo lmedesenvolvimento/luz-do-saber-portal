@@ -28,7 +28,13 @@ const actions = {
             data: {
                 name: payload.name
             },
-            friends: {}
+            friends: {},
+            pointings: {
+                units: {},
+                themes: {},
+                modules: {},
+                activities: {},
+            }
         }).write()
         
         let user = db.value()

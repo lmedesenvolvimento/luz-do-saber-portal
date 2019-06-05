@@ -57,6 +57,26 @@
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
             />
+            <ls-activity-begin-memory-game 
+                v-if="gameSubtypes.memoryGame === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+            />
+            <ls-activity-begin-word-search 
+                v-if="gameSubtypes.wordSearch === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+            />
+            <ls-activity-box-of-words 
+                v-if="gameSubtypes.boxWords === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+            />
+            <ls-activity-friends-name     
+                v-if="gameSubtypes.friendsName === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+            />            
         </div>
     </div>
 </template>
@@ -97,9 +117,6 @@ export default {
             return Math.abs(TOTAL_COLUMNS / this.activity.item_template.value.total_per_line)
         },
         ...mapState('Activity', ['activity'])
-    },
-    mounted(){
-        console.log('base activiyt',this.activity)
     }
 }
 </script>

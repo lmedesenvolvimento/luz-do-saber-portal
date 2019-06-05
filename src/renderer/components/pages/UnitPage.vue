@@ -1,5 +1,5 @@
 <template>
-    <div v-if="unit" id="unit" class="page-container">
+    <div v-if="unit" id="unit" class="page-container" :class="$route.params.module_slug">
         <navbar :navbar-title="unit.title" :navbar-subtitle="'Lorem Ipsum'" :navbar-icon="'https://placeimg.com/480/480/tech'" :custom="true">
         </navbar>
         <ls-gameplay></ls-gameplay>
