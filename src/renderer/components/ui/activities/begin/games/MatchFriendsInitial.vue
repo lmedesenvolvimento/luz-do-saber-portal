@@ -10,18 +10,24 @@
                     md="6"
                     sm="12"
                 >
-                    <b-col class="drop-and-name">
-                        <ls-card-droppable
-                            class="drop"
-                            :item="item"
-                            :type="'key'"
-                            :template="activity.item_template.key"
-                        >
-                        </ls-card-droppable>
-                        <ls-card-display class="name"> 
-                            {{ dropFirstLetter(item.text) }}
-                        </ls-card-display>
-                    </b-col>
+                    <b-row class="m-1 drop-and-name">
+                        <b-col class="drop">
+                            <ls-card-droppable
+                                :item="item"
+                                :type="'key'"
+                                :template="activity.item_template.key"
+                            >
+                                <template slot="transfer-data">
+                                    {{ item.first_letter }}
+                                </template>
+                            </ls-card-droppable>
+                        </b-col>
+                        <b-col class="name-container">
+                            <ls-card-display class="name"> 
+                                {{ dropFirstLetter(item.text) }}
+                            </ls-card-display>
+                        </b-col>
+                    </b-row>
                 </b-col>
             </b-row>
             <b-row class="pb-4 activity-values" align-v="center" align-h="center">
@@ -99,37 +105,42 @@ export default {
 </script>
 
 <style lang="scss">
-    .activity-values{
+    .activity-keys{
+        padding-left: 1.4rem;
+
         .item{
             .drop-and-name{
+                display: flex;
+                justify-content: center;
                 align-items: center;
-                padding: 0 !important;
-                .name{
-                    justify-content: center;
+                .name-container
+                {
+                    padding: 0;
                     position: relative;
-                    right: 2rem;
+                    right: 1.4rem;
+                    max-width: 200px;
+
+                }
+                .name * >{
+                    display: flex;
+                    justify-content: center;
+                    padding: 0 !important;
                     .card-body{
                         padding-left: 1.4rem;
                         text-align: left;
-                        font-size: 18px;
+                        font-size: 22px;
+                        flex-grow: 1;
                     }
                 }
                 .drop{
-                    width: 100px;
                     z-index: 1;
+                    max-width: 80px;
+                    padding: 0 !important;
+                    .card-body{
+                        font-size: 24px;
+                    }
                 }
-
             }
-        }          
-        
-    }
-    .activity-keys{
-        // flex-grow: 1;
-        .card-display{
-            width: 100%;
-            padding: 0 20px 0 20px;
         }
     }
-    
-   
 </style>
