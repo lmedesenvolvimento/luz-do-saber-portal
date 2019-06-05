@@ -3,7 +3,7 @@
         v-if="activeModule" 
         id="module" 
         class="page-container" 
-        :class="activeModule ? activeModule.slug : ''"
+        :class="$route.params.module_slug"
     >
         <navbar
             :navbar-title="renderNavTitle"

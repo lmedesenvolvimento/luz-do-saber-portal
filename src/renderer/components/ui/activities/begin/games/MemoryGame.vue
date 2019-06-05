@@ -4,7 +4,7 @@
             <b-col class="activity-values">
                 <b-row align-v="center" align-h="center">
                     <b-col v-for="(card, index) in cards" :class="card.class" :key="card.key" class="item">
-                        <div class="card-face" :class="card.class" v-on:click="toggleFlip(index, card)">                            
+                        <div class="card-face" :class="card.class" @click="toggleFlip(index, card)">                            
                             <ls-card-display
                                 label="item.text" 
                                 :type="'text'"
@@ -52,6 +52,7 @@ export default {
     },
     created(){
         this.cards = this.createArray(this.activity.items)
+        setTimeout(() => this.cards.map( function(c){ c.class.flipped = false }), 6000);
         this.createAnswersArray()
         this.setActivityAttrs({ total_correct_items: this.getKeys.length })
     },
@@ -73,7 +74,7 @@ export default {
             cards = values.concat(values2)
 
             for(let i = 0; i<cards.length; i++){
-                cards[i]['class'] = {flip: false, success: false, fail: false}
+                cards[i]['class'] = {flip: false, flipped: true, success: false, fail: false}
             }
 
             return shuffle(cards)
