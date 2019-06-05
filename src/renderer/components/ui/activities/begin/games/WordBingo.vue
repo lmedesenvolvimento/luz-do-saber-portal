@@ -13,7 +13,7 @@
                 </b-row>                
                 <b-row align-h="start">
                     <div
-                        v-for="word in raffleWords"
+                        v-for="word in unraffleWords"
                         :key="word"
                         class="bingo-word" 
                     >
@@ -104,7 +104,10 @@ export default {
     data(){
         return {
             words: [],
-            raffleWords: []
+            unraffleWords: [],
+            raffleWords: [],
+            timer: 5000,
+            showTimer: true
         }
     },
     computed:{
@@ -123,16 +126,22 @@ export default {
     },    
     created(){
         // pega os valores e os joga numa matriz de palavras
-        this.words = [[],[]]
+        this.words = [[],[]]   
+        for(let i = 0; i < this.getKeys.length; i++){
+            this.unraffleWords.push(this.getKeys[i].text)            
+        }      
+        this.unraffleWords = shuffle(this.unraffleWords)
         for(let i = 0; i < this.getValues.length; i++){
             if(i < this.activity.total_correct_items){
                 this.words[0].push(this.getValues[i].text)                             
             }else{
                 this.words[1].push(this.getValues[i].text)
             }
-            this.raffleWords.push(this.getValues[i].text)  
+            if(!this.searchString(this.unraffleWords, this.getValues[i].text)){
+                this.unraffleWords.push(this.getValues[i].text) 
+            } 
         }
-        
+        this.actualizeBingoTimer();
     },
     mounted() {
         this.createAnswersArray()
@@ -141,7 +150,31 @@ export default {
         checkRaffle (item) {    
             // caso o item já tenha sido checado, retornamos aqui mesmo
             
-        }
+        },
+        searchString(arr, str) {
+            for(let i = 0; i < arr.length; i++){
+                if (arr[i].match(str)) return true;
+            }
+            return false;
+        },
+        actualizeBingoTimer(){
+            // decresce o contador até zero
+            if(this.unraffleWords.length > 0){
+                if(this.timer > 0){
+                    setTimeout(() => {
+                        this.timer -= 1000;
+                        this.actualizeBingoTimer();
+                    },1000) 
+                }
+                // quando chega a zero, e exibindo o contador, ele seleciona aleatoriamente uma letra do alfabeto
+                else {
+                    this.showTimer = true;
+                    this.timer = 5000;
+                    this.actualizeBingoTimer();
+                }
+            }
+                  
+        },
     },
     ...mapActions('Activity', ['setActivityAttrs','setAnswer'])
 }
