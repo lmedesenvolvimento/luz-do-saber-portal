@@ -1,6 +1,6 @@
 <template>
     <div v-if="unit" id="unit" class="page-container" :class="$route.params.module_slug">
-        <navbar :navbar-title="unit.title" :navbar-subtitle="'Lorem Ipsum'" :navbar-icon="'https://placeimg.com/480/480/tech'" :custom="true">
+        <navbar :navbar-title="renderNavTitle" :navbar-icon="unitImage" :custom="true">
         </navbar>
         <ls-gameplay></ls-gameplay>
     </div>
@@ -16,7 +16,13 @@ import ui from '@/components/ui'
 export default {
     components: { ...ui },
     computed: {
-        ...mapState('Unit', ['unit', 'navigator'])
+        ...mapState('Unit', ['unit', 'navigator']),
+        renderNavTitle(){
+            return this.unit.title ? this.unit.title : ''
+        },
+        unitImage(){
+            return this.unit.cover_url ? this.unit.cover_url : ''
+        },
     }, 
     created(){        
         this.fetchUnit(this.$route.params)
