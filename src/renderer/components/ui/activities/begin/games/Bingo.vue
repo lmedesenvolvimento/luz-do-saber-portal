@@ -260,7 +260,7 @@ export default {
         },
         // verifica se a letra já foi sorteada, percorrendo o vetor raffleLetters
         searchString(arr, str) {
-            for(let i = 0; i < arr.length;i++){
+            for(let i = 0; i < arr.length; i++){
                 if (arr[i].match(str)) return true;
             }
             return false;
