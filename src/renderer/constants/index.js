@@ -4,10 +4,10 @@ export const ActivityTypes = {
             text: 'atividade-texto',
         },
         join: {
-            text: 'atividade-texto-texto'
+            text: 'atividade-texto-texto',
         }
     },
-    game: 'jogo'
+    game: 'jogo',
 }
 
 export const ActivitySubtypes = {
@@ -28,22 +28,24 @@ export const GameSubtypes = {
     boxWords: 'caixa-de-palavras',
     friendsName: 'meus-amigos-fotos',
     dominoName: 'domino-de-nomes',
+    grouping: 'agrupamento',
     matchFriendsInitial: 'encaixe-letras',
 }
 
 export const ItemTypes = {
     primitive: {
         text: 'texto',
-        image: 'imagem'
+        image: 'imagem',
     },
     custom: {
         crachaBox: 'cracha-box',
         cardDisplayValidacao: 'card-display-com-validacao',
         display18Items: 'display-18-items',
         textoEmBlocos: 'texto-em-blocos',
-        memoryCardText: 'jogo-da-memoria-texto'
+        memoryCardText: 'jogo-da-memoria-texto',
+        caixaPalavras: 'game-caixa-de-palavras',
     },
     tags: {
-        input: 'input'
+        input: 'input',
     }
 }
