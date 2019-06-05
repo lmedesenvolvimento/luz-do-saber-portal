@@ -8,13 +8,20 @@
             ></ls-item-inicial-amigos>
         </div>
         <div v-if="isPrimitiveItem">
-            <ls-item-text
+            <ls-item-text 
+                v-if="template.type === Types.primitive.text"
                 :type="type"
                 :item="item"
                 :focus="focus"
                 :group="group"
                 :template="template"
             ></ls-item-text>
+            <ls-item-image
+                v-if="template.type === Types.primitive.image"
+                :type="type"
+                :item="item"
+                :template="template"
+            ></ls-item-image>
         </div>
         <div v-else-if="!isPrimitiveItem" class="item">            
             <ls-item-cracha-box
@@ -23,6 +30,14 @@
                 :item="item"
                 :template="template"
             ></ls-item-cracha-box>
+
+            <ls-item-checkmark
+                v-if="template.custom === Types.custom.checkmark"
+                :type="type"
+                :item="item"
+                :template="template"
+            >
+            </ls-item-checkmark>
             
             <ls-card-display-validacao
                 v-if="template.custom === Types.custom.cardDisplayValidacao"
@@ -71,3 +86,4 @@ export default {
     }
 }
 </script>
+
