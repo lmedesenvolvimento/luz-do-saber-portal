@@ -5,6 +5,7 @@ export const ActivityTypes = {
         },
         join: {
             text: 'atividade-texto-texto',
+            image: 'atividade-imagem-texto'
         }
     },
     game: 'jogo',
@@ -44,6 +45,7 @@ export const ItemTypes = {
         textoEmBlocos: 'game-texto-em-blocos',
         memoryCardText: 'game-jogo-da-memoria-texto',
         caixaPalavras: 'game-caixa-de-palavras',
+        checkmark: 'checkmark'
     },
     tags: {
         input: 'input',

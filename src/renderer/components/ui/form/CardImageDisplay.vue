@@ -1,6 +1,7 @@
 <template>
     <div class="card-display" :class="$attrs.class">
         <b-card
+            class="card-image-display"
             no-body
             :class="{ 'invalid': invalid, 'valid': valid }"
         >
@@ -33,3 +34,8 @@ export default {
     }
 }
 </script>
+<style lang="scss">
+    .card-image-display {
+        margin-top: 105px !important;
+    }
+</style>
