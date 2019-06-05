@@ -9,7 +9,7 @@
                 :template="template"
             ></ls-item-text>            
         </div>
-        <div v-else-if="!isPrimitiveItem" class="item">            
+        <div v-else-if="!isPrimitiveItem" class="item">
             <ls-item-cracha-box
                 v-if="template.custom === Types.custom.crachaBox"
                 :type="type"
@@ -35,6 +35,12 @@
                 :item="item"
                 :template="template"
             ></ls-item-texto-em-blocos>
+            <ls-card-audio-listen
+                v-if="template.custom === Types.custom.audioPlayer"
+                :type="type"
+                :item="item"
+                :template="template"
+            ></ls-card-audio-listen>
         </div>
     </div>
 </template>

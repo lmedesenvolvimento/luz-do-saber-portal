@@ -5,7 +5,10 @@ export const ActivityTypes = {
         },
         join: {
             text: 'atividade-texto-texto'
-        }
+        },
+        audio: {
+            audio: 'atividade-texto-audio'
+        },
     },
     game: 'jogo'
 }
@@ -40,7 +43,8 @@ export const ItemTypes = {
         cardDisplayValidacao: 'card-display-com-validacao',
         display18Items: 'display-18-items',
         textoEmBlocos: 'texto-em-blocos',
-        memoryCardText: 'jogo-da-memoria-texto'
+        memoryCardText: 'jogo-da-memoria-texto',
+        audioPlayer: 'display-audio-player',
     },
     tags: {
         input: 'input'
