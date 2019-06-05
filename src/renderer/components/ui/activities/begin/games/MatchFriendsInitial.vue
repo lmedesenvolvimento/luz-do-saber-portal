@@ -72,17 +72,10 @@ export default {
         ...ui,
     },
     mixins: [ListMixin, MapMixins, CreateAnswersMixins],
-    props: {
-        colSizes: Object
-    },
     computed: {
         newArrayValues() {
             return shuffle(this.activity.items.values)
         }
-    },
-    created()
-    {
-        console.log(shuffle(this.activity.items.values));
     },
     mounted(){
         this.createAnswersArray()
@@ -91,15 +84,6 @@ export default {
         dropFirstLetter(nome){
             return nome.substring(1)
         },
-        findKeyId(value_id)
-        {
-            for (let i = 0; i < this.activity.items.keys.length; i++) {
-                if (this.activity.items.keys[i]['value_ids'][0] === value_id)
-                {
-                    return this.dropFirstLetter(this.activity.items.keys[i].text)
-                }                
-            }
-        }
     }
 }
 </script>
@@ -113,6 +97,7 @@ export default {
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                min-width: 200px;
                 .name-container
                 {
                     padding: 0;

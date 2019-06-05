@@ -31,9 +31,6 @@
 import { ItemProps } from '../index.js'
 export default {
     mixins: [ItemProps],
-    created(){
-        console.log(this.item.text)
-    }
 }
 </script>
 
