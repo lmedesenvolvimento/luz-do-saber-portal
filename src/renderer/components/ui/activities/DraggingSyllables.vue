@@ -7,7 +7,7 @@
                         <b-row class="my-2" align-v="center">
                             <b-col class="image-col" cols="12" md="3" sm="6">
                                 <ls-card-display v-if="item.images[0].url !== null" class="key-image">
-                                    <div class="image" :style="{ 'background-image': 'url('+ baseUrl + item.images[0].url + ')' }" />
+                                    <div class="image" :style="{ 'background-image': 'url(' + item.images[0].url + ')' }" />
                                 </ls-card-display>
                             </b-col>
                             <b-col cols="12" md="9" sm="6" class="syllables-row">
@@ -67,11 +67,6 @@ export default {
         return {
             correctAnswers: [],
             teste: String,
-        }
-    },
-    computed: {
-        baseUrl() {
-            return process.env.BASE_API_URL
         }
     },
     mounted() {
