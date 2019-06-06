@@ -147,13 +147,13 @@ export default {
     },   
     created(){        
         this.words = [[],[]]   
-        // colocaca o valores da cartela do jogador num vetor, e nas primeiras bolas sorteadas
+        // colocaca o valores da cartela do jogador num vetor, e nas
         for(let i = 0; i < this.getKeys.length; i++){
             this.unraffleWords.push(this.getKeys[i].text)      
             this.scramblePlayerWords.push(this.getKeys[i].text)
             this.playerWords.push(Object.assign({}, this.getKeys[i]))      
         }  
-        // pega os demais valores e os joga numa matriz de palavras
+        // pega os valores e os joga numa matriz de palavras
         this.scramblePlayerWords = shuffle(this.scramblePlayerWords);
         for(let i = 0; i < this.getValues.length; i++){
             if(i < this.activity.total_correct_items){
