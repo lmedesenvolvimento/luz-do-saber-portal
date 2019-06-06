@@ -34,17 +34,33 @@
                         </b-row>
                         <b-row align-v="center" align-h="center">                       
                             <b-row
-                                v-for="(item, position) in getKeys" 
+                                v-for="(item, position) in getBingoValues" 
                                 :key="position" 
                                 :sm="valueColSize" 
                                 class="item bingo-card-letter"
                             >                                
-                                <Item 
-                                    v-if="answers"
-                                    :item="item"
-                                    :type="'value'"
-                                    :template="activity.item_template.value"
-                                />
+                                <div class="card-input card-radio-input" :class="$attrs.class">
+                                    <label>
+                                        <b-card 
+                                            no-body
+                                            :class="{ 'invalid': item.invalid, 'valid': item.valid }"
+                                        >
+                                            <b-card-body>
+                                                {{ item.text }}
+                                            </b-card-body>
+                                        </b-card>
+
+                                        <input
+                                            v-model="item.selected"                                            
+                                            class="input"    
+                                            type="checkbox"
+                                            true-value="valid"
+                                            false-value="invalid"
+                                            :name="`input-${position}`"
+                                            @change.stop="checkRaffle(item)"
+                                        />
+                                    </label>
+                                </div>                               
                             </b-row>
                         </b-row>
                     </ls-card-display> 
@@ -81,7 +97,7 @@ import { shuffle, range, filter } from 'lodash'
 import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from '@ui/activities/mixins'
 import moment from 'moment'
 import { setTimeout } from 'timers';
-import Activity from '../../../../../store/modules/Activity';
+import Activity from '@/store/modules/Activity';
 
 export default { 
     components: { 
@@ -104,6 +120,9 @@ export default {
         }
     },
     computed:{
+        getBingoValues(){
+            return filter(this.getValues, value => value.key_id)
+        },
         // retorna as imagens da roleta e do painel interno
         bingoRoulette() {
             return require('@/assets/images/components/bingo/globo-bingo.png');
@@ -150,23 +169,25 @@ export default {
     },
     mounted() {
         this.createAnswersArray()
+        console.log(this.getValues)
     },
     methods: {
+        isCheck(item){
+            return false
+        },
         checkRaffle (item) {    
             // caso o item já tenha sido checado, retornamos aqui mesmo
             if(item.valid || item.invalid) return
             //testa se o item já pode ser marcado na cartela do jogador
             if(this.searchString(this.raffleWords, item.text)){
-                item.valid = true
-                // insere o id da resposta do jogador
-                if(filter(this.playerWords, { valid: true }).length === this.playerWords.length){
-                    console.log('tada');
-                    // this.setAnswer({ 
-                    //     type: 'value', 
-                    //     data: this.getKeys[0].value_ids[0],
-                    //     vm: this
-                    // })                    
-                }
+                item.valid = true                
+                this.setAnswer({ 
+                    type: 'value', 
+                    data: item.id,
+                    vm: this
+                })
+                    
+                
             // caso a letra marcada ainda não tiver saído no bingo
             }else{
                 setTimeout(()=> {
@@ -180,7 +201,8 @@ export default {
                     data: -1,
                     vm: this
                 })
-            }            
+            }
+            
         },
         // marca a letra como sorteada, trocando sua cor   
         raffle(word) {
@@ -231,8 +253,8 @@ export default {
             }
                   
         },
+        ...mapActions('Activity', ['setActivityAttrs','setAnswer'])
     },
-    ...mapActions('Activity', ['setActivityAttrs','setAnswer'])
 }
 </script>
 
