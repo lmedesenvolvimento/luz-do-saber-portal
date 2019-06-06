@@ -9,6 +9,14 @@
             :bg-color="item.color"
         />
 
+        <!-- <ls-card-input-image
+            v-else-if="isInput"
+            name="base-input" 
+            :value="item"
+            type="value"
+            :bg-color="item.color"
+        /> -->
+
         <ls-card-draggable
             v-else-if="isDrag"
             label="item.text" 
@@ -71,7 +79,7 @@
             :bg-color="item.color"
         >
             {{ item.text }}
-        </ls-card-input>        
+        </ls-card-input>
     </div>
 </template>
 <script>

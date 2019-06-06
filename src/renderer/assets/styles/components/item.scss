@@ -5,19 +5,22 @@
     label{
         margin-bottom: 0px;
     }
-    .letra, .numero, .caractere_especial{
+    .letra, .numero, .caractere_especial {
         display: inline-flex;
         flex: 1;
         max-width: none;
         min-width: $item-min-width;
         justify-content: center;
-         .card{
+         .card {
                 max-height: 71px;
         }
-        .card-body{
+        .card-body {
             padding: 1rem 1.67rem !important;
         }
-        .card-input-text{
+        .card-droppable, .card-draggable {
+            min-width: 5rem;
+        }
+        .card-input-text {
             max-width: 5rem;
             .card-body{
                 padding: 1rem 1.25rem !important;
