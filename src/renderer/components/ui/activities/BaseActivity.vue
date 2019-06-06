@@ -67,7 +67,7 @@
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
             />
-            <ls-activity-begin-word-bingo
+            <ls-activity-read-word-bingo
                 v-if="gameSubtypes.wordBingo === activity.subtype.slug" 
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
