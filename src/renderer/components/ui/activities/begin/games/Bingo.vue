@@ -186,7 +186,6 @@ export default {
                     })
                     
                 }
-                console.log(this.getKeys[0].value_ids[0])
             // caso a letra marcada ainda não tiver saído no bingo
             }else{
                 setTimeout(()=> {

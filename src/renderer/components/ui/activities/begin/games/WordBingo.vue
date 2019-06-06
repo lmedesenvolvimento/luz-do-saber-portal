@@ -7,6 +7,7 @@
                     <img class="bingo-panel" :src="bingoCounter" alt="">
                     <div 
                         class="bingo-counter"
+                        :class="{'bingo-counter-animation': animateBingoCounter}"
                     >
                         <h2 v-if="showTimer" style="color: #13c5c4;">{{ getDuration }}</h2>
                         <h2 v-else>{{ actualRaffleWord }}</h2>
@@ -38,28 +39,12 @@
                                 :sm="valueColSize" 
                                 class="item bingo-card-letter"
                             >                                
-                                <div class="card-input card-radio-input" :class="$attrs.class">
-                                    <label>
-                                        <b-card 
-                                            no-body
-                                            :class="{ 'invalid': item.invalid, 'valid': item.valid }"
-                                        >
-                                            <b-card-body>
-                                                {{ item.text }}
-                                            </b-card-body>
-                                        </b-card>
-
-                                        <input
-                                            v-model="item.selected"                                            
-                                            class="input"    
-                                            type="checkbox"
-                                            true-value="valid"
-                                            false-value="invalid"
-                                            :name="`input-${position}`"
-                                            @change.stop="checkRaffle(item)"
-                                        />
-                                    </label>
-                                </div>
+                                <Item 
+                                    v-if="answers"
+                                    :item="item"
+                                    :type="'value'"
+                                    :template="activity.item_template.value"
+                                />
                             </b-row>
                         </b-row>
                     </ls-card-display> 
@@ -107,13 +92,15 @@ export default {
     data(){
         return {
             words: [],
+            playerWords: [],
             allWords: [],
             unraffleWords: [],
             raffleWords: [],
             scramblePlayerWords: [],
             actualRaffleWord: '',
             timer: 5000,
-            showTimer: true
+            showTimer: true,
+            animateBingoCounter: false
         }
     },
     computed:{
@@ -129,13 +116,22 @@ export default {
             return moment(this.timer).format('m:ss')
         },        
         ...mapState('Activity', ['log'])    
-    },    
+    }, 
+    watch: {
+        showTimer() {
+            this.animateBingoCounter = true;
+            setTimeout(() => {
+                this.animateBingoCounter = false;
+            },1000) 
+        }
+    },   
     created(){
         // pega os valores e os joga numa matriz de palavras
         this.words = [[],[]]   
         for(let i = 0; i < this.getKeys.length; i++){
             this.unraffleWords.push(this.getKeys[i].text)      
-            this.scramblePlayerWords.push(this.getKeys[i].text)      
+            this.scramblePlayerWords.push(this.getKeys[i].text)
+            this.playerWords.push(Object.assign({}, this.getKeys[i]))      
         }  
         this.scramblePlayerWords = shuffle(this.scramblePlayerWords);
         for(let i = 0; i < this.getValues.length; i++){
@@ -158,7 +154,33 @@ export default {
     methods: {
         checkRaffle (item) {    
             // caso o item já tenha sido checado, retornamos aqui mesmo
-            
+            if(item.valid || item.invalid) return
+            //testa se o item já pode ser marcado na cartela do jogador
+            if(this.searchString(this.raffleWords, item.text)){
+                item.valid = true
+                // insere o id da resposta do jogador
+                if(filter(this.playerWords, { valid: true }).length === this.playerWords.length){
+                    console.log('tada');
+                    // this.setAnswer({ 
+                    //     type: 'value', 
+                    //     data: this.getKeys[0].value_ids[0],
+                    //     vm: this
+                    // })                    
+                }
+            // caso a letra marcada ainda não tiver saído no bingo
+            }else{
+                setTimeout(()=> {
+                    delete item.invalid
+                }, 300)
+
+                item.invalid = true
+
+                this.setAnswer({ 
+                    type: 'value', 
+                    data: -1,
+                    vm: this
+                })
+            }            
         },
         // marca a letra como sorteada, trocando sua cor   
         raffle(word) {
