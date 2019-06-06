@@ -76,12 +76,12 @@ export const ListMixin = {
                     }
                 }
             }
-            for (var key in this.activity.items.keys) {
-                if (this.activity.items.values[key].type === type) {
-                    this.activity.items.keys[key].color = this.getColorsArray[key]
+            for (var value in this.activity.items.keys) {
+                if (this.activity.items.keys[value].type === type) {
+                    this.activity.items.keys[value].color = this.getColorsArray[value]
                 }
                 else {
-                    this.activity.items.keys[key].color = null
+                    this.activity.items.keys[value].color = null
                 }
             }
         }
