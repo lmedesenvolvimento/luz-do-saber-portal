@@ -75,7 +75,8 @@
                                 class="item bingo-card-letter"
                             >                                
                                 <ls-card-display                                      
-                                    style="margin-left: 10px"                                    
+                                    style="margin-left: 10px"  
+                                    :valid="searchString(raffleWords, word)"                                  
                                 >
                                     {{ word }}
                                 </ls-card-display> 
