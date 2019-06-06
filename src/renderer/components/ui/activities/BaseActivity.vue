@@ -120,9 +120,6 @@ export default {
         isJoinActivity(){
             return values(ActivityTypes.activity.join).includes(this.activity.type.slug)
         },
-        isAudioActivity(){
-            return values(ActivityTypes.activity.audio).includes(this.activity.type.slug)
-        },
         keyColSize(){
             return Math.abs(TOTAL_COLUMNS / this.activity.item_template.key.total_per_line)
         },

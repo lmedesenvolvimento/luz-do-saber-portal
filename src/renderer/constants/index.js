@@ -37,6 +37,7 @@ export const ItemTypes = {
     primitive: {
         text: 'texto',
         image: 'imagem',
+        audio: 'audio'
     },
     custom: {
         crachaBox: 'game-cracha-box',
@@ -45,7 +46,7 @@ export const ItemTypes = {
         textoEmBlocos: 'game-texto-em-blocos',
         memoryCardText: 'game-jogo-da-memoria-texto',
         caixaPalavras: 'game-caixa-de-palavras',
-        checkmark: 'checkmark'
+        checkmark: 'checkmark',
     },
     tags: {
         input: 'input',

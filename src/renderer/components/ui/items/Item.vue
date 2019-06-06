@@ -1,12 +1,5 @@
 <template>
     <div :class="item.type ? item.type : ''">
-        <div v-if="template.type === 'texto' && template.custom === 'primeira-letra-do-key'">
-            <ls-item-inicial-amigos
-                :type="type"
-                :item="item"
-                :template="template"
-            ></ls-item-inicial-amigos>
-        </div>
         <div v-if="isPrimitiveItem">
             <ls-item-text 
                 v-if="template.type === Types.primitive.text"
@@ -22,6 +15,12 @@
                 :item="item"
                 :template="template"
             ></ls-item-image>
+            <ls-item-audio
+                v-if="template.type === Types.primitive.audio"
+                :type="type"
+                :item="item"
+                :template="template"
+            ></ls-item-audio>
         </div>
         <div v-else-if="!isPrimitiveItem" class="item">
             <ls-item-cracha-box
