@@ -8,16 +8,18 @@
                     <div 
                         class="bingo-counter"
                     >
-                        <h2>{{ getDuration }}</h2>
+                        <h2 v-if="showTimer" style="color: #13c5c4;">{{ getDuration }}</h2>
+                        <h2 v-else>{{ actualRaffleWord }}</h2>
                     </div>                    
                 </b-row>                
                 <b-row align-h="start">
                     <div
-                        v-for="word in unraffleWords"
-                        :key="word"
+                        v-for="bingoWord in allWords"
+                        :key="bingoWord"
                         class="bingo-word" 
+                        :class="{'bingo-raffle-word': searchString(raffleWords,bingoWord)}" 
                     >
-                        {{ word }}
+                        {{ bingoWord }}
                     </div>
                 </b-row>                
             </b-col>
@@ -104,8 +106,11 @@ export default {
     data(){
         return {
             words: [],
+            allWords: [],
             unraffleWords: [],
             raffleWords: [],
+            scramblePlayerWords: [],
+            actualRaffleWord: '',
             timer: 5000,
             showTimer: true
         }
@@ -128,9 +133,10 @@ export default {
         // pega os valores e os joga numa matriz de palavras
         this.words = [[],[]]   
         for(let i = 0; i < this.getKeys.length; i++){
-            this.unraffleWords.push(this.getKeys[i].text)            
-        }      
-        this.unraffleWords = shuffle(this.unraffleWords)
+            this.unraffleWords.push(this.getKeys[i].text)      
+            this.scramblePlayerWords.push(this.getKeys[i].text)      
+        }  
+        this.scramblePlayerWords = shuffle(this.scramblePlayerWords);
         for(let i = 0; i < this.getValues.length; i++){
             if(i < this.activity.total_correct_items){
                 this.words[0].push(this.getValues[i].text)                             
@@ -141,6 +147,8 @@ export default {
                 this.unraffleWords.push(this.getValues[i].text) 
             } 
         }
+        this.unraffleWords = shuffle(this.unraffleWords);
+        this.allWords = this.unraffleWords.slice();
         this.actualizeBingoTimer();
     },
     mounted() {
@@ -150,6 +158,10 @@ export default {
         checkRaffle (item) {    
             // caso o item já tenha sido checado, retornamos aqui mesmo
             
+        },
+        // marca a letra como sorteada, trocando sua cor   
+        raffle(word) {
+            this.raffleWords.push(word);
         },
         searchString(arr, str) {
             for(let i = 0; i < arr.length; i++){
@@ -165,6 +177,27 @@ export default {
                         this.timer -= 1000;
                         this.actualizeBingoTimer();
                     },1000) 
+                }
+                // quando chega a zero, e exibindo o contador, ele seleciona aleatoriamente uma letra do alfabeto
+                else if (this.showTimer){
+                    // os primeiros valores sorteados são referentes as letras embaralhadas do nome do jogador
+                    if(this.scramblePlayerWords.length > 0){                    
+                        this.unraffleWords.splice( this.unraffleWords.indexOf(this.scramblePlayerWords[0]) ,1);
+                        this.actualRaffleWord = this.scramblePlayerWords[0];
+                        this.raffle(this.scramblePlayerWords[0]);
+                        this.scramblePlayerWords.shift(); 
+                    }
+                    // após todas as letras do nome do jogador terem sido sorteadas, letras remanescentes são sorteadas aleatoriamente 
+                    else {
+                        const wordIndex = Math.floor(Math.random()*this.unraffleWords.length);
+                        const word = this.unraffleWords[wordIndex];
+                        this.unraffleWords.splice(wordIndex,1);
+                        this.actualRaffleWord = word;
+                        this.raffle(word);
+                    }
+                    this.showTimer = false;
+                    this.timer = 5000;
+                    this.actualizeBingoTimer();
                 }
                 // quando chega a zero, e exibindo o contador, ele seleciona aleatoriamente uma letra do alfabeto
                 else {
@@ -229,7 +262,7 @@ export default {
     width: 60px;
     height: 60px;
     margin: 2px;
-    &.bingo-raffle-letter{
+    &.bingo-raffle-word{
         background-color: #13c5c4;
     }
 }
