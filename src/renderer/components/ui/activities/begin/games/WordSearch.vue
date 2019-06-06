@@ -6,7 +6,16 @@
                     <ls-card-display>
                         <div class="grid">
                             <div v-for="(r, index) in grid" :key="index" class="letters">
-                                <div v-for="(l, letterIndex) in r" :key="letterIndex" :class="l.class" class="letter" @mousedown="allowPainting(true)" @mouseup="allowPainting(false)" @mousemove="paint(index,letterIndex)">
+                                <div 
+                                    v-for="(l, letterIndex) in r" 
+                                    :key="letterIndex" 
+                                    v-hammer:pan="(srcEvent) => paint(srcEvent)"                                    
+                                    v-hammer:panstart="(e) => allowPainting(true)" 
+                                    v-hammer:panend="(e) => allowPainting(false)" 
+                                    :class="l.class" class="letter" 
+                                    :indexI="index"
+                                    :indexJ="letterIndex"
+                                >
                                     {{ l.value }}
                                 </div>
                             </div>
@@ -35,6 +44,7 @@ import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from '@ui/act
 import ui from '@/components/ui'
 
 import { mapState, mapActions } from 'vuex'
+
 
 export default {
     components: { ...ui },
@@ -86,11 +96,6 @@ export default {
                 }
             }
         },
-        touch(event, type, bool){
-            console.log(event)
-            console.log(type)
-            console.log(bool)
-        },
         checkIfBelongs(word){
             let answer = ''
             for(let i = 0; i<this.getValues.length; i++){
@@ -102,20 +107,29 @@ export default {
             }
             return answer;
         },
-        paint(i, j){
-            if(this.grid[i][j].class !== 'painted'){
-                if(this.allowPaint){
-                    this.grid[i][j].class = 'painted'
-                    this.actualWord.push(this.grid[i][j])
-                    if(this.actualWord.length===2)
-                        this.mouseDirection = this.checkMouseDirection(i, j)
-                    else if(this.actualWord.length>2)
-                        if(this.mouseDirection!==this.checkMouseDirection(i, j)){
-                            this.allowPainting(false)
-                            this.cleanActualWord()
+        paint(e){
+            console.log(e)
+            let srcElement = e.changedPointers[0].srcElement.attributes
+            if(srcElement.indexi!==undefined || srcElement.indexj!==undefined ){
+                let i = Number(srcElement.indexi.value)
+                let j = Number(srcElement.indexj.value)
+                let pi = this.previousI
+                let pj = this.previousJ
+                if(this.grid[i][j].class !== 'painted'){
+                    if(this.allowPaint){
+                        this.grid[i][j].class = 'painted'
+                        this.actualWord.push(this.grid[i][j])
+                        if(this.actualWord.length===2){
+                            this.mouseDirection = this.checkMouseDirection(i, j)
                         }
-                    this.previousI = i
-                    this.previousJ = j
+                        else if(this.actualWord.length>2)
+                            if(this.mouseDirection!==this.checkMouseDirection(i, j)){
+                                this.allowPainting(false)
+                                this.cleanActualWord()
+                            }
+                        this.previousI = i
+                        this.previousJ = j
+                    }
                 }
             }
         },
