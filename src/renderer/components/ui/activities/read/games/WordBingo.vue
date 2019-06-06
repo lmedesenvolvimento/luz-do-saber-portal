@@ -98,6 +98,7 @@ import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from '@ui/act
 import moment from 'moment'
 import { setTimeout } from 'timers';
 import Activity from '@/store/modules/Activity';
+import Bingo from '@/components/ui/activities/begin/games/Bingo';
 
 export default { 
     components: { 
@@ -134,7 +135,7 @@ export default {
         getDuration(){           
             return moment(this.timer).format('m:ss')
         },        
-        ...mapState('Activity', ['log'])    
+        ...mapState('Activity', ['log'])
     }, 
     watch: {
         showTimer() {
@@ -144,14 +145,15 @@ export default {
             },1000) 
         }
     },   
-    created(){
-        // pega os valores e os joga numa matriz de palavras
+    created(){        
         this.words = [[],[]]   
+        // colocaca o valores da cartela do jogador num vetor, e nas primeiras bolas sorteadas
         for(let i = 0; i < this.getKeys.length; i++){
             this.unraffleWords.push(this.getKeys[i].text)      
             this.scramblePlayerWords.push(this.getKeys[i].text)
             this.playerWords.push(Object.assign({}, this.getKeys[i]))      
         }  
+        // pega os demais valores e os joga numa matriz de palavras
         this.scramblePlayerWords = shuffle(this.scramblePlayerWords);
         for(let i = 0; i < this.getValues.length; i++){
             if(i < this.activity.total_correct_items){
@@ -169,7 +171,6 @@ export default {
     },
     mounted() {
         this.createAnswersArray()
-        console.log(this.getValues)
     },
     methods: {
         isCheck(item){
@@ -185,9 +186,7 @@ export default {
                     type: 'value', 
                     data: item.id,
                     vm: this
-                })
-                    
-                
+                })  
             // caso a letra marcada ainda não tiver saído no bingo
             }else{
                 setTimeout(()=> {
@@ -261,42 +260,6 @@ export default {
 <style lang="scss">    
 @import '~animate-scss/_properties';
 @import '~animate-scss/_attention-seekers/attention-seekers';
-.bingo-container{
-    display: flex;
-    flex-flow: column;
-    margin: 140px 0 150px 0;
-    
-}
-.bingo-roulette{
-    position: fixed;        
-    z-index: 0;
-}
-.bingo-panel{
-    position: fixed;
-    margin-top: 2px;
-    z-index: 1;
-}
-.bingo-counter{
-    position: fixed;
-    margin-top: 4px;
-    z-index: 2;    
-        &.bingo-counter-animation{
-        @include rubberBand;
-    }
-}
-.bingo-card{
-    width: 800px;
-    margin: 3px 0 3px 30px;
-}
-.bingo-card-player .card-body{
-    background-color: #ffb141;       
-}
-.bingo-card-letter{        
-    margin: -5px 5px -5px 5px;
-}   
-.bingo-card-letter .card-body{
-    background-color: white;
-}    
 .bingo-word{
     display: inline-grid;
     text-align: center;
@@ -311,5 +274,4 @@ export default {
         background-color: #13c5c4;
     }
 }
-
 </style>
