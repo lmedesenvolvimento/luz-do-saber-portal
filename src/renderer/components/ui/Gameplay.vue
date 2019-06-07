@@ -5,7 +5,7 @@
                 v-for="(value, index) in unit.questions" 
                 :key="index"
                 class="bar" 
-                :class="{'active': getPosition == ( index + 1 )}"
+                :class="{'active': getPosition == ( index + 1 ), 'complete': index < getPosition}"
                 @click="goActivity(index + 1)" 
             ></div>
         </div>
