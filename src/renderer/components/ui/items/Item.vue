@@ -69,6 +69,12 @@
                 :item="item"
                 :template="template"
             ></ls-item-image>
+            <ls-item-audio
+                v-else-if="template.type === Types.primitive.audio"
+                :type="type"
+                :item="item"
+                :template="template"
+            ></ls-item-audio>
         </div>
     </div>
 </template>
