@@ -19,7 +19,9 @@
         grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
         grid-template-areas: "." "." "." "." "." "." "." "." "." "." ".";
         padding: 6px;
+        width: 463px;
         .letters{
+            width: 100%;
             display: grid;
             grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
             grid-template-rows: 1fr;
@@ -74,12 +76,14 @@
             font-size: 24px;
         }
         .grid{
+            width: 397px;
             .letter{
                 font-size: 20px;
                 padding: 2px 5px;
                 width: 35px;
                 &.painted{
                     width: 35px;
+                    padding: 2px 5px;
                 }
             }
         }
@@ -90,12 +94,14 @@
             font-size: 20px;
         }
         .grid{
+            width: 287px;
             .letter{
                 font-size: 16px;
                 padding: 2px 5px;
                 width: 25px;
                 &.painted{
-                    width: 20px;
+                    width: 22px;  
+                    padding: 2px 5px;  
                 }
             }
         }
