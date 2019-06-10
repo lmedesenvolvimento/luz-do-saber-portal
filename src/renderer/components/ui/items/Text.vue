@@ -9,14 +9,6 @@
             :bg-color="item.color"
         />
 
-        <!-- <ls-card-input-image
-            v-else-if="isInput"
-            name="base-input" 
-            :value="item"
-            type="value"
-            :bg-color="item.color"
-        /> -->
-
         <ls-card-draggable
             v-else-if="isDrag"
             label="item.text" 
