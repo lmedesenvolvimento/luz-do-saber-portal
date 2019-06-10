@@ -161,6 +161,6 @@
 }
 
 // Card
-@mixin card-body-box-shadow($color, $amount: 0.9, $border-width: 6px) {
+@mixin card-body-box-shadow($color, $amount: 0.9, $border-width: 4px) {
  box-shadow: inset 0px 0px 0px $border-width transparentize($color, $amount);   
 }
