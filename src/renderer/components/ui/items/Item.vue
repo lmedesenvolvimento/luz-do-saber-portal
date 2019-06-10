@@ -1,29 +1,6 @@
 <template>
     <div :class="item.type ? item.type : ''">
-        <div v-if="template.type === 'texto' && template.custom === 'primeira-letra-do-key'">
-            <ls-item-inicial-amigos
-                :type="type"
-                :item="item"
-                :template="template"
-            ></ls-item-inicial-amigos>
-        </div>
-        <div v-if="isPrimitiveItem">
-            <ls-item-text 
-                v-if="template.type === Types.primitive.text"
-                :type="type"
-                :item="item"
-                :focus="focus"
-                :group="group"
-                :template="template"
-            ></ls-item-text>
-            <ls-item-image
-                v-if="template.type === Types.primitive.image"
-                :type="type"
-                :item="item"
-                :template="template"
-            ></ls-item-image>
-        </div>
-        <div v-else-if="!isPrimitiveItem" class="item">            
+        <div v-if="!isPrimitiveItem" class="item">            
             <ls-item-cracha-box
                 v-if="template.custom === Types.custom.crachaBox"
                 :type="type"
@@ -70,6 +47,22 @@
                 {{ item.text }}
             </ls-card-group-droppable>   
         </div>
+        <div v-else>
+            <ls-item-text 
+                v-if="template.type === Types.primitive.text"
+                :type="type"
+                :item="item"
+                :focus="focus"
+                :group="group"
+                :template="template"
+            ></ls-item-text>
+            <ls-item-image
+                v-else-if="template.type === Types.primitive.image"
+                :type="type"
+                :item="item"
+                :template="template"
+            ></ls-item-image>
+        </div>
     </div>
 </template>
 <script>
@@ -81,8 +74,7 @@ export default {
     computed: {
         isPrimitiveItem(){
             return this.template.custom ? false : true
-        },
-        
+        },        
     }
 }
 </script>

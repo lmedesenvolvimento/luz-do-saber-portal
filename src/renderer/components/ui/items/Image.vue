@@ -1,53 +1,5 @@
 <template>
     <div>
-        <!-- <ls-card-input-text
-            v-if="isInput"
-            name="base-input" 
-            :value="item"
-            type="value"
-            :bg-color="item.color"
-        /> -->
-
-        <!-- <ls-card-input-image
-            v-else-if="isInput"
-            name="base-input" 
-            :value="item"
-            type="value"
-            :bg-color="item.color"
-        /> -->
-
-        <!-- <ls-card-draggable
-            v-else-if="isDrag"
-            label="item.text" 
-            :item="item"
-            :name="activity.type.slug"
-            :bg-color="item.color"
-        >
-            {{ item.text }}
-        </ls-card-draggable>
-
-        <ls-card-droppable
-            v-else-if="isDrop"
-            label="key.text" 
-            name="card-input"
-            :item="item"
-            :bg-color="item.color"
-        >
-            {{ item.text }}
-        </ls-card-droppable>        
-
-        <ls-card-input 
-            v-else-if="type === 'key' && isJoinInput"
-            class="col-sm" 
-            label="item.text" 
-            :item="item"
-            :type="type"
-            :name="activity.type.slug"
-            :bg-color="item.color"
-        >
-            {{ item.text }}
-        </ls-card-input> -->
-
         <ls-card-image-display 
             v-if="type === 'key'"
             class="col-sm" 
@@ -62,6 +14,16 @@
                 </b-card-img>
             </template>
         </ls-card-image-display>
+
+        <ls-card-draggable
+            v-else-if="isDrag"
+            label="item.text" 
+            :item="item"
+            :name="activity.type.slug"
+            :bg-color="item.color"
+        >
+            {{ item.text }}
+        </ls-card-draggable>
 
         <ls-card-input 
             v-else-if="type === 'value'"

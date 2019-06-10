@@ -46,7 +46,7 @@ export const ItemTypes = {
         textoEmBlocos: 'game-texto-em-blocos',
         memoryCardText: 'game-jogo-da-memoria-texto',
         caixaPalavras: 'game-caixa-de-palavras',
-        checkmark: 'checkmark'
+        checkmark: 'game-checkmark'
     },
     tags: {
         input: 'input',
