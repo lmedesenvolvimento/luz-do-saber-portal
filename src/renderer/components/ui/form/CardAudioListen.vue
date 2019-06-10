@@ -16,8 +16,10 @@
 
 <script>
 import FillBackground from '@/components/ui/helpers/FillBackground'
+import RadioInput from './RadioInput.vue'
 
 export default {
+    mixins: [RadioInput], 
     props: {
         item: Object,
         template: Object,
@@ -50,6 +52,11 @@ export default {
         },
         ended(){
             console.log('terminou')
+            this.setAnswer({ 
+                type: 'value', 
+                data: this.item.id,
+                vm: this
+            })
         },
         play(){
             console.log('iniciou')
