@@ -13,7 +13,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import { find } from 'lodash'
+import { findIndex } from 'lodash'
 
 import AudioReader from '@/services/AudioReader'
 
@@ -33,9 +33,13 @@ export default {
         getDescription(){
             return this.hasDescription ? this.activity.statement.text : ''
         },
+        getIndexOfQuestion(){
+            const position = parseInt(this.$route.params.position)
+            return findIndex(this.unit.questions, { order: position })
+        },
         getQuestion(){
-            let { params } = this.$route
-            return this.unit.questions[(this.navigator.order - 1)]
+            const { params, path } = this.$route
+            return this.unit.questions[this.getIndexOfQuestion]
         },
         ...mapState('Unit', ['unit','navigator']),
         ...mapState('Activity', ['activity'])
@@ -50,17 +54,18 @@ export default {
                 params: newVal.params, 
                 question: this.getQuestion
             }).then(() => {
-                AudioReader.simplePlay(this.activity.statement.audio)
+                if (this.activity) AudioReader.simplePlay(this.activity.statement.audio)
             })
         }
     },
     mounted(){        
         let { params } = this.$route
+        this.setNavigatorOrder((this.getIndexOfQuestion + 1))
         this.fetchActivity({ 
             params, 
             question: this.getQuestion
         }).then(() => {
-            AudioReader.simplePlay(this.activity.statement.audio)
+            if (this.activity) AudioReader.simplePlay(this.activity.statement.audio)
         })
     },
     beforeDestroy(){
@@ -68,6 +73,7 @@ export default {
         AudioReader.stop()
     },    
     methods: {
+        ...mapActions('Unit', ['setNavigatorOrder']),
         ...mapActions('Activity', ['fetchActivity', 'destroyActivity'])
     }
 }
