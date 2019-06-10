@@ -30,7 +30,7 @@
 }
 
 .card-input.card-draggable{
-    @include custom-card;
+    @include custom-card(true);
     .dragging, .dropped{
         &::before{
             @include custom-dropcard-content;

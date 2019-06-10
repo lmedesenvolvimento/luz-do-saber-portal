@@ -1,5 +1,5 @@
 <template>
-    <div class="gameplay">
+    <div v-if="unit" class="gameplay">
         <div class="step-bars">
             <div
                 v-for="(value, index) in unit.questions" 
@@ -56,7 +56,7 @@ import ui from '@/components/ui'
 import alerts from '@/components/alerts'
 import { mapActions, mapState } from 'vuex'
 
-import { first,  } from 'lodash'
+import { first, findIndex } from 'lodash'
 
 export default {
     components: {
@@ -76,21 +76,12 @@ export default {
         ...mapState('Unit', ['unit', 'navigator']),
         ...mapState('Activity', ['activity','answers', 'log'])
     }, 
-    created(){
-        let firstQuestion = this.unit.questions[0]
-        let position = firstQuestion.order
-
-        if (this.$route.params.position) {
-            const indexOf = (this.$route.params.position - 1)
-            position = this.unit.questions[indexOf].order
-        }
-
-        this.setNavigatorOrder(position)
-
+    created(){       
+        console.log(this.unit.questions[0].order)
         this.$router.push({ 
             name: 'activity', 
             params: { 
-                position
+                position: this.unit.questions[0].order
             }
         })
     },  
