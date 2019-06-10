@@ -67,6 +67,7 @@
                     <ls-card-display 
                         v-for="i in 2" :key="i"
                         class="bingo-card"
+                        :valid="loseCounter[i-1]==4"
                     >                        
                         <b-row align-v="center" align-h="center">                       
                             <b-row
@@ -117,7 +118,8 @@ export default {
             actualRaffleWord: '',
             timer: 5000,
             showTimer: true,
-            animateBingoCounter: false
+            animateBingoCounter: false,
+            loseCounter: [0,0]
         }
     },
     computed:{
@@ -143,11 +145,21 @@ export default {
             setTimeout(() => {
                 this.animateBingoCounter = false;
             },1000) 
-        }
+        },
+        actualRaffleWord () {
+            if (this.searchString(this.words[0],this.actualRaffleWord)) this.loseCounter[0]++;
+            if (this.searchString(this.words[1],this.actualRaffleWord)) this.loseCounter[1]++;
+            if (this.loseCounter[0] == 4 || this.loseCounter[1] == 4){
+                console.log('a')
+                this.activity.pointings[1] = 1000;
+                this.triggerSuccess()
+            }
+            console.log(this.activity.pointings)
+        }        
     },   
     created(){        
         this.words = [[],[]]   
-        // colocaca o valores da cartela do jogador num vetor, e nas
+        // coloca o valores da cartela do jogador num vetor
         for(let i = 0; i < this.getKeys.length; i++){
             this.unraffleWords.push(this.getKeys[i].text)      
             this.scramblePlayerWords.push(this.getKeys[i].text)
@@ -224,21 +236,19 @@ export default {
                 }
                 // quando chega a zero, e exibindo o contador, ele seleciona aleatoriamente uma letra do alfabeto
                 else if (this.showTimer){
-                    // os primeiros valores sorteados são referentes as letras embaralhadas do nome do jogador
-                    if(this.scramblePlayerWords.length > 0){                    
+                    // os valores alternam entre um da cartela do jogador e um aleatório
+                    if(this.raffleWords.length%2 == 0){
                         this.unraffleWords.splice( this.unraffleWords.indexOf(this.scramblePlayerWords[0]) ,1);
                         this.actualRaffleWord = this.scramblePlayerWords[0];
                         this.raffle(this.scramblePlayerWords[0]);
-                        this.scramblePlayerWords.shift(); 
-                    }
-                    // após todas as letras do nome do jogador terem sido sorteadas, letras remanescentes são sorteadas aleatoriamente 
-                    else {
+                        this.scramblePlayerWords.shift();
+                    }else{
                         const wordIndex = Math.floor(Math.random()*this.unraffleWords.length);
                         const word = this.unraffleWords[wordIndex];
                         this.unraffleWords.splice(wordIndex,1);
                         this.actualRaffleWord = word;
                         this.raffle(word);
-                    }
+                    }  
                     this.showTimer = false;
                     this.timer = 5000;
                     this.actualizeBingoTimer();
@@ -252,7 +262,7 @@ export default {
             }
                   
         },
-        ...mapActions('Activity', ['setActivityAttrs','setAnswer'])
+        ...mapActions('Activity', ['setActivityAttrs','setAnswer','triggerSuccess'])
     },
 }
 </script>
