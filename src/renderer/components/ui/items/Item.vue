@@ -9,7 +9,7 @@
             ></ls-item-cracha-box>
 
             <ls-item-checkmark
-                v-if="template.custom === Types.custom.checkmark"
+                v-else-if="template.custom === Types.custom.checkmark"
                 :type="type"
                 :item="item"
                 :template="template"
@@ -17,35 +17,45 @@
             </ls-item-checkmark>
             
             <ls-card-display-validacao
-                v-if="template.custom === Types.custom.cardDisplayValidacao"
+                v-else-if="template.custom === Types.custom.cardDisplayValidacao"
                 :type="type"
                 :item="item"
                 :template="template"
             ></ls-card-display-validacao>
 
             <ls-display-18-items
-                v-if="template.custom === Types.custom.display18Items"
+                v-else-if="template.custom === Types.custom.display18Items"
                 :type="type"
                 :item="item"
                 :template="template"
             ></ls-display-18-items>
 
             <ls-item-texto-em-blocos
-                v-if="template.custom === Types.custom.textoEmBlocos"
+                v-else-if="template.custom === Types.custom.textoEmBlocos"
                 :type="type"
                 :item="item"
                 :template="template"
             ></ls-item-texto-em-blocos>
 
             <ls-card-group-droppable
-                v-if="template.custom === Types.custom.caixaPalavras"
+                v-else-if="template.custom === Types.custom.caixaPalavras"
                 label="key.text" 
                 name="card-input"
                 :item="item"
                 :bg-color="item.color"
+                :template="template"
             >
                 {{ item.text }}
-            </ls-card-group-droppable>   
+            </ls-card-group-droppable>            
+            
+            <ls-card-image-display
+                v-else-if="template.custom === Types.custom.descricaoImagem"
+                label="item.text"
+                :item="item"
+                :name="activity.type.slug"
+                :template="template"
+            >
+            </ls-card-image-display>
         </div>
         <div v-else>
             <ls-item-text 

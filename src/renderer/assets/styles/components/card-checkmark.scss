@@ -1,0 +1,38 @@
+.card-checkmark{
+    label{
+        &:hover{
+            cursor: pointer;
+        }
+    }
+    .input-horizontal-align {
+        display: flex !important;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .check-mark {
+        min-height: 36px;
+        min-width: 36px;
+        margin-right: 36px;
+        > .card-body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            height: 100%;
+            border-radius: 0.4rem !important;
+            padding: 0px !important;
+        }
+    }
+    
+    .card.limited-width-input {
+        min-width: 300px;
+        flex: 1;
+    }
+    input {
+        display: block;
+        visibility: hidden;
+        width: 0px;
+        height: 0px;
+    }
+}

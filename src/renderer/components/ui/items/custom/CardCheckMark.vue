@@ -1,19 +1,14 @@
 <template>
-    <div :id="`input-${uid}`" class="card-input card-radio-input" :class="$attrs.class">
+    <div :id="`input-${uid}`" class="card-input card-checkmark" :class="$attrs.class">
         <label class="input-horizontal-align">
             <b-card 
                 class="check-mark"
                 no-body
                 :class="{ 'invalid': invalid, 'valid': valid, 'selected': selected }"
             >
-                <fill-background :bg-color="bgColor">
-                    <b-card-body>
-                        <img v-if="valid || invalid" class="check-image" src="@/assets/images/x.png" alt="">
-                        <slot name="img">
-                        </slot>
-                        <slot></slot>
-                    </b-card-body>
-                </fill-background>
+                <b-card-body>
+                    <img v-if="valid || invalid" class="check-image" src="@/assets/images/x.png" alt="">                        
+                </b-card-body>
             </b-card>
 
             <b-card
@@ -23,10 +18,12 @@
             >
                 <fill-background :bg-color="bgColor">
                     <b-card-body>
-                        {{ item.text }}
-                        <slot name="img">
+                        <slot>
+                            <div v-if="template.type === 'imagem'" class="image">
+                                <async-image :src="item.images.length ? item.images[0].url : ''" />
+                            </div>
+                            <div v-else class="text">{{ item.text }}</div>
                         </slot>
-                        <slot></slot>
                     </b-card-body>
                 </fill-background>
             </b-card>
@@ -46,10 +43,16 @@
 
 <script>
 import RadioInput from '@/components/ui/form/RadioInput.vue'
+import AsyncImage from '@ui/AsyncImage'
 
 export default {
+    components: { AsyncImage },
     mixins: [RadioInput],
     props: {
+        template: Object
+    },
+    mounted(){
+        console.log(this.item, this.template)
     }
 };
 </script>
