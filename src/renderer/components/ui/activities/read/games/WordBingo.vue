@@ -150,11 +150,8 @@ export default {
             if (this.searchString(this.words[0],this.actualRaffleWord)) this.loseCounter[0]++;
             if (this.searchString(this.words[1],this.actualRaffleWord)) this.loseCounter[1]++;
             if (this.loseCounter[0] == 4 || this.loseCounter[1] == 4){
-                console.log('a')
-                this.activity.pointings[1] = 1000;
                 this.triggerSuccess()
             }
-            console.log(this.activity.pointings)
         }        
     },   
     created(){        
