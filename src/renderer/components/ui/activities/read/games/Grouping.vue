@@ -62,11 +62,10 @@ export default {
 <style lang="scss">
     .caixa{
         .card-input.drop-group{
-            height: 300px;
+            height: 280px;
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
-            padding: 4px;
             text-align: center;
         }
 
@@ -75,7 +74,7 @@ export default {
         }
 
         .card{
-            width: 50%;
+            width: 45%;
             border-radius: 0.75rem;
             padding: 0.15rem;
             .bg-color {
@@ -89,11 +88,11 @@ export default {
         }
 
         .items-container{
-            padding-top: 21%;
+            padding-top: 17%;
         }
 
         .title{
-            padding-top: 8%;
+            padding-top: 7%;
             color: transparentize($color: #222, $amount: 0.6)
         }
     }
