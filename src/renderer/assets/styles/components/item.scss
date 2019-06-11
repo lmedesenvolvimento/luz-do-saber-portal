@@ -11,20 +11,22 @@
         max-width: none;
         min-width: $item-min-width;
         justify-content: center;
-         .card {
-                max-height: 71px;
+        .card {
+            max-height: 71px;
         }
-        .card-body {
-            padding: 1rem 1.67rem !important;
-        }
-        .card-droppable, .card-draggable, .card-radio-input {
-            min-width: 5rem;
+        .card-droppable, .card-draggable, .card-radio-input, .card-display {
+            min-width: 74px;
         }
         .card-input-text {
-            max-width: 5rem;
+            max-width: 74px;
             .card-body{
                 padding: 1rem 1.25rem !important;
             }
+        }
+    }
+    .letra{
+        .card-droppable, .card-draggable, .card-radio-input, .card-display {
+            max-width: 74px;
         }
     }
     &.col-sm-1, &.col-md-1, .col-1{
