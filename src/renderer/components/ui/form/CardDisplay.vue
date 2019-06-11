@@ -1,11 +1,11 @@
 <template>
     <div class="card-display" :class="$attrs.class">
-        <b-card 
+        <b-card
             no-body
             :class="{ 'invalid': invalid, 'valid': valid }"
         >
             <fill-background :bg-color="bgColor">
-                <b-card-body>                    
+                <b-card-body>
                     <slot name="img"></slot>
                     <slot></slot>
                 </b-card-body>
@@ -33,5 +33,3 @@ export default {
     }
 }
 </script>
-<style lang="scss">
-</style>

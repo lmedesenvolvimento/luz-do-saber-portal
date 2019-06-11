@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div :class="$route.params.module_slug">
         <b-modal 
             ref="alert-success-modal"
             content-class="feedback" 

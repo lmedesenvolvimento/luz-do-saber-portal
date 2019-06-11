@@ -71,7 +71,7 @@
             :bg-color="item.color"
         >
             {{ item.text }}
-        </ls-card-input>        
+        </ls-card-input>
     </div>
 </template>
 <script>
