@@ -51,11 +51,12 @@
     </div>
 </template>
 <script>
-import { MapMixins, ListMixin, CreateAnswersMixins } from './mixins'
-import FormProps from '../form'
-import { range } from 'lodash'
+import { MapMixins, ListMixin, CreateAnswersMixins } from '@ui/activities/mixins'
+import ui from '@/components/ui'
 import Item from '@/components/ui/items/Item'
+import { mapState, mapActions } from 'vuex'
 
+import FormProps from '@ui/form'
 
 
 export default {
@@ -127,17 +128,17 @@ export default {
     #dragging-syllables
     {
         .card-display .card .card-body{
-            font-size: 18px !important;
+            font-size: 16px !important;
             
         }
         .card-input.card-draggable .card .card-body{
-            font-size: 18px !important;
+            font-size: 16px !important;
             max-width: 150px;
         }
         .card-input.card-droppable .card .card-body
         {
             max-width: 150px;
-            font-size: 18px !important;
+            font-size: 16px !important;
         }
         .image{
             width: 100%;
@@ -155,5 +156,4 @@ export default {
             padding-left: 10px;
         }
     }
-
 </style>
