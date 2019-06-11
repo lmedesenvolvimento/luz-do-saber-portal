@@ -3,7 +3,7 @@
         <b-row align-h="center" class="reverse">
             <b-col v-if="hasKeys" class="activity-keys">
                 <b-row>
-                    <b-col v-for="(item, position) in getKeys" :key="position" cols="12" md="12" class="item"> 
+                    <b-col v-for="(item, position) in newItens" :key="position" cols="12" md="12" class="item"> 
                         <b-row class="my-2" align-v="center">
                             <b-col class="image-col" cols="12" md="3" sm="6">
                                 <ls-card-display v-if="item.images[0].url !== null" class="key-image">
@@ -12,16 +12,16 @@
                             </b-col>
                             <b-col cols="12" md="9" sm="6" class="syllables-row">
                                 <b-row>
-                                    <b-col v-for="(syllable, index) in item.syllables" :key="index" cols="12" lg="3" :md="4" :sm="6" class="key-syllables">
+                                    <b-col v-for="(syllables, index) in item.syllables" :key="index" cols="12" lg="3" :md="4" :sm="6" class="key-syllables">
                                         <ls-card-droppable
                                             v-if="answers"
-                                            :item="item"
+                                            :item="syllables.syllable"
                                             :type="'key'"
                                             :template="activity.item_template.key"
                                             :custom-validate="validateBySyllabe"
                                         >
                                             <template slot="transfer-data">
-                                                {{ syllable.text }}
+                                                {{ syllables.correct ? syllables.syllable.text : dataTransfer.text }}
                                             </template> 
                                         </ls-card-droppable>
                                     </b-col>
@@ -65,45 +65,61 @@ export default {
     mixins: [MapMixins, ListMixin, CreateAnswersMixins],
     data() {
         return {
-            correctAnswers: [],
-            teste: String,
+            newItens: [],
+            dataTransfer: {text: 'AA'},
         }
     },
     mounted() {
         this.createAnswersArray()
         for (let i = 0; i < this.activity.items.keys.length; i++) {
-            for (let j = 0; j < this.activity.items.keys[i].syllables.length; j++){
-                this.activity.items.keys[i].syllable = this.activity.items.keys[i].syllables[j];
+            this.newItens.push(JSON.parse(JSON.stringify(this.activity.items.keys[i])));
+            for (let j = 0; j < this.activity.items.keys[i].syllables.length; j++){           
+                this.newItens[i].syllables[j] = JSON.parse(JSON.stringify(this.activity.items.keys[i]))
+                this.newItens[i].syllables[j].syllable = this.activity.items.keys[i].syllables[j]
+                this.newItens[i].syllables[j].syllable.word = this.activity.items.keys[i].text
+                this.newItens[i].syllables[j].correct = false;
             }
         }
     },
     methods: {
         validateBySyllabe(transferData, nativeElement, vm){
-            console.log('Draggable',transferData)
-            console.log('Droppable',vm.item)
-            if (transferData.key_id === vm.item.id){
-                console.log('Acertou a palavra')
-                for (var i = 0; i < vm.item.syllables.length; i++){
-                    console.log(vm.item.syllables[i].text)
-                }
+            this.dataTransfer = transferData   
+            if (transferData.text === vm.item.text){
                 vm.valid = true;
-                // if (transferData.text == vm.item.text){
-                //     console.log('ACERTOU A SILABA POAR')
-                //     vm.valid = true;
-                // }
-                // else{
-                //     vm.invalid = true;
-                // }
-            }
-            else{
-                vm.valid = false;
+                transferData.valid = true;
+                for (let i = 0; i < this.newItens.length; i++){
+                    for (let j = 0; j < this.newItens[i].syllables.length; j++){
+                        if (this.newItens[i].syllables[j].syllable.text === transferData.text && !this.newItens[i].syllables[j].correct){
+                            this.newItens[i].syllables[j].correct = true
+                        }
+                    }
+                }
+                for (let i = 0; i < this.newItens.length; i++){
+                    if (this.newItens[i].text === vm.item.word){
+                        for (let j = 0; j < this.newItens[i].syllables.length; j++){
+                            if (this.newItens[i].syllables[j].correct === false){
+                                return;
+                            }
+                        }
+                    }
+                }
+                vm.setAnswer({ 
+                    type: 'value',
+                    data: transferData.id,
+                    vm: this
+                })
+            }else{
                 vm.invalid = true;
-                console.log('Errou :(');
-
+                transferData.invalid = true
+                vm.setAnswer({ 
+                    type: 'value', 
+                    data: -1,
+                    vm: this
+                })
             }
-        }
-        
+        },
     },
+
 }
 </script>
 <style lang="scss">
@@ -112,12 +128,15 @@ export default {
     {
         .card-display .card .card-body{
             font-size: 18px !important;
+            
         }
         .card-input.card-draggable .card .card-body{
             font-size: 18px !important;
+            max-width: 150px;
         }
         .card-input.card-droppable .card .card-body
         {
+            max-width: 150px;
             font-size: 18px !important;
         }
         .image{
