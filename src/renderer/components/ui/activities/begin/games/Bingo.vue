@@ -26,7 +26,8 @@
             </b-col>
             <b-col cols="9" align-v="center" align-h="center">
                 <b-row>
-                    <ls-card-display 
+                    <ls-card-display
+                        :class="{'card-sm': ajustLength}"                                                
                         class="bingo-card bingo-card-player"
                     >
                         <b-row align-v="center" align-h="center">
@@ -70,6 +71,7 @@
                     :key="i"
                 >
                     <ls-card-display 
+                        :class="{'card-sm': ajustLength}" 
                         class="bingo-card" 
                         :valid="searchStringInArray(raffleLetters, normalizeString(getValues[i].text).split(''))"                       
                     >                        
@@ -134,7 +136,13 @@ export default {
         getDuration(){           
             return moment(this.timer).format('m:ss')
         },        
-        ...mapState('Activity', ['log'])
+        ...mapState('Activity', ['log']),
+        ajustLength(){
+            for(let i = 0; i < 3; i++){
+                if(this.getValues[i].letters.length > 7) return true 
+            }
+            return false
+        }
     },
     watch: {
         showTimer() {
