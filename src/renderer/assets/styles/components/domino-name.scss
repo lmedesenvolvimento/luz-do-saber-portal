@@ -73,4 +73,30 @@
     .droppable, .draggable{
         height: 100%;       
     }
+    .draggable {
+        &.dropped, &.dragging{
+            .card{
+                .bg-color{ 
+                    @extend .invisible;
+                 }
+                &::before{
+                    @include custom-dropcard-content;
+                    border-radius: 0.6em;
+                }
+            }
+        }   
+    }
+    .droppable {
+        .empty{
+            .card {
+                .bg-color{ 
+                    @extend .invisible;
+                 }
+                &::before{
+                    @include custom-dropcard-content;
+                    border-radius: 0.6em;
+                }
+            }
+        }
+    }
 }
