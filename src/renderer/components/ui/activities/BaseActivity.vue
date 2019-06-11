@@ -78,16 +78,6 @@
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
             />
-            <ls-activity-match-friends-initial 
-                v-if="gameSubtypes.matchFriendsInitial === activity.subtype.slug" 
-                :value-col-size="valueColSize"
-                :key-col-size="keyColSize"
-            />
-            <ls-activity-dragging-syllables
-                v-if="gameSubtypes.draggingSyllables === activity.subtype.slug" 
-                :value-col-size="valueColSize"
-                :key-col-size="keyColSize"
-            />
             <ls-activity-begin-domino-name
                 v-if="gameSubtypes.dominoName === activity.subtype.slug" 
                 :value-col-size="valueColSize"
@@ -108,6 +98,11 @@
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
             />
+            <ls-activity-match-friends-initial 
+                v-if="gameSubtypes.matchFriendsInitial === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+            />
             <ls-activity-box-of-words 
                 v-if="gameSubtypes.boxWords === activity.subtype.slug" 
                 :value-col-size="valueColSize"
@@ -120,6 +115,11 @@
             />            
             <ls-activity-grouping
                 v-if="gameSubtypes.grouping === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+            />
+            <ls-activity-read-dragging-syllables
+                v-if="gameSubtypes.draggingSyllables === activity.subtype.slug" 
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
             />            
