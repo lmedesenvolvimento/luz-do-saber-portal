@@ -1,7 +1,11 @@
 <template>
     <div class="container-fluid">        
         <b-row align-h="center" :class="{'column': !horizontal,'reverse': (reverse && horizontal), 'reverse-column': ( reverse && !horizontal )}">
-            <b-col v-if="hasKeys" class="activity-keys">
+            <b-col 
+                v-if="hasKeys" 
+                class="activity-keys align-items-center"
+                :class="{'flex-2': !horizontal}"
+            >
                 <b-row>
                     <b-col v-for="(item, position) in getKeys" :key="position" :sm="keyColSize" class="item"> 
                         <Item 
@@ -14,17 +18,15 @@
                 </b-row>
             </b-col>
             <b-col 
-                :class="{ 
-                    'flex-4': getValues.length >= 12 
-                }"
-                class="activity-values" 
+                class="activity-values align-items-end"
             >
-                <b-row align-v="center" align-h="center">
-                    <b-col v-for="(item, position) in getValues" :key="position" align-self="center" :md="valueColSize" :sm="6" class="item"> 
+                <b-row align-v="end" align-h="end" class="fill">
+                    <b-col v-for="(item, position) in getValues" :key="position" align-self="end" :md="valueColSize" :sm="6" class="item"> 
                         <Item 
                             v-if="answers"
                             :item="item"
                             :type="'value'"
+                            :size="'small'"
                             :template="activity.item_template.value"
                         />
                     </b-col>                    
@@ -38,6 +40,11 @@ import { MapMixins, ListMixin, CreateAnswersMixins } from '@ui/activities/mixins
 
 export default {
     mixins: [MapMixins, ListMixin, CreateAnswersMixins],
+    inheritAttrs: false,
+    props: {
+        keyExtraClass: String,
+        valueExtraClass: String,
+    },
     mounted() {
         this.createAnswersArray()
     },

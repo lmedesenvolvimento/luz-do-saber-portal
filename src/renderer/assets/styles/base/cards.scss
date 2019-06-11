@@ -5,8 +5,12 @@
     }
 }
 
+
 .card-input{
     background-color: transparent !important;
+    &.card-sm{
+        @include custom-card-sm(true);
+    }
 }
 
 .card-input{
@@ -29,8 +33,12 @@
     }
 }
 
+.card-checkmark{
+    @include custom-card-sm(true);
+}
+
 .card-input.card-draggable{
-    @include custom-card;
+    @include custom-card(true);
     .dragging, .dropped{
         &::before{
             @include custom-dropcard-content;
@@ -47,6 +55,17 @@
             }
         }
     }    
+}
+
+.card-image-display{
+    .card-img img{
+        max-width: 400px;
+        width: 100%;
+    }
+    .card-img svg {
+        width: 180px;
+        height: 180px;
+    }
 }
 
 // .card{
