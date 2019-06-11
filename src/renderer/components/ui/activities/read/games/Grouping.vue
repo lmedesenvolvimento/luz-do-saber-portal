@@ -59,6 +59,40 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+    .caixa{
+        .card-input.drop-group{
+            height: 300px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
 
+        .drop-group .drop-group-item{
+            margin: 0 auto !important;
+        }
+
+        .card{
+            width: 50%;
+            border-radius: 0.75rem;
+            padding: 0.15rem;
+            .bg-color {
+                border-radius: 0.6rem !important;
+            }
+            .card-body{
+                font-size: 18px;
+                padding: 0.5rem;
+                border-radius: 0.6rem !important;
+            }
+        }
+
+        .items-container{
+            padding-top: 29%;
+        }
+
+        .title{
+            padding-top: 8%;
+            color: transparentize($color: #222, $amount: 0.6)
+        }
+    }
 </style>
