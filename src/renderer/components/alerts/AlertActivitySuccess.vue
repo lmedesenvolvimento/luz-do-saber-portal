@@ -41,6 +41,8 @@
 import { mapState, mapActions, mapGetters } from 'vuex'
 import { find } from 'lodash'
 
+import AudioReader from '@/services/AudioReader'
+
 export default {
     data(){
         return {
@@ -165,6 +167,8 @@ export default {
             this.fetchActivity({ 
                 params, 
                 question
+            }).then(() => {
+                if (this.activity) AudioReader.simplePlay(this.activity.statement.audio)
             })
 
             this.onHidden();
