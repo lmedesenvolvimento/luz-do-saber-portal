@@ -66,6 +66,8 @@ export default {
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
+            padding: 4px;
+            text-align: center;
         }
 
         .drop-group .drop-group-item{
@@ -87,7 +89,7 @@ export default {
         }
 
         .items-container{
-            padding-top: 29%;
+            padding-top: 21%;
         }
 
         .title{
