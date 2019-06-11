@@ -264,21 +264,5 @@ export default {
 }
 </script>
 
-<style lang="scss">    
-@import '~animate-scss/_properties';
-@import '~animate-scss/_attention-seekers/attention-seekers';
-.bingo-word{
-    display: inline-grid;
-    text-align: center;
-    padding-top: 20px;
-    color: white;
-    background-color: #dfd9db;
-    border-radius: 30px;
-    width: 60px;
-    height: 60px;
-    margin: 2px;
-    &.bingo-raffle-word{
-        background-color: #13c5c4;
-    }
-}
+<style> 
 </style>
