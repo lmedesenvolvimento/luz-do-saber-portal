@@ -1,6 +1,6 @@
 <template>           
     <div id="base">        
-        <div v-if="isActivity || isJoinActivity" class="activity">        
+        <div v-if="isActivity || isJoinActivity" class="activity">       
             <ls-activity-default 
                 v-if="activitySubtypes.row === activity.subtype.slug" 
                 :value-col-size="valueColSize"
@@ -24,7 +24,33 @@
                 :key-col-size="keyColSize"
                 :horizontal="false"
                 :reverse="true"
+            />         
+        </div>
+        <div v-else-if="isQuestionnaire" class="activity">       
+            <ls-activity-questionnaire 
+                v-if="activitySubtypes.row === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
             />
+            <ls-activity-questionnaire 
+                v-else-if="activitySubtypes.rowReverse === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+                :reverse="true"
+            />
+            <ls-activity-questionnaire 
+                v-else-if="activitySubtypes.column === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+                :horizontal="false"
+            />
+            <ls-activity-questionnaire
+                v-else-if="activitySubtypes.columnReverse === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+                :horizontal="false"
+                :reverse="true"
+            />         
         </div>
         <div v-else-if="types.game === activity.type.slug" class="game"> 
             <ls-activity-begin-bingo
@@ -121,6 +147,9 @@ export default {
         },
         isActivity(){
             return values(ActivityTypes.activity.default).includes(this.activity.type.slug)
+        },
+        isQuestionnaire(){
+            return values(ActivityTypes.activity.questionnaire).includes(this.activity.type.slug)
         },
         isJoinActivity(){
             return values(ActivityTypes.activity.join).includes(this.activity.type.slug)
