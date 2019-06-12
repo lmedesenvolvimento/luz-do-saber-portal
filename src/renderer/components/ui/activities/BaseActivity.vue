@@ -113,7 +113,7 @@
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
             />            
-            <ls-activity-grouping
+            <ls-activity-read-grouping
                 v-if="gameSubtypes.grouping === activity.subtype.slug" 
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
