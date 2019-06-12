@@ -3,6 +3,7 @@
         &:hover{
             cursor: pointer;
         }
+        
     }
     .input-horizontal-align {
         display: flex !important;
@@ -11,17 +12,21 @@
     }
     
     .check-mark {
-        min-height: 36px;
-        min-width: 36px;
-        margin-right: 36px;
+        min-height: 40px;
+        min-width: 40px;
+        margin-right: 24px;
+        border-radius: 0.6rem !important;
         > .card-body {
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
             height: 100%;
-            border-radius: 0.4rem !important;
+            border-radius: 0.6rem !important;
             padding: 0px !important;
+        }
+        &::after{
+            @extend .invisible;
         }
     }
     
