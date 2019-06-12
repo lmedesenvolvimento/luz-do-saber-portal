@@ -1,7 +1,6 @@
 <template>
-    <div id="theme" class="page-container">
-        <navbar
-            v-if="theme"
+    <div v-if="theme" id="theme" class="page-container">
+        <navbar            
             :navbar-title="renderNavTitle"
             :navbar-subtitle="'Unidades'"
             :navbar-icon="themeImage"
@@ -56,7 +55,7 @@ export default {
 
         },
         themeImage(){
-            return this.theme.cover_url ? this.baseUrl + this.theme.cover_url : ''
+            return this.theme.cover_url ? this.theme.cover_url : ''
         },
         ...mapState('Theme', ['theme']),
         

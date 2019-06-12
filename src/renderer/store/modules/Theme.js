@@ -1,7 +1,7 @@
 import API from '@/services/Http'
 
 const state = {
-    theme: {}
+    theme: null
 }
 
 const mutations = {

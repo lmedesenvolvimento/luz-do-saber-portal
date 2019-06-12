@@ -1,41 +1,39 @@
 <template>
-    <div :class="$route.params.module_slug">
-        <b-modal 
-            ref="alert-success-modal"
-            content-class="feedback" 
-            :centered="true" 
-            :header-class="renderModuleSlug" 
-            :hide-footer="true" 
-            :no-close-on-backdrop="true"
-            @hide="onHidden"
-        >
-            <template slot="modal-header">
-                <div class="feedback-header">
-                    <div class="feedback-stars feedback-header-item">                         
-                        <img :src="star(0)" class="feedback-small-stars" alt="star"> 
-                        <img :src="star(1)" alt="star"> 
-                        <img :src="star(2)" class="feedback-small-stars" alt="star">                        
-                    </div>
-                    <div class="feedback-header-item "><h5 class="feedback-rounded-number">{{ renderActivityPosition }}</h5></div>
-                    <div class="feedback-header-item"><h5>{{ renderActivityName }}</h5></div>
-                </div>                
-            </template>
+    <b-modal 
+        ref="alert-success-modal"
+        content-class="feedback" 
+        :centered="true" 
+        :header-class="renderModuleSlug" 
+        :hide-footer="true" 
+        :no-close-on-backdrop="true"
+        @hide="onHidden"
+    >
+        <template slot="modal-header">
+            <div class="feedback-header">
+                <div class="feedback-stars feedback-header-item">                         
+                    <img :src="star(0)" class="feedback-small-stars" alt="star"> 
+                    <img :src="star(1)" alt="star"> 
+                    <img :src="star(2)" class="feedback-small-stars" alt="star">                        
+                </div>
+                <div class="feedback-header-item "><h5 class="feedback-rounded-number">{{ renderActivityPosition }}</h5></div>
+                <div class="feedback-header-item"><h5>{{ renderActivityName }}</h5></div>
+            </div>                
+        </template>
+        <br>
+        <div class="feedback-content">
+            <img :src="expressionStar" alt="expression-star">                 
             <br>
-            <div class="feedback-content">
-                <img :src="expressionStar" alt="expression-star">                 
-                <br>
-                <h5>{{ feedbackText1 }}</h5>
-                <div v-if="totalStars==3" class="feedback-itim"><h5>{{ feedbackText5 }}</h5></div>
-                <div class="feedback-itim"><h5>{{ feedbackText2 }} <span class="feedback-golden">{{ feedbackText3 }}</span>{{ feedbackText4 }}</h5></div>
-                <div v-if="totalStars!=3" class="feedback-itim"><h5>{{ feedbackText5 }}</h5></div>
-            </div>             
-            <br>
-            <div class="feedback-footer-buttons">
-                <div class="icon-redo" @click="resetActivity"></div> 
-                <div class="icon-next" @click="nextActivity"></div>              
-            </div>  
-        </b-modal>    
-    </div> 
+            <h5>{{ feedbackText1 }}</h5>
+            <div v-if="totalStars==3" class="feedback-itim"><h5>{{ feedbackText5 }}</h5></div>
+            <div class="feedback-itim"><h5>{{ feedbackText2 }} <span class="feedback-golden">{{ feedbackText3 }}</span>{{ feedbackText4 }}</h5></div>
+            <div v-if="totalStars!=3" class="feedback-itim"><h5>{{ feedbackText5 }}</h5></div>
+        </div>             
+        <br>
+        <div class="feedback-footer-buttons" :class="$route.params.module_slug">
+            <div class="icon-redo" @click="resetActivity"></div> 
+            <div class="icon-next" @click="nextActivity"></div>              
+        </div>  
+    </b-modal>
 </template>
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex'
