@@ -41,7 +41,6 @@
 
         <ls-card-input 
             v-else-if="type === 'key' && isJoinInput"
-            class="col-sm" 
             label="item.text" 
             :item="item"
             :type="type"
@@ -53,7 +52,6 @@
 
         <ls-card-display 
             v-else-if="type === 'key'"
-            class="col-sm" 
             label="item.text" 
             :item="item"
             :name="activity.type.slug"
