@@ -6,7 +6,7 @@
         >
             <b-card-body>
                 <slot name="img">
-                    <async-image class="card-img" src="https://picsum.photos/300/200" />
+                    <async-image class="card-img" :src="picture" />
                 </slot>
                 <slot></slot>
             </b-card-body>
@@ -23,7 +23,12 @@ export default {
     props: {
         item: Object,
         template: Object
-    },    
+    },
+    computed: {
+        picture(){
+            return this.item.images.length ? this.item.images[0].url : 'https://picsum.photos/300/200'
+        }
+    }
 }
 </script>
 <style>
