@@ -5,14 +5,14 @@
                 <b-row>
                     <b-col v-for="(item, position) in newItens" :key="position" cols="12" md="12" class="item"> 
                         <b-row class="my-2" align-v="center">
-                            <b-col class="image-col" cols="12" md="3" sm="6">
+                            <b-col class="image-col" cols="12" md="3" sm="3">
                                 <ls-card-display v-if="item.images[0].url !== null" class="key-image">
                                     <div class="image" :style="{ 'background-image': 'url(' + item.images[0].url + ')' }" />
                                 </ls-card-display>
                             </b-col>
-                            <b-col cols="12" md="9" sm="6" class="syllables-row">
+                            <b-col cols="12" md="9" sm="9" class="syllables-row">
                                 <b-row>
-                                    <b-col v-for="(syllables, index) in item.syllables" :key="index" cols="12" lg="3" :md="4" :sm="6" class="key-syllables">
+                                    <b-col v-for="(syllables, index) in item.syllables" :key="index" cols="12" lg="3" :md="4" :sm="4" class="key-syllables">
                                         <ls-card-droppable
                                             v-if="answers"
                                             :item="syllables.syllable"
@@ -31,10 +31,10 @@
                     </b-col>
                 </b-row>
             </b-col>
-            <b-col class="activity-values" cols="12" lg="5" md="5">
-                <ls-card-display>
+            <b-col class="activity-values" cols="12" lg="5" md="12">
+                <ls-card-display id="values-container-display">
                     <b-row align-v="center" align-h="center" class="values-container">
-                        <b-col v-for="(item, position) in getValues" :key="position" align-self="center" cols="12" :sm="6" :md="6" lg="4" class="item"> 
+                        <b-col v-for="(item, position) in getValues" :key="position" align-self="center" cols="12" :sm="4" :md="4" lg="4" class="item"> 
                             <ls-card-draggable 
                                 v-if="answers"
                                 :item="item"
@@ -127,33 +127,59 @@ export default {
 
     #dragging-syllables
     {
+        .activity-keys{
+            padding-top:5px;
+            padding-bottom: 5px;
+        }
+        .activity-values{
+            padding-top:5px;
+            padding-bottom: 5px;
+        }
+
+        .activity-values .card-display .card .card-body{
+            padding-top: 0;
+            padding-bottom: 0;
+        }
         .card-display .card .card-body{
             font-size: 16px !important;
             
         }
-        .card-input.card-draggable .card .card-body{
+        // .card-input.card-droppable{
+        //     max-width: 180px;
+        // }
+        .card-input.card-draggable .card .card-body, .card-input.card-droppable .card .card-body,.card-input.draggshadow .card .card-body {
             font-size: 16px !important;
-            max-width: 150px;
+            min-width: 60px;
+            padding-top: 15px;
+            padding-bottom: 15px;
         }
-        .card-input.card-droppable .card .card-body
-        {
-            max-width: 150px;
-            font-size: 16px !important;
+        .image-col{
+            padding: 0;
+            .key-image {
+                padding: 0;
+                .card .card-body{
+                    padding: 5px;
+                }
+                .image{
+                    height: 100%;
+                    min-height: 70px;
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                }
+            }
         }
-        .image{
-            width: 100%;
-            min-height: 50px;
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-        }
+        
         .values-container
         {  
-            padding: 10px;
+            padding: 5px;
         }
-        .key-syllables, .syllables-row, .activity-keys .card-display, .item, .image-col{
+        .key-syllables, .syllables-row, .activity-keys .card-display, .item{
             padding-right: 10px;
             padding-left: 10px;
+        }
+        .card-display{
+            padding: 0;
         }
     }
 </style>
