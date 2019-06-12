@@ -15,6 +15,7 @@
                                     <b-col v-for="(syllables, index) in item.syllables" :key="index" cols="12" lg="3" :md="4" :sm="4" class="key-syllables">
                                         <ls-card-droppable
                                             v-if="answers"
+                                            class="letra"
                                             :item="syllables.syllable"
                                             :type="'key'"
                                             :template="activity.item_template.key"
@@ -127,6 +128,11 @@ export default {
 
     #dragging-syllables
     {
+        .letra{
+            // background-color: black;
+            width: 100%;
+            padding: 0 !important;
+        }
         .activity-keys{
             padding-top:5px;
             padding-bottom: 5px;
@@ -142,25 +148,31 @@ export default {
             font-size: 16px !important;
             
         }
-        // .card-input.card-droppable{
-        //     max-width: 180px;
-        // }
-        .card-input.card-draggable .card .card-body, .card-input.card-droppable .card .card-body,.card-input.draggshadow .card .card-body {
+        .item .letra .card-droppable{
+            width: 100% !important;
+            max-width: 490px !important;
+            padding: 15px 10px;
+        }
+        .card-input.card-draggable .card .card-body, .letra .card-input.card-droppable .card .card-body,.card-input.draggshadow .card .card-body {
             font-size: 16px !important;
+            width: 100% !important;
             min-width: 61px;
             padding-top: 15px;
             padding-bottom: 15px;
         }
         .image-col{
             padding: 0;
+            justify-content: center;
             .key-image {
+                max-width: 490px !important;
                 padding: 0;
                 .card .card-body{
                     padding: 5px;
                 }
                 .image{
                     height: 100%;
-                    min-height: 70px;
+                    min-width: 74px;
+                    min-height: 74px;
                     background-size: contain;
                     background-repeat: no-repeat;
                     background-position: center;
@@ -172,11 +184,11 @@ export default {
         {  
             padding: 5px;
         }
-        .key-syllables, .syllables-row, .activity-keys .card-display, .item{
+        .letra, .syllables-row, .activity-keys .card-display, .item{
             padding-right: 10px;
             padding-left: 10px;
         }
-        .card-display{
+        .card-display, .key-syllables{
             padding: 0;
         }
     }
