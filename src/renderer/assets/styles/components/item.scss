@@ -13,6 +13,14 @@
         justify-content: center;
         .card {
             max-height: 71px;
+            &.valid, &.invalid{
+                &::after{
+                    top: -24px;
+                    bottom: auto;
+                    left: 0;
+                    right: 0;
+                }
+            }
         }
         .card-droppable, .card-draggable, .card-radio-input, .card-display {
             min-width: 74px;
