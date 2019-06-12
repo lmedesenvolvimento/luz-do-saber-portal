@@ -132,10 +132,8 @@ export default {
             padding-bottom: 5px;
         }
         .activity-values{
-            padding-top:5px;
-            padding-bottom: 5px;
+            padding: 5px 10px;
         }
-
         .activity-values .card-display .card .card-body{
             padding-top: 0;
             padding-bottom: 0;
@@ -149,7 +147,7 @@ export default {
         // }
         .card-input.card-draggable .card .card-body, .card-input.card-droppable .card .card-body,.card-input.draggshadow .card .card-body {
             font-size: 16px !important;
-            min-width: 60px;
+            min-width: 61px;
             padding-top: 15px;
             padding-bottom: 15px;
         }
