@@ -61,17 +61,6 @@ export default {
 }
 </script>
 <style lang="scss">
-.caixa{
-    .drop-group {
-        border: 3px dotted royalblue;
-        min-height: 50px;
-        padding: 4px;
-        text-align: center;
-    }
 
-    .drop-group .drop-group-item{
-        margin: 1rem auto;
-    }
-}
 </style>
 
