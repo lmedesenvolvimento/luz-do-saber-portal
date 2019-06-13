@@ -1,18 +1,13 @@
 <template>
     <div>
-        <ls-card-image-display 
+        <ls-card-image-display
             v-if="type === 'key'"
             class="col-sm" 
             label="item.text" 
             :item="item"
-            :image="'https://picsum.photos/300/200'"
             :name="activity.type.slug"
-            :bg-color="item.color"
+            :template="template"
         >
-            <template v-slot:img>
-                <b-card-img src="https://picsum.photos/300/200">
-                </b-card-img>
-            </template>
         </ls-card-image-display>
 
         <ls-card-draggable

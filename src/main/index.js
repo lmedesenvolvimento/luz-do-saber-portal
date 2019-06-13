@@ -30,9 +30,11 @@ function createWindow () {
       webSecurity: false
     }
   })
-
-  // mainWindow.maximize()
-  // mainWindow.setFullScreen(true)
+  
+  if (process.env.NODE_ENV !== 'development') {
+    mainWindow.maximize()
+    mainWindow.setFullScreen(true)    
+  }
 
   mainWindow.loadURL(winURL)
 

@@ -1,11 +1,13 @@
 const path = require('path')
 
+// console.log('Plataform:', process.env.BUILD_TARGET, process.env.LINUX_ARCH)
+
 /**
  * `electron-packager` options
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-electron-packager.html
  */
 module.exports = {
-  arch: 'x64',
+  arch: process.env.LINUX_ARCH === '32' ? "ia32" : "x64",
   asar: true,
   dir: path.join(__dirname, '../'),
   icon: path.join(__dirname, '../build/icons/icon'),
