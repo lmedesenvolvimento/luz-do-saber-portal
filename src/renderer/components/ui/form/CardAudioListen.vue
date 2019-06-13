@@ -15,7 +15,11 @@
 </template>
 
 <script>
+import uniqid from 'uniqid'
+import { filter } from 'lodash'
+
 import RadioInput from './RadioInput.vue'
+import AudioReader from '@/services/AudioReader'
 
 export default {
     mixins: [RadioInput], 
@@ -24,14 +28,9 @@ export default {
         template: Object,
     },
     data(){
-        let audio = new Audio()
-        audio.src = 'https://luz-do-saber-staging.herokuapp.com/audios/comecar/meu-nome/meu-primeiro-nome/1.mp3'
-
-        let audioProgress = 0
-
         return {
-            audio,
-            audioProgress,
+            audio: null,
+            audioProgress: 0,
         }
     },
     computed:{
@@ -40,11 +39,16 @@ export default {
         }
     },
     mounted(){
+        this.audio = new Audio()
+        this.audio.src = 'https://luz-do-saber-staging.herokuapp.com/audios/comecar/meu-nome/meu-primeiro-nome/1.mp3'
+        this.audio.$uid = uniqid()
         this.audio.addEventListener('ended', this.ended)
-        this.audio.addEventListener('timeupdate', this.progress)
+        this.audio.addEventListener('timeupdate', this.progress)        
+        AudioReader.playlist.push(this.audio)
     },
     methods: {
         click(){
+            if (filter(AudioReader.playlist, { paused: false }).length) return
             this.audio.play()
         },
         ended(){
