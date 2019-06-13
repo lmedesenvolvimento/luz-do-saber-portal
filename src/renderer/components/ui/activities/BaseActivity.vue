@@ -1,6 +1,6 @@
 <template>           
     <div id="base">        
-        <div v-if="isActivity || isJoinActivity" class="activity">       
+        <div v-if="isActivity || isJoinActivity || isAudioActivity" class="activity">        
             <ls-activity-default 
                 v-if="activitySubtypes.row === activity.subtype.slug" 
                 :value-col-size="valueColSize"

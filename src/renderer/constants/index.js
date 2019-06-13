@@ -41,6 +41,7 @@ export const ItemTypes = {
     primitive: {
         text: 'texto',
         image: 'imagem',
+        audio: 'audio'
     },
     custom: {
         crachaBox: 'game-cracha-box',
