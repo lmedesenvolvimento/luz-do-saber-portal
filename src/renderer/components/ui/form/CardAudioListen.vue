@@ -40,9 +40,7 @@ export default {
         }
     },
     mounted(){
-        //this.audio.addEventListener('play', this.play)
         this.audio.addEventListener('ended', this.ended)
-        //this.audio.addEventListener('playing', this.playing)
         this.audio.addEventListener('timeupdate', this.progress)
     },
     methods: {
@@ -50,18 +48,11 @@ export default {
             this.audio.play()
         },
         ended(){
-            //console.log('terminou')
             this.setAnswer({ 
                 type: 'value', 
                 data: this.item.id,
                 vm: this
             })
-        },
-        play(){
-            console.log('iniciou')
-        },
-        playing(){
-            console.log('tocando')
         },
         progress(){
             this.audioProgress = (this.audio.currentTime / this.duration) * 100
