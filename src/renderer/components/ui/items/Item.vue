@@ -36,6 +36,13 @@
                 :item="item"
                 :template="template"
             ></ls-item-texto-em-blocos>
+            
+            <ls-card-audio-listen
+                v-if="template.custom === Types.custom.audioPlayer"
+                :type="type"
+                :item="item"
+                :template="template"
+            ></ls-card-audio-listen>
 
             <ls-card-group-droppable
                 v-else-if="template.custom === Types.custom.caixaPalavras"
@@ -72,6 +79,12 @@
                 :item="item"
                 :template="template"
             ></ls-item-image>
+            <ls-item-audio
+                v-else-if="template.type === Types.primitive.audio"
+                :type="type"
+                :item="item"
+                :template="template"
+            ></ls-item-audio>
         </div>
     </div>
 </template>
