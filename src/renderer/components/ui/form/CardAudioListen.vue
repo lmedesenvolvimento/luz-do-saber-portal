@@ -4,7 +4,7 @@
             <b-card 
                 no-body
             >
-                <div class="bbg" :style="{'background-image': 'linear-gradient(to right, rgba(0, 255, 0, 1), rgba(0, 255, 0, 1))', 'background-size': `${audioProgress}% 100%`, 'background-repeat': 'no-repeat'}">
+                <div class="bbg" :style="{'background-image': 'linear-gradient(to right, #7db239, #7db239)', 'background-size': `${audioProgress}% 100%`, 'background-repeat': 'no-repeat', 'border-radius': '1em'}">
                     <b-card-body>
                         {{ item.text }}
                     </b-card-body>
@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import FillBackground from '@/components/ui/helpers/FillBackground'
 import RadioInput from './RadioInput.vue'
 
 export default {
