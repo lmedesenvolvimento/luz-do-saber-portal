@@ -3,39 +3,33 @@
         <b-card
             class="card-image-display"
             no-body
-            :class="{ 'invalid': invalid, 'valid': valid }"
         >
-            <fill-background :bg-color="bgColor">
-                <b-card-body>
-                    <slot name="img"></slot>
-                    <slot></slot>
-                </b-card-body>
-            </fill-background>
+            <b-card-body>
+                <slot name="img">
+                    <async-image class="card-img" :src="picture" />
+                </slot>
+                <slot></slot>
+            </b-card-body>
         </b-card>            
     </div>
 </template>
 <script>
-import FillBackground from '@/components/ui/helpers/FillBackground'
+import AsyncImage from '@ui/AsyncImage'
 
 export default {
-    components:{
-        FillBackground
+    components: {
+        AsyncImage
     },
     props: {
-        bgColor: String,
-        size: String,
-        valid: Boolean,
-        invalid: Boolean
+        item: Object,
+        template: Object
     },
     computed: {
-        isCardSm(){
-            return this.size === 'small'
+        picture(){
+            return this.item.images.length ? this.item.images[0].url : 'https://picsum.photos/300/200'
         }
     }
 }
 </script>
-<style lang="scss">
-    .card-image-display {
-        margin-top: 105px !important;
-    }
+<style>
 </style>

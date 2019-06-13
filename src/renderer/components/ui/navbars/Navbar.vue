@@ -4,9 +4,9 @@
             <div class="icon-prev"></div>
         </b-btn>
 
-        <router-link to="/">
+        <b-btn variant="link" to="/">
             <div class="icon-home"></div>
-        </router-link>
+        </b-btn>
 
         <span class="flex"></span>
 
@@ -46,3 +46,11 @@ export default {
     }
 };
 </script>
+
+<style lang="scss">
+.navbar {
+    .btn-link{
+        padding: 0.375rem 0.35rem;
+    }
+}
+</style>

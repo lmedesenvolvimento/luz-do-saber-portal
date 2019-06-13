@@ -77,24 +77,26 @@
 @mixin custom-card($input: false){
     padding: 8px 0px;    
     .card {
-        $border-radius: 0.9rem;
-        padding: 0.25rem;
-        border-radius: 1rem;
-        box-shadow: 0px 0px 6px transparentize($color: $card-input-box-shadow-color, $amount: 0.60);
+        padding: 0.20rem;
+        border-radius: $card-border-radius;
+        box-shadow: 0px 0px 6px transparentize($color: $card-input-box-shadow-color, $amount: 0.1);
         border: 1px solid #fff;
         transition: transform 0.2s ease-in-out;
         
         .bg-color{
             background: #fff;
-            border-radius: $border-radius;
+            border-radius: $card-border-radius;
             &[style]{
-                border-radius: $border-radius;
+                border-radius: $card-border-radius;
                 color: #fff;
+            }
+            .card-body {
+                @include card-body-box-shadow($card-input-box-shadow-color, 0.66);   
             }
         }        
 
         .card-body {
-            border-radius: $border-radius;
+            border-radius: ($card-border-radius * 0.8);
             @if $input {                
                 border: 1px solid $card-input-dark-border-color;
             } @else {                
@@ -104,22 +106,44 @@
             font-size: 24px;
             padding: 1rem;
             transition: box-shadow 0.2s ease-in-out;
-            @include card-body-box-shadow($card-input-box-shadow-color);
+            @include card-body-box-shadow($card-input-box-shadow-color, 0.8);
         }
         &.valid, &.invalid{
             .bg-color{
                 background-color: transparent !important;
                 color: $text-color !important;
             }
+            &::after {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                right: -24px;
+                margin: auto;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                content: ' ';
+                height: 18px;
+                width: 18px;
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: contain;
+            }
         }
         &.valid{
             .card-body {
-                @include card-body-box-shadow($card-input-box-shadow-success-color, 0.0, 4px);
+                @include card-body-box-shadow($card-input-box-shadow-success-color, 0.0, 3px);
+            }
+            &::after{
+                background-image: url('~@/assets/images/icons/success.png');
             }
         }
         &.invalid{
             .card-body {
-                @include card-body-box-shadow($card-input-box-shadow-danger-color, 0.0, 4px);
+                @include card-body-box-shadow($card-input-box-shadow-danger-color, 0.0, 3px);
+            }
+            &::after{
+                background-image: url('~@/assets/images/icons/fail.png');
             }
         }
         &.selected{
@@ -129,7 +153,7 @@
 }
 
 @mixin custom-card-sm($input: false){
-    @include custom-card;
+    @include custom-card($input);
     .card {
         border-radius: 0.75rem;
         padding: 0.15rem;
@@ -155,12 +179,12 @@
     height: calc(100% - 8px);
     margin: auto;
     background-color: $card-empty-color;
-    border-radius: 0.9rem;
+    border-radius: ($card-border-radius * 0.8);
     box-shadow: inset 0px 9px 1px 1px $card-empty-shadow-color;
     content: '';
 }
 
 // Card
-@mixin card-body-box-shadow($color, $amount: 0.9, $border-width: 4px) {
+@mixin card-body-box-shadow($color, $amount: 0.66, $border-width: 4px) {
  box-shadow: inset 0px 0px 0px $border-width transparentize($color, $amount);   
 }

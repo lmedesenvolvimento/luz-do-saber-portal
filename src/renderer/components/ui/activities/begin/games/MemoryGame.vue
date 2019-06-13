@@ -1,9 +1,9 @@
 <template>
     <div class="memory-game container-fluid">
-        <b-row align-h="center" align-self="center" :md="valueColSize" :sm="6">
+        <b-row :md="valueColSize" :sm="6">
             <b-col class="activity-values">
                 <b-row align-v="center" align-h="center">
-                    <b-col v-for="(card, index) in cards" :class="card.class" :key="card.key" class="item">
+                    <b-col v-for="(card, index) in cards" :key="card.key" :class="card.class" class="item">
                         <div class="card-face" :class="card.class" @click="toggleFlip(index, card)">                            
                             <ls-card-display
                                 label="item.text" 

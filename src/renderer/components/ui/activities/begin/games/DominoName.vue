@@ -12,7 +12,7 @@
                                 >
                                     <ls-card-display 
                                         class="fill card-sm" 
-                                        :class="{'invisible': !item.valid}"
+                                        :class="{'empty': !item.valid}"
                                         :bg-color="item.color"
                                     >
                                         {{ item.$next_letter }} | {{ item.text }}
@@ -28,7 +28,7 @@
                                 >
                                     <ls-card-display 
                                         class="card-sm" 
-                                        :class="{'invisible': !getLeftKey.valid }"
+                                        :class="{'empty': !getLeftKey.valid }"
                                         :bg-color="getLeftKey.color"
                                     >
                                         <div class="writing-vertical">
@@ -47,7 +47,7 @@
                                 >
                                     <ls-card-display 
                                         class="card-sm" 
-                                        :class="{'invisible': !getRightKey.valid}"
+                                        :class="{'empty': !getRightKey.valid}"
                                         :bg-color="getRightKey.color"
                                     >
                                         <div class="writing-vertical">
@@ -65,7 +65,7 @@
                                 >
                                     <ls-card-display 
                                         class="fill card-sm" 
-                                        :class="{'invisible': !item.valid}"
+                                        :class="{'empty': !item.valid}"
                                         :bg-color="item.color"
                                     >
                                         {{ item.text }} | {{ item.$next_letter }}
@@ -83,9 +83,11 @@
                             <b-col v-for="item in getValuesItems" :key="item.id" :md="valueColSize" class="item">
                                 <drag 
                                     class="draggable"
-                                    :class="{'invisible':item.dropped}"
+                                    :class="{'dropped':item.dropped, 'dragging': item.dragging}"
                                     :transfer-data="item"
                                     :draggable="!item.dropped"                                     
+                                    @dragstart="onDrag"
+                                    @dragend="onDragLeave"
                                 >
                                     <ls-card-display 
                                         class="fill card-sm" 
@@ -107,9 +109,11 @@
                             <b-col class="item item-vertical"> 
                                 <drag 
                                     class="draggable"
-                                    :class="{'invisible':getLeftValue.dropped}"
+                                    :class="{'dropped':getLeftValue.dropped, 'dragging': getLeftValue.dragging}"
                                     :transfer-data="getLeftValue" 
-                                    :draggable="!getLeftValue.dropped"                                     
+                                    :draggable="!getLeftValue.dropped"
+                                    @dragstart="onDrag"
+                                    @dragend="onDragLeave"                                     
                                 >
                                     <ls-card-display 
                                         class="fill card-sm" 
@@ -124,9 +128,11 @@
                             <b-col class="item item-vertical"> 
                                 <drag 
                                     class="draggable"
-                                    :class="{'invisible':getRightValue.dropped}"
+                                    :class="{'dropped':getRightValue.dropped, 'dragging': getRightValue.dragging}"
                                     :transfer-data="getRightValue" 
-                                    :draggable="!getRightValue.dropped"                                     
+                                    :draggable="!getRightValue.dropped"
+                                    @dragstart="onDrag"
+                                    @dragend="onDragLeave"
                                 >
                                     <ls-card-display 
                                         class="fill card-sm" 
@@ -198,7 +204,7 @@ export default {
         this.keys = this.mapNextLetter(this.getKeys)
         this.values = this.mapNextLetter(this.getValues)
 
-        const randomIndex = random(0, this.keys.length)
+        const randomIndex = random(0, (this.keys.length - 1))
 
         const randomKey = this.keys[randomIndex]
         const randomValues = this.values[randomIndex]
@@ -218,6 +224,16 @@ export default {
         valueIsTop(item){
             return this.getValuesFirstItems.includes(item)
         },
+        onDrag(transferData, nativeElement){
+            setTimeout(()=> {
+                Vue.set(transferData, 'dragging', true)
+            })
+        },
+        onDragLeave(transferData, nativeElement){
+            setTimeout(()=> {
+                Vue.set(transferData, 'dragging', false)
+            })
+        },
         onDrop(item, transferData, nativeElement){
             if (item.value_ids.includes(transferData.id)) {
                 this.setAnswer({ 
@@ -228,12 +244,14 @@ export default {
 
                 Vue.set(item,'valid', true)
                 Vue.set(transferData,'dropped', true)
+                Vue.set(transferData,'dragging', false)
             } else {
                 this.setAnswer({ 
                     type: 'value', 
                     data: -1,
                     vm: this
                 })
+                Vue.set(transferData,'dragging', false)
             }
         },
         mapNextLetter(data){

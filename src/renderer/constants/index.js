@@ -2,10 +2,14 @@ export const ActivityTypes = {
     activity: {
         default: {
             text: 'atividade-texto',
+            image: 'atividade-imagem'
+            
+        },
+        questionnaire: {
+            default: 'atividade-questionario'
         },
         join: {
             text: 'atividade-texto-texto',
-            image: 'atividade-imagem-texto'
         }
     },
     game: 'jogo',
@@ -46,7 +50,8 @@ export const ItemTypes = {
         textoEmBlocos: 'game-texto-em-blocos',
         memoryCardText: 'game-jogo-da-memoria-texto',
         caixaPalavras: 'game-caixa-de-palavras',
-        checkmark: 'game-checkmark'
+        checkmark: 'game-checkmark',
+        descricaoImagem: 'game-display-descricao-imagem'
     },
     tags: {
         input: 'input',

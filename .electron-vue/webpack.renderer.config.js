@@ -175,7 +175,8 @@ if (process.env.NODE_ENV === 'production') {
       }
     ]),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': '"production"'
+      'process.env.NODE_ENV': '"production"',
+      'process.env.BASE_API_URL': '"https://luz-do-saber-staging.herokuapp.com"'
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
