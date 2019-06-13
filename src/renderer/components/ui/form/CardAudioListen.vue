@@ -4,7 +4,7 @@
             <b-card 
                 no-body
             >
-                <div class="bbg" :style="{'width': `${audioProgress}%`, 'background-color': 'blue'}">
+                <div class="bbg" :style="{'background-image': 'linear-gradient(to right, rgba(0, 255, 0, 1), rgba(0, 255, 0, 1))', 'background-size': `${audioProgress}% 100%`, 'background-repeat': 'no-repeat'}">
                     <b-card-body>
                         {{ item.text }}
                     </b-card-body>
