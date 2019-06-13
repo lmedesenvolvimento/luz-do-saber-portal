@@ -1,39 +1,24 @@
 
     #dragging-syllables
     {
-        .letra{
-            width: 100%;
-            padding: 0 !important;
-        }
-        .activity-keys{
-            padding-top:5px;
-            padding-bottom: 5px;
-        }
-        .activity-values{
-            padding: 5px 10px;
-        }
+
         .activity-values .card-display .card .card-body{
-            padding-top: 0;
-            padding-bottom: 0;
+            padding: 0 15px;
         }
         .card-display .card .card-body{
-            font-size: 16px !important;
+            font-size: 20px !important;
             
         }
         .item .letra .card-droppable{
             width: 100% !important;
             max-width: 490px !important;
-            padding: 15px 10px;
         }
         .card-input.card-draggable .card .card-body, .letra .card-input.card-droppable .card .card-body,.card-input.draggshadow .card .card-body {
-            font-size: 16px !important;
-            width: 100% !important;
-            min-width: 61px;
-            padding-top: 15px;
-            padding-bottom: 15px;
+            font-size: 20px !important;
+            padding: 15px 10px;
         }
         .image-col{
-            padding: 0;
+            padding: 10px;
             justify-content: center;
             .key-image {
                 max-width: 490px !important;
@@ -43,24 +28,25 @@
                 }
                 .image{
                     height: 100%;
-                    min-width: 74px;
-                    min-height: 74px;
+                    min-height: 60px;
                     background-size: contain;
                     background-repeat: no-repeat;
                     background-position: center;
                 }
             }
         }
-        
         .values-container
         {  
-            padding: 5px;
+            padding: 10px;
+            .item{
+                 padding: 8px 10px;
+            }
         }
-        .letra, .syllables-row, .activity-keys .card-display, .item{
-            padding-right: 10px;
-            padding-left: 10px;
+        .letra, .activity-keys .card-display{
+            padding: 8px;
         }
-        .card-display, .key-syllables{
-            padding: 0;
+
+        .card-display, .card-input, .items-row,.key-syllables {
+            padding: 0 !important;
         }
     }

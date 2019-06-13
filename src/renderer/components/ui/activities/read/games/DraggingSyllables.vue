@@ -4,7 +4,7 @@
             <b-col v-if="hasKeys" class="activity-keys">
                 <b-row>
                     <b-col v-for="(item, position) in newItens" :key="position" cols="12" md="12" class="item"> 
-                        <b-row class="my-2" align-v="center">
+                        <b-row align-v="center">
                             <b-col class="image-col" cols="12" md="3" sm="3">
                                 <ls-card-display v-if="item.images[0].url !== null" class="key-image">
                                     <div class="image" :style="{ 'background-image': 'url(' + item.images[0].url + ')' }" />
@@ -15,7 +15,7 @@
                                     <b-col v-for="(syllables, index) in item.syllables" :key="index" cols="12" lg="3" :md="4" :sm="4" class="key-syllables">
                                         <ls-card-droppable
                                             v-if="answers"
-                                            class="letra"
+                                            class="item letra"
                                             :item="syllables.syllable"
                                             :type="'key'"
                                             :template="activity.item_template.key"
