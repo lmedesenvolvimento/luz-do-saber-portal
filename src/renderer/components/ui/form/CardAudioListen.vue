@@ -63,7 +63,7 @@ export default {
         playing(){
             console.log('tocando')
         },
-        progress(e){
+        progress(){
             this.audioProgress = (this.audio.currentTime / this.duration) * 100
             return this.audioProgress
         },
