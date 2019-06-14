@@ -49,16 +49,18 @@
             &:last-child{
                 border-right: 0px;
             }
-            &.painted{
+            &.painted,
+            &.valid{
                 background-color: #FFB248;
                 outline: 4px solid #da6d00;
                 color: white;
                 border: 0px solid #da6d00;
-                padding: 4px 10px;
-                width: 41px;
+                padding: 4px;
+                width: 38px;
+                margin: auto;
             }
-            &.green{
-                color: #41FF2D;
+            &.valid{
+                background-color: #376D38;
             }
         }
     }
