@@ -8,14 +8,19 @@
                 >
             </b-col>
             <b-col
-                v-for="(letter, index) in getKeys[0].text" 
+                v-for="(letter, index) in keyLetters" 
                 :key="index"
                 :sm="1"
                 class="item"
             >
                 <div class="letra">
                     <ls-card-display>
-                        {{ letter }}
+                        <div v-if="searchString(raffle,letter)">
+                            {{ letter }}
+                        </div>
+                        <div v-else>
+                            _
+                        </div>                      
                     </ls-card-display>
                 </div>
             </b-col>  
@@ -63,6 +68,7 @@ import { mapState, mapActions } from 'vuex'
 import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from '@ui/activities/mixins'
 import ui from '@/components/ui'
 import { setTimeout } from 'timers'
+import { watch } from 'fs';
 export default {
     components: { 
         ...ui
@@ -73,6 +79,13 @@ export default {
             alphabet: ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'],
             alphabetInputs: [],
             keyLetters: [],
+            keyIds: [],
+            raffle: []
+        }
+    },
+    watch: {
+        raffle() {
+            console.log(this.raffle)
         }
     },
     mounted() {
@@ -81,16 +94,24 @@ export default {
         this.alphabet.forEach((letter) => {
             this.alphabetInputs.push(Object.assign({}, letter))
         })  
-        this.getKeys[0].letters.forEach((letter) => {
-            this.keyLetters.push(letter.text)
-        })    
+        for(let i = 0; i < this.activity.total_correct_items; i++){
+            this.keyLetters.push(this.getKeys[0].letters[i].text)
+            this.keyIds.push(this.getKeys[0].value_ids[i])
+        }   
+        console.log(this.keyIds)
     }, 
     methods: {
         checkValid(item){
             if(item.valid || item.invalid) return
             if(this.searchString(this.keyLetters, item[0])){
                 item.valid = true
-                
+                this.raffle.push(item[0])
+                this.setAnswer({ 
+                    type: 'value', 
+                    data: this.keyIds[0],
+                    vm: this
+                })
+                this.keyIds.shift();
             }else { 
                 item.invalid = true
                 this.setAnswer({ 
@@ -108,8 +129,7 @@ export default {
             return false;
         },
         ...mapActions('Activity', ['setActivityAttrs','setAnswer'])
-    }
-       
+    },     
 }
 </script>
 
