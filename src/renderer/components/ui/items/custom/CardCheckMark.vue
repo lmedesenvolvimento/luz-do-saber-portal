@@ -57,7 +57,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-    .card-radio-input{
+    .card--radio-input{
         .input{
             display: block;
             visibility: hidden;

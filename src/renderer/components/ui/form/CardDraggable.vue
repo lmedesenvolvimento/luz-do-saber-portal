@@ -16,7 +16,7 @@
             </div>
         </template>
 
-        <div class="card-input card-draggable">
+        <div class="card-input card--draggable">
             <b-card
                 no-body                
             >

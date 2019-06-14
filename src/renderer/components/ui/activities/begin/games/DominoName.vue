@@ -1,13 +1,13 @@
 <template>
     <div class="container-fluid game-domino-name">
         <b-row v-if="keys.length && values.length" class="reverse" align-v="center">
-            <b-col v-if="hasKeys" class="activity-keys flex-3">
+            <b-col v-if="hasKeys" class="activity-keys flex-2">
                 <b-card class="domino fill">
                     <b-container class="fill d-flex column" fluid>
                         <b-row class="domino-top">
                             <b-col v-for="item in getTopKeys" :key="item.id" cols="4" class="item">
                                 <drop 
-                                    class="droppable" 
+                                    class="droppable substantivo_proprio" 
                                     @drop="onDrop(item, ...arguments)"
                                 >
                                     <ls-card-display 
@@ -78,7 +78,7 @@
             </b-col>
             <b-col class="activity-values">
                 <b-row>
-                    <b-col class="flex-3" align-self="center">
+                    <b-col class="items" align-self="center">
                         <b-row>
                             <b-col v-for="item in getValuesItems" :key="item.id" :md="valueColSize" class="item">
                                 <drag 
@@ -104,7 +104,7 @@
                             </b-col>                            
                         </b-row>
                     </b-col>
-                    <div class="d-flex">
+                    <div class="vertical-items">
                         <b-row class="column flex">
                             <b-col class="item item-vertical"> 
                                 <drag 

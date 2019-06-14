@@ -1,5 +1,5 @@
 <template>
-    <div :class="item.type ? item.type : ''">
+    <div :class="getItemClass">
         <div v-if="!isPrimitiveItem" class="item">            
             <ls-item-cracha-box
                 v-if="template.custom === Types.custom.crachaBox"
@@ -97,7 +97,10 @@ export default {
     computed: {
         isPrimitiveItem(){
             return this.template.custom ? false : true
-        },        
+        },
+        getItemClass()   {
+            return `${this.item ? this.item.type : ''} ${ this.template ? this.template.type : '' }`
+        }
     }
 }
 </script>
