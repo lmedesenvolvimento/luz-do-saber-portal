@@ -29,7 +29,7 @@
     .activity-values{
         align-items: center!important;
     }
-    .card-display{
+    .card--display{
         width: 130px;
         height: 200px;
         position: relative;
@@ -66,7 +66,7 @@
         &.flipped{
             transform: rotateY(180deg);
         }
-        .card-display{
+        .card--display{
             position: absolute;
             width: 100%;
             height: 100%;
