@@ -112,6 +112,11 @@
                 v-if="gameSubtypes.grouping === activity.subtype.slug" 
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
+            />
+            <ls-activity-read-secret-word
+                v-if="gameSubtypes.secretWord === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
             />            
         </div>
     </div>
