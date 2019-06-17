@@ -83,7 +83,8 @@
                 font-size: 20px;
                 padding: 2px 5px;
                 width: 35px;
-                &.painted{
+                &.painted,
+                &.valid{
                     width: 35px;
                     padding: 2px 5px;
                 }
@@ -101,7 +102,8 @@
                 font-size: 16px;
                 padding: 2px 5px;
                 width: 25px;
-                &.painted{
+                &.painted,
+                &.valid{
                     width: 22px;  
                     padding: 2px 5px;  
                 }
