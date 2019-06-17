@@ -51,7 +51,8 @@ export const ItemTypes = {
         memoryCardText: 'game-jogo-da-memoria-texto',
         caixaPalavras: 'game-caixa-de-palavras',
         checkmark: 'game-checkmark',
-        descricaoImagem: 'game-display-descricao-imagem'
+        descricaoImagem: 'game-display-descricao-imagem',
+        grupoPalavras: 'game-grupo-de-palavras',
     },
     tags: {
         input: 'input',

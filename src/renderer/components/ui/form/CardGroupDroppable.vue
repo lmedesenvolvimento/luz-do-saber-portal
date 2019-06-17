@@ -40,6 +40,18 @@
                 </b-card>
             </div>
         </div>
+        <div v-else-if="template.custom === 'game-grupo-de-palavras' && answers.length" class="card-input drop-group">
+            <div class="title">
+                {{ item.text }}
+            </div>
+            OwO
+        </div>
+        <div v-else-if="template.custom === 'game-grupo-de-palavras' && !answers.length" class="card-input drop-group">
+            <div class="title">
+                {{ item.text }}
+            </div>
+            umu
+        </div>
         <div v-else class="card-input drop-group" :style="{'background-image': `url(${template.custom_image_full_url})`}">
             <div class="title">
                 {{ item.text }}
