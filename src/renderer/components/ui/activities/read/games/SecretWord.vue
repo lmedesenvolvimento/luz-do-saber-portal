@@ -82,12 +82,7 @@ export default {
             keyIds: [],
             raffle: []
         }
-    },
-    watch: {
-        raffle() {
-            console.log(this.raffle)
-        }
-    },
+    },    
     mounted() {
         this.createAnswersArray()
         this.addColorsToType('substantivo_comum')
@@ -97,8 +92,7 @@ export default {
         for(let i = 0; i < this.activity.total_correct_items; i++){
             this.keyLetters.push(this.getKeys[0].letters[i].text)
             this.keyIds.push(this.getKeys[0].value_ids[i])
-        }   
-        console.log(this.keyIds)
+        }
     }, 
     methods: {
         checkValid(item){
