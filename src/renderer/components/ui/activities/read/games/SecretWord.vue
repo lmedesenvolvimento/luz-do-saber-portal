@@ -1,65 +1,67 @@
 <template>
-    <div class="container-fluid">
-        <b-row align-h="center">
-            <b-col>
+    <div class="container-fluid">        
+        <b-row align-v="center">
+            <b-col sm="4">
                 <img 
                     :src="getKeys[0].images[0].url" 
                     alt=""
                 >
             </b-col>
-            <b-col
-                v-for="(letter, index) in keyLetters" 
-                :key="index"
-                :sm="1"
-                class="item"
-            >
-                <div class="letra">
-                    <ls-card-display>
-                        <div v-if="searchString(raffle,letter)">
-                            {{ letter }}
-                        </div>
-                        <div v-else>
-                            _
-                        </div>                      
-                    </ls-card-display>
-                </div>
-            </b-col>  
-        </b-row>
-        <b-row
-            sm="1"
-        >
-            <b-col
-                v-for="(item, position) in alphabetInputs"
-                :key="position"  
-                :sm="1"
-                class="item"
-            >
-                <div class="letra">
-                    <div class="card-input card-radio-input" :class="$attrs.class">
-                        <label>
-                            <b-card 
-                                no-body
-                                :class="{ 'invalid': item.invalid, 'valid': item.valid }"
-                            >
-                                <b-card-body>
-                                    {{ item[0] }}
-                                </b-card-body>
-                            </b-card>
-
-                            <input
-                                v-model="item.selected"                                            
-                                class="input"    
-                                type="checkbox"
-                                true-value="valid"
-                                false-value="invalid"
-                                :name="`input-${position}`"
-                                @change.stop="checkValid(item)"
-                            />
-                        </label>
+            <b-col sm="8">
+                <b-row align-h="between">
+                    <div 
+                        v-for="(letter, index) in keyLetters" 
+                        :key="index"
+                        class="item"
+                    >
+                        <div class="letra">
+                            <ls-card-display>
+                                <div v-if="searchString(raffle,letter)">
+                                    {{ letter }}
+                                </div>
+                                <div v-else>
+                                    _
+                                </div>                      
+                            </ls-card-display>
+                        </div>                    
                     </div>
-                </div> 
-            </b-col>
-        </b-row>        
+                </b-row>                
+            </b-col>  
+        </b-row>            
+        <div>
+            <b-row v-for="i in 2" :key="i" align-h="between" align-v="center">
+                <div
+                    v-for="(item, position) in alphabetInputs(i)"
+                    :key="position"                 
+                    class="item"     
+                >
+                    <div>
+                        <div class="card-sm letra card-input card-radio-input" :class="$attrs.class">
+                            <label>
+                                <b-card 
+                                    no-body
+                                    :class="{ 'invalid': item.invalid, 'valid': item.valid }"
+                                >
+                                    <b-card-body>
+                                        {{ item[0] }}
+                                    </b-card-body>
+                                </b-card>
+
+                                <input
+                                    v-model="item.selected"                                           
+                                    
+                                    type="checkbox"
+                                    true-value="valid"
+                                    false-value="invalid"
+                                    :name="`input-${position}`"
+                                    @change.stop="checkValid(item)"
+                                />
+                            </label>
+                        </div>
+                    </div> 
+                </div>
+            </b-row>
+        </div>   
     </div>
 </template>
 
@@ -76,18 +78,23 @@ export default {
     mixins: [MapMixins, ListMixin, CreateAnswersMixins],
     data () {
         return {
-            alphabet: ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'],
-            alphabetInputs: [],
+            alphabet_1: ['A','B','C','D','E','F','G','H','I','J','K','L','M'],
+            alphabet_2: ['N','O','P','Q','R','S','T','U','V','W','X','Y','Z'],
+            alphabetInputs_1: [],
+            alphabetInputs_2: [],
             keyLetters: [],
             keyIds: [],
             raffle: []
         }
-    },    
+    },     
     mounted() {
         this.createAnswersArray()
-        this.addColorsToType('substantivo_comum')
-        this.alphabet.forEach((letter) => {
-            this.alphabetInputs.push(Object.assign({}, letter))
+        this.addColorsToType('letra')
+        this.alphabet_1.forEach((letter) => {
+            this.alphabetInputs_1.push(Object.assign({}, letter))
+        })
+        this.alphabet_2.forEach((letter) => {
+            this.alphabetInputs_2.push(Object.assign({}, letter))
         })  
         for(let i = 0; i < this.activity.total_correct_items; i++){
             this.keyLetters.push(this.getKeys[0].letters[i].text)
@@ -95,6 +102,10 @@ export default {
         }
     }, 
     methods: {
+        alphabetInputs (index) {
+            if (index == 1) return this.alphabetInputs_1            
+            return this.alphabetInputs_2            
+        },
         checkValid(item){
             if(item.valid || item.invalid) return
             if(this.searchString(this.keyLetters, item[0])){
