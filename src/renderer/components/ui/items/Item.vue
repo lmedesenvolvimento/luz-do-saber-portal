@@ -1,6 +1,6 @@
 <template>
     <div :class="item.type ? item.type : ''">
-        <div v-if="!isPrimitiveItem" class="item">            
+        <div v-if="!isPrimitiveItem" class="item"> 
             <ls-item-cracha-box
                 v-if="template.custom === Types.custom.crachaBox"
                 :type="type"
@@ -45,7 +45,7 @@
             ></ls-card-audio-listen>
 
             <ls-card-group-droppable
-                v-else-if="template.custom === Types.custom.caixaPalavras"
+                v-else-if="(template.custom === Types.custom.caixaPalavras) || (template.custom === Types.custom.grupoPalavras)"
                 label="key.text" 
                 name="card-input"
                 :item="item"
