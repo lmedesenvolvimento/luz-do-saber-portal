@@ -36,7 +36,7 @@ $icon-height: 62px;
 $icon-names: (
     'icon-home',
     'icon-next',
-    'icon-prev',
+    'icon-lista',
     'icon-redo',
 );
 
@@ -85,3 +85,7 @@ $gameplay-height: calc(70vh - #{ $navbar-height - 24px });
 
 // Item
 $item-min-width: 100px;
+$item-text-max-heigth: 85px;
+$item-letter-width: 74px;
+$item-syllabus-width: 85px;
+$item-word-width: 210px;

@@ -1,6 +1,6 @@
 <template>
     <drop @drop="onDrop">
-        <div class="card-input card-droppable">
+        <div class="card-input card--droppable">
             <b-card
                 no-body
                 :class="{ 'invalid': invalid, 'valid': valid }"
@@ -35,7 +35,7 @@ export default {
             if (this.valid) return
 
             this.transferData = transferData
-            console.log(this.item)
+            
             if (this.item.value_ids.includes(transferData.id)) {
                 this.setAnswer({ 
                     type: 'value',

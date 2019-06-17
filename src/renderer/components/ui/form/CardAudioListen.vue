@@ -1,6 +1,6 @@
 <template>
     <div @click="click">
-        <div class="card-display" :class="$attrs.class">
+        <div class="card--display" :class="$attrs.class">
             <b-card 
                 no-body
             >
