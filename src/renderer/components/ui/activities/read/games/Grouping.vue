@@ -28,7 +28,6 @@
                 >
                     <div v-if="isBox" class="caixa">
                         <group-drop
-                            v-slot:texto
                             :item="item"
                             :type="'value'"
                             :template="activity.item_template.key"
@@ -36,11 +35,13 @@
                     </div>
                     <div v-else class="grupo">
                         <group-drop
-                            v-slot:imagem
+                            v-slot:default="slotProps"
                             :item="item"
                             :type="'value'"
                             :template="activity.item_template.key"
                         >
+                            {{ item.text }}
+                            {{ slotProps.answers.length }}
                         </group-drop>
                     </div>
                 </b-col>
