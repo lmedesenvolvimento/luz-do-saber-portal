@@ -26,7 +26,7 @@
                     :sm="keyColSize"
                     class="item"
                 >
-                    <div class="caixa">
+                    <div :class="isBox ? 'caixa' : 'grupo'">
                         <Item
                             :item="item"
                             :type="'key'"
@@ -52,10 +52,15 @@ import { mapState, mapActions } from 'vuex'
 export default {
     components: { Item },
     mixins: [ListMixin, MapMixins, CreateAnswersMixins],
+    computed: {
+        isBox(){
+            return this.activity.item_template.key.custom === 'game-caixa-de-palavras' ? true : false
+        }
+    },
     created(){
         this.createAnswersArray()
         this.addColorsToType('substantivo_comum')
-    }
+    },
 }
 </script>
 
