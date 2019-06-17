@@ -1,6 +1,6 @@
 <template>
     <drop @drop="onDrop">
-        <slot name="texto">
+        <slot :answers="answers">
             <div v-if="answers.length && template.custom_image_full_url" class="card-input drop-group" :style="{'background-image': `url(${template.custom_image_full_url})`}">
                 <div class="title">
                     {{ item.text }}
@@ -46,8 +46,6 @@
                     {{ item.text }}
                 </div>
             </div>
-        </slot>
-        <slot name="imagem">
         </slot>
     </drop>
 </template>
