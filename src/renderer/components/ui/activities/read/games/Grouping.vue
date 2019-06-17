@@ -26,12 +26,22 @@
                     :sm="keyColSize"
                     class="item"
                 >
-                    <div :class="isBox ? 'caixa' : 'grupo'">
-                        <Item
+                    <div v-if="isBox" class="caixa">
+                        <group-drop
+                            v-slot:texto
                             :item="item"
-                            :type="'key'"
+                            :type="'value'"
                             :template="activity.item_template.key"
                         />
+                    </div>
+                    <div v-else class="grupo">
+                        <group-drop
+                            v-slot:imagem
+                            :item="item"
+                            :type="'value'"
+                            :template="activity.item_template.key"
+                        >
+                        </group-drop>
                     </div>
                 </b-col>
             </b-row>
@@ -46,11 +56,12 @@ import ui from '@/components/ui'
 import alerts from '@/components/alerts'
 
 import Item from '@/components/ui/items/Item'
+import groupDrop from '@/components/ui/form/CardGroupDroppable'
 
 import { mapState, mapActions } from 'vuex'
 
 export default {
-    components: { Item },
+    components: { Item, groupDrop },
     mixins: [ListMixin, MapMixins, CreateAnswersMixins],
     computed: {
         isBox(){
@@ -110,6 +121,13 @@ export default {
 
         }
 
+        .title{
+            padding-top: 7%;
+            color: transparentize($color: #222, $amount: 0.6)
+        }
+    }
+    
+    .grupo{
         .title{
             padding-top: 7%;
             color: transparentize($color: #222, $amount: 0.6)
