@@ -1,1 +1,2 @@
+// Debian
 electron-installer-debian --src build/luz-do-saber-packager-linux-x64/ --arch amd64 --config debian.json
