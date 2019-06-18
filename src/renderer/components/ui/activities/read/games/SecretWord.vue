@@ -43,7 +43,7 @@
                                     :class="{ 'invalid': item.invalid, 'valid': item.valid }"                                    
                                 >
                                     <b-card-body
-                                        :style="{backgroundColor: item.color, color: '#FFFFFF'}"
+                                        :style="isChecked(item) ? {backgroundColor: item.color, color: '#FFFFFF'} : {}"
                                     >
                                         {{ item.letter }}
                                     </b-card-body>
@@ -92,7 +92,6 @@ export default {
     mounted() {
         this.createAnswersArray()
         let i = 0;
-        console.log(this.getColorsArray)
         this.alphabet_1.forEach((letter) => {
             let color = this.getColorsArray[i]
             this.alphabetInputs_1.push(Object.assign({}, {letter, color}))
@@ -106,13 +105,16 @@ export default {
         for(let i = 0; i < this.activity.total_correct_items; i++){
             this.keyLetters.push(this.getKeys[0].letters[i].text)
             this.keyIds.push(this.getKeys[0].value_ids[i])
-        }     
-        console.log(this.alphabetInputs_1)
+        } 
     }, 
     methods: {
         alphabetInputs (index) {
             if (index == 1) return this.alphabetInputs_1            
             return this.alphabetInputs_2            
+        },
+        isChecked(item){
+            if(item.valid || item.invalid) return false
+            return true
         },
         checkValid(item){
             if(item.valid || item.invalid) return
