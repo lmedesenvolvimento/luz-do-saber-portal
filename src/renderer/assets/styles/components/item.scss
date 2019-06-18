@@ -5,6 +5,7 @@
     label{
         margin-bottom: 0px;
     }    
+    
     .letra, .numero, .caractere_especial, .silaba, .substantivo_comum, .substantivo_proprio {
         display: inline-flex;
         flex: 1;
@@ -23,8 +24,13 @@
             }            
         }
         [class*="card--"], .draggshadow {
-            min-width: 74px;
-            max-height: $item-text-max-heigth;
+            &:not(.card-sm){
+                min-width: 74px;
+                max-height: $item-text-max-heigth;
+            }
+            &.card-sm .card{
+                height: 56px;
+            }
         }
         .card-input-text {
             max-width: 74px !important;
@@ -33,6 +39,7 @@
             }
         }
     }
+
     .letra, .numero, .caractere_especial, .silaba {
         .card {
             &.valid, &.invalid{
@@ -45,39 +52,33 @@
             }
         }
     }
-    .letra{
-        &.texto{
-            .card--droppable, 
-            .card--draggable, 
-            .card--radio-input, 
-            .card--display {
-                max-width: $item-letter-width;
-            }
-        }
-    }
 
-    .silaba {
-        &.texto{
-            .card--droppable, 
-            .card--draggable, 
-            .card--radio-input, 
-            .card--display {
-                width: $item-syllabus-width;
+    @each $type, $value in $item-types-width {
+        .#{$type}{
+            &.texto{
+                .card--droppable, 
+                .card--draggable,
+                .card--radio-input, 
+                .card--display {
+                    width: $value;
+                }
             }
         }
-    }
-
-    .substantivo_comum, .substantivo_proprio{
-        &.texto{
-            .card--droppable, 
-            .card--draggable, 
-            .card--radio-input, 
-            .card--display {
-                min-width: $item-word-width;
+    }            
+    @each $type, $value in $item-types-sm-width {
+        .#{$type}{
+            &.texto{
+                .card--droppable, 
+                .card--draggable,
+                .card--radio-input, 
+                .card--display {
+                    &.card-sm {
+                        width: $value;
+                    }
+                }
             }
         }
-    }
-    
+    }        
 
     &.col-sm-1, &.col-md-1, .col-1{
         display: inline-flex;
