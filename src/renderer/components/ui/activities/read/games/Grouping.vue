@@ -34,33 +34,42 @@
                         />
                     </div>
                     <div v-else class="grupo">
-                        <group-drop
-                            v-slot:default="slotProps"
+                        <div class="title">
+                            {{ item.text }}
+                        </div>
+                        <card-display
+                            label="item.text" 
                             :item="item"
-                            :type="'value'"
-                            :template="activity.item_template.key"
+                            :name="activity.type.slug"
+                            :bg-color="undefined"
                         >
-                            <div class="card-input drop-group">
-                                <div class="title">
-                                    {{ item.text }}
-                                </div>
-                                <div class="items-container">
-                                    <b-card
-                                        v-for="ans in slotProps.props.answers" 
-                                        :key="ans.id"
-                                        no-body
-                                        class="drop-group-item"
-                                        :class="{ 'invalid': ans.invalid, 'valid': ans.valid }"
-                                    >
-                                        <b-card-body>
-                                            <slot name="transfer-data">
-                                                <div>{{ ans.text }}</div>
-                                            </slot>
-                                        </b-card-body>
-                                    </b-card>
-                                </div>
+                            <div class="conteudo">
+                                <group-drop
+                                    v-slot:default="slotProps"
+                                    :item="item"
+                                    :type="'value'"
+                                    :template="activity.item_template.key"
+                                >
+                                    <div class="card-input drop-group">
+                                        <div class="items-container">
+                                            <b-card
+                                                v-for="ans in slotProps.props.answers" 
+                                                :key="ans.id"
+                                                no-body
+                                                class="drop-group-item"
+                                                :class="{ 'invalid': ans.invalid, 'valid': ans.valid }"
+                                            >
+                                                <b-card-body>
+                                                    <slot name="transfer-data">
+                                                        <div>{{ ans.text }}</div>
+                                                    </slot>
+                                                </b-card-body>
+                                            </b-card>
+                                        </div>
+                                    </div>
+                                </group-drop>
                             </div>
-                        </group-drop>
+                        </card-display>
                     </div>
                 </b-col>
             </b-row>
@@ -75,12 +84,15 @@ import ui from '@/components/ui'
 import alerts from '@/components/alerts'
 
 import Item from '@/components/ui/items/Item'
+
 import groupDrop from '@/components/ui/form/CardGroupDroppable'
+import cardDisplay from '@/components/ui/form/CardDisplay'
+
 
 import { mapState, mapActions } from 'vuex'
 
 export default {
-    components: { Item, groupDrop },
+    components: { Item, groupDrop, cardDisplay },
     mixins: [ListMixin, MapMixins, CreateAnswersMixins],
     computed: {
         isBox(){
@@ -147,53 +159,56 @@ export default {
     }
     
     .grupo{
-        .item{
-            width: 100%;
-        }
-        .texto{
-            max-width: none !important;
-        }
-        .card-input.drop-group{
-            display: flex;
-            flex-direction: column;
-            height: 280px;
-            max-height: none !important;
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            text-align: center;
-        }
 
-        .drop-group .drop-group-item{
-            margin: 0 auto !important;
-        }
-
-        .card{
-            width: 45%;
-            border-radius: 0.75rem;
-            padding: 0.15rem;
-            .bg-color {
-                border-radius: 0.6rem !important;
-            }
-            .card-body{
+            .title{
                 font-size: 18px;
-                padding: 0.5rem;
-                border-radius: 0.6rem !important;
+                color: transparentize($color: #222, $amount: 0.6);
+                margin: auto;
+                text-align: center;
+            }
+        .conteudo{
+            .item{
+                width: 100%;
+            }
+            .texto{
+                max-width: none !important;
+            }
+            .card-input.drop-group{
+                display: flex;
+                flex-direction: column;
+                height: 200px;
+                max-height: none !important;
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
+                text-align: center;
+            }
+
+            .drop-group .drop-group-item{
+                margin: 0 auto !important;
+            }
+
+            .card{
+                width: 75%;
+                border-radius: 0.75rem;
+                padding: 0.15rem;
+                .bg-color {
+                    border-radius: 0.6rem !important;
+                }
+                .card-body{
+                    font-size: 18px;
+                    padding: 0.5rem;
+                    border-radius: 0.6rem !important;
+                }
+            }
+
+            .items-container{
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+                justify-content: space-evenly;
             }
         }
-
-        .items-container{
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-            margin-top: 3.5rem;
-            justify-content: space-evenly;
-
-        }
-
-        .title{
-            padding-top: 7%;
-            color: transparentize($color: #222, $amount: 0.6)
-        }
+        
     }
 </style>
