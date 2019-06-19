@@ -1,5 +1,5 @@
 <template>
-    <div class="card-display" :class="$attrs.class">
+    <div class="card--display" :class="$attrs.class">
         <b-card
             class="card-image-display"
             no-body

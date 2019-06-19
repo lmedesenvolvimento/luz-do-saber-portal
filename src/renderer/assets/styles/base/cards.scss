@@ -1,4 +1,4 @@
-.card-display{
+.card--display{
     @include custom-card;
     &.card-sm{
         @include custom-card-sm;
@@ -37,7 +37,7 @@
     @include custom-card(true);
 }
 
-.card-input.card-draggable{
+.card-input.card--draggable{
     @include custom-card(true);
     .dragging, .dropped{
         &::before{
@@ -46,7 +46,7 @@
     }   
 }
 
-.card-input.card-droppable{
+.card-input.card--droppable{
     @include custom-card;
     .card{
         &:not(.valid):not(.invalid){

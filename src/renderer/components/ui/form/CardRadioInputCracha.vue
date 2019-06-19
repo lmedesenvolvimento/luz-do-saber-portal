@@ -1,5 +1,5 @@
 <template>
-    <div class="card-input card-radio-input" :class="$attrs.class">
+    <div class="card-input card--radio-input" :class="$attrs.class">
         <label>
             <div 
                 no-body
@@ -43,7 +43,7 @@ export default {
 }
 </script>
 <style lang="scss">
-    .card-radio-input{        
+    .card--radio-input{        
         .input{
             display: block;
             visibility: hidden;

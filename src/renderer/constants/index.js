@@ -2,7 +2,8 @@ export const ActivityTypes = {
     activity: {
         default: {
             text: 'atividade-texto',
-            image: 'atividade-imagem'
+            image: 'atividade-imagem',
+            audio: 'atividade-audio'
             
         },
         questionnaire: {
@@ -43,6 +44,7 @@ export const ItemTypes = {
     primitive: {
         text: 'texto',
         image: 'imagem',
+        audio: 'audio'
     },
     custom: {
         crachaBox: 'game-cracha-box',

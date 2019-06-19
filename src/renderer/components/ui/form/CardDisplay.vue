@@ -1,5 +1,5 @@
 <template>
-    <div class="card-display" :class="$attrs.class">
+    <div class="card--display" :class="{ 'card-sm': isCardSm, ...$attrs.class}">
         <b-card
             no-body
             :class="{ 'invalid': invalid, 'valid': valid }"
@@ -30,6 +30,9 @@ export default {
         isCardSm(){
             return this.size === 'small'
         }
+    },
+    mounted(){
+        console.log(this)
     }
 }
 </script>
