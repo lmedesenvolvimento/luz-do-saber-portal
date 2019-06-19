@@ -36,7 +36,7 @@
                     class="item"     
                 >
                     <div>
-                        <div class="card-sm card-input card--radio-input" :class="$attrs.class" style="width: 50px">
+                        <div class="letra card-input card--radio-input" :class="$attrs.class">
                             <label>
                                 <b-card 
                                     no-body
