@@ -13,6 +13,7 @@
                     <b-row class="m-1 drop-and-name">
                         <b-col class="drop">
                             <ls-card-droppable
+                                class="letra"
                                 :item="item"
                                 :type="'key'"
                                 :template="activity.item_template.key"
@@ -90,19 +91,19 @@ export default {
 
 <style lang="scss">
     .activity-keys{
-        padding-left: 1.4rem;
+        padding-left: 0.9rem;
 
         .item{
             .drop-and-name{
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                min-width: 200px;
+                min-width: 210px;
                 .name-container
                 {
                     padding: 0;
                     position: relative;
-                    right: 1.4rem;
+                    right: 0.9rem;
                     max-width: 200px;
 
                 }

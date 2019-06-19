@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, Menu } from 'electron'
 
 import boostrapAPI from './server/index';
 
@@ -9,6 +9,18 @@ import boostrapAPI from './server/index';
 if (process.env.NODE_ENV !== 'development') {
   global.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
 }
+
+const MENU_TEMPLATE = [
+  {
+    label: 'Encerrar Sessão',
+    submenu: [
+      { 
+        label: 'Sair',
+        click: () => app.quit()
+      }
+    ]
+  }
+]
 
 let mainWindow
 const winURL = process.env.NODE_ENV === 'development'
@@ -33,7 +45,6 @@ function createWindow () {
   
   if (process.env.NODE_ENV !== 'development') {
     mainWindow.maximize()
-    mainWindow.setFullScreen(true)    
   }
 
   mainWindow.loadURL(winURL)
@@ -43,7 +54,13 @@ function createWindow () {
   })
 }
 
-app.on('ready', createWindow)
+app.on('ready', function(){
+  createWindow()
+  if (process.env.NODE_ENV !== 'development') {
+    const menu = Menu.buildFromTemplate(MENU_TEMPLATE)
+    Menu.setApplicationMenu(menu)
+  }
+})
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {

@@ -5,7 +5,7 @@
                 <b-row align-v="center" align-h="center" class="flex-2 content">          
                     <b-container>
                         <b-row class="m-5" align-v="center" align-h="center">
-                            <img class="front-page-logo" src="@/assets/images/logo-1.png" alt="Logo Luz do Saber">
+                            <img class="front-page-logo" src="@/assets/images/logo.png" alt="Logo Luz do Saber">
                         </b-row>
 
                         <transition name="fade" mode="out-in">
