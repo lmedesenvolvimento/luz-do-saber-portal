@@ -35,7 +35,7 @@
             <b-col class="activity-values" cols="12" lg="5" md="12">
                 <ls-card-display id="values-container-display">
                     <b-row align-v="center" align-h="center" class="values-container">
-                        <b-col v-for="(item, position) in getValues" :key="position" align-self="center" cols="12" :sm="4" :md="4" lg="4" class="item"> 
+                        <b-col v-for="(item, position) in getValues" :key="position" align-self="center" cols="12" :sm="3" :md="3" lg="4" class="item"> 
                             <ls-card-draggable 
                                 v-if="answers"
                                 :item="item"
@@ -73,15 +73,24 @@ export default {
     },
     mounted() {
         this.createAnswersArray()
-        for (let i = 0; i < this.activity.items.keys.length; i++) {
-            this.newItens.push(JSON.parse(JSON.stringify(this.activity.items.keys[i])));
-            for (let j = 0; j < this.activity.items.keys[i].syllables.length; j++){           
-                this.newItens[i].syllables[j] = JSON.parse(JSON.stringify(this.activity.items.keys[i]))
-                this.newItens[i].syllables[j].syllable = this.activity.items.keys[i].syllables[j]
-                this.newItens[i].syllables[j].syllable.word = this.activity.items.keys[i].text
-                this.newItens[i].syllables[j].correct = false;
-            }
-        }
+        this.activity.items.keys.forEach((item1,index1)=>{
+            this.newItens.push(JSON.parse(JSON.stringify(this.activity.items.keys[index1])));
+            this.activity.items.keys[index1].syllables.forEach((item2,index2) =>{
+                this.newItens[index1].syllables[index2] = JSON.parse(JSON.stringify(this.activity.items.keys[index1]))
+                this.newItens[index1].syllables[index2].syllable = this.activity.items.keys[index1].syllables[index2]
+                this.newItens[index1].syllables[index2].syllable.word = this.activity.items.keys[index1].text
+                this.newItens[index1].syllables[index2].correct = false;
+            })
+        })
+        // for (let i = 0; i < this.activity.items.keys.length; i++) {
+        //     this.newItens.push(JSON.parse(JSON.stringify(this.activity.items.keys[i])));
+        //     for (let j = 0; j < this.activity.items.keys[i].syllables.length; j++){           
+        //         this.newItens[i].syllables[j] = JSON.parse(JSON.stringify(this.activity.items.keys[i]))
+        //         this.newItens[i].syllables[j].syllable = this.activity.items.keys[i].syllables[j]
+        //         this.newItens[i].syllables[j].syllable.word = this.activity.items.keys[i].text
+        //         this.newItens[i].syllables[j].correct = false;
+        //     }
+        // }
     },
     methods: {
         validateBySyllabe(transferData, nativeElement, vm){
@@ -89,13 +98,33 @@ export default {
             if (transferData.text === vm.item.text){
                 vm.valid = true;
                 transferData.valid = true;
-                for (let i = 0; i < this.newItens.length; i++){
-                    for (let j = 0; j < this.newItens[i].syllables.length; j++){
-                        if (this.newItens[i].syllables[j].syllable.text === transferData.text && !this.newItens[i].syllables[j].correct){
-                            this.newItens[i].syllables[j].correct = true
+
+
+                this.newItens.forEach((item1,index1)=>{
+                    this.newItens[index1].syllables.forEach((item2,index2) =>{
+                        if (this.newItens[index1].syllables[index2].syllable.text === transferData.text && !this.newItens[index1].syllables[index2].correct){
+                            this.newItens[index1].syllables[index2].correct = true
                         }
-                    }
-                }
+                    })
+                })
+                // this.newItens.forEach((item1)=>{
+                //     if (item1.text === vm.item.word){
+                //         item1.syllables.forEach((item2)=>{
+                //             if (item2.correct === false){
+                //                 return;
+                //             }
+                //         })
+                //     }
+                // })
+                // this.newItens.forEach((item1,index1)=>{
+                //     if (this.newItens[index1].text === vm.item.word){
+                //         this.newItens[index1].syllables.forEach((item2,index2)=>{
+                //             if (this.newItens[index1].syllables[index2].correct === false){
+                //                 return;
+                //             }
+                //         })
+                //     }
+                // })
                 for (let i = 0; i < this.newItens.length; i++){
                     if (this.newItens[i].text === vm.item.word){
                         for (let j = 0; j < this.newItens[i].syllables.length; j++){
