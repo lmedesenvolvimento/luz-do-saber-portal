@@ -35,8 +35,8 @@
                     :key="position"                 
                     class="item"     
                 >
-                    <div>
-                        <div class="letra card-input card--radio-input" :class="$attrs.class">
+                    <div class="letra">
+                        <div class="card-sm card-input card--radio-input" style="width: 50px">
                             <label>
                                 <b-card 
                                     no-body
