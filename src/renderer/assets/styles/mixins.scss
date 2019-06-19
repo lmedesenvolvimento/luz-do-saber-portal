@@ -159,11 +159,16 @@
         padding: 0.15rem;
         .bg-color {
             border-radius: 0.6rem !important;
+            height: 100%;
         }
         .card-body{
-            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 21px;            
             padding: 0.5rem;
             border-radius: 0.6rem !important;
+            height: 100%;
             @include card-body-box-shadow($card-input-box-shadow-color,0.9, 3px);
         }
     }   

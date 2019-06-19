@@ -1,6 +1,7 @@
 export default {
     audio: null,
     audioTimeoutId: null,
+    playlist: [],
     simplePlay (src) {
         try {
             if (!src) return

@@ -1,7 +1,7 @@
 <template>
     <nav class="navbar navbar-default">
         <b-btn variant="link" :to="custom ? historyBackUnit : historyBack">
-            <div class="icon-prev"></div>
+            <div class="icon-lista"></div>
         </b-btn>
 
         <b-btn variant="link" to="/">
