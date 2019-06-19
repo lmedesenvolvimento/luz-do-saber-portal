@@ -39,7 +39,7 @@
                                 :sm="valueColSize" 
                                 class="item bingo-card-letter"
                             >                                
-                                <div class="card-input card-radio-input" :class="$attrs.class">
+                                <div class="card-input card--radio-input" :class="$attrs.class">
                                     <label>
                                         <b-card 
                                             no-body

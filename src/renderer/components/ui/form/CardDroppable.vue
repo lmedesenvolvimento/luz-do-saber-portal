@@ -1,6 +1,6 @@
 <template>
     <drop @drop="onDrop">
-        <div class="card-input card-droppable">
+        <div class="card-input card--droppable">
             <b-card
                 no-body
                 :class="{ 'invalid': invalid, 'valid': valid }"
@@ -39,7 +39,6 @@ export default {
 
             if (!this.customValidate){
                 this.transferData = transferData
-
                 if (this.item.value_ids.includes(transferData.id)) {
                     this.setAnswer({ 
                         type: 'value',

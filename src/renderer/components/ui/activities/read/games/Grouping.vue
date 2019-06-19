@@ -61,8 +61,17 @@ export default {
 
 <style lang="scss">
     .caixa{
+        .item{
+            width: 100%;
+        }
+        .texto{
+            max-width: none !important;
+        }
         .card-input.drop-group{
+            display: flex;
+            flex-direction: column;
             height: 280px;
+            max-height: none !important;
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
@@ -88,7 +97,12 @@ export default {
         }
 
         .items-container{
-            padding-top: 17%;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            margin-top: 3.5rem;
+            justify-content: space-evenly;
+
         }
 
         .title{
