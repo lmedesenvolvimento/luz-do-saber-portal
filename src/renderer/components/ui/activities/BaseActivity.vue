@@ -107,12 +107,17 @@
                 v-if="gameSubtypes.friendsName === activity.subtype.slug" 
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
-            />            
+            />
             <ls-activity-read-grouping
                 v-if="gameSubtypes.grouping === activity.subtype.slug" 
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
-            />            
+            />
+            <ls-activity-write-word
+                v-if="gameSubtypes.writeTheWord === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+            />
         </div>
     </div>
 </template>
