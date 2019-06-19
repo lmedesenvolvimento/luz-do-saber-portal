@@ -1,0 +1,17 @@
+{
+    "name": "luz_do_saber",
+    "productName": "Luz do Saber",
+    "description": "Software de aprendizagem Luz do Saber",
+    "dest": "dist/installers/",
+    "icon": "static/Icon.png",
+    "categories": [
+        "Utility",
+        "Education"
+    ],
+    "preDepends": [
+        "libgconf-2-4"
+    ],
+    "lintianOverrides": [
+        "changelog-file-missing-in-native-package"
+    ]
+}
