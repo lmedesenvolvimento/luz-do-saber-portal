@@ -1,0 +1,73 @@
+.letter-group{
+
+    .group-holder{
+        padding-right: 10px!important;
+        padding-left: 10px!important;
+    }
+
+    .group{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        &::before,
+        &::after{
+            content: '';
+            background-color: rgba(102, 102, 102, 0.34);
+            align-self: center;
+            position: absolute;
+        }
+        &::before{
+            width: 1px;
+            height: 70%;
+            z-index: 99;
+        }
+        &::after{
+            width: 70%;
+            height: 1px;
+        }
+        .card-body{
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row-reverse;
+            align-items: center;
+            justify-content: space-around;
+        }
+        .letters{
+            padding: 5%;
+            max-width: 80px;
+            cursor: pointer;
+            margin: 2px 5px;
+            &:nth-child(1){
+                font-family: "Comic Sans MS", cursive, sans-serif;
+            }
+            &:nth-child(2){
+                font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+            }
+            &:nth-child(3){
+                font-family: "Courier New", Courier, monospace;
+            }
+            &:nth-child(4){            
+                font-family: Impact, Charcoal, sans-serif;
+            }
+            .card--display{
+                min-width: 60px;
+                min-height: 60px;
+            }
+            .card-body{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+    @include media-breakpoint-down('md'){                
+        .group{
+            &::before,
+            &::after{
+                display: none
+            }
+        }
+    }
+}

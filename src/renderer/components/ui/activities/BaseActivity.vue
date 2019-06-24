@@ -112,7 +112,12 @@
                 v-if="gameSubtypes.grouping === activity.subtype.slug" 
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
-            />            
+            />
+            <ls-activity-read-letter-group
+                v-if="gameSubtypes.letterGroup === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+            />
         </div>
     </div>
 </template>
