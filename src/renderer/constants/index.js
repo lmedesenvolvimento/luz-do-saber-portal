@@ -35,6 +35,7 @@ export const GameSubtypes = {
     friendsName: 'meus-amigos-fotos',
     dominoName: 'domino-de-nomes',
     grouping: 'agrupamento',
+    letterGroup: 'nao-pertence',
     matchFriendsInitial: 'encaixe-letras',
 }
 

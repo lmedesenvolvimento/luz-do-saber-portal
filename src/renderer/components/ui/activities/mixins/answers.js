@@ -30,6 +30,7 @@ export const CreateAnswersMixins = {
                     answers.push(answer)
                 })
             })
+            console.log(answers)
 
             this.setAnswers(answers)
         }
