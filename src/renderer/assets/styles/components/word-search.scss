@@ -60,7 +60,10 @@
                 margin: auto;
             }
             &.valid{
-                background-color: #376D38;
+                outline: 4px solid #376D38;
+                color: white;
+                border: 0px solid transparent;
+                background-color: #7db239;
             }
         }
     }
