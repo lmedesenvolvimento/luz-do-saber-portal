@@ -1,3 +1,5 @@
+
+
 .letter-group{
 
     .group-holder{
@@ -39,17 +41,24 @@
             max-width: 80px;
             cursor: pointer;
             margin: 2px 5px;
-            &:nth-child(1){
-                font-family: "Comic Sans MS", cursive, sans-serif;
+            text-transform: lowercase;
+            .card0{
+                .card-body{
+                    padding: 0.7rem;
+                }
             }
-            &:nth-child(2){
-                font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+            .letter0{
+                @include becca_script;
+                font-size: 34px!important;
             }
-            &:nth-child(3){
-                font-family: "Courier New", Courier, monospace;
+            .letter1{
+                font-family: 'Shitzu Porko Light', Arial, Helvetica, sans-serif;
             }
-            &:nth-child(4){            
-                font-family: Impact, Charcoal, sans-serif;
+            .letter2{
+                font-family: "Baloo Bhaina", Helvetica, sans-serif;
+            }
+            .letter3{   
+                font-family: "Itim Regular", Helvetica, sans-serif;        
             }
             .card--display{
                 min-width: 60px;
