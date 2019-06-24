@@ -10,7 +10,7 @@
                     <slot></slot>
                 </b-card-body>
             </fill-background>
-        </b-card>            
+        </b-card>
     </div>
 </template>
 <script>
@@ -30,9 +30,6 @@ export default {
         isCardSm(){
             return this.size === 'small'
         }
-    },
-    mounted(){
-        console.log(this)
     }
 }
 </script>
