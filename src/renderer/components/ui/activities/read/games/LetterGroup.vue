@@ -9,15 +9,16 @@
                             :type="'text'"
                             class="group"
                         >
-                            <div v-for="(letter, index) in group" :key="index" class="letters" @click="checkLetter(letter)">
+                            <div v-for="(letter, lIndex) in group" :key="lIndex" class="letters" @click="checkLetter(letter, group)">
                                 <ls-card-display
                                     label="group" 
                                     :type="'text'"
                                     :item="letter"
                                     :valid="letter.valid"
                                     :invalid="letter.invalid"
+                                    :class="'card'+lIndex"
                                 >
-                                    <div> {{ letter.text }} </div>
+                                    <div :class="'letter'+lIndex"> {{ letter.text }} </div>
                                 </ls-card-display>
                             </div>
                         </ls-card-display>
@@ -67,12 +68,13 @@ export default {
             }
             return lettersGroup
         },
-        checkLetter(answer){
-            this.setAnswer({
-                data: answer.id,
-                type: 'value',
-                vm: answer,
-            })
+        checkLetter(answer, group){
+            if(group)
+                this.setAnswer({
+                    data: answer.id,
+                    type: 'value',
+                    vm: answer,
+                })
         },
         ...mapActions('Activity', ['setActivityAttrs', 'setAnswer'])
     }
