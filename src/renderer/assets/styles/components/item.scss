@@ -4,29 +4,29 @@
     outline: none;
     label{
         margin-bottom: 0px;
-    }    
-    
+    }
+
     .letra, .numero, .caractere_especial, .silaba, .substantivo_comum, .substantivo_proprio {
         display: inline-flex;
         flex: 1;
         max-width: none;
         width: 100%;
         justify-content: center;
-        .card {
-            max-height: $item-text-max-heigth;          
-        }
         .texto{
-            [class^="card"] {
+            [class^="card--"] {
                 max-height: $item-text-max-heigth;
                 .bg-color{
                     overflow: hidden;
                 }
-            }            
+            }
+            .card {
+                max-height: $item-text-max-heigth;
+            }
         }
         [class*="card--"], .draggshadow {
             &:not(.card-sm){
                 min-width: 74px;
-                max-height: $item-text-max-heigth;
+                // max-height: $item-text-max-heigth;
             }
             &.card-sm .card{
                 height: 56px;
@@ -56,21 +56,21 @@
     @each $type, $value in $item-types-width {
         .#{$type}{
             &.texto{
-                .card--droppable, 
+                .card--droppable,
                 .card--draggable,
-                .card--radio-input, 
+                .card--radio-input,
                 .card--display {
                     width: $value;
                 }
             }
         }
-    }            
+    }
     @each $type, $value in $item-types-sm-width {
         .#{$type}{
             &.texto{
-                .card--droppable, 
+                .card--droppable,
                 .card--draggable,
-                .card--radio-input, 
+                .card--radio-input,
                 .card--display {
                     &.card-sm {
                         width: $value;
@@ -78,13 +78,13 @@
                 }
             }
         }
-    }        
+    }
 
     &.col-sm-1, &.col-md-1, .col-1{
         display: inline-flex;
         flex: 1;
         max-width: none;
         min-width: $item-min-width;
-        justify-content: center;        
+        justify-content: center;
     }
 }
