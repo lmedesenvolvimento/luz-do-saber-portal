@@ -4,7 +4,7 @@ export const ActivityTypes = {
             text: 'atividade-texto',
             image: 'atividade-imagem',
             audio: 'atividade-audio'
-            
+
         },
         questionnaire: {
             default: 'atividade-questionario'
@@ -60,4 +60,22 @@ export const ItemTypes = {
     tags: {
         input: 'input',
     }
+}
+
+
+export const viewerOpts = {
+    'inline': false,
+    'button': false,
+    'navbar': false,
+    'title': false,
+    'toolbar': false,
+    'tooltip': false,
+    'movable': false,
+    'zoomable': false,
+    'rotatable': false,
+    'scalable': false,
+    'transition': true,
+    'fullscreen': false,
+    'keyboard': false,
+    'url': 'data-source'
 }
