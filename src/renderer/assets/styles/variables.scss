@@ -67,7 +67,7 @@ $font-size-variants: (
     normal: 18px,
     big: 24px
     );
-    
+
     $font-displays: (
         d1: 1rem,
         d2: 2rem,
@@ -76,14 +76,15 @@ $font-size-variants: (
         d5: 5rem,
         d6: 6rem
         );
-        
-        
+
+
 // Gameplay
 $gameplay-heading-bg-color: lighten(#f4f4f4, 2.5);
 $gameplay-header-height: 100px;
 $gameplay-footer-height: 50px;
 $gameplay-border-color: #ddd;
 $gameplay-height: calc(70vh - #{ $navbar-height - 24px });
+$gameplay-max-height: 640px;
 
 // Item
 $item-min-width: 100px;
