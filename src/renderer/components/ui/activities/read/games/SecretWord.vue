@@ -1,16 +1,16 @@
 <template>
-    <div class="container-fluid">        
+    <div class="container-fluid">
         <b-row align-v="center">
             <b-col sm="4">
-                <img 
-                    :src="getKeys[0].images[0].url" 
+                <img
+                    :src="getKeys[0].images[0].url"
                     alt=""
                 >
             </b-col>
             <b-col sm="8">
                 <b-row>
-                    <div 
-                        v-for="(letter, index) in keyLetters" 
+                    <div
+                        v-for="(letter, index) in keyLetters"
                         :key="index"
                         class="item"
                         style="margin-right: 10px"
@@ -22,26 +22,26 @@
                                 </div>
                                 <div v-else>
                                     _
-                                </div>                      
+                                </div>
                             </ls-card-display>
-                        </div>                    
+                        </div>
                     </div>
-                </b-row>                
-            </b-col>  
-        </b-row>            
+                </b-row>
+            </b-col>
+        </b-row>
         <div>
             <b-row v-for="i in 2" :key="i" align-h="between" align-v="center">
                 <div
                     v-for="(item, position) in alphabetInputs(i)"
-                    :key="position"                 
-                    class="item"     
+                    :key="position"
+                    class="item"
                 >
                     <div class="letra">
                         <div class="card-sm card-input card--radio-input" style="width: 50px">
                             <label>
-                                <b-card 
+                                <b-card
                                     no-body
-                                    :class="{ 'invalid': item.invalid, 'valid': item.valid }"                                    
+                                    :class="{ 'invalid': item.invalid, 'valid': item.valid }"
                                 >
                                     <b-card-body
                                         :style="isChecked(item) ? {backgroundColor: item.color, color: '#FFFFFF'} : {}"
@@ -51,7 +51,7 @@
                                 </b-card>
 
                                 <input
-                                    v-model="item.selected"  
+                                    v-model="item.selected"
                                     type="checkbox"
                                     class="invisible"
                                     true-value="valid"
@@ -61,10 +61,10 @@
                                 />
                             </label>
                         </div>
-                    </div> 
+                    </div>
                 </div>
             </b-row>
-        </div>   
+        </div>
     </div>
 </template>
 
@@ -72,10 +72,8 @@
 import { mapState, mapActions } from 'vuex'
 import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from '@ui/activities/mixins'
 import ui from '@/components/ui'
-import { setTimeout } from 'timers'
-import { watch } from 'fs';
 export default {
-    components: { 
+    components: {
         ...ui
     },
     mixins: [MapMixins, ListMixin, CreateAnswersMixins],
@@ -89,7 +87,7 @@ export default {
             keyIds: [],
             raffle: []
         }
-    },     
+    },
     mounted() {
         this.createAnswersArray()
         let i = 0;
@@ -102,16 +100,16 @@ export default {
             let color = this.getColorsArray[i]
             this.alphabetInputs_2.push(Object.assign({}, {letter, color}))
             i++;
-        })  
+        })
         for(let i = 0; i < this.activity.total_correct_items; i++){
             this.keyLetters.push(this.getKeys[0].letters[i].text)
             this.keyIds.push(this.getKeys[0].value_ids[i])
-        } 
-    }, 
+        }
+    },
     methods: {
         alphabetInputs (index) {
-            if (index == 1) return this.alphabetInputs_1            
-            return this.alphabetInputs_2            
+            if (index == 1) return this.alphabetInputs_1
+            return this.alphabetInputs_2
         },
         isChecked(item){
             if(item.valid || item.invalid) return false
@@ -122,21 +120,21 @@ export default {
             if(this.searchString(this.keyLetters, item.letter)){
                 item.valid = true
                 this.raffle.push(item.letter)
-                this.setAnswer({ 
-                    type: 'value', 
+                this.setAnswer({
+                    type: 'value',
                     data: this.keyIds[0],
                     vm: this
                 })
                 this.keyIds.shift();
-            }else { 
+            }else {
                 item.invalid = true
-                this.setAnswer({ 
-                    type: 'value', 
+                this.setAnswer({
+                    type: 'value',
                     data: -1,
                     vm: this
                 })
             }
-            
+
         },
         searchString(arr, str) {
             for(let i = 0; i < arr.length;i++){
@@ -145,7 +143,7 @@ export default {
             return false;
         },
         ...mapActions('Activity', ['setActivityAttrs','setAnswer'])
-    },     
+    },
 }
 </script>
 
