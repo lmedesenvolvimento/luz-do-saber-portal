@@ -8,11 +8,12 @@
                 >
             </b-col>
             <b-col sm="8">
-                <b-row align-h="between">
+                <b-row>
                     <div 
                         v-for="(letter, index) in keyLetters" 
                         :key="index"
                         class="item"
+                        style="margin-right: 10px"
                     >
                         <div class="letra">
                             <ls-card-display>

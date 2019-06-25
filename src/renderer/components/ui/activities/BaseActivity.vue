@@ -93,6 +93,11 @@
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
             />
+            <ls-activity-read-word-bingo
+                v-if="gameSubtypes.wordBingo === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+            />
             <ls-activity-begin-domino-name
                 v-if="gameSubtypes.dominoName === activity.subtype.slug"
                 :value-col-size="valueColSize"
@@ -120,6 +125,11 @@
             />
             <ls-activity-read-dragging-syllables
                 v-if="gameSubtypes.draggingSyllables === activity.subtype.slug"
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+            />
+            <ls-activity-read-secret-word
+                v-if="gameSubtypes.secretWord === activity.subtype.slug"
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
             />

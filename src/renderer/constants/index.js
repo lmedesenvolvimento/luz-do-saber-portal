@@ -33,6 +33,7 @@ export const GameSubtypes = {
     draggingSyllables: 'formacao-de-palavras',
     memoryGame: 'jogo-da-memoria',
     wordSearch: 'caca-nomes',
+    wordBingo: 'bingo-de-palavras',
     boxWords: 'caixa-de-palavras',
     friendsName: 'meus-amigos-fotos',
     dominoName: 'domino-de-nomes',
