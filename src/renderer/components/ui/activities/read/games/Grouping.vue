@@ -58,17 +58,17 @@
                                                 cols="6"
                                                 class="my-3"
                                             >
-                                                <b-card
-                                                    no-body
-                                                    class="drop-group-item item letra"
-                                                    :class="{ 'invalid': ans.invalid, 'valid': ans.valid }"
-                                                >
-                                                    <b-card-body>
-                                                        <slot name="transfer-data">
+                                                <div class="silaba">
+                                                    <b-card
+                                                        no-body
+                                                        class="drop-group-item"
+                                                        :class="{ 'invalid': ans.invalid, 'valid': ans.valid }"
+                                                    >
+                                                        <b-card-body>
                                                             <div class="icon-img" :style="{backgroundImage: `url('${ans.images[0].url}')`}"></div>
-                                                        </slot>
-                                                    </b-card-body>
-                                                </b-card>
+                                                        </b-card-body>
+                                                    </b-card>
+                                                </div>
                                             </b-col>
                                         </b-row>
                                     </div>
@@ -164,7 +164,6 @@ export default {
     }
     
     .grupo{
-
         .title{
             font-size: 18px;
             color: transparentize($color: #222, $amount: 0.6);
@@ -199,24 +198,10 @@ export default {
                 margin: 0 auto !important;
             }
 
-            // .card{
-            //     width: 75%;
-            //     border-radius: 0.75rem;
-            //     padding: 0.15rem;
-            //     .bg-color {
-            //         border-radius: 0.6rem !important;
-            //     }
-            //     .card-body{
-            //         font-size: 18px;
-            //         padding: 0.5rem;
-            //         border-radius: 0.6rem !important;
-            //     }
-            // }
-
             .items-container{
-
                 .icon-img{
                     height: 50px;
+                    width: 50px;
                     margin: auto;
                     background-repeat: no-repeat;
                     background-size: contain;
@@ -224,6 +209,5 @@ export default {
                 }
             }
         }
-        
     }
 </style>
