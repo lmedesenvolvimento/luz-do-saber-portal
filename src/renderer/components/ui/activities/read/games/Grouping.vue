@@ -60,7 +60,7 @@
                                             >
                                                 <b-card
                                                     no-body
-                                                    class="drop-group-item letra"
+                                                    class="drop-group-item item letra"
                                                     :class="{ 'invalid': ans.invalid, 'valid': ans.valid }"
                                                 >
                                                     <b-card-body>
