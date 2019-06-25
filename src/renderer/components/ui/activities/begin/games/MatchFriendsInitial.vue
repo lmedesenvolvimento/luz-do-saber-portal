@@ -5,7 +5,7 @@
                 <b-col
                     v-for="(item) in activity.items.keys"
                     :key="item.id"
-                    class="my-3 item"
+                    class="my-2 item"
                     cols="12"
                     md="6"
                     sm="12"
@@ -13,6 +13,7 @@
                     <b-row class="m-1 drop-and-name">
                         <b-col class="drop">
                             <ls-card-droppable
+                                class="letra"
                                 :item="item"
                                 :type="'key'"
                                 :template="activity.item_template.key"
@@ -90,19 +91,19 @@ export default {
 
 <style lang="scss">
     .activity-keys{
-        padding-left: 1.4rem;
+        padding-left: 0.9rem;
 
         .item{
             .drop-and-name{
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                min-width: 200px;
+                min-width: 210px;
                 .name-container
                 {
                     padding: 0;
                     position: relative;
-                    right: 1.4rem;
+                    right: 0.9rem;
                     max-width: 200px;
 
                 }
@@ -111,7 +112,7 @@ export default {
                     justify-content: center;
                     padding: 0 !important;
                     .card-body{
-                        padding-left: 1.4rem;
+                        padding-left: 1.7rem;
                         text-align: left;
                         font-size: 22px;
                         flex-grow: 1;
@@ -120,7 +121,7 @@ export default {
                 .drop{
                     z-index: 1;
                     max-width: 80px;
-                    padding: 0 !important;
+                    padding-left: 3rem;
                     .card-body{
                         font-size: 24px;
                     }

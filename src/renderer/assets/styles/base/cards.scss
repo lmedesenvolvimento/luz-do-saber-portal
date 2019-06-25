@@ -1,4 +1,4 @@
-.card-display{
+.card--display{
     @include custom-card;
     &.card-sm{
         @include custom-card-sm;
@@ -34,10 +34,10 @@
 }
 
 .card-checkmark{
-    @include custom-card-sm(true);
+    @include custom-card(true);
 }
 
-.card-input.card-draggable{
+.card-input.card--draggable{
     @include custom-card(true);
     .dragging, .dropped{
         &::before{
@@ -46,7 +46,7 @@
     }   
 }
 
-.card-input.card-droppable{
+.card-input.card--droppable{
     @include custom-card;
     .card{
         &:not(.valid):not(.invalid){
@@ -58,13 +58,14 @@
 }
 
 .card-image-display{
+    max-width: 400px;
+    margin: auto;
     .card-img img{
-        max-width: 400px;
-        width: 100%;
+        max-height: 168px;
     }
     .card-img svg {
-        width: 180px;
-        height: 180px;
+        width: 168px;
+        height: 168px;
     }
 }
 
