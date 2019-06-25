@@ -69,6 +69,7 @@
                 v-if="template.type === Types.primitive.text"
                 :type="type"
                 :item="item"
+                :size="size"
                 :focus="focus"
                 :group="group"
                 :template="template"
@@ -77,12 +78,14 @@
                 v-else-if="template.type === Types.primitive.image"
                 :type="type"
                 :item="item"
+                :size="size"
                 :template="template"
             ></ls-item-image>
             <ls-item-audio
                 v-else-if="template.type === Types.primitive.audio"
                 :type="type"
                 :item="item"
+                :size="size"
                 :template="template"
             ></ls-item-audio>
         </div>

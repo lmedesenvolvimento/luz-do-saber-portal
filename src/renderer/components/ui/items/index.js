@@ -9,6 +9,10 @@ export const ItemProps = {
         item: Object,
         type: String,
         focus: Boolean,
+        size: {
+            type: String,
+            require: false
+        },
         template: Object,
         group: Boolean,
     },

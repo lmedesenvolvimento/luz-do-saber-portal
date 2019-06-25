@@ -5,7 +5,7 @@
                 <b-col
                     v-for="(item) in activity.items.keys"
                     :key="item.id"
-                    class="my-3 item"
+                    class="my-2 item"
                     cols="12"
                     md="6"
                     sm="12"
@@ -112,7 +112,7 @@ export default {
                     justify-content: center;
                     padding: 0 !important;
                     .card-body{
-                        padding-left: 1.4rem;
+                        padding-left: 1.7rem;
                         text-align: left;
                         font-size: 22px;
                         flex-grow: 1;
@@ -121,7 +121,7 @@ export default {
                 .drop{
                     z-index: 1;
                     max-width: 80px;
-                    padding: 0 !important;
+                    padding-left: 3rem;
                     .card-body{
                         font-size: 24px;
                     }

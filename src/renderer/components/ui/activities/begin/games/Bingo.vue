@@ -43,6 +43,7 @@
                                     <label>
                                         <b-card 
                                             no-body
+                                            class="letra"
                                             :class="{ 'invalid': item.invalid, 'valid': item.valid }"
                                         >
                                             <b-card-body>

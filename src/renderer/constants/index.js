@@ -4,7 +4,7 @@ export const ActivityTypes = {
             text: 'atividade-texto',
             image: 'atividade-imagem',
             audio: 'atividade-audio'
-            
+
         },
         questionnaire: {
             default: 'atividade-questionario'
@@ -29,12 +29,15 @@ export const GameSubtypes = {
     unscramble: 'desembaralhar-nome',
     rearrangeName: 'monte-seu-nome',
     jigsaw: 'quebra-cabecas',
+    matchFriendsInitial: 'encaixe-letras',
+    draggingSyllables: 'formacao-de-palavras',
     memoryGame: 'jogo-da-memoria',
     wordSearch: 'caca-nomes',
     boxWords: 'caixa-de-palavras',
     friendsName: 'meus-amigos-fotos',
     dominoName: 'domino-de-nomes',
     grouping: 'agrupamento',
+    secretWord: 'palavra-secreta',
     matchFriendsInitial: 'encaixe-letras',
 }
 
@@ -58,4 +61,22 @@ export const ItemTypes = {
     tags: {
         input: 'input',
     }
+}
+
+
+export const viewerOpts = {
+    'inline': false,
+    'button': false,
+    'navbar': false,
+    'title': false,
+    'toolbar': false,
+    'tooltip': false,
+    'movable': false,
+    'zoomable': false,
+    'rotatable': false,
+    'scalable': false,
+    'transition': true,
+    'fullscreen': false,
+    'keyboard': false,
+    'url': 'data-source'
 }
