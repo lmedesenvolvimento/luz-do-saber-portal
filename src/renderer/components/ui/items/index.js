@@ -9,6 +9,10 @@ export const ItemProps = {
         item: Object,
         type: String,
         focus: Boolean,
+        size: {
+            type: String,
+            require: false
+        },
         template: Object,
         group: Boolean,
     },
@@ -42,6 +46,7 @@ export const ItemProps = {
 export default {
     'ls-item-text': require('./Text.vue').default,
     'ls-item-image': require('./Image.vue').default,
+    'ls-item-audio': require('./Audio.vue').default,
     'ls-item-checkmark': require('./custom/CardCheckMark.vue').default,
     'ls-item-cracha-box': require('./custom/CrachaBox.vue').default,
     'ls-card-display-validacao': require('./custom/CardDisplayValidacao.vue').default,

@@ -1,5 +1,5 @@
 <template>
-    <div :class="item.type ? item.type : ''">
+    <div :class="getItemClass">
         <div v-if="!isPrimitiveItem" class="item">            
             <ls-item-cracha-box
                 v-if="template.custom === Types.custom.crachaBox"
@@ -36,6 +36,13 @@
                 :item="item"
                 :template="template"
             ></ls-item-texto-em-blocos>
+            
+            <ls-card-audio-listen
+                v-if="template.custom === Types.custom.audioPlayer"
+                :type="type"
+                :item="item"
+                :template="template"
+            ></ls-card-audio-listen>
 
             <ls-card-group-droppable
                 v-else-if="template.custom === Types.custom.caixaPalavras"
@@ -62,6 +69,7 @@
                 v-if="template.type === Types.primitive.text"
                 :type="type"
                 :item="item"
+                :size="size"
                 :focus="focus"
                 :group="group"
                 :template="template"
@@ -70,8 +78,16 @@
                 v-else-if="template.type === Types.primitive.image"
                 :type="type"
                 :item="item"
+                :size="size"
                 :template="template"
             ></ls-item-image>
+            <ls-item-audio
+                v-else-if="template.type === Types.primitive.audio"
+                :type="type"
+                :item="item"
+                :size="size"
+                :template="template"
+            ></ls-item-audio>
         </div>
     </div>
 </template>
@@ -84,7 +100,10 @@ export default {
     computed: {
         isPrimitiveItem(){
             return this.template.custom ? false : true
-        },        
+        },
+        getItemClass()   {
+            return `${this.item ? this.item.type : ''} ${ this.template ? this.template.type : '' }`
+        }
     }
 }
 </script>

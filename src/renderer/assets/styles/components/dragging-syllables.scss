@@ -1,0 +1,55 @@
+
+    #dragging-syllables
+    {
+        .activity-values{
+            padding: 0px !important;
+            max-width: 325px;
+        }
+        .item .letra{
+            .card-input.card--droppable{
+                min-width: 80px !important;
+            }
+            .card-input.card--droppable .card .card-body{
+                font-size: 18px !important;
+            }
+        }
+        .card-input.card--draggable,.card-input.draggshadow {
+            max-width: 80px;
+            .card .bg-color .card-body{
+                font-size: 18px !important;
+                padding: 1rem !important;
+            }
+        }
+        .image-col{
+            justify-content: center;
+            padding: 0;
+            .key-image {
+                .card .bg-color .card-body{
+                    padding: 10px;
+                }
+                max-width: 110px !important;
+                .image{
+                    height: 100%;
+                    min-height: 60px;
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                }
+            }
+        }
+        .syllables-row{
+            padding: 10px;
+        }
+        #values-container-display{
+            .card .bg-color .card-body {
+                padding: 8px;
+            }
+        }
+        .values-container
+        {  
+            margin: 0 !important;
+            .item{
+                padding: 0px 10px;
+            }
+        }
+    }

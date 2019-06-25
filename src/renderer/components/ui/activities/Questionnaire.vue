@@ -3,8 +3,7 @@
         <b-row align-h="center" :class="{'column': !horizontal,'reverse': (reverse && horizontal), 'reverse-column': ( reverse && !horizontal )}">
             <b-col 
                 v-if="hasKeys" 
-                class="activity-keys align-items-center"
-                :class="{'flex-2': !horizontal}"
+                class="activity-keys"
             >
                 <b-row>
                     <b-col v-for="(item, position) in getKeys" :key="position" :sm="keyColSize" class="item"> 

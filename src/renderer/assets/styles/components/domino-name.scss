@@ -1,8 +1,10 @@
 .game-domino-name{    
+    max-height: 450px;
+    margin: auto;
     .item-vertical{
         flex: 1;
         cursor: pointer;
-        .card-display, .card-display .card{
+        .card--display, .card--display .card{
             height: 100%;
             .bg-color, .card-body{
                 height: 100%;
@@ -33,7 +35,7 @@
                 padding: 8px 0px;
                 .item-vertical{
                     max-width: 51px;
-                    .card-display{
+                    .card--display{
                         max-width: 48px;
                         .card-body{
                             display: flex;
@@ -52,13 +54,17 @@
         }
     }
     .activity-keys{
-        height: calc(100% - 15vh);
+        height: calc(100% - 10vh);
         .item{
             padding: 0px 4px;
         }
     }
     .activity-values{
-        height: calc(100% - 15vh);
+        height: calc(100% - 5vh);
+        .items, .vertical-items{
+            display: flex;
+            height: 100%;
+        }        
         .item{
             padding: 0px 10px;
         }
@@ -70,7 +76,38 @@
         }
     }
 
+    .item:not(.item-vertical){
+        .droppable, .draggable{
+            width: 155px;
+        }
+    }
     .droppable, .draggable{
         height: 100%;       
+    }
+    .draggable {
+        &.dropped, &.dragging{
+            .card{
+                .bg-color{ 
+                    @extend .invisible;
+                 }
+                &::before{
+                    @include custom-dropcard-content;
+                    border-radius: 0.6em;
+                }
+            }
+        }   
+    }
+    .droppable {
+        .empty{
+            .card {
+                .bg-color{ 
+                    @extend .invisible;
+                 }
+                &::before{
+                    @include custom-dropcard-content;
+                    border-radius: 0.6em;
+                }
+            }
+        }
     }
 }
