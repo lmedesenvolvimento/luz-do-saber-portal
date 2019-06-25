@@ -5,6 +5,7 @@
             name="base-input" 
             :value="item"
             :focus="focus"
+            :size="size"
             type="value"
             :bg-color="item.color"
         />
@@ -13,6 +14,7 @@
             v-else-if="isDrag"
             label="item.text" 
             :item="item"
+            :size="size"
             :name="activity.type.slug"
             :bg-color="item.color"
         >
@@ -24,6 +26,7 @@
             label="key.text" 
             name="card-input"
             :item="item"
+            :size="size"
             :bg-color="item.color"
         >
             {{ item.text }}
@@ -34,6 +37,7 @@
             label="key.text" 
             name="card-input"
             :item="item"
+            :size="size"
             :bg-color="item.color"
         >
             {{ item.text }}
@@ -41,9 +45,9 @@
 
         <ls-card-input 
             v-else-if="type === 'key' && isJoinInput"
-            class="col-sm" 
             label="item.text" 
             :item="item"
+            :size="size"
             :type="type"
             :name="activity.type.slug"
             :bg-color="item.color"
@@ -53,9 +57,9 @@
 
         <ls-card-display 
             v-else-if="type === 'key'"
-            class="col-sm" 
             label="item.text" 
             :item="item"
+            :size="size"
             :name="activity.type.slug"
             :bg-color="item.color"
         >
@@ -67,6 +71,7 @@
             label="item.text" 
             :type="type"
             :item="item"
+            :size="size"
             :name="activity.type.slug"
             :bg-color="item.color"
         >

@@ -1,5 +1,5 @@
 <template>
-    <div class="card-display" :class="$attrs.class">
+    <div class="card--display" :class="{ 'card-sm': isCardSm, ...$attrs.class}">
         <b-card
             no-body
             :class="{ 'invalid': invalid, 'valid': valid }"
@@ -10,7 +10,7 @@
                     <slot></slot>
                 </b-card-body>
             </fill-background>
-        </b-card>            
+        </b-card>
     </div>
 </template>
 <script>
