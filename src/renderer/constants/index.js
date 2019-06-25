@@ -3,13 +3,8 @@ export const ActivityTypes = {
         default: {
             text: 'atividade-texto',
             image: 'atividade-imagem',
-<<<<<<< HEAD
             audio: 'atividade-audio',
-            
-=======
-            audio: 'atividade-audio'
 
->>>>>>> master
         },
         questionnaire: {
             default: 'atividade-questionario'
