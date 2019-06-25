@@ -1,0 +1,27 @@
+.write-word {
+    justify-content: flex-end;
+    width: auto;
+
+    .wrong-words-display {
+        margin-left: 145px;
+
+        .card {
+            width: 180px;
+            height: 350px;
+        }
+
+        .card-body {
+            height: 340px;
+        }
+        
+        .card-body {
+            background-color: #fafafa;
+            font-size: 16px;
+            
+            span {
+                margin-top: 5px;
+                display: block;
+            }
+        }
+    }
+}
