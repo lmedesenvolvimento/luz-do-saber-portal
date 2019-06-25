@@ -94,12 +94,7 @@
                 :key-col-size="keyColSize"
             />
             <ls-activity-read-word-bingo
-                v-if="gameSubtypes.wordBingo === activity.subtype.slug" 
-                :value-col-size="valueColSize"
-                :key-col-size="keyColSize"
-            />
-            <ls-activity-begin-domino-name
-                v-if="gameSubtypes.dominoName === activity.subtype.slug"
+                v-if="gameSubtypes.wordBingo === activity.subtype.slug"
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
             />
