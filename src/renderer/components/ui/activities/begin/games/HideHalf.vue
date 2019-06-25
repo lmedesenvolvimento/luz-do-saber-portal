@@ -16,7 +16,6 @@
                             :focus="item.focus"
                             :template="activity.item_template.value"
                         />
-
                         <Item
                             v-if="!item.hide"
                             :item="item"
