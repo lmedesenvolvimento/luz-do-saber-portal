@@ -1,5 +1,5 @@
 .feedback {
-    background: url(../images/components/feedback/comecar/background-comecar.png);
+    background: url('~@/assets/images/components/feedback/comecar/background-comecar.png');
     background-position-x: -80px;
     border: hidden;
     .feedback-header {
@@ -33,18 +33,12 @@
          height: 140px; 
          background-image: url('~@/assets/images/components/feedback/texture.png');
          background-repeat: repeat-x;
-         
-         &.comecar{
-             background-color: #c72929;
-         }
 
-         &.ler {
-             background-color:  #10a444;
-         }
-
-         &.escrever {
-            background-color: #0675bc;
-         }
+         @each $color, $value in $theme-colors {
+            &.#{$color} {
+                background-color: $value;
+            }
+        }                 
     }
     .feedback-content {        
         display: flex;

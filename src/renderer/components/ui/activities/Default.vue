@@ -19,7 +19,7 @@
                 }"
                 class="activity-values" 
             >
-                <b-row align-v="center" align-h="center">
+                <b-row>
                     <b-col v-for="(item, position) in getValues" :key="position" align-self="center" :md="valueColSize" :sm="6" class="item"> 
                         <Item 
                             v-if="answers"

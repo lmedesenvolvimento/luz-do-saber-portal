@@ -9,7 +9,8 @@
   "scripts": {
     "build": "node .electron-vue/build.js",
     "build:darwin": "cross-env BUILD_TARGET=darwin node .electron-vue/build.js",
-    "build:linux": "cross-env BUILD_TARGET=linux node .electron-vue/build.js",
+    "build:linux": "cross-env BUILD_TARGET=linux LINUX_ARCH=64 node .electron-vue/build.js",
+    "build:linux:32": "cross-env BUILD_TARGET=linux LINUX_ARCH=32 node .electron-vue/build.js",
     "build:mas": "cross-env BUILD_TARGET=mas node .electron-vue/build.js",
     "build:win32": "cross-env BUILD_TARGET=win32 node .electron-vue/build.js",
     "build:clean": "cross-env BUILD_TARGET=clean node .electron-vue/build.js",
@@ -38,6 +39,7 @@
     "normalize.css": "^8.0.1",
     "qs": "^6.7.0",
     "uniqid": "^5.0.3",
+    "v-viewer": "^1.4.1",
     "vue": "^2.6.10",
     "vue-content-loader": "^0.2.1",
     "vue-drag-drop": "^1.1.4",

@@ -1,46 +1,49 @@
 <template>
     <drop @drop="onDrop">
-        <div v-if="answers.length && item.images.length" class="card-input drop-group" :style="{'background-image': `url(${item.images[0].url}) no-repeat`}">
-            <div>
+        <div v-if="answers.length && template.custom_image_full_url" class="card-input drop-group" :style="{'background-image': `url(${template.custom_image_full_url})`}">
+            <div class="title">
                 {{ item.text }}
             </div>
-            <b-card
-                v-for="item in answers" 
-                :key="item.id"
-                no-body
-                class="drop-group-item"
-                :class="{ 'invalid': invalid, 'valid': valid }"
-            >
-                <b-card-body>
-                    <slot name="transfer-data">
-                        <div> {{ item.text }}</div>
-                    </slot>
-                </b-card-body>
-            </b-card>
+            <div class="items-container">
+                <b-card
+                    v-for="item in answers" 
+                    :key="item.id"
+                    no-body
+                    class="drop-group-item"
+                    :class="{ 'invalid': invalid, 'valid': valid }"
+                >
+                    <b-card-body>
+                        <slot name="transfer-data">
+                            <div> {{ item.text }}</div>
+                        </slot>
+                    </b-card-body>
+                </b-card>
+            </div>
         </div>
         <div v-else-if="answers.length" class="card-input drop-group">
-            <div>
+            <div class="title">
                 {{ item.text }}
             </div>
-            <b-card
-                v-for="item in answers" 
-                :key="item.id"
-                no-body
-                class="drop-group-item"
-                :class="{ 'invalid': invalid, 'valid': valid }"
-            >
-                <b-card-body>
-                    <slot name="transfer-data">
-                        <div> {{ item.text }}</div>
-                    </slot>
-                </b-card-body>
-            </b-card>
+            <div class="items-container">
+                <b-card
+                    v-for="item in answers" 
+                    :key="item.id"
+                    no-body
+                    class="drop-group-item"
+                    :class="{ 'invalid': invalid, 'valid': valid }"
+                >
+                    <b-card-body>
+                        <slot name="transfer-data">
+                            <div> {{ item.text }}</div>
+                        </slot>
+                    </b-card-body>
+                </b-card>
+            </div>
         </div>
-        <div v-else class="drop-group">
-            <div>
+        <div v-else class="card-input drop-group" :style="{'background-image': `url(${template.custom_image_full_url})`}">
+            <div class="title">
                 {{ item.text }}
             </div>
-            <img v-if="item.images.length" :src="item.images[0].url" alt="">
         </div>
     </drop>
 </template>
@@ -52,6 +55,9 @@ import RadioInput from './RadioInput.vue'
 export default {
     components: { Drop },
     mixins: [RadioInput],
+    props: {
+        template: Object
+    },
     data(){
         return {
             transferData: {},
@@ -66,7 +72,7 @@ export default {
             this.transferData = transferData
             
             if (this.item.value_ids.includes(transferData.id)) {
-                this.answers.push(transferData)
+                this.answers.unshift(transferData)
 
                 transferData.valid = true
             }
@@ -95,4 +101,5 @@ export default {
 </script>
 
 <style>
+
 </style>

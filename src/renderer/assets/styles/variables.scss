@@ -37,6 +37,7 @@ $icon-names: (
     'icon-home',
     'icon-next',
     'icon-prev',
+    'icon-lista',
     'icon-redo',
 );
 
@@ -52,11 +53,12 @@ $gutter-size: 20px;
 // Cards
 $card-input-dark-border-color: #2B1F17;
 $card-input-box-shadow-intesity: 6px;
-$card-input-box-shadow-color: $card-input-dark-border-color;
+$card-input-box-shadow-color: #666;
 $card-input-box-shadow-success-color: #7DB239;
 $card-input-box-shadow-danger-color: #C72929;
 $card-empty-color: #CDCBCB;
 $card-empty-shadow-color: #ABABAB;
+$card-border-radius: 1.05rem;
 
 // Fontsizes
 $font-size-variants: (
@@ -64,7 +66,7 @@ $font-size-variants: (
     normal: 18px,
     big: 24px
     );
-    
+
     $font-displays: (
         d1: 1rem,
         d2: 2rem,
@@ -73,14 +75,30 @@ $font-size-variants: (
         d5: 5rem,
         d6: 6rem
         );
-        
-        
+
+
 // Gameplay
 $gameplay-heading-bg-color: lighten(#f4f4f4, 2.5);
 $gameplay-header-height: 100px;
 $gameplay-footer-height: 50px;
 $gameplay-border-color: #ddd;
 $gameplay-height: calc(70vh - #{ $navbar-height - 24px });
+$gameplay-max-height: 640px;
 
 // Item
 $item-min-width: 100px;
+$item-text-max-heigth: 85px;
+
+$item-types-width: (
+    letra: 74px,
+    silaba: 85px,
+    substantivo_comum: 210px,
+    substantivo_proprio: 210px
+);
+
+$item-types-sm-width: (
+    letra: 58px,
+    silaba: 74px,
+    substantivo_comum: 210px,
+    substantivo_proprio: 210px
+);
