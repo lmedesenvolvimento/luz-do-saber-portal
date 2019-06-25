@@ -1,50 +1,52 @@
 <template>
     <drop @drop="onDrop">
-        <div v-if="answers.length && template.custom_image_full_url" class="card-input drop-group" :style="{'background-image': `url(${template.custom_image_full_url})`}">
-            <div class="title">
-                {{ item.text }}
+        <slot :props="{answers}">
+            <div v-if="answers.length && template.custom_image_full_url" class="card-input drop-group" :style="{'background-image': `url(${template.custom_image_full_url})`}">
+                <div class="title">
+                    {{ item.text }}
+                </div>
+                <div class="items-container">
+                    <b-card
+                        v-for="item in answers" 
+                        :key="item.id"
+                        no-body
+                        class="drop-group-item"
+                        :class="{ 'invalid': invalid, 'valid': valid }"
+                    >
+                        <b-card-body>
+                            <slot name="transfer-data">
+                                <div> {{ item.text }}</div>
+                            </slot>
+                        </b-card-body>
+                    </b-card>
+                </div>
             </div>
-            <div class="items-container">
-                <b-card
-                    v-for="item in answers" 
-                    :key="item.id"
-                    no-body
-                    class="drop-group-item"
-                    :class="{ 'invalid': invalid, 'valid': valid }"
-                >
-                    <b-card-body>
-                        <slot name="transfer-data">
-                            <div> {{ item.text }}</div>
-                        </slot>
-                    </b-card-body>
-                </b-card>
+            <div v-else-if="answers.length" class="card-input drop-group">
+                <div class="title">
+                    {{ item.text }}
+                </div>
+                <div class="items-container">
+                    <b-card
+                        v-for="item in answers" 
+                        :key="item.id"
+                        no-body
+                        class="drop-group-item"
+                        :class="{ 'invalid': invalid, 'valid': valid }"
+                    >
+                        <b-card-body>
+                            <slot name="transfer-data">
+                                <div> {{ item.text }}</div>
+                            </slot>
+                        </b-card-body>
+                    </b-card>
+                </div>
             </div>
-        </div>
-        <div v-else-if="answers.length" class="card-input drop-group">
-            <div class="title">
-                {{ item.text }}
+            <div v-else class="card-input drop-group" :style="{'background-image': `url(${template.custom_image_full_url})`}">
+                <div class="title">
+                    {{ item.text }}
+                </div>
             </div>
-            <div class="items-container">
-                <b-card
-                    v-for="item in answers" 
-                    :key="item.id"
-                    no-body
-                    class="drop-group-item"
-                    :class="{ 'invalid': invalid, 'valid': valid }"
-                >
-                    <b-card-body>
-                        <slot name="transfer-data">
-                            <div> {{ item.text }}</div>
-                        </slot>
-                    </b-card-body>
-                </b-card>
-            </div>
-        </div>
-        <div v-else class="card-input drop-group" :style="{'background-image': `url(${template.custom_image_full_url})`}">
-            <div class="title">
-                {{ item.text }}
-            </div>
-        </div>
+        </slot>
     </drop>
 </template>
 
@@ -62,6 +64,11 @@ export default {
         return {
             transferData: {},
             answers: [],
+        }
+    },
+    computed: {
+        isBox(){
+            return this.template.custom === 'game-caixa-de-palavras' ? true : false
         }
     },
     created(){
@@ -96,7 +103,7 @@ export default {
                 }
             }
         }        
-    }
+    },
 }
 </script>
 
