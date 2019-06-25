@@ -19,7 +19,7 @@
             </b-col>
         </b-row>
         <b-col class="activity-keys">
-            <b-row class="fill" align-v="center" align-h="center">
+            <b-row class="fill">
                 <b-col 
                     v-for="item in activity.items.keys"
                     :key="item.id"
@@ -49,23 +49,28 @@
                                     :item="item"
                                     :type="'value'"
                                     :template="activity.item_template.key"
-                                >
+                                >   
                                     <div class="card-input drop-group">
-                                        <div class="items-container">
-                                            <b-card
+                                        <b-row class="items-container">
+                                            <b-col 
                                                 v-for="ans in slotProps.props.answers" 
                                                 :key="ans.id"
-                                                no-body
-                                                class="drop-group-item"
-                                                :class="{ 'invalid': ans.invalid, 'valid': ans.valid }"
+                                                cols="6"
+                                                class="my-3"
                                             >
-                                                <b-card-body>
-                                                    <slot name="transfer-data">
-                                                        <div>{{ ans.text }}</div>
-                                                    </slot>
-                                                </b-card-body>
-                                            </b-card>
-                                        </div>
+                                                <b-card
+                                                    no-body
+                                                    class="drop-group-item letra"
+                                                    :class="{ 'invalid': ans.invalid, 'valid': ans.valid }"
+                                                >
+                                                    <b-card-body>
+                                                        <slot name="transfer-data">
+                                                            <div class="icon-img" :style="{backgroundImage: `url('${ans.images[0].url}')`}"></div>
+                                                        </slot>
+                                                    </b-card-body>
+                                                </b-card>
+                                            </b-col>
+                                        </b-row>
                                     </div>
                                 </group-drop>
                             </div>
@@ -160,12 +165,13 @@ export default {
     
     .grupo{
 
-            .title{
-                font-size: 18px;
-                color: transparentize($color: #222, $amount: 0.6);
-                margin: auto;
-                text-align: center;
-            }
+        .title{
+            font-size: 18px;
+            color: transparentize($color: #222, $amount: 0.6);
+            margin: auto;
+            text-align: center;
+        }
+
         .conteudo{
             .item{
                 width: 100%;
@@ -182,31 +188,40 @@ export default {
                 background-repeat: no-repeat;
                 background-position: center;
                 text-align: center;
+
+                .card-body{
+                    font-size: 18px;
+                    padding: 5px;
+                }
             }
 
             .drop-group .drop-group-item{
                 margin: 0 auto !important;
             }
 
-            .card{
-                width: 75%;
-                border-radius: 0.75rem;
-                padding: 0.15rem;
-                .bg-color {
-                    border-radius: 0.6rem !important;
-                }
-                .card-body{
-                    font-size: 18px;
-                    padding: 0.5rem;
-                    border-radius: 0.6rem !important;
-                }
-            }
+            // .card{
+            //     width: 75%;
+            //     border-radius: 0.75rem;
+            //     padding: 0.15rem;
+            //     .bg-color {
+            //         border-radius: 0.6rem !important;
+            //     }
+            //     .card-body{
+            //         font-size: 18px;
+            //         padding: 0.5rem;
+            //         border-radius: 0.6rem !important;
+            //     }
+            // }
 
             .items-container{
-                display: flex;
-                flex-direction: column;
-                flex: 1;
-                justify-content: space-evenly;
+
+                .icon-img{
+                    height: 50px;
+                    margin: auto;
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                    background-position: center;
+                }
             }
         }
         
