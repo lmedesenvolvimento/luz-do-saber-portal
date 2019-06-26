@@ -123,6 +123,11 @@
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
             />
+            <ls-activity-read-the-words-secret
+                v-if="gameSubtypes.theWordsSecret === activity.subtype.slug"
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+            />
         </div>
     </div>
 </template>
