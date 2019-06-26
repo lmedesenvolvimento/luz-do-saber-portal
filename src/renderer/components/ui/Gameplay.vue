@@ -2,11 +2,11 @@
     <div v-if="unit" class="gameplay">
         <div class="step-bars">
             <div
-                v-for="(value, index) in unit.questions" 
+                v-for="(value, index) in unit.questions"
                 :key="index"
-                class="bar" 
+                class="bar"
                 :class="{'active': getPosition == ( index + 1 ), 'complete': index < getPosition}"
-                @click="goActivity(index + 1)" 
+                @click="goActivity(index + 1)"
             ></div>
         </div>
         <div class="gameplay-heading">
@@ -72,19 +72,27 @@ export default {
         },
         getDescription(){
             return this.activity && this.activity.statement ? this.activity.statement.text : ''
-        },                
+        },
         ...mapState('Unit', ['unit', 'navigator']),
         ...mapState('Activity', ['activity','answers', 'log'])
-    }, 
-    created(){       
-        console.log(this.unit.questions[0].order)
-        this.$router.push({ 
-            name: 'activity', 
-            params: { 
-                position: this.unit.questions[0].order
+    },
+    created(){
+        const { params } = this.$route
+        const position = parseInt(params.position)
+        this.$router.push({
+            name: 'activity',
+            params: {
+                position: position || this.unit.questions[0].order
             }
         })
-    },  
+        // console.log(this.unit.questions[0].order)
+        // this.$router.push({
+        //     name: 'activity',
+        //     params: {
+        //         position: this.unit.questions[0].order
+        //     }
+        // })
+    },
     methods: {
         ...mapActions('Unit', ['goActivity', 'nextActivity', 'prevActivity','setNavigatorOrder'])
     }
