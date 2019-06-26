@@ -128,6 +128,11 @@
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
             />
+            <ls-activity-read-complete-sequence
+                v-if="gameSubtypes.completeSequence === activity.subtype.slug"
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+            />
         </div>
     </div>
 </template>
