@@ -45,9 +45,9 @@
                         <Item
                             v-if="!item.hide"
                             :item="item"
-                            :type="'key'"
+                            :type="'value'"
                             :template="newTemplate"
-                        >oi</Item>
+                        />
                     </b-col>
                 </b-row>
             </b-col>
