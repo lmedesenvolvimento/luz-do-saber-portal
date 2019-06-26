@@ -1,12 +1,27 @@
 <template>
     <div class="container-fluid">
         <b-row align-v="center" align-h="center">
-            <h2>Onde está a bola</h2>         
+            <h2>{{ getKeys[0].text }}</h2>
         </b-row>
         <b-row>
             <b-col class="activity-keys">
-                aaaaa
-            </b-col>                 
+                <ls-card-display>
+                    <b-row>
+                        <div 
+                            v-for="item in activity.items.values"
+                            :key="item.id"
+                            class="item"
+                        >
+                            <Item
+                                :item="item"
+                                :type="'value'"
+                                :template="activity.item_template.value"
+                            >                        
+                            </Item>
+                        </div>
+                    </b-row>
+                </ls-card-display>                
+            </b-col>                
         </b-row>        
     </div>
 </template>
