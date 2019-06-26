@@ -37,8 +37,6 @@
             />
         </label>
     </div>
-
-    <!-- <div class="check-mark"></div> -->
 </template>
 
 <script>
@@ -50,9 +48,6 @@ export default {
     mixins: [RadioInput],
     props: {
         template: Object
-    },
-    mounted(){
-        console.log(this.item, this.template)
     }
 };
 </script>
