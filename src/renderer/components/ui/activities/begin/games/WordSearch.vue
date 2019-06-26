@@ -79,6 +79,7 @@ export default {
                 let answer = this.checkIfBelongs(wordStr)
                 if(answer !== ''){
                     let rightItem = find(this.items, ['id', answer.id])
+                    this.actualWord.map((w) => w.class= 'valid')
                     rightItem.valid = true
                     this.setAnswer({
                         data: answer.id,
@@ -108,14 +109,13 @@ export default {
             return answer;
         },
         paint(e){
-            console.log(e)
             let srcElement = e.changedPointers[0].srcElement.attributes
             if(srcElement.indexi!==undefined || srcElement.indexj!==undefined ){
                 let i = Number(srcElement.indexi.value)
                 let j = Number(srcElement.indexj.value)
                 let pi = this.previousI
                 let pj = this.previousJ
-                if(this.grid[i][j].class !== 'painted'){
+                if(this.grid[i][j].class !== 'painted' && this.grid[i][j].class !== 'valid'){
                     if(this.allowPaint){
                         this.grid[i][j].class = 'painted'
                         this.actualWord.push(this.grid[i][j])
