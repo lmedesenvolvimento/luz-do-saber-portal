@@ -49,16 +49,21 @@
             &:last-child{
                 border-right: 0px;
             }
-            &.painted{
+            &.painted,
+            &.valid{
                 background-color: #FFB248;
                 outline: 4px solid #da6d00;
                 color: white;
                 border: 0px solid #da6d00;
-                padding: 4px 10px;
-                width: 41px;
+                padding: 4px;
+                width: 38px;
+                margin: auto;
             }
-            &.green{
-                color: #41FF2D;
+            &.valid{
+                outline: 4px solid #376D38;
+                color: white;
+                border: 0px solid transparent;
+                background-color: #7db239;
             }
         }
     }
@@ -81,7 +86,8 @@
                 font-size: 20px;
                 padding: 2px 5px;
                 width: 35px;
-                &.painted{
+                &.painted,
+                &.valid{
                     width: 35px;
                     padding: 2px 5px;
                 }
@@ -99,7 +105,8 @@
                 font-size: 16px;
                 padding: 2px 5px;
                 width: 25px;
-                &.painted{
+                &.painted,
+                &.valid{
                     width: 22px;  
                     padding: 2px 5px;  
                 }
