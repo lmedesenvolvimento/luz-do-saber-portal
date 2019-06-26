@@ -39,6 +39,7 @@ export const GameSubtypes = {
     grouping: 'agrupamento',
     secretWord: 'palavra-secreta',
     matchFriendsInitial: 'encaixe-letras',
+    theWordsSecret: 'segredo-das-palavras',
 }
 
 export const ItemTypes = {
