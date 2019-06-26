@@ -1,23 +1,23 @@
 <template>
-    <b-container fluid class="activity">
-        <b-row align-h="center" align-v="center">
-            <b-col class="activity-keys">
-                <b-row align-h="center" align-v="center">
-                    <b-col
-                        v-for="item in activity.items.values" 
+    <div class="container-fluid">
+        <b-row v-if="notImage" class="reverse-column" align-v="center" align-h="center">
+            <b-col class="activity-values">
+                <b-row align-v="center" align-h="center">
+                    <b-col 
+                        v-for="item in activity.items.values"
                         :key="item.id"
                         :sm="valueColSize"
                         class="item"
                     >
                         <Item
-                            v-if="notImage && item.hide"
+                            v-if="item.hide"
                             :item="item"
                             :type="'value'"
                             :focus="item.focus"
                             :template="activity.item_template.value"
                         />
                         <Item
-                            v-if="notImage && !item.hide"
+                            v-if="!item.hide"
                             :item="item"
                             :type="'key'"
                             :template="activity.item_template.key"
@@ -26,7 +26,50 @@
                 </b-row>
             </b-col>
         </b-row>
-    </b-container>
+        <b-row v-if="!notImage" class="reverse-column" align-v="center" align-h="center">
+            <b-col class="activity-values">
+                <b-row align-v="center" align-h="center">
+                    <b-col 
+                        v-for="item in activity.items.values"
+                        :key="item.id"
+                        :sm="valueColSize"
+                        class="item"
+                    >
+                        <Item
+                            v-if="item.hide"
+                            :item="item"
+                            :type="'value'"
+                            :focus="item.focus"
+                            :template="activity.item_template.value"
+                        />
+                        <Item
+                            v-if="!item.hide"
+                            :item="item"
+                            :type="'key'"
+                            :template="newTemplate"
+                        >oi</Item>
+                    </b-col>
+                </b-row>
+            </b-col>
+            <b-col v-if="!notImage" class="activity-keys">
+                <b-row class="fill" align-v="center" align-h="center">
+                    <b-col 
+                        v-for="item in activity.items.keys"
+                        :key="item.id"
+                        :sm="keyColSize"
+                        class="item"
+                    >
+                        <Item
+                            :item="item"
+                            :type="'key'"
+                            :focus="item.focus"
+                            :template="activity.item_template.key"
+                        />
+                    </b-col>
+                </b-row>
+            </b-col>
+        </b-row>
+    </div>
 </template>
 
 <script>
@@ -40,6 +83,11 @@ import { mapActions } from 'vuex'
 export default {
     components: { Item },
     mixins: [ListMixin, MapMixins, CreateAnswersMixins],
+    data(){
+        return {
+            newTemplate: Object
+        }
+    },
     computed: {
         notImage(){
             return this.activity.item_template.key.type !== 'imagem'
@@ -47,7 +95,7 @@ export default {
     },
     created(){
         if (this.notImage) this.dropLetters()
-        else console.log('owo')
+        else this.dropLettersImage()
     },
     methods: {
         setAnswersArray(a){
@@ -57,6 +105,18 @@ export default {
                 let key = createAnswer(a, a.value_ids[0])
                 answers.push(key)
             })
+
+            this.setAnswers(answers)
+        },
+        setAnswersValueArray(a){
+            let answers = []
+
+            a.forEach(a => {
+                let key = createAnswer(a, a.id)
+                answers.push(key)
+            })
+
+            console.log(answers)
 
             this.setAnswers(answers)
         },
@@ -84,7 +144,27 @@ export default {
             this.setActivityAttrs({ total_correct_items: keys.length })
         },
         dropLettersImage(){
-            
+            let size = (this.activity.items.values.length % 2 === 0) ? this.activity.items.values.length / 2 : Math.floor(this.activity.items.values.length / 2) + 1
+            let keys = sampleSize(drop(this.activity.items.values), size)
+
+            this.newTemplate = JSON.parse(JSON.stringify(this.activity.item_template.value))
+            this.newTemplate.tags = ''
+
+            range(0, keys.length).forEach(i => {
+                for (let item in this.activity.items.values){
+                    if (keys[i] === this.activity.items.values[item])
+                        this.activity.items.values[item].hide = true
+                }
+            })
+
+            let values = filter(this.activity.items.values, v => v.hide)
+
+            console.log(values)
+
+            values[0].focus = true
+
+            this.setAnswersValueArray(keys)
+            this.setActivityAttrs({ total_correct_items: keys.length })
         },
         ...mapActions('Activity', ['setActivityAttrs']),
     }
