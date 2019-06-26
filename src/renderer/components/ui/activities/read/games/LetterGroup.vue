@@ -51,7 +51,7 @@ export default {
     },
     created(){
         this.groups = this.setGroup(this.getValues, this.getKeys)
-        console.log(this.groups)
+        // console.log(this.groups)
         this.createAnswersArray()
         this.setActivityAttrs({ total_correct_items: this.getKeys.length })
     },

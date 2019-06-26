@@ -1,12 +1,8 @@
-
-
 .letter-group{
-
     .group-holder{
         padding-right: 10px!important;
         padding-left: 10px!important;
     }
-
     .group{
         width: 100%;
         display: flex;
@@ -41,30 +37,31 @@
             max-width: 80px;
             cursor: pointer;
             margin: 2px 5px;
-            text-transform: lowercase;
-            .card0{
-                .card-body{
-                    padding: 0.7rem;
-                }
-            }
+                text-transform: uppercase;
             .letter0{
-                @include becca_script;
                 font-size: 34px!important;
+                @include becca_script;
             }
             .letter1{
-                font-family: 'Shitzu Porko Light', Arial, Helvetica, sans-serif;
+                font-size: 34px!important;
+                @include becca_script;
+                text-transform: lowercase;
             }
             .letter2{
+                font-size: 34px!important;
                 font-family: "Baloo Bhaina", Helvetica, sans-serif;
             }
             .letter3{   
+                font-size: 34px!important;
                 font-family: "Itim Regular", Helvetica, sans-serif;        
+                text-transform: lowercase;
             }
             .card--display{
                 min-width: 60px;
                 min-height: 60px;
             }
             .card-body{
+                padding: 0.7rem;
                 display: flex;
                 align-items: center;
                 justify-content: center;
