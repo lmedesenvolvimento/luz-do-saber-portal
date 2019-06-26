@@ -33,6 +33,7 @@ export const GameSubtypes = {
     draggingSyllables: 'formacao-de-palavras',
     memoryGame: 'jogo-da-memoria',
     wordSearch: 'caca-nomes',
+    wordBingo: 'bingo-de-palavras',
     boxWords: 'caixa-de-palavras',
     friendsName: 'meus-amigos-fotos',
     dominoName: 'domino-de-nomes',
@@ -55,7 +56,8 @@ export const ItemTypes = {
         memoryCardText: 'game-jogo-da-memoria-texto',
         caixaPalavras: 'game-caixa-de-palavras',
         checkmark: 'game-checkmark',
-        descricaoImagem: 'game-display-descricao-imagem'
+        descricaoImagem: 'game-display-descricao-imagem',
+        grupoPalavras: 'game-grupo-de-palavras',
     },
     tags: {
         input: 'input',
