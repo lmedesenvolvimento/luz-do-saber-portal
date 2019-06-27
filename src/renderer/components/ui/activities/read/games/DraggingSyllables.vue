@@ -5,15 +5,10 @@
                 <b-row>
                     <b-col v-for="(item, position) in newItens" :key="position" cols="12" md="12" class="item">
                         <b-row align-v="center">
-                            <b-col class="image-col" cols="12" md="3" sm="3">
-                                <ls-card-display class="key-image">
-                                    <async-image :src="item.images[0].url"></async-image>
+                            <b-col cols="12" md="3" sm="3">
+                                <ls-card-display class="image-container">
+                                    <async-image class="image" :src="item.images[0].url"></async-image>
                                 </ls-card-display>
-                                <!--
-                                    <ls-card-display v-if="item.images[0].url !== null" class="key-image">
-                                        <div class="image" :style="{ 'background-image': 'url(' + item.images[0].url + ')' }" />
-                                    </ls-card-display>
-                                -->
                             </b-col>
                             <b-col cols="12" md="9" sm="9" class="syllables-row">
                                 <b-row>
