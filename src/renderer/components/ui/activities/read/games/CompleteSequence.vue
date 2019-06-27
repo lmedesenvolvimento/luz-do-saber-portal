@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid">
         <b-row align-v="center" align-h="center">
-            <h2>{{ getKeys[0].text }}</h2>
+            <h2>{{ splitedSentence }}</h2>
         </b-row>
         <b-row>
             <b-col class="activity-keys">
@@ -34,12 +34,30 @@ export default {
     mixins: [MapMixins, ListMixin, CreateAnswersMixins],
     data () {
         return {
-            
+            hiddenElements: [],
+            sentence: '',
+            splitedSentence: []
         }
     },
     mounted() {
-        this.createAnswersArray()
+        this.createAnswersArray(),
+        this.sentence = this.getKeys[0].text;
+        this.getValues.forEach(element => {            
+            this.hiddenElements.push(element.text)
+        });
+        for(let i = 0; i < this.sentence.length; i++){
+            console.log(this.hiddenElements,this.sentence)           
+        }
+
     },
+    methods: {
+        searchString(arr, str) {
+            for(let i = 0; i < arr.length;i++){
+                if (arr[i].match(str)) return true;
+            }
+            return false;
+        },
+    }
 }
 </script>
 
