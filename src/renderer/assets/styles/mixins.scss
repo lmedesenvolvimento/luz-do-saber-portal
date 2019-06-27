@@ -136,7 +136,7 @@
             }
             &::after{
                 background-image: url('~@/assets/images/icons/success.png');
-                animation: blink 2.5s ease-in-out;
+                animation: blink 1s ease-in-out;
                 transition: opacity ease-out 1s;
                 opacity: 0;
             }
@@ -147,7 +147,7 @@
             }
             &::after{
                 background-image: url('~@/assets/images/icons/fail.png');
-                animation: blink 2.5s ease-in-out;
+                animation: blink 1s ease-in-out;
                 transition: opacity ease-out 1s;
                 opacity: 0;
             }
