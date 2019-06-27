@@ -6,50 +6,61 @@
         margin-bottom: 0px;
     }
 
-    .letra, .numero, .caractere_especial, .silaba, .substantivo_comum, .substantivo_proprio {
-        display: inline-flex;
-        flex: 1;
-        max-width: none;
-        width: 100%;
-        justify-content: center;
-        .texto{
-            [class^="card--"] {
-                max-height: $item-text-max-heigth;
-                .bg-color{
-                    overflow: hidden;
+    @each $type in $item-types {
+       .#{$type} {
+           display: inline-flex;
+           flex: 1;
+           max-width: none;
+           width: 100%;
+           justify-content: center;
+           .texto{
+               [class^="card--"] {
+                   max-height: $item-text-max-heigth;
+                   .bg-color{
+                       overflow: hidden;
+                   }
+               }
+               .card {
+                   max-height: $item-text-max-heigth;
+               }
+           }
+           [class*="card--"], .draggshadow {
+               &:not(.card-sm){
+                   min-width: 74px;
+               }
+               &.card-sm .card{
+                   height: 56px;
+               }
+           }
+           .card-input-text {
+               max-width: 74px !important;
+               .card-body{
+                   padding: 1rem 1.25rem !important;
+               }
+           }
+       }
+    }
+
+    @each $type in $item-types {
+        @if $type != 'substantivo_comum' or $type != 'substantivo_proprio' {
+            .#{$type} {
+                .card {
+                    &.valid, &.invalid{
+                        &::after{
+                            top: -24px;
+                            bottom: auto;
+                            left: 0;
+                            right: 0;
+                        }
+                    }
                 }
-            }
-            .card {
-                max-height: $item-text-max-heigth;
-            }
-        }
-        [class*="card--"], .draggshadow {
-            &:not(.card-sm){
-                min-width: 74px;
-                // max-height: $item-text-max-heigth;
-            }
-            &.card-sm .card{
-                height: 56px;
-            }
-        }
-        .card-input-text {
-            max-width: 74px !important;
-            .card-body{
-                padding: 1rem 1.25rem !important;
             }
         }
     }
 
-    .letra, .numero, .caractere_especial, .silaba {
-        .card {
-            &.valid, &.invalid{
-                &::after{
-                    top: -24px;
-                    bottom: auto;
-                    left: 0;
-                    right: 0;
-                }
-            }
+    [class*="card--"], .draggshadow {
+        &.card-sm {
+            @include custom-card-sm;
         }
     }
 
