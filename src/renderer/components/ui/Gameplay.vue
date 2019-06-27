@@ -85,13 +85,6 @@ export default {
                 position: position || this.unit.questions[0].order
             }
         })
-        // console.log(this.unit.questions[0].order)
-        // this.$router.push({
-        //     name: 'activity',
-        //     params: {
-        //         position: this.unit.questions[0].order
-        //     }
-        // })
     },
     methods: {
         ...mapActions('Unit', ['goActivity', 'nextActivity', 'prevActivity','setNavigatorOrder'])

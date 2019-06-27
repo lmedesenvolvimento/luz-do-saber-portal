@@ -8,6 +8,7 @@
 
 @import 'variables.scss';
 @import 'mixins.scss';
+@import 'keyframes.scss';
 @import 'base/base.scss';
 
 @import 'components/item.scss';
@@ -17,6 +18,7 @@
 @import 'components/word-search.scss';
 @import 'components/jigsaw.scss';
 @import 'components/image-selector.scss';
+@import 'components/letter-group.scss';
 @import 'components/chart-progress.scss';
 @import 'components/theme-box.scss';
 @import 'components/circle-themes.scss';
