@@ -29,15 +29,17 @@
                             <label>
                                 <b-card 
                                     no-body
+                                    :class="{ 'invalid': answer.invalid, 'valid': answer.valid }"
                                 >
                                     <b-card-body>
                                         <input
-                                            v-model="answer"
+                                            v-model="answer.text"
                                             v-focus="true"
                                             type="text"
-                                            maxlength="10"
+                                            :maxlength="totalLetters"
                                             autocomplete="off"
                                             required
+                                            @keyup.enter="checkAnswer(...arguments, getValues)"
                                         />
                                     </b-card-body>
                                 </b-card>
@@ -52,9 +54,7 @@
                     <p>palavras erradas:</p>
 
                     <div class="wrong-words-list">
-                        <span>{{ answer }}</span>
-                        <span>segunda</span>
-                        <span>terceira</span>
+                        <span v-for="word in wrongWords" :key="word">{{ word }}</span>
                     </div>
                 </ls-card-display>
             </b-col>
@@ -72,12 +72,37 @@ export default {
     mixins: [ListMixin, MapMixins, CreateAnswersMixins],
     data() {
         return {
-            answer: '',
+            answer: {text: ''},
+            wrongWords: [],
+            totalLetters: 0,
         }
     },
     mounted() {
-        console.log(this.item);
-        
-    }
+        this.totalLetters = this.activity.items.values[0].total_letters;
+    },
+    destroyed() {
+        this.wrongWords.length = 0;
+    },
+    methods: {
+        checkAnswer(event, values) {
+            event.preventDefault();
+
+            let answer = this.answer.text.toLowerCase();
+            
+            if (answer === values[0].text.toLowerCase()) {
+                console.log('Reposta: ' + values[0].text);
+            } else if (!this.wrongWords.includes(answer)) {
+                this.wrongWords.push(answer);
+            }
+
+            this.answer.text = '';
+            
+            // this.setAnswer({
+            //     data: value.id,
+            //     type: 'value',
+            //     vm: this.answer
+            // })
+        }
+    },
 }
 </script>
