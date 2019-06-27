@@ -10,6 +10,7 @@ import App from './App'
 import router from './router'
 import store from './store'
 import './directives'
+import './plugins/v-viewer';
 
 // merge router with store
 sync(store, router)

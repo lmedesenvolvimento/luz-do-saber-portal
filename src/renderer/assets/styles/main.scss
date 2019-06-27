@@ -4,8 +4,11 @@
 @import '~bootstrap/scss/bootstrap';
 @import '~bootstrap-vue/src/index.scss';
 
+@import '~viewerjs/dist/viewer.css';
+
 @import 'variables.scss';
 @import 'mixins.scss';
+@import 'keyframes.scss';
 @import 'base/base.scss';
 
 @import 'components/item.scss';
@@ -22,3 +25,6 @@
 @import 'components/cracha-box.scss';
 @import 'components/domino-name.scss';
 @import 'components/card-checkmark.scss';
+@import 'components/dragging-syllables.scss';
+@import 'components/bingo.scss';
+@import 'components/write-word.scss';
