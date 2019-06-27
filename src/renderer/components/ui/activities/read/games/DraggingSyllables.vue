@@ -3,12 +3,17 @@
         <b-row align-h="center" class="reverse">
             <b-col v-if="hasKeys" class="activity-keys">
                 <b-row>
-                    <b-col v-for="(item, position) in newItens" :key="position" cols="12" md="12" class="item"> 
+                    <b-col v-for="(item, position) in newItens" :key="position" cols="12" md="12" class="item">
                         <b-row align-v="center">
                             <b-col class="image-col" cols="12" md="3" sm="3">
-                                <ls-card-display v-if="item.images[0].url !== null" class="key-image">
-                                    <div class="image" :style="{ 'background-image': 'url(' + item.images[0].url + ')' }" />
+                                <ls-card-display class="key-image">
+                                    <async-image :src="item.images[0].url"></async-image>
                                 </ls-card-display>
+                                <!--
+                                    <ls-card-display v-if="item.images[0].url !== null" class="key-image">
+                                        <div class="image" :style="{ 'background-image': 'url(' + item.images[0].url + ')' }" />
+                                    </ls-card-display>
+                                -->
                             </b-col>
                             <b-col cols="12" md="9" sm="9" class="syllables-row">
                                 <b-row>
@@ -23,7 +28,7 @@
                                         >
                                             <template slot="transfer-data">
                                                 {{ syllables.correct ? syllables.syllable.text : dataTransfer.text }}
-                                            </template> 
+                                            </template>
                                         </ls-card-droppable>
                                     </b-col>
                                 </b-row>
@@ -35,8 +40,8 @@
             <b-col class="activity-values" cols="12" lg="5" md="12">
                 <ls-card-display id="values-container-display">
                     <b-row align-v="center" align-h="center" class="values-container">
-                        <b-col v-for="(item, position) in getValues" :key="position" align-self="center" cols="12" :sm="3" :md="3" lg="4" class="item"> 
-                            <ls-card-draggable 
+                        <b-col v-for="(item, position) in getValues" :key="position" align-self="center" cols="12" :sm="3" :md="3" lg="4" class="item">
+                            <ls-card-draggable
                                 v-if="answers"
                                 :item="item"
                                 :type="'value'"
@@ -44,7 +49,7 @@
                             >
                                 {{ item.text }}
                             </ls-card-draggable>
-                        </b-col>                    
+                        </b-col>
                     </b-row>
                 </ls-card-display>
             </b-col>
@@ -54,6 +59,7 @@
 <script>
 import { MapMixins, ListMixin, CreateAnswersMixins } from '@ui/activities/mixins'
 import ui from '@/components/ui'
+import AsyncImage from '@ui/AsyncImage'
 import Item from '@/components/ui/items/Item'
 import { mapState, mapActions } from 'vuex'
 
@@ -63,6 +69,7 @@ import FormProps from '@ui/form'
 export default {
     components: {
         ...FormProps,
+        AsyncImage,
     },
     mixins: [MapMixins, ListMixin, CreateAnswersMixins],
     data() {
@@ -88,7 +95,7 @@ export default {
     },
     methods: {
         validateBySyllabe(transferData, nativeElement, vm){
-            this.dataTransfer = transferData   
+            this.dataTransfer = transferData
             if (transferData.text === vm.item.text){
                 vm.valid = true;
                 transferData.valid = true;
@@ -101,14 +108,14 @@ export default {
                 }
                 for (let item1 of this.newItens){
                     if (item1.text === vm.item.word){
-                        for (let item2 of item1.syllables){                        
+                        for (let item2 of item1.syllables){
                             if (item2.correct === false){
                                 return;
                             }
                         }
                     }
                 }
-                vm.setAnswer({ 
+                vm.setAnswer({
                     type: 'value',
                     data: transferData.id,
                     vm: this
@@ -116,8 +123,8 @@ export default {
             } else {
                 vm.invalid = true;
                 transferData.invalid = true
-                vm.setAnswer({ 
-                    type: 'value', 
+                vm.setAnswer({
+                    type: 'value',
                     data: -1,
                     vm: this
                 })
