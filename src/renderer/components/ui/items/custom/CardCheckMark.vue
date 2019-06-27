@@ -1,13 +1,13 @@
 <template>
     <div :id="`input-${uid}`" class="card-input card-checkmark" :class="$attrs.class">
         <label class="input-horizontal-align">
-            <b-card 
+            <b-card
                 class="check-mark"
                 no-body
                 :class="{ 'invalid': invalid, 'valid': valid, 'selected': selected }"
             >
                 <b-card-body>
-                    <img v-if="valid || invalid" class="check-image" src="@/assets/images/x.png" alt="">                        
+                    <img v-if="valid || invalid" class="check-image" src="@/assets/images/x.png" alt="">
                 </b-card-body>
             </b-card>
 
@@ -20,7 +20,7 @@
                     <b-card-body>
                         <slot>
                             <div v-if="template.type === 'imagem'" class="image">
-                                <async-image :src="item.images.length ? item.images[0].url : ''" />
+                                <async-image :src="item.images.length ? item.images[0].url : ''" :disable-zoom="true" />
                             </div>
                             <div v-else class="text">{{ item.text }}</div>
                         </slot>
@@ -29,16 +29,14 @@
             </b-card>
 
             <input
-                class="input"    
+                class="input"
                 type="radio"
-                :name="$attrs.name" 
+                :name="$attrs.name"
                 v-bind="$attrs"
                 @click.prevent="onChange"
             />
         </label>
     </div>
-
-    <!-- <div class="check-mark"></div> -->
 </template>
 
 <script>
@@ -50,9 +48,6 @@ export default {
     mixins: [RadioInput],
     props: {
         template: Object
-    },
-    mounted(){
-        console.log(this.item, this.template)
     }
 };
 </script>
