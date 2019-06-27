@@ -89,6 +89,13 @@ $gameplay-max-height: 640px;
 $item-min-width: 100px;
 $item-text-max-heigth: 85px;
 
+$item-types: (
+    'letra',
+    'silaba',
+    'substantivo_comum',
+    'substantivo_proprio'
+);
+
 $item-types-width: (
     letra: 74px,
     silaba: 85px,

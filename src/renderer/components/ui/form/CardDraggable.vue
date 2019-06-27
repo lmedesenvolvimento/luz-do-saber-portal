@@ -1,9 +1,9 @@
 <template>
     <drag :transfer-data="item" :image-x-offset="offsetX" :image-y-offset="offsetY" :draggable="!dropped" @drag="onDrag" @dragend="onDragEnd">
         <template slot="image">
-            <div class="card-input draggshadow" :style="{ width: elementWidth }">
+            <div class="card-input draggshadow" :style="{ width: elementWidth }" :class="{ 'card-sm': isCardSm, ...$attrs.class}">
                 <b-card
-                    no-body                
+                    no-body
                 >
                     <fill-background :bg-color="bgColor">
                         <b-card-body>
@@ -16,9 +16,9 @@
             </div>
         </template>
 
-        <div class="card-input card--draggable">
+        <div class="card-input card--draggable" :class="{ 'card-sm': isCardSm, ...$attrs.class}">
             <b-card
-                no-body                
+                no-body
             >
                 <fill-background :bg-color="bgColor">
                     <b-card-body :class="{ 'dragging': dragging, 'dropped': dropped }">
@@ -39,13 +39,15 @@ import { setTimeout } from 'timers';
 
 export default {
     components: { Drag, FillBackground },
+    inheritAttrs: false,
     props:{
         item: {
             type: Object,
             required: true
         },
+        size: String,
         type: String,
-        bgColor: String
+        bgColor: String,
     },
     data(){
         return {
@@ -55,6 +57,11 @@ export default {
             offsetX: 32,
             offsetY: 24
         }
+    },
+    computed: {
+        isCardSm(){
+            return this.size === 'small'
+        },
     },
     mounted(){
         this.elementWidth = this.getElementWidth()
@@ -80,7 +87,7 @@ export default {
                 this.dragging = false
             }
         }
-    }    
+    },
 }
 </script>
 
