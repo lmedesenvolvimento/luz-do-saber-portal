@@ -39,7 +39,7 @@
                                 :sm="valueColSize" 
                                 class="item bingo-card-letter"
                             >                                
-                                <div class="card-input card-radio-input" :class="$attrs.class">
+                                <div class="card-input letra card-radio-input" :class="$attrs.class">
                                     <label>
                                         <b-card 
                                             no-body
@@ -49,10 +49,9 @@
                                                 {{ item.text }}
                                             </b-card-body>
                                         </b-card>
-
                                         <input
                                             v-model="item.selected"                                            
-                                            class="input"    
+                                            class="invisible"    
                                             type="checkbox"
                                             true-value="valid"
                                             false-value="invalid"
