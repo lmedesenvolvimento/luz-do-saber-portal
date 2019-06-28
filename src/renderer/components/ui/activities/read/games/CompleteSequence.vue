@@ -5,27 +5,16 @@
                 <span v-for="(s, position) in splitedSentence" :key="position" style="display: inline-block">
                     <span v-if="!searchString(hiddenElements, s)" class="sentence">{{ s.text }}</span>
                     <span v-else>
-                        <Item
-                            :item="s"
-                            :type="'key'"
-                            :template="activity.item_template.key"
-                        >                        
-                        </Item>                       
-                    </span>
-                </span>             
-                <!-- <span v-for="s in splitedSentence" :key="s" style="display: inline-block">
-                    <span v-if="!hiddenElements.includes(s)" class="sentence">{{ s }}</span>
-                    <span v-else>
-                        <div class="caractere-especial">
+                        <div class="letra">
                             <Item
-                                :item="activity.items.keys[0]"
+                                :item="s"
                                 :type="'key'"
                                 :template="activity.item_template.key"
                             >                        
-                            </Item>
-                        </div>                        
+                            </Item> 
+                        </div>                                              
                     </span>
-                </span> -->
+                </span>
             </h2>
         </b-row>        
         <ls-card-display>
@@ -38,14 +27,12 @@
                     class="item"
                 >
                     <div class="letra">
-                        <div class="card-sm">
-                            <Item                            
-                                :item="item"
-                                :type="'value'"
-                                :template="activity.item_template.value"
-                            >                        
-                            </Item>
-                        </div>                        
+                        <Item                                  
+                            :item="item"                                                            
+                            :type="'value'"
+                            :template="activity.item_template.value"
+                        >                        
+                        </Item>                                               
                     </div>                    
                 </div>
             </b-row>
@@ -68,13 +55,15 @@ export default {
     },
     mounted() {
         this.createAnswersArray(),
-        this.sentence = this.getKeys[0].text;        
+        this.sentence = this.getKeys[0].text; 
         this.getValues.forEach(element => {    
             let hiddenElement = {
                 text: element.text
             }       
             this.hiddenElements.push(hiddenElement)
         });
+        console.log(this.hiddenElements)
+        this.splitSentence2(this.hiddenElements, this.sentence)
         for(let i = 0; i < this.sentence.length; i++){
             this.splitSentence(this.hiddenElements,this.sentence[i])
         }
@@ -84,8 +73,8 @@ export default {
         this.splitedSentence.push(Object.assign({}, sentences))
     },
     methods: {
-        splitSentence(arr, str) {            
-            for(let i = 0; i < arr.length;i++){
+        splitSentence(arr, str) {                        
+            for(let i = 0; i < arr.length;i++){               
                 if(arr[i].text == str){
                     let sentences = {
                         text: this.sentence.split(str)[0]
@@ -99,6 +88,24 @@ export default {
                     this.sentence = this.sentence.split(str)[1]
                 }
             }
+        },
+        splitSentence2(arr, str){
+            for (let i = 0; i < arr.length; i++){
+                if(str.indexOf(arr[i].text) != -1){
+                    let sentences = {
+                        text: this.sentence.split(arr[i].text)[0]
+                    }
+                    this.splitedSentence.push(Object.assign({},sentences))
+                    sentences = {
+                        text: arr[i].text,
+                        value_ids: this.getKeys[0].value_ids
+                    }
+                    this.splitedSentence.push(Object.assign({},sentences))                                  
+                    this.sentence = this.sentence.split(arr[i].text)[1]
+                    console.log(this.splitedSentence)
+                }
+            }
+            
         },
         searchString(arr, str){
             for(let i = 0; i < arr.length; i++){
