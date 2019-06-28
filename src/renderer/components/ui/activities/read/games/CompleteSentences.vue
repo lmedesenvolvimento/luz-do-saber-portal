@@ -1,12 +1,80 @@
 <template>
-    <div>
-        owo
+    <div class="container-fluid">
+        <b-row class="reverse-column" align-v="center" align-h="center">
+            <b-col class="activity-keys">
+                <b-row class="fill">
+                    <b-col 
+                        v-for="item in activity.items.keys"
+                        :key="item.id"
+                        :sm="keyColSize"
+                        class="item"
+                    >
+                        <Item
+                            :item="item"
+                            :type="'key'"
+                            :template="activity.item_template.key"
+                        />
+                    </b-col>
+                </b-row>
+            </b-col>
+            {{ newMessages }}
+            <b-col class="activity-values">
+                <b-row align-v="center" align-h="center">
+                    <b-col 
+                        v-for="item in activity.items.values"
+                        :key="item.id"
+                        :sm="valueColSize"
+                        class="item"
+                    >
+                        <Item
+                            :item="item"
+                            :type="'value'"
+                            :template="activity.item_template.value"
+                        />
+                    </b-col>
+                </b-row>
+            </b-col>
+        </b-row>
     </div>
 </template>
 
 <script>
-export default {
+import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from '@ui/activities/mixins'
 
+import ui from '@/components/ui'
+import alerts from '@/components/alerts'
+
+import Item from '@/components/ui/items/Item'
+
+import groupDrop from '@/components/ui/form/CardGroupDroppable'
+import cardDisplay from '@/components/ui/form/CardDisplay'
+
+
+import { mapState, mapActions } from 'vuex'
+
+export default {
+    components: { Item },
+    mixins: [ListMixin, MapMixins, CreateAnswersMixins],
+    data(){
+        return {
+            dividers: [],
+            newMessages: []
+        }
+    },
+    created(){
+        this.createAnswersArray()
+        this.addColorsToType('substantivo_comum')
+
+        console.log('--------------------------------------')
+
+        for (let item of this.activity.items.values) this.dividers.push(item.text)
+
+        let r = new RegExp(this.dividers.toString().replace(',', '|'))
+
+        this.newMessages = this.activity.items.keys[0].text.split(r)
+
+        console.log(this.newMessages)
+    },
 }
 </script>
 
