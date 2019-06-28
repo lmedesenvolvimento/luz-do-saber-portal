@@ -39,7 +39,7 @@ export const GameSubtypes = {
     dominoName: 'domino-de-nomes',
     grouping: 'agrupamento',
     secretWord: 'palavra-secreta',
-    completeSequence: 'completa-frase',
+    completeSentence: 'completa-frase',
     letterGroup: 'nao-pertence',
     matchFriendsInitial: 'encaixe-letras',
     writeTheWord: 'escreva-o-nome',
