@@ -8,4 +8,5 @@ export default {
     'ls-card-droppable': require('@/components/ui/form/CardDroppable.vue').default,
     'ls-card-group-droppable': require('@/components/ui/form/CardGroupDroppable.vue').default,
     'ls-card-audio-listen': require('@/components/ui/form/CardAudioListen.vue').default,
+    'ls-card-audio-listen-with-player': require('@/components/ui/form/CardAudioListenWithPlayer.vue').default,
 }

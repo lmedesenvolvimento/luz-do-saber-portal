@@ -63,7 +63,10 @@ export const ItemTypes = {
     },
     tags: {
         input: 'input',
-    }
+    },
+    slugs: {
+        audioImage: 'componente-de-imagem-audio'
+    },
 }
 
 
