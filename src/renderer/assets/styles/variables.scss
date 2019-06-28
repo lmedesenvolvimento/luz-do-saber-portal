@@ -39,6 +39,7 @@ $icon-names: (
     'icon-prev',
     'icon-lista',
     'icon-redo',
+    'counter',
 );
 
 $icon-themes: (
@@ -88,6 +89,13 @@ $gameplay-max-height: 640px;
 // Item
 $item-min-width: 100px;
 $item-text-max-heigth: 85px;
+
+$item-types: (
+    'letra',
+    'silaba',
+    'substantivo_comum',
+    'substantivo_proprio'
+);
 
 $item-types-width: (
     letra: 74px,
