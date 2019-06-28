@@ -42,6 +42,7 @@ export const GameSubtypes = {
     letterGroup: 'nao-pertence',
     matchFriendsInitial: 'encaixe-letras',
     writeTheWord: 'escreva-o-nome',
+    completeSentences: 'completa-frase',
 }
 
 export const ItemTypes = {
