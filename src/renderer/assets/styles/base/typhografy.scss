@@ -8,6 +8,11 @@
   src: url("~@/assets/fonts/Itim-Regular.ttf") format("truetype")
 }
 
+@font-face {
+  font-family: "Becca & Perry";
+  src: url("~@/assets/fonts/Becca&PerryScript-Regular.ttf") format("truetype");
+}
+
 .subtitle{
     @include itim_regular;
     text-transform: uppercase;

@@ -1,7 +1,7 @@
 <template>
     <nav class="navbar navbar-default">
         <b-btn variant="link" :to="custom ? historyBackUnit : historyBack">
-            <div class="icon-lista"></div>
+            <div v-if="this.$route.name !== 'module'" class="icon-lista"></div>
         </b-btn>
 
         <b-btn variant="link" to="/">

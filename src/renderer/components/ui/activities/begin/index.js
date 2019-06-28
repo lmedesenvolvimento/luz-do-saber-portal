@@ -10,4 +10,5 @@ export default {
     'ls-activity-begin-word-search': require('@ui/activities/begin/games/WordSearch.vue').default,
     'ls-activity-friends-name': require('@ui/activities/begin/games/FriendsName.vue').default,
     'ls-activity-match-friends-initial': require('@ui/activities/begin/games/MatchFriendsInitial.vue').default,
+    'ls-activity-write-word': require('@ui/activities/begin/games/WriteTheWord.vue').default,
 }
