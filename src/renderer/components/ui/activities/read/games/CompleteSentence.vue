@@ -62,34 +62,14 @@ export default {
             }       
             this.hiddenElements.push(hiddenElement)
         });
-        console.log(this.hiddenElements)
-        this.splitSentence2(this.hiddenElements, this.sentence)
-        for(let i = 0; i < this.sentence.length; i++){
-            this.splitSentence(this.hiddenElements,this.sentence[i])
-        }
+        this.splitSentence(this.hiddenElements, this.sentence)        
         let sentences = {
             text: this.sentence
         }
         this.splitedSentence.push(Object.assign({}, sentences))
     },
-    methods: {
-        splitSentence(arr, str) {                        
-            for(let i = 0; i < arr.length;i++){               
-                if(arr[i].text == str){
-                    let sentences = {
-                        text: this.sentence.split(str)[0]
-                    }
-                    this.splitedSentence.push(Object.assign({},sentences))
-                    sentences = {
-                        text: str,
-                        value_ids: this.getKeys[0].value_ids
-                    }
-                    this.splitedSentence.push(Object.assign({},sentences))                                  
-                    this.sentence = this.sentence.split(str)[1]
-                }
-            }
-        },
-        splitSentence2(arr, str){
+    methods: {        
+        splitSentence(arr, str){
             for (let i = 0; i < arr.length; i++){
                 if(str.indexOf(arr[i].text) != -1){
                     let sentences = {
@@ -102,7 +82,6 @@ export default {
                     }
                     this.splitedSentence.push(Object.assign({},sentences))                                  
                     this.sentence = this.sentence.split(arr[i].text)[1]
-                    console.log(this.splitedSentence)
                 }
             }
             
