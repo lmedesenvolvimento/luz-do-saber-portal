@@ -3,31 +3,31 @@
         <b-row class="write-word">
             <b-col class="col-sm-4">
                 <b-row v-if="hasKeys" class="activity-keys">
-                    <b-col v-for="(item, position) in getKeys" :key="position" :sm="keyColSize" class="item"> 
-                        <!-- <Item 
+                    <b-col v-for="(item, position) in getKeys" :key="position" :sm="keyColSize" class="item">
+                        <!-- <Item
                             v-if="answers"
                             :item="item"
                             :type="'key'"
                             :template="activity.item_template.key"
                         /> -->
-                        <ls-card-audio-listen
+                        <ls-card-audio-listen-with-player
                             :item="item"
                             :template="activity.item_template.key"
                         >
                             <img src="https://picsum.photos/300/200" alt="">
                             <!-- {{ item.letters[0].text }} -->
-                        </ls-card-audio-listen>
+                        </ls-card-audio-listen-with-player>
                     </b-col>
-                
-                    <b-col 
-                        :class="{ 
-                            'flex-4': getValues.length >= 12 
+
+                    <b-col
+                        :class="{
+                            'flex-4': getValues.length >= 12
                         }"
-                        class="activity-values" 
+                        class="activity-values"
                     >
                         <div class="card-input card-input-text mt-2">
                             <label>
-                                <b-card 
+                                <b-card
                                     no-body
                                     :class="{ 'invalid': answer.invalid, 'valid': answer.valid }"
                                 >
@@ -88,7 +88,7 @@ export default {
             event.preventDefault();
 
             let answer = this.answer.text.toLowerCase();
-            
+
             if (answer === values[0].text.toLowerCase()) {
                 console.log('Reposta: ' + values[0].text);
             } else if (!this.wrongWords.includes(answer)) {
@@ -96,7 +96,7 @@ export default {
             }
 
             this.answer.text = '';
-            
+
             // this.setAnswer({
             //     data: value.id,
             //     type: 'value',
