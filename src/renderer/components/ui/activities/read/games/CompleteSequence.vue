@@ -4,8 +4,13 @@
             <h2>   
                 <span v-for="(s, position) in splitedSentence" :key="position" style="display: inline-block">
                     <span v-if="!searchString(hiddenElements, s)" class="sentence">{{ s.text }}</span>
-                    <span v-else style="color: red">
-                        {{ s.text }}                        
+                    <span v-else>
+                        <Item
+                            :item="s"
+                            :type="'key'"
+                            :template="activity.item_template.key"
+                        >                        
+                        </Item>                       
                     </span>
                 </span>             
                 <!-- <span v-for="s in splitedSentence" :key="s" style="display: inline-block">
@@ -58,10 +63,7 @@ export default {
         return {
             hiddenElements: [],
             sentence: '',
-            splitedSentence: [],
-            keywords: [{
-                text: '?'
-            }]
+            splitedSentence: [],            
         }
     },
     mounted() {
@@ -80,10 +82,6 @@ export default {
             text: this.sentence
         }
         this.splitedSentence.push(Object.assign({}, sentences))
-        // for(let i = 0; i < this.sentence.length; i++){
-        //     this.searchString(this.hiddenElements,this.sentence[i])           
-        // }
-        // this.splitedSentence.push(this.sentence)
     },
     methods: {
         splitSentence(arr, str) {            
@@ -94,7 +92,8 @@ export default {
                     }
                     this.splitedSentence.push(Object.assign({},sentences))
                     sentences = {
-                        text: str
+                        text: str,
+                        value_ids: this.getKeys[0].value_ids
                     }
                     this.splitedSentence.push(Object.assign({},sentences))                                  
                     this.sentence = this.sentence.split(str)[1]
@@ -104,8 +103,7 @@ export default {
         searchString(arr, str){
             for(let i = 0; i < arr.length; i++){
                 if(arr[i].text == str.text) return true
-            }
-            console.log(arr, str.text)
+            }            
             return false;
         }
     }
