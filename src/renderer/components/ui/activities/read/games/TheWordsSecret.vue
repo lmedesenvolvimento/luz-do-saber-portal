@@ -24,10 +24,11 @@
                                     <b-card-body>
                                         <input
                                             id="input-name"
+                                            :ref="position"
                                             type="text"
                                             maxlength="11"
                                             @blur="checkAwnser(...arguments, item, position)"
-                                            @keydown="checkAwnserAfterTime(...arguments, item, position, 3)"
+                                            @keydown="checkAwnserAfterTime(...arguments, item, position, 2)"
                                         />
                                     </b-card-body>
                                 </b-card>
@@ -54,6 +55,7 @@ export default {
         return {
             shuffleValues: [],
             timeoutId: null,
+            $refsInput: []
         }
     },
     created () {
@@ -74,7 +76,6 @@ export default {
                     e.syllables[rnd] = temp;
                 }
             }
-            console.log('item', e)
         });
     },
     mounted() {
@@ -103,12 +104,9 @@ export default {
                     data: item.id,
                     vm: {}
                 })
-                let nextElementEmpty = event
-                // let nextElementEmpty = this.$el.closest('.input-name').querySelector('input:invalid')
-                console.log(nextElementEmpty)
-                // if (nextElementEmpty) {
-                //     nextElementEmpty.focus()
-                // }
+                console.log(this.$refs[position+1][0])
+                if (this.$refs[position+1]!=null)
+                    this.$refs[position+1][0].focus()
                 updates[position].valid = true
                 event.target.disabled = true
             } else {
