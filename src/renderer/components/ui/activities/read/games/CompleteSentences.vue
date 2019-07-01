@@ -80,17 +80,26 @@ export default {
 
         this.newMessages = this.splitSentence(this.activity.items.keys[0].text, r)
 
-        for (let i = 0; i < (this.newMessages.length + this.dividers.length); i++){
-            this.teste[i] = i
+        for (let i = 0; i < this.dividers.length; i++){
+            for (let j = 0; j < this.newMessages.length; j++){
+                if ((i + j) % 2 === 0){
+                    this.teste[i + j] = this.newMessages[j]
+                }
+                else{
+                    this.teste[i + j] = this.dividers[i]
+                }
+            }
         }
 
-        for (let i = 0; i < this.newMessages.length; i++){
+        /* for (let i = 0; i < this.newMessages.length; i++){
             if (i % 2 === 0) console.log(this.newMessages[i])
             else{
                 if (i <= 0) console.log(this.dividers[i])
                 else console.log(this.dividers[i - 1])
             }
-        }
+        } */
+
+        console.log(this.teste)
     },
     methods: {
         arrayToRegex(array){
