@@ -1,7 +1,7 @@
 <template>
     <div class="card-input card-input-text" :class="$attrs.class">
         <label>
-            <b-card 
+            <b-card
                 no-body
                 :class="{ 'invalid': invalid, 'valid': valid }"
             >
@@ -51,29 +51,29 @@ export default {
         model(value){
             if ((this.valid || this.invalid) || this.model.length === 0) return
             if (this.model.toLowerCase() === this.value.text.toLowerCase()) {
-                this.setAnswer({ 
-                    type: this.type, 
+                this.setAnswer({
+                    type: this.type,
                     data: this.value.id,
                     vm: this
                 })
 
-                let nextElementEmpty = this.$el.closest('.activity').querySelector('input:invalid')
-                
+                let nextElementEmpty = this.$el.closest('.activity, .game').querySelector('input:invalid')
+
                 if (nextElementEmpty) {
                     nextElementEmpty.focus()
                 }
             } else {
-                this.setAnswer({ 
-                    type: this.type, 
+                this.setAnswer({
+                    type: this.type,
                     data: -1,
                     vm: this
                 })
-            }            
+            }
         }
     },
     mounted(){
         let isFirstElement = this.$el.closest('.item') === this.$el.closest('.item').parentElement.firstElementChild
-        
+
         if (isFirstElement) {
             this.$el.querySelector('input').focus()
         }

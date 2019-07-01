@@ -1,0 +1,66 @@
+@import '~animate-scss/_properties';
+@import '~animate-scss/_attention-seekers/attention-seekers';
+
+.bingo-container{
+    display: flex;
+    flex-flow: column;
+    margin: 140px 0 150px 0;
+    
+}
+.bingo-roulette{
+    position: fixed;        
+    z-index: 0;
+}
+.bingo-panel{
+    position: fixed;
+    margin-top: 2px;
+    z-index: 1;
+}
+.bingo-counter{
+    position: fixed;
+    margin-top: 4px;
+    z-index: 2;    
+    &.bingo-counter-animation{
+        @include rubberBand;
+    }
+}
+.bingo-card{
+    width: 800px;
+    margin: 3px 0 3px 30px;
+}
+.bingo-card-player .card-body{
+    background-color: #ffb141;       
+}
+.bingo-card-letter{        
+    margin: -5px 5px -5px 5px;
+}   
+.bingo-card-letter .card-body{
+    background-color: white;
+}    
+.bingo-letter{
+    display: inline-grid;
+    text-align: center;
+    color: white;
+    background-color: #dfd9db;
+    border-radius: 15px;
+    width: 30px;
+    height: 30px;
+    margin: 2px;
+    &.bingo-raffle-letter{
+        background-color: #13c5c4;
+    }    
+}
+.bingo-word{
+    display: inline-grid;
+    text-align: center;
+    padding-top: 20px;
+    color: white;
+    background-color: #dfd9db;
+    border-radius: 30px;
+    width: 60px;
+    height: 60px;
+    margin: 2px;
+    &.bingo-raffle-word{
+        background-color: #13c5c4;
+    }
+}
