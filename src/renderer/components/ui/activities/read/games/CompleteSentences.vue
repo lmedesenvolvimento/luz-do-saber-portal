@@ -1,23 +1,6 @@
 <template>
     <div class="container-fluid">
         <b-row class="reverse-column" align-v="center" align-h="center">
-            <b-col class="activity-keys">
-                <b-row class="fill">
-                    <b-col 
-                        v-for="item in activity.items.keys"
-                        :key="item.id"
-                        :sm="keyColSize"
-                        class="item"
-                    >
-                        <Item
-                            :item="item"
-                            :type="'key'"
-                            :template="activity.item_template.key"
-                        />
-                    </b-col>
-                </b-row>
-            </b-col>
-            {{ newMessages }}
             <b-col class="activity-values">
                 <b-row align-v="center" align-h="center">
                     <b-col 
@@ -34,6 +17,35 @@
                     </b-col>
                 </b-row>
             </b-col>
+            {{ newMessages }}
+            <b-col class="activity-keys">
+                <b-row class="fill">
+                    <b-col 
+                        v-for="(item, index) in teste"
+                        :key="index"
+                        :sm="keyColSize"
+                        class="item"
+                    >
+                        {{ item }}
+                    </b-col>
+                </b-row>
+            </b-col>
+            <!-- <b-col class="activity-keys">
+                <b-row class="fill">
+                    <b-col 
+                        v-for="item in activity.items.keys"
+                        :key="item.id"
+                        :sm="keyColSize"
+                        class="item"
+                    >
+                        <Item
+                            :item="item"
+                            :type="'key'"
+                            :template="activity.item_template.key"
+                        />
+                    </b-col>
+                </b-row>
+            </b-col> -->
         </b-row>
     </div>
 </template>
@@ -46,19 +58,14 @@ import alerts from '@/components/alerts'
 
 import Item from '@/components/ui/items/Item'
 
-import groupDrop from '@/components/ui/form/CardGroupDroppable'
-import cardDisplay from '@/components/ui/form/CardDisplay'
-
-
-import { mapState, mapActions } from 'vuex'
-
 export default {
     components: { Item },
     mixins: [ListMixin, MapMixins, CreateAnswersMixins],
     data(){
         return {
             dividers: [],
-            newMessages: []
+            newMessages: [],
+            teste: []
         }
     },
     created(){
@@ -73,7 +80,11 @@ export default {
 
         this.newMessages = this.activity.items.keys[0].text.split(r)
 
-        console.log(this.newMessages)
+        for (let i = 0; i < (this.newMessages.length + this.dividers.length); i++){
+            this.teste[i] = i
+        }
+
+        console.log(this.teste)
     },
 }
 </script>
