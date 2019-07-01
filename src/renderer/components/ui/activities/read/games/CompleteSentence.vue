@@ -17,7 +17,7 @@
         </b-row>        
         <ls-card-display>
             <b-row
-                align-v="center" align-h="center"
+                align-h="around"
             >
                 <b-col
                     v-for="item in activity.items.values"
@@ -28,7 +28,7 @@
                     <div 
                         :class="{letra: valueColSize == 1}"
                     >
-                        <Item                                                             
+                        <Item                                                        
                             :item="item"                                                            
                             :type="'value'"                            
                             :template="activity.item_template.value"
