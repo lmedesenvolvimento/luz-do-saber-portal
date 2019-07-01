@@ -5,36 +5,37 @@
                 <span v-for="(s, position) in splitedSentence" :key="position" style="display: inline-block">
                     <span v-if="!searchString(hiddenElements, s)" class="sentence">{{ s.text }}</span>
                     <span v-else>
-                        <div class="letra">
-                            <Item
-                                :item="s"
-                                :type="'key'"
-                                :template="activity.item_template.key"
-                            >                        
-                            </Item> 
-                        </div>                                              
+                        <Item
+                            :item="s"
+                            :type="'key'"
+                            :template="activity.item_template.key"
+                        >                        
+                        </Item>                                       
                     </span>
                 </span>
             </h2>
         </b-row>        
         <ls-card-display>
             <b-row
-                align-h="around"
+                align-v="center" align-h="center"
             >
-                <div 
+                <b-col
                     v-for="item in activity.items.values"
                     :key="item.id"
+                    :sm="valueColSize"                     
                     class="item"
                 >
-                    <div class="letra">
-                        <Item                                  
+                    <div 
+                        :class="{letra: valueColSize == 1}"
+                    >
+                        <Item                                                             
                             :item="item"                                                            
-                            :type="'value'"
+                            :type="'value'"                            
                             :template="activity.item_template.value"
                         >                        
-                        </Item>                                               
+                        </Item>                                         
                     </div>                    
-                </div>
+                </b-col>
             </b-row>
         </ls-card-display>  
     </div>
@@ -67,7 +68,7 @@ export default {
             text: this.sentence
         }
         this.splitedSentence.push(Object.assign({}, sentences))
-    },
+    },    
     methods: {        
         splitSentence(arr, str){
             for (let i = 0; i < arr.length; i++){
@@ -90,6 +91,12 @@ export default {
             for(let i = 0; i < arr.length; i++){
                 if(arr[i].text == str.text) return true
             }            
+            return false;
+        },
+        colSize1(colSize){
+            if(colSize == 1){
+                return true;
+            } 
             return false;
         }
     }
