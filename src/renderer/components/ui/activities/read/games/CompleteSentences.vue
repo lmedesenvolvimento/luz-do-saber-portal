@@ -76,15 +76,29 @@ export default {
 
         for (let item of this.activity.items.values) this.dividers.push(item.text)
 
-        let r = new RegExp(this.dividers.toString().replace(',', '|'))
+        let r = this.arrayToRegex(this.dividers)
 
-        this.newMessages = this.activity.items.keys[0].text.split(r)
+        this.newMessages = this.splitSentence(this.activity.items.keys[0].text, r)
 
         for (let i = 0; i < (this.newMessages.length + this.dividers.length); i++){
             this.teste[i] = i
         }
 
-        console.log(this.teste)
+        for (let i = 0; i < this.newMessages.length; i++){
+            if (i % 2 === 0) console.log(this.newMessages[i])
+            else{
+                if (i <= 0) console.log(this.dividers[i])
+                else console.log(this.dividers[i - 1])
+            }
+        }
+    },
+    methods: {
+        arrayToRegex(array){
+            return new RegExp(array.toString().replace(',', '|'))
+        },
+        splitSentence(sentence, divisor){
+            return sentence.split(divisor)
+        }
     },
 }
 </script>
