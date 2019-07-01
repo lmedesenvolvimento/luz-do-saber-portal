@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid">        
+    <div class="container-fluid">
         <b-row align-v="center">
             <b-col cols="3" align-v="center" align-h="center">
                 <b-row class="bingo-container" align-v="center" align-h="center">
@@ -26,7 +26,8 @@
             </b-col>
             <b-col cols="9" align-v="center" align-h="center">
                 <b-row>
-                    <ls-card-display 
+                    <ls-card-display
+                        :class="{'card-sm': ajustLength}"                                                
                         class="bingo-card bingo-card-player"
                     >
                         <b-row align-v="center" align-h="center">
@@ -71,6 +72,7 @@
                     :key="i"
                 >
                     <ls-card-display 
+                        :class="{'card-sm': ajustLength}" 
                         class="bingo-card" 
                         :valid="searchStringInArray(raffleLetters, normalizeString(getValues[i].text).split(''))"                       
                     >                        
@@ -135,7 +137,13 @@ export default {
         getDuration(){           
             return moment(this.timer).format('m:ss')
         },        
-        ...mapState('Activity', ['log'])
+        ...mapState('Activity', ['log']),
+        ajustLength(){
+            for(let i = 0; i < 3; i++){
+                if(this.getValues[i].letters.length > 7) return true 
+            }
+            return false
+        }
     },
     watch: {
         showTimer() {
@@ -187,7 +195,6 @@ export default {
                     })
                     
                 }
-                console.log(this.getKeys[0].value_ids[0])
             // caso a letra marcada ainda não tiver saído no bingo
             }else{
                 setTimeout(()=> {
@@ -261,7 +268,7 @@ export default {
         },
         // verifica se a letra já foi sorteada, percorrendo o vetor raffleLetters
         searchString(arr, str) {
-            for(let i = 0; i < arr.length;i++){
+            for(let i = 0; i < arr.length; i++){
                 if (arr[i].match(str)) return true;
             }
             return false;
@@ -293,57 +300,6 @@ export default {
 }
 </script>
 
-<style lang="scss">    
-@import '~animate-scss/_properties';
-@import '~animate-scss/_attention-seekers/attention-seekers';
-.bingo-container{
-    display: flex;
-    flex-flow: column;
-    margin: 140px 0 150px 0;
-    
-}
-.bingo-roulette{
-    position: fixed;        
-    z-index: 0;
-}
-.bingo-panel{
-    position: fixed;
-    margin-top: 2px;
-    z-index: 1;
-}
-.bingo-counter{
-    position: fixed;
-    margin-top: 4px;
-    z-index: 2;    
-    &.bingo-counter-animation{
-        @include pulse;
-    }
-}
-.bingo-card{
-    width: 800px;
-    margin: 3px 0 3px 30px;
-}
-.bingo-card-player .card-body{
-    background-color: #ffb141;       
-}
-.bingo-card-letter{        
-    margin: -5px 5px -5px 5px;
-}   
-.bingo-card-letter .card-body{
-    background-color: white;
-}    
-.bingo-letter{
-    display: inline-grid;
-    text-align: center;
-    color: white;
-    background-color: #dfd9db;
-    border-radius: 15px;
-    width: 30px;
-    height: 30px;
-    margin: 2px;
-    &.bingo-raffle-letter{
-        background-color: #13c5c4;
-    }    
-}
+<style> 
 </style>
 

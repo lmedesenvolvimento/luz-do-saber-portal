@@ -6,7 +6,9 @@
             >
                 <div class="bbg" :style="{'background-image': 'linear-gradient(to right, #7db239, #7db239)', 'background-size': `${audioProgress}% 100%`, 'background-repeat': 'no-repeat', 'border-radius': '1em'}">
                     <b-card-body>
-                        {{ item.text }}
+                        <slot>
+                            {{ item.text }}
+                        </slot>
                     </b-card-body>
                 </div>
             </b-card>
