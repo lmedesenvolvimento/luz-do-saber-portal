@@ -1,0 +1,79 @@
+.letter-group{
+    .group-holder{
+        padding-right: 10px!important;
+        padding-left: 10px!important;
+    }
+    .group{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        &::before,
+        &::after{
+            content: '';
+            background-color: rgba(102, 102, 102, 0.34);
+            align-self: center;
+            position: absolute;
+        }
+        &::before{
+            width: 1px;
+            height: 70%;
+            z-index: 99;
+        }
+        &::after{
+            width: 70%;
+            height: 1px;
+        }
+        .card-body{
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row-reverse;
+            align-items: center;
+            justify-content: space-around;
+        }
+        .letters{
+            padding: 5%;
+            max-width: 80px;
+            cursor: pointer;
+            margin: 2px 5px;
+                text-transform: uppercase;
+            .letter0{
+                font-size: 34px!important;
+                @include becca_script;
+            }
+            .letter1{
+                font-size: 34px!important;
+                @include becca_script;
+                text-transform: lowercase;
+            }
+            .letter2{
+                font-size: 34px!important;
+                font-family: "Baloo Bhaina", Helvetica, sans-serif;
+            }
+            .letter3{   
+                font-size: 34px!important;
+                font-family: "Itim Regular", Helvetica, sans-serif;        
+                text-transform: lowercase;
+            }
+            .card--display{
+                min-width: 60px;
+                min-height: 60px;
+            }
+            .card-body{
+                padding: 0.7rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+    @include media-breakpoint-down('md'){                
+        .group{
+            &::before,
+            &::after{
+                display: none
+            }
+        }
+    }
+}
