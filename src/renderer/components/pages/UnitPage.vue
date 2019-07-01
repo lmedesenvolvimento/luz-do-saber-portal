@@ -23,8 +23,8 @@ export default {
         unitImage(){
             return this.unit.cover_url ? this.unit.cover_url : ''
         },
-    }, 
-    created(){        
+    },
+    created(){
         this.fetchUnit(this.$route.params)
     },
     beforeDestroy(){
