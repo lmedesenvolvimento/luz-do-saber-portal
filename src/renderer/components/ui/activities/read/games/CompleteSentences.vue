@@ -4,33 +4,22 @@
             <b-col class="activity-values">
                 <b-row align-v="center" align-h="center">
                     <b-col 
-                        v-for="item in activity.items.values"
-                        :key="item.id"
-                        :sm="valueColSize"
-                        class="item"
-                    >
-                        <Item
-                            :item="item"
-                            :type="'value'"
-                            :template="activity.item_template.value"
-                        />
-                    </b-col>
-                </b-row>
-            </b-col>
-            {{ newMessages }}
-            <b-col class="activity-keys">
-                <b-row class="fill">
-                    <b-col 
-                        v-for="(item, index) in teste"
+                        v-for="(item, index) in items"
                         :key="index"
                         :sm="keyColSize"
                         class="item"
                     >
-                        {{ item }}
+                        <Item
+                            v-if="typeof item === 'object'"
+                            :item="item"
+                            :type="'value'"
+                            :template="activity.item_template.value"
+                        />
+                        <div v-else>{{ item }}</div>
                     </b-col>
                 </b-row>
             </b-col>
-            <!-- <b-col class="activity-keys">
+            <b-col class="activity-keys">
                 <b-row class="fill">
                     <b-col 
                         v-for="item in activity.items.keys"
@@ -45,7 +34,7 @@
                         />
                     </b-col>
                 </b-row>
-            </b-col> -->
+            </b-col>
         </b-row>
     </div>
 </template>
@@ -65,7 +54,7 @@ export default {
         return {
             dividers: [],
             newMessages: [],
-            teste: []
+            items: []
         }
     },
     created(){
@@ -80,34 +69,40 @@ export default {
 
         this.newMessages = this.splitSentence(this.activity.items.keys[0].text, r)
 
-        for (let i = 0; i < this.dividers.length; i++){
-            for (let j = 0; j < this.newMessages.length; j++){
-                if ((i + j) % 2 === 0){
-                    this.teste[i + j] = this.newMessages[j]
-                }
-                else{
-                    this.teste[i + j] = this.dividers[i]
-                }
-            }
-        }
+        let aux = []
 
-        /* for (let i = 0; i < this.newMessages.length; i++){
-            if (i % 2 === 0) console.log(this.newMessages[i])
-            else{
-                if (i <= 0) console.log(this.dividers[i])
-                else console.log(this.dividers[i - 1])
-            }
-        } */
+        this.dividers.forEach((item, index) => {
+            aux[index] = this.activity.item_template.value
+            aux[index].text = item
+            console.log(index)
+            console.log(item)
+        })
 
-        console.log(this.teste)
+        console.log(aux)
+
+        this.items = this.joinArrays(this.newMessages, aux)
+
+        console.log(this.items)
     },
     methods: {
         arrayToRegex(array){
             return new RegExp(array.toString().replace(',', '|'))
         },
+        joinArrays(a1, a2){
+            let r = []
+            let l = Math.min(a1.length, a2.length)
+                
+            for (let i = 0; i < l; i++) {
+                r.push(a1[i], a2[i])
+            }
+
+            r.push(...a1.slice(l), ...a2.slice(l))
+
+            return r
+        },
         splitSentence(sentence, divisor){
             return sentence.split(divisor)
-        }
+        },
     },
 }
 </script>
