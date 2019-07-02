@@ -15,18 +15,19 @@
                 </span>
             </h2>
         </b-row>        
-        <ls-card-display>
+        <ls-card-display v-if="valueColSize == 1">
             <b-row
                 align-h="around"
-            >
-                <b-col
+                style="margin: 1px 0 1px 0"
+            >                
+                <div
                     v-for="item in activity.items.values"
                     :key="item.id"
                     :sm="valueColSize"                     
                     class="item"
                 >
                     <div 
-                        :class="{letra: valueColSize == 1}"
+                        class="letra"
                     >
                         <Item                                                        
                             :item="item"                                                            
@@ -35,9 +36,28 @@
                         >                        
                         </Item>                                         
                     </div>                    
+                </div>
+            </b-row>
+        </ls-card-display>
+        <ls-card-display v-else>
+            <b-row
+                align-h="around"
+            >                
+                <b-col
+                    v-for="item in activity.items.values"
+                    :key="item.id"
+                    :sm="valueColSize"                     
+                    class="item"
+                >                    
+                    <Item                                                        
+                        :item="item"                                                            
+                        :type="'value'"                            
+                        :template="activity.item_template.value"
+                    >                        
+                    </Item>               
                 </b-col>
             </b-row>
-        </ls-card-display>  
+        </ls-card-display>    
     </div>
 </template>
 <script>
