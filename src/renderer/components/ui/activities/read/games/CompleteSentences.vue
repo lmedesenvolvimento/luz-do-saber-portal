@@ -3,10 +3,10 @@
         <b-row class="reverse-column" align-v="center" align-h="center">
             <b-col class="activity-values">
                 <b-row align-v="center" align-h="center">
-                    <b-col 
+                    <div
                         v-for="(item, index) in items"
                         :key="index"
-                        :sm="keyColSize"
+                        :sm="12"
                         class="item"
                     >
                         <Item
@@ -16,7 +16,7 @@
                             :template="activity.item_template.value"
                         />
                         <div v-else>{{ item }}</div>
-                    </b-col>
+                    </div>
                 </b-row>
             </b-col>
             <b-col class="activity-keys">
@@ -58,43 +58,32 @@ export default {
         }
     },
     created(){
-        this.createAnswersArray()
-        this.addColorsToType('substantivo_comum')
+        let r, aux = []
 
-        console.log('--------------------------------------')
+        this.createAnswersArray()
+
+        this.addColorsToType('substantivo_comum')
 
         for (let item of this.activity.items.values) this.dividers.push(item.text)
 
-        let r = this.arrayToRegex(this.dividers)
+        r = this.arrayToRegex(this.dividers)
 
         this.newMessages = this.splitSentence(this.activity.items.keys[0].text, r)
 
-        let aux = []
-
         this.dividers.forEach((item, index) => {
-            aux[index] = this.activity.item_template.value
-            aux[index].text = item
-            console.log(index)
-            console.log(item)
+            aux[index] = this.activity.items.values[index]
         })
 
-        console.log(aux)
-
         this.items = this.joinArrays(this.newMessages, aux)
-
-        console.log(this.items)
     },
     methods: {
         arrayToRegex(array){
             return new RegExp(array.toString().replace(',', '|'))
         },
         joinArrays(a1, a2){
-            let r = []
-            let l = Math.min(a1.length, a2.length)
+            let r = [], l = Math.min(a1.length, a2.length)
                 
-            for (let i = 0; i < l; i++) {
-                r.push(a1[i], a2[i])
-            }
+            for (let i = 0; i < l; i++) r.push(a1[i], a2[i])
 
             r.push(...a1.slice(l), ...a2.slice(l))
 
