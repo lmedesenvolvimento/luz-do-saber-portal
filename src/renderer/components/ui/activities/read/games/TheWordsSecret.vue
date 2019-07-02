@@ -28,7 +28,6 @@
                                             type="text"
                                             maxlength="11"
                                             @blur="checkAwnser(...arguments, item, position)"
-                                            @keydown="checkAwnserAfterTime(...arguments, item, position, 2)"
                                         />
                                     </b-card-body>
                                 </b-card>
@@ -54,7 +53,6 @@ export default {
     data() {
         return {
             shuffleValues: [],
-            timeoutId: null,
             $refsInput: []
         }
     },
@@ -83,18 +81,8 @@ export default {
         this.addColorsToType('substantivo_comum')
     },
     methods: {
-        checkAwnserAfterTime(event, item, position, time){
-            if (this.timeoutId) clearTimeout(this.timeoutId)
-            if (event.keyCode === 13) this.checkAwnser(event, item, position)
-            else{
-                this.timeoutId = setTimeout(()=> {
-                    this.checkAwnser(event, item, position)
-                }, time * 1000)
-            } 
-        },
         checkAwnser(event, item, position) {
             const updates = clone(this.shuffleValues)
-            if (this.timeoutId) clearTimeout(this.timeoutId)
             if (event.target.value === ''){
                 return
             }
@@ -104,7 +92,6 @@ export default {
                     data: item.id,
                     vm: {}
                 })
-                console.log(this.$refs[position+1][0])
                 if (this.$refs[position+1]!=null)
                     this.$refs[position+1][0].focus()
                 updates[position].valid = true
