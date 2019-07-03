@@ -109,7 +109,7 @@ import alerts from '@/components/alerts'
 import { shuffle, range, filter } from 'lodash'
 import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from '@ui/activities/mixins'
 import moment from 'moment'
-import { setTimeout } from 'timers';
+import { clearTimeout } from 'timers';
 
 export default {    
     components: { 
@@ -127,7 +127,8 @@ export default {
             timer: 5000,
             actualRaffleLetter: '',
             showTimer: true,
-            animateBingoCounter: false
+            animateBingoCounter: false,
+            timeOut: null
         }
     },
     computed: {       
@@ -153,7 +154,7 @@ export default {
     watch: {
         showTimer() {
             this.animateBingoCounter = true;
-            setTimeout(() => {
+            this.timeOut = setTimeout(() => {
                 this.animateBingoCounter = false;
             },1000) 
         }
@@ -179,10 +180,11 @@ export default {
         // embaralhamos o vetor de letras
         this.scramblePlayerLetters = shuffle(this.scramblePlayerLetters);        
     },
-    destroyed() {
+    baforeDestroy() {
         // impede que continuem sendo chamados após sair da fase
         delete this.unraffleLetters
         delete this.actualizeBingoTimer
+        clearTimeout(this.timeOut)
     },
     methods: {        
         checkRaffle (item) {    
@@ -202,7 +204,7 @@ export default {
                 }
             // caso a letra marcada ainda não tiver saído no bingo
             }else{
-                setTimeout(()=> {
+                this.timeOut = setTimeout(()=> {
                     delete item.invalid
                 }, 300)
 
@@ -231,7 +233,7 @@ export default {
             // decresce o contador até zero
             if(this.unraffleLetters.length > 0){
                 if(this.timer > 0){
-                    setTimeout(() => {
+                    this.timeOut = setTimeout(() => {
                         this.timer -= 1000;
                         this.actualizeBingoTimer();
                     },1000) 
