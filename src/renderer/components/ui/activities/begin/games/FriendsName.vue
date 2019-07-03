@@ -6,9 +6,9 @@
                     <b-col v-for="(friend, index) in localFriends" :key="index" md="4" cols="12">
                         <b-card no-body class="my-2">
                             <b-card-body>
-                                <div class="card-input card-input-text ">
+                                <div class="card-input card--input-text ">
                                     <label>
-                                        <b-card 
+                                        <b-card
                                             no-body
                                         >
                                             <b-card-body>
@@ -23,7 +23,7 @@
                                         </b-card>
                                     </label>
                                 </div>
-                            </b-card-body>               
+                            </b-card-body>
                         </b-card>
                     </b-col>
                 </b-row>
@@ -40,7 +40,7 @@ import { sortBy, shuffle } from 'lodash'
 import { MapMixins, ListMixin, CreateAnswersMixins,createAnswer } from '@ui/activities/mixins'
 
 export default {
-    components: { 
+    components: {
         ...ui,
         ...alerts
     },
@@ -78,7 +78,7 @@ export default {
         for(let i = 0; i < 6; i++){
             this.localFriends.push({name: ''})
         }
-        
+
     },
     mounted() {
         this.createAnswersArray()
@@ -86,8 +86,8 @@ export default {
         this.activity.pointings[1].quantity = 30
         console.log('created activity',this.activity)
     },
-    methods: {        
-        
+    methods: {
+
         ...mapActions('Activity', ['setActivityAttrs','triggerSuccess']),
         ...mapActions('User',['addFriend']),
         // ...mapActions('Alert',['showAlertActivitySuccess']),
@@ -100,23 +100,23 @@ export default {
             this.localFriends[index].name = friend.name
 
             console.log('add local freind teste', this.localFriends)
-            
+
             if(this.checkAllFriendFilled()){
                 this.triggerSuccess()
             }
         },
         checkAllFriendFilled(){
-            
+
             for(let index in this.localFriends){
                 if(this.localFriends[index].name.length ==0){
                     return false
                 }
             }
-        
+
             return true
-            
+
         }
     },
-     
+
 }
 </script>
