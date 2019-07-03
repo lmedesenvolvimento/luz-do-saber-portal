@@ -162,6 +162,14 @@
     }
 }
 
+@mixin item($value) {
+    &.texto {
+        [class*="card--"], .draggshadow {
+            width: $value;
+        }
+    }
+}
+
 @mixin custom-card-sm($input: false){
     @include custom-card($input);
     .card {

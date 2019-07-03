@@ -1,5 +1,5 @@
 <template>
-    <div class="card-input card-input-text" :class="$attrs.class">
+    <div class="card-input card--input-text" :class="$attrs.class">
         <label>
             <b-card
                 no-body
@@ -84,7 +84,7 @@ export default {
 }
 </script>
 <style lang="scss">
-    .card-input-text{
+    .card--input-text{
         label{
             display: block;
             &:hover{
