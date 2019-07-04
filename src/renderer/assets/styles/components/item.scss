@@ -65,20 +65,19 @@
         .#{$type}{
             @include item($value);
         }
-        &.small {
-            @each $type, $value in map-get($map: $item-types-width, $key: 'small') {
-                .#{$type} {
-                    @include item($value);
-                }
-            }
+    }
+
+    @each $type, $value in map-get($map: $item-types-width, $key: 'small') {
+        .#{$type}.small {
+            @include item($value);
         }
     }
 
     &.col-sm-1, &.col-md-1, .col-1{
         display: inline-flex;
-        flex: 1;
         max-width: none;
-        // min-width: $item-min-width;
         justify-content: center;
+        // flex: 1;
+        // min-width: $item-min-width;
     }
 }
