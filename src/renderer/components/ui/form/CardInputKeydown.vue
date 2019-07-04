@@ -1,27 +1,31 @@
 <template>
-    <div class="card-input card-input-text" :class="$attrs.class">
-        <label>
-            <b-card
-                no-body
-                :class="{ 'invalid': invalid, 'valid': valid }"
-            >
-                <b-card-body>
-                    <input
-                        v-model="model"
-                        v-focus="focus"
-                        :name="$attrs.name"
-                        :maxlength="1"
-                        :disabled="valid"
-                        :required="true"
-                        type="text"
-                        v-bind="$attrs"
-                        autocomplete="off"
-                        selectionDirection="backward"
-                        @keypress="onKeyDown($event)"
-                    />
-                </b-card-body>
-            </b-card>
-        </label>
+    <div>
+        <slot>
+            <div class="card-input card-input-text" :class="$attrs.class">
+                <label>
+                    <b-card
+                        no-body
+                        :class="{ 'invalid': invalid, 'valid': valid }"
+                    >
+                        <b-card-body>
+                            <input
+                                v-model="model"
+                                v-focus="focus"
+                                :name="$attrs.name"
+                                :maxlength="1"
+                                :disabled="valid"
+                                :required="true"
+                                type="text"
+                                v-bind="$attrs"
+                                autocomplete="off"
+                                selectionDirection="backward"
+                                @keypress="onKeyDown($event)"
+                            />
+                        </b-card-body>
+                    </b-card>
+                </label>
+            </div>
+        </slot>
     </div>
 </template>
 <script>
