@@ -8,6 +8,13 @@
 
 .card--display{
     @include custom-card;
+    &.card--display-container {
+        width: 100%;
+        > .card .bg-color > .card-body {
+            padding-top: 2rem !important;
+            padding-bottom: 2rem !important;
+        }
+    }
 }
 
 .small {
