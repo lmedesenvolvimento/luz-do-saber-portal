@@ -1,31 +1,51 @@
 <template>
     <div>
-        <slot>
-            <div class="card-input card-input-text" :class="$attrs.class">
-                <label>
-                    <b-card
-                        no-body
-                        :class="{ 'invalid': invalid, 'valid': valid }"
-                    >
-                        <b-card-body>
-                            <input
-                                v-model="model"
-                                v-focus="focus"
-                                :name="$attrs.name"
-                                :maxlength="1"
-                                :disabled="valid"
-                                :required="true"
-                                type="text"
-                                v-bind="$attrs"
-                                autocomplete="off"
-                                selectionDirection="backward"
-                                @keypress="onKeyDown($event)"
-                            />
-                        </b-card-body>
-                    </b-card>
-                </label>
-            </div>
-        </slot>
+        <div v-if="isNotWord" class="card-input card-input-text" :class="$attrs.class">
+            <label>
+                <b-card
+                    no-body
+                    :class="{ 'invalid': invalid, 'valid': valid }"
+                >
+                    <b-card-body>
+                        <input
+                            v-model="model"
+                            v-focus="focus"
+                            :name="$attrs.name"
+                            :maxlength="1"
+                            :disabled="valid"
+                            :required="true"
+                            type="text"
+                            v-bind="$attrs"
+                            autocomplete="off"
+                            selectionDirection="backward"
+                            @keypress="onKeyDown($event)"
+                        />
+                    </b-card-body>
+                </b-card>
+            </label>
+        </div>
+        <div v-else class="card-input card-input-text">
+            <label>
+                <b-card
+                    no-body
+                    :class="{ 'invalid': invalid, 'valid': valid }"
+                >
+                    diferente
+                    <b-card-body>
+                        <input
+                            v-focus="focus"
+                            :maxlength="11"
+                            :disabled="valid"
+                            :required="true"
+                            type="text"
+                            autocomplete="off"
+                            selectionDirection="backward"
+                            @keypress="onKeyDown($event)"
+                        />
+                    </b-card-body>
+                </b-card>
+            </label>
+        </div>
     </div>
 </template>
 <script>
@@ -45,6 +65,11 @@ export default {
     data(){
         return {
             model: ''
+        }
+    },
+    computed: {
+        isNotWord(){
+            return this.value.type !== 'substantivo_comum'
         }
     },
     watch: {
@@ -82,9 +107,18 @@ export default {
     methods: {
         onKeyDown(event){
             // replace input value for new key if invalid
-            if ( this.model && (event.key.length <= 1) ) this.model = event.key
+            if (this.isNotWord){
+                if ( this.model && (event.key.length <= 1) ) this.model = event.key
+            }
+            else{
+                // (this.model.length < )
+                // let aux = this.model + event.key
+                // this.model = aux
+                console.log(this.model)
+            }
         }
-    }
+    },
+
 }
 </script>
 <style lang="scss">
