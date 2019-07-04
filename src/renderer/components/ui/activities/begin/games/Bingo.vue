@@ -33,7 +33,7 @@
                             <b-row align-v="center" align-h="center">
                                 <p style="color: white">sua cartela</p>                            
                             </b-row>
-                            <b-row align-v="center" align-h="center">                       
+                            <b-row align-v="center" align-h="around">                       
                                 <b-row
                                     v-for="(item, position) in playerLetters" 
                                     :key="position" 
@@ -78,7 +78,7 @@
                         class="bingo-card" 
                         :valid="searchStringInArray(raffleLetters, normalizeString(getValues[i].text).split(''))"                       
                     >                        
-                        <b-row align-v="center" align-h="center">
+                        <b-row align-v="center" align-h="around">
                             <b-row
                                 v-for="(item, position) in getValues[i].letters" 
                                 :key="position" 
