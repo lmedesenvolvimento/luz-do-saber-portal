@@ -7,7 +7,7 @@
                         <b-card no-body class="my-2">
                             <b-card-body class="outer">
                                 <img class="img-placeholder" src="https://flash.za.com/wp-content/uploads/2015/08/Generic-Profile-1600x1600.png">
-                                <div class="card-input card-input-text ">
+                                <div class="card-input card--input-text ">
                                     <label>
                                         <b-card
                                             no-body

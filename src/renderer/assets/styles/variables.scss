@@ -49,7 +49,9 @@ $icon-themes: (
 );
 
 // Grid
-$gutter-size: 0.5rem;
+// $gutter-size: 1rem;
+$gutter-size: 1rem;
+$gutter-sm-size: 0.75rem;
 
 // Cards
 $card-input-dark-border-color: #2B1F17;
