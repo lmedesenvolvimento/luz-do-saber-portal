@@ -3,10 +3,11 @@
         <b-row align-h="center" align-v="center">
             <b-col class="activity-values">
                 <b-row>
-                    <b-col v-for="(friend, index) in localFriends" :key="index" md="4" cols="12">
+                    <b-col v-for="(friend, index) in localFriends" :key="index" class="friends-divider" md="3" cols="12">
                         <b-card no-body class="my-2">
-                            <b-card-body>
-                                <div class="card-input card--input-text ">
+                            <b-card-body class="outer">
+                                <img class="img-placeholder" src="https://flash.za.com/wp-content/uploads/2015/08/Generic-Profile-1600x1600.png">
+                                <div class="card-input card-input-text ">
                                     <label>
                                         <b-card
                                             no-body
@@ -17,6 +18,7 @@
                                                     v-model="friend.name"
                                                     type="text"
                                                     maxlength="11"
+                                                    autocomplete="off"
                                                     @blur="addLocalFriend(friend,index)"
                                                 />
                                             </b-card-body>
@@ -75,7 +77,7 @@ export default {
         console.log('created yeyey')
         this.setActivityAttrs({ total_correct_items: this.getKeys.length })
         this.localFriends =  []
-        for(let i = 0; i < 6; i++){
+        for(let i = 0; i < 4; i++){
             this.localFriends.push({name: ''})
         }
 
@@ -120,3 +122,22 @@ export default {
 
 }
 </script>
+
+<style lang="scss">
+    .img-placeholder{
+        width: 100%;
+    }
+
+    .friends-divider{
+        padding: 0.5rem;
+
+        .card.my-2{
+            border-radius: 1rem;
+
+            .outer{
+                padding: 10px;
+            }
+        }
+    }
+</style>
+
