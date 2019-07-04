@@ -79,7 +79,6 @@ export default {
         this.setAnswersValueArray(aux)
         this.setActivityAttrs({ total_correct_items: 2 })
 
-
         this.items = this.joinArrays(this.newMessages, aux)
     },
     methods: {
