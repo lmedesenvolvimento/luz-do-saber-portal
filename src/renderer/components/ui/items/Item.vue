@@ -1,6 +1,6 @@
 <template>
-    <div :class="getItemClass">
-        <div v-if="!isPrimitiveItem" class="item">            
+    <div :class="[item.type, template.type, size]">
+        <div v-if="!isPrimitiveItem" class="item">
             <ls-item-cracha-box
                 v-if="template.custom === Types.custom.crachaBox"
                 :type="type"
@@ -15,7 +15,7 @@
                 :template="template"
             >
             </ls-item-checkmark>
-            
+
             <ls-card-display-validacao
                 v-else-if="template.custom === Types.custom.cardDisplayValidacao"
                 :type="type"
@@ -36,7 +36,7 @@
                 :item="item"
                 :template="template"
             ></ls-item-texto-em-blocos>
-            
+
             <ls-card-audio-listen
                 v-if="template.custom === Types.custom.audioPlayer"
                 :type="type"
@@ -46,15 +46,15 @@
 
             <ls-card-group-droppable
                 v-else-if="(template.custom === Types.custom.caixaPalavras) || (template.custom === Types.custom.grupoPalavras)"
-                label="key.text" 
+                label="key.text"
                 name="card-input"
                 :item="item"
                 :bg-color="item.color"
                 :template="template"
             >
                 {{ item.text }}
-            </ls-card-group-droppable>            
-            
+            </ls-card-group-droppable>
+
             <ls-card-image-display
                 v-else-if="template.custom === Types.custom.descricaoImagem"
                 label="item.text"
@@ -65,7 +65,7 @@
             </ls-card-image-display>
         </div>
         <div v-else>
-            <ls-item-text 
+            <ls-item-text
                 v-if="template.type === Types.primitive.text"
                 :type="type"
                 :item="item"
