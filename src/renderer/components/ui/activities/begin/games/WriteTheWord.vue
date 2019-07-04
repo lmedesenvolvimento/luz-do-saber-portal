@@ -25,7 +25,7 @@
                         }"
                         class="activity-values"
                     >
-                        <div class="card-input card-input-text mt-2">
+                        <div class="card-input card--input-text mt-2">
                             <label>
                                 <b-card
                                     no-body

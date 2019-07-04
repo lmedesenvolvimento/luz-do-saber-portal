@@ -1,5 +1,12 @@
 import Item from '@/components/ui/items/Item'
 
+const ColorizeTypes = [
+    'letra',
+    'caractere_especial',
+    'numero',
+    'silaba'
+]
+
 export const ListMixin = {
     components: {
         Item
@@ -48,7 +55,7 @@ export const ListMixin = {
         addColors(){
             for (var key in this.activity.items.values) {
                 if (this.activity.items.values.hasOwnProperty(key)) {
-                    if (this.activity.items.values[key].type === 'letra' || this.activity.items.values[key].type === 'caractere_especial' || this.activity.items.values[key].type === 'numero'){
+                    if (ColorizeTypes.includes(this.activity.items.values[key].type)){
                         this.activity.items.values[key].color = this.getColorsArray[key]
                     }
                     else {
@@ -57,7 +64,7 @@ export const ListMixin = {
                 }
             }
             for (var key in this.activity.items.keys) {
-                if (this.activity.items.keys[key].type === 'letra' || this.activity.items.keys[key].type === 'caractere_especial' || this.activity.items.keys[key].type === 'numero') {
+                if (ColorizeTypes.includes(this.activity.items.keys[key].type)) {
                     this.activity.items.keys[key].color = this.getColorsArray[key]
                 }
                 else {
