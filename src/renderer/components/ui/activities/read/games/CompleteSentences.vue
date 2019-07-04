@@ -47,6 +47,8 @@ import alerts from '@/components/alerts'
 
 import Item from '@/components/ui/items/Item'
 
+import { mapActions } from 'vuex'
+
 export default {
     components: { Item },
     mixins: [ListMixin, MapMixins, CreateAnswersMixins],
@@ -74,6 +76,10 @@ export default {
             aux[index] = this.activity.items.values[index]
         })
 
+        this.setAnswersValueArray(aux)
+        this.setActivityAttrs({ total_correct_items: 2 })
+
+
         this.items = this.joinArrays(this.newMessages, aux)
     },
     methods: {
@@ -91,6 +97,28 @@ export default {
         },
         splitSentence(sentence, divisor){
             return sentence.split(divisor)
+        },
+        setAnswersArray(a){
+            let answers = []
+
+            a.forEach(a => {
+                let key = createAnswer(a, a.value_ids[0])
+                answers.push(key)
+            })
+
+            this.setAnswers(answers)
+        },
+        setAnswersValueArray(a){
+            let answers = []
+
+            a.forEach(a => {
+                let key = createAnswer(a, a.id)
+                answers.push(key)
+            })
+
+            console.log(answers)
+
+            this.setAnswers(answers)
         },
     },
 }
