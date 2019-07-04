@@ -1,21 +1,37 @@
+[class*='card--']{
+    @include custom-card(true);
+}
+
+.card-input {
+    @include custom-card(true);
+}
+
 .card--display{
     @include custom-card;
-    &.card-sm{
-        @include custom-card-sm;
+    &.card--display-container {
+        width: 100%;
+        > .card .bg-color > .card-body {
+            padding-top: 2rem !important;
+            padding-bottom: 2rem !important;
+        }
     }
 }
 
-
-.card-input{
-    background-color: transparent !important;
-    &.card-sm{
+.small {
+    [class*='card--']{
+        @include custom-card-sm(true);
+    }
+    .card--display{
+        @include custom-card-sm;
+    }
+    .card-input {
         @include custom-card-sm(true);
     }
 }
 
 .card-input{
-    @include custom-card(true);
-    &.card-input-text{
+    background-color: transparent !important;
+    &.card--input-text{
         input{
             background: transparent;
             outline: none;
@@ -26,7 +42,7 @@
             text-transform: uppercase;
             border-bottom: 2px solid transparentize($card-input-dark-border-color, 1);
             transition: border-bottom 0.2s ease-in;
-            &:focus{                
+            &:focus{
                 border-bottom: 2px solid $card-input-dark-border-color;
             }
         }
@@ -39,11 +55,14 @@
 
 .card-input.card--draggable{
     @include custom-card(true);
+    &:hover{
+        cursor: pointer;
+    }
     .dragging, .dropped{
         &::before{
             @include custom-dropcard-content;
         }
-    }   
+    }
 }
 
 .card-input.card--droppable{
@@ -54,7 +73,7 @@
                 @include custom-dropcard-content;
             }
         }
-    }    
+    }
 }
 
 .card-image-display{
@@ -82,6 +101,6 @@
 //     .card-footer{
 //         @include ellipsis(100%);
 //         text-align: center;
-//         font-size: 24px;        
+//         font-size: 24px;
 //     }
 // }
