@@ -31,8 +31,8 @@
                     </b-row>
                 </b-col>
             </b-row>
-            <b-row class="pb-4 activity-values" align-v="center" align-h="center">
-                <ls-card-display>
+            <b-row class="py-3 px-5 activity-values" align-v="center" align-h="center">
+                <ls-card-display class="display-values">
                     <b-row>
                         <b-col
                             v-for="item in newArrayValues"
@@ -91,7 +91,7 @@ export default {
 
 <style lang="scss">
     .activity-keys{
-        padding-left: 0.9rem;
+        padding-right: 1.0rem;
 
         .item{
             .drop-and-name{
@@ -130,4 +130,11 @@ export default {
             }
         }
     }
+    .activity-values{
+        width: 100%;
+        .display-values{
+            width: 100%;
+        }
+    }
+    
 </style>
