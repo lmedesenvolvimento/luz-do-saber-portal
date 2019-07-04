@@ -3,7 +3,7 @@
         <b-row class="column" align-v="center" align-h="center">
             <b-col class="activity-keys">
                 <b-row>
-                    <b-col 
+                    <b-col
                         v-for="item in activity.items.values"
                         :key="item.id"
                         :sm="valueColSize"
@@ -13,17 +13,17 @@
                             :item="item"
                             :type="'value'"
                             :template="activity.item_template.value"
-                        >                        
+                        >
                         </Item>
                     </b-col>
                 </b-row>
             </b-col>
             <b-col class="activity-values">
                 <b-row>
-                    <ls-card-display>
+                    <ls-card-display class="card--display-container">
                         <b-row align-v="center" align-h="center">
-                            <b-col 
-                                v-for="key in activity.items.keys" 
+                            <b-col
+                                v-for="key in activity.items.keys"
                                 :key="key.id"
                                 :sm="valueColSize"
                                 class="item"
@@ -32,11 +32,11 @@
                                     :item="key"
                                     :type="'key'"
                                     :template="activity.item_template.key"
-                                >                        
+                                >
                                 </Item>
                             </b-col>
                         </b-row>
-                    </ls-card-display>                   
+                    </ls-card-display>
                 </b-row>
             </b-col>
         </b-row>
@@ -50,7 +50,7 @@ import { sortBy, shuffle } from 'lodash'
 import { MapMixins, ListMixin, CreateAnswersMixins } from '@ui/activities/mixins'
 
 export default {
-    components: { 
+    components: {
         ...ui,
         ...alerts
     },
@@ -61,8 +61,8 @@ export default {
     mounted() {
         this.createAnswersArray()
     },
-    methods: {        
+    methods: {
         ...mapActions('Activity', ['setActivityAttrs'])
-    },    
+    },
 }
 </script>
