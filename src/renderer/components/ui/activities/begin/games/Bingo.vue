@@ -45,6 +45,7 @@
                                             <label>
                                                 <b-card 
                                                     no-body
+                                                    style="width: 50px"
                                                     :class="{ 'invalid': item.invalid, 'valid': item.valid }"
                                                 >
                                                     <b-card-body>
@@ -88,7 +89,7 @@
                                 <div class="letra">
                                     <ls-card-display 
                                         size="small"                                     
-                                        style="margin-left: 10px"
+                                        style="width: 50px"
                                         :valid="searchString(raffleLetters, normalizeString(item.text))"
                                     >
                                         {{ item.text }}
