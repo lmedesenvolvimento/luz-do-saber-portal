@@ -24,78 +24,60 @@
                    max-height: $item-text-max-heigth;
                }
            }
-           [class*="card--"], .draggshadow {
-               &:not(.card-sm){
-                   min-width: 74px;
-               }
-               &.card-sm .card{
-                   height: 56px;
-               }
-           }
-           .card-input-text {
-               max-width: 74px !important;
-               .card-body{
-                   padding: 1rem 1.25rem !important;
-               }
-           }
+        //    .card--input-text {
+        //        max-width: 74px !important;
+        //        .card-body{
+        //            padding: 1rem 1.25rem !important;
+        //        }
+        //    }
        }
     }
 
-    [class*="card--"], .draggshadow {
-        &.card-sm {
-            @include custom-card-sm;
-        }
-    }
+    // [class*="card--"], .draggshadow {
+    //     &.card-sm {
+    //         @include custom-card-sm;
+    //     }
+    // }
 
-    @each $type in $item-types {
-        @if $type != 'substantivo_comum' or $type != 'substantivo_proprio' {
-            .#{$type} {
-                .card {
-                    &.valid, &.invalid{
-                        &::after{
-                            top: -24px !important;
-                            bottom: auto !important;
-                            left: 0 !important;
-                            right: 0 !important;
-                        }
+    // .draggshadow {
+    //     max-width: map-get($map: $item-types-width, $key: 'letra') !important;
+    //     &.card-sm{
+    //         max-width: map-get($map: $item-types-sm-width, $key: 'letra') !important;
+    //     }
+    // }
+
+    @each $type in $item-letter-types {
+        .#{$type} {
+            .card {
+                &.valid, &.invalid{
+                    &::after{
+                        top: -24px !important;
+                        bottom: auto !important;
+                        left: 0 !important;
+                        right: 0 !important;
                     }
                 }
             }
         }
     }
 
-    @each $type, $value in $item-types-width {
+    @each $type, $value in map-get($map: $item-types-width, $key: 'default') {
         .#{$type}{
-            &.texto{
-                .card--droppable,
-                .card--draggable,
-                .card--radio-input,
-                .card--display {
-                    width: $value;
-                }
-            }
+            @include item($value);
         }
     }
-    @each $type, $value in $item-types-sm-width {
-        .#{$type}{
-            &.texto{
-                .card--droppable,
-                .card--draggable,
-                .card--radio-input,
-                .card--display {
-                    &.card-sm {
-                        width: $value;
-                    }
-                }
-            }
+
+    @each $type, $value in map-get($map: $item-types-width, $key: 'small') {
+        .#{$type}.small {
+            @include item($value);
         }
     }
 
     &.col-sm-1, &.col-md-1, .col-1{
         display: inline-flex;
-        flex: 1;
         max-width: none;
-        min-width: $item-min-width;
         justify-content: center;
+        // flex: 1;
+        // min-width: $item-min-width;
     }
 }

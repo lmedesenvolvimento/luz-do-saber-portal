@@ -11,9 +11,9 @@
                     sm="12"
                 >
                     <b-row class="m-1 drop-and-name">
-                        <b-col class="drop">
+                        <b-col class="drop item" md="1">
                             <ls-card-droppable
-                                class="letra"
+                                class="letra texto"
                                 :item="item"
                                 :type="'key'"
                                 :template="activity.item_template.key"
@@ -24,7 +24,7 @@
                             </ls-card-droppable>
                         </b-col>
                         <b-col class="name-container">
-                            <ls-card-display class="name"> 
+                            <ls-card-display class="name">
                                 {{ dropFirstLetter(item.text) }}
                             </ls-card-display>
                         </b-col>
@@ -34,7 +34,7 @@
             <b-row class="pb-4 activity-values" align-v="center" align-h="center">
                 <ls-card-display>
                     <b-row>
-                        <b-col 
+                        <b-col
                             v-for="item in newArrayValues"
                             :key="item.id"
                             class="item"
@@ -48,7 +48,7 @@
                                 :template="activity.item_template.value"
                             />
                         </b-col>
-                    </b-row>                    
+                    </b-row>
                 </ls-card-display>
             </b-row>
         </b-row>
@@ -68,7 +68,7 @@ import { mapState, mapActions } from 'vuex'
 import { shuffle } from 'lodash'
 
 export default {
-    components: { 
+    components: {
         Item,
         ...ui,
     },
@@ -119,9 +119,10 @@ export default {
                     }
                 }
                 .drop{
+                    // max-width: 80px;
+                    // padding-left: 3rem;
+                    margin-right: -1.5rem;
                     z-index: 1;
-                    max-width: 80px;
-                    padding-left: 3rem;
                     .card-body{
                         font-size: 24px;
                     }
