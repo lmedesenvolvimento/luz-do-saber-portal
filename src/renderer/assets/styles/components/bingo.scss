@@ -29,14 +29,22 @@
     margin: 3px 0 3px 30px;
 }
 .bingo-card-player .card-body{
-    background-color: #ffb141;       
+    background-color: #ffb141;  
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    [class*="col-"] {
+        padding-left: 0.15rem !important;
+        padding-right: 0.15rem !important;
+    }
+}  
+.bingo-card-letter {
+    .card--display, .card--radio-input{
+        max-width: 50px;
+    }
+    .card-body{
+        background-color: white;
+    }    
 }
-.bingo-card-letter{        
-   // margin: -5px 5px -5px 5px;
-}   
-.bingo-card-letter .card-body{
-    background-color: white;
-}    
 .bingo-letter{
     display: inline-grid;
     text-align: center;
