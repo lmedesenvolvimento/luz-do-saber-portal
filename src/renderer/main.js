@@ -11,6 +11,7 @@ import router from './router'
 import store from './store'
 import './directives'
 import './plugins/v-viewer';
+import './plugins/plyr';
 
 // merge router with store
 sync(store, router)
