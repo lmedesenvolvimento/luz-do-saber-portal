@@ -40,6 +40,7 @@ $icon-names: (
     'icon-lista',
     'icon-redo',
     'counter',
+    'icon-prev-screen',
 );
 
 $icon-themes: (
@@ -49,7 +50,9 @@ $icon-themes: (
 );
 
 // Grid
-$gutter-size: 20px;
+// $gutter-size: 1rem;
+$gutter-size: 1rem;
+$gutter-sm-size: 0.75rem;
 
 // Cards
 $card-input-dark-border-color: #2B1F17;
@@ -66,16 +69,16 @@ $font-size-variants: (
     small: 12px,
     normal: 18px,
     big: 24px
-    );
+);
 
-    $font-displays: (
-        d1: 1rem,
-        d2: 2rem,
-        d3: 3rem,
-        d4: 4rem,
-        d5: 5rem,
-        d6: 6rem
-        );
+$font-displays: (
+    d1: 1rem,
+    d2: 2rem,
+    d3: 3rem,
+    d4: 4rem,
+    d5: 5rem,
+    d6: 6rem
+);
 
 
 // Gameplay
@@ -87,26 +90,53 @@ $gameplay-height: calc(70vh - #{ $navbar-height - 24px });
 $gameplay-max-height: 640px;
 
 // Item
-$item-min-width: 100px;
+$item-min-width: 74px;
 $item-text-max-heigth: 85px;
 
 $item-types: (
     'letra',
+    'numero',
+    'caractere_especial',
     'silaba',
     'substantivo_comum',
     'substantivo_proprio'
 );
 
+$item-letter-types: (
+    'letra',
+    'numero',
+    'caractere_especial',
+);
+
+
 $item-types-width: (
-    letra: 74px,
-    silaba: 85px,
-    substantivo_comum: 210px,
-    substantivo_proprio: 210px
+    default: (
+        letra: 74px,
+        numero: 74px,
+        caractere_especial: 74px,
+        silaba: 85px,
+        substantivo_comum: 210px,
+        substantivo_proprio: 210px
+    ),
+    small: (
+        letra: 58px,
+        numero: 58px,
+        caractere_especial: 58px,
+        silaba: 74px,
+        substantivo_comum: 210px,
+        substantivo_proprio: 210px
+    )
 );
 
 $item-types-sm-width: (
     letra: 58px,
+    numero: 58px,
+    caractere_especial: 58px,
     silaba: 74px,
     substantivo_comum: 210px,
     substantivo_proprio: 210px
 );
+
+$item-sizes: (
+    sm: 'small'
+)
