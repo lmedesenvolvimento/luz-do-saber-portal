@@ -122,7 +122,7 @@ export default {
 }
 </script>
 <style lang="scss">
-    .card-input-text{
+    .card--input-text{
         label{
             display: block;
             &:hover{
