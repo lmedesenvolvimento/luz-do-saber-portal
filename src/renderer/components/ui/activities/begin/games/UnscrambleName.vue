@@ -1,42 +1,42 @@
 <template>
     <div class="container-fluid">
-        <b-row class="column" align-v="center" align-h="center">
+        <b-row class="reverse-column" align-v="center" align-h="center">
+            <b-col class="activity-values">
+                <ls-card-display class="card--display-container">
+                    <b-row align-v="center" align-h="center">
+                        <b-col
+                            v-for="item in activity.items.values"
+                            :key="item.id"
+                            :sm="valueColSize"
+                            class="item"
+                        >
+                            <Item
+                                :item="item"
+                                :type="'value'"
+                                :template="activity.item_template.value"
+                            >
+                            </Item>
+                        </b-col>
+                    </b-row>
+                </ls-card-display>
+            </b-col>
             <b-col class="activity-keys">
                 <b-row>
-                    <b-col
-                        v-for="item in activity.items.values"
-                        :key="item.id"
-                        :sm="valueColSize"
-                        class="item"
-                    >
-                        <Item
-                            :item="item"
-                            :type="'value'"
-                            :template="activity.item_template.value"
+                    <b-row align-v="center" align-h="center">
+                        <b-col
+                            v-for="key in activity.items.keys"
+                            :key="key.id"
+                            :sm="valueColSize"
+                            class="item"
                         >
-                        </Item>
-                    </b-col>
-                </b-row>
-            </b-col>
-            <b-col class="activity-values">
-                <b-row>
-                    <ls-card-display class="card--display-container">
-                        <b-row align-v="center" align-h="center">
-                            <b-col
-                                v-for="key in activity.items.keys"
-                                :key="key.id"
-                                :sm="valueColSize"
-                                class="item"
+                            <Item
+                                :item="key"
+                                :type="'key'"
+                                :template="activity.item_template.key"
                             >
-                                <Item
-                                    :item="key"
-                                    :type="'key'"
-                                    :template="activity.item_template.key"
-                                >
-                                </Item>
-                            </b-col>
-                        </b-row>
-                    </ls-card-display>
+                            </Item>
+                        </b-col>
+                    </b-row>
                 </b-row>
             </b-col>
         </b-row>
