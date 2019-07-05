@@ -6,12 +6,12 @@
                     <b-container class="fill d-flex column" fluid>
                         <b-row class="domino-top">
                             <b-col v-for="item in getTopKeys" :key="item.id" cols="4" class="item">
-                                <drop 
-                                    class="droppable substantivo_proprio" 
+                                <drop
+                                    class="droppable substantivo_proprio texto small"
                                     @drop="onDrop(item, ...arguments)"
                                 >
-                                    <ls-card-display 
-                                        class="fill card-sm" 
+                                    <ls-card-display
+                                        class="fill"
                                         :class="{'empty': !item.valid}"
                                         :bg-color="item.color"
                                     >
@@ -22,18 +22,17 @@
                         </b-row>
                         <b-row class="domino-middle">
                             <b-col class="item item-vertical">
-                                <drop 
-                                    class="droppable" 
+                                <drop
+                                    class="droppable texto small"
                                     @drop="onDrop(getLeftKey, ...arguments)"
                                 >
-                                    <ls-card-display 
-                                        class="card-sm" 
+                                    <ls-card-display
                                         :class="{'empty': !getLeftKey.valid }"
                                         :bg-color="getLeftKey.color"
                                     >
                                         <div class="writing-vertical">
                                             {{ getLeftKey.text }} | {{ getLeftKey.$next_letter }}
-                                        </div>                                
+                                        </div>
                                     </ls-card-display>
                                 </drop>
                             </b-col>
@@ -41,30 +40,29 @@
                                 <b-card class="fill domino-divider"></b-card>
                             </b-col>
                             <b-col class="item item-vertical d-flex justify-content-end">
-                                <drop 
-                                    class="droppable" 
+                                <drop
+                                    class="droppable texto small"
                                     @drop="onDrop(getRightKey, ...arguments)"
                                 >
-                                    <ls-card-display 
-                                        class="card-sm" 
+                                    <ls-card-display
                                         :class="{'empty': !getRightKey.valid}"
                                         :bg-color="getRightKey.color"
                                     >
                                         <div class="writing-vertical">
                                             {{ getRightKey.$next_letter }} | {{ getRightKey.text }}
-                                        </div>                                
+                                        </div>
                                     </ls-card-display>
                                 </drop>
                             </b-col>
                         </b-row>
                         <b-row class="domino-bottom">
                             <b-col v-for="item in getBottomKeys" :key="item.id" cols="4" class="item">
-                                <drop 
-                                    class="droppable" 
+                                <drop
+                                    class="droppable texto small"
                                     @drop="onDrop(item, ...arguments)"
                                 >
-                                    <ls-card-display 
-                                        class="fill card-sm" 
+                                    <ls-card-display
+                                        class="fill card-sm"
                                         :class="{'empty': !item.valid}"
                                         :bg-color="item.color"
                                     >
@@ -81,16 +79,16 @@
                     <b-col class="items" align-self="center">
                         <b-row>
                             <b-col v-for="item in getValuesItems" :key="item.id" :md="valueColSize" class="item">
-                                <drag 
-                                    class="draggable"
+                                <drag
+                                    class="draggable texto small"
                                     :class="{'dropped':item.dropped, 'dragging': item.dragging}"
                                     :transfer-data="item"
-                                    :draggable="!item.dropped"                                     
+                                    :draggable="!item.dropped"
                                     @dragstart="onDrag"
                                     @dragend="onDragLeave"
                                 >
-                                    <ls-card-display 
-                                        class="fill card-sm" 
+                                    <ls-card-display
+                                        class="fill"
                                         :bg-color="item.color"
                                     >
                                         <div v-if="valueIsTop(item)">
@@ -101,22 +99,22 @@
                                         </div>
                                     </ls-card-display>
                                 </drag>
-                            </b-col>                            
+                            </b-col>
                         </b-row>
                     </b-col>
                     <div class="vertical-items">
                         <b-row class="column flex">
-                            <b-col class="item item-vertical"> 
-                                <drag 
-                                    class="draggable"
+                            <b-col class="item item-vertical">
+                                <drag
+                                    class="draggable texto small"
                                     :class="{'dropped':getLeftValue.dropped, 'dragging': getLeftValue.dragging}"
-                                    :transfer-data="getLeftValue" 
+                                    :transfer-data="getLeftValue"
                                     :draggable="!getLeftValue.dropped"
                                     @dragstart="onDrag"
-                                    @dragend="onDragLeave"                                     
+                                    @dragend="onDragLeave"
                                 >
-                                    <ls-card-display 
-                                        class="fill card-sm" 
+                                    <ls-card-display
+                                        class="fill"
                                         :bg-color="getLeftValue.color"
                                     >
                                         <div class="writing-vertical">
@@ -124,18 +122,18 @@
                                         </div>
                                     </ls-card-display>
                                 </drag>
-                            </b-col>                    
-                            <b-col class="item item-vertical"> 
-                                <drag 
-                                    class="draggable"
+                            </b-col>
+                            <b-col class="item item-vertical">
+                                <drag
+                                    class="draggable texto small"
                                     :class="{'dropped':getRightValue.dropped, 'dragging': getRightValue.dragging}"
-                                    :transfer-data="getRightValue" 
+                                    :transfer-data="getRightValue"
                                     :draggable="!getRightValue.dropped"
                                     @dragstart="onDrag"
                                     @dragend="onDragLeave"
                                 >
-                                    <ls-card-display 
-                                        class="fill card-sm" 
+                                    <ls-card-display
+                                        class="fill"
                                         :bg-color="getRightValue.color"
                                     >
                                         <div class="writing-vertical">
@@ -143,7 +141,7 @@
                                         </div>
                                     </ls-card-display>
                                 </drag>
-                            </b-col>                    
+                            </b-col>
                         </b-row>
                     </div>
                 </b-row>
@@ -208,14 +206,14 @@ export default {
 
         const randomKey = this.keys[randomIndex]
         const randomValues = this.values[randomIndex]
-        
+
         randomKey.valid = true
         randomValues.dropped = true
 
         this.createAnswersArray()
 
-        this.setAnswer({ 
-            type: 'value', 
+        this.setAnswer({
+            type: 'value',
             data: randomValues.id,
             vm: {}
         })
@@ -236,8 +234,8 @@ export default {
         },
         onDrop(item, transferData, nativeElement){
             if (item.value_ids.includes(transferData.id)) {
-                this.setAnswer({ 
-                    type: 'value', 
+                this.setAnswer({
+                    type: 'value',
                     data: transferData.id,
                     vm: {}
                 })
@@ -246,8 +244,8 @@ export default {
                 Vue.set(transferData,'dropped', true)
                 Vue.set(transferData,'dragging', false)
             } else {
-                this.setAnswer({ 
-                    type: 'value', 
+                this.setAnswer({
+                    type: 'value',
                     data: -1,
                     vm: this
                 })
@@ -264,7 +262,7 @@ export default {
                 }
                 else if (index === 4){
                     item.$next_letter = first(array).first_letter
-                } 
+                }
                 else {
                     item.$next_letter = array[index + 1].first_letter
                 }
