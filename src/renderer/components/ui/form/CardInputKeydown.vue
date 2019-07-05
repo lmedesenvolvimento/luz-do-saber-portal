@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="isNotWord" class="card-input card-input-text" :class="$attrs.class">
+        <div v-if="isNotWord" class="card-input card--input-text" :class="$attrs.class">
             <label>
                 <b-card
                     no-body
@@ -24,7 +24,7 @@
                 </b-card>
             </label>
         </div>
-        <div v-else class="card-input card-input-text">
+        <div v-else class="card-input card--input-text">
             <label>
                 <b-card
                     no-body
