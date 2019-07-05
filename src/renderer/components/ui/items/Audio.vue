@@ -6,6 +6,13 @@
             :item="item"
             :template="template"
         ></ls-card-audio-listen>
+        <ls-card-audio-image-listen
+            v-else-if="template.slug === Types.slugs.audioImage"
+            :type="type"
+            :item="item"
+            :template="template"
+        >
+        </ls-card-audio-image-listen>
     </div>
 </template>
 <script>
