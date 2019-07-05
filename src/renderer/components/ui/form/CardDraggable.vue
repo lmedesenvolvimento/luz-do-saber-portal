@@ -65,10 +65,14 @@ export default {
     },
     mounted(){
         this.elementWidth = this.getElementWidth()
+        this.elementHeight = this.getElementHeight()
     },
     methods: {
         getElementWidth(){
-            return this.$el.offsetWidth + 'px'
+            return this.$el.offsetWidth
+        },
+        getElementHeight(){
+            return this.$el.offsetHeight
         },
         onDrag(transferData, nativeElement){
             this.dragging = true
