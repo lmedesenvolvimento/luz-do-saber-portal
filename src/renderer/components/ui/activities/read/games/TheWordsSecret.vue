@@ -15,7 +15,7 @@
                                 </ls-card-display>
                             </b-col>
                         </b-row>
-                        <div class="card-input card-input-text ">
+                        <div class="card-input card--input-text ">
                             <label>
                                 <b-card 
                                     no-body
