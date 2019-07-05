@@ -2,7 +2,7 @@
     <div id="frontpage" class="page-container comecar">
         <main>
             <b-container fluid>
-                <b-row align-v="center" align-h="center" class="flex-2 content">          
+                <b-row align-v="center" align-h="center" class="flex-2 content">
                     <b-container>
                         <b-row class="m-5" align-v="center" align-h="center">
                             <img class="front-page-logo" src="@/assets/images/logo.png" alt="Logo Luz do Saber">
@@ -16,15 +16,15 @@
                                             <h5>Digite seu nome abaixo para continuar.</h5>
                                         </b-card-body>
                                         <b-card-body>
-                                            <div class="card-input card-input-text mt-2">
+                                            <div class="card-input card--input-text mt-2">
                                                 <label>
-                                                    <b-card 
+                                                    <b-card
                                                         no-body
                                                     >
                                                         <b-card-body>
                                                             <input
                                                                 id="input-name"
-                                                                v-model="user.name"
+                                                                v-model.trim="user.name"
                                                                 v-focus="true"
                                                                 type="text"
                                                                 maxlength="11"
@@ -35,7 +35,7 @@
                                                     </b-card>
                                                 </label>
                                             </div>
-                                        </b-card-body>               
+                                        </b-card-body>
                                         <b-card-body>
                                             <h6>Máximo de 11 letras.</h6>
                                         </b-card-body>
@@ -43,16 +43,16 @@
                                             <b-button type="submit" variant="link" class="mt-3">
                                                 <div class="icon-next"></div>
                                             </b-button>
-                                        </b-card-body>             
+                                        </b-card-body>
                                     </b-card>
                                 </b-form>
                             </div>
                             <div v-else-if="isAuthorized && !isVisibleLerSubModule" key="frontpage-modules">
                                 <b-row align-v="center" align-h="center">
                                     <b-col v-for="m in modules" :key="m.id">
-                                        <a 
+                                        <a
                                             v-if="m.slug === 'ler'"
-                                            class="clean-links" 
+                                            class="clean-links"
                                             @click="toggleVisibleLerSubModule"
                                         >
                                             <vue-circle
@@ -63,10 +63,10 @@
                                                 :color="getModuleColor(m)"
                                             />
                                         </a>
-                                        <router-link 
+                                        <router-link
                                             v-else
-                                            class="clean-links" 
-                                            :to="{ name: 'module', params: { module_slug: m.slug, target_audience: 'geral' } }" 
+                                            class="clean-links"
+                                            :to="{ name: 'module', params: { module_slug: m.slug, target_audience: 'geral' } }"
                                             replace
                                         >
                                             <vue-circle
@@ -78,14 +78,14 @@
                                             />
                                         </router-link>
                                     </b-col>
-                                </b-row>                        
+                                </b-row>
                             </div>
                             <div v-else-if="isAuthorized && isVisibleLerSubModule" key="frontpage-ler">
                                 <b-row align-v="center" align-h="center">
                                     <div>
-                                        <router-link 
-                                            class="clean-links" 
-                                            :to="{ name: 'module', params: { module_slug: 'ler', target_audience: 'primeiro-ano' } }" 
+                                        <router-link
+                                            class="clean-links"
+                                            :to="{ name: 'module', params: { module_slug: 'ler', target_audience: 'primeiro-ano' } }"
                                             replace
                                         >
                                             <vue-circle
@@ -96,11 +96,11 @@
                                                 :color="{ color: '#00963F' }"
                                             />
                                         </router-link>
-                                    </div>                                    
+                                    </div>
                                     <div>
-                                        <router-link 
-                                            class="clean-links" 
-                                            :to="{ name: 'module', params: { module_slug: 'ler', target_audience: 'segundo-ano' } }" 
+                                        <router-link
+                                            class="clean-links"
+                                            :to="{ name: 'module', params: { module_slug: 'ler', target_audience: 'segundo-ano' } }"
                                             replace
                                         >
                                             <vue-circle
@@ -111,7 +111,7 @@
                                                 :color="{ color: '#00963F' }"
                                             />
                                         </router-link>
-                                    </div>                                    
+                                    </div>
                                     <b-col cols="12" class="my-1">
                                         <a class="d-block btn" @click="toggleVisibleLerSubModule">
                                             <b-img center :src="require('@/assets/images/btn-close.png')" width="51" height="51" />
@@ -140,7 +140,7 @@ export default {
             user: { name: '' }
         }
     },
-    computed: {                
+    computed: {
         isAuthorized(){
             return this.currentUser ? true : false
         },
@@ -148,7 +148,7 @@ export default {
         ...mapState('User', ['currentUser'])
     },
     created(){
-        this.fetchModules()        
+        this.fetchModules()
     },
     methods: {
         submitLogin(){

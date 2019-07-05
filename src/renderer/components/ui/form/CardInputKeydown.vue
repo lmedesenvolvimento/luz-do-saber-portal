@@ -1,5 +1,5 @@
 <template>
-    <div class="card-input card-input-text" :class="$attrs.class">
+    <div class="card-input card--input-text" :class="$attrs.class">
         <label>
             <b-card
                 no-body
@@ -9,8 +9,8 @@
                     <input
                         v-model="model"
                         v-focus="focus"
-                        :name="$attrs.name"
-                        :maxlength="1"
+                        :name="$attrs.name" 
+                        :maxlength="maxLength"
                         :disabled="valid"
                         :required="true"
                         type="text"
@@ -32,7 +32,11 @@ import { trim, dropRight } from 'lodash'
 export default {
     mixins: [RadioInput],
     props:{
-        maxLength: Number,
+        maxLength: {
+            type: Number,
+            default: 1,
+            required: false
+        },
         value: {
             type: Object,
             default: null,
@@ -46,7 +50,6 @@ export default {
     watch: {
         model(value){
             if ((this.valid || this.invalid) || this.model.length === 0) return
-
             if (this.model.toLowerCase() === this.value.text.toLowerCase()) {
                 this.setAnswer({
                     type: this.type,
@@ -84,7 +87,7 @@ export default {
 }
 </script>
 <style lang="scss">
-    .card-input-text{
+    .card--input-text{
         label{
             display: block;
             &:hover{

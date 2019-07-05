@@ -42,6 +42,7 @@ export const GameSubtypes = {
     secretWord: 'palavra-secreta',
     letterGroup: 'nao-pertence',
     matchFriendsInitial: 'encaixe-letras',
+    theWordsSecret: 'segredo-das-palavras',
     writeTheWord: 'escreva-o-nome',
 }
 
@@ -64,7 +65,10 @@ export const ItemTypes = {
     },
     tags: {
         input: 'input',
-    }
+    },
+    slugs: {
+        audioImage: 'componente-de-imagem-audio'
+    },
 }
 
 
