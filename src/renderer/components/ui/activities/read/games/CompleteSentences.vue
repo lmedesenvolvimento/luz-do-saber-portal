@@ -14,6 +14,7 @@
                             :item="item"
                             :type="'value'"
                             :template="activity.item_template.value"
+                            class="validate-icon-top"
                         />
                         <div v-else>{{ item }}</div>
                     </div>
