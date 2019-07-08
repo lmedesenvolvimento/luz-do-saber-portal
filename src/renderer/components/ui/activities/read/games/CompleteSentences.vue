@@ -16,7 +16,7 @@
                             :template="activity.item_template.value"
                             class="validate-icon-top"
                         />
-                        <div v-else>{{ item }}</div>
+                        <div v-else class="texto-puro">{{ item }}</div>
                     </div>
                 </b-row>
             </b-col>
@@ -112,6 +112,10 @@ export default {
     #completeSentences{
         .item{
             margin: 5px;
+        }
+
+        .texto-puro{
+            font-size: 1.3rem;
         }
     }
 </style>
