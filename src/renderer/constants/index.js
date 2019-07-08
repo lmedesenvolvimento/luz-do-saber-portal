@@ -66,7 +66,8 @@ export const ItemTypes = {
         input: 'input',
     },
     slugs: {
-        audioImage: 'componente-de-imagem-audio'
+        audioImage: 'componente-de-imagem-audio',
+        textImage: 'componente-de-imagem-texto'
     },
 }
 
