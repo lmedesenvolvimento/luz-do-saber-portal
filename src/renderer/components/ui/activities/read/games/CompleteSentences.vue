@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid">
+    <div id="completeSentences" class="container-fluid">
         <b-row class="reverse-column" align-v="center" align-h="center">
             <b-col class="activity-values">
                 <b-row align-v="center" align-h="center">
@@ -63,8 +63,6 @@ export default {
     created(){
         let r, aux = []
 
-        this.addColorsToType('substantivo_comum')
-
         for (let item of this.activity.items.values) this.dividers.push(item.text)
 
         r = this.arrayToRegex(this.dividers)
@@ -111,7 +109,9 @@ export default {
 </script>
 
 <style lang="scss">
-    .item{
-        margin: 5px;
+    #completeSentences{
+        .item{
+            margin: 5px;
+        }
     }
 </style>
