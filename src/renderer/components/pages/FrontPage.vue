@@ -8,6 +8,31 @@
                             <img class="front-page-logo" src="@/assets/images/logo.png" alt="Logo Luz do Saber">
                         </b-row>
 
+                        <!-- 
+                            * RODRIGO *
+                         -->
+                        <transition name="fade" mode="out-in">
+                            <div class="d-flex justify-content-center">
+                                <b-card no-body class="mx-5 front-page-login card shadow">
+                                    <b-card-body>
+                                        <div class="card--display">
+                                            <img src="@/assets/images/icons/btn-play.png" alt="Botão jogar">
+                                            <b-card
+                                                no-body
+                                            >
+                                                <b-card-body>
+                                                    <span>tes jogar</span>
+                                                </b-card-body>
+                                            </b-card>
+                                        </div>
+                                    </b-card-body>
+                                </b-card>
+                            </div>
+                        </transition>
+                        <!-- 
+                            * RODRIGO *
+                         -->
+
                         <transition name="fade" mode="out-in">
                             <div v-if="!isAuthorized" key="login">
                                 <b-form class="d-flex justify-content-center" @submit.prevent="submitLogin">
