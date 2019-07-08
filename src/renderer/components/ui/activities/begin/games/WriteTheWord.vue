@@ -10,13 +10,13 @@
                             :type="'key'"
                             :template="activity.item_template.key"
                         /> -->
-                        <ls-card-audio-listen
+                        <ls-card-audio-listen-with-player
                             :item="item"
                             :template="activity.item_template.key"
                         >
                             <img src="https://picsum.photos/300/200" alt="">
                             <!-- {{ item.letters[0].text }} -->
-                        </ls-card-audio-listen>
+                        </ls-card-audio-listen-with-player>
                     </b-col>
 
                     <b-col
@@ -33,13 +33,14 @@
                                 >
                                     <b-card-body>
                                         <input
+                                            id="text-input"
                                             v-model="answer.text"
-                                            v-focus="true"
                                             type="text"
                                             :maxlength="totalLetters"
                                             autocomplete="off"
                                             required
-                                            @keyup.enter="checkAnswer(...arguments, getValues)"
+                                            @keyup.enter="checkAnswer()"
+                                            @blur="checkAnswer()"
                                         />
                                     </b-card-body>
                                 </b-card>
@@ -65,6 +66,9 @@
 import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from '@ui/activities/mixins'
 import ItemComponents from '@ui/form/index.js'
 
+import { mapState, mapActions } from 'vuex'
+import { clearInterval, setTimeout, clearTimeout } from 'timers';
+
 export default {
     components: {
         ...ItemComponents,
@@ -72,37 +76,72 @@ export default {
     mixins: [ListMixin, MapMixins, CreateAnswersMixins],
     data() {
         return {
-            answer: {text: ''},
+            answer: {
+                text: '',
+            },
             wrongWords: [],
             totalLetters: 0,
         }
     },
+    computed: {
+        ...mapState('Activity', ['answers']),
+    },
+    watch: {
+        wrongWords() {
+            console.log('Palavra errada');
+        },
+    },
     mounted() {
-        this.totalLetters = this.activity.items.values[0].total_letters;
+        this.totalLetters = this.activity.items.values[0].total_letters; // Campo input tem o tamanho da palavra correta
+        this.createAnswersArray();
+        
     },
     destroyed() {
-        this.wrongWords.length = 0;
+        this.wrongWords.length = 0; // Zera o array de palavras erradas
     },
     methods: {
-        checkAnswer(event, values) {
-            event.preventDefault();
+        waitForInput() {
+            //* ESTE MÉTODO NÃO ESTÁ SENDO UTILIZADO NO MOMENTO
+            //* NÃO APAGAR, AINDA PODE SER UTILIZADO
 
-            let answer = this.answer.text.toLowerCase();
+            // var vm = this;
+            // var textInput = document.getElementById('text-input');
 
-            if (answer === values[0].text.toLowerCase()) {
-                console.log('Reposta: ' + values[0].text);
-            } else if (!this.wrongWords.includes(answer)) {
-                this.wrongWords.push(answer);
+            // var timeout = null;
+
+            // // Escutando por digitação no input
+            // textInput.onkeyup = function (e) {
+
+            //     // limpa o timeout se existir um, evitando vários timeouts rodando
+            //     clearTimeout(timeout);
+
+            //     // chama o método checkAnswer depois 5 mil milissegundos (5 segundos) sem resposta do usuário
+            //     timeout = setTimeout(vm.checkAnswer, 5000);
+            // };
+        },
+        checkAnswer() {
+            if (this.answer.text != '' && this.answer.text != null) {
+                if (this.answer.text === this.getValues[0].text.toLowerCase()) {
+                    console.log('Reposta: ' + this.getValues[0].text.toLowerCase());
+                    this.setAnswer({
+                        type: 'value',
+                        data: this.getValues[0].id,
+                        vm: this.answer
+                    });
+                } else if (!this.wrongWords.includes(this.answer.text)) {
+                    this.wrongWords.push(this.answer.text);
+                    this.setAnswer({
+                        type: 'value',
+                        data: -1,
+                        vm: this.answer
+                    });
+                }
             }
 
             this.answer.text = '';
-
-            // this.setAnswer({
-            //     data: value.id,
-            //     type: 'value',
-            //     vm: this.answer
-            // })
-        }
+            
+        },
+        ...mapActions('Activity', ['setActivityAttrs', 'setAnswer'])
     },
 }
 </script>
