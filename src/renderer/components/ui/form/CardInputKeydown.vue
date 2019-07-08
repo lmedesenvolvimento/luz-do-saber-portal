@@ -24,6 +24,7 @@
         </label>
     </div>
 </template>
+
 <script>
 import RadioInput from './RadioInput.vue'
 import { setTimeout } from 'timers'
@@ -59,45 +60,7 @@ export default {
         model(value){
             if ((this.valid || this.invalid) || this.model.length === 0) return
 
-            if (this.isNotWord){
-                if (this.model.toLowerCase() === this.value.text.toLowerCase()) {
-                    this.setAnswer({
-                        type: this.type,
-                        data: this.value.id,
-                        vm: this
-                    })
-
-                    let nextElementEmpty = this.$el.closest('.activity, .game').querySelector('input:invalid')
-
-                    if (nextElementEmpty) {
-                        nextElementEmpty.focus()
-                    }
-                } else {
-                    this.setAnswer({
-                        type: this.type,
-                        data: -1,
-                        vm: this
-                    })
-                }
-            }
-            else{
-                if (value.length <= this.value.text.length){
-                    if (value.toLowerCase() === this.value.text.toLowerCase()){
-                        this.setAnswer({
-                            type: this.type,
-                            data: this.value.id,
-                            vm: this
-                        })
-                    }
-                }
-                else {
-                    this.setAnswer({
-                        type: this.type,
-                        data: -1,
-                        vm: this
-                    })
-                }
-            }            
+            this.isNotWord ? this.whenNotWord(value) : this.whenWord(value)  
         }
     },
     mounted(){
@@ -110,11 +73,51 @@ export default {
     methods: {
         onKeyDown(event){
             if (this.isNotWord && this.model && (event.key.length <= 1)) this.model = event.key
+        },
+        whenNotWord(value){
+            if (this.model.toLowerCase() === this.value.text.toLowerCase()) {
+                this.setAnswer({
+                    type: this.type,
+                    data: this.value.id,
+                    vm: this
+                })
+
+                let nextElementEmpty = this.$el.closest('.activity, .game').querySelector('input:invalid')
+
+                if (nextElementEmpty) {
+                    nextElementEmpty.focus()
+                }
+            } else {
+                this.setAnswer({
+                    type: this.type,
+                    data: -1,
+                    vm: this
+                })
+            }
+        },
+        whenWord(value){
+            if (value.length <= this.value.text.length){
+                if (value.toLowerCase() === this.value.text.toLowerCase()){
+                    this.setAnswer({
+                        type: this.type,
+                        data: this.value.id,
+                        vm: this
+                    })
+                }
+            }
+            else {
+                this.setAnswer({
+                    type: this.type,
+                    data: -1,
+                    vm: this
+                })
+            }
         }
     },
 
 }
 </script>
+
 <style lang="scss">
     .card--input-text{
         label{
