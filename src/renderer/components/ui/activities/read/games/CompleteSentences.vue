@@ -63,8 +63,6 @@ export default {
     created(){
         let r, aux = []
 
-        this.createAnswersArray()
-
         this.addColorsToType('substantivo_comum')
 
         for (let item of this.activity.items.values) this.dividers.push(item.text)
@@ -98,16 +96,6 @@ export default {
         splitSentence(sentence, divisor){
             return sentence.split(divisor)
         },
-        setAnswersArray(a){
-            let answers = []
-
-            a.forEach(a => {
-                let key = createAnswer(a, a.value_ids[0])
-                answers.push(key)
-            })
-
-            this.setAnswers(answers)
-        },
         setAnswersValueArray(a){
             let answers = []
 
@@ -116,14 +104,14 @@ export default {
                 answers.push(key)
             })
 
-            console.log(answers)
-
             this.setAnswers(answers)
         },
     },
 }
 </script>
 
-<style>
-
+<style lang="scss">
+    .item{
+        margin: 5px;
+    }
 </style>
