@@ -17,18 +17,6 @@
     }
 }
 
-.small {
-    [class*='card--']{
-        @include custom-card-sm(true);
-    }
-    .card--display{
-        @include custom-card-sm;
-    }
-    .card-input {
-        @include custom-card-sm(true);
-    }
-}
-
 .card-input{
     background-color: transparent !important;
     &.card--input-text{
@@ -88,19 +76,16 @@
     }
 }
 
-// .card{
-//     @include card_boxshadow();
-//     border-radius: 1.25rem;
-//     overflow: hidden;
-//     .card-body{
-//         border: 1.25px solid #000;
-//         border-top-left-radius: 1.25rem;
-//         border-top-right-radius: 1.25rem;
-//         @include card_boxshadow_inset;
-//     }
-//     .card-footer{
-//         @include ellipsis(100%);
-//         text-align: center;
-//         font-size: 24px;
-//     }
-// }
+@each $size, $value in $item-sizes {
+    .#{$size} {
+        [class*='card--']{
+            @include custom-card(true, $value);
+        }
+        .card--display{
+            @include custom-card(false, $value);
+        }
+        .card-input {
+            @include custom-card(true, $value);
+        }
+    }
+}
