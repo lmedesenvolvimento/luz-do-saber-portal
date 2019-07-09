@@ -7,7 +7,7 @@
                         <b-row class="domino-top">
                             <b-col v-for="item in getTopKeys" :key="item.id" cols="4" class="item">
                                 <drop
-                                    class="droppable substantivo_proprio texto small"
+                                    class="droppable substantivo_proprio texto medium"
                                     @drop="onDrop(item, ...arguments)"
                                 >
                                     <ls-card-display
@@ -23,7 +23,7 @@
                         <b-row class="domino-middle">
                             <b-col class="item item-vertical">
                                 <drop
-                                    class="droppable texto small"
+                                    class="droppable texto medium"
                                     @drop="onDrop(getLeftKey, ...arguments)"
                                 >
                                     <ls-card-display
@@ -41,7 +41,7 @@
                             </b-col>
                             <b-col class="item item-vertical d-flex justify-content-end">
                                 <drop
-                                    class="droppable texto small"
+                                    class="droppable texto medium"
                                     @drop="onDrop(getRightKey, ...arguments)"
                                 >
                                     <ls-card-display
@@ -58,7 +58,7 @@
                         <b-row class="domino-bottom">
                             <b-col v-for="item in getBottomKeys" :key="item.id" cols="4" class="item">
                                 <drop
-                                    class="droppable texto small"
+                                    class="droppable texto medium"
                                     @drop="onDrop(item, ...arguments)"
                                 >
                                     <ls-card-display
@@ -80,7 +80,7 @@
                         <b-row>
                             <b-col v-for="item in getValuesItems" :key="item.id" :md="valueColSize" class="item">
                                 <drag
-                                    class="draggable texto small"
+                                    class="draggable texto medium"
                                     :class="{'dropped':item.dropped, 'dragging': item.dragging}"
                                     :transfer-data="item"
                                     :draggable="!item.dropped"
@@ -106,7 +106,7 @@
                         <b-row class="column flex">
                             <b-col class="item item-vertical">
                                 <drag
-                                    class="draggable texto small"
+                                    class="draggable texto medium"
                                     :class="{'dropped':getLeftValue.dropped, 'dragging': getLeftValue.dragging}"
                                     :transfer-data="getLeftValue"
                                     :draggable="!getLeftValue.dropped"
@@ -125,7 +125,7 @@
                             </b-col>
                             <b-col class="item item-vertical">
                                 <drag
-                                    class="draggable texto small"
+                                    class="draggable texto medium"
                                     :class="{'dropped':getRightValue.dropped, 'dragging': getRightValue.dragging}"
                                     :transfer-data="getRightValue"
                                     :draggable="!getRightValue.dropped"
