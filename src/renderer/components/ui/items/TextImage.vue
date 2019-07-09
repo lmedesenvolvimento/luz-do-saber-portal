@@ -5,7 +5,7 @@
                 {{ item.text }}
             </b-col>
             <b-col>
-                <async-image :src="item.images[0].url" :disable-zoom="true" />
+                <async-image :src="item.images[0].url" :alt="item.text" :disable-zoom="true" />
             </b-col>
         </b-row>
     </div>
