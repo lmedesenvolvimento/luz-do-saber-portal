@@ -24,27 +24,8 @@
                    max-height: $item-text-max-heigth;
                }
            }
-        //    .card--input-text {
-        //        max-width: 74px !important;
-        //        .card-body{
-        //            padding: 1rem 1.25rem !important;
-        //        }
-        //    }
        }
     }
-
-    // [class*="card--"], .draggshadow {
-    //     &.card-sm {
-    //         @include custom-card-sm;
-    //     }
-    // }
-
-    // .draggshadow {
-    //     max-width: map-get($map: $item-types-width, $key: 'letra') !important;
-    //     &.card-sm{
-    //         max-width: map-get($map: $item-types-sm-width, $key: 'letra') !important;
-    //     }
-    // }
 
     @each $type in $item-letter-types {
         .#{$type} {
@@ -67,8 +48,8 @@
         }
     }
 
-    @each $type, $value in map-get($map: $item-types-width, $key: 'small') {
-        .#{$type}.small {
+    @each $type, $value in map-get($map: $item-types-width, $key: 'medium') {
+        .#{$type}.medium {
             @include item($value);
         }
     }
@@ -77,7 +58,5 @@
         display: inline-flex;
         max-width: none;
         justify-content: center;
-        // flex: 1;
-        // min-width: $item-min-width;
     }
 }
