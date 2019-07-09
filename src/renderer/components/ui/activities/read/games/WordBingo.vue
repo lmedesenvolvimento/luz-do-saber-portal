@@ -35,31 +35,38 @@
                         <b-row align-v="center" align-h="center">                       
                             <b-row
                                 v-for="(item, position) in getBingoValues" 
-                                :key="position" 
-                                :sm="valueColSize" 
-                                class="item bingo-card-letter"
-                            >                                
-                                <div class="card-input letra card-radio-input" :class="$attrs.class">
-                                    <label>
-                                        <b-card 
-                                            no-body
-                                            :class="{ 'invalid': item.invalid, 'valid': item.valid }"
-                                        >
-                                            <b-card-body>
-                                                {{ item.text }}
-                                            </b-card-body>
-                                        </b-card>
-                                        <input
-                                            v-model="item.selected"                                            
-                                            class="invisible"    
-                                            type="checkbox"
-                                            true-value="valid"
-                                            false-value="invalid"
-                                            :name="`input-${position}`"
-                                            @change.stop="checkRaffle(item)"
-                                        />
-                                    </label>
-                                </div>                               
+                                :key="position"
+                                class="item"
+                                style="margin: 0 5px 0 5px"
+                            >   
+                                <div class="letra small">
+                                    <div class="card-input card--radio-input" :class="$attrs.class">
+                                        <label>
+                                            <b-card
+                                                no-body
+                                                :class="{ 'invalid': item.invalid, 'valid': item.valid }"                                                
+                                            >
+                                                <b-card-body
+                                                    style="background-color: white"
+                                                >
+                                                    <div class="bingo-word-player-item">
+                                                        {{ item.text }}
+                                                    </div>                                                
+                                                </b-card-body>
+                                            </b-card>
+
+                                            <input
+                                                v-model="item.selected"
+                                                class="input"
+                                                type="checkbox"
+                                                true-value="valid"
+                                                false-value="invalid"
+                                                :name="`input-${position}`"
+                                                @change.stop="checkRaffle(item)"
+                                            />
+                                        </label>
+                                    </div>    
+                                </div>      
                             </b-row>
                         </b-row>
                     </ls-card-display> 
@@ -73,14 +80,16 @@
                                 v-for="word in words[i-1]" 
                                 :key="word"
                                 :sm="valueColSize" 
-                                class="item bingo-card-letter"
-                            >                                
-                                <ls-card-display                                      
-                                    style="margin-left: 10px"  
-                                    :valid="searchString(raffleWords, word)"                                  
-                                >
-                                    {{ word }}
-                                </ls-card-display> 
+                                class="item"
+                            >      
+                                <div class="letra small">
+                                    <ls-card-display                                      
+                                        style="margin: 0 20px 0 20px"  
+                                        :valid="searchString(raffleWords, word)"                                  
+                                    >
+                                        {{ word }}
+                                    </ls-card-display> 
+                                </div>     
                             </b-row>
                         </b-row>
                     </ls-card-display> 
@@ -147,10 +156,7 @@ export default {
         },
         actualRaffleWord () {
             if (this.searchString(this.words[0],this.actualRaffleWord)) this.loseCounter[0]++;
-            if (this.searchString(this.words[1],this.actualRaffleWord)) this.loseCounter[1]++;
-            if (this.loseCounter[0] == 4 || this.loseCounter[1] == 4){
-                this.triggerSuccess()
-            }
+            if (this.searchString(this.words[1],this.actualRaffleWord)) this.loseCounter[1]++;            
         }        
     },   
     created(){        
