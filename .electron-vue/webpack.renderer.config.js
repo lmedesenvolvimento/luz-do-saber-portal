@@ -24,7 +24,8 @@ let whiteListedModules = ['vue', 'lodash', 'leader-line']
 let rendererConfig = {
   devtool: '#cheap-module-eval-source-map',
   entry: {
-    renderer: path.join(__dirname, '../src/renderer/main.js')
+    renderer: path.join(__dirname, '../src/renderer/main.js'),
+    styles: path.join(__dirname, '../src/renderer/assets/styles/main.scss')
   },
   externals: [
     ...Object.keys(dependencies || {}).filter(d => !whiteListedModules.includes(d))
