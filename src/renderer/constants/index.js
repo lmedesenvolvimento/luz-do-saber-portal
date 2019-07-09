@@ -44,6 +44,7 @@ export const GameSubtypes = {
     matchFriendsInitial: 'encaixe-letras',
     theWordsSecret: 'segredo-das-palavras',
     writeTheWord: 'escreva-o-nome',
+    accentuation: 'acentuacao',
 }
 
 export const ItemTypes = {
@@ -67,7 +68,8 @@ export const ItemTypes = {
         input: 'input',
     },
     slugs: {
-        audioImage: 'componente-de-imagem-audio'
+        audioImage: 'componente-de-imagem-audio',
+        textImage: 'componente-de-imagem-texto'
     },
 }
 

@@ -61,14 +61,18 @@
 .bingo-word{
     display: inline-grid;
     text-align: center;
-    padding-top: 20px;
+    padding-top: 15px;
     color: white;
     background-color: #dfd9db;
-    border-radius: 30px;
-    width: 60px;
-    height: 60px;
+    border-radius: 25px;
+    width: 50px;
+    height: 50px;
     margin: 2px;
     &.bingo-raffle-word{
         background-color: #13c5c4;
     }
+}
+
+.bingo-word-player-item{
+    margin: 0 10px 0 10px;    
 }
