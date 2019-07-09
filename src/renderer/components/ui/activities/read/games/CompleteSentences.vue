@@ -61,6 +61,8 @@ export default {
         }
     },
     created(){
+        this.createAnswersArray()
+
         let r, aux = []
 
         for (let item of this.activity.items.values) this.dividers.push(item.text)
@@ -72,9 +74,6 @@ export default {
         this.dividers.forEach((item, index) => {
             aux[index] = this.activity.items.values[index]
         })
-
-        this.setAnswersValueArray(aux)
-        this.setActivityAttrs({ total_correct_items: 2 })
 
         this.items = this.joinArrays(this.newMessages, aux)
     },
@@ -93,16 +92,6 @@ export default {
         },
         splitSentence(sentence, divisor){
             return sentence.split(divisor)
-        },
-        setAnswersValueArray(a){
-            let answers = []
-
-            a.forEach(a => {
-                let key = createAnswer(a, a.id)
-                answers.push(key)
-            })
-
-            this.setAnswers(answers)
         },
     },
 }

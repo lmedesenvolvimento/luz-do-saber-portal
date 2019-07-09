@@ -43,7 +43,7 @@ export const GameSubtypes = {
     matchFriendsInitial: 'encaixe-letras',
     theWordsSecret: 'segredo-das-palavras',
     writeTheWord: 'escreva-o-nome',
-    completeSentences: 'completa-frase',
+    completeSentences: 'completa-frase-com-audio',
 }
 
 export const ItemTypes = {
