@@ -16,15 +16,27 @@
                 </ls-card-display> 
             </b-col>
             <b-col class="activity-keys">
-                <b-row>
-                    <b-col v-for="(item, position) in getKeys" :key="position" class="item"> 
-                        <Item 
-                            :item="item"
-                            :type="'key'"
-                            :template="activity.item_template.key"
-                        />
-                    </b-col>
-                </b-row>
+                <div>
+                    <b-row>
+                        <b-col v-for="(item, position) in getKeys" :key="position" class="item"> 
+                            <b-row align-h="start">
+                                <b-col>
+                                    <Item 
+                                        :item="item"
+                                        :type="'key'"
+                                        :template="activity.item_template.key"
+                                        class="accentuation-drop"
+                                    />
+                                </b-col>
+                                <b-col class="accentuation-column">
+                                    <ls-card-display class="accentuation-card">
+                                        <p class="accentuation-card-word">{{ words[position] }}</p>
+                                    </ls-card-display>
+                                </b-col>                 
+                            </b-row>                        
+                        </b-col>
+                    </b-row>
+                </div>
             </b-col>
         </b-row>
     </div>
@@ -40,12 +52,43 @@ export default {
         ...alerts
     },
     mixins: [MapMixins, ListMixin, CreateAnswersMixins],
+    data () {
+        return {
+            words: []
+        }
+    },
     mounted() {
-        this.createAnswersArray()
+        this.createAnswersArray(),
+        this.getKeys.forEach(element => {
+            this.words.push(element.text);
+            element.text = 'a';
+        });
+        console.log(this.words);
     },
 }
 </script>
 
-<style>
-
+<style lang="scss">  
+    .accentuation-drop {  
+        .card--droppable{
+            .card{
+                width: 74px;
+                height: 74px !important;
+                z-index: 1;
+            }            
+        }
+    }
+    .accentuation-column{
+        left: -200px;
+        z-index: 0;
+    }
+    .accentuation-card {
+        margin: 8px 0 0 0;
+        .card-body {
+            height: 50px;            
+        }     
+    }
+    .accentuation-card-word {
+            margin-top: -4px;
+    }
 </style>
