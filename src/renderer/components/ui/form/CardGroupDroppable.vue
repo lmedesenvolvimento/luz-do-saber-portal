@@ -79,7 +79,7 @@ export default {
             this.transferData = transferData
             
             if (this.item.value_ids.includes(transferData.id)) {
-                this.answers.unshift(transferData)
+                this.answers.push(transferData)
 
                 transferData.valid = true
             }
