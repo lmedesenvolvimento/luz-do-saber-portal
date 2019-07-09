@@ -65,8 +65,14 @@
             </ls-card-image-display>
         </div>
         <div v-else>
+            <ls-item-text-image
+                v-if="template.slug === Types.slugs.textImage"
+                :item="item"
+                :size="size"
+            >
+            </ls-item-text-image>
             <ls-item-text
-                v-if="template.type === Types.primitive.text"
+                v-else-if="template.type === Types.primitive.text"
                 :type="type"
                 :item="item"
                 :size="size"
