@@ -1,5 +1,5 @@
 <template>
-    <div :class="[item.type, template.type, size]">
+    <div :class="[item.type, template.type, template.font_size]">
         <div v-if="!isPrimitiveItem" class="item">
             <ls-item-cracha-box
                 v-if="template.custom === Types.custom.crachaBox"
