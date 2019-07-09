@@ -1,23 +1,5 @@
 <template>
     <div class="container-fluid">
-        <b-row class="reverse-column" align-v="center" align-h="center">
-            <b-col class="activity-values">
-                <b-row align-v="center" align-h="center">
-                    <b-col 
-                        v-for="item in activity.items.values"
-                        :key="item.id"
-                        :sm="valueColSize"
-                        class="item"
-                    >
-                        <Item
-                            :item="item"
-                            :type="'value'"
-                            :template="activity.item_template.value"
-                        />
-                    </b-col>
-                </b-row>
-            </b-col>
-        </b-row>
         <b-col class="activity-keys">
             <b-row class="fill">
                 <b-col 
@@ -56,7 +38,7 @@
                                                 v-for="ans in slotProps.props.answers" 
                                                 :key="ans.id"
                                                 cols="6"
-                                                class="my-3"
+                                                class="mb-2"
                                             >
                                                 <div class="silaba">
                                                     <b-card
@@ -79,6 +61,24 @@
                 </b-col>
             </b-row>
         </b-col>
+        <b-row class="reverse-column" align-v="center" align-h="center">
+            <b-col class="activity-values">
+                <b-row align-v="center" align-h="center">
+                    <b-col 
+                        v-for="item in activity.items.values"
+                        :key="item.id"
+                        :sm="valueColSize"
+                        class="item"
+                    >
+                        <Item
+                            :item="item"
+                            :type="'value'"
+                            :template="activity.item_template.value"
+                        />
+                    </b-col>
+                </b-row>
+            </b-col>
+        </b-row>
     </div>
 </template>
 
@@ -181,7 +181,7 @@ export default {
             .card-input.drop-group{
                 display: flex;
                 flex-direction: column;
-                height: 200px;
+                height: 160px;
                 max-height: none !important;
                 background-size: contain;
                 background-repeat: no-repeat;
