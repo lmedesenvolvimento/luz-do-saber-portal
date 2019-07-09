@@ -9,8 +9,8 @@
                     <input
                         v-model="model"
                         v-focus="focus"
-                        :name="$attrs.name" 
-                        :maxlength="maxLength"
+                        :name="$attrs.name"
+                        :maxlength="length"
                         :disabled="valid"
                         :required="true"
                         type="text"
@@ -24,6 +24,7 @@
         </label>
     </div>
 </template>
+
 <script>
 import RadioInput from './RadioInput.vue'
 import { setTimeout } from 'timers'
@@ -47,9 +48,33 @@ export default {
             model: ''
         }
     },
+    computed: {
+        isNotWord(){
+            return this.value.type !== 'substantivo_comum'
+        },
+        length(){
+            return (this.isNotWord) ? 1 : 11
+        },
+    },
     watch: {
         model(value){
             if ((this.valid || this.invalid) || this.model.length === 0) return
+
+            this.isNotWord ? this.whenNotWord(value) : this.whenWord(value)  
+        }
+    },
+    mounted(){
+        let isFirstElement = this.$el.closest('.item') === this.$el.closest('.item').parentElement.firstElementChild
+
+        if (isFirstElement) {
+            this.$el.querySelector('input').focus()
+        }
+    },
+    methods: {
+        onKeyDown(event){
+            if (this.isNotWord && this.model && (event.key.length <= 1)) this.model = event.key
+        },
+        whenNotWord(value){
             if (this.model.toLowerCase() === this.value.text.toLowerCase()) {
                 this.setAnswer({
                     type: this.type,
@@ -69,23 +94,30 @@ export default {
                     vm: this
                 })
             }
+        },
+        whenWord(value){
+            if (value.length <= this.value.text.length){
+                if (value.toLowerCase() === this.value.text.toLowerCase()){
+                    this.setAnswer({
+                        type: this.type,
+                        data: this.value.id,
+                        vm: this
+                    })
+                }
+            }
+            else {
+                this.setAnswer({
+                    type: this.type,
+                    data: -1,
+                    vm: this
+                })
+            }
         }
     },
-    mounted(){
-        let isFirstElement = this.$el.closest('.item') === this.$el.closest('.item').parentElement.firstElementChild
 
-        if (isFirstElement) {
-            this.$el.querySelector('input').focus()
-        }
-    },
-    methods: {
-        onKeyDown(event){
-            // replace input value for new key if invalid
-            if ( this.model && (event.key.length <= 1) ) this.model = event.key
-        }
-    }
 }
 </script>
+
 <style lang="scss">
     .card--input-text{
         label{
