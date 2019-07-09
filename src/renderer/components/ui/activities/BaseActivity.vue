@@ -133,6 +133,11 @@
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
             />
+            <ls-activity-read-complete-sentence
+                v-if="gameSubtypes.completeSentence === activity.subtype.slug"
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+            />
             <ls-activity-write-word
                 v-if="gameSubtypes.writeTheWord === activity.subtype.slug" 
                 :value-col-size="valueColSize"
