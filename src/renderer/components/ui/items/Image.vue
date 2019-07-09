@@ -17,7 +17,7 @@
             :name="activity.type.slug"
             :bg-color="item.color"
         >
-            {{ item.text }}
+            <img :src="item.images[0].url" :alt="item.text">
         </ls-card-draggable>
 
         <ls-card-input 
