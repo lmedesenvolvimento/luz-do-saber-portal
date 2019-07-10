@@ -5,12 +5,14 @@
                 <span v-for="(s, position) in splitedSentence" :key="position" style="display: inline-block">
                     <span v-if="!searchString(hiddenElements, s)" class="sentence">{{ s.text }}</span>
                     <span v-else>
-                        <Item
-                            :item="s"
-                            :type="'key'"
-                            :template="activity.item_template.key"
-                        >                        
-                        </Item>                                       
+                        <div :class="activity.item_template.key.font_size">
+                            <Item
+                                :item="s"
+                                :type="'key'"
+                                :template="activity.item_template.key"
+                            >                        
+                            </Item> 
+                        </div>                       
                     </span>
                 </span>
             </h2>
@@ -27,7 +29,7 @@
                     class="item"
                 >
                     <div 
-                        class="letra"
+                        :class="activity.item_template.value.font_size"
                     >
                         <Item                                                        
                             :item="item"                                                            
@@ -49,12 +51,16 @@
                     :sm="valueColSize"                     
                     class="item"
                 >                    
-                    <Item                                                        
-                        :item="item"                                                            
-                        :type="'value'"                            
-                        :template="activity.item_template.value"
-                    >                        
-                    </Item>               
+                    <div 
+                        :class="activity.item_template.value.font_size"
+                    >
+                        <Item                                                        
+                            :item="item"                                                            
+                            :type="'value'"                            
+                            :template="activity.item_template.value"
+                        >                        
+                        </Item>                                         
+                    </div>              
                 </b-col>
             </b-row>
         </ls-card-display>    
