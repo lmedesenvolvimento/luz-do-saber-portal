@@ -12,10 +12,10 @@ export default {
 <style lang="scss">
 .texto-em-blocos {
     .card--display {
-        width: auto !important;
+        width: 100% !important;
         .card-body {
-            padding-left: 2rem;
-            letter-spacing: 1rem;
+            padding-left: 2.4rem !important;
+            letter-spacing: 1.2rem;
         }
     }
 }
