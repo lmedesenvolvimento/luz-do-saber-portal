@@ -15,7 +15,7 @@
                         class="item"
                         style="margin-right: 10px"
                     >
-                        <div class="letra">
+                        <div :class="activity.item_template.key.font_size">
                             <ls-card-display>
                                 <div v-if="searchString(raffle,letter)">
                                     {{ letter }}
