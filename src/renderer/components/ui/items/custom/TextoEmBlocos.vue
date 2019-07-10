@@ -1,6 +1,10 @@
 <template>
     <div class="texto-em-blocos">
-        <ls-card-display>{{ item.text }}</ls-card-display>
+        <ls-card-display>
+            <div class="text">
+                {{ item.text }}
+            </div>
+        </ls-card-display>
     </div>
 </template>
 <script>
@@ -14,8 +18,11 @@ export default {
     .card--display {
         width: 100% !important;
         .card-body {
-            padding-left: 2.4rem !important;
-            letter-spacing: 1.2rem;
+            .text{
+                padding: 0 1rem;
+                letter-spacing: 1.2rem;
+                margin-right: -1.2rem !important;
+            }
         }
     }
 }
