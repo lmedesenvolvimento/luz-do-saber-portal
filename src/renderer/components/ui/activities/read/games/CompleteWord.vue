@@ -12,7 +12,7 @@
                                 <Item 
                                     :item="pieces"
                                     :type="'key'"
-                                    :template="activity.item_template.key"
+                                    :template="pieces.template"
                                 />
                             </b-col>
                         </b-row>
@@ -22,7 +22,7 @@
             <b-col v-if="hasKeys" class="activity-keys">
                 <b-col class="activity-values" cols="12" md="12">
                     <b-row align-v="center" align-h="center" class="values-container">
-                        <b-col v-for="(item, position) in getValues" :key="position" align-self="center" cols="12" :sm="3" :md="3" lg="2" class="item">
+                        <b-col v-for="(item, position) in getValues" :key="position" align-self="center" cols="12" :sm="3" :md="3" lg="2" class="item" @click="triggerFocus(item)">
                             <Item 
                                 :item="item"
                                 :type="'value'"
@@ -38,6 +38,7 @@
 <script>
 import { MapMixins, ListMixin, CreateAnswersMixins } from '@ui/activities/mixins'
 import ui from '@/components/ui'
+import { cloneDeep, findIndex } from 'lodash'
 import AsyncImage from '@ui/AsyncImage'
 import Item from '@/components/ui/items/Item'
 import { mapState, mapActions } from 'vuex'
@@ -56,6 +57,7 @@ export default {
             incompleteWord: {},
             correctPiece: {},
             separator: this.type,
+            selectItem: null
         }
     },
     created(){
@@ -67,6 +69,11 @@ export default {
         this.createAnswersArray()
     },
     methods: {
+        triggerFocus(item) {
+            console.log(item)
+            const pieceIndex = findIndex(this.incompleteWord.pieces, { text: null })
+            this.incompleteWord.pieces[pieceIndex].text = item.text
+        },
         clearIncompleteWord(type, correct){
             let pieces = []
             if(type === 'letra'){
@@ -75,14 +82,18 @@ export default {
                 pieces = this.incompleteWord.syllables
             }
             for(let i = 0; i<pieces.length; i++){
+                pieces[i].template = cloneDeep(this.activity.item_template.key)
                 if(pieces[i].text === correct.text){
-                    pieces[i].text = ''
-                    pieces[i].class = 'empty'
+                    pieces[i].text = null
+                    pieces[i].value_ids = this.incompleteWord.value_ids
+                } else {
+                    pieces[i].template.tags = null
                 }
-                console.log(pieces[i])
             }
             this.incompleteWord.pieces = pieces
         },
+
+        ...mapActions('Activity', ['setAnswer'])
 
     },
 }
