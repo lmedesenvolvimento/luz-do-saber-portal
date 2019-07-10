@@ -124,9 +124,16 @@
                 :key-col-size="keyColSize"
             />
             <ls-activity-read-complete-word
-                v-if="gameSubtypes.completeWord === activity.subtype.slug"
+                v-if="gameSubtypes.completeWordSyllables === activity.subtype.slug"
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
+                :type="'silaba'"
+            />
+            <ls-activity-read-complete-word
+                v-if="gameSubtypes.completeWordLetters === activity.subtype.slug"
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+                :type="'letra'"
             />
             <ls-activity-read-the-words-secret
                 v-if="gameSubtypes.theWordsSecret === activity.subtype.slug"
