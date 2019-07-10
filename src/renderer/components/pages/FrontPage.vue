@@ -8,33 +8,24 @@
                             <img class="front-page-logo" src="@/assets/images/logo.png" alt="Logo Luz do Saber">
                         </b-row>
 
-                        <!-- 
-                            * RODRIGO *
-                         -->
                         <transition name="fade" mode="out-in">
-                            <div class="d-flex justify-content-center">
-                                <b-card no-body class="mx-5 front-page-login card shadow">
+                            <div v-if="!canStart && !isAuthorized" class="d-flex justify-content-center">
+                                <div class="mx-5 front-page-login">
                                     <b-card-body>
-                                        <div class="card--display">
-                                            <img src="@/assets/images/icons/btn-play.png" alt="Botão jogar">
+                                        <div class="card--display btn-play-container" @click="gameStart">
+                                            <img class="btn-play" src="@/assets/images/icons/btn-play.png" alt="Botão jogar">
                                             <b-card
                                                 no-body
                                             >
                                                 <b-card-body>
-                                                    <span>tes jogar</span>
+                                                    <span class="span-spacing">jogar</span>
                                                 </b-card-body>
                                             </b-card>
                                         </div>
                                     </b-card-body>
-                                </b-card>
+                                </div>
                             </div>
-                        </transition>
-                        <!-- 
-                            * RODRIGO *
-                         -->
-
-                        <transition name="fade" mode="out-in">
-                            <div v-if="!isAuthorized" key="login">
+                            <div v-else-if="!isAuthorized" key="login">
                                 <b-form class="d-flex justify-content-center" @submit.prevent="submitLogin">
                                     <b-card no-body class="mx-5 front-page-login card shadow">
                                         <b-card-body>
@@ -162,7 +153,8 @@ export default {
     data(){
         return {
             isVisibleLerSubModule: false,
-            user: { name: '' }
+            user: { name: '' },
+            canStart: false,
         }
     },
     computed: {
@@ -181,6 +173,9 @@ export default {
         },
         toggleVisibleLerSubModule(){
             this.isVisibleLerSubModule = !this.isVisibleLerSubModule
+        },
+        gameStart() {
+            this.canStart = !this.canStart;
         },
         getModuleImage(module){
             switch (module.slug) {
@@ -213,5 +208,19 @@ export default {
 </script>
 
 <style>
-
+.btn-play-container {
+    position: relative;
+    cursor: pointer;
+}
+.btn-play {
+    position: absolute;
+    z-index: 10;
+    right: 100px;
+    top: -4px;
+    width: 92px;
+    height: 92px;
+}
+.span-spacing {
+    padding-left: 50px;
+}
 </style>
