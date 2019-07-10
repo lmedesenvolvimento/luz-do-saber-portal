@@ -36,7 +36,7 @@
                     :key="position"
                     class="item"
                 >
-                    <div class="letra texto small">
+                    <div class="letra texto" :class="activity.item_template.value.font_size">
                         <div class="card-input card--radio-input" :class="$attrs.class" style="width: 50px">
                             <label>
                                 <b-card
