@@ -18,6 +18,10 @@
             :bg-color="item.color"
         >
             <img :src="item.images[0].url" :alt="item.text">
+
+            <template slot="transfer-data">
+                <img :src="item.images[0].url" :alt="item.text">
+            </template>
         </ls-card-draggable>
 
         <ls-card-input 

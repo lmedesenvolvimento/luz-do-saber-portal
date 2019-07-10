@@ -1,67 +1,71 @@
 <template>
     <div class="container-fluid">
-        <b-col class="activity-keys">
-            <b-row class="fill">
-                <b-col 
-                    v-for="item in activity.items.keys"
-                    :key="item.id"
-                    :sm="keyColSize"
-                    class="item"
-                >
-                    <div v-if="isBox" class="caixa">
-                        <group-drop
-                            :item="item"
-                            :type="'value'"
-                            :template="activity.item_template.key"
-                        />
-                    </div>
-                    <div v-else class="grupo">
-                        <div class="title">
-                            {{ item.text }}
+        <b-row id="grouping-activity" class="column" align-v="center" align-h="center">
+            <b-col class="activity-keys">
+                <b-row class="fill">
+                    <b-col 
+                        v-for="item in activity.items.keys"
+                        :key="item.id"
+                        :sm="keyColSize"
+                        class="item"
+                    >
+                        <div v-if="isBox" class="caixa">
+                            <group-drop
+                                :item="item"
+                                :type="'value'"
+                                :template="activity.item_template.key"
+                            />
                         </div>
-                        <card-display
-                            label="item.text" 
-                            :item="item"
-                            :name="activity.type.slug"
-                            :bg-color="undefined"
-                        >
-                            <div class="conteudo">
-                                <group-drop
-                                    v-slot:default="slotProps"
-                                    :item="item"
-                                    :type="'value'"
-                                    :template="activity.item_template.key"
-                                >   
-                                    <div class="card-input drop-group">
-                                        <b-row class="items-container">
-                                            <b-col 
-                                                v-for="ans in slotProps.props.answers" 
-                                                :key="ans.id"
-                                                cols="6"
-                                                class="mb-2"
-                                            >
-                                                <div class="silaba">
-                                                    <b-card
-                                                        no-body
-                                                        class="drop-group-item"
-                                                        :class="{ 'invalid': ans.invalid, 'valid': ans.valid }"
-                                                    >
-                                                        <b-card-body>
-                                                            <div class="icon-img" :style="{backgroundImage: `url('${ans.images[0].url}')`}"></div>
-                                                        </b-card-body>
-                                                    </b-card>
-                                                </div>
-                                            </b-col>
-                                        </b-row>
-                                    </div>
-                                </group-drop>
+                        <div v-else class="grupo">
+                            <!-- <div class="letra small">
+                                <card-display> -->
+                            <div class="title">
+                                {{ item.text }}
                             </div>
-                        </card-display>
-                    </div>
-                </b-col>
-            </b-row>
-        </b-col>
-        <b-row class="reverse-column" align-v="center" align-h="center">
+                            <!-- </card-display>
+                            </div> -->
+                            <card-display
+                                label="item.text" 
+                                :item="item"
+                                :name="activity.type.slug"
+                                :bg-color="undefined"
+                            >
+                                <div class="conteudo">
+                                    <group-drop
+                                        v-slot:default="slotProps"
+                                        :item="item"
+                                        :type="'value'"
+                                        :template="activity.item_template.key"
+                                    >   
+                                        <div class="card-input drop-group">
+                                            <b-row class="items-container">
+                                                <b-col 
+                                                    v-for="ans in slotProps.props.answers" 
+                                                    :key="ans.id"
+                                                    cols="6"
+                                                    class="mb-2"
+                                                >
+                                                    <div class="silaba">
+                                                        <b-card
+                                                            no-body
+                                                            class="drop-group-item"
+                                                            :class="{ 'invalid': ans.invalid, 'valid': ans.valid }"
+                                                        >
+                                                            <b-card-body>
+                                                                <div class="icon-img" :style="{backgroundImage: `url('${ans.images[0].url}')`}"></div>
+                                                            </b-card-body>
+                                                        </b-card>
+                                                    </div>
+                                                </b-col>
+                                            </b-row>
+                                        </div>
+                                    </group-drop>
+                                </div>
+                            </card-display>
+                        </div>
+                    </b-col>
+                </b-row>
+            </b-col>
             <b-col class="activity-values">
                 <b-row align-v="center" align-h="center">
                     <b-col 
@@ -74,6 +78,7 @@
                             :item="item"
                             :type="'value'"
                             :template="activity.item_template.value"
+                            class="img-grouping"
                         />
                     </b-col>
                 </b-row>
@@ -106,7 +111,6 @@ export default {
     },
     created(){
         this.createAnswersArray()
-        this.addColorsToType('substantivo_comum')
     },
 }
 </script>
@@ -162,6 +166,7 @@ export default {
             color: transparentize($color: #222, $amount: 0.6)
         }
     }
+
     
     .grupo{
         .title{
@@ -191,6 +196,10 @@ export default {
                 .card-body{
                     font-size: 18px;
                     padding: 5px;
+
+                    img{
+                        max-width: 50px;
+                    }
                 }
             }
 
@@ -207,6 +216,19 @@ export default {
                     background-size: contain;
                     background-position: center;
                 }
+            }
+        }
+    }
+
+
+    .img-grouping{
+        * img{
+            width: 50px;
+        }
+
+        * .draggshadow{
+            .card-body{
+                padding: 10px;
             }
         }
     }
