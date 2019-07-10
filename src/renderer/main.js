@@ -1,5 +1,3 @@
-import '@/assets/styles/main.scss'
-
 import Vue from 'vue'
 import { sync } from 'vuex-router-sync'
 import BootstrapVue from 'bootstrap-vue'
@@ -20,6 +18,7 @@ Vue.use(BootstrapVue)
 Vue.use(VueHammer)
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
+
 Vue.http = Vue.prototype.$http = axios
 Vue.config.productionTip = false
 

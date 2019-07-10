@@ -239,8 +239,8 @@
     bottom: 0;
     left: 0;
     right: 0;
-    width: calc(100% - $decreaseW);
-    height: calc(100% - $decreaseH);
+    width: calc(100% - #{$decreaseW});
+    height: calc(100% - #{$decreaseH});
     margin: auto;
     background-color: $card-empty-color;
     border-radius: ($card-border-radius * $border-radius-multiplier);
