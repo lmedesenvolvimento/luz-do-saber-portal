@@ -17,13 +17,9 @@
                             />
                         </div>
                         <div v-else class="grupo">
-                            <!-- <div class="letra small">
-                                <card-display> -->
                             <div class="title">
                                 {{ item.text }}
                             </div>
-                            <!-- </card-display>
-                            </div> -->
                             <card-display
                                 label="item.text" 
                                 :item="item"
@@ -98,7 +94,6 @@ import Item from '@/components/ui/items/Item'
 import groupDrop from '@/components/ui/form/CardGroupDroppable'
 import cardDisplay from '@/components/ui/form/CardDisplay'
 
-
 import { mapState, mapActions } from 'vuex'
 
 export default {
@@ -116,17 +111,32 @@ export default {
 </script>
 
 <style lang="scss">
-    .caixa{
+    #grouping-activity{
+
+        .icon-img{
+            height: 50px;
+            width: 50px;
+            margin: auto;
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center;
+        }
+
         .item{
             width: 100%;
         }
+
         .texto{
             max-width: none !important;
         }
+
+        .drop-group .drop-group-item{
+            margin: 0 auto !important;
+        }
+
         .card-input.drop-group{
             display: flex;
             flex-direction: column;
-            height: 280px;
             max-height: none !important;
             background-size: contain;
             background-repeat: no-repeat;
@@ -134,101 +144,63 @@ export default {
             text-align: center;
         }
 
-        .drop-group .drop-group-item{
-            margin: 0 auto !important;
-        }
-
-        .card{
-            width: 45%;
-            border-radius: 0.75rem;
-            padding: 0.15rem;
-            .bg-color {
-                border-radius: 0.6rem !important;
-            }
-            .card-body{
-                font-size: 18px;
-                padding: 0.5rem;
-                border-radius: 0.6rem !important;
-            }
-        }
-
-        .items-container{
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-            margin-top: 3.5rem;
-            justify-content: space-evenly;
-
-        }
-
         .title{
-            padding-top: 7%;
             color: transparentize($color: #222, $amount: 0.6)
         }
-    }
 
-    
-    .grupo{
-        .title{
-            font-size: 18px;
-            color: transparentize($color: #222, $amount: 0.6);
-            margin: auto;
-            text-align: center;
-        }
-
-        .conteudo{
-            .item{
-                width: 100%;
-            }
-            .texto{
-                max-width: none !important;
-            }
+        .caixa{
             .card-input.drop-group{
-                display: flex;
-                flex-direction: column;
-                height: 160px;
-                max-height: none !important;
-                background-size: contain;
-                background-repeat: no-repeat;
-                background-position: center;
-                text-align: center;
-
+                height: 280px;
+            }
+            .card{
+                width: 45%;
+                border-radius: 0.75rem;
+                padding: 0.15rem;
+                .bg-color {
+                    border-radius: 0.6rem !important;
+                }
                 .card-body{
                     font-size: 18px;
-                    padding: 5px;
+                    padding: 0.5rem;
+                    border-radius: 0.6rem !important;
+                }
+            }
+            .items-container{
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+                margin-top: 3.5rem;
+                justify-content: space-evenly;
 
-                    img{
-                        max-width: 50px;
+            }
+            .title{
+                padding-top: 7%;
+            }
+        }
+        
+        .grupo{
+            .title{
+                font-size: 18px;
+                margin: auto;
+                text-align: center;
+            }
+            .conteudo{
+                .card-input.drop-group{
+                    height: 160px;
+
+                    .card-body{
+                        font-size: 18px;
+                        padding: 5px;
                     }
                 }
             }
+        }
 
-            .drop-group .drop-group-item{
-                margin: 0 auto !important;
-            }
-
-            .items-container{
-                .icon-img{
-                    height: 50px;
-                    width: 50px;
-                    margin: auto;
-                    background-repeat: no-repeat;
-                    background-size: contain;
-                    background-position: center;
+        .img-grouping{
+            * .draggshadow{
+                .card-body{
+                    padding: 10px 0 !important;
                 }
-            }
-        }
-    }
-
-
-    .img-grouping{
-        * img{
-            width: 50px;
-        }
-
-        * .draggshadow{
-            .card-body{
-                padding: 10px;
             }
         }
     }
