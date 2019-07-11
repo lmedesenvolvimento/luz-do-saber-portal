@@ -26,7 +26,10 @@
                                     :type="'key'"
                                     :template="activity.item_template.key"
                                 >
-                                </ls-card-droppable>                               
+                                    <template slot="transfer-data">
+                                        {{ symbols[position] }}
+                                    </template>
+                                </ls-card-droppable>                                                               
                             </div>                            
                         </b-col>
                         <b-col class="name-container">
@@ -60,8 +63,13 @@ export default {
     },
     mounted() {
         this.createAnswersArray();
-        this.getKeys.forEach(element => {
-            this.symbols.push(element.text);
+        this.getKeys.forEach(key => {
+            this.getValues.forEach(value => {
+                if(key.id === value.key_id) {
+                    this.symbols.push(value.text);
+                }                
+            });
+            
         });
         console.log(this.symbols);
     },
@@ -88,8 +96,6 @@ export default {
     .accentuation-drop {
         .card--droppable{
             .card{
-                // width: 74px;
-                // height: 74px !important;
                 z-index: 1;
             }            
         }
