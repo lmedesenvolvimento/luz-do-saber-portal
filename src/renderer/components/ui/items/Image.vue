@@ -17,10 +17,10 @@
             :name="activity.type.slug"
             :bg-color="item.color"
         >
-            <img :src="item.images[0].url" :alt="item.text">
+            <div class="icon-img" :style="{backgroundImage: `url('${item.images[0].url}')`}"></div>
 
             <template slot="transfer-data">
-                <img :src="item.images[0].url" :alt="item.text">
+                <div class="icon-img" :style="{backgroundImage: `url('${item.images[0].url}')`}"></div>
             </template>
         </ls-card-draggable>
 
@@ -41,7 +41,6 @@ import { ItemProps } from './index.js'
 export default {
     mixins: [ItemProps],
     mounted() {
-        // console.log(this.item.images[0].url)
-    }
+    },
 }
 </script>
