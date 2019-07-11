@@ -1,52 +1,26 @@
+#dragging-syllables {
+    .image-container.col {
+        max-width: 50px;
+    }
 
-    #dragging-syllables
-    {
-        .activity-values{
-            padding: 0px !important;
-            max-width: 325px;
-        }
-        .item {
-            @each $type in $item-letter-types {
-                .#{$type} {
-                    .card-input.card--droppable{
-                        min-width: 80px !important;
-                    }
-                    .card-input.card--droppable .card .card-body{
-                        font-size: 18px !important;
-                    }
-                }
-            }
-        }
-        .card-input.card--draggable,.card-input.draggshadow {
-            max-width: 80px;
-            .card .bg-color .card-body{
-                font-size: 18px !important;
-                padding: 1rem !important;
-            }
-        }
-        .image-container{
-            .card .bg-color .card-body {
-                padding: 10px;
-            }
-        }
-        .image{
-            img{
-                max-height: 55px;
-            }
-        }
-        .syllables-row{
-            padding: 10px;
-        }
-        #values-container-display{
-            .card .bg-color .card-body {
-                padding: 8px;
-            }
-        }
-        .values-container
-        {
-            margin: 0 !important;
-            .item{
-                padding: 0px 10px;
-            }
+    .key-syllables {
+        width: 20%;
+        display: inline-flex;
+    }
+
+    .value-syllables {
+        width: 33%;
+        display: inline-flex;
+    }
+
+    .activity-values {
+        max-width: 350px;
+    }
+
+    .image {
+        img {
+            max-height: 55px;
         }
     }
+
+}
