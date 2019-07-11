@@ -17,8 +17,9 @@
         </b-row>    
         <b-row v-else align-v="center" align-h="center">
             <span v-for="(item, position) in splitedSentence" :key="position" class="sentence" style="display: inline-block">
-                <div>
+                <div class="item">
                     <ls-card-droppable
+                        class="letra"
                         :item="item"
                         :type="'key'"
                         :template="activity.item_template.key"
