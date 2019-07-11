@@ -10,6 +10,7 @@
                     <slot></slot>
                 </b-card-body>
             </fill-background>
+            <slot name="footer"></slot>
         </b-card>
     </div>
 </template>
