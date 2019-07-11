@@ -4,13 +4,16 @@
             <h2>   
                 <span v-for="(s, position) in splitedSentence" :key="position" style="display: inline-block">
                     <span v-if="!searchString(hiddenElements, s)" class="sentence">{{ s.text }}</span>
-                    <span v-else>
-                        <Item
-                            :item="s"
-                            :type="'key'"
-                            :template="activity.item_template.key"
-                        >                        
-                        </Item>                                       
+                    <span v-else>                             
+                        <div class="item">
+                            <ls-card-droppable
+                                class="letra"
+                                :item="s"
+                                :type="'key'"
+                                :template="activity.item_template.key"
+                            >
+                            </ls-card-droppable>
+                        </div>                              
                     </span>
                 </span>
             </h2>
@@ -30,32 +33,8 @@
                     </ls-card-droppable>
                 </div>
             </span>
-        </b-row>    
-        <ls-card-display v-if="valueColSize == 1">
-            <b-row
-                align-h="around"
-                style="margin: 1px 0 1px 0"
-            >                
-                <div
-                    v-for="item in activity.items.values"
-                    :key="item.id"
-                    :sm="valueColSize"                     
-                    class="item"
-                >
-                    <div 
-                        class="letra"
-                    >
-                        <Item                                                        
-                            :item="item"                                                            
-                            :type="'value'"                            
-                            :template="activity.item_template.value"
-                        >                        
-                        </Item>                                         
-                    </div>                    
-                </div>
-            </b-row>
-        </ls-card-display>
-        <ls-card-display v-else>
+        </b-row>   
+        <ls-card-display>
             <b-row
                 align-h="around"
             >                
@@ -64,7 +43,7 @@
                     :key="item.id"
                     :sm="valueColSize"                     
                     class="item"
-                >                    
+                >         
                     <Item                                                        
                         :item="item"                                                            
                         :type="'value'"                            
