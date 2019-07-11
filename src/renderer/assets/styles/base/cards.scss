@@ -17,6 +17,55 @@
     }
 }
 
+.card--text-audio{
+    .card-footer{
+        background-color: white;
+        margin-top: 6px;
+        padding: 4px 0px;
+    }
+}
+
+.card--audio{
+    &.plyr-flat{
+        padding: 0px !important;
+        .card {
+            padding: 0px !important;
+            background: transparent;
+            border: none;
+            box-shadow: none !important;
+            .plyr > .plyr__controls {
+                padding: 4px 8px;
+            }
+        }
+    }
+    &:not(.plyr-flat){
+        margin: auto;
+        width: 360px;
+    }
+    &:not(.plyr-flat)::before {
+        position: relative;
+        width: 64px;
+        height: 48px;
+        display: block;
+        margin: auto;
+        margin-bottom: -4px;
+        background-color: white;
+        background-image: url('~@/assets/images/fone.png');
+        background-size: 70%;
+        background-position:  center;
+        background-repeat:  no-repeat;
+        content: ' ';
+        border-top-left-radius: 120px;
+        border-top-right-radius: 120px;
+        border-bottom-left-radius: 48px;
+        border-bottom-right-radius: 48px;
+        border: 1px solid #ddd;
+        border-bottom-color: transparent;
+        box-shadow: 0px -3px 6px  transparentize(#333, 0.8);
+        z-index: 1;
+    }
+}
+
 .card-input{
     background-color: transparent !important;
     &.card--input-text{
