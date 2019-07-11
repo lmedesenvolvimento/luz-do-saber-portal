@@ -113,6 +113,14 @@ export default {
 <style lang="scss">
     #grouping-activity{
 
+        .activity-keys{
+            flex-grow: 1.3;
+        }
+
+        .activity-values{
+            flex-grow: 0.7;
+        }
+
         .icon-img{
             height: 50px;
             width: 50px;
@@ -199,7 +207,7 @@ export default {
         .img-grouping{
             * .draggshadow{
                 .card-body{
-                    padding: 10px 0 !important;
+                    padding: 5px 0 !important;
                 }
             }
         }
