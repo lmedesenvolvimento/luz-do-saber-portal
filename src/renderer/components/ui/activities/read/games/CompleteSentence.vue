@@ -16,13 +16,18 @@
             </h2>
         </b-row>    
         <b-row v-else align-v="center" align-h="center">
-            <span v-for="(item, position) in splitedSentence" :key="position" style="display: inline-block">
-                <Item
-                    :item="item"
-                    :type="'key'"
-                    :template="activity.item_template.key"
-                >                        
-                </Item> 
+            <span v-for="(item, position) in splitedSentence" :key="position" class="sentence" style="display: inline-block">
+                <div>
+                    <ls-card-droppable
+                        :item="item"
+                        :type="'key'"
+                        :template="activity.item_template.key"
+                    >
+                        <template slot="transfer-data">
+                            {{ item.text }}
+                        </template>
+                    </ls-card-droppable>
+                </div>
             </span>
         </b-row>    
         <ls-card-display v-if="valueColSize == 1">
