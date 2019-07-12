@@ -40,7 +40,7 @@
                                     :md="1"
                                     class="item bingo-card-letter"
                                 >
-                                    <div class="letra texto small">
+                                    <div class="letra texto medium">
                                         <div class="card-input card--radio-input" :class="$attrs.class">
                                             <label>
                                                 <b-card
@@ -85,9 +85,9 @@
                                 class="item bingo-card-letter"
                                 style="margin-top: 10px"
                             >
-                                <div class="letra small">
+                                <div class="letra medium texto">
                                     <ls-card-display
-                                        size="small"
+                                        size="medium"
                                         style="width: 50px"
                                         :valid="searchString(raffleLetters, normalizeString(item.text))"
                                     >

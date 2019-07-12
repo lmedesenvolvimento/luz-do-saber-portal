@@ -1,5 +1,5 @@
 <template>
-    <div :class="[item.type, template.type, size]">
+    <div :class="[item.type, template.type, template.font_size]">
         <div v-if="!isPrimitiveItem" class="item">
             <ls-item-cracha-box
                 v-if="template.custom === Types.custom.crachaBox"
@@ -65,8 +65,14 @@
             </ls-card-image-display>
         </div>
         <div v-else>
+            <ls-item-text-image
+                v-if="template.slug === Types.slugs.textImage"
+                :item="item"
+                :size="size"
+            >
+            </ls-item-text-image>
             <ls-item-text
-                v-if="template.type === Types.primitive.text"
+                v-else-if="template.type === Types.primitive.text"
                 :type="type"
                 :item="item"
                 :size="size"

@@ -41,10 +41,13 @@ export const GameSubtypes = {
     dominoName: 'domino-de-nomes',
     grouping: 'agrupamento',
     secretWord: 'palavra-secreta',
+    completeSentence: 'completa-frase',
     letterGroup: 'nao-pertence',
     matchFriendsInitial: 'encaixe-letras',
     theWordsSecret: 'segredo-das-palavras',
     writeTheWord: 'escreva-o-nome',
+    completeSentences: 'completa-frase-com-audio',
+    accentuation: 'acentuacao',
 }
 
 export const ItemTypes = {
@@ -68,7 +71,9 @@ export const ItemTypes = {
         input: 'input',
     },
     slugs: {
-        audioImage: 'componente-de-imagem-audio'
+        imageAudio: 'componente-de-imagem-audio',
+        textImage: 'componente-de-imagem-texto',
+        textAudio: 'componente-de-texto-audio',
     },
 }
 

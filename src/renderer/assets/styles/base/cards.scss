@@ -17,15 +17,52 @@
     }
 }
 
-.small {
-    [class*='card--']{
-        @include custom-card-sm(true);
+.card--text-audio{
+    .card-footer{
+        background-color: white;
+        margin-top: 6px;
+        padding: 4px 0px;
     }
-    .card--display{
-        @include custom-card-sm;
+}
+
+.card--audio{
+    &.plyr-flat{
+        padding: 0px !important;
+        .card {
+            padding: 0px !important;
+            background: transparent;
+            border: none;
+            box-shadow: none !important;
+            .plyr > .plyr__controls {
+                padding: 4px 8px;
+            }
+        }
     }
-    .card-input {
-        @include custom-card-sm(true);
+    &:not(.plyr-flat){
+        margin: auto;
+        width: 360px;
+    }
+    &:not(.plyr-flat)::before {
+        position: relative;
+        width: 64px;
+        height: 48px;
+        display: block;
+        margin: auto;
+        margin-bottom: -4px;
+        background-color: white;
+        background-image: url('~@/assets/images/fone.png');
+        background-size: 70%;
+        background-position:  center;
+        background-repeat:  no-repeat;
+        content: ' ';
+        border-top-left-radius: 120px;
+        border-top-right-radius: 120px;
+        border-bottom-left-radius: 48px;
+        border-bottom-right-radius: 48px;
+        border: 1px solid #ddd;
+        border-bottom-color: transparent;
+        box-shadow: 0px -3px 6px  transparentize(#333, 0.8);
+        z-index: 1;
     }
 }
 
@@ -88,19 +125,16 @@
     }
 }
 
-// .card{
-//     @include card_boxshadow();
-//     border-radius: 1.25rem;
-//     overflow: hidden;
-//     .card-body{
-//         border: 1.25px solid #000;
-//         border-top-left-radius: 1.25rem;
-//         border-top-right-radius: 1.25rem;
-//         @include card_boxshadow_inset;
-//     }
-//     .card-footer{
-//         @include ellipsis(100%);
-//         text-align: center;
-//         font-size: 24px;
-//     }
-// }
+@each $size, $value in $item-sizes {
+    .#{$size} {
+        [class*='card--']{
+            @include custom-card(true, $value);
+        }
+        .card--display{
+            @include custom-card(false, $value);
+        }
+        .card-input {
+            @include custom-card(true, $value);
+        }
+    }
+}
