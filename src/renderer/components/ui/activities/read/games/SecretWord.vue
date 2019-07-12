@@ -91,6 +91,7 @@ export default {
     },
     mounted() {
         this.createAnswersArray()
+        // coloca uma assinatura nos botões criados dentro da fase
         let i = 0;
         this.alphabet_1.forEach((letter) => {
             let color = this.getColorsArray[i]
@@ -102,25 +103,31 @@ export default {
             this.alphabetInputs_2.push(Object.assign({}, {letter, color}))
             i++;
         })
-        console.log(this.keyLetters);
+        // define quais botões terão as respostas corretas
         for(let i = 0; i < this.activity.total_correct_items; i++){
-            console.log(this.normalizeWord(this.getKeys[0].letters[i].text))
             this.keyLetters.push(this.normalizeWord(this.getKeys[0].letters[i].text))
             this.notNormalizedLetters.push(this.getKeys[0].letters[i].text)
             this.keyIds.push(this.getKeys[0].value_ids[i])
-        }
-        // this.activity.total_correct_items = 3;
+        }       
+        this.controlCorrectItems();
         console.log(this.keyLetters);
     },
     methods: {
+        // controla qual array de letra é exibido por fase
         alphabetInputs (index) {
             if (index == 1) return this.alphabetInputs_1
             return this.alphabetInputs_2
         },
+        // impede que o mesmo botão seja checado 2 ou mais vezes
         isChecked(item){
             if(item.valid || item.invalid) return false
             return true
         },
+        // ajusta o número de items corretos baseado nas letras que se repetem
+        controlCorrectItems(){
+
+        },
+        // faz a validação de um objeto criado na própria fase
         checkValid(item){
             if(item.valid || item.invalid) return
             if(this.searchString(this.keyLetters, item.letter)){
@@ -153,6 +160,7 @@ export default {
             })
             ).join('')
         },
+        // procura se uma string está contida em outra string
         searchString(arr, str) {
             for(let i = 0; i < arr.length;i++){
                 if (arr[i].match(str)) return true;
