@@ -109,8 +109,7 @@ export default {
             this.notNormalizedLetters.push(this.getKeys[0].letters[i].text)
             this.keyIds.push(this.getKeys[0].value_ids[i])
         }       
-        this.controlCorrectItems();
-        console.log(this.keyLetters);
+        this.controlCorrectItems();        
     },
     methods: {
         // controla qual array de letra é exibido por fase
@@ -125,7 +124,15 @@ export default {
         },
         // ajusta o número de items corretos baseado nas letras que se repetem
         controlCorrectItems(){
-
+            let noRepeatLetters = [];
+            this.keyLetters.forEach(letter => {
+                if(!this.searchString(noRepeatLetters, letter)){
+                    noRepeatLetters.push(letter);
+                }                
+            })
+            this.setActivityAttrs({ total_correct_items: noRepeatLetters.length })
+            // this.activity.total_correct_items = noRepeatLetters.length;
+            
         },
         // faz a validação de um objeto criado na própria fase
         checkValid(item){
