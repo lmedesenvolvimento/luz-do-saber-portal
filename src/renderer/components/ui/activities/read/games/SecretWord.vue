@@ -36,7 +36,7 @@
                     :key="position"
                     class="item"
                 >
-                    <div class="letra texto medium" style="width: 50px">
+                    <div class="letra texto" :class="activity.item_template.key.font_size" style="width: 50px">
                         <div class="card-input card--radio-input" :class="$attrs.class">
                             <label>
                                 <b-card
@@ -91,6 +91,7 @@ export default {
     },
     mounted() {
         this.createAnswersArray()
+        console.log(this.activity.item_template.key.font_size)
         // coloca uma assinatura nos botões criados dentro da fase
         let i = 0;
         this.alphabet_1.forEach((letter) => {
