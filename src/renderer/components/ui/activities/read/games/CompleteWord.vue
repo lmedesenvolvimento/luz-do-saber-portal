@@ -8,11 +8,21 @@
                     </b-col>
                     <b-col cols="12" md="8" sm="8" class="pieces-row">
                         <b-row>
-                            <b-col v-for="(pieces, index) in incompleteWord.pieces" :key="index" :md="1" class="key-pieces item">
+                            <b-col v-for="(piece, index) in incompleteWord.pieces" :key="index" :md="1" class="key-pieces item">                                        
+                                <div :class="[piece.type, 'texto']" v-if="piece.template.tags === null">
+                                    <ls-card-display
+                                        :item="piece"
+                                        :valid="piece.valid"
+                                        :invalid="piece.invalid"
+                                    >
+                                        {{ piece.text }}
+                                    </ls-card-display>                                    
+                                </div>
                                 <Item 
-                                    :item="pieces"
+                                    v-else-if="piece.template.tags === 'encaixar'"
+                                    :item="piece"
                                     :type="'key'"
-                                    :template="pieces.template"
+                                    :template="piece.template"
                                 />
                             </b-col>
                         </b-row>
@@ -36,11 +46,13 @@
     </div>
 </template>
 <script>
+// script
 import { MapMixins, ListMixin, CreateAnswersMixins } from '@ui/activities/mixins'
 import ui from '@/components/ui'
 import { cloneDeep, findIndex } from 'lodash'
 import AsyncImage from '@ui/AsyncImage'
 import Item from '@/components/ui/items/Item'
+import ItemComponents, { ItemProps } from '@/components/ui/items/index.js'
 import { mapState, mapActions } from 'vuex'
 
 import FormProps from '@ui/form'
@@ -57,8 +69,23 @@ export default {
             incompleteWord: {},
             correctPiece: {},
             separator: this.type,
-            selectItem: null
+            selectItem: null,
+            correctIndex: -1
         }
+    },
+    watch: {
+        selectItem(value){
+            const pieceIndex = this.correctIndex
+            let selectPiece = this.incompleteWord.pieces[pieceIndex]
+            selectPiece.text = value.text
+            selectPiece.invalid = true
+        }, 
+        answers(value){
+            console.log(value)
+        }
+    },
+    computed: {
+        ...mapState('Activity', ['answers'])
     },
     created(){
         this.incompleteWord = this.getKeys[0]
@@ -69,10 +96,13 @@ export default {
         this.createAnswersArray()
     },
     methods: {
-        triggerFocus(item) {
-            console.log(item)
-            const pieceIndex = findIndex(this.incompleteWord.pieces, { text: null })
-            this.incompleteWord.pieces[pieceIndex].text = item.text
+        triggerFocus(item) {            
+            this.selectItem = item
+            setTimeout(()=> {
+                this.incompleteWord.pieces[this.correctIndex].invalid = false
+                this.incompleteWord.pieces[this.correctIndex].text = ''
+                this.selectItem = 'XX'
+            }, 600)
         },
         clearIncompleteWord(type, correct){
             let pieces = []
@@ -84,17 +114,16 @@ export default {
             for(let i = 0; i<pieces.length; i++){
                 pieces[i].template = cloneDeep(this.activity.item_template.key)
                 if(pieces[i].text === correct.text){
-                    pieces[i].text = null
+                    pieces[i].text = 'XX'
                     pieces[i].value_ids = this.incompleteWord.value_ids
+                    this.correctIndex = i
                 } else {
                     pieces[i].template.tags = null
                 }
             }
             this.incompleteWord.pieces = pieces
         },
-
         ...mapActions('Activity', ['setAnswer'])
-
     },
 }
 </script>
