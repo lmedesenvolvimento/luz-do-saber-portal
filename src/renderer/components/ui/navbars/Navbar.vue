@@ -1,10 +1,10 @@
 <template>
     <nav class="navbar navbar-default">
-        <b-btn variant="link" :to="custom ? historyBackUnit : historyBack">
+        <b-btn class="navbar-icons" variant="link" :to="custom ? historyBackUnit : historyBack">
             <div class="icon-prev-screen"></div>
         </b-btn>
 
-        <b-btn variant="link" to="/">
+        <b-btn class="navbar-icons icon-right" variant="link" to="/">
             <div class="icon-home"></div>
         </b-btn>
 
