@@ -178,6 +178,11 @@
             width: $value;
         }
     }
+    .card--display{
+        &.card-inline-player {
+            width: ( $value + $inline-player-width ) !important;
+        }
+    }
 }
 
 @mixin custom-card-medium($input: false){

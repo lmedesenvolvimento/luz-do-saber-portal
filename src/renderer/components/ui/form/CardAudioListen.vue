@@ -1,18 +1,42 @@
 <template>
-    <div @click="click">
-        <div class="card--display" :class="$attrs.class">
-            <b-card 
-                no-body
-            >
-                <div class="bbg" :style="{'background-image': 'linear-gradient(to right, #7db239, #7db239)', 'background-size': `${audioProgress}% 100%`, 'background-repeat': 'no-repeat', 'border-radius': '1em'}">
-                    <b-card-body>
-                        <slot>
-                            {{ item.text }}
-                        </slot>
-                    </b-card-body>
-                </div>
-            </b-card>
+    <div v-if="isLimitExceeded">
+        <div class="card--text-audio">
+            <card-display>
+                <slot>
+                    {{ item.text }}
+                </slot>
+                <template slot="footer">
+                    <b-card-footer>
+                        <card-audio :item="item" class="plyr-flat" />
+                    </b-card-footer>
+                </template>
+            </card-display>
         </div>
+    </div>
+    <div v-else class="card--display card-inline-player" :class="$attrs.class">
+        <b-card
+            no-body
+            :class="{ 'valid': valid }"
+        >
+            <b-card-body>
+                <b-container fluid>
+                    <b-row align-v="center" align-h="center">
+                        <div class="inline-player">
+                            <vue-plyr ref="plyr" :options="playerOptions">
+                                <audio>
+                                    <source :src="uri" type="audio/mp3" />
+                                </audio>
+                            </vue-plyr>
+                        </div>
+                        <slot>
+                            <span class="flex text-center">
+                                {{ item.text }}
+                            </span>
+                        </slot>
+                    </b-row>
+                </b-container>
+            </b-card-body>
+        </b-card>
     </div>
 </template>
 
@@ -21,48 +45,53 @@ import uniqid from 'uniqid'
 import { filter } from 'lodash'
 
 import RadioInput from './RadioInput.vue'
-import AudioReader from '@/services/AudioReader'
+import CardAudio from './CardAudio'
+import CardDisplay from './CardDisplay'
+
+const limitText = 50
 
 export default {
-    mixins: [RadioInput], 
+    components: { CardAudio, CardDisplay },
+    mixins: [RadioInput],
     props: {
         item: Object,
         template: Object,
     },
     data(){
         return {
-            audio: null,
-            audioProgress: 0,
+            valid: false,
+            uri: 'https://luz-do-saber-staging.herokuapp.com/audios/comecar/meu-nome/meu-primeiro-nome/1.mp3',
         }
     },
     computed:{
-        duration(){
-            return this.audio.duration
+        isLimitExceeded() {
+            return this.item.text.length > limitText
+        },
+        playerOptions() {
+            const options = {
+                volume: 1,
+                controls: ['play'],
+                keyboard: { focused: false, global: false }
+            }
+            return options
+        },
+        player() {
+            return this.$refs.plyr.player
         }
     },
     mounted(){
-        this.audio = new Audio()
-        this.audio.src = 'https://luz-do-saber-staging.herokuapp.com/audios/comecar/meu-nome/meu-primeiro-nome/1.mp3'
-        this.audio.$uid = uniqid()
-        this.audio.addEventListener('ended', this.ended)
-        this.audio.addEventListener('timeupdate', this.progress)        
-        AudioReader.playlist.push(this.audio)
+        this.player.on('ended', this.ended)
+        this.player.volume = 0.7
     },
     methods: {
-        click(){
-            if (filter(AudioReader.playlist, { paused: false }).length) return
-            this.audio.play()
-        },
         ended(){
-            this.setAnswer({ 
-                type: 'value', 
+            this.valid = true
+
+            this.setAnswer({
+                type: 'value',
                 data: this.item.id,
                 vm: this
             })
-        },
-        progress(){
-            this.audioProgress = (this.audio.currentTime / this.duration) * 100
-            return this.audioProgress
         },
     },
 }
@@ -71,3 +100,4 @@ export default {
 <style>
 
 </style>
+
