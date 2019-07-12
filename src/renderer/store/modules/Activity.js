@@ -2,10 +2,10 @@ import Vue from 'vue'
 import { filter, find, clone, values } from 'lodash'
 import API from '@/services/Http'
 
-import { 
-    ClusterTypes, 
-    PointingsTypes, 
-    initialStateLog, 
+import {
+    ClusterTypes,
+    PointingsTypes,
+    initialStateLog,
     MaxStars,
     validationInAnswer,
     validationInSelection,
@@ -31,7 +31,7 @@ const state = {
 // https://br.vuejs.org/v2/guide/list.html#Limitacoes
 // https://br.vuejs.org/v2/guide/reactivity.html#Como-as-Alteracoes-sao-Monitoradas
 
-const mutations = {        
+const mutations = {
     SET_ANSWERS(state, payload){
         state.answers = payload
     },
@@ -42,9 +42,9 @@ const mutations = {
 
     INCREMENT_TIMER(state){
         state.log.timer.totalSeconds += 1
-    },    
+    },
 
-    COMPUTED_ANSWER(state, ref){        
+    COMPUTED_ANSWER(state, ref){
         // force update complext object
         let answers = clone(state.answers)
         answers[ref].valid = true
@@ -56,7 +56,7 @@ const mutations = {
         state.selection.value.vm.selected = false
         Vue.set(state, 'selection', {})
     },
-    
+
     CLEAR_CONNECTIONS(state) {
         clearConnection(state)
     },
@@ -65,7 +65,7 @@ const mutations = {
         state.log.errors.total = 0
         state.log.timer.totalSeconds = 0
     },
-    
+
     // Dispatch success process on question finish
     TRIGGER_SUCCESS(state){
         let { pointings } = state.activity
@@ -83,7 +83,7 @@ const mutations = {
 
         let totalStars = (MaxStars - penalty)
 
-        state.log.pointings.totalStars = totalStars < 0 ? 0 : totalStars        
+        state.log.pointings.totalStars = totalStars < 0 ? 0 : totalStars
 
         return penalty
     },
@@ -92,7 +92,7 @@ const mutations = {
     TRIGGER_FAIL(state){
         state.log.errors.total ++
     }
-    
+
 }
 
 
@@ -102,24 +102,24 @@ const actions = {
             commit('CLEAR_CONNECTIONS')
 
             let { module_slug, theme_slug, unit_slug, position } = payload.params
-            let extenalParams = getExtenalParams(payload.question)            
+            let extenalParams = getExtenalParams(payload.question)
             let { data } = await API.get(`/game/${module_slug}/${theme_slug}/${unit_slug}/${position}`, extenalParams)
 
             commit('SET_ACTIVITY', Object.assign(data.question, { position: position }))
         } catch (error) {
             console.warn(error)
         }
-        
+
         return true
     },
-    
+
     // clear list answer
     destroyActivity({ commit }){
         commit('SET_ACTIVITY', null)
         commit('SET_ANSWERS', null)
         commit('CLEAR_LOG')
     },
-    
+
     // update specific answer
     setAnswer({ commit, dispatch, state }, payload){
         // Check if activity types is agroup
@@ -128,15 +128,15 @@ const actions = {
         } else {
             validationInAnswer({ state, dispatch, commit }, payload)
         }
-        
+
         // Check if activity is finish
         let totalCorrectItems = filter(values(state.answers), { valid: true }).length
-        
+
         if (totalCorrectItems === state.activity.total_correct_items){
             dispatch('triggerSuccess')
         }
     },
-    
+
     // update list answer
     setAnswers({ commit }, payload){
         let answers = {}
@@ -157,16 +157,18 @@ const actions = {
     updateTimer({ commit }, miliseconds){
         commit('SET_TIMER', miliseconds)
     },
-    
-    // Feedback Actions
-    triggerSuccess({commit, dispatch}){
-        commit('TRIGGER_SUCCESS')
-                
-        // register user progress
-        let newActivity = Object.assign(state.activity, state.log)
-        let payload = { data: mapActivity(newActivity), type: 'activities' }
 
-        dispatch('Pointings/add', payload, { root: true })        
+    // Feedback Actions
+    triggerSuccess({commit, dispatch, state}){
+        commit('TRIGGER_SUCCESS')
+
+        // register user progress
+        const activity = clone(state.activity)
+        const log = clone(state.log)
+        const newActivity = Object.assign(activity, log)
+        const payload = { data: mapActivity(newActivity), type: 'activities' }
+
+        dispatch('Pointings/add', payload, { root: true })
         dispatch('showAlertActivitySuccess', null, { root: true })
     },
 
