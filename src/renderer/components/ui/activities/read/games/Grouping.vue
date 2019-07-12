@@ -74,7 +74,7 @@
                             :item="item"
                             :type="'value'"
                             :template="activity.item_template.value"
-                            class="img-grouping"
+                            :class="isBox ? 'text-grouping' : 'img-grouping'"
                         />
                     </b-col>
                 </b-row>
@@ -102,7 +102,7 @@ export default {
     computed: {
         isBox(){
             return this.activity.item_template.key.custom === 'game-caixa-de-palavras' ? true : false
-        }
+        },
     },
     created(){
         this.createAnswersArray()
@@ -204,8 +204,25 @@ export default {
             }
         }
 
-        .img-grouping{
+        .text-grouping{
             * .draggshadow{
+                height: 100%;
+            }
+        }
+
+        .img-grouping{
+            * .card--draggable{
+                padding: 0;
+
+                * .card-body{
+                    padding: 5px !important;
+                }
+            }
+
+            * .draggshadow{
+                width: 70px;
+                height: 70px;
+
                 .card-body{
                     padding: 5px 0 !important;
                 }
