@@ -91,7 +91,6 @@ export default {
     },
     mounted() {
         this.createAnswersArray()
-        console.log(this.activity.item_template.key.font_size)
         // coloca uma assinatura nos botões criados dentro da fase
         let i = 0;
         this.alphabet_1.forEach((letter) => {
