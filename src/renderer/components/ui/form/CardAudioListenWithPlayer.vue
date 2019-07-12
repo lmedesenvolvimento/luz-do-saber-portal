@@ -9,12 +9,13 @@
                 </slot>
             </b-card-body>
             <b-card-footer>
-                <!-- <vue-plyr> -->
-                <vue-plyr :options="playerOptions">
-                    <audio>
-                        <source :src="uri" type="audio/mp3" />
-                    </audio>
-                </vue-plyr>
+                <div class="card--audio plyr-flat">
+                    <vue-plyr ref="plyr" :options="playerOptions">
+                        <audio>
+                            <source :src="uri" type="audio/mp3" />
+                        </audio>
+                    </vue-plyr>
+                </div>
             </b-card-footer>
         </b-card>
     </div>
@@ -27,18 +28,22 @@ export default {
     data () {
         return {
             uri: 'https://luz-do-saber-staging.herokuapp.com/audios/comecar/meu-nome/meu-primeiro-nome/1.mp3',
-            options: {
-
-            }
         }
     },
     computed: {
         playerOptions() {
             const options = {
-                controls: ['play', 'progress']
+                controls: ['play', 'progress'],
+                keyboard: { focused: false, global: false }
             }
             return options
+        },
+        player() {
+            return this.$refs.plyr.player
         }
+    },
+    mounted() {
+        this.player.volume = 0.7
     }
 }
 </script>
