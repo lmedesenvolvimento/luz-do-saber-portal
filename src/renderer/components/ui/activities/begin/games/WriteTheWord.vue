@@ -86,11 +86,6 @@ export default {
     computed: {
         ...mapState('Activity', ['answers']),
     },
-    watch: {
-        wrongWords() {
-            console.log('Palavra errada');
-        },
-    },
     mounted() {
         this.totalLetters = this.activity.items.values[0].total_letters; // Campo input tem o tamanho da palavra correta
         this.createAnswersArray();
@@ -122,7 +117,6 @@ export default {
         checkAnswer() {
             if (this.answer.text != '' && this.answer.text != null) {
                 if (this.answer.text === this.getValues[0].text.toLowerCase()) {
-                    console.log('Reposta: ' + this.getValues[0].text.toLowerCase());
                     this.setAnswer({
                         type: 'value',
                         data: this.getValues[0].id,

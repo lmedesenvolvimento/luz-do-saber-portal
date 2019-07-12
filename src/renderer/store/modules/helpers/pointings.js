@@ -6,6 +6,12 @@ export function findById(state, id, type){
         .find({ id: id })
         .value()
 }
+export function findIndexById(state, id, type){
+    return chain(state[type])
+        .values()
+        .findIndex({ id: id })
+        .value()
+}
 
 export function mapActivity(activity){
     return pick(activity, ['id', 'pointings', 'timer', 'theme_id', 'unit_id','module_id'])

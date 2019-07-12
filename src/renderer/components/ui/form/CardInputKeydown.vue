@@ -59,13 +59,11 @@ export default {
     watch: {
         model(value){
             if ((this.valid || this.invalid) || this.model.length === 0) return
-
             this.isNotWord ? this.whenNotWord(value) : this.whenWord(value)
         }
     },
     mounted(){
         let isFirstElement = this.$el.closest('.item') === this.$el.closest('.item').parentElement.firstElementChild
-
         if (isFirstElement) {
             this.$el.querySelector('input').focus()
         }
