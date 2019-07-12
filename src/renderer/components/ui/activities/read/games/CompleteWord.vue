@@ -9,7 +9,7 @@
                     <b-col cols="12" md="8" sm="8" class="pieces-row">
                         <b-row>
                             <b-col v-for="(piece, index) in incompleteWord.pieces" :key="index" :md="1" class="key-pieces item">                                        
-                                <div :class="[piece.type, 'texto']" v-if="piece.template.tags === null">
+                                <div v-if="piece.template.tags === null" :class="[piece.type, 'texto', activity.item_template.key.font_size]">
                                     <ls-card-display
                                         :item="piece"
                                         :valid="piece.valid"
@@ -23,6 +23,7 @@
                                     :item="piece"
                                     :type="'key'"
                                     :template="piece.template"
+                                    :size="piece.template.font_size"
                                 />
                             </b-col>
                         </b-row>
@@ -32,12 +33,26 @@
             <b-col v-if="hasKeys" class="activity-keys">
                 <b-col class="activity-values" cols="12" md="12">
                     <b-row align-v="center" align-h="center" class="values-container">
-                        <b-col v-for="(item, position) in getValues" :key="position" align-self="center" cols="12" :sm="3" :md="3" lg="2" class="item" @click="triggerFocus(item)">
+                        <ls-card-display v-if="activity.item_template.value.tags==='arrastar'" class="card--display-container">
+                            <b-row align-v="center" align-h="center" cols="12" md="12">
+                                <b-col v-for="(item, position) in getValues" :key="position" align-self="center" cols="12" :sm="3" :md="3" lg="2" class="item">
+                                    <Item 
+                                        :item="item"
+                                        :type="'value'"
+                                        :template="activity.item_template.value"
+                                        :size="activity.item_template.value.font_size"
+                                    />
+                                </b-col>
+                            </b-row>
+                        </ls-card-display>
+                        <b-col v-for="(item, position) in getValues" v-else :key="position" align-self="center" cols="12" :sm="3" :md="3" lg="2" class="item" @click="triggerFocus(...arguments, item)" data-canTrigger="false">
                             <Item 
                                 :item="item"
                                 :type="'value'"
                                 :template="activity.item_template.value"
-                            />
+                                :size="activity.item_template.value.font_size"
+                                data-canTrigger="false"
+                            />                                
                         </b-col>
                     </b-row>
                 </b-col>
@@ -63,7 +78,7 @@ export default {
         AsyncImage,
     },
     mixins: [MapMixins, ListMixin, CreateAnswersMixins],
-    props: [ 'type' ],
+    props:{ type: String },
     data() {
         return {
             incompleteWord: {},
@@ -73,19 +88,21 @@ export default {
             correctIndex: -1
         }
     },
-    watch: {
-        selectItem(value){
-            const pieceIndex = this.correctIndex
-            let selectPiece = this.incompleteWord.pieces[pieceIndex]
-            selectPiece.text = value.text
-            selectPiece.invalid = true
-        }, 
-        answers(value){
-            console.log(value)
-        }
-    },
     computed: {
         ...mapState('Activity', ['answers'])
+    },
+    watch: {
+        selectItem(value){
+            if(value){
+                const pieceIndex = this.correctIndex
+                let selectPiece = this.incompleteWord.pieces[pieceIndex]
+                selectPiece.text = value.text
+                if(value.text===this.correctPiece.text)
+                    selectPiece.valid = true
+                else 
+                    selectPiece.invalid = true
+            }
+        },
     },
     created(){
         this.incompleteWord = this.getKeys[0]
@@ -96,16 +113,20 @@ export default {
         this.createAnswersArray()
     },
     methods: {
-        triggerFocus(item) {            
-            this.selectItem = item
-            setTimeout(()=> {
-                this.incompleteWord.pieces[this.correctIndex].invalid = false
-                this.incompleteWord.pieces[this.correctIndex].text = ''
-                this.selectItem = 'XX'
-            }, 600)
+        triggerFocus(args, item) {  
+            if(args.target.getAttribute('data-canTrigger')!=='false'){
+                this.selectItem = item
+                setTimeout(()=> {
+                    this.incompleteWord.pieces[this.correctIndex].invalid = false
+                    this.incompleteWord.pieces[this.correctIndex].valid = false
+                    this.incompleteWord.pieces[this.correctIndex].text = ''
+                    this.selectItem = ''
+                }, 600)
+            }
         },
         clearIncompleteWord(type, correct){
             let pieces = []
+            this.correctPiece = correct
             if(type === 'letra'){
                 pieces = this.incompleteWord.letters
             } else if(type === 'silaba'){
@@ -114,7 +135,7 @@ export default {
             for(let i = 0; i<pieces.length; i++){
                 pieces[i].template = cloneDeep(this.activity.item_template.key)
                 if(pieces[i].text === correct.text){
-                    pieces[i].text = 'XX'
+                    pieces[i].text = ''
                     pieces[i].value_ids = this.incompleteWord.value_ids
                     this.correctIndex = i
                 } else {
@@ -128,6 +149,18 @@ export default {
 }
 </script>
 <style lang="scss">
+.key-pieces{
+    .silaba{
+        .card{
+            &.valid, &.invalid{
+                &::after{
+                    content: none !important;
+                }
+            }        
+        }
+    }
+}
+
 .silaba,
 .letra{
     .card-body{
