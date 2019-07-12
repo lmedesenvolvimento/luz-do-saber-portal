@@ -18,7 +18,7 @@
                         <div :class="activity.item_template.key.font_size">
                             <ls-card-display>
                                 <div v-if="searchString(raffle,letter)">
-                                    {{ letter }}
+                                    {{ notNormalizedLetters[index] }}
                                 </div>
                                 <div v-else>
                                     _
@@ -36,8 +36,8 @@
                     :key="position"
                     class="item"
                 >
-                    <div class="letra texto" :class="activity.item_template.value.font_size">
-                        <div class="card-input card--radio-input" :class="$attrs.class" style="width: 50px">
+                    <div class="letra texto medium" style="width: 50px">
+                        <div class="card-input card--radio-input" :class="$attrs.class">
                             <label>
                                 <b-card
                                     no-body
@@ -84,6 +84,7 @@ export default {
             alphabetInputs_1: [],
             alphabetInputs_2: [],
             keyLetters: [],
+            notNormalizedLetters: [],
             keyIds: [],
             raffle: []
         }
@@ -105,8 +106,10 @@ export default {
         for(let i = 0; i < this.activity.total_correct_items; i++){
             console.log(this.normalizeWord(this.getKeys[0].letters[i].text))
             this.keyLetters.push(this.normalizeWord(this.getKeys[0].letters[i].text))
+            this.notNormalizedLetters.push(this.getKeys[0].letters[i].text)
             this.keyIds.push(this.getKeys[0].value_ids[i])
         }
+        // this.activity.total_correct_items = 3;
         console.log(this.keyLetters);
     },
     methods: {
