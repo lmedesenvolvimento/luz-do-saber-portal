@@ -50,7 +50,7 @@ export default {
     },
     computed: {
         isNotWord(){
-            return this.value.type !== 'substantivo_comum'
+            return this.value.total_letters < 1
         },
         length(){
             return (this.isNotWord) ? 1 : 11
@@ -60,7 +60,7 @@ export default {
         model(value){
             if ((this.valid || this.invalid) || this.model.length === 0) return
 
-            this.isNotWord ? this.whenNotWord(value) : this.whenWord(value)  
+            this.isNotWord ? this.whenNotWord(value) : this.whenWord(value)
         }
     },
     mounted(){
