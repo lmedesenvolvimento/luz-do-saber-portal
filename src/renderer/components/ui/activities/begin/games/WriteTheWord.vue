@@ -94,7 +94,7 @@ export default {
     mounted() {
         this.totalLetters = this.activity.items.values[0].total_letters; // Campo input tem o tamanho da palavra correta
         this.createAnswersArray();
-        
+
     },
     destroyed() {
         this.wrongWords.length = 0; // Zera o array de palavras erradas
@@ -139,7 +139,7 @@ export default {
             }
 
             this.answer.text = '';
-            
+
         },
         ...mapActions('Activity', ['setActivityAttrs', 'setAnswer'])
     },

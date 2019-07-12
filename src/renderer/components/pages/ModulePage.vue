@@ -57,7 +57,7 @@ export default {
             }
         },
         renderNavTitle(){
-            return this.activeModule.slug ? 'Módulo ' + this.activeModule.slug : ''
+            return this.activeModule.title ? 'Módulo ' + this.activeModule.title : ''
         },        
         ...mapState('Modules', ['activeModule'])
     },
