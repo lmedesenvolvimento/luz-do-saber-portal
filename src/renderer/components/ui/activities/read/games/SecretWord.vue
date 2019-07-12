@@ -101,10 +101,13 @@ export default {
             this.alphabetInputs_2.push(Object.assign({}, {letter, color}))
             i++;
         })
+        console.log(this.keyLetters);
         for(let i = 0; i < this.activity.total_correct_items; i++){
-            this.keyLetters.push(this.getKeys[0].letters[i].text)
+            console.log(this.normalizeWord(this.getKeys[0].letters[i].text))
+            this.keyLetters.push(this.normalizeWord(this.getKeys[0].letters[i].text))
             this.keyIds.push(this.getKeys[0].value_ids[i])
         }
+        console.log(this.keyLetters);
     },
     methods: {
         alphabetInputs (index) {
@@ -135,6 +138,17 @@ export default {
                 })
             }
 
+        },        
+        // ignora a acentuação das letras dos nomes na hora de comparar com as letras
+        normalizeWord (word) {
+            return word.split('').map(function (letter) {
+                let i = this.accents.indexOf(letter)
+                return (i !== -1) ? this.out[i] : letter
+            }.bind({
+                accents: 'ÀÁÂÃÄÅĄàáâãäåąßÒÓÔÕÕÖØÓòóôõöøóÈÉÊËĘèéêëęðÇĆçćÐÌÍÎÏìíîïÙÚÛÜùúûüÑŃñńŠŚšśŸÿýŽŻŹžżź',
+                out: 'AAAAAAAaaaaaaaBOOOOOOOOoooooooEEEEEeeeeeeCCccDIIIIiiiiUUUUuuuuNNnnSSssYyyZZZzzz'
+            })
+            ).join('')
         },
         searchString(arr, str) {
             for(let i = 0; i < arr.length;i++){

@@ -75,7 +75,7 @@
                 >
                     <ls-card-display
                         class="bingo-card"
-                        :valid="searchStringInArray(raffleLetters, normalizeString(getValues[i].text).split(''))"
+                        :valid="searchStringInArray(raffleLetters, normalizeWord(getValues[i].text).split(''))"
                     >
                         <b-row align-v="center" align-h="center">
                             <b-col
@@ -89,7 +89,7 @@
                                     <ls-card-display
                                         size="medium"
                                         style="width: 50px"
-                                        :valid="searchString(raffleLetters, normalizeString(item.text))"
+                                        :valid="searchString(raffleLetters, normalizeWord(item.text))"
                                     >
                                         {{ item.text }}
                                     </ls-card-display>
@@ -173,8 +173,8 @@ export default {
         })
         // para podermos dar prioridade as letras do usuário na chamada do bingo, criamos um vetor com as letras, sem repetições
         this.playerLetters.forEach(letter => {
-            if(!this.searchString(this.scramblePlayerLetters, this.normalizeString(letter.text))){
-                this.scramblePlayerLetters.push(this.normalizeString(letter.text))
+            if(!this.searchString(this.scramblePlayerLetters, this.normalizeWord(letter.text))){
+                this.scramblePlayerLetters.push(this.normalizeWord(letter.text))
             }
         })
         // embaralhamos o vetor de letras
@@ -191,7 +191,7 @@ export default {
             // caso o item já tenha sido checado, retornamos aqui mesmo
             if(item.valid || item.invalid) return
             //testa se o item já pode ser marcado na cartela do jogador
-            if(this.searchString(this.raffleLetters, this.normalizeString(item.text))){
+            if(this.searchString(this.raffleLetters, this.normalizeWord(item.text))){
                 item.valid = true
                 // insere o id da resposta do jogador
                 if(filter(this.playerLetters, { valid: true }).length === this.playerLetters.length){
@@ -219,8 +219,8 @@ export default {
 
         },
         // ignora a acentuação das letras dos nomes na hora de comparar com as letras do bingo
-        normalizeString (string) {
-            return string.split('').map(function (letter) {
+        normalizeWord (word) {
+            return word.split('').map(function (letter) {
                 let i = this.accents.indexOf(letter)
                 return (i !== -1) ? this.out[i] : letter
             }.bind({
