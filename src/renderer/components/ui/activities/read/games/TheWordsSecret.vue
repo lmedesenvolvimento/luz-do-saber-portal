@@ -1,12 +1,12 @@
 <template>
-    <div class="container-fluid">        
+    <div class="container-fluid">
         <b-row align-h="center" :class="{'column': !horizontal,'reverse': (reverse && horizontal), 'reverse-column': ( reverse && !horizontal )}">
             <b-col v-if="hasKeys" class="px-5 activity-keys">
                 <b-row>
                     <b-col v-for="(item, position) in shuffleValues" :key="position" cols="6" class="px-5">
                         <b-row class="px-5">
                             <b-col v-for="(item2, position2) in item.syllables" :key="position2" class="item" cols="6">
-                                <ls-card-display 
+                                <ls-card-display
                                     v-if="answers"
                                     :item="item2"
                                     :bg-color="item.color"
@@ -15,9 +15,9 @@
                                 </ls-card-display>
                             </b-col>
                         </b-row>
-                        <div class="card-input card-input-text ">
+                        <div class="card-input card--input-text ">
                             <label>
-                                <b-card 
+                                <b-card
                                     no-body
                                     :class="{ 'invalid': item.invalid, 'valid': item.valid }"
                                 >
@@ -45,7 +45,6 @@ import { MapMixins, ListMixin, CreateAnswersMixins } from '@ui/activities/mixins
 import { mapActions } from 'vuex'
 import { clone, shuffle } from 'lodash'
 import FormProps from '@ui/form'
-import { constants } from 'http2';
 
 export default {
     components: { ...FormProps },
@@ -64,7 +63,7 @@ export default {
             let pos0 = e.syllables[0]
             let pos1 = e.syllables[e.syllables.length-1]
             e.syllables[0] = pos1
-            e.syllables[e.syllables.length-1] = pos0 
+            e.syllables[e.syllables.length-1] = pos0
             if (e.syllables.length > 2){
                 for (let i = e.syllables.length - 1; i >= 1; i--)
                 {
@@ -87,8 +86,8 @@ export default {
                 return
             }
             if (event.target.value.toLowerCase() === item.text.toLowerCase()){
-                this.setAnswer({ 
-                    type: item.type, 
+                this.setAnswer({
+                    type: item.type,
                     data: item.id,
                     vm: {}
                 })
@@ -97,14 +96,14 @@ export default {
                 updates[position].valid = true
                 event.target.disabled = true
             } else {
-                this.setAnswer({ 
-                    type: 'value', 
+                this.setAnswer({
+                    type: 'value',
                     data: -1,
                     vm: {}
                 })
                 updates[position].invalid = true
                 this.removeInvalid(item, 1, position)
-            }            
+            }
             Vue.set(this, 'shuffleValues', updates)
         },
         removeInvalid(item, time, position){
