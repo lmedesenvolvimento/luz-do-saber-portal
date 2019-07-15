@@ -1,38 +1,38 @@
 <template>
-    <b-modal 
+    <b-modal
         ref="alert-success-modal"
-        content-class="feedback" 
-        :centered="true" 
-        :header-class="renderModuleSlug" 
-        :hide-footer="true" 
+        content-class="feedback"
+        :centered="true"
+        :header-class="renderModuleSlug"
+        :hide-footer="true"
         :no-close-on-backdrop="true"
         @hide="onHidden"
     >
         <template slot="modal-header">
             <div class="feedback-header">
-                <div class="feedback-stars feedback-header-item">                         
-                    <img :src="star(0)" class="feedback-small-stars" alt="star"> 
-                    <img :src="star(1)" alt="star"> 
-                    <img :src="star(2)" class="feedback-small-stars" alt="star">                        
+                <div class="feedback-stars feedback-header-item">
+                    <img :src="star(0)" class="feedback-small-stars" alt="star">
+                    <img :src="star(1)" alt="star">
+                    <img :src="star(2)" class="feedback-small-stars" alt="star">
                 </div>
                 <div class="feedback-header-item "><h5 class="feedback-rounded-number">{{ renderActivityPosition }}</h5></div>
                 <div class="feedback-header-item"><h5>{{ renderActivityName }}</h5></div>
-            </div>                
+            </div>
         </template>
         <br>
         <div class="feedback-content">
-            <img :src="expressionStar" alt="expression-star">                 
+            <img :src="expressionStar" alt="expression-star">
             <br>
             <h5>{{ feedbackText1 }}</h5>
             <div v-if="totalStars==3" class="feedback-itim"><h5>{{ feedbackText5 }}</h5></div>
             <div class="feedback-itim"><h5>{{ feedbackText2 }} <span class="feedback-golden">{{ feedbackText3 }}</span>{{ feedbackText4 }}</h5></div>
             <div v-if="totalStars!=3" class="feedback-itim"><h5>{{ feedbackText5 }}</h5></div>
-        </div>             
+        </div>
         <br>
         <div class="feedback-footer-buttons" :class="$route.params.module_slug">
-            <div class="icon-redo" @click="resetActivity"></div> 
-            <div class="icon-next" @click="nextActivity"></div>              
-        </div>  
+            <div class="icon-redo" @click="resetActivity"></div>
+            <div class="icon-next" @click="nextActivity"></div>
+        </div>
     </b-modal>
 </template>
 <script>
@@ -50,11 +50,11 @@ export default {
     computed: {
         feedbackText1: function () {
             switch(this.totalStars){
-            case 0: 
+            case 0:
                 return 'Que Pena!'
             case 1:
                 return 'Quase!'
-            case 2: 
+            case 2:
                 return 'Muito Bem!'
             case 3:
                 return 'Parabéns!'
@@ -64,11 +64,11 @@ export default {
         },
         feedbackText2: function () {
             switch(this.totalStars){
-            case 0: 
+            case 0:
                 return 'Você não conseguiu'
             case 1:
                 return 'Você conseguiu'
-            case 2: 
+            case 2:
                 return 'Você conseguiu'
             case 3:
                 return 'com'
@@ -78,11 +78,11 @@ export default {
         },
         feedbackText3: function () {
             switch(this.totalStars){
-            case 0: 
+            case 0:
                 return 'Nenhuma Estrela'
             case 1:
                 return 'Uma Estrela'
-            case 2: 
+            case 2:
                 return 'Duas Estrelas'
             case 3:
                 return 'Excelência'
@@ -98,11 +98,11 @@ export default {
         },
         feedbackText5: function () {
             switch(this.totalStars){
-            case 0: 
+            case 0:
                 return 'Tente novamente!'
             case 1:
                 return 'Vamos tentar novamente?'
-            case 2: 
+            case 2:
                 return 'Deseja tentar novamente?'
             case 3:
                 return 'Você completou a atividade';
@@ -132,7 +132,7 @@ export default {
         },
         renderActivityName(){
             return this.activity ? this.activity.title.text : ''
-        },        
+        },
         ...mapState({
             isVisibleActivityAlertSuccess: state => state.Alert.isVisibleActivityAlertSuccess
         }),
@@ -145,7 +145,7 @@ export default {
             value ? this.$refs['alert-success-modal'].show() : this.$refs['alert-success-modal'].hide()
         },
     },
-    methods: {        
+    methods: {
         star: function (num) {
             if (this.totalStars > num){
                 return require('@/assets/images/icons/star-full.png')
@@ -161,22 +161,23 @@ export default {
             const question = find(this.unit.questions, { order: this.activity.order })
 
             this.destroyActivity()
-            
-            this.fetchActivity({ 
-                params, 
+
+            this.fetchActivity({
+                params,
                 question
             }).then(() => {
                 if (this.activity) AudioReader.simplePlay(this.activity.statement.audio)
             })
 
             this.onHidden();
-        },    
+        },
         nextActivity(){
-            this.$store.dispatch('Unit/nextActivity')            
+            this.$store.dispatch('Unit/nextActivity')
+            this.destroyActivity()
             this.onHidden()
-        }, 
+        },
         ...mapActions(['hideAlertActivitySuccess']),
         ...mapActions('Activity',['fetchActivity','destroyActivity'])
-    }    
+    }
 }
 </script>
