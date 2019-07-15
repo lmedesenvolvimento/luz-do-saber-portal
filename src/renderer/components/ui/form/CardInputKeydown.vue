@@ -30,6 +30,8 @@ import RadioInput from './RadioInput.vue'
 import { setTimeout } from 'timers'
 import { trim, dropRight } from 'lodash'
 
+import { LetterTypes } from '@/constants'
+
 export default {
     mixins: [RadioInput],
     props:{
@@ -50,7 +52,7 @@ export default {
     },
     computed: {
         isNotWord(){
-            return this.value.total_letters < 1
+            return LetterTypes.includes(this.value.type)
         },
         length(){
             return (this.isNotWord) ? 1 : 11
