@@ -1,6 +1,6 @@
 <template>
     <div v-if="theme" id="theme" class="page-container">
-        <navbar            
+        <navbar
             :navbar-title="renderNavTitle"
             :navbar-subtitle="'Unidades'"
             :navbar-icon="themeImage"
@@ -10,10 +10,10 @@
                 <b-col v-for="unit in theme.units" :key="unit.id" cols="12" md="6">
                     <div class="theme-unit-box">
                         <router-link
-                            :to="{ 
-                                name: 'unit', 
-                                params: { 
-                                    module_slug: $route.params.module_slug, 
+                            :to="{
+                                name: 'unit',
+                                params: {
+                                    module_slug: $route.params.module_slug,
                                     theme_slug: theme.slug,
                                     unit_slug: unit.slug
                                 }
@@ -29,16 +29,17 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { omit, filter } from 'lodash'
+import { mapState, mapActions, mapGetters } from 'vuex';
 import { RouteMixin } from './index';
 
 import ThemesBox from '../ui/ThemesBox'
 import Navbar from '../ui/navbars/Navbar';
 
 export default {
-    components: { 
+    components: {
         ThemesBox,
-        Navbar, 
+        Navbar,
     },
     mixins: [RouteMixin],
     data() {
@@ -58,10 +59,11 @@ export default {
             return this.theme.cover_url ? this.theme.cover_url : ''
         },
         ...mapState('Theme', ['theme']),
-        
+        ...mapState('Pointings', ['units']),
+
     },
     created(){
-        this.fetchTheme(this.$route.params)        
+        this.fetchTheme(this.$route.params).then(this.registerUserProgress)
     },
     beforeDestroy(){
         this.destroyTheme()
@@ -79,7 +81,25 @@ export default {
                 break;
             }
         },
-        ...mapActions('Theme', ['fetchTheme','destroyTheme'])
+        registerUserProgress(theme){
+            theme.units.forEach((unit) => {
+                const activities = this.getActivitiesProgressByUnitId(unit)
+                const completed = activities.length === unit.questions.length
+                const payload = {
+                    data: {
+                        ...omit(unit, ['questions']),
+                        completed
+                    },
+                    type: 'units',
+                }
+                this.add(payload)
+            })
+        },
+        getActivitiesProgressByUnitId(unit){
+            return this.$store.getters['Pointings/getPointingsActivitiesByUnitId'](unit.id)
+        },
+        ...mapActions('Theme', ['fetchTheme','destroyTheme']),
+        ...mapActions('Pointings', ['add'])
     }
 };
 </script>
