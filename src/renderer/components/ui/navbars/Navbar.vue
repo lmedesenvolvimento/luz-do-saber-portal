@@ -4,7 +4,7 @@
             <div class="icon-prev-screen"></div>
         </router-link>
 
-        <b-btn variant="link" to="/">
+        <b-btn class="navbar-icons icon-right" variant="link" to="/">
             <div class="icon-home"></div>
         </b-btn>
 
