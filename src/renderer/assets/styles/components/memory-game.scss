@@ -1,30 +1,6 @@
-.memory-game{    
+.memory-game{
     .item{
         padding: 10px 20px;
-        &.fail{
-            &::before{
-                background-image: url('~@/assets/images/icons/fail.png');
-                background-size: 22px 23px;
-                width: 22px;
-                height: 23px;
-                position: absolute;
-                content: '';
-                right: 0px;
-                top: 88px;
-            }
-        }
-        &.success{
-            &::before{
-                background-image: url('~@/assets/images/icons/success.png');
-                background-size: 22px 23px;
-                width: 22px;
-                height: 23px;
-                position: absolute;
-                content: '';
-                right: 0px;
-                top: 88px;
-            }
-        }
     }
     .activity-values{
         align-items: center!important;
@@ -49,7 +25,7 @@
                     align-items: center;
                     justify-content: center;
                     cursor: pointer;
-                }                
+                }
             }
         }
     }
@@ -78,10 +54,10 @@
             &.back{
                 z-index: 10;
                 transform: rotateY(180deg);
-            }               
+            }
         }
     }
-    @include media-breakpoint-down('md'){                
+    @include media-breakpoint-down('md'){
         .row{
             height: 100%;
         }
@@ -96,7 +72,7 @@
                 right: -5px!important;
             }
         }
-    } 
+    }
 }
 
 /* ----------------------------------------------
