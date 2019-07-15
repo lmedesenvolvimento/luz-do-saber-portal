@@ -24,7 +24,7 @@
                    max-height: $item-text-max-heigth;
                }
            }
-           &.validate-icon-top{
+           &.validate-icon-top, .card-inline-player{
                 .card {
                     &.valid, &.invalid{
                         &::after{

@@ -50,7 +50,7 @@ export default {
     },
     computed: {
         isNotWord(){
-            return this.value.type !== 'substantivo_comum'
+            return this.value.total_letters < 1
         },
         length(){
             return (this.isNotWord) ? 1 : 11
@@ -59,13 +59,11 @@ export default {
     watch: {
         model(value){
             if ((this.valid || this.invalid) || this.model.length === 0) return
-
-            this.isNotWord ? this.whenNotWord(value) : this.whenWord(value)  
+            this.isNotWord ? this.whenNotWord(value) : this.whenWord(value)
         }
     },
     mounted(){
         let isFirstElement = this.$el.closest('.item') === this.$el.closest('.item').parentElement.firstElementChild
-
         if (isFirstElement) {
             this.$el.querySelector('input').focus()
         }

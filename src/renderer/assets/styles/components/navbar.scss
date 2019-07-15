@@ -41,4 +41,10 @@
         overflow: visible !important;
         @include ellipsis;
     }
+    .navbar-icons {
+        position: absolute;
+    }
+    .icon-right {
+        left: 90px;
+    }
 }

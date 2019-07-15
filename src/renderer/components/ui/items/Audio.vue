@@ -1,19 +1,17 @@
 <template>
-    <div>
-        <ls-card-audio-listen
-            v-if="template.custom === Types.custom.audioPlayer"
-            :type="type"
-            :item="item"
-            :template="template"
-        ></ls-card-audio-listen>
-        <ls-card-audio-image-listen
-            v-else-if="template.slug === Types.slugs.audioImage"
-            :type="type"
-            :item="item"
-            :template="template"
-        >
-        </ls-card-audio-image-listen>
-    </div>
+    <ls-card-audio-listen
+        v-if="template.slug === Types.slugs.textAudio"
+        :type="type"
+        :item="item"
+        :template="template"
+    ></ls-card-audio-listen>
+    <ls-card-audio
+        v-else
+        :type="type"
+        :item="item"
+        :template="template"
+    >
+    </ls-card-audio>
 </template>
 <script>
 import { ItemProps } from './index.js'
