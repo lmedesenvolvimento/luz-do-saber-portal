@@ -50,9 +50,7 @@ $icon-themes: (
 );
 
 // Grid
-// $gutter-size: 1rem;
-$gutter-size: 1rem;
-$gutter-sm-size: 0.75rem;
+$gutter-size: 0.5rem;
 
 // Cards
 $card-input-dark-border-color: #2B1F17;
@@ -118,25 +116,21 @@ $item-types-width: (
         substantivo_comum: 210px,
         substantivo_proprio: 210px
     ),
-    small: (
+    medium: (
         letra: 58px,
         numero: 58px,
         caractere_especial: 58px,
         silaba: 74px,
-        substantivo_comum: 210px,
-        substantivo_proprio: 210px
+        substantivo_comum: 185px,
+        substantivo_proprio: 185px
     )
 );
 
-$item-types-sm-width: (
-    letra: 58px,
-    numero: 58px,
-    caractere_especial: 58px,
-    silaba: 74px,
-    substantivo_comum: 210px,
-    substantivo_proprio: 210px
+$item-sizes: (
+    medium: 'medium',
+    small: 'small',
+    'extreme-small': 'extreme-small'
 );
 
-$item-sizes: (
-    sm: 'small'
-)
+// Player
+$inline-player-width: 48px;

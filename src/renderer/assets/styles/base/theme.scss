@@ -15,5 +15,8 @@ body {
         .navbar {
             background-color: $value;
         }
+        .plyr--audio .plyr__controls{
+            color: $value;
+        }
     }
 }

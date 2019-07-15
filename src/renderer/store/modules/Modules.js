@@ -18,21 +18,23 @@ const actions = {
     async fetchModule({ commit }, slug){
         let { data } = await API.get(`/game/${slug}`)
         commit('SET_ACTIVE_MODULE', data)
+        return data
 
     },
     async fetchModules({ commit }){
         let { data } = await API.get('/game')
         commit('SET_MODULES', data.modulos)
+        return data
     },
 
     destroyModule({commit}) {
         commit('SET_ACTIVE_MODULE', null)
-    }    
+    }
 }
 
-export default { 
+export default {
     namespaced: true,
-    state, 
+    state,
     mutations,
     actions
 }
