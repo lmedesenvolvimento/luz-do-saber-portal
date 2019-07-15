@@ -5,13 +5,13 @@
                 <b-row align-v="center" align-h="center">
                     <b-col v-for="(group, index) in groups" :key="index" class="group-holder">
                         <ls-card-display
-                            label="group" 
+                            label="group"
                             :type="'text'"
                             class="group"
                         >
                             <div v-for="(letter, lIndex) in group" :key="lIndex" class="letters" @click="checkLetter(letter, group)">
                                 <ls-card-display
-                                    label="group" 
+                                    label="group"
                                     :type="'text'"
                                     :item="letter"
                                     :valid="letter.valid"
@@ -51,7 +51,6 @@ export default {
     },
     created(){
         this.groups = this.setGroup(this.getValues, this.getKeys)
-        // console.log(this.groups)
         this.createAnswersArray()
         this.setActivityAttrs({ total_correct_items: this.getKeys.length })
     },
@@ -62,7 +61,7 @@ export default {
                 let group = []
                 for(let j = 0; j<3 ; j++)
                     group.push({ id: keys[i].id, personalid: j, text: keys[i].text, valid: false, invalid: false })
-                group.push({ id: values[i].id, personalid: 3, text: values[i].text, valid: false, invalid: false }) 
+                group.push({ id: values[i].id, personalid: 3, text: values[i].text, valid: false, invalid: false })
                 let groupSuffled = shuffle(group)
                 lettersGroup.push(groupSuffled)
             }
@@ -82,5 +81,5 @@ export default {
 </script>
 
 <style lang="scss">
-    
+
 </style>
