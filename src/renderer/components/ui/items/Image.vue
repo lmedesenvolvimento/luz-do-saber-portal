@@ -2,8 +2,8 @@
     <div>
         <ls-card-image-display
             v-if="type === 'key'"
-            class="col-sm" 
-            label="item.text" 
+            class="col-sm"
+            label="item.text"
             :item="item"
             :name="activity.type.slug"
             :template="template"
@@ -12,7 +12,7 @@
 
         <ls-card-draggable
             v-else-if="isDrag"
-            label="item.text" 
+            label="item.text"
             :item="item"
             :name="activity.type.slug"
             :bg-color="item.color"
@@ -24,9 +24,9 @@
             </template>
         </ls-card-draggable>
 
-        <ls-card-input 
+        <ls-card-input
             v-else-if="type === 'value'"
-            label="item.text" 
+            label="item.text"
             :type="type"
             :item="item"
             :name="activity.type.slug"
