@@ -3,41 +3,34 @@
         <b-row align-h="center">
             <b-col class="activity-values">
                 <ls-card-display style="width: 150px">
-                    <b-row>
-                        <b-col v-for="(item, position) in getValues" :key="position" align-self="center" :md="valueColSize" :sm="6" class="item">
-                            <div class="accentuation-item">
-                                <Item
-                                    v-if="answers"
-                                    :item="item"
-                                    :type="'value'"
-                                    :template="activity.item_template.value"
-                                />
-                            </div>
-                        </b-col>
-                    </b-row>
-                </ls-card-display>
+                    <b-row v-for="(item, position) in getValues" :key="position" align-self="center" :md="valueColSize" :sm="6" class="item"> 
+                        <b-col class="accentuation-item">
+                            <Item 
+                                v-if="answers"
+                                :item="item"
+                                :type="'value'"
+                                :template="activity.item_template.value"
+                            />
+                        </b-col>                 
+                    </b-row> 
+                </ls-card-display> 
             </b-col>
             <b-col class="activity-keys">
                 <div>
-                    <b-row>
-                        <b-col v-for="(item, position) in getKeys" :key="position" class="item">
-                            <b-row align-h="start">
-                                <b-col>
-                                    <div class="letra accentuation-item">
-                                        <Item
-                                            :item="item"
-                                            :type="'key'"
-                                            :template="activity.item_template.key"
-                                            class="accentuation-drop"
-                                        />
-                                    </div>
-                                </b-col>
-                                <b-col class="accentuation-column accentuation-item">
-                                    <ls-card-display class="accentuation-card">
-                                        <p class="accentuation-card-word">{{ normalizeString(words[position]) }}</p>
-                                    </ls-card-display>
-                                </b-col>
-                            </b-row>
+                    <b-row v-for="(item, position) in getKeys" :key="position" align-self="center" :md="keyColSize" :sm="6" class="item"> 
+                        <b-col class="drop item accentuation-item accentuation-drop" md="1">
+                            <div :class="activity.item_template.key.font_size">
+                                <ls-card-droppable
+                                    class="letra texto"
+                                    :item="item"
+                                    :type="'key'"
+                                    :template="activity.item_template.key"
+                                >
+                                    <template slot="transfer-data">
+                                        {{ symbols[position] }}
+                                    </template>
+                                </ls-card-droppable>                                                               
+                            </div>                            
                         </b-col>
                         <b-col class="name-container">
                             <div class="accentuation-word medium">
@@ -78,6 +71,7 @@ export default {
             });
             
         });
+        console.log(this.symbols);
     },
     methods: {
         normalizeWord (word) {
@@ -94,10 +88,11 @@ export default {
 }
 </script>
 
-<style lang="scss">
-    .accentuation-item{
+<style lang="scss"> 
+    .accentuation-item {
         margin: 5px 0 5px 0;
-    }
+    } 
+
     .accentuation-drop {
         .card--droppable{
             .card{
@@ -109,14 +104,5 @@ export default {
     .accentuation-word {
         margin: 15px 0 0 -25px; 
         z-index: 0;
-    }
-    .accentuation-card {
-        margin: 8px 0 0 0;
-        .card-body {
-            height: 50px;
-        }
-    }
-    .accentuation-card-word {
-            margin-top: -4px;
-    }
+    }    
 </style>
