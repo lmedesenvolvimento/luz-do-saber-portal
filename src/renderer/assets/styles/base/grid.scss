@@ -5,12 +5,5 @@
         padding-right: $gutter-size;
         padding-left: $gutter-size;
       }
-      .card--display {
-        .col,
-        [class*="col-"] {
-          padding-right: $gutter-sm-size;
-          padding-left: $gutter-sm-size;
-        }
-      }
     }
 }

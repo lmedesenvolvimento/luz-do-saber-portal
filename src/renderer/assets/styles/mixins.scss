@@ -78,7 +78,7 @@
     font-family: 'Shitzu Porko Light', Arial, Helvetica, sans-serif;
 }
 
-@mixin custom-card($input: false){
+@mixin custom-card($input: false, $size: 'gluglu'){
     padding: 8px 0px;
     .card {
         padding: 0.20rem;
@@ -86,6 +86,7 @@
         box-shadow: 0px 0px 6px transparentize($color: $card-input-box-shadow-color, $amount: 0.1);
         border: 1px solid #fff;
         transition: transform 0.2s ease-in-out;
+        content: $size;
 
         .bg-color{
             background: #fff;
@@ -160,6 +161,15 @@
             background-color: #ccc;
         }
     }
+    @if $size == 'medium' {
+        @include custom-card-medium($input);
+    }
+    @else if $size == 'small' {
+        @include custom-card-small($input);
+    }
+    @else if $size == 'extreme-small' {
+        @include custom-card-xsmall($input);
+    }
 }
 
 @mixin item($value) {
@@ -168,10 +178,14 @@
             width: $value;
         }
     }
+    .card--display{
+        &.card-inline-player {
+            width: ( $value + $inline-player-width ) !important;
+        }
+    }
 }
 
-@mixin custom-card-sm($input: false){
-    @include custom-card($input);
+@mixin custom-card-medium($input: false){
     .card {
         border-radius: 0.75rem;
         padding: 0.15rem;
@@ -190,19 +204,51 @@
             @include card-body-box-shadow($card-input-box-shadow-color,0.9, 3px);
         }
     }
+    &.card--droppable{
+        .card{
+            &:not(.valid):not(.invalid){
+                &::before{
+                    @include custom-dropcard-content(6px, 0.6);
+                }
+            }
+        }
+    }
+    &.card--draggable{
+      .dragging, .dropped{
+            &::before{
+                @include custom-dropcard-content(6px, 0.6);
+            }
+        }
+    }
 }
 
-@mixin custom-dropcard-content{
+@mixin custom-card-small($input: false){
+    .card {
+        .card-body {
+            font-size: 16px;
+        }
+    }
+}
+
+@mixin custom-card-xsmall($input: false){
+    .card {
+        .card-body {
+            font-size: 14px;
+        }
+    }
+}
+
+@mixin custom-dropcard-content($decreaseW: 8px, $decreaseH: 8px, $border-radius-multiplier: 0.8){
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    width: calc(100% - 8px);
-    height: calc(100% - 8px);
+    width: calc(100% - #{$decreaseW});
+    height: calc(100% - #{$decreaseH});
     margin: auto;
     background-color: $card-empty-color;
-    border-radius: ($card-border-radius * 0.8);
+    border-radius: ($card-border-radius * $border-radius-multiplier);
     box-shadow: inset 0px 9px 1px 1px $card-empty-shadow-color;
     content: '';
 }

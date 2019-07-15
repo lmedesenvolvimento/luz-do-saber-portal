@@ -65,16 +65,9 @@ export default {
         },
         answers(data){
             console.log('answers',data)
-        },
-        localFriends: function(data){
-            for (var item in data ){
-
-                console.log('local friends', this.localFriends[item].name)
-            }
         }
     },
     created(){
-        console.log('created yeyey')
         this.setActivityAttrs({ total_correct_items: this.getKeys.length })
         this.localFriends =  []
         for(let i = 0; i < 4; i++){

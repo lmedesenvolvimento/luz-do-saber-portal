@@ -1,8 +1,8 @@
 <template>
-    <div 
-        v-if="activeModule" 
-        id="module" 
-        class="page-container" 
+    <div
+        v-if="activeModule"
+        id="module"
+        class="page-container"
     >
         <navbar
             :navbar-title="renderNavTitle"
@@ -18,7 +18,7 @@
                                 class=""
                                 :label="theme.title"
                                 :image="getThemeImage(theme)"
-                                :progress="50"
+                                :progress="getProgressTheme(theme)"
                                 :color="getModuleColor(activeModule)"
                             />
                         </router-link>
@@ -31,7 +31,7 @@
 
 <script>
 import { mapActions, mapState } from 'vuex'
-import { filter } from 'lodash'
+import { filter, omit } from 'lodash'
 import { RouteMixin } from './index'
 import VueCircle from '../ui/CircleProgressThemes'
 import Navbar from '../ui/navbars/Navbar'
@@ -57,12 +57,12 @@ export default {
             }
         },
         renderNavTitle(){
-            return this.activeModule.slug ? 'Módulo ' + this.activeModule.slug : ''
-        },        
+            return this.activeModule.title ? 'Módulo ' + this.activeModule.title : ''
+        },
         ...mapState('Modules', ['activeModule'])
     },
     created(){
-        this.fetchModule(this.$route.params.module_slug)
+        this.fetchModule(this.$route.params.module_slug).then(this.registerUserProgress)
     },
     beforeDestroy(){
         this.destroyModule();
@@ -95,7 +95,30 @@ export default {
         getThemeImage(theme) {
             return theme.cover_url ? theme.cover_url : 'http://pngimg.com/uploads/book/book_PNG51049.png'
         },
-        ...mapActions('Modules', ['fetchModule', 'destroyModule'])
+        getProgressTheme(theme){
+            const units = this.getProgressUnitsByThemeId(theme)
+            const total = ( filter(units, { completed: true }).length / theme.units.length ) * 100
+            return  total || 5
+        },
+        registerUserProgress(module){
+            module.themes.forEach((theme) => {
+                const units = this.getProgressUnitsByThemeId(theme)
+                const completed = filter(units, { completed: true }).length === theme.units.length
+                const payload = {
+                    data: {
+                        ...omit(theme, ['units']),
+                        completed
+                    },
+                    type: 'themes',
+                }
+                this.add(payload)
+            })
+        },
+        getProgressUnitsByThemeId(theme){
+            return this.$store.getters['Pointings/getUnitsByThemeId'](theme.id)
+        },
+        ...mapActions('Modules', ['fetchModule', 'destroyModule']),
+        ...mapActions('Pointings', ['add'])
     }
 }
 </script>
