@@ -33,17 +33,19 @@
             </b-col>
             <b-col class="activity-values">
                 <ls-card-display id="values-container-display">
-                    <b-row align-v="center" align-h="center" class="values-container">
-                        <div v-for="(item, position) in getValues" :key="position" align-self="center" class="item value-syllables" :class="activity.item_template.value.font_size">
-                            <ls-card-draggable
-                                v-if="answers"
-                                :item="item"
-                                :type="'value'"
-                                :template="activity.item_template.value"
-                            >
-                                {{ item.text }}
-                            </ls-card-draggable>
-                        </div>
+                    <b-row>
+                        <b-col class="values-container">
+                            <div v-for="(item, position) in getValues" :key="position" align-self="center" :class="activity.item_template.value.font_size" class="item value-syllables">
+                                <ls-card-draggable
+                                    v-if="answers"
+                                    :item="item"
+                                    :type="'value'"
+                                    :template="activity.item_template.value"
+                                >
+                                    {{ item.text }}
+                                </ls-card-draggable>
+                            </div>
+                        </b-col>
                     </b-row>
                 </ls-card-display>
             </b-col>
