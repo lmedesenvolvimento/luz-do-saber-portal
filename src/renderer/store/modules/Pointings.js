@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import { clone, chain } from 'lodash'
+import { clone, chain, keys } from 'lodash'
 import uniqid from 'uniqid'
 
-import { findById } from './helpers/pointings'
+import { findById, findIndexById } from './helpers/pointings'
 
 import db from '@/services/Session'
 
@@ -19,7 +19,17 @@ const mutations = {
         const { data, type } = payload
         const collection = clone(state[type])
         collection[uid] = data
-        
+
+        Vue.set(state, type, collection)
+
+        // sync with lowdb
+        db.set(`pointings.${type}.${uid}`, data).write()
+    },
+    update(state, payload) {
+        const { data, type, uid } = payload
+        const collection = clone(state[type])
+        collection[uid] = data
+
         Vue.set(state, type, collection)
 
         // sync with lowdb
@@ -32,11 +42,18 @@ const mutations = {
 }
 
 const actions = {
-    add({ commit }, payload){
+    add({ commit, dispatch }, payload){
         const { data, type } = payload
         if (!findById(state, data.id, type)) {
-            commit('add', payload)
+            return commit('add', payload)
         }
+        return dispatch('update', payload)
+    },
+    update({ commit }, payload) {
+        const { data, type } = payload
+        const indexOf = findIndexById(state, data.id, type)
+        const uid = keys(state[type])[indexOf]
+        commit('update', { ...payload, uid })
     },
     recoveryPointingsDatabase({ commit }){
         const units = db.get('pointings.units').value()
@@ -60,6 +77,25 @@ const getters = {
                 .values()
                 .filter({ unit_id: unit_id })
                 .value()
+        }
+    },
+    getUnitsByThemeId (state) {
+        return id => {
+            return chain(state.units)
+                .values()
+                .filter({ theme_id: id })
+                .value()
+        }
+    },
+    getThemesByModuleId (state) {
+        return (id, target_audience) => {
+            const response = chain(state.themes)
+                .values()
+                .filter({ modulo_id: id })
+
+            return target_audience
+                ? response.filter({ target_audience }).value()
+                : response.value()
         }
     },
     getPointingsActivity(state, id){

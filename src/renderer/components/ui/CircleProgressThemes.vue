@@ -2,7 +2,7 @@
     <div class="circle-and-box">
         <b-col class="container-circle">
             <vue-circle class="circle"
-                        :progress="50"
+                        :progress="progress"
                         :size="140"
                         :reverse="false"
                         line-cap="round"
@@ -39,15 +39,11 @@ export default {
     props: {
         label: String,
         image: String,
-        color: Object
-    },
-    methods: {
-        progress(event, progress, stepValue) {
-            // console.log(stepValue);
+        color: Object,
+        progress: {
+            type: Number,
+            default: 5
         },
-        progress_end(event) {
-            // console.log("Circle progress end");
-        }
-    }
+    },
 };
 </script>
