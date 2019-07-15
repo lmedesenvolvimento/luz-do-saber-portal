@@ -75,7 +75,7 @@
                                                 class="m-5"
                                                 :label="m.title"
                                                 :image="getModuleImage(m)"
-                                                :progress="50"
+                                                :progress="getProgressModule(m)"
                                                 :color="getModuleColor(m)"
                                             />
                                         </a>
@@ -89,7 +89,7 @@
                                                 class="m-5"
                                                 :label="m.title"
                                                 :image="getModuleImage(m)"
-                                                :progress="50"
+                                                :progress="getProgressModule(m)"
                                                 :color="getModuleColor(m)"
                                             />
                                         </router-link>
@@ -108,7 +108,7 @@
                                                 class="m-5"
                                                 :label="'1º Ano'"
                                                 :image="require('@/assets/images/btn-first-year.png')"
-                                                :progress="50"
+                                                :progress="getProgressModule(read,'primeiro-ano')"
                                                 :color="{ color: '#00963F' }"
                                             />
                                         </router-link>
@@ -123,7 +123,7 @@
                                                 class="m-5"
                                                 :label="'2º Ano'"
                                                 :image="require('@/assets/images/btn-second-year.png')"
-                                                :progress="50"
+                                                :progress="getProgressModule(read, 'segundo-ano')"
                                                 :color="{ color: '#00963F' }"
                                             />
                                         </router-link>
@@ -143,6 +143,7 @@
     </div>
 </template>
 <script>
+import { find, filter } from 'lodash'
 import { mapActions, mapState } from 'vuex'
 import VueCircle from '@/components/ui/CircleProgress'
 
@@ -155,6 +156,7 @@ export default {
             isVisibleLerSubModule: false,
             user: { name: '' },
             canStart: false,
+            read: null
         }
     },
     computed: {
@@ -165,7 +167,9 @@ export default {
         ...mapState('User', ['currentUser'])
     },
     created(){
-        this.fetchModules()
+        this.fetchModules().then(({ modulos }) => {
+            this.read = find(modulos, { slug: 'ler' })
+        })
     },
     methods: {
         submitLogin(){
@@ -201,8 +205,18 @@ export default {
                 break;
             }
         },
+        getProgressModule(m, target_audience){
+            const themes = this.getProgressThemesByModuleId(m, target_audience)
+            console.log(themes)
+            const total = ( filter(themes, { completed: true }).length / m.themes.length ) * 100
+            return  total || 5
+        },
+        getProgressThemesByModuleId(module, target_audience){
+            return this.$store.getters['Pointings/getThemesByModuleId'](module.id, target_audience)
+        },
         ...mapActions('Modules',['fetchModules']),
-        ...mapActions('User',['createUserDatabase'])
+        ...mapActions('User',['createUserDatabase']),
+        ...mapActions('Pointings', ['add'])
     }
 }
 </script>
