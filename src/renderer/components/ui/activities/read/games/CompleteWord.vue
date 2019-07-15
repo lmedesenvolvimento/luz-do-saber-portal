@@ -18,13 +18,14 @@
                                         {{ piece.text }}
                                     </ls-card-display>                                    
                                 </div>
-                                <Item 
+                                <ls-card-droppable
                                     v-else-if="piece.template.tags === 'encaixar'"
+                                    class="letra texto"
                                     :item="piece"
                                     :type="'key'"
-                                    :template="piece.template"
-                                    :size="piece.template.font_size"
-                                />
+                                    :template="activity.item_template.key"
+                                >
+                                </ls-card-droppable>
                             </b-col>
                         </b-row>
                     </b-col>
@@ -45,7 +46,7 @@
                                 </b-col>
                             </b-row>
                         </ls-card-display>
-                        <b-col v-for="(item, position) in getValues" v-else :key="position" align-self="center" cols="12" :sm="3" :md="3" lg="2" class="item" @click="triggerFocus(...arguments, item)" data-canTrigger="false">
+                        <b-col v-for="(item, position) in getValues" v-else :key="position" align-self="center" cols="12" :sm="3" :md="3" lg="2" class="item" data-canTrigger="false" @click="triggerFocus(...arguments, item)">
                             <Item 
                                 :item="item"
                                 :type="'value'"
@@ -85,7 +86,7 @@ export default {
             correctPiece: {},
             separator: this.type,
             selectItem: null,
-            correctIndex: -1
+            correctIndex: -1,
         }
     },
     computed: {
@@ -105,7 +106,7 @@ export default {
         },
     },
     created(){
-        this.incompleteWord = this.getKeys[0]
+        this.incompleteWord = cloneDeep(this.getKeys[0])
         this.correctPiece = this.getValues.filter(value => value.key_id)
         this.clearIncompleteWord(this.separator, this.correctPiece[0])
     },
