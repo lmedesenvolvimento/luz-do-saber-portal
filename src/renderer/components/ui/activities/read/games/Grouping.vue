@@ -17,9 +17,11 @@
                             />
                         </div>
                         <div v-else class="grupo">
-                            <div class="title">
-                                {{ item.text }}
-                            </div>
+                            <card-display class="title-card">
+                                <div class="title">
+                                    {{ item.text }}
+                                </div>
+                            </card-display>
                             <card-display
                                 label="item.text" 
                                 :item="item"
@@ -183,6 +185,15 @@ export default {
             }
             .title{
                 padding-top: 7%;
+            }
+        }
+
+        .title-card{
+            margin-bottom: -20px;
+            padding: 0 50px;
+
+            * .card-body{
+                padding: 8px;
             }
         }
         
