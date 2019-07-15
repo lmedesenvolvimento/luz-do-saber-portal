@@ -1,30 +1,30 @@
 <template>
-    <div class="container-fluid">        
-        <b-row align-h="center">            
+    <div class="container-fluid">
+        <b-row align-h="center">
             <b-col class="activity-values">
                 <ls-card-display style="width: 150px">
                     <b-row>
-                        <b-col v-for="(item, position) in getValues" :key="position" align-self="center" :md="valueColSize" :sm="6" class="item"> 
+                        <b-col v-for="(item, position) in getValues" :key="position" align-self="center" :md="valueColSize" :sm="6" class="item">
                             <div class="accentuation-item">
-                                <Item 
+                                <Item
                                     v-if="answers"
                                     :item="item"
                                     :type="'value'"
                                     :template="activity.item_template.value"
                                 />
                             </div>
-                        </b-col>                    
-                    </b-row> 
-                </ls-card-display> 
+                        </b-col>
+                    </b-row>
+                </ls-card-display>
             </b-col>
             <b-col class="activity-keys">
                 <div>
                     <b-row>
-                        <b-col v-for="(item, position) in getKeys" :key="position" class="item"> 
+                        <b-col v-for="(item, position) in getKeys" :key="position" class="item">
                             <b-row align-h="start">
                                 <b-col>
                                     <div class="letra accentuation-item">
-                                        <Item 
+                                        <Item
                                             :item="item"
                                             :type="'key'"
                                             :template="activity.item_template.key"
@@ -36,8 +36,8 @@
                                     <ls-card-display class="accentuation-card">
                                         <p class="accentuation-card-word">{{ normalizeString(words[position]) }}</p>
                                     </ls-card-display>
-                                </b-col>                 
-                            </b-row>                        
+                                </b-col>
+                            </b-row>
                         </b-col>
                     </b-row>
                 </div>
@@ -67,7 +67,6 @@ export default {
             this.words.push(element.text);
             element.text = 'a';
         });
-        console.log(this.words);
     },
     methods: {
         normalizeString (string) {
@@ -84,17 +83,17 @@ export default {
 }
 </script>
 
-<style lang="scss"> 
+<style lang="scss">
     .accentuation-item{
         margin: 5px 0 5px 0;
-    } 
-    .accentuation-drop {  
+    }
+    .accentuation-drop {
         .card--droppable{
             .card{
                 width: 74px;
                 height: 74px !important;
                 z-index: 1;
-            }            
+            }
         }
     }
     .accentuation-column{
@@ -104,8 +103,8 @@ export default {
     .accentuation-card {
         margin: 8px 0 0 0;
         .card-body {
-            height: 50px;            
-        }     
+            height: 50px;
+        }
     }
     .accentuation-card-word {
             margin-top: -4px;
