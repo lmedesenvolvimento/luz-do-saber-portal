@@ -75,7 +75,14 @@ export const ItemTypes = {
     },
 }
 
+// Letter Types
+export const LetterTypes = [
+    'letra',
+    'numero',
+    'caractere_especial',
+]
 
+// ImageZoom
 export const viewerOpts = {
     'inline': false,
     'button': false,
@@ -92,3 +99,4 @@ export const viewerOpts = {
     'keyboard': false,
     'url': 'data-source'
 }
+
