@@ -1,28 +1,57 @@
 #dragging-syllables {
-    .image-container.col {
-        max-width: 50px;
-    }
-
     .key-syllables {
-        width: 20%;
-        display: inline-flex;
-    }
-    .letra{
-        width: 72px !important;
-    }
-    .value-syllables {
-        // width: 33%;
-        display: inline-flex;
+        max-width: 90px;
     }
 
-    .activity-values {
-        max-width: 350px;
-    }
+    .letra {
+        width: 100%;
 
-    .image {
-        img {
-            max-height: 55px;
+        .div {
+            max-width: 90px;
+        }
+
+        .card-body {
+            width: 65.63px;
         }
     }
 
+    .value-syllables {
+        max-width: 90px;
+
+        .value {
+            width: 76px;
+        }
+
+        .card-input.draggshadow {
+            width: 76px;
+
+            .card-body {
+                width: 65.63px;
+            }
+        }
+    }
+    .activity-keys,
+    .syllables-row,
+    .activity-keys2 {
+        padding-right: 0px;
+    }
+    .activity-values {
+        max-width: 320px;
+    }
+    .image-container {
+        max-width: 130px;
+        .card--display {
+            padding: 8px;
+            .card .bg-color .card-body {
+                padding: 8px;
+            }
+        }
+
+    }
+    .image {
+        img {
+            max-width: 70px;
+            max-height: 60px;
+        }
+    }
 }
