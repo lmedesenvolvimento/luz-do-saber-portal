@@ -15,7 +15,7 @@
                 </div>
 
                 <vue-circle
-                    :progress="50"
+                    :progress="progress"
                     :size="190"
                     :reverse="false"
                     line-cap="round"
@@ -42,14 +42,10 @@ export default {
     props: {
         label: String,
         image: String,
-        color: Object
-    },
-    methods: {
-        progress(event, progress, stepValue) {
-            // console.log(stepValue);
-        },
-        progress_end(event) {
-            // console.log("Circle progress end");
+        color: Object,
+        progress: {
+            type: Number,
+            default: 0
         }
     }
 };

@@ -3,7 +3,7 @@
         <b-row v-if="notImage" class="reverse-column" align-v="center" align-h="center">
             <b-col class="activity-values">
                 <b-row align-v="center" align-h="center">
-                    <b-col 
+                    <b-col
                         v-for="item in activity.items.values"
                         :key="item.id"
                         :sm="valueColSize"
@@ -29,7 +29,7 @@
         <b-row v-if="!notImage" class="reverse-column" align-v="center" align-h="center">
             <b-col class="activity-values">
                 <b-row align-v="center" align-h="center">
-                    <b-col 
+                    <b-col
                         v-for="item in activity.items.values"
                         :key="item.id"
                         :sm="valueColSize"
@@ -53,7 +53,7 @@
             </b-col>
             <b-col v-if="!notImage" class="activity-keys">
                 <b-row class="fill" align-v="center" align-h="center">
-                    <b-col 
+                    <b-col
                         v-for="item in activity.items.keys"
                         :key="item.id"
                         :sm="keyColSize"
@@ -116,8 +116,6 @@ export default {
                 answers.push(key)
             })
 
-            console.log(answers)
-
             this.setAnswers(answers)
         },
         dropLetters(){
@@ -158,8 +156,6 @@ export default {
             })
 
             let values = filter(this.activity.items.values, v => v.hide)
-
-            console.log(values)
 
             values[0].focus = true
 
