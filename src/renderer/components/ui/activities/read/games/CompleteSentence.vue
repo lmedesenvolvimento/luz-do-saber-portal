@@ -1,45 +1,40 @@
 <template>
     <div class="container-fluid">
-        <b-row align-v="center" align-h="center"> 
+        <b-row v-if="activity.total_correct_items == 1" align-v="center" align-h="center"> 
             <h2>   
                 <span v-for="(s, position) in splitedSentence" :key="position" style="display: inline-block">
                     <span v-if="!searchString(hiddenElements, s)" class="sentence">{{ s.text }}</span>
-                    <span v-else>
-                        <Item
-                            :item="s"
-                            :type="'key'"
-                            :template="activity.item_template.key"
-                        >                        
-                        </Item>                                       
+                    <span v-else>                             
+                        <div class="item">
+                            <ls-card-droppable
+                                class="letra"
+                                :item="s"
+                                :type="'key'"
+                                :template="activity.item_template.key"
+                            >
+                            </ls-card-droppable>
+                        </div>                              
                     </span>
                 </span>
             </h2>
-        </b-row>        
-        <ls-card-display v-if="valueColSize == 1">
-            <b-row
-                align-h="around"
-                style="margin: 1px 0 1px 0"
-            >                
-                <div
-                    v-for="item in activity.items.values"
-                    :key="item.id"
-                    :sm="valueColSize"                     
-                    class="item"
-                >
-                    <div 
+        </b-row>    
+        <b-row v-else align-v="center" align-h="center">
+            <span v-for="(item, position) in splitedSentence" :key="position" class="sentence" style="display: inline-block">
+                <div class="item">
+                    <ls-card-droppable
                         class="letra"
+                        :item="item"
+                        :type="'key'"
+                        :template="activity.item_template.key"
                     >
-                        <Item                                                        
-                            :item="item"                                                            
-                            :type="'value'"                            
-                            :template="activity.item_template.value"
-                        >                        
-                        </Item>                                         
-                    </div>                    
+                        <template slot="transfer-data">
+                            {{ item.text }}
+                        </template>
+                    </ls-card-droppable>
                 </div>
-            </b-row>
-        </ls-card-display>
-        <ls-card-display v-else>
+            </span>
+        </b-row>   
+        <ls-card-display>
             <b-row
                 align-h="around"
             >                
@@ -48,7 +43,7 @@
                     :key="item.id"
                     :sm="valueColSize"                     
                     class="item"
-                >                    
+                >         
                     <Item                                                        
                         :item="item"                                                            
                         :type="'value'"                            
@@ -77,17 +72,12 @@ export default {
     mounted() {
         this.createAnswersArray(),
         this.sentence = this.getKeys[0].text; 
-        this.getValues.forEach(element => {    
-            let hiddenElement = {
-                text: element.text
-            }       
-            this.hiddenElements.push(hiddenElement)
-        });
-        this.splitSentence(this.hiddenElements, this.sentence)        
-        let sentences = {
-            text: this.sentence
+        if(this.activity.total_correct_items == 1){
+            this.uniqueCorrectItem();
+        } else {
+            this.multipleCorrectItem();
         }
-        this.splitedSentence.push(Object.assign({}, sentences))
+        
     },    
     methods: {        
         splitSentence(arr, str){
@@ -113,11 +103,36 @@ export default {
             }            
             return false;
         },
-        colSize1(colSize){
-            if(colSize == 1){
-                return true;
-            } 
-            return false;
+        uniqueCorrectItem(){
+            this.getValues.forEach(element => {    
+                let hiddenElement = {
+                    text: element.text
+                }       
+                this.hiddenElements.push(hiddenElement)
+            });
+            this.splitSentence(this.hiddenElements, this.sentence)        
+            let sentences = {
+                text: this.sentence
+            }
+            this.splitedSentence.push(Object.assign({}, sentences))
+        },
+        multipleCorrectItem(){
+            let words = this.sentence.split(' ');
+            words.forEach(word => {
+                let objectWord = {
+                    text: word,
+                    value_ids: this.getKeys[0].value_ids
+                }
+                this.splitedSentence.push(Object.assign({}, objectWord))
+            })
+            this.splitedSentence.forEach(word => {
+                word.value_ids = [];
+                this.getValues.forEach(value => {
+                    if(word.text == value.text){
+                        word.value_ids.push(value.id);
+                    }
+                })
+            })
         }
     }
 }
