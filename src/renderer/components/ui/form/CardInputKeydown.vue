@@ -30,6 +30,8 @@ import RadioInput from './RadioInput.vue'
 import { setTimeout } from 'timers'
 import { trim, dropRight } from 'lodash'
 
+import { LetterTypes } from '@/constants'
+
 export default {
     mixins: [RadioInput],
     props:{
@@ -50,7 +52,7 @@ export default {
     },
     computed: {
         isNotWord(){
-            return this.value.total_letters < 1
+            return LetterTypes.includes(this.value.type)
         },
         length(){
             return (this.isNotWord) ? 1 : 11
@@ -59,13 +61,11 @@ export default {
     watch: {
         model(value){
             if ((this.valid || this.invalid) || this.model.length === 0) return
-
             this.isNotWord ? this.whenNotWord(value) : this.whenWord(value)
         }
     },
     mounted(){
         let isFirstElement = this.$el.closest('.item') === this.$el.closest('.item').parentElement.firstElementChild
-
         if (isFirstElement) {
             this.$el.querySelector('input').focus()
         }
