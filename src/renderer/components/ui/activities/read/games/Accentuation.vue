@@ -33,7 +33,7 @@
                             </div>                            
                         </b-col>
                         <b-col class="name-container">
-                            <div class="accentuation-word medium">
+                            <div class="accentuation-word">
                                 <ls-card-display class="name">
                                     {{ normalizeWord(item.text) }}
                                 </ls-card-display>
@@ -102,7 +102,7 @@ export default {
     }
 
     .accentuation-word {
-        margin: 15px 0 0 -25px; 
+        margin: 5px 0 0 -35px; 
         z-index: 0;
     }    
 </style>
