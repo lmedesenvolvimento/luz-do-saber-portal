@@ -14,6 +14,7 @@ const actions = {
     async fetchTheme({ commit }, params){
         let { data } = await API.get(`/game/${params.module_slug}/${params.theme_slug}`)
         commit('SET_THEME',data)
+        return data
     },
 
     destroyTheme({ commit }){
