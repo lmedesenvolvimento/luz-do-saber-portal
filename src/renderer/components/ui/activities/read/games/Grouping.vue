@@ -107,6 +107,7 @@ export default {
         },
     },
     created(){
+        this.addColorsToType('substantivo_comum')
         this.createAnswersArray()
     },
 }
@@ -222,6 +223,10 @@ export default {
         }
 
         .img-grouping{
+            * .bg-color{
+                background-color: none;
+            }
+
             * .card--draggable{
                 padding: 0;
 
