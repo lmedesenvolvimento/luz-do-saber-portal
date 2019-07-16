@@ -15,10 +15,10 @@
                         class="item"
                         style="margin-right: 10px"
                     >
-                        <div class="letra">
+                        <div :class="activity.item_template.key.font_size">
                             <ls-card-display>
                                 <div v-if="searchString(raffle,letter)">
-                                    {{ letter }}
+                                    {{ notNormalizedLetters[index] }}
                                 </div>
                                 <div v-else>
                                     _
@@ -36,8 +36,8 @@
                     :key="position"
                     class="item"
                 >
-                    <div class="letra texto small">
-                        <div class="card-input card--radio-input" :class="$attrs.class" style="width: 50px">
+                    <div class="letra texto" :class="activity.item_template.value.font_size" style="width: 50px">
+                        <div class="card-input card--radio-input" :class="$attrs.class">
                             <label>
                                 <b-card
                                     no-body
@@ -84,12 +84,14 @@ export default {
             alphabetInputs_1: [],
             alphabetInputs_2: [],
             keyLetters: [],
+            notNormalizedLetters: [],
             keyIds: [],
             raffle: []
         }
     },
     mounted() {
         this.createAnswersArray()
+        // coloca uma assinatura nos botões criados dentro da fase
         let i = 0;
         this.alphabet_1.forEach((letter) => {
             let color = this.getColorsArray[i]
@@ -101,20 +103,38 @@ export default {
             this.alphabetInputs_2.push(Object.assign({}, {letter, color}))
             i++;
         })
+        // define quais botões terão as respostas corretas
         for(let i = 0; i < this.activity.total_correct_items; i++){
-            this.keyLetters.push(this.getKeys[0].letters[i].text)
+            this.keyLetters.push(this.normalizeWord(this.getKeys[0].letters[i].text))
+            this.notNormalizedLetters.push(this.getKeys[0].letters[i].text)
             this.keyIds.push(this.getKeys[0].value_ids[i])
-        }
+        }       
+        this.controlCorrectItems();        
     },
     methods: {
+        // controla qual array de letra é exibido por fase
         alphabetInputs (index) {
             if (index == 1) return this.alphabetInputs_1
             return this.alphabetInputs_2
         },
+        // impede que o mesmo botão seja checado 2 ou mais vezes
         isChecked(item){
             if(item.valid || item.invalid) return false
             return true
         },
+        // ajusta o número de items corretos baseado nas letras que se repetem
+        controlCorrectItems(){
+            let noRepeatLetters = [];
+            this.keyLetters.forEach(letter => {
+                if(!this.searchString(noRepeatLetters, letter)){
+                    noRepeatLetters.push(letter);
+                }                
+            })
+            this.setActivityAttrs({ total_correct_items: noRepeatLetters.length })
+            // this.activity.total_correct_items = noRepeatLetters.length;
+            
+        },
+        // faz a validação de um objeto criado na própria fase
         checkValid(item){
             if(item.valid || item.invalid) return
             if(this.searchString(this.keyLetters, item.letter)){
@@ -135,7 +155,19 @@ export default {
                 })
             }
 
+        },        
+        // ignora a acentuação das letras dos nomes na hora de comparar com as letras
+        normalizeWord (word) {
+            return word.split('').map(function (letter) {
+                let i = this.accents.indexOf(letter)
+                return (i !== -1) ? this.out[i] : letter
+            }.bind({
+                accents: 'ÀÁÂÃÄÅĄàáâãäåąßÒÓÔÕÕÖØÓòóôõöøóÈÉÊËĘèéêëęðÇĆçćÐÌÍÎÏìíîïÙÚÛÜùúûüÑŃñńŠŚšśŸÿýŽŻŹžżź',
+                out: 'AAAAAAAaaaaaaaBOOOOOOOOoooooooEEEEEeeeeeeCCccDIIIIiiiiUUUUuuuuNNnnSSssYyyZZZzzz'
+            })
+            ).join('')
         },
+        // procura se uma string está contida em outra string
         searchString(arr, str) {
             for(let i = 0; i < arr.length;i++){
                 if (arr[i].match(str)) return true;
