@@ -2,29 +2,30 @@
     <div id="dragging-syllables" class="container-fluid">
         <b-row align-h="center" class="reverse">
             <b-col v-if="hasKeys" class="activity-keys">
-                <b-row>
-                    <b-col v-for="(item, position) in newItens" :key="position" cols="12" md="12" class="item">
+                <b-row align-v="center" align-h="center">
+                    <b-col v-for="(item, position) in newItens" :key="position" cols="12" class="activity-keys2">
                         <b-row align-v="center">
-                            <b-col cols="12" md="3" sm="3">
-                                <ls-card-display class="image-container">
+                            <b-col class="image-container" cols="3">
+                                <ls-card-display>
                                     <async-image class="image" :src="item.images[0].url"></async-image>
                                 </ls-card-display>
                             </b-col>
-                            <b-col cols="12" md="9" sm="9" class="syllables-row">
-                                <b-row>
-                                    <b-col v-for="(syllables, index) in item.syllables" :key="index" cols="12" lg="3" :md="4" :sm="4" class="key-syllables">
-                                        <ls-card-droppable
-                                            v-if="answers"
-                                            class="item letra"
-                                            :item="syllables.syllable"
-                                            :type="'key'"
-                                            :template="activity.item_template.key"
-                                            :custom-validate="validateBySyllabe"
-                                        >
-                                            <template slot="transfer-data">
-                                                {{ syllables.correct ? syllables.syllable.text : dataTransfer.text }}
-                                            </template>
-                                        </ls-card-droppable>
+                            <b-col cols="9">
+                                <b-row align-h="left" class="syllables-row">
+                                    <b-col v-for="(syllables, index) in item.syllables" :key="index" :class="activity.item_template.key.font_size" class="item key-syllables">
+                                        <b-col class="letra">
+                                            <ls-card-droppable
+                                                v-if="answers"
+                                                :item="syllables.syllable"
+                                                :type="'key'"
+                                                :template="activity.item_template.key"
+                                                :custom-validate="validateBySyllabe"
+                                            >
+                                                <template slot="transfer-data">
+                                                    {{ syllables.correct ? syllables.syllable.text : dataTransfer.text }}
+                                                </template>
+                                            </ls-card-droppable>
+                                        </b-col>
                                     </b-col>
                                 </b-row>
                             </b-col>
@@ -32,12 +33,13 @@
                     </b-col>
                 </b-row>
             </b-col>
-            <b-col class="activity-values" cols="12" lg="5" md="12">
+            <b-col class="activity-values">
                 <ls-card-display id="values-container-display">
-                    <b-row align-v="center" align-h="center" class="values-container">
-                        <b-col v-for="(item, position) in getValues" :key="position" align-self="center" cols="12" :sm="3" :md="3" lg="4" class="item">
+                    <b-row class="values-container" align-h="center">
+                        <b-col v-for="(item, position) in getValues" :key="position" align-self="center" :class="activity.item_template.value.font_size" class="item value-syllables">
                             <ls-card-draggable
                                 v-if="answers"
+                                class="value"
                                 :item="item"
                                 :type="'value'"
                                 :template="activity.item_template.value"
@@ -70,7 +72,7 @@ export default {
     data() {
         return {
             newItens: [],
-            dataTransfer: {text: 'AA'},
+            dataTransfer: {text: 'SAN'},
         }
     },
     mounted() {
