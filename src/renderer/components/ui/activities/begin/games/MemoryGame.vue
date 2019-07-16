@@ -1,9 +1,9 @@
 <template>
-    <div class="memory-game container-fluid">
+    <div class="memory-game container-fluid" @click="unflipCards()" :class="{ 'clickable' : firstClick} ">
         <b-row :md="valueColSize" :sm="6">
             <b-col class="activity-values">
                 <b-row align-v="center" align-h="center">
-                    <b-col v-for="(card, index) in cards" :key="card.key" :class="card.class" class="item">
+                    <b-col v-for="(card, index) in cards" :key="card.key" :class="card.class" class="item" :sm="valueColSize">
                         <div class="card-face" :class="card.class" @click="toggleFlip(index, card)">                            
                             <ls-card-display
                                 label="item.text" 
@@ -26,7 +26,7 @@
                                 <div>{{ card.value }}</div>
                             </ls-card-display>
                         </div>
-                    </b-col>                    
+                    </b-col>
                 </b-row>
             </b-col>
         </b-row>
@@ -47,16 +47,23 @@ export default {
         return {
             cards: [],
             openedCards: [],
-            matchedCards: []
+            matchedCards: [],
+            firstClick: true,
         }
     },
     created(){
         this.cards = this.createArray(this.activity.items)
-        setTimeout(() => this.cards.map( function(c){ c.class.flipped = false }), 6000);
         this.createAnswersArray()
         this.setActivityAttrs({ total_correct_items: this.getKeys.length })
     },
     methods: {
+        unflipCards(){
+            if(this.firstClick){
+                this.cards.map( function(c){ c.class.unflip = true, c.class.flipped = false })
+                setTimeout(() => this.cards.map( function(c){ c.class.unflip = false }), 1200)
+                this.firstClick = false
+            }
+        },
         createArray(items){
             let cards = []
             let values = items.keys.map( function(k) {
@@ -74,7 +81,7 @@ export default {
             cards = values.concat(values2)
 
             for(let i = 0; i<cards.length; i++){
-                cards[i]['class'] = {flip: false, flipped: true, success: false, fail: false}
+                cards[i]['class'] = {flip: false, flipped: true, success: false, fail: false, unflip: false}
             }
 
             return shuffle(cards)
@@ -122,12 +129,18 @@ export default {
                 vm: {}
             })
             setTimeout(() => {
-                this.openedCards[0].class.flip = false
-                this.openedCards[1].class.flip = false
+                this.openedCards[0].class.unflip = true
+                this.openedCards[1].class.unflip = true
                 this.openedCards[0].class.fail = false
                 this.openedCards[1].class.fail = false
-                this.openedCards = [];  
             }, 2000)
+            setTimeout(() => {
+                this.openedCards[0].class.unflip = false
+                this.openedCards[1].class.unflip = false
+                this.openedCards[0].class.flip = false
+                this.openedCards[1].class.flip = false
+                this.openedCards = [];  
+            }, 3000)
         },
         ...mapActions('Activity', ['setActivityAttrs', 'setAnswer'])
     }
