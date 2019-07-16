@@ -31,6 +31,8 @@ export const GameSubtypes = {
     jigsaw: 'quebra-cabecas',
     matchFriendsInitial: 'encaixe-letras',
     draggingSyllables: 'formacao-de-palavras',
+    completeWordSyllables: 'completa-palavra-com-silaba',
+    completeWordLetters: 'completa-palavra-com-letra',
     memoryGame: 'jogo-da-memoria',
     wordSearch: 'caca-nomes',
     wordBingo: 'bingo-de-palavras',
