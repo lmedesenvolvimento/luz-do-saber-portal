@@ -3,42 +3,42 @@
         <b-row align-h="center">
             <b-col class="activity-values">
                 <ls-card-display style="width: 150px">
-                    <b-row>
-                        <b-col v-for="(item, position) in getValues" :key="position" align-self="center" :md="valueColSize" :sm="6" class="item">
-                            <div class="accentuation-item">
-                                <Item
-                                    v-if="answers"
-                                    :item="item"
-                                    :type="'value'"
-                                    :template="activity.item_template.value"
-                                />
-                            </div>
-                        </b-col>
-                    </b-row>
-                </ls-card-display>
+                    <b-row v-for="(item, position) in getValues" :key="position" align-self="center" :md="valueColSize" :sm="6" class="item"> 
+                        <b-col class="accentuation-item">
+                            <Item 
+                                v-if="answers"
+                                :item="item"
+                                :type="'value'"
+                                :template="activity.item_template.value"
+                            />
+                        </b-col>                 
+                    </b-row> 
+                </ls-card-display> 
             </b-col>
             <b-col class="activity-keys">
                 <div>
-                    <b-row>
-                        <b-col v-for="(item, position) in getKeys" :key="position" class="item">
-                            <b-row align-h="start">
-                                <b-col>
-                                    <div class="letra accentuation-item">
-                                        <Item
-                                            :item="item"
-                                            :type="'key'"
-                                            :template="activity.item_template.key"
-                                            class="accentuation-drop"
-                                        />
-                                    </div>
-                                </b-col>
-                                <b-col class="accentuation-column accentuation-item">
-                                    <ls-card-display class="accentuation-card">
-                                        <p class="accentuation-card-word">{{ normalizeString(words[position]) }}</p>
-                                    </ls-card-display>
-                                </b-col>
-                            </b-row>
+                    <b-row v-for="(item, position) in getKeys" :key="position" align-self="center" :md="keyColSize" :sm="6" class="item"> 
+                        <b-col class="drop item accentuation-item accentuation-drop" md="1">
+                            <div :class="activity.item_template.key.font_size">
+                                <ls-card-droppable
+                                    class="letra texto"
+                                    :item="item"
+                                    :type="'key'"
+                                    :template="activity.item_template.key"
+                                >
+                                    <template slot="transfer-data">
+                                        {{ symbols[position] }}
+                                    </template>
+                                </ls-card-droppable>                                                               
+                            </div>                            
                         </b-col>
+                        <b-col class="name-container">
+                            <div class="accentuation-word">
+                                <ls-card-display class="name">
+                                    {{ normalizeWord(item.text) }}
+                                </ls-card-display>
+                            </div>
+                        </b-col>    
                     </b-row>
                 </div>
             </b-col>
@@ -58,19 +58,24 @@ export default {
     mixins: [MapMixins, ListMixin, CreateAnswersMixins],
     data () {
         return {
-            words: []
+            symbols: []
         }
     },
     mounted() {
-        this.createAnswersArray(),
-        this.getKeys.forEach(element => {
-            this.words.push(element.text);
-            element.text = 'a';
+        this.createAnswersArray();
+        this.getKeys.forEach(key => {
+            this.getValues.forEach(value => {
+                if(key.id === value.key_id) {
+                    this.symbols.push(value.text);
+                }                
+            });
+            
         });
+        console.log(this.symbols);
     },
     methods: {
-        normalizeString (string) {
-            return string.split('').map(function (letter) {
+        normalizeWord (word) {
+            return word.split('').map(function (letter) {
                 let i = this.accents.indexOf(letter)
                 return (i !== -1) ? this.out[i] : letter
             }.bind({
@@ -83,30 +88,21 @@ export default {
 }
 </script>
 
-<style lang="scss">
-    .accentuation-item{
+<style lang="scss"> 
+    .accentuation-item {
         margin: 5px 0 5px 0;
-    }
+    } 
+
     .accentuation-drop {
         .card--droppable{
             .card{
-                width: 74px;
-                height: 74px !important;
                 z-index: 1;
             }
         }
     }
-    .accentuation-column{
-        left: -200px;
+
+    .accentuation-word {
+        margin: 5px 0 0 -35px; 
         z-index: 0;
-    }
-    .accentuation-card {
-        margin: 8px 0 0 0;
-        .card-body {
-            height: 50px;
-        }
-    }
-    .accentuation-card-word {
-            margin-top: -4px;
-    }
+    }    
 </style>
