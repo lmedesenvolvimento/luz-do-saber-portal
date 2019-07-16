@@ -1,8 +1,8 @@
 <template>
     <nav class="navbar navbar-default">
-        <b-btn class="navbar-icons" variant="link" :to="custom ? historyBackUnit : historyBack">
+        <router-link variant="link" :to="custom ? historyBackUnit : historyBack">
             <div class="icon-prev-screen"></div>
-        </b-btn>
+        </router-link>
 
         <b-btn class="navbar-icons icon-right" variant="link" to="/">
             <div class="icon-home"></div>
