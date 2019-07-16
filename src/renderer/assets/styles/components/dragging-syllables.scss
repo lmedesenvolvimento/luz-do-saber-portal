@@ -1,52 +1,43 @@
+#dragging-syllables {
+    .key-syllables {
+        max-width: 90px;
+    }
+    .letra {
+        width: 100%;
+        .div {
+            max-width: 90px;
+        }
 
-    #dragging-syllables
-    {
-        .activity-values{
-            padding: 0px !important;
-            max-width: 325px;
+        .card-body {
+            width: 65.63px;
         }
-        .item {
-            @each $type in $item-letter-types {
-                .#{$type} {
-                    .card-input.card--droppable{
-                        min-width: 80px !important;
-                    }
-                    .card-input.card--droppable .card .card-body{
-                        font-size: 18px !important;
-                    }
-                }
-            }
+    }
+    .value-syllables {
+        max-width: 90px;
+
+        .value,
+        .card-input.draggshadow {
+            width: 72px;
         }
-        .card-input.card--draggable,.card-input.draggshadow {
-            max-width: 80px;
-            .card .bg-color .card-body{
-                font-size: 18px !important;
-                padding: 1rem !important;
-            }
-        }
-        .image-container{
-            .card .bg-color .card-body {
-                padding: 10px;
-            }
-        }
-        .image{
-            img{
-                max-height: 55px;
-            }
-        }
-        .syllables-row{
-            padding: 10px;
-        }
-        #values-container-display{
+    }
+    .activity-values {
+        max-width: 320px;
+    }
+
+    .image-container {
+        max-width: 130px;
+        .card--display {
+            padding: 8px;
+
             .card .bg-color .card-body {
                 padding: 8px;
             }
         }
-        .values-container
-        {
-            margin: 0 !important;
-            .item{
-                padding: 0px 10px;
-            }
+    }
+    .image {
+        img {
+            max-width: 70px;
+            max-height: 60px;
         }
     }
+}
