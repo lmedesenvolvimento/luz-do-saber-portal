@@ -1,4 +1,7 @@
 .memory-game{
+    &.clickable{
+        cursor: pointer;
+    }
     .item{
         padding: 10px 20px;
     }
@@ -41,6 +44,10 @@
         }
         &.flipped{
             transform: rotateY(180deg);
+        }
+        &.unflip{
+            transform: rotateY(180deg);
+            animation: unflip-scale-up-ver 0.5s linear both;            
         }
         .card--display{
             position: absolute;
@@ -96,5 +103,16 @@
     }
     100% {
         transform: scale(1) rotateY(180deg);
+    }
+}
+@keyframes unflip-scale-up-ver {
+    0% {
+        transform: scale(1) rotateY(180deg);
+    }
+    50% {
+        transform: scale(1.2) rotateY(90deg);
+    }
+    100% {
+        transform: scale(1) rotateY(0);
     }
 }
