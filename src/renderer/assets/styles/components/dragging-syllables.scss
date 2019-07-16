@@ -2,10 +2,8 @@
     .key-syllables {
         max-width: 90px;
     }
-
     .letra {
         width: 100%;
-
         .div {
             max-width: 90px;
         }
@@ -14,39 +12,27 @@
             width: 65.63px;
         }
     }
-
     .value-syllables {
         max-width: 90px;
 
-        .value {
-            width: 76px;
-        }
-
+        .value,
         .card-input.draggshadow {
-            width: 76px;
-
-            .card-body {
-                width: 65.63px;
-            }
+            width: 72px;
         }
-    }
-    .activity-keys,
-    .syllables-row,
-    .activity-keys2 {
-        padding-right: 0px;
     }
     .activity-values {
         max-width: 320px;
     }
+
     .image-container {
         max-width: 130px;
         .card--display {
             padding: 8px;
+
             .card .bg-color .card-body {
                 padding: 8px;
             }
         }
-
     }
     .image {
         img {
