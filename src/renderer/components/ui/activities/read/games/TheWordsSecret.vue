@@ -1,37 +1,41 @@
 <template>
     <div class="container-fluid">
         <b-row align-h="center" :class="{'column': !horizontal,'reverse': (reverse && horizontal), 'reverse-column': ( reverse && !horizontal )}">
-            <b-col v-if="hasKeys" class="px-5 activity-keys">
+            <b-col v-if="hasKeys" class="activity-keys">
                 <b-row>
-                    <b-col v-for="(item, position) in shuffleValues" :key="position" cols="6" class="px-5">
-                        <b-row class="px-5">
-                            <b-col v-for="(item2, position2) in item.syllables" :key="position2" class="item" cols="6">
-                                <ls-card-display
-                                    v-if="answers"
-                                    :item="item2"
-                                    :bg-color="item.color"
-                                >
-                                    {{ item2.text }}
-                                </ls-card-display>
-                            </b-col>
-                        </b-row>
-                        <div class="card-input card--input-text ">
-                            <label>
-                                <b-card
-                                    no-body
-                                    :class="{ 'invalid': item.invalid, 'valid': item.valid }"
-                                >
-                                    <b-card-body>
-                                        <input
-                                            id="input-name"
-                                            :ref="position"
-                                            type="text"
-                                            maxlength="11"
-                                            @blur="checkAwnser(...arguments, item, position)"
-                                        />
-                                    </b-card-body>
-                                </b-card>
-                            </label>
+                    <b-col v-for="(item, position) in shuffleValues" :key="position" cols="6" class="blocks-container">
+                        <div class="blocks">
+                            <b-row class="letras-key">
+                                <b-col v-for="(item2, position2) in item.syllables" :key="position2" class="item" cols="6" :class="activity.item_template.key.font_size">
+                                    <ls-card-display
+                                        v-if="answers"
+                                        :item="item2"
+                                        :bg-color="item.color"
+                                    >
+                                        {{ item2.text }}
+                                    </ls-card-display>
+                                </b-col>
+                            </b-row>
+                            <div :class="activity.item_template.value.font_size">
+                                <div class="card-input card--input-text">
+                                    <label>
+                                        <b-card
+                                            no-body
+                                            :class="{ 'invalid': item.invalid, 'valid': item.valid }"
+                                        >
+                                            <b-card-body>
+                                                <input
+                                                    id="input-name"
+                                                    :ref="position"
+                                                    type="text"
+                                                    maxlength="11"
+                                                    @blur="checkAwnser(...arguments, item, position)"
+                                                />
+                                            </b-card-body>
+                                        </b-card>
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                     </b-col>
                 </b-row>
@@ -120,6 +124,29 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+.activity-keys{
+    margin: 0 10rem !important;
+    height: auto !important;
+}
+.blocks-container{
+    display: flex;
+    justify-content: center;
+    .blocks{
+        max-width: 220px;
+    }
+}
 
+.letras-key{
+    .item{
+        padding-right: 1rem !important;
+        padding-left: 1rem !important;
+    }
+}
+#input-name{
+    padding: 0.7rem !important;
+    height: 26px;
+}
 </style>
+
+
