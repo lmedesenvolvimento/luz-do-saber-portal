@@ -9,12 +9,10 @@
                                 <div 
                                     v-for="(l, letterIndex) in r" 
                                     :key="letterIndex" 
-                                    v-hammer:pan="(srcEvent) => paint(srcEvent)"                                    
-                                    v-hammer:panstart="(e) => allowPainting(true)" 
-                                    v-hammer:panend="(e) => allowPainting(false)" 
+                                    @mousedown="allowPainting(true)" 
+                                    @mouseup="allowPainting(false)" 
+                                    @mousemove="paint(index,letterIndex)"
                                     :class="l.class" class="letter" 
-                                    :indexI="index"
-                                    :indexJ="letterIndex"
                                 >
                                     {{ l.value }}
                                 </div>
@@ -108,11 +106,11 @@ export default {
             }
             return answer;
         },
-        paint(e){
-            let srcElement = e.changedPointers[0].srcElement.attributes
+        paint(index,letter){
+            let srcElement = {indexi: index, indexj: letter}
             if(srcElement.indexi!==undefined || srcElement.indexj!==undefined ){
-                let i = Number(srcElement.indexi.value)
-                let j = Number(srcElement.indexj.value)
+                let i = srcElement.indexi
+                let j = srcElement.indexj
                 let pi = this.previousI
                 let pj = this.previousJ
                 if(this.grid[i][j].class !== 'painted' && this.grid[i][j].class !== 'valid'){
