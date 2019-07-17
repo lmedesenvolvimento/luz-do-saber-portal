@@ -27,8 +27,6 @@ export default {
                 .filter((a) => a.valid)
                 .value()
 
-            console.log(answers)
-
             let res = filter(answers, (a) => {
                 const value_id = this.item.value_ids[0];
                 return (a.value.data.includes(value_id) && a.valid === true)

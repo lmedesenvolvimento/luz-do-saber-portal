@@ -71,7 +71,6 @@ export default {
             });
             
         });
-        console.log(this.symbols);
     },
     methods: {
         normalizeWord (word) {
