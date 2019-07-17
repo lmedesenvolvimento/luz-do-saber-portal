@@ -78,6 +78,16 @@ let webConfig = {
             name: 'fonts/[name].[contenthash].[ext]'
           }
         }
+      },
+      {
+        test: /\.mp3(\?.*)?$/,
+        use: {
+          loader: 'url-loader',
+          query: {
+            limit: 10000,
+            name: 'audios/[name].[contenthash].[ext]'
+          }
+        }
       }
     ]
   },
