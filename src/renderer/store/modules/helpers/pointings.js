@@ -14,5 +14,15 @@ export function findIndexById(state, id, type){
 }
 
 export function mapActivity(activity){
-    return pick(activity, ['id', 'pointings', 'timer', 'theme_id', 'unit_id','module_id'])
+    let result = pick(activity, ['id', 'pointings', 'timer', 'theme_id', 'unit_id', 'module_id'])
+    result.pointings = observerClean(result.pointings)
+    result.timer = observerClean(result.timer)
+    return result
+}
+
+export function observerClean(obj) {
+    return Object.keys(obj).reduce(
+        (res, e) => Object.assign(res, { [e]: obj[e] }),
+        {}
+    )
 }
