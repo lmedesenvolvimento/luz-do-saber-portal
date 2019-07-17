@@ -3,96 +3,98 @@
         <b-row align-v="center">
             <b-col cols="3" align-v="center" align-h="center">
                 <b-row class="bingo-container" align-v="center" align-h="center">
-                    <img class="bingo-roulette" :src="bingoRoulette" alt="">                  
+                    <img class="bingo-roulette" :src="bingoRoulette" alt="">
                     <img class="bingo-panel" :src="bingoCounter" alt="">
-                    <div 
+                    <div
                         class="bingo-counter"
                         :class="{'bingo-counter-animation': animateBingoCounter}"
                     >
                         <h2 v-if="showTimer" style="color: #13c5c4;">{{ getDuration }}</h2>
                         <h2 v-else>{{ actualRaffleWord }}</h2>
-                    </div>                    
-                </b-row>                
+                    </div>
+                </b-row>
                 <b-row align-h="start">
                     <div
                         v-for="bingoWord in allWords"
                         :key="bingoWord"
-                        class="bingo-word" 
-                        :class="{'bingo-raffle-word': searchString(raffleWords,bingoWord)}" 
+                        class="bingo-word"
+                        :class="{'bingo-raffle-word': searchString(raffleWords,bingoWord)}"
                     >
                         {{ bingoWord }}
                     </div>
-                </b-row>                
+                </b-row>
             </b-col>
             <b-col cols="9" align-v="center" align-h="center">
                 <b-row>
-                    <ls-card-display 
+                    <ls-card-display
                         class="bingo-card bingo-card-player"
                     >
                         <b-row align-v="center" align-h="center">
-                            <p style="color: white">sua cartela</p>                            
+                            <p style="color: white">sua cartela</p>
                         </b-row>
-                        <b-row align-v="center" align-h="center">                       
-                            <b-row
-                                v-for="(item, position) in getBingoValues" 
+                        <b-row align-v="center" align-h="center">
+                            <b-col
+                                v-for="(item, position) in getBingoValues"
                                 :key="position"
-                                class="item"
-                                style="margin: 0 5px 0 5px"
-                            >   
-                                <div class="letra small">
-                                    <div class="card-input card--radio-input" :class="$attrs.class">
-                                        <label>
-                                            <b-card
-                                                no-body
-                                                :class="{ 'invalid': item.invalid, 'valid': item.valid }"                                                
-                                            >
-                                                <b-card-body
-                                                    style="background-color: white"
+                                :sm="2"
+                            >
+                                <div class="item">
+                                    <div class="substantivo_comum medium">
+                                        <div class="card-input card--radio-input" :class="$attrs.class">
+                                            <label>
+                                                <b-card
+                                                    no-body
+                                                    :class="{ 'invalid': item.invalid, 'valid': item.valid }"
                                                 >
-                                                    <div class="bingo-word-player-item">
-                                                        {{ item.text }}
-                                                    </div>                                                
-                                                </b-card-body>
-                                            </b-card>
+                                                    <b-card-body
+                                                        style="background-color: white"
+                                                    >
+                                                        <div class="bingo-word-player-item">
+                                                            {{ item.text }}
+                                                        </div>
+                                                    </b-card-body>
+                                                </b-card>
 
-                                            <input
-                                                v-model="item.selected"
-                                                class="input"
-                                                type="checkbox"
-                                                true-value="valid"
-                                                false-value="invalid"
-                                                :name="`input-${position}`"
-                                                @change.stop="checkRaffle(item)"
-                                            />
-                                        </label>
-                                    </div>    
-                                </div>      
-                            </b-row>
+                                                <input
+                                                    v-model="item.selected"
+                                                    class="input"
+                                                    type="checkbox"
+                                                    true-value="valid"
+                                                    false-value="invalid"
+                                                    :name="`input-${position}`"
+                                                    @change.stop="checkRaffle(item)"
+                                                />
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </b-col>
                         </b-row>
-                    </ls-card-display> 
-                    <ls-card-display 
+                    </ls-card-display>
+                    <ls-card-display
                         v-for="i in 2" :key="i"
                         class="bingo-card"
                         :valid="loseCounter[i-1]==4"
-                    >                        
-                        <b-row align-v="center" align-h="center">                       
-                            <b-row
-                                v-for="word in words[i-1]" 
+                    >
+                        <b-row align-v="center" align-h="center">
+                            <b-col
+                                v-for="word in words[i-1]"
                                 :key="word"
-                                :sm="valueColSize" 
+                                :sm="2"
                                 class="item"
-                            >      
-                                <div class="letra small">
-                                    <ls-card-display                                      
-                                        style="margin: 0 20px 0 20px"  
-                                        :valid="searchString(raffleWords, word)"                                  
-                                    >
-                                        {{ word }}
-                                    </ls-card-display> 
-                                </div>     
-                            </b-row>
+                            >
+                                <div class="item">
+                                    <div class="substantivo_comum medium">
+                                        <ls-card-display
+                                            :valid="searchString(raffleWords, word)"
+                                        >
+                                            {{ word }}
+                                        </ls-card-display>
+                                    </div>
+                                </div>
+                            </b-col>
                         </b-row>
-                    </ls-card-display> 
+                    </ls-card-display>
                 </b-row>
             </b-col>
         </b-row>
@@ -109,8 +111,8 @@ import { setTimeout } from 'timers';
 import Activity from '@/store/modules/Activity';
 import Bingo from '@/components/ui/activities/begin/games/Bingo';
 
-export default { 
-    components: { 
+export default {
+    components: {
         ...ui,
         ...alerts
     },
@@ -142,42 +144,42 @@ export default {
             return require('@/assets/images/components/bingo/painel-bingo.png');
         },
         // ajusta o formato em que o horário será exibido
-        getDuration(){           
+        getDuration(){
             return moment(this.timer).format('m:ss')
-        },        
+        },
         ...mapState('Activity', ['log'])
-    }, 
+    },
     watch: {
         showTimer() {
             this.animateBingoCounter = true;
             setTimeout(() => {
                 this.animateBingoCounter = false;
-            },1000) 
+            },1000)
         },
         actualRaffleWord () {
             if (this.searchString(this.words[0],this.actualRaffleWord)) this.loseCounter[0]++;
-            if (this.searchString(this.words[1],this.actualRaffleWord)) this.loseCounter[1]++;            
-        }        
-    },   
-    created(){        
-        this.words = [[],[]]   
+            if (this.searchString(this.words[1],this.actualRaffleWord)) this.loseCounter[1]++;
+        }
+    },
+    created(){
+        this.words = [[],[]]
         // coloca o valores da cartela do jogador num vetor
         for(let i = 0; i < this.getKeys.length; i++){
-            this.unraffleWords.push(this.getKeys[i].text)      
+            this.unraffleWords.push(this.getKeys[i].text)
             this.scramblePlayerWords.push(this.getKeys[i].text)
-            this.playerWords.push(Object.assign({}, this.getKeys[i]))      
-        }  
+            this.playerWords.push(Object.assign({}, this.getKeys[i]))
+        }
         // pega os valores e os joga numa matriz de palavras
         this.scramblePlayerWords = shuffle(this.scramblePlayerWords);
         for(let i = 0; i < this.getValues.length; i++){
             if(i < this.activity.total_correct_items){
-                this.words[0].push(this.getValues[i].text)                             
+                this.words[0].push(this.getValues[i].text)
             }else{
                 this.words[1].push(this.getValues[i].text)
             }
             if(!this.searchString(this.unraffleWords, this.getValues[i].text)){
-                this.unraffleWords.push(this.getValues[i].text) 
-            } 
+                this.unraffleWords.push(this.getValues[i].text)
+            }
         }
         this.unraffleWords = shuffle(this.unraffleWords);
         this.allWords = this.unraffleWords.slice();
@@ -190,17 +192,17 @@ export default {
         isCheck(item){
             return false
         },
-        checkRaffle (item) {    
+        checkRaffle (item) {
             // caso o item já tenha sido checado, retornamos aqui mesmo
             if(item.valid || item.invalid) return
             //testa se o item já pode ser marcado na cartela do jogador
             if(this.searchString(this.raffleWords, item.text)){
-                item.valid = true                
-                this.setAnswer({ 
-                    type: 'value', 
+                item.valid = true
+                this.setAnswer({
+                    type: 'value',
                     data: item.id,
                     vm: this
-                })  
+                })
             // caso a letra marcada ainda não tiver saído no bingo
             }else{
                 setTimeout(()=> {
@@ -209,15 +211,15 @@ export default {
 
                 item.invalid = true
 
-                this.setAnswer({ 
-                    type: 'value', 
+                this.setAnswer({
+                    type: 'value',
                     data: -1,
                     vm: this
                 })
             }
-            
+
         },
-        // marca a letra como sorteada, trocando sua cor   
+        // marca a letra como sorteada, trocando sua cor
         raffle(word) {
             this.raffleWords.push(word);
         },
@@ -234,7 +236,7 @@ export default {
                     setTimeout(() => {
                         this.timer -= 1000;
                         this.actualizeBingoTimer();
-                    },1000) 
+                    },1000)
                 }
                 // quando chega a zero, e exibindo o contador, ele seleciona aleatoriamente uma letra do alfabeto
                 else if (this.showTimer){
@@ -250,7 +252,7 @@ export default {
                         this.unraffleWords.splice(wordIndex,1);
                         this.actualRaffleWord = word;
                         this.raffle(word);
-                    }  
+                    }
                     this.showTimer = false;
                     this.timer = 5000;
                     this.actualizeBingoTimer();
@@ -262,12 +264,12 @@ export default {
                     this.actualizeBingoTimer();
                 }
             }
-                  
+
         },
         ...mapActions('Activity', ['setActivityAttrs','setAnswer','triggerSuccess'])
     },
 }
 </script>
 
-<style> 
+<style>
 </style>

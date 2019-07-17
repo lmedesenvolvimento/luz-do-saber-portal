@@ -2,8 +2,10 @@
     .key-syllables {
         max-width: 90px;
     }
+
     .letra {
         width: 100%;
+
         .div {
             max-width: 90px;
         }
@@ -12,32 +14,50 @@
             width: 65.63px;
         }
     }
+
     .value-syllables {
         max-width: 90px;
 
         .value,
         .card-input.draggshadow {
-            width: 72px;
+            width: 74px;
+            min-height: 60px;
+
+            .card-body {
+                min-height: 60px;
+            }
         }
-    }
-    .activity-values {
-        max-width: 320px;
     }
 
     .image-container {
-        max-width: 130px;
+        padding: 0 0.8rem;
+
         .card--display {
             padding: 8px;
 
             .card .bg-color .card-body {
-                padding: 8px;
+                padding: 8px !important;
             }
         }
     }
+
     .image {
         img {
             max-width: 70px;
             max-height: 60px;
+        }
+    }
+    .activity-values {
+        max-width: 320px;
+
+        #values-container-display {
+            padding-top: 0px;
+            padding-bottom: 0px;
+
+            .card .bg-color .card-body {
+                padding: 6px;
+            }
+
         }
     }
 }
