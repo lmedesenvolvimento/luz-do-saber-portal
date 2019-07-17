@@ -13,7 +13,7 @@
                             <b-col cols="9">
                                 <b-row align-h="left" class="syllables-row">
                                     <b-col v-for="(syllables, index) in item.syllables" :key="index" :class="activity.item_template.key.font_size" class="item key-syllables">
-                                        <b-col class="letra">
+                                        <div class="letra">
                                             <ls-card-droppable
                                                 v-if="answers"
                                                 :item="syllables.syllable"
@@ -25,7 +25,7 @@
                                                     {{ syllables.correct ? syllables.syllable.text : dataTransfer.text }}
                                                 </template>
                                             </ls-card-droppable>
-                                        </b-col>
+                                        </div>
                                     </b-col>
                                 </b-row>
                             </b-col>
