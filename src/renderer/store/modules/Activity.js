@@ -85,7 +85,7 @@ const mutations = {
 
         state.log.pointings.totalStars = totalStars < 0 ? 0 : totalStars
 
-        return penalty
+        return totalStars
     },
 
     // Dispatch fail process
@@ -164,8 +164,7 @@ const actions = {
 
         // register user progress
         const activity = clone(state.activity)
-        const log = clone(state.log)
-        const newActivity = Object.assign(activity, log)
+        const newActivity = Object.assign(activity, state.log)
         const payload = { data: mapActivity(newActivity), type: 'activities' }
 
         dispatch('Pointings/add', payload, { root: true })
