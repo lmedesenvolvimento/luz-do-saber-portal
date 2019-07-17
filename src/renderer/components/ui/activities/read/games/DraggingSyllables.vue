@@ -3,17 +3,17 @@
         <b-row align-h="center" class="reverse">
             <b-col v-if="hasKeys" class="activity-keys">
                 <b-row align-v="center" align-h="center">
-                    <b-col v-for="(item, position) in newItens" :key="position" cols="12" class="activity-keys2">
-                        <b-row align-v="center">
-                            <b-col class="image-container" cols="3">
+                    <b-col v-for="(item, position) in newItens" :key="position" cols="12">
+                        <b-row class="custom-row" align-v="center">
+                            <b-col class="image-container">
                                 <ls-card-display>
                                     <async-image class="image" :src="item.images[0].url"></async-image>
                                 </ls-card-display>
                             </b-col>
-                            <b-col cols="9">
-                                <b-row align-h="left" class="syllables-row">
-                                    <b-col v-for="(syllables, index) in item.syllables" :key="index" :class="activity.item_template.key.font_size" class="item key-syllables">
-                                        <div class="letra">
+                            <b-col>
+                                <b-row align-h="left" class="syllables-row custom-row">
+                                    <b-col v-for="(syllables, index) in item.syllables" :key="index" class="item key-syllables">
+                                        <div class="silaba texto validate-icon-top" :class="activity.item_template.key.font_size">
                                             <ls-card-droppable
                                                 v-if="answers"
                                                 :item="syllables.syllable"
@@ -36,16 +36,18 @@
             <b-col class="activity-values">
                 <ls-card-display id="values-container-display">
                     <b-row class="values-container" align-h="center">
-                        <b-col v-for="(item, position) in getValues" :key="position" align-self="center" :class="activity.item_template.value.font_size" class="item value-syllables">
-                            <ls-card-draggable
-                                v-if="answers"
-                                class="value"
-                                :item="item"
-                                :type="'value'"
-                                :template="activity.item_template.value"
-                            >
-                                {{ item.text }}
-                            </ls-card-draggable>
+                        <b-col v-for="(item, position) in getValues" :key="position" align-self="center" class="item value-syllables">
+                            <div class="silaba texto" :class="activity.item_template.value.font_size">
+                                <ls-card-draggable
+                                    v-if="answers"
+                                    class="value"
+                                    :item="item"
+                                    :type="'value'"
+                                    :template="activity.item_template.value"
+                                >
+                                    {{ item.text }}
+                                </ls-card-draggable>
+                            </div>
                         </b-col>
                     </b-row>
                 </ls-card-display>
