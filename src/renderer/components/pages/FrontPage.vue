@@ -130,7 +130,7 @@
                                     </div>
                                     <b-col cols="12" class="my-1">
                                         <a class="d-block btn" @click="toggleVisibleLerSubModule">
-                                            <b-img center :src="require('@/assets/images/btn-close.png')" width="51" height="51" />
+                                            <b-img center :src="require('@/assets/images/btn-close.png')" width="61" height="61" />
                                         </a>
                                     </b-col>
                                 </b-row>
@@ -180,6 +180,19 @@ export default {
         },
         gameStart() {
             this.canStart = !this.canStart;
+            
+            let audio = new Audio();
+            audio.src = require('@/assets/audios/1-bem-vindo.mp3');
+            audio.play();
+
+            window.setTimeout(function() {
+                let audio = new Audio();
+                audio.src = require('@/assets/audios/2-seu-nome.mp3');
+                audio.play();
+            }, 3500);
+
+            window.clearTimeout();
+                
         },
         getModuleImage(module){
             switch (module.slug) {
