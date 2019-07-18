@@ -11,7 +11,7 @@ a:hover {
 		align-items: center;
 		border-radius: 10px 10px 0 0;
 		box-shadow: 1px 1px 8px #3a3a3a;
-		
+
 		.unit-title {
 			@include ellipsis;
 			margin: 0;
@@ -19,10 +19,10 @@ a:hover {
 			color: #ffffff;
 			font-size: 24px;
 		}
-	
+
 	}
 	.unit-body {
-		background-image: url("../images/components/unity/background-card-unidades.png");
+		background-image: url("~@/assets/images/components/unity/background-card-unidades.png");
 		background-position: center;
 		background-repeat: no-repeat;
 		background-size: 104% 104%;
@@ -40,14 +40,14 @@ a:hover {
 				justify-content: center;
 				align-items: center;
 				.star {
-					background-image: url("../images/icons/star-full.png");
+					background-image: url("~@/assets/images/icons/star-full.png");
 					background-position: center;
 					background-repeat: no-repeat;
 					background-size: contain;
 					min-height: 40px;
 					padding: 0;
 					&.empty {
-						background-image: url("../images/icons/star-empty.png");
+						background-image: url("~@/assets/images/icons/star-empty.png");
 					}
 				}
 			}

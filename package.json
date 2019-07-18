@@ -61,6 +61,7 @@
     "babel-preset-stage-0": "~6.24.1",
     "babel-register": "~6.26.0",
     "babili-webpack-plugin": "~0.1.2",
+    "brotli-webpack-plugin": "^1.1.0",
     "cfonts": "^2.1.2",
     "chalk": "^2.4.1",
     "copy-webpack-plugin": "^4.5.1",
