@@ -5,7 +5,7 @@ body,html {
 
 body {
       @include baloo_bhaina;
-      background: url("../images/default-bg.png") $bg-color no-repeat;
+      background: url("~@/assets/images/default-bg.jpg") $bg-color no-repeat;
       background-size: cover;
       color: $text-color;
 }

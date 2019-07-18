@@ -1,16 +1,19 @@
 @font-face {
   font-family: "Baloo Bhaina";
-  src: url("~@/assets/fonts/BalooChettan-Regular.ttf") format("truetype")
+  src:  url("~@/assets/fonts/BalooChettan-Regular.woff") format("woff"),
+        url("~@/assets/fonts/BalooChettan-Regular.ttf") format("truetype");
 }
 
 @font-face {
   font-family: "Itim Regular";
-  src: url("~@/assets/fonts/Itim-Regular.ttf") format("truetype")
+  src:  url("~@/assets/fonts/Itim-Regular.woff") format("woff"),
+        url("~@/assets/fonts/Itim-Regular.ttf") format("truetype")
 }
 
 @font-face {
   font-family: "Becca & Perry";
-  src: url("~@/assets/fonts/Becca&PerryScript-Regular.ttf") format("truetype");
+  src:  url("~@/assets/fonts/Becca&PerryScript-Regular.woff") format("woff"),
+        url("~@/assets/fonts/Itim-Regular.ttf") format("truetype");
 }
 
 .subtitle{
@@ -21,5 +24,5 @@
 @each $size in map-keys($map: $font-size-variants) {
     &.#{$size} {
       font-size: map-get($font-size-variants, $size);
-    } 
+    }
 }
