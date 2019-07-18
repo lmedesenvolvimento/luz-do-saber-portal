@@ -1,4 +1,4 @@
-html, body{    
+html, body{
     line-height: 1.15;
     @include custom_scroll_bar;
     user-select: none;
@@ -22,7 +22,7 @@ body{
             .page-container-wrap-spacing{
                 padding-top: $page-container-wrap-spacing;
             }
-            @include media-breakpoint-down('md'){                
+            @include media-breakpoint-down('md'){
                 .page-container-wrap-spacing{
                     padding-top: $page-container-wrap-spacing-xs;
                 }
@@ -32,7 +32,7 @@ body{
 }
 
 
-@media only screen and (min-width: 75em){    
+@media only screen and (min-width: 75em){
     .container{
         width: 88rem;
     }
@@ -44,7 +44,7 @@ a {
         transition: transform 0.2s ease-in-out;
         &:hover, &:active{
             transform: scale(1.1);
-        }        
+        }
     }
     &:hover, &:active{
         cursor: pointer;
