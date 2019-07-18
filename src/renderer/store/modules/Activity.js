@@ -117,6 +117,7 @@ const actions = {
     destroyActivity({ commit }){
         commit('SET_ACTIVITY', null)
         commit('SET_ANSWERS', null)
+        commit('CLEAR_CONNECTIONS')
         commit('CLEAR_LOG')
     },
 
