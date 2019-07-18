@@ -10,7 +10,7 @@
     </ls-card-display>
 </template>
 <script>
-import { find, values } from 'lodash'
+import { find, filter, values, chain } from 'lodash'
 import { ItemProps } from '../index.js'
 
 export default {
@@ -21,12 +21,21 @@ export default {
         }
     },
     watch: {
-        answers(data){
-            let res = find(values(this.answers), (value) => value.key.data === this.item.id && value.valid === true)
+        answers(data){ 
+            let answers = chain(this.answers)
+                .values()
+                .filter((a) => a.valid)
+                .value()
 
-            if( res ){
+            let res = filter(answers, (a) => {
+                const value_id = this.item.value_ids[0];
+                return (a.value.data.includes(value_id) && a.valid === true)
+            })
+
+            res.forEach(element => {
                 this.isValid = true;
-            }
+            })
+
         }
     }
 
