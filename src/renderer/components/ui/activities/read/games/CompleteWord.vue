@@ -1,5 +1,5 @@
 <template>
-    <div id="complete-word" class="container-fluid">
+    <div class="container-fluid complete-word">
         <b-row align-h="center" class="column">
             <b-col v-if="hasKeys" class="activity-keys">
                 <b-row align-v="center">
@@ -150,22 +150,24 @@ export default {
 }
 </script>
 <style lang="scss">
-.key-pieces{
-    .silaba{
-        .card{
-            &.valid, &.invalid{
-                &::after{
-                    content: none !important;
-                }
-            }        
+.complete-word{
+    .key-pieces{
+        .silaba{
+            .card{
+                &.valid, &.invalid{
+                    &::after{
+                        content: none !important;
+                    }
+                }        
+            }
         }
     }
-}
 
-.silaba,
-.letra{
-    .card-body{
-        min-height: 60px;
-    }
+    .silaba,
+    .letra{
+        .card-body{
+            min-height: 60px;
+        }
+    }    
 }
 </style>
