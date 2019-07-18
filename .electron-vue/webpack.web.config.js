@@ -9,31 +9,23 @@ const BabiliWebpackPlugin = require('babili-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const BrotliPlugin = require('brotli-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader')
 
 let webConfig = {
   devtool: '#cheap-module-eval-source-map',
   entry: {
     web: path.join(__dirname, '../src/renderer/main.js'),
-    styles: path.join(__dirname, '../src/renderer/assets/styles/main.scss')
   },
   module: {
     rules: [
       {
-        test: /\.scss$/,
-        use: ['vue-style-loader', 'css-loader', 'sass-loader']
-      },
-      {
-        test: /\.sass$/,
-        use: ['vue-style-loader', 'css-loader', 'sass-loader?indentedSyntax']
-      },
-      {
-        test: /\.less$/,
-        use: ['vue-style-loader', 'css-loader', 'less-loader']
-      },
-      {
-        test: /\.css$/,
-        use: ['vue-style-loader', 'css-loader']
+        test: /\.s?[ac]ss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          { loader: 'css-loader', options: { url: true, sourceMap: true } },
+          { loader: 'sass-loader', options: { sourceMap: true } }
+        ],
       },
       {
         test: /\.html$/,
@@ -121,7 +113,7 @@ let webConfig = {
       '@ui': path.join(__dirname, '../src/renderer/components/ui'),
       'vue$': 'vue/dist/vue.esm.js'
     },
-    extensions: ['.js', '.vue', '.json', '.css', '.scss', '.ttf']
+    extensions: ['.js', '.vue', '.json', '.css', '.scss', '.ttf', 'woff']
   },
   target: 'web',
   optimization: {
@@ -150,7 +142,13 @@ if (process.env.NODE_ENV === 'production') {
       'process.env.NODE_ENV': '"production"'
     }),
     new webpack.LoaderOptionsPlugin({
-      minimize: true
+      minimize: true,
+    }),
+    new BrotliPlugin({
+      asset: '[path].br[query]',
+      test: /\.(js|css|html|svg|jpg)$/,
+      threshold: 10240,
+      minRatio: 0.8
     })
   )
 }
