@@ -14,6 +14,7 @@
             <img 
                 v-if="navbarIcon"
                 :src="navbarIcon" 
+                :alt="navbarTitle"
                 class="icon"
             >
             
