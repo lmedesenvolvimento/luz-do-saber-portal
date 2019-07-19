@@ -5,7 +5,7 @@
                 <b-row align-v="center" align-h="center" class="flex-2 content">
                     <b-container>
                         <b-row class="m-5" align-v="center" align-h="center">
-                            <img class="front-page-logo" src="@/assets/images/logo.png" alt="Logo Luz do Saber">
+                            <img class="front-page-logo" :class="{ 'loading': ( loading || isLoading ) }" src="@/assets/images/logo.png" alt="Logo Luz do Saber">
                         </b-row>
 
                         <transition name="fade" mode="out-in">
@@ -146,6 +146,7 @@
 import { find, filter } from 'lodash'
 import { mapActions, mapState } from 'vuex'
 import VueCircle from '@/components/ui/CircleProgress'
+import { setTimeout } from 'timers';
 
 export default {
     components: {
@@ -156,12 +157,16 @@ export default {
             isVisibleLerSubModule: false,
             user: { name: '' },
             canStart: false,
-            read: null
+            read: null,
+            loading: false
         }
     },
     computed: {
         isAuthorized(){
             return this.currentUser ? true : false
+        },
+        isLoading(){
+            return this.loading || ( this.user.name  && !this.modules.length )
         },
         ...mapState('Modules', ['modules']),
         ...mapState('User', ['currentUser'])
@@ -174,13 +179,19 @@ export default {
     methods: {
         submitLogin(){
             this.createUserDatabase(this.user)
+
+            this.loading = true
+
+            setTimeout(() => {
+                this.loading = false
+            }, 5000)
         },
         toggleVisibleLerSubModule(){
             this.isVisibleLerSubModule = !this.isVisibleLerSubModule
         },
         gameStart() {
             this.canStart = !this.canStart;
-            
+
             let audio = new Audio();
             audio.src = require('@/assets/audios/1-bem-vindo.mp3');
             audio.play();
@@ -192,7 +203,7 @@ export default {
             }, 3500);
 
             window.clearTimeout();
-                
+
         },
         getModuleImage(module){
             switch (module.slug) {
