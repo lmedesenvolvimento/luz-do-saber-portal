@@ -4,7 +4,7 @@
             <b-col sm="4">
                 <img
                     :src="getKeys[0].images[0].url"
-                    alt=""
+                    :alt="getKeys[0].text"
                 >
             </b-col>
             <b-col sm="8">
