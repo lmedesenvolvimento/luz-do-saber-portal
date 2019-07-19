@@ -5,7 +5,16 @@
                 <b-row align-v="center" align-h="center" class="flex-2 content">
                     <b-container>
                         <b-row class="m-5" align-v="center" align-h="center">
-                            <img class="front-page-logo" :class="{ 'loading': ( loading || isLoading ) }" src="@/assets/images/logo.png" alt="Logo Luz do Saber">
+                            <transition name="fade" mode="out-in">
+                                <div v-if="isLoading" key="logo" class="front-page-logo-animation"></div>
+                                <img
+                                    v-else
+                                    key="logo"
+                                    class="front-page-logo"
+                                    :src="require('@/assets/images/logo.png')"
+                                    alt="Logo Luz do Saber"
+                                >
+                            </transition>
                         </b-row>
 
                         <transition name="fade" mode="out-in">
