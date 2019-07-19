@@ -14,7 +14,7 @@
                             :item="item"
                             :template="activity.item_template.key"
                         >
-                            <img src="https://picsum.photos/300/200" alt="">
+                            <img src="https://picsum.photos/300/200" :alt="getKeys[0].text">
                             <!-- {{ item.letters[0].text }} -->
                         </ls-card-audio-listen-with-player>
                     </b-col>

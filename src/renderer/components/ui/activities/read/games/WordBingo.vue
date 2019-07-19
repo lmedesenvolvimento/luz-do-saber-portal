@@ -3,8 +3,8 @@
         <b-row align-v="center">
             <b-col cols="3" align-v="center" align-h="center">
                 <b-row class="bingo-container" align-v="center" align-h="center">
-                    <img class="bingo-roulette" :src="bingoRoulette" alt="">
-                    <img class="bingo-panel" :src="bingoCounter" alt="">
+                    <img class="bingo-roulette" :src="bingoRoulette" alt="roleta do bingo">
+                    <img class="bingo-panel" :src="bingoCounter" alt="contador do bingo">
                     <div
                         class="bingo-counter"
                         :class="{'bingo-counter-animation': animateBingoCounter}"
