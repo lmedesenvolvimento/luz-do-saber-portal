@@ -103,27 +103,3 @@
         }
     }
 }
-
-.front-page-logo {
-    max-width: 320px;
-    opacity: 0;
-    transition: all 2.5s ease;
-    transform: rotate(0deg);
-    &.loading {
-        animation: infinite-rotate-int-out 5s ease 0s infinite;
-    }
-}
-
-.front-page-login{
-    @include itim_regular;
-    padding: 30px 0 15px;
-    max-width: 600px;
-    width: 90%;
-
-    .card-body{
-        display: flex;
-        justify-content: center;
-        text-align: center;
-        padding: 0;
-    }
-}
