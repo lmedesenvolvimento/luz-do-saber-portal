@@ -5,7 +5,8 @@
             <div v-else>
                 <viewer v-if="!disableZoom" :options="viewerOpts">
                     <slot name="image">
-                        <img :src="src" />
+                        <!-- alterar o src para ser o nome da unidade -->
+                        <img :src="src" :alt="altImage(src)" />
                     </slot>
                 </viewer>
                 <slot v-else name="image">
@@ -26,20 +27,26 @@ export default {
     inheritAttrs: false,
     props: {
         src: String,
-        disableZoom: Boolean
+        disableZoom: Boolean,
+        alt: String
     },
     data(){
         return {
             ready: false,
             viewerOpts
         }
-    },
+    },      
     mounted(){
         const image = new Image()
         image.onload = event => {
             return this.ready = true
         }
         image.src = this.src
+    },
+    methods: {
+        altImage: function(src){
+            return src.split('/')[src.split('/').length - 1].split('.')[0]
+        }
     }
 }
 </script>
