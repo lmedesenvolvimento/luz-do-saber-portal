@@ -6,7 +6,7 @@
         >
             <b-card-body>
                 <slot name="img">
-                    <async-image class="card-img" :src="picture" />
+                    <async-image class="card-img" :src="picture" :alt="imgAlt" />
                 </slot>
                 <slot></slot>
             </b-card-body>
@@ -27,6 +27,9 @@ export default {
     computed: {
         picture(){
             return this.item.images.length ? this.item.images[0].url : 'https://picsum.photos/300/200'
+        },
+        imgAlt(){
+            return this.item.images.length ? 'aaaaaa' : 'https://picsum.photos/300/200'
         }
     }
 }
