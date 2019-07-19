@@ -29,7 +29,7 @@ export default {
             return this.item.images.length ? this.item.images[0].url : 'https://picsum.photos/300/200'
         },
         imgAlt(){
-            return this.item.images.length ? 'aaaaaa' : 'https://picsum.photos/300/200'
+            return this.item.text
         }
     }
 }

@@ -15,7 +15,7 @@
                         :show-percent="false"
             >
                 <div class="img-container" :style="{'background-color': color.color }">
-                    <async-image :src="image" class="img-fluid"></async-image>
+                    <async-image :src="image" :alt="image" class="img-fluid"></async-image>
                 </div>
             </vue-circle>
         </b-col>
