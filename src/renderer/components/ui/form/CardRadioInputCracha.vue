@@ -7,7 +7,7 @@
             >
                 <div>
                     <div class="cracha-container">
-                        <b-card-img class="cracha-img" :src="renderCrachaImage" />
+                        <b-card-img class="cracha-img" :src="renderCrachaImage" alt="crachá" />
                         <div class="cracha-text">
                             <slot></slot>
                         </div>
