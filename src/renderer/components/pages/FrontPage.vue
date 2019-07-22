@@ -64,7 +64,7 @@
                             </div>
                             <div v-else-if="isAuthorized && !isVisibleLerSubModule" key="frontpage-modules">
                                 <b-row align-v="center" align-h="center">
-                                    <div @click="deleteUser">
+                                    <div class="btn-sair" @click="deleteUser">
                                         Sair
                                     </div>
                                     <b-col v-for="m in modules" :key="m.id">
@@ -265,5 +265,11 @@ export default {
 
 .err-msg{
     color: red;
+}
+
+.btn-sair {
+    position: absolute;
+    top: 5%;
+    right: 5%;
 }
 </style>
