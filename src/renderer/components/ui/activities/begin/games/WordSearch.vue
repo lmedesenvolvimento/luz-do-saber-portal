@@ -9,10 +9,10 @@
                                 <div 
                                     v-for="(l, letterIndex) in r" 
                                     :key="letterIndex" 
+                                    :class="l.class" class="letter"
                                     @mousedown="allowPainting(true)" 
                                     @mouseup="allowPainting(false)" 
                                     @mousemove="paint(index,letterIndex)"
-                                    :class="l.class" class="letter" 
                                 >
                                     {{ l.value }}
                                 </div>
