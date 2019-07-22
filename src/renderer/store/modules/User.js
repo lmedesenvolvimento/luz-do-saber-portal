@@ -30,6 +30,7 @@ const actions = {
 
         if (snapshot.data && !snapshot.data.name) {
             db.set('data.name', payload.name).write()
+            commit('SET_USER', db.value())
             return
         }
 
