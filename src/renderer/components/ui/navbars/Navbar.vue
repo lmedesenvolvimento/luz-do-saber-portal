@@ -28,7 +28,7 @@
         <span class="flex"></span>
 
         <b-btn variant="light" @click="destroyUserDatabase">
-            Sair do Jogo
+            Sair
         </b-btn>
     </nav>
 </template>
