@@ -43,7 +43,6 @@
                                                                 v-model.trim="user.name"
                                                                 v-focus="true"
                                                                 type="text"
-                                                                maxlength="11"
                                                                 autocomplete="off"
                                                                 required
                                                             />
@@ -53,7 +52,7 @@
                                             </div>
                                         </b-card-body>
                                         <b-card-body>
-                                            <h6>Máximo de 11 letras.</h6>
+                                            <h6 class="err-msg">{{ errMsg }}</h6>
                                         </b-card-body>
                                         <b-card-body>
                                             <b-button type="submit" variant="link" class="mt-3">
@@ -65,6 +64,9 @@
                             </div>
                             <div v-else-if="isAuthorized && !isVisibleLerSubModule" key="frontpage-modules">
                                 <b-row align-v="center" align-h="center">
+                                    <div @click="deleteUser">
+                                        Sair
+                                    </div>
                                     <b-col v-for="m in modules" :key="m.id">
                                         <a
                                             v-if="m.slug === 'ler'"
@@ -156,7 +158,8 @@ export default {
             isVisibleLerSubModule: false,
             user: { name: '' },
             canStart: false,
-            read: null
+            read: null,
+            errMsg: '',
         }
     },
     computed: {
@@ -172,15 +175,24 @@ export default {
         })
     },
     methods: {
+        deleteUser(){
+            console.log('vamo apagar')
+        },
         submitLogin(){
-            this.createUserDatabase(this.user)
+            if (this.user.name.length >= 3 && this.user.name.length <= 11){
+                if (this.user.name.match(/[^a-zA-Z\d\s:\u00C0-\u00FF]/g) === null) this.createUserDatabase(this.user)
+                else this.errMsg = 'Proibido uso de símbolos.'
+            }
+            else{
+                this.errMsg = (this.user.name.length < 3) ? 'Mínimo de 3 letras.' : 'Máximo de 11 letras.'
+            }
         },
         toggleVisibleLerSubModule(){
             this.isVisibleLerSubModule = !this.isVisibleLerSubModule
         },
         gameStart() {
             this.canStart = !this.canStart;
-            
+        
             let audio = new Audio();
             audio.src = require('@/assets/audios/1-bem-vindo.mp3');
             audio.play();
@@ -249,5 +261,9 @@ export default {
 }
 .span-spacing {
     padding-left: 50px;
+}
+
+.err-msg{
+    color: red;
 }
 </style>
