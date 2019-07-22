@@ -180,7 +180,7 @@ export default {
         },
         gameStart() {
             this.canStart = !this.canStart;
-            
+
             let audio = new Audio();
             audio.src = require('@/assets/audios/1-bem-vindo.mp3');
             audio.play();
@@ -192,7 +192,7 @@ export default {
             }, 3500);
 
             window.clearTimeout();
-                
+
         },
         getModuleImage(module){
             switch (module.slug) {
@@ -220,7 +220,6 @@ export default {
         },
         getProgressModule(m, target_audience){
             const themes = this.getProgressThemesByModuleId(m, target_audience)
-            console.log(themes)
             const total = ( filter(themes, { completed: true }).length / m.themes.length ) * 100
             return  total || 5
         },
