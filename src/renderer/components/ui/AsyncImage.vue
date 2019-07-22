@@ -5,7 +5,6 @@
             <div v-else>
                 <viewer v-if="!disableZoom" :options="viewerOpts">
                     <slot name="image">
-                        <!-- alterar o src para ser o nome da unidade -->
                         <img :src="src" :alt="altImage(src)" />
                     </slot>
                 </viewer>
