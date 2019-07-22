@@ -64,9 +64,9 @@
                             </div>
                             <div v-else-if="isAuthorized && !isVisibleLerSubModule" key="frontpage-modules">
                                 <b-row align-v="center" align-h="center">
-                                    <div class="btn-sair" @click="deleteUser">
+                                    <b-btn class="btn-sair" variant="light" @click="destroyUserDatabase">
                                         Sair
-                                    </div>
+                                    </b-btn>
                                     <b-col v-for="m in modules" :key="m.id">
                                         <a
                                             v-if="m.slug === 'ler'"
@@ -175,9 +175,6 @@ export default {
         })
     },
     methods: {
-        deleteUser(){
-            console.log('vamo apagar')
-        },
         submitLogin(){
             if (this.user.name.length >= 3 && this.user.name.length <= 11){
                 if (this.user.name.match(/[^a-zA-Z\d\s:\u00C0-\u00FF]/g) === null) this.createUserDatabase(this.user)
@@ -192,7 +189,7 @@ export default {
         },
         gameStart() {
             this.canStart = !this.canStart;
-            
+
             let audio = new Audio();
             audio.src = require('@/assets/audios/1-bem-vindo.mp3');
             audio.play();
@@ -239,7 +236,7 @@ export default {
             return this.$store.getters['Pointings/getThemesByModuleId'](module.id, target_audience)
         },
         ...mapActions('Modules',['fetchModules']),
-        ...mapActions('User',['createUserDatabase']),
+        ...mapActions('User',['createUserDatabase', 'destroyUserDatabase']),
         ...mapActions('Pointings', ['add'])
     }
 }
@@ -268,7 +265,7 @@ export default {
 
 .btn-sair {
     position: absolute;
-    top: 5%;
-    right: 5%;
+    top: 4%;
+    right: 4%;
 }
 </style>
