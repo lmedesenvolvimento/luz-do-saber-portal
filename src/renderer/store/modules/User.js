@@ -73,16 +73,14 @@ const getters = {
 }
 
 function resetUser() {
-    db.set('data.name', null)
-    db.set('friends', {})
-    db.set('pointings', {
-        units: {},
-        themes: {},
-        modules: {},
-        activities: {},
-    })
-
-    return db.write()
+    return db.set('data.name', null)
+        .set('friends', {})
+        .set('pointings', {
+            units: {},
+            themes: {},
+            modules: {},
+            activities: {},
+        }).write()
 }
 
 export default {
