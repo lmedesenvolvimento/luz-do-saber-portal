@@ -5,7 +5,7 @@
             <div v-else>
                 <viewer v-if="!disableZoom" :options="viewerOpts">
                     <slot name="image">
-                        <img :src="src" :alt="altImage(src)" />
+                        <img :src="src" :alt="[alt ? alt : altImage(src)]" />
                     </slot>
                 </viewer>
                 <slot v-else name="image">
@@ -44,7 +44,8 @@ export default {
     },
     methods: {
         altImage: function(src){
-            return src.split('/')[src.split('/').length - 1].split('.')[0]
+            return src
+            //return src.split('/')[src.split('/').length - 1].split('.')[0]
         }
     }
 }
