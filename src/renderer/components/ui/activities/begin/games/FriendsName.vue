@@ -6,7 +6,11 @@
                     <b-col v-for="(friend, index) in localFriends" :key="index" class="friends-divider" md="3" cols="12">
                         <b-card no-body class="my-2">
                             <b-card-body class="outer">
-                                <img class="img-placeholder" src="https://flash.za.com/wp-content/uploads/2015/08/Generic-Profile-1600x1600.png">
+                                <async-image 
+                                    class="img-placeholder" 
+                                    src="https://flash.za.com/wp-content/uploads/2015/08/Generic-Profile-1600x1600.png" 
+                                    alt="placeholder" 
+                                />
                                 <div class="card-input card--input-text ">
                                     <label>
                                         <b-card
@@ -38,13 +42,15 @@
 import { mapState, mapActions } from 'vuex'
 import ui from '@/components/ui'
 import alerts from '@/components/alerts'
+import AsyncImage from '@ui/AsyncImage'
 import { sortBy, shuffle } from 'lodash'
 import { MapMixins, ListMixin, CreateAnswersMixins,createAnswer } from '@ui/activities/mixins'
 
 export default {
     components: {
         ...ui,
-        ...alerts
+        ...alerts,
+        AsyncImage
     },
     mixins: [MapMixins, ListMixin, CreateAnswersMixins],
     data(){
