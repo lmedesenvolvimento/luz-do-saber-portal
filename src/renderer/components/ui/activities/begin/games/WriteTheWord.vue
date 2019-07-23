@@ -14,7 +14,7 @@
                             :item="item"
                             :template="activity.item_template.key"
                         >
-                            <img src="https://picsum.photos/300/200" :alt="getKeys[0].text">
+                            <async-image src="https://picsum.photos/300/200" :alt="getKeys[0].text" />
                             <!-- {{ item.letters[0].text }} -->
                         </ls-card-audio-listen-with-player>
                     </b-col>
@@ -65,13 +65,14 @@
 <script>
 import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from '@ui/activities/mixins'
 import ItemComponents from '@ui/form/index.js'
-
+import AsyncImage from '@ui/AsyncImage'
 import { mapState, mapActions } from 'vuex'
 import { clearInterval, setTimeout, clearTimeout } from 'timers';
 
 export default {
     components: {
         ...ItemComponents,
+        AsyncImage
     },
     mixins: [ListMixin, MapMixins, CreateAnswersMixins],
     data() {
