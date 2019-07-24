@@ -44,7 +44,11 @@ export default {
     },
     methods: {
         altImage: function(src){
-            return src.split('/')[src.split('/').length - 1].split('.')[0]
+            if(src != null){
+                return src.split('/')[src.split('/').length - 1].split('.')[0]
+            }else {
+                return 'default'
+            }            
         }
     }
 }
