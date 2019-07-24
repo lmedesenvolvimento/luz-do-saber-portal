@@ -1,10 +1,10 @@
 <template>
-    <div class="memory-game container-fluid" @click="unflipCards()" :class="{ 'clickable' : firstClick} ">
+    <div class="memory-game container-fluid" :class="{ 'clickable' : firstClick}" @click="unflipCards()">
         <b-row :md="valueColSize" :sm="6">
             <b-col class="activity-values">
                 <b-row align-v="center" align-h="center">
                     <b-col v-for="(card, index) in cards" :key="card.key" :class="card.class" class="item" :sm="valueColSize">
-                        <div class="card-face" :class="card.class" @click="toggleFlip(index, card)">                            
+                        <div class="card-face" :class="card.class" @click="toggleFlip(index, card)">                           
                             <ls-card-display
                                 label="item.text" 
                                 :type="'text'"
@@ -38,7 +38,6 @@ import ItemComponents from '@ui/form/index.js'
 import { shuffle, find } from 'lodash'
 
 import { mapActions, mapState } from 'vuex'
-
 
 export default {
     components: {... ItemComponents},
