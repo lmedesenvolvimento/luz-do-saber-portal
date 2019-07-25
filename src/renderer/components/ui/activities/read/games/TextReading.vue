@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid">        
         <b-row align-h="center" align-v="center">
-            <b-col v-for="(item, position) in getKeys" :key="position" :sm="keyColSize" class="item"> 
+            <b-col class="item" cols="10"> 
                 <div class="card--text-audio">
                     <div :class="activity.item_template.key.font_size">
                         <ls-card-display>
@@ -37,8 +37,14 @@ export default {
         AsyncImage    
     },
     mixins: [MapMixins, ListMixin, CreateAnswersMixins],
+    data(){
+        return {
+            item: Object
+        }
+    },
     mounted() {
         this.createAnswersArray()
+        this.item = this.getKeys[0]
     },
 }
 </script>
