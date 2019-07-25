@@ -64,8 +64,7 @@
                             </div>
                             <div v-else-if="isAuthorized && !isVisibleLerSubModule" key="frontpage-modules">
                                 <b-row align-v="center" align-h="center">
-                                    <b-btn class="icon-exit" variant="light" @click="destroyUserDatabase"></b-btn>
-                                    <!-- <div class="icon-exit" @click="destroyUserDatabase"></div> -->
+                                    <div class="icon-exit" @click="destroyUserDatabase"></div>
                                     <b-col v-for="m in modules" :key="m.id">
                                         <a
                                             v-if="m.slug === 'ler'"
@@ -263,25 +262,8 @@ export default {
 }
 
 .icon-exit{
-    background-image: url('~@/assets/images/btn-exit.png');
-    background-repeat: no-repeat;
-    background-size: contain;
-    width: 50px;
-    height: 50px;
     position: absolute;
     top: 4%;
     right: 4%;
-
-    &.btn-light{
-        color: rgba(0, 0, 0, 0);
-        background-color: rgba(0, 0, 0, 0);
-        border-color: rgba(0, 0, 0, 0);
-
-        &:hover{
-            color: rgba(0, 0, 0, 0);
-            background-color: rgba(0, 0, 0, 0);
-            border-color: rgba(0, 0, 0, 0);
-        }
-    }
 }
 </style>
