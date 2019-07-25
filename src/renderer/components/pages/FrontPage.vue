@@ -214,6 +214,8 @@ export default {
                 return { color: '#00963F' }
             case 'escrever':
                 return { color: '#007CB2' }
+            case 'biblioteca':
+                return { color: 'black' }
             default:
                 break;
             }
