@@ -1,6 +1,28 @@
 <template>
     <div v-if="isLimitExceeded">
-        <div class="card--text-audio">
+        <div v-if="item.images[0].url != null">
+            <div class="card--text-audio">
+                <div :class="activity.item_template.key.font_size">
+                    <card-display>
+                        <slot>
+                            <b-col>
+                                <b-row>
+                                    <b-col cols="7">
+                                        <pre>{{ item.text }}</pre>
+                                    </b-col>
+                                    <b-col>
+                                        <async-image :src="item.images.length ? item.images[0].url : null" />
+                                    </b-col>
+                                </b-row>                            
+                                <hr>
+                                <card-audio :item="item" class="plyr-flat" />
+                            </b-col>                
+                        </slot>                        
+                    </card-display>
+                </div>                    
+            </div>
+        </div>
+        <div v-else class="card--text-audio">
             <card-display>
                 <slot>
                     {{ item.text }}
@@ -44,6 +66,7 @@
 import uniqid from 'uniqid'
 import { filter } from 'lodash'
 
+import AsyncImage from '@ui/AsyncImage'
 import RadioInput from './RadioInput.vue'
 import CardAudio from './CardAudio'
 import CardDisplay from './CardDisplay'
@@ -51,7 +74,7 @@ import CardDisplay from './CardDisplay'
 const limitText = 50
 
 export default {
-    components: { CardAudio, CardDisplay },
+    components: {AsyncImage, CardAudio, CardDisplay },
     mixins: [RadioInput],
     props: {
         item: Object,
