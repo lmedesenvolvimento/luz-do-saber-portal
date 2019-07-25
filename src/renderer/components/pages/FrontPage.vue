@@ -82,7 +82,7 @@
                                         <router-link
                                             v-else
                                             class="clean-links"
-                                            :to="{ name: 'module', params: { module_slug: m.slug, target_audience: 'geral' } }"
+                                            :to="{ name: (m.slug === 'escrever' ? 'write' : 'module'), params: { module_slug: m.slug, target_audience: 'geral' } }"
                                             replace
                                         >
                                             <vue-circle
