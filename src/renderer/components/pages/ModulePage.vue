@@ -25,6 +25,7 @@
                     </div>
                 </b-col>
             </b-row>
+            <editor></editor>
         </div>
     </div>
 </template>
@@ -35,11 +36,13 @@ import { filter, omit } from 'lodash'
 import { RouteMixin } from './index'
 import VueCircle from '../ui/CircleProgressThemes'
 import Navbar from '../ui/navbars/Navbar'
+import Editor from '../ui/items/Editor'
 
 export default {
     components: {
         VueCircle,
-        Navbar
+        Navbar,
+        Editor
     },
     mixins: [RouteMixin],
     data() {
@@ -94,7 +97,7 @@ export default {
         },
         getThemeImage(theme) {
             return theme.cover_url ? theme.cover_url : 'http://pngimg.com/uploads/book/book_PNG51049.png'
-        },
+        }, 
         getProgressTheme(theme){
             const units = this.getProgressUnitsByThemeId(theme)
             const total = ( filter(units, { completed: true }).length / theme.units.length ) * 100
