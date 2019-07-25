@@ -13,7 +13,8 @@
         <div class="title-holder">
             <img
                 v-if="navbarIcon"
-                :src="navbarIcon"
+                :src="navbarIcon" 
+                :alt="navbarTitle"
                 class="icon"
             >
 
