@@ -11,9 +11,9 @@
         <template slot="modal-header">
             <div class="feedback-header">
                 <div class="feedback-stars feedback-header-item">
-                    <img :src="star(0)" class="feedback-small-stars" alt="star">
-                    <img :src="star(1)" alt="star">
-                    <img :src="star(2)" class="feedback-small-stars" alt="star">
+                    <img :src="star(0)" class="feedback-small-stars" alt="star" />
+                    <img :src="star(1)" alt="star" />
+                    <img :src="star(2)" class="feedback-small-stars" alt="star" />
                 </div>
                 <div class="feedback-header-item "><h5 class="feedback-rounded-number">{{ renderActivityPosition }}</h5></div>
                 <div class="feedback-header-item"><h5>{{ renderActivityName }}</h5></div>
@@ -21,7 +21,7 @@
         </template>
         <br>
         <div class="feedback-content">
-            <img :src="expressionStar" alt="expression-star">
+            <img :src="expressionStar" alt="expression-star" />
             <br>
             <h5>{{ feedbackText1 }}</h5>
             <div v-if="totalStars==3" class="feedback-itim"><h5>{{ feedbackText5 }}</h5></div>
@@ -41,7 +41,7 @@ import { find } from 'lodash'
 
 import AudioReader from '@/services/AudioReader'
 
-export default {
+export default {    
     data(){
         return {
             isVisible: false,

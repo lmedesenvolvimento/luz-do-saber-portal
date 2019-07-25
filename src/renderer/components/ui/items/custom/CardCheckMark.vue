@@ -7,7 +7,7 @@
                 :class="{ 'invalid': invalid, 'valid': valid, 'selected': selected }"
             >
                 <b-card-body>
-                    <img v-if="valid || invalid" class="check-image" src="@/assets/images/x.png" alt="">
+                    <img v-if="valid || invalid" class="check-image" src="@/assets/images/x.png" alt="x">
                 </b-card-body>
             </b-card>
 
