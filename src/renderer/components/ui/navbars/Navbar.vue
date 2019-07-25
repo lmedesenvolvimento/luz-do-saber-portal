@@ -27,10 +27,6 @@
         </div>
 
         <span class="flex"></span>
-
-        <b-btn variant="light" @click="destroyUserDatabase">
-            Sair
-        </b-btn>
     </nav>
 </template>
 <script>
