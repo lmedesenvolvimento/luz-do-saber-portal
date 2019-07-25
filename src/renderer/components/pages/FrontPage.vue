@@ -3,7 +3,7 @@
         <main>
             <b-container fluid>
                 <b-row align-v="center" align-h="center" class="flex-2 content">
-                    <b-container>
+                    <b-container fluid>
                         <b-row class="m-5" align-v="center" align-h="center">
                             <img class="front-page-logo" src="@/assets/images/logo.png" alt="Logo Luz do Saber">
                         </b-row>
@@ -65,7 +65,7 @@
                             </div>
                             <div v-else-if="isAuthorized && !isVisibleLerSubModule" key="frontpage-modules">
                                 <b-row align-v="center" align-h="center">
-                                    <b-col v-for="m in modules" :key="m.id">
+                                    <div v-for="m in modules" :key="m.id">
                                         <a
                                             v-if="m.slug === 'ler'"
                                             class="clean-links"
@@ -93,7 +93,7 @@
                                                 :color="getModuleColor(m)"
                                             />
                                         </router-link>
-                                    </b-col>
+                                    </div>
                                 </b-row>
                             </div>
                             <div v-else-if="isAuthorized && isVisibleLerSubModule" key="frontpage-ler">
@@ -180,7 +180,7 @@ export default {
         },
         gameStart() {
             this.canStart = !this.canStart;
-            
+
             let audio = new Audio();
             audio.src = require('@/assets/audios/1-bem-vindo.mp3');
             audio.play();
@@ -192,7 +192,7 @@ export default {
             }, 3500);
 
             window.clearTimeout();
-                
+
         },
         getModuleImage(module){
             switch (module.slug) {
@@ -202,6 +202,8 @@ export default {
                 return require('@/assets/images/btn-read.png')
             case 'escrever':
                 return require('@/assets/images/btn-write.png')
+            case 'biblioteca':
+                return require('@/assets/images/btn-books.png')
             default:
                 break;
             }
@@ -214,13 +216,14 @@ export default {
                 return { color: '#00963F' }
             case 'escrever':
                 return { color: '#007CB2' }
+            case 'biblioteca':
+                return  { color: '#F8A728' }
             default:
                 break;
             }
         },
         getProgressModule(m, target_audience){
             const themes = this.getProgressThemesByModuleId(m, target_audience)
-            console.log(themes)
             const total = ( filter(themes, { completed: true }).length / m.themes.length ) * 100
             return  total || 5
         },
