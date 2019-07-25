@@ -67,6 +67,9 @@
         .items, .vertical-items{
             display: flex;
             height: 100%;
+            > .row{
+                height: 100%;
+            }
         }
         .item{
             padding: 0px 10px;

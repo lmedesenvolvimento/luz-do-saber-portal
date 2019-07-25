@@ -3,8 +3,8 @@
         <b-row align-v="center">
             <b-col cols="3" align-v="center" align-h="center">
                 <b-row class="bingo-container" align-v="center" align-h="center">
-                    <img class="bingo-roulette" :src="bingoRoulette" alt="">
-                    <img class="bingo-panel" :src="bingoCounter" alt="">
+                    <async-image class="bingo-roulette" :src="bingoRoulette" alt="roleta do bingo" />
+                    <async-image class="bingo-panel" :src="bingoCounter" alt="contador do bingo" />
                     <div
                         class="bingo-counter"
                         :class="{'bingo-counter-animation': animateBingoCounter}"
@@ -105,6 +105,7 @@ import { mapState, mapActions } from 'vuex'
 import ui from '@/components/ui'
 import alerts from '@/components/alerts'
 import { shuffle, range, filter } from 'lodash'
+import AsyncImage from '@ui/AsyncImage'
 import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from '@ui/activities/mixins'
 import moment from 'moment'
 import { setTimeout } from 'timers';
@@ -114,7 +115,8 @@ import Bingo from '@/components/ui/activities/begin/games/Bingo';
 export default {
     components: {
         ...ui,
-        ...alerts
+        ...alerts,
+        AsyncImage
     },
     mixins: [MapMixins, ListMixin, CreateAnswersMixins],
     data(){
