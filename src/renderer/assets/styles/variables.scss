@@ -26,7 +26,8 @@ $page-container-wrap-spacing-xs: ($spacer * 3);
 $theme-colors: (
     comecar: #b03333,
     ler: #1b9f49,
-    escrever: #0b84ac
+    escrever: #0b84ac,
+    biblioteca: #F8A728
 );
 
 // Icons
@@ -41,12 +42,14 @@ $icon-names: (
     'icon-redo',
     'counter',
     'icon-prev-screen',
+    'icon-exit',
 );
 
 $icon-themes: (
     comecar: '~@/assets/images/icons/comecar/',
     ler: '~@/assets/images/icons/ler/',
-    escrever: '~@/assets/images/icons/escrever/'
+    escrever: '~@/assets/images/icons/escrever/',
+    biblioteca: '~@/assets/images/icons/biblioteca/'
 );
 
 // Grid
