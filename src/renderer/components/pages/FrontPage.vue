@@ -124,7 +124,8 @@ export default {
             isVisibleLerSubModule: false,
             user: { name: '' },
             canStart: false,
-            read: null
+            read: null,
+            errMsg: '',
         }
     },
     computed: {
@@ -141,7 +142,13 @@ export default {
     },
     methods: {
         submitLogin(){
-            this.createUserDatabase(this.user)
+            if (this.user.name.length >= 3 && this.user.name.length <= 11){
+                if (this.user.name.match(/[^a-zA-Z\d\s:\u00C0-\u00FF]/g) === null) this.createUserDatabase(this.user)
+                else this.errMsg = 'Proibido uso de símbolos.'
+            }
+            else{
+                this.errMsg = (this.user.name.length < 3) ? 'Mínimo de 3 letras.' : 'Máximo de 11 letras.'
+            }
         },
         toggleVisibleLerSubModule(){
             this.isVisibleLerSubModule = !this.isVisibleLerSubModule
@@ -199,13 +206,13 @@ export default {
             return this.$store.getters['Pointings/getThemesByModuleId'](module.id, target_audience)
         },
         ...mapActions('Modules',['fetchModules']),
-        ...mapActions('User',['createUserDatabase']),
+        ...mapActions('User',['createUserDatabase', 'destroyUserDatabase']),
         ...mapActions('Pointings', ['add'])
     }
 }
 </script>
 
-<style>
+<style lang="scss">
 .btn-play-container {
     position: relative;
     cursor: pointer;
@@ -220,5 +227,15 @@ export default {
 }
 .span-spacing {
     padding-left: 50px;
+}
+
+.err-msg{
+    color: red;
+}
+
+.icon-exit{
+    position: absolute;
+    top: 4%;
+    right: 4%;
 }
 </style>
