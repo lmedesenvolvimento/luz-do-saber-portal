@@ -30,68 +30,34 @@
                             </div>
                             <div v-else-if="isAuthorized && !isVisibleLerSubModule" key="frontpage-modules">
                                 <b-row align-v="center" align-h="center">
-                                    <div v-for="m in modules" :key="m.id">
-                                        <a
-                                            v-if="m.slug === 'ler'"
-                                            class="clean-links"
-                                            @click="toggleVisibleLerSubModule"
-                                        >
-                                            <vue-circle
-                                                class="m-5"
-                                                :label="m.title"
-                                                :image="getModuleImage(m)"
-                                                :progress="getProgressModule(m)"
-                                                :color="getModuleColor(m)"
-                                            />
-                                        </a>
-                                        <router-link
-                                            v-else
-                                            class="clean-links"
-                                            :to="{ name: (m.slug === 'escrever' ? 'write' : 'module'), params: { module_slug: m.slug, target_audience: 'geral' } }"
-                                            replace
-                                        >
-                                            <vue-circle
-                                                class="m-5"
-                                                :label="m.title"
-                                                :image="getModuleImage(m)"
-                                                :progress="getProgressModule(m)"
-                                                :color="getModuleColor(m)"
-                                            />
-                                        </router-link>
-                                    </div>
+                                    <div class="icon-exit" @click="destroyUserDatabase"></div>
+                                    <ModuleLinkCard
+                                        v-for="m in modules"
+                                        :key="m.id"
+                                        :data="m"
+                                        :toggle-visible-ler-sub-module="toggleVisibleLerSubModule"
+                                    />
                                 </b-row>
                             </div>
                             <div v-else-if="isAuthorized && isVisibleLerSubModule" key="frontpage-ler">
                                 <b-row align-v="center" align-h="center">
                                     <div>
-                                        <router-link
-                                            class="clean-links"
-                                            :to="{ name: 'module', params: { module_slug: 'ler', target_audience: 'primeiro-ano' } }"
-                                            replace
-                                        >
-                                            <vue-circle
-                                                class="m-5"
-                                                :label="'1º Ano'"
-                                                :image="require('@/assets/images/btn-first-year.png')"
-                                                :progress="getProgressModule(read,'primeiro-ano')"
-                                                :color="{ color: '#00963F' }"
-                                            />
-                                        </router-link>
+                                        <ModuleLinkCard
+                                            label="1º Ano"
+                                            :data="read"
+                                            :image="require('@/assets/images/btn-first-year.png')"
+                                            :color="{ color: '#00963F' }"
+                                            target-audience="primeiro-ano"
+                                        />
                                     </div>
                                     <div>
-                                        <router-link
-                                            class="clean-links"
-                                            :to="{ name: 'module', params: { module_slug: 'ler', target_audience: 'segundo-ano' } }"
-                                            replace
-                                        >
-                                            <vue-circle
-                                                class="m-5"
-                                                :label="'2º Ano'"
-                                                :image="require('@/assets/images/btn-second-year.png')"
-                                                :progress="getProgressModule(read, 'segundo-ano')"
-                                                :color="{ color: '#00963F' }"
-                                            />
-                                        </router-link>
+                                        <ModuleLinkCard
+                                            :data="read"
+                                            :label="'2º Ano'"
+                                            :image="require('@/assets/images/btn-second-year.png')"
+                                            :color="{ color: '#00963F' }"
+                                            target-audience="segundo-ano"
+                                        />
                                     </div>
                                     <b-col cols="12" class="my-1">
                                         <a class="d-block btn" @click="toggleVisibleLerSubModule">
@@ -111,13 +77,13 @@
 import { find, filter } from 'lodash'
 import { mapActions, mapState } from 'vuex'
 
-import VueCircle from '@/components/ui/CircleProgress'
 import SignupForm from '@/components/ui/SignupForm'
+import ModuleLinkCard from '@/components/ui/ModuleLinkCard'
 
 export default {
     components: {
-        VueCircle,
-        SignupForm
+        SignupForm,
+        ModuleLinkCard
     },
     data(){
         return {
@@ -141,15 +107,6 @@ export default {
         })
     },
     methods: {
-        submitLogin(){
-            if (this.user.name.length >= 3 && this.user.name.length <= 11){
-                if (this.user.name.match(/[^a-zA-Z\d\s:\u00C0-\u00FF]/g) === null) this.createUserDatabase(this.user)
-                else this.errMsg = 'Proibido uso de símbolos.'
-            }
-            else{
-                this.errMsg = (this.user.name.length < 3) ? 'Mínimo de 3 letras.' : 'Máximo de 11 letras.'
-            }
-        },
         toggleVisibleLerSubModule(){
             this.isVisibleLerSubModule = !this.isVisibleLerSubModule
         },
@@ -168,42 +125,6 @@ export default {
 
             window.clearTimeout();
 
-        },
-        getModuleImage(module){
-            switch (module.slug) {
-            case 'comecar':
-                return require('@/assets/images/btn-start.png')
-            case 'ler':
-                return require('@/assets/images/btn-read.png')
-            case 'escrever':
-                return require('@/assets/images/btn-write.png')
-            case 'biblioteca':
-                return require('@/assets/images/btn-books.png')
-            default:
-                break;
-            }
-        },
-        getModuleColor(module){
-            switch (module.slug) {
-            case 'comecar':
-                return  { color: '#EC2727' }
-            case 'ler':
-                return { color: '#00963F' }
-            case 'escrever':
-                return { color: '#007CB2' }
-            case 'biblioteca':
-                return  { color: '#F8A728' }
-            default:
-                break;
-            }
-        },
-        getProgressModule(m, target_audience){
-            const themes = this.getProgressThemesByModuleId(m, target_audience)
-            const total = ( filter(themes, { completed: true }).length / m.themes.length ) * 100
-            return  total || 5
-        },
-        getProgressThemesByModuleId(module, target_audience){
-            return this.$store.getters['Pointings/getThemesByModuleId'](module.id, target_audience)
         },
         ...mapActions('Modules',['fetchModules']),
         ...mapActions('User',['createUserDatabase', 'destroyUserDatabase']),
