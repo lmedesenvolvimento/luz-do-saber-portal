@@ -11,13 +11,13 @@
         <span class="flex"></span>
 
         <div class="title-holder">
-            <img 
+            <img
                 v-if="navbarIcon"
                 :src="navbarIcon" 
                 :alt="navbarTitle"
                 class="icon"
             >
-            
+
             <div v-if="navbarIcon" class="vertical-bar"></div>
 
             <div class="titles">
@@ -31,7 +31,7 @@
 </template>
 <script>
 import { RouteMixin } from '../../pages/index'
-
+import { mapActions } from 'vuex'
 export default {
     mixins: [RouteMixin],
     props: {
@@ -44,6 +44,9 @@ export default {
         return {
             customRouteLink: ''
         }
+    },
+    methods: {
+        ...mapActions('User', ['destroyUserDatabase'])
     }
 };
 </script>
