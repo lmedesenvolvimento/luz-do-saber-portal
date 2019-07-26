@@ -18,13 +18,27 @@
 
 <script>
 import Navbar from '../ui/navbars/Navbar'
+import { mapActions, mapState } from 'vuex'
+
 export default {
     components: { Navbar },
     computed: {
         getModuleImage(){
             return require('@/assets/images/btn-books.png')
-        }
-    }
+        },
+        ...mapState('Modules', ['activeModule'])
+    },
+    created(){
+        this.fetchModule('biblioteca').then((modulo) => {
+            console.log(this.activeModule)
+        })
+    },
+    methods: {
+        registerUserProgress(module){
+            return true
+        },
+        ...mapActions('Modules', ['fetchModule', 'destroyModule']),
+    },
 }
 </script>
 
