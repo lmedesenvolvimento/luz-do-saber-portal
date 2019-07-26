@@ -17,7 +17,6 @@
 </template>
 <script>
 
-import { mapState, mapActions } from 'vuex'
 import ui from '@/components/ui'
 import AsyncImage from '@ui/AsyncImage'
 import { MapMixins, ListMixin, CreateAnswersMixins } from '@ui/activities/mixins'
@@ -31,9 +30,6 @@ export default {
         this.createAnswersArray() 
         
     },
-    methods: {
-        ...mapActions('Activity', ['triggerSuccess']),
-    }
 }
 </script>
 
