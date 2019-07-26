@@ -11,6 +11,16 @@ export default new Router({
             component: require('@/components/pages/FrontPage.vue').default
         },
         {
+            path: '/game/escrever/geral',
+            name: 'write',
+            component: require('@/components/pages/ModuleEscreverPage.vue').default
+        },
+        {
+            path: '/game/escrever/geral/carta',
+            name: 'letter',
+            component: require('@/components/pages/LetterPage.vue').default
+        },
+        {
             path: '/game/:module_slug/:target_audience',
             name: 'module',
             component: require('@/components/pages/ModulePage.vue').default
