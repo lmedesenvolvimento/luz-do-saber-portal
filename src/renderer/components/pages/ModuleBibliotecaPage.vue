@@ -8,20 +8,32 @@
             :navbar-subtitle="''"
             :navbar-icon="getModuleImage"
         />
-        <div class="page-container-wrap-spacing">
-            <b-card title="Lorem ipsums">
-                <p>Anim veniam esse excepteur nostrud ad eiusmod. Quis et irure ipsum fugiat quis ullamco enim eiusmod nulla. Ad sunt aliqua pariatur ut commodo laborum quis tempor.</p>
+        <div v-if="ready" class="page-container-wrap-spacing">
+            <b-card v-for="livro in activeModule.livros" :key="livro.id" title="Lorem ipsums">
+                <div class="book-title">{{ livro.title }}</div>
+                <async-image class="book-cover" :src="livro.cover_url" :alt="`capa do livro ${livro.title}`" />
             </b-card>
         </div>
     </div>
 </template>
 
 <script>
-import Navbar from '../ui/navbars/Navbar'
 import { mapActions, mapState } from 'vuex'
+import ui from '@/components/ui'
+import Navbar from '../ui/navbars/Navbar'
+import AsyncImage from '@ui/AsyncImage'
 
 export default {
-    components: { Navbar },
+    components: { 
+        ...ui,
+        Navbar,
+        AsyncImage,
+    },
+    data(){
+        return {
+            ready: false
+        }
+    },
     computed: {
         getModuleImage(){
             return require('@/assets/images/btn-books.png')
@@ -30,6 +42,7 @@ export default {
     },
     created(){
         this.fetchModule('biblioteca').then((modulo) => {
+            this.ready = true
             console.log(this.activeModule)
         })
     },
@@ -43,5 +56,11 @@ export default {
 </script>
 
 <style>
+    .book-cover{
+        max-width: 100px;
+    }
 
+    .book-title{
+        display: inline;
+    }
 </style>
