@@ -1,6 +1,6 @@
 <template>
     <div v-if="isLimitExceeded">
-        <div v-if="item.images[0].url != null">
+        <div v-if="isPlayerWithImage">
             <div class="card--text-audio">
                 <div :class="activity.item_template.key.font_size">
                     <card-display>
@@ -15,7 +15,7 @@
                                     </b-col>
                                 </b-row>                            
                                 <hr>
-                                <card-audio :item="item" class="plyr-flat" />
+                                <card-audio ref="plyr" :item="item" class="plyr-flat" />
                             </b-col>                
                         </slot>                        
                     </card-display>
@@ -29,7 +29,7 @@
                 </slot>
                 <template slot="footer">
                     <b-card-footer>
-                        <card-audio :item="item" class="plyr-flat" />
+                        <card-audio ref="plyr" :item="item" class="plyr-flat" />
                     </b-card-footer>
                 </template>
             </card-display>
@@ -65,6 +65,7 @@
 <script>
 import uniqid from 'uniqid'
 import { filter } from 'lodash'
+import { mapActions } from 'vuex'
 
 import AsyncImage from '@ui/AsyncImage'
 import RadioInput from './RadioInput.vue'
@@ -100,6 +101,9 @@ export default {
         },
         player() {
             return this.$refs.plyr.player
+        },
+        isPlayerWithImage() {
+            return (this.item.images[0].url != null) && (this.item.value_ids == null)
         }
     },
     mounted(){
@@ -107,16 +111,22 @@ export default {
         this.player.volume = 0.7
     },
     methods: {
+        ...mapActions('Activity', ['triggerSuccess']),
         ended(){
             this.valid = true
-
-            this.setAnswer({
-                type: 'value',
-                data: this.item.id,
-                vm: this
-            })
-        },
+            
+            if(this.isPlayerWithImage){
+                this.triggerSuccess();
+            } else {
+                this.setAnswer({
+                    type: 'value',
+                    data: this.item.id,
+                    vm: this
+                })
+            }
+        },        
     },
+    
 }
 </script>
 
