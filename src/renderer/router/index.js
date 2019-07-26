@@ -21,6 +21,11 @@ export default new Router({
             component: require('@/components/pages/ModuleBibliotecaPage.vue').default
         },
         {
+            path: '/game/biblioteca/:livro',
+            name: 'books',
+            component: require('@/components/pages/ModuloBibliotecaLivroPage.vue').default
+        },
+        {
             path: '/game/escrever/geral/carta',
             name: 'letter',
             component: require('@/components/pages/LetterPage.vue').default
