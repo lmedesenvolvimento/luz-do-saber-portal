@@ -3,8 +3,8 @@
         <div v-if="isPlayerWithImage">
             <div class="card--text-audio">
                 <div :class="activity.item_template.key.font_size" class="text-audio-image-box">
-                    <card-display>
-                        <slot>
+                    <card-display>                                          
+                        <slot>  
                             <b-col>
                                 <b-row>
                                     <b-col cols="7">
@@ -13,10 +13,10 @@
                                     <b-col>
                                         <async-image :src="item.images.length ? item.images[0].url : null" />
                                     </b-col>
-                                </b-row>                            
-                                <hr>
-                                <card-audio ref="plyr" :item="item" class="plyr-flat" />
-                            </b-col>                
+                                </b-row>   
+                            </b-col> 
+                            <hr>
+                            <card-audio ref="plyr" :item="item" class="plyr-flat" /> 
                         </slot>                        
                     </card-display>
                 </div>                    
