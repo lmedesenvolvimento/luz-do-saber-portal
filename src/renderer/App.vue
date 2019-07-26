@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <b-container class="fill" :class="$route.params.module_slug">
+        <b-container :fluid="$route.name === 'home-page'" class="fill" :class="$route.params.module_slug">
             <transition name="page" mode="out-in">
                 <router-view></router-view>
             </transition>
@@ -14,6 +14,7 @@ export default {
     created() {
         this.recoveryUserDatabase()
         this.recoveryPointingsDatabase()
+        console.log(this.$route)
     },
     methods: {
         ...mapActions('User',['recoveryUserDatabase']),
