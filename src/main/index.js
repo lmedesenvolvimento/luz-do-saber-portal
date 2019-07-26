@@ -14,7 +14,7 @@ const MENU_TEMPLATE = [
   {
     label: 'Encerrar Sessão',
     submenu: [
-      { 
+      {
         label: 'Sair',
         click: () => app.quit()
       }
@@ -37,12 +37,12 @@ function createWindow () {
   mainWindow = new BrowserWindow({
     height: 800,
     useContentSize: true,
-    width: 1200,
+    width: 1440,
     webPreferences: {
       webSecurity: false
     }
   })
-  
+
   if (process.env.NODE_ENV !== 'development') {
     mainWindow.maximize()
   }

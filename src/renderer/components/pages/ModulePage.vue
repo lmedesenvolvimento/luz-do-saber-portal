@@ -96,7 +96,7 @@ export default {
             }
         },
         getThemeImage(theme) {
-            return theme.cover_url ? theme.cover_url : 'http://pngimg.com/uploads/book/book_PNG51049.png'
+            return theme.cover_url ? theme.cover_url : ''
         },
         getProgressTheme(theme){
             const units = this.getProgressUnitsByThemeId(theme)
