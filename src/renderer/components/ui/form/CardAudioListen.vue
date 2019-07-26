@@ -2,7 +2,7 @@
     <div v-if="isLimitExceeded">
         <div v-if="isPlayerWithImage">
             <div class="card--text-audio">
-                <div :class="activity.item_template.key.font_size">
+                <div :class="activity.item_template.key.font_size" class="text-audio-image-box">
                     <card-display>
                         <slot>
                             <b-col>
@@ -131,6 +131,8 @@ export default {
 </script>
 
 <style>
-
+    .text-audio-image-box{
+        margin-top: -20px;
+    }
 </style>
 
