@@ -9,7 +9,7 @@
                 class="m-5"
                 :label="data.title"
                 :image="getModuleImage"
-                :progress="getProgressModule"
+                :progress="getProgress"
                 :color="getModuleColor"
             />
         </a>
@@ -27,7 +27,7 @@
                 :label="label || data.title"
                 :image="getModuleImage"
                 :color="getModuleColor"
-                :progress="getProgressModule"
+                :progress="getProgress"
             />
         </router-link>
     </div>
@@ -84,10 +84,24 @@ export default {
                 return '';
             }
         },
+        getProgress(){
+            console.log(this.data.type, this.getProgressLibrary)
+            switch (this.data.type) {
+            case 'library':
+                return this.getProgressLibrary
+            default:
+                return this.getProgressModule
+            }
+        },
         getProgressModule(target_audience){
-            const themes = this.getProgressThemesByModuleId(this.data, target_audience)
+            const themes = this.getProgressThemesByModuleId(this.data)
             const total = ( filter(themes, { completed: true }).length / this.data.themes.length ) * 100
             return  total || 5
+        },
+        getProgressLibrary(){
+            const books = this.$store.getters['Books/getBooks']
+            const total = ( filter(books, { completed: true }).length / books.length ) * 100
+            return total || 5
         },
         getRouterName() {
             switch (this.data.slug) {
@@ -100,12 +114,9 @@ export default {
             }
         },
     },
-    created(){
-        console.log(this.targetAudience)
-    },
     methods: {
-        getProgressThemesByModuleId(module, target_audience){
-            return this.$store.getters['Pointings/getThemesByModuleId'](module.id, target_audience)
+        getProgressThemesByModuleId(m){
+            return this.$store.getters['Pointings/getThemesByModuleId'](m.id, this.targetAudience)
         }
     }
 }
