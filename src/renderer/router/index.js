@@ -21,8 +21,8 @@ export default new Router({
             component: require('@/components/pages/ModuleBibliotecaPage.vue').default
         },
         {
-            path: '/game/biblioteca/:livro',
-            name: 'books',
+            path: '/game/biblioteca/:livro_id',
+            name: 'book',
             component: require('@/components/pages/ModuloBibliotecaLivroPage.vue').default
         },
         {
