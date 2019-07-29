@@ -17,12 +17,9 @@
                     >
                         <div :class="activity.item_template.key.font_size">
                             <ls-card-display>
-                                <div v-if="searchString(raffle,letter)">
+                                <div :class="{'invisible' : !searchString(raffle,letter)}">
                                     {{ notNormalizedLetters[index] }}
-                                </div>
-                                <div v-else>
-                                    _
-                                </div>
+                                </div>                                
                             </ls-card-display>
                         </div>
                     </div>
