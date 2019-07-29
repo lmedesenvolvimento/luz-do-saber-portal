@@ -62,5 +62,7 @@ export default {
 </script>
 
 <style>
-
+.err-msg{
+    color: red;
+}
 </style>
