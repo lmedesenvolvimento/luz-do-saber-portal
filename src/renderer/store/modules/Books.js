@@ -26,7 +26,7 @@ const mutations = {
 const actions = {
     async fetchBooks({ commit, state }) {
         let books = db.get('books').value()
-        if (!books) {
+        if (!values(books).length) {
             let { data } = await API.get('/game/biblioteca')
             let payload = convertBooksToHashMap(data.livros)
             // write in session
@@ -50,8 +50,8 @@ const getters = {
         return values(state.books)
     },
     getBookById(state){
-        return ref => {
-            return find(values(state.books), { ref })
+        return id => {
+            return find(values(state.books), { id })
         }
     }
 }
