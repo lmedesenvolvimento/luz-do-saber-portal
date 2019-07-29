@@ -4,11 +4,13 @@
         class="page-container biblioteca"
     >
         <navbar
-            navbar-title="uwu"
+            :navbar-title="$route.params.livro.title"
             :navbar-subtitle="''"
             :navbar-icon="getModuleImage"
         />
-        <p>{{ $route ? $route.params.livro.title : 'não achei' }}</p>
+        <div class="container-fluid">
+            <p>{{ $route ? $route.params.livro.title : 'não achei' }}</p>
+        </div>
     </div>
 </template>
 
