@@ -9,7 +9,7 @@
             :navbar-icon="getModuleImage"
         />
         <div v-if="ready" class="page-container-wrap-spacing">
-            <b-card v-for="livro in activeModule.livros" :key="livro.id" :title="livro.title">
+            <b-card v-for="livro in livros" :key="livro.id" :title="livro.title">
                 <div class="book-title">{{ livro.title }}</div>
                 <async-image class="book-cover" :src="livro.cover_url ? livro.cover_url : null" :alt="`capa do livro ${livro.title}`" />
                 <router-link :to="{ name: 'book', params: { livro_id: livro.id, livro: livro } }">Clica aqui</router-link>
@@ -25,7 +25,7 @@ import Navbar from '../ui/navbars/Navbar'
 import AsyncImage from '@ui/AsyncImage'
 
 export default {
-    components: { 
+    components: {
         ...ui,
         Navbar,
         AsyncImage,
@@ -36,22 +36,25 @@ export default {
         }
     },
     computed: {
+        livros(){
+            return this.$store.getters['Books/getBooks']
+        },
         getModuleImage(){
             return require('@/assets/images/btn-books.png')
         },
         ...mapState('Modules', ['activeModule'])
     },
     created(){
-        this.fetchModule('biblioteca').then((modulo) => {
+        this.fetchBooks('biblioteca').then((livros) => {
+            console.log(livros)
             this.ready = true
-            console.log(this.activeModule)
         })
     },
     methods: {
         registerUserProgress(module){
             return true
         },
-        ...mapActions('Modules', ['fetchModule', 'destroyModule']),
+        ...mapActions('Books', ['fetchBooks']),
     },
 }
 </script>
