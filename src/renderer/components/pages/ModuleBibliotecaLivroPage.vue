@@ -6,7 +6,6 @@
         <navbar
             :navbar-title="$route.params.livro.title"
             :navbar-subtitle="''"
-            :navbar-icon="getModuleImage"
         />
         <div class="container-fluid">
             <p>{{ $route ? $route.params.livro.title : 'não achei' }}</p>
