@@ -4,14 +4,15 @@
         class="page-container biblioteca"
     >
         <navbar
-            navbar-title="Escrever"
+            navbar-title="Biblioteca"
             :navbar-subtitle="''"
             :navbar-icon="getModuleImage"
         />
         <div v-if="ready" class="page-container-wrap-spacing">
-            <b-card v-for="livro in activeModule.livros" :key="livro.id" title="Lorem ipsums">
+            <b-card v-for="livro in activeModule.livros" :key="livro.id" :title="livro.title">
                 <div class="book-title">{{ livro.title }}</div>
-                <async-image class="book-cover" :src="livro.cover_url" :alt="`capa do livro ${livro.title}`" />
+                <async-image class="book-cover" :src="livro.cover_url ? livro.cover_url : null" :alt="`capa do livro ${livro.title}`" />
+                <router-link :to="{ name: 'book', params: { livro_id: livro.id, livro: livro } }">Clica aqui</router-link>
             </b-card>
         </div>
     </div>
