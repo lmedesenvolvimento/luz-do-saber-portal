@@ -12,7 +12,7 @@
             <b-row>
                 <b-col v-for="livro in activeModule.livros" :key="livro.id" sm="4">
                     <router-link :to="{ name: 'book', params: { livro_id: livro.id, livro: livro } }">
-                        <b-card class="book-card">
+                        <b-card class="book-card shadow">
                             <div class="book-title">{{ livro.title }}</div>
                             <async-image class="book-cover" :src="livro.cover_url ? livro.cover_url : null" :alt="`capa do livro ${livro.title}`" />
                         </b-card>
