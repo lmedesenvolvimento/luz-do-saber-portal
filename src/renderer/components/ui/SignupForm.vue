@@ -26,7 +26,7 @@
                 </div>
             </b-card-body>
             <b-card-body>
-                <h6>Máximo de 11 letras.</h6>
+                <h6>{{ errMsg }}</h6>
             </b-card-body>
             <b-card-body>
                 <b-button type="submit" variant="link" class="mt-3">
@@ -42,12 +42,19 @@ import { mapActions } from 'vuex'
 export default {
     data(){
         return {
-            user: { name: ''}
+            user: { name: ''},
+            errMsg: ''
         };
     },
     methods: {
         submitLogin(){
-            this.createUserDatabase(this.user)
+            if (this.user.name.length >= 3 && this.user.name.length <= 11){
+                if (this.user.name.match(/[^a-zA-Z\d\s:\u00C0-\u00FF]/g) === null) this.createUserDatabase(this.user)
+                else this.errMsg = 'Proibido uso de símbolos.'
+            }
+            else{
+                this.errMsg = (this.user.name.length < 3) ? 'Mínimo de 3 letras.' : 'Máximo de 11 letras.'
+            }
         },
         ...mapActions('User',['createUserDatabase']),
     }
