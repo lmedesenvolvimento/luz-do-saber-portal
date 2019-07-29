@@ -9,11 +9,16 @@
             :navbar-icon="getModuleImage"
         />
         <div v-if="ready" class="page-container-wrap-spacing">
-            <b-card v-for="livro in activeModule.livros" :key="livro.id" :title="livro.title">
-                <div class="book-title">{{ livro.title }}</div>
-                <async-image class="book-cover" :src="livro.cover_url ? livro.cover_url : null" :alt="`capa do livro ${livro.title}`" />
-                <router-link :to="{ name: 'book', params: { livro_id: livro.id, livro: livro } }">Clica aqui</router-link>
-            </b-card>
+            <b-row>
+                <b-col v-for="livro in activeModule.livros" :key="livro.id" sm="4">
+                    <router-link :to="{ name: 'book', params: { livro_id: livro.id, livro: livro } }">
+                        <b-card class="book-card">
+                            <div class="book-title">{{ livro.title }}</div>
+                            <async-image class="book-cover" :src="livro.cover_url ? livro.cover_url : null" :alt="`capa do livro ${livro.title}`" />
+                        </b-card>
+                    </router-link>
+                </b-col>
+            </b-row>
         </div>
     </div>
 </template>
@@ -56,12 +61,36 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
     .book-cover{
         max-width: 100px;
     }
 
     .book-title{
-        display: inline;
+        display: flex;
+        align-self: center;
+        font-size: 1.5rem;
+        text-align: center;
+        color: black;
+    }
+
+    .book-card{
+        border-radius: 20px;
+
+        .card-body{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            padding: 6px;
+            height: 210px;
+        }
+
+        .image.book-cover{
+            max-width: 100%;
+            height: auto;
+            position: relative;
+            overflow: hidden;
+            border-top-right-radius: 16px;
+            border-bottom-right-radius: 16px;
+        }
     }
 </style>
