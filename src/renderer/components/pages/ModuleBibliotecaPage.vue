@@ -69,9 +69,10 @@ export default {
     .book-title{
         display: flex;
         align-self: center;
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         text-align: center;
-        color: black;
+        color: transparentize($color: #000000, $amount: 0.5);
+        padding: 10px;
     }
 
     .book-card{
@@ -80,8 +81,12 @@ export default {
         .card-body{
             display: grid;
             grid-template-columns: 1fr 1fr;
-            padding: 6px;
-            height: 210px;
+            padding: 4px;
+            height: 200px;
+        }
+
+        .book-cover{
+            margin: 0;
         }
 
         .image.book-cover{
@@ -91,6 +96,11 @@ export default {
             overflow: hidden;
             border-top-right-radius: 16px;
             border-bottom-right-radius: 16px;
+
+            img{
+                height: 100%;
+                width: 100%;
+            }
         }
     }
 </style>
