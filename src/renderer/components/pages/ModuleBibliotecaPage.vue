@@ -8,11 +8,11 @@
             :navbar-subtitle="''"
             :navbar-icon="getModuleImage"
         />
-        <div v-if="ready" class="page-container-wrap-spacing">
-            <b-row>
-                <b-col v-for="livro in livros" :key="livro.key" sm="4">
-                    <router-link :to="{ name: 'book', params: { id: livro.key } }">
-                        <b-card class="book-card shadow">
+        <div class="page-container-wrap-spacing">
+            <b-row is="transition-group" name="book-animation">
+                <b-col v-for="livro in livros" :key="livro.id" sm="4">
+                    <router-link :to="{ name: 'book', params: { livro_id: livro.id } }">
+                        <b-card class="book-card">
                             <div class="book-title">{{ livro.title }}</div>
                             <async-image class="book-cover" :src="livro.cover_url ? livro.cover_url : null" :alt="`capa do livro ${livro.title}`" />
                         </b-card>
@@ -37,22 +37,18 @@ export default {
     },
     data(){
         return {
-            ready: false
+            livros: [],
         }
     },
     computed: {
-        livros(){
-            return this.$store.getters['Books/getBooks']
-        },
         getModuleImage(){
             return require('@/assets/images/btn-books.png')
         },
         ...mapState('Modules', ['activeModule'])
     },
     created(){
-        this.fetchBooks('biblioteca').then((livros) => {
-            console.log(livros)
-            this.ready = true
+        this.fetchBooks().then((livros) => {
+            this.livros = livros
         })
     },
     methods: {
@@ -65,45 +61,61 @@ export default {
 </script>
 
 <style lang="scss">
-    .book-cover{
-        max-width: 100px;
-    }
-
-    .book-title{
-        display: flex;
-        align-self: center;
-        font-size: 1.2rem;
-        text-align: center;
-        color: transparentize($color: #000000, $amount: 0.5);
-        padding: 10px;
-    }
-
-    .book-card{
-        border-radius: 20px;
-
-        .card-body{
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            padding: 4px;
-            height: 200px;
-        }
-
+    #biblioteca{
         .book-cover{
-            margin: 0;
+            max-width: 100px;
         }
 
-        .image.book-cover{
-            max-width: 100%;
-            height: auto;
-            position: relative;
-            overflow: hidden;
-            border-top-right-radius: 16px;
-            border-bottom-right-radius: 16px;
+        .book-title{
+            display: flex;
+            align-self: center;
+            font-size: 1.2rem;
+            text-align: center;
+            color: transparentize($color: #000000, $amount: 0.5);
+            padding: 10px;
+        }
 
-            img{
-                height: 100%;
-                width: 100%;
+        .book-card{
+            border-radius: 20px;
+            transition: transform 0.3s ease-out;
+            @include card_boxshadow;
+            &:hover{
+                transform: scale(1.05);
             }
+
+            .card-body{
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                padding: 4px;
+                height: $book-card-height;
+            }
+
+            .book-cover{
+                position: relative;
+                overflow: hidden;
+            }
+
+            .image.book-cover{
+                max-width: 100%;
+                height: ($book-card-height - 8px);
+                position: relative;
+                overflow: hidden;
+                border-top-right-radius: 16px;
+                border-bottom-right-radius: 16px;
+                img, svg {
+                    width: 100%;
+                    min-height: ($book-card-height - 8px);
+                }
+            }
+        }
+
+        .book-animation-enter-active,
+        .book-animation-leave-active {
+            transition: all 0.8s;
+        }
+        .book-animation-enter,
+        .book-animation-leave-to{
+            opacity: 0;
         }
     }
 </style>

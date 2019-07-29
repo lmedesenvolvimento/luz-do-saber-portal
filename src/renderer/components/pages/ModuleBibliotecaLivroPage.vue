@@ -4,11 +4,11 @@
         class="page-container biblioteca"
     >
         <navbar
-            :navbar-title="$route.params.livro.title"
+            :navbar-title="book.title"
             :navbar-subtitle="''"
         />
         <div class="container-fluid">
-            <p>{{ $route ? $route.params.livro.title : 'não achei' }}</p>
+            <p>{{ book.title }}</p>
         </div>
     </div>
 </template>
@@ -17,20 +17,16 @@
 import Navbar from '../ui/navbars/Navbar'
 export default {
     components: { Navbar },
-    props: {
-        livro: {
-            require: true,
-            type: Object,
-        },
-    },
     computed: {
         getModuleImage(){
             return require('@/assets/images/btn-write.png')
+        },
+        book(){
+            const id = parseInt(this.$route.params.livro_id)
+            const book = this.$store.getters['Books/getBookById'](id)
+            return book || {}
         }
-    },
-    created(){
-        console.log(this.$route ? this.$route.params.livro.title : 'não achei')
-    },
+    }
 }
 </script>
 
