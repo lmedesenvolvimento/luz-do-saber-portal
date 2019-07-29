@@ -23,7 +23,7 @@ export default new Router({
         {
             path: '/game/biblioteca/geral/:livro_id',
             name: 'book',
-            component: require('@/components/pages/ModuloBibliotecaLivroPage.vue').default
+            component: require('@/components/pages/ModuleBibliotecaLivroPage.vue').default
         },
         {
             path: '/game/escrever/geral/carta',
