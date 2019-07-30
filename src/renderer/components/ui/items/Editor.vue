@@ -2,25 +2,24 @@
     <div>
         <div id="toolbar">
             <select class="ql-font">
-                <option selected>Aref Ruqaa</option>
-                <option value="mirza">Mirza</option>
-                <option value="roboto">Roboto</option>
+                <option selected value="Montserrat">Montserrat</option>
+                <option value="Roboto">Roboto</option>
             </select>
             <select class="ql-size">
-                <option value="small">Small</option>
-                <option selected value="medium">Medium</option>
-                <option value="large">large</option>
-                <option value="huge">Huge</option>
+                <option value="small">Pequeno</option>
+                <option selected value="medium">Médio</option>
+                <option value="large">Grande</option>
+                <option value="huge">Enorme</option>
             </select>
             <button class="ql-bold">N</button>
             <button class="ql-italic">I</button>
             <button class="ql-underline">S</button>
-            <button class="ql-align" value="left">left</button>
+            <button class="ql-align" selected>left</button>
             <button class="ql-align" value="center">center</button>
             <button class="ql-align" value="right">right</button>
             <span class="ql-formats">
                 <button class="ql-list" value="ordered">Lista Ordenada</button>
-                <button class="ql-list" value="bullet">Lista Não-ordenzda</button>
+                <button class="ql-list" value="bullet">Lista Não-ordenada</button>
             </span>
         </div>
         <div id="editor"></div>
@@ -28,7 +27,11 @@
 </template>
 <script>
 import Quill from 'quill';
-import 'quill/dist/quill.snow.css'
+
+const Font = Quill.import('formats/font');
+Font.whitelist = ['Montserrat', 'Roboto'];
+Quill.register(Font, true);
+
 export default {
     mounted() {
         var quill = new Quill('#editor', {
@@ -40,7 +43,20 @@ export default {
 }
 </script>
 <style lang="scss">
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Roboto&display=swap');
 #editor{
     background-color: white;
+    font-family: "Montserrat";
+    font-size: 18px;
+    height: 300px;
+}
+#toolbar .ql-font span[data-label="Montserrat"]::before {
+  font-family: "Montserrat";
+}
+.ql-font-Montserrat {
+font-family: 'Montserrat', sans-serif;
+}
+.ql-font-Roboto {
+font-family: 'Roboto', sans-serif;
 }
 </style>
