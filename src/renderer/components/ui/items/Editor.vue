@@ -2,7 +2,7 @@
     <div>
         <div id="toolbar">
             <select class="ql-font">
-                <option selected value="Montserrat">Montserrat</option>
+                <option selected>Montserrat</option>
                 <option value="Roboto">Roboto</option>
             </select>
             <select class="ql-size">
@@ -27,12 +27,16 @@
 </template>
 <script>
 import Quill from 'quill';
+import FormProps from '@ui/form'
+import 'quill/dist/quill.snow.css';
 
 const Font = Quill.import('formats/font');
+
 Font.whitelist = ['Montserrat', 'Roboto'];
 Quill.register(Font, true);
 
 export default {
+    components: { ...FormProps },
     mounted() {
         var quill = new Quill('#editor', {
             modules: {
@@ -47,16 +51,16 @@ export default {
 #editor{
     background-color: white;
     font-family: "Montserrat";
-    font-size: 18px;
+    // font-size: 18px;
     height: 300px;
-}
-#toolbar .ql-font span[data-label="Montserrat"]::before {
-  font-family: "Montserrat";
+    .ql-editor{
+        height: 100%;
+    }
 }
 .ql-font-Montserrat {
-font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
 .ql-font-Roboto {
-font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 </style>
