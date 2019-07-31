@@ -74,6 +74,7 @@ export const ItemTypes = {
         imageAudio: 'componente-de-imagem-audio',
         textImage: 'componente-de-imagem-texto',
         textAudio: 'componente-de-texto-audio',
+        textVideo: 'componente-de-youtube',
     },
 }
 
