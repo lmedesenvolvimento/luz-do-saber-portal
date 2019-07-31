@@ -10,4 +10,5 @@ export default {
     'ls-card-audio': require('@/components/ui/form/CardAudio.vue').default,
     'ls-card-audio-listen': require('@/components/ui/form/CardAudioListen.vue').default,
     'ls-card-audio-listen-with-player': require('@/components/ui/form/CardAudioListenWithPlayer.vue').default,
+    'ls-card-video-youtube': require('@/components/ui/form/CardVideoYoutube.vue').default,
 }
