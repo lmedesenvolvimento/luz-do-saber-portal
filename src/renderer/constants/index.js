@@ -3,7 +3,8 @@ export const ActivityTypes = {
         default: {
             text: 'atividade-texto',
             image: 'atividade-imagem',
-            audio: 'atividade-audio',
+            audio: 'atividade-audio', 
+            video: 'atividade-video',
 
         },
         questionnaire: {
@@ -11,7 +12,7 @@ export const ActivityTypes = {
         },
         join: {
             text: 'atividade-texto-texto',
-        }
+        },
     },
     game: 'jogo',
 }
