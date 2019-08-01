@@ -13,23 +13,29 @@
     }
 }
 
-@keyframes infinite-rotate-int-out {
+@keyframes infinite-rotate-in-out {
     0%{
-        opacity: 0;
         transform: rotate(0deg);
-    }
-    20%{
-        opacity: 1;
-    }
-    50% {
-        opacity: 1;
-        transform: rotate(360deg);
-    }
-    70%{
-        opacity: 1;
     }
     100% {
-        opacity: 0;
-        transform: rotate(0deg);
+        transform: rotate(-360deg);
+    }
+}
+
+@keyframes infinite-change-faces {
+    0%{
+        background-image: url('~@/assets/images/logo/face.png');
+    }
+    10% {
+        background-image: url('~@/assets/images/logo/face-b.png');
+    }
+    60%{
+        background-image: url('~@/assets/images/logo/face-b.png');
+    }
+    70%{
+        background-image: url('~@/assets/images/logo/face.png');
+    }
+    100% {
+        background-image: url('~@/assets/images/logo/face.png');
     }
 }
