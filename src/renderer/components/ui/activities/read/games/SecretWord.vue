@@ -2,10 +2,10 @@
     <div class="container-fluid">
         <b-row align-v="center">
             <b-col sm="4">
-                <img
+                <async-image
                     :src="getKeys[0].images[0].url"
-                    alt=""
-                >
+                    :alt="getKeys[0].text"
+                />
             </b-col>
             <b-col sm="8">
                 <b-row>
@@ -71,10 +71,12 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from '@ui/activities/mixins'
+import AsyncImage from '@ui/AsyncImage'
 import ui from '@/components/ui'
 export default {
     components: {
-        ...ui
+        ...ui,
+        AsyncImage
     },
     mixins: [MapMixins, ListMixin, CreateAnswersMixins],
     data () {
