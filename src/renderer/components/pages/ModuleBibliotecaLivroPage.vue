@@ -8,7 +8,7 @@
                         v-for="(value, index) in images"
                         :key="index"
                         class="bar"
-                        :class="{'active': getPosition == index, 'complete': index -1 < getPosition}"
+                        :class="{ 'complete': index -1 < getPosition}"
                     ></div>
                 </div>
                 <div class="gameplay-body">
@@ -27,12 +27,12 @@
                     </div>
                 </div>
                 <div class="gameplay-footer">
-                    <b-button @click="prev">
-                        prev
-                    </b-button>
-                    <b-button @click="next">
-                        next
-                    </b-button>
+                    <b-btn variant="link" @click.stop="prev">
+                        <div class="icon-prev"></div>
+                    </b-btn>
+                    <b-btn variant="link" @click.stop="next">
+                        <div class="icon-next"></div>
+                    </b-btn>
                 </div>
             </div>
         </div>  
@@ -116,6 +116,17 @@ export default {
     height: calc(#{ $gameplay-height} + #{$gameplay-header-height });
     max-height: calc(#{ $gameplay-height} + #{$gameplay-header-height });
 }
+
+.gameplay-footer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bar{
+    margin-right: 0 !important;
+}
+
 .image-viewer{
     .image{
         position: relative;
