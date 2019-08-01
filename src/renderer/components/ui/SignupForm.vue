@@ -1,10 +1,8 @@
 <template>
     <b-form class="d-flex justify-content-center" @submit.prevent="submitLogin">
-        <b-card no-body class="mx-5 front-page-login card shadow">
+        <b-card no-body class="mx-5 shadow">
             <b-card-body>
                 <h5>Digite seu nome abaixo para continuar.</h5>
-            </b-card-body>
-            <b-card-body>
                 <div class="card-input card--input-text mt-2">
                     <label>
                         <b-card
@@ -24,12 +22,8 @@
                         </b-card>
                     </label>
                 </div>
-            </b-card-body>
-            <b-card-body>
                 <h6>{{ errMsg }}</h6>
-            </b-card-body>
-            <b-card-body>
-                <b-button type="submit" variant="link" class="mt-3">
+                <b-button type="submit" variant="link">
                     <div class="icon-next"></div>
                 </b-button>
             </b-card-body>
@@ -62,5 +56,7 @@ export default {
 </script>
 
 <style>
-
+.err-msg{
+    color: red;
+}
 </style>
