@@ -4,7 +4,7 @@
             <b-row align-v="center" align-h="center" class="flex-2 content">
                 <b-container fluid>
                     <b-row class="m-5" align-v="center" align-h="center">
-                        <img class="front-page-logo" src="@/assets/images/logo.png" alt="Logo Luz do Saber">
+                        <div class="frontpage-logo" :class="{'animated': isLoading}"></div>
                     </b-row>
 
                     <transition name="fade" mode="out-in">
@@ -12,7 +12,7 @@
                             <StartButton :on-click-start-button="onGameStart" />
                         </div>
                         <div v-else-if="!isAuthorized" key="login">
-                            <SignupForm />
+                            <SignupForm :on-submit="onSubmit" />
                         </div>
                         <div v-else-if="isAuthorized && !isVisibleLerSubModule" key="frontpage-modules">
                             <b-row align-v="center" align-h="center">
@@ -78,7 +78,7 @@ export default {
             user: { name: '' },
             canStart: false,
             read: null,
-            errMsg: '',
+            loading: false,
         }
     },
     computed: {
@@ -86,22 +86,35 @@ export default {
             return this.currentUser ? true : false
         },
         isLoading(){
-            return this.loading || ( this.user.name  && !this.modules.length )
+            return this.loading
         },
         ...mapState('Modules', ['modules']),
         ...mapState('User', ['currentUser'])
     },
     created(){
-        this.fetchModules().then(({ modulos }) => {
-            this.read = find(modulos, { slug: 'ler' })
-        })
+        if (this.isAuthorized) {
+            this.getModules()
+        }
     },
     methods: {
         onGameStart(){
             this.canStart = true
         },
+        onSubmit(){
+            this.getModules()
+        },
         toggleVisibleLerSubModule(){
             this.isVisibleLerSubModule = !this.isVisibleLerSubModule
+        },
+        getModules() {
+            this.loading = true
+            console.log('Here')
+            this.fetchModules().then(({ modulos }) => {
+                this.read = find(modulos, { slug: 'ler' })
+                setTimeout(() => {
+                    this.loading = false
+                }, 2500)
+            })
         },
         ...mapActions('Modules',['fetchModules']),
         ...mapActions('User',['createUserDatabase', 'destroyUserDatabase']),
