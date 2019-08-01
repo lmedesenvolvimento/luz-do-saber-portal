@@ -11,7 +11,7 @@
 
             <div class="radial-container">
                 <div class="img-container" :style="{'background-color': color.color }">
-                    <img :src="image" class="img-fluid">
+                    <img :src="image" class="img-fluid" :alt="label">
                 </div>
 
                 <vue-circle

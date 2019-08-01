@@ -3,7 +3,7 @@
         <main>
             <b-container fluid>
                 <b-row align-v="center" align-h="center" class="flex-2 content">
-                    <b-container>
+                    <b-container fluid>
                         <b-row class="m-5" align-v="center" align-h="center">
                             <transition name="fade" mode="out-in">
                                 <div v-if="isLoading" key="logo" class="front-page-logo-animation"></div>
@@ -35,107 +35,38 @@
                                 </div>
                             </div>
                             <div v-else-if="!isAuthorized" key="login">
-                                <b-form class="d-flex justify-content-center" @submit.prevent="submitLogin">
-                                    <b-card no-body class="mx-5 front-page-login card shadow">
-                                        <b-card-body>
-                                            <h5>Digite seu nome abaixo para continuar.</h5>
-                                        </b-card-body>
-                                        <b-card-body>
-                                            <div class="card-input card--input-text mt-2">
-                                                <label>
-                                                    <b-card
-                                                        no-body
-                                                    >
-                                                        <b-card-body>
-                                                            <input
-                                                                id="input-name"
-                                                                v-model.trim="user.name"
-                                                                v-focus="true"
-                                                                type="text"
-                                                                maxlength="11"
-                                                                autocomplete="off"
-                                                                required
-                                                            />
-                                                        </b-card-body>
-                                                    </b-card>
-                                                </label>
-                                            </div>
-                                        </b-card-body>
-                                        <b-card-body>
-                                            <h6>Máximo de 11 letras.</h6>
-                                        </b-card-body>
-                                        <b-card-body>
-                                            <b-button type="submit" variant="link" class="mt-3">
-                                                <div class="icon-next"></div>
-                                            </b-button>
-                                        </b-card-body>
-                                    </b-card>
-                                </b-form>
+                                <SignupForm />
                             </div>
                             <div v-else-if="isAuthorized && !isVisibleLerSubModule" key="frontpage-modules">
                                 <b-row align-v="center" align-h="center">
-                                    <b-col v-for="m in modules" :key="m.id">
-                                        <a
-                                            v-if="m.slug === 'ler'"
-                                            class="clean-links"
-                                            @click="toggleVisibleLerSubModule"
-                                        >
-                                            <vue-circle
-                                                class="m-5"
-                                                :label="m.title"
-                                                :image="getModuleImage(m)"
-                                                :progress="getProgressModule(m)"
-                                                :color="getModuleColor(m)"
-                                            />
-                                        </a>
-                                        <router-link
-                                            v-else
-                                            class="clean-links"
-                                            :to="{ name: 'module', params: { module_slug: m.slug, target_audience: 'geral' } }"
-                                            replace
-                                        >
-                                            <vue-circle
-                                                class="m-5"
-                                                :label="m.title"
-                                                :image="getModuleImage(m)"
-                                                :progress="getProgressModule(m)"
-                                                :color="getModuleColor(m)"
-                                            />
-                                        </router-link>
-                                    </b-col>
+                                    <div class="icon-exit" @click="destroyUserDatabase"></div>
+                                    <ModuleLinkCard
+                                        v-for="m in modules"
+                                        :key="m.id"
+                                        :data="m"
+                                        :toggle-visible-ler-sub-module="toggleVisibleLerSubModule"
+                                    />
                                 </b-row>
                             </div>
                             <div v-else-if="isAuthorized && isVisibleLerSubModule" key="frontpage-ler">
                                 <b-row align-v="center" align-h="center">
                                     <div>
-                                        <router-link
-                                            class="clean-links"
-                                            :to="{ name: 'module', params: { module_slug: 'ler', target_audience: 'primeiro-ano' } }"
-                                            replace
-                                        >
-                                            <vue-circle
-                                                class="m-5"
-                                                :label="'1º Ano'"
-                                                :image="require('@/assets/images/btn-first-year.png')"
-                                                :progress="getProgressModule(read,'primeiro-ano')"
-                                                :color="{ color: '#00963F' }"
-                                            />
-                                        </router-link>
+                                        <ModuleLinkCard
+                                            label="1º Ano"
+                                            :data="read"
+                                            :image="require('@/assets/images/btn-first-year.png')"
+                                            :color="{ color: '#00963F' }"
+                                            target-audience="primeiro-ano"
+                                        />
                                     </div>
                                     <div>
-                                        <router-link
-                                            class="clean-links"
-                                            :to="{ name: 'module', params: { module_slug: 'ler', target_audience: 'segundo-ano' } }"
-                                            replace
-                                        >
-                                            <vue-circle
-                                                class="m-5"
-                                                :label="'2º Ano'"
-                                                :image="require('@/assets/images/btn-second-year.png')"
-                                                :progress="getProgressModule(read, 'segundo-ano')"
-                                                :color="{ color: '#00963F' }"
-                                            />
-                                        </router-link>
+                                        <ModuleLinkCard
+                                            :data="read"
+                                            :label="'2º Ano'"
+                                            :image="require('@/assets/images/btn-second-year.png')"
+                                            :color="{ color: '#00963F' }"
+                                            target-audience="segundo-ano"
+                                        />
                                     </div>
                                     <b-col cols="12" class="my-1">
                                         <a class="d-block btn" @click="toggleVisibleLerSubModule">
@@ -154,12 +85,19 @@
 <script>
 import { find, filter } from 'lodash'
 import { mapActions, mapState } from 'vuex'
+<<<<<<< HEAD
 import VueCircle from '@/components/ui/CircleProgress'
 import { setTimeout } from 'timers';
+=======
+
+import SignupForm from '@/components/ui/SignupForm'
+import ModuleLinkCard from '@/components/ui/ModuleLinkCard'
+>>>>>>> master
 
 export default {
     components: {
-        VueCircle
+        SignupForm,
+        ModuleLinkCard
     },
     data(){
         return {
@@ -167,7 +105,11 @@ export default {
             user: { name: '' },
             canStart: false,
             read: null,
+<<<<<<< HEAD
             loading: false
+=======
+            errMsg: '',
+>>>>>>> master
         }
     },
     computed: {
@@ -186,6 +128,7 @@ export default {
         })
     },
     methods: {
+<<<<<<< HEAD
         submitLogin(){
             this.createUserDatabase(this.user)
 
@@ -195,6 +138,8 @@ export default {
                 this.loading = false
             }, 5000)
         },
+=======
+>>>>>>> master
         toggleVisibleLerSubModule(){
             this.isVisibleLerSubModule = !this.isVisibleLerSubModule
         },
@@ -213,6 +158,7 @@ export default {
 
             window.clearTimeout();
 
+<<<<<<< HEAD
         },
         getModuleImage(module){
             switch (module.slug) {
@@ -246,15 +192,17 @@ export default {
         },
         getProgressThemesByModuleId(module, target_audience){
             return this.$store.getters['Pointings/getThemesByModuleId'](module.id, target_audience)
+=======
+>>>>>>> master
         },
         ...mapActions('Modules',['fetchModules']),
-        ...mapActions('User',['createUserDatabase']),
+        ...mapActions('User',['createUserDatabase', 'destroyUserDatabase']),
         ...mapActions('Pointings', ['add'])
     }
 }
 </script>
 
-<style>
+<style lang="scss">
 .btn-play-container {
     position: relative;
     cursor: pointer;
@@ -269,5 +217,15 @@ export default {
 }
 .span-spacing {
     padding-left: 50px;
+}
+
+.err-msg{
+    color: red;
+}
+
+.icon-exit{
+    position: absolute;
+    top: 4%;
+    right: 4%;
 }
 </style>
