@@ -24,3 +24,13 @@ export default {
 }
 </script>
 
+<style lang="scss">
+.plyr--video{
+    border-radius: 16px;
+}
+
+.youtube{
+    max-width: 85%;
+    margin: auto;
+}
+</style>
