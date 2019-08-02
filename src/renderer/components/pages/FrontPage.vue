@@ -113,7 +113,7 @@ export default {
                 this.read = find(modulos, { slug: 'ler' })
                 setTimeout(() => {
                     this.loading = false
-                }, 2500)
+                }, 3000)
             })
         },
         ...mapActions('Modules',['fetchModules']),
