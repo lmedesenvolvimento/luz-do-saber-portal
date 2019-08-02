@@ -94,6 +94,13 @@
                 :size="size"
                 :template="template"
             ></ls-item-audio>
+            <ls-item-video
+                v-else-if="template.slug === Types.slugs.textVideo"
+                :type="type"
+                :item="item"
+                :size="size"
+                :template="template"
+            ></ls-item-video>
         </div>
     </div>
 </template>
