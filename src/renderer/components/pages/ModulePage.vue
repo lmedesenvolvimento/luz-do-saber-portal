@@ -63,6 +63,7 @@ export default {
     },
     created(){
         this.fetchModule(this.$route.params.module_slug).then(this.registerUserProgress)
+        console.log(this.getThemes)
     },
     beforeDestroy(){
         this.destroyModule();
@@ -88,6 +89,8 @@ export default {
                 return { color: '#00963F' }
             case 'escrever':
                 return { color: '#007CB2' }
+            case 'biblioteca':
+                return { color: 'black' }
             default:
                 break;
             }
