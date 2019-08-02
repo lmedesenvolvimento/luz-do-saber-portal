@@ -32,6 +32,8 @@
             left: 0;
             right: 0;
             margin-top: -4px;
+            transform: rotate(0deg);
+            transition: transform 1s ease-out;
             transform: scale(1.05);
             z-index: 1;
         }
