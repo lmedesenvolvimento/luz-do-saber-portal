@@ -4,30 +4,118 @@
         class="page-container biblioteca"
     >
         <navbar
-            navbar-title="Escrever"
+            navbar-title="Biblioteca"
             :navbar-subtitle="''"
             :navbar-icon="getModuleImage"
         />
         <div class="page-container-wrap-spacing">
-            <b-card title="Lorem ipsums">
-                <p>Anim veniam esse excepteur nostrud ad eiusmod. Quis et irure ipsum fugiat quis ullamco enim eiusmod nulla. Ad sunt aliqua pariatur ut commodo laborum quis tempor.</p>
-            </b-card>
+            <b-row is="transition-group" name="book-animation">
+                <b-col v-for="livro in livros" :key="livro.id" sm="4">
+                    <router-link :to="{ name: 'book', params: { livro_id: livro.id } }">
+                        <b-card class="book-card">
+                            <div class="book-title">{{ livro.title }}</div>
+                            <async-image class="book-cover" :src="livro.cover_url ? livro.cover_url : null" :alt="`capa do livro ${livro.title}`" />
+                        </b-card>
+                    </router-link>
+                </b-col>
+            </b-row>
         </div>
     </div>
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
+import ui from '@/components/ui'
 import Navbar from '../ui/navbars/Navbar'
+import AsyncImage from '@ui/AsyncImage'
+
 export default {
-    components: { Navbar },
+    components: {
+        ...ui,
+        Navbar,
+        AsyncImage,
+    },
+    data(){
+        return {
+            livros: [],
+        }
+    },
     computed: {
         getModuleImage(){
             return require('@/assets/images/btn-books.png')
-        }
-    }
+        },
+        ...mapState('Modules', ['activeModule'])
+    },
+    created(){
+        this.fetchBooks().then((livros) => {
+            this.livros = livros
+        })
+    },
+    methods: {
+        registerUserProgress(module){
+            return true
+        },
+        ...mapActions('Books', ['fetchBooks']),
+    },
 }
 </script>
 
-<style>
+<style lang="scss">
+    #biblioteca{
+        .book-cover{
+            max-width: 100px;
+        }
 
+        .book-title{
+            display: flex;
+            align-self: center;
+            font-size: 1.2rem;
+            text-align: center;
+            color: transparentize($color: #000000, $amount: 0.5);
+            padding: 10px;
+        }
+
+        .book-card{
+            border-radius: 20px;
+            transition: transform 0.3s ease-out;
+            @include card_boxshadow;
+            &:hover{
+                transform: scale(1.05);
+            }
+
+            .card-body{
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                padding: 4px;
+                height: $book-card-height;
+            }
+
+            .book-cover{
+                position: relative;
+                overflow: hidden;
+            }
+
+            .image.book-cover{
+                max-width: 100%;
+                height: ($book-card-height - 8px);
+                position: relative;
+                overflow: hidden;
+                border-top-right-radius: 16px;
+                border-bottom-right-radius: 16px;
+                img, svg {
+                    width: 100%;
+                    min-height: ($book-card-height - 8px);
+                }
+            }
+        }
+
+        .book-animation-enter-active,
+        .book-animation-leave-active {
+            transition: all 0.8s;
+        }
+        .book-animation-enter,
+        .book-animation-leave-to{
+            opacity: 0;
+        }
+    }
 </style>

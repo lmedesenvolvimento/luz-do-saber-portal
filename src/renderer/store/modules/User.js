@@ -39,6 +39,7 @@ const actions = {
                 name: payload.name
             },
             friends: {},
+            books: {},
             pointings: {
                 units: {},
                 themes: {},
@@ -56,10 +57,11 @@ const actions = {
         router.replace({ name: 'home-page'}) // go to first
     },
 
-    recoveryUserDatabase({ commit }){
+    recoveryUserDatabase({ commit, dispatch }){
         let payload = db.value()
         if (payload.data && payload.data.name) {
             commit('SET_USER', payload)
+            dispatch('Books/fetchBooks', null, { root: true })
         }
     },
     addFriend({ commit }, friend){
@@ -76,6 +78,7 @@ const getters = {
 function resetUser() {
     return db.set('data.name', null)
         .set('friends', {})
+        .set('books', {})
         .set('pointings', {
             units: {},
             themes: {},

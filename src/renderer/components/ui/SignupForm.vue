@@ -1,10 +1,8 @@
 <template>
     <b-form class="d-flex justify-content-center" @submit.prevent="submitLogin">
-        <b-card no-body class="mx-5 front-page-login card shadow">
-            <b-card-body>
+        <b-card no-body class="mx-5 shadow">
+            <b-card-body class="align-items-center d-flex flex-column">
                 <h5>Digite seu nome abaixo para continuar.</h5>
-            </b-card-body>
-            <b-card-body>
                 <div class="card-input card--input-text mt-2">
                     <label>
                         <b-card
@@ -24,12 +22,8 @@
                         </b-card>
                     </label>
                 </div>
-            </b-card-body>
-            <b-card-body>
-                <h6>{{ errMsg }}</h6>
-            </b-card-body>
-            <b-card-body>
-                <b-button type="submit" variant="link" class="mt-3">
+                <h6 :class="{ 'err-msg': errMsg }">{{ errMsg }}</h6>
+                <b-button type="submit" variant="link">
                     <div class="icon-next"></div>
                 </b-button>
             </b-card-body>
@@ -40,6 +34,12 @@
 <script>
 import { mapActions } from 'vuex'
 export default {
+    props: {
+        onSubmit: {
+            type: Function,
+            required: false
+        }
+    },
     data(){
         return {
             user: { name: ''},
@@ -55,12 +55,17 @@ export default {
             else{
                 this.errMsg = (this.user.name.length < 3) ? 'Mínimo de 3 letras.' : 'Máximo de 11 letras.'
             }
+            if (!this.errMsg){
+                this.onSubmit()
+            }
         },
         ...mapActions('User',['createUserDatabase']),
     }
 }
 </script>
 
-<style>
-
+<style scoped>
+.err-msg{
+    color: red;
+}
 </style>
