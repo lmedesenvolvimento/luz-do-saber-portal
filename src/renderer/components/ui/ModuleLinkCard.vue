@@ -85,7 +85,6 @@ export default {
             }
         },
         getProgress(){
-            console.log(this.data.type, this.getProgressLibrary)
             switch (this.data.type) {
             case 'library':
                 return this.getProgressLibrary
