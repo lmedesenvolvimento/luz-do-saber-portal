@@ -5,7 +5,7 @@
                 @include embed_image("#{$value}#{$icon-name}.png", $icon-width, $icon-height);
                 max-height: $icon-height;
                 user-select: none;
-
+                outline: none;
                 &:hover,
                 &:focus,
                 &:active {
