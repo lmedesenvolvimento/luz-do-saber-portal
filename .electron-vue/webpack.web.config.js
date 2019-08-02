@@ -24,7 +24,14 @@ let webConfig = {
         use: [
           MiniCssExtractPlugin.loader,
           { loader: 'css-loader', options: { url: true, sourceMap: true } },
-          { loader: 'sass-loader', options: { sourceMap: true } }
+          {
+            loader: 'sass-loader', options: {
+              data: `
+              @import "./src/renderer/assets/styles/variables";
+              @import "./src/renderer/assets/styles/mixins";
+            `
+            }
+          }
         ],
       },
       {
