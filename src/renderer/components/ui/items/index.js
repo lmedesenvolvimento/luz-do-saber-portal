@@ -55,8 +55,5 @@ export default {
     'ls-display-18-items': require('./custom/Display18Items.vue').default,
     'ls-item-texto-em-blocos': require('./custom/TextoEmBlocos.vue').default,
     'ls-item-inicial-amigos': require('./custom/InicialAmigos.vue').default,
-<<<<<<< HEAD
     'ls-item-editor': require('./Editor.vue').default
-=======
->>>>>>> master
 }
