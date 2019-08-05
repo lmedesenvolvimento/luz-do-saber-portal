@@ -241,20 +241,14 @@ export default {
                     },1000)
                 }
                 // quando chega a zero, e exibindo o contador, ele seleciona aleatoriamente uma letra do alfabeto
-                else if (this.showTimer){
-                    // os valores alternam entre um da cartela do jogador e um aleatório
-                    if(this.raffleWords.length%2 == 0){
-                        this.unraffleWords.splice( this.unraffleWords.indexOf(this.scramblePlayerWords[0]) ,1);
-                        this.actualRaffleWord = this.scramblePlayerWords[0];
-                        this.raffle(this.scramblePlayerWords[0]);
-                        this.scramblePlayerWords.shift();
-                    }else{
-                        const wordIndex = Math.floor(Math.random()*this.unraffleWords.length);
-                        const word = this.unraffleWords[wordIndex];
-                        this.unraffleWords.splice(wordIndex,1);
-                        this.actualRaffleWord = word;
-                        this.raffle(word);
-                    }
+                else if (this.showTimer){     
+                    // sorteia aleatoriamente uma das palavras sorteáveis                
+                    const wordIndex = Math.floor(Math.random()*this.unraffleWords.length);
+                    const word = this.unraffleWords[wordIndex];
+                    this.unraffleWords.splice(wordIndex,1);
+                    this.actualRaffleWord = word;
+                    this.raffle(word);
+
                     this.showTimer = false;
                     this.timer = 5000;
                     this.actualizeBingoTimer();

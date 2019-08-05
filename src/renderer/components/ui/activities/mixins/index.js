@@ -28,6 +28,10 @@ export const ListMixin = {
             let { item_template } = this.activity
             return item_template.key.total_per_line ? true : false
         },
+        hasValues() {
+            let { item_template } = this.activity
+            return item_template.value.total_per_line ? true : false
+        },
         getKeys() {
             return this.activity.items.keys
         },
