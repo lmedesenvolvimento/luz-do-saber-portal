@@ -9,4 +9,5 @@ export default{
     'ls-activity-read-letter-group': require('@ui/activities/read/games/LetterGroup.vue').default,
     'ls-activity-read-complete-sentences': require('@ui/activities/read/games/CompleteSentences.vue').default,
     'ls-activity-read-accentuation': require('@ui/activities/read/games/Accentuation.vue').default,
+    'ls-activity-read-text-reading': require('@ui/activities/read/games/TextReading.vue').default,
 }
