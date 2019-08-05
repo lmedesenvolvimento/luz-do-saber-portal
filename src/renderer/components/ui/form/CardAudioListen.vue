@@ -1,13 +1,35 @@
 <template>
     <div v-if="isLimitExceeded">
-        <div class="card--text-audio">
+        <div v-if="isPlayerWithImage">
+            <div class="card--text-audio">
+                <div :class="activity.item_template.key.font_size" class="text-audio-image-box">
+                    <card-display>                                          
+                        <slot>  
+                            <b-col>
+                                <b-row>
+                                    <b-col cols="7">
+                                        <pre>{{ item.text }}</pre>
+                                    </b-col>
+                                    <b-col>
+                                        <async-image :src="item.images.length ? item.images[0].url : null" />
+                                    </b-col>
+                                </b-row>   
+                            </b-col> 
+                            <hr>
+                            <card-audio ref="plyr" :item="item" class="plyr-flat" /> 
+                        </slot>                        
+                    </card-display>
+                </div>                    
+            </div>
+        </div>
+        <div v-else class="card--text-audio">
             <card-display>
                 <slot>
                     {{ item.text }}
                 </slot>
                 <template slot="footer">
                     <b-card-footer>
-                        <card-audio :item="item" class="plyr-flat" />
+                        <card-audio ref="plyr" :item="item" class="plyr-flat" />
                     </b-card-footer>
                 </template>
             </card-display>
@@ -43,7 +65,9 @@
 <script>
 import uniqid from 'uniqid'
 import { filter } from 'lodash'
+import { mapActions } from 'vuex'
 
+import AsyncImage from '@ui/AsyncImage'
 import RadioInput from './RadioInput.vue'
 import CardAudio from './CardAudio'
 import CardDisplay from './CardDisplay'
@@ -51,7 +75,7 @@ import CardDisplay from './CardDisplay'
 const limitText = 50
 
 export default {
-    components: { CardAudio, CardDisplay },
+    components: {AsyncImage, CardAudio, CardDisplay },
     mixins: [RadioInput],
     props: {
         item: Object,
@@ -77,6 +101,9 @@ export default {
         },
         player() {
             return this.$refs.plyr.player
+        },
+        isPlayerWithImage() {
+            return (this.item.images[0].url != null) && (this.item.value_ids == null)
         }
     },
     mounted(){
@@ -84,20 +111,28 @@ export default {
         this.player.volume = 0.7
     },
     methods: {
+        ...mapActions('Activity', ['triggerSuccess']),
         ended(){
             this.valid = true
-
-            this.setAnswer({
-                type: 'value',
-                data: this.item.id,
-                vm: this
-            })
-        },
+            
+            if(this.isPlayerWithImage){
+                this.triggerSuccess();
+            } else {
+                this.setAnswer({
+                    type: 'value',
+                    data: this.item.id,
+                    vm: this
+                })
+            }
+        },        
     },
+    
 }
 </script>
 
 <style>
-
+    .text-audio-image-box{
+        margin-top: -20px;
+    }
 </style>
 
