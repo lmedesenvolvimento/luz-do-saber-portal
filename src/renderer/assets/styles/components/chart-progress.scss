@@ -41,7 +41,7 @@
             // transform: scale(0.4);
             width: 100%;
         }
-        
+
         .custom-content{
             @include fill;
             position: relative;
@@ -55,7 +55,7 @@
         .custom-content-front{
             display: none;
         }
-        &:not(:hover){            
+        &:not(:hover){
             .custom-content{
                 display: flex;
             }
@@ -78,7 +78,7 @@
             // .custom-content{
             //     display: none;
             // }
-            
+
             // .custom-content-front{
             //     display: flex !important;
             // }
@@ -101,23 +101,5 @@
             width: 110px;
             height: 110px;
         }
-    }
-}
-
-.front-page-logo {
-    max-width: 320px;
-}
-
-.front-page-login{
-    @include itim_regular;
-    padding: 30px 0 15px;
-    max-width: 600px;
-    width: 90%;
-
-    .card-body{
-        display: flex;
-        justify-content: center;
-        text-align: center;
-        padding: 0;
     }
 }

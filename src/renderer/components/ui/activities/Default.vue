@@ -13,7 +13,8 @@
                     </b-col>
                 </b-row>
             </b-col>
-            <b-col 
+            <b-col
+                v-if="hasValues" 
                 :class="{ 
                     'flex-4': getValues.length >= 12 
                 }"

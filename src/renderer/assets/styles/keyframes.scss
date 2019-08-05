@@ -12,3 +12,30 @@
         opacity: 0;
     }
 }
+
+@keyframes infinite-rotate-in-out {
+    0%{
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes infinite-change-faces {
+    0%{
+        background-image: url('~@/assets/images/logo/face.png');
+    }
+    1% {
+        background-image: url('~@/assets/images/logo/face-b.png');
+    }
+    60%{
+        background-image: url('~@/assets/images/logo/face-b.png');
+    }
+    61%{
+        background-image: url('~@/assets/images/logo/face.png');
+    }
+    100% {
+        background-image: url('~@/assets/images/logo/face.png');
+    }
+}
