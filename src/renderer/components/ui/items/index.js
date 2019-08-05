@@ -47,6 +47,7 @@ export default {
     'ls-item-text': require('./Text.vue').default,
     'ls-item-image': require('./Image.vue').default,
     'ls-item-audio': require('./Audio.vue').default,
+    'ls-item-video': require('./Video.vue').default,
     'ls-item-text-image': require('./TextImage.vue').default,
     'ls-item-checkmark': require('./custom/CardCheckMark.vue').default,
     'ls-item-cracha-box': require('./custom/CrachaBox.vue').default,
@@ -54,5 +55,8 @@ export default {
     'ls-display-18-items': require('./custom/Display18Items.vue').default,
     'ls-item-texto-em-blocos': require('./custom/TextoEmBlocos.vue').default,
     'ls-item-inicial-amigos': require('./custom/InicialAmigos.vue').default,
+<<<<<<< HEAD
     'ls-item-editor': require('./Editor.vue').default
+=======
+>>>>>>> master
 }

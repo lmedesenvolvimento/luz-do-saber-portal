@@ -170,6 +170,11 @@
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
             />
+            <ls-activity-read-text-reading
+                v-if="gameSubtypes.textReading === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+            />
         </div>
     </div>
 </template>
