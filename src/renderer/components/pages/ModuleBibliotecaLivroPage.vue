@@ -1,5 +1,5 @@
 <template>
-    <div id="escrever" class="fill container biblioteca">
+    <div id="escrever" class="fill container biblioteca" :class="{fullscreen}">
         <div class="page-container">
             <navbar :navbar-title="book.title" :navbar-subtitle="''" />
             <div class="gameplay">
@@ -62,6 +62,7 @@ export default {
         return{
             images: [],
             getPosition: 0,
+            fullscreen: '',
             viewerOpts: {
                 'inline': false,
                 'button': false,
@@ -109,6 +110,12 @@ export default {
         }
         this.image = this.images[this.getPosition]
         this.image.visible = true
+        if (!Element.prototype.requestFullscreen) {
+            Element.prototype.requestFullscreen = Element.prototype.mozRequestFullscreen || Element.prototype.webkitRequestFullscreen || Element.prototype.msRequestFullscreen;
+        }
+        if (!document.exitFullscreen) {
+            document.exitFullscreen = document.mozExitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen;
+        }
     },
     methods: {
         isVisible( image ){
@@ -132,7 +139,20 @@ export default {
             this.image = this.images[this.getPosition]
         },
         download() {
+            console.log('test')
+        },
+        maximize() {
+            var elem = document.querySelector('.gameplay')
 
+            if(this.fullscreen===''){
+                this.fullscreen = 'fullscreen'
+                elem.requestFullscreen()
+            }
+            else{
+                this.fullscreen = ''
+                document.exitFullscreen()
+            }
+            
         },
         ...mapActions('Books',['setBook'])
     }
@@ -164,6 +184,34 @@ export default {
 </style>
 
 <style lang="scss" scoped>
+.biblioteca{
+    &.fullscreen{
+        z-index: 9999; 
+        width: 100vw;
+        height: 100vh; 
+        max-width: 100vw;
+        max-height: 100vh;
+        padding: 0;
+        position: fixed; 
+        top: 0; 
+        left: 0;
+        .navbar{
+            display: none;
+        }
+        .gameplay{
+            z-index: 9999; 
+            width: 100%; 
+            height: 100%; 
+            max-width: 100%;
+            max-height: 100%;
+            margin: 0;
+            position: fixed; 
+            top: 0; 
+            left: 0;
+        }
+    }
+}
+
 .gameplay-body{
     height: calc(#{ $gameplay-height} + #{$gameplay-header-height });
     max-height: calc(#{ $gameplay-height} + #{$gameplay-header-height });
