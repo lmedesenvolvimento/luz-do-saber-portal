@@ -49,6 +49,7 @@ export const GameSubtypes = {
     writeTheWord: 'escreva-o-nome',
     completeSentences: 'completa-frase-com-audio',
     accentuation: 'acentuacao',
+    textReading: 'apresentacao-leitura'
 }
 
 export const ItemTypes = {
