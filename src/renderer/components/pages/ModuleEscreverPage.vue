@@ -13,8 +13,12 @@
             <b-row>
                 <b-col v-for="theme in getWriteThemes" :key="theme.id" cols="12" md="6">
                     <div class="write-theme-card">
-                        <div class="write-theme-icon">a</div>
-                        <h3>{{ theme.title }}</h3>
+                        <div class="write-theme-card-icon">
+                            <img :src="getModuleImage" alt="">
+                        </div>
+                        <div class="write-theme-card-title">
+                            <h2>{{ theme.title }}</h2>
+                        </div>                        
                     </div>
                 </b-col>
             </b-row>
@@ -54,7 +58,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
     .write-theme-card {
         background-image: url('~@/assets/images/write-module-background.png');
         background-position:  center;
@@ -65,5 +69,23 @@ export default {
         border-radius: 10px;
         margin: 0 auto 100px;
         box-shadow: 0px 0px 36px 1px rgba(123, 123, 132, 0.48);
+        padding: 50px;
+        .write-theme-card-icon{
+            margin: -125px auto 0;
+            width: 150px;
+            height: 150px;
+            background-color: #007CB2;
+            border: solid 5px;
+            border-color: white;
+            border-radius: 75px;
+            img{
+                width: 150px;
+                height: 150px;
+            }
+
+        }
+        .write-theme-card-title{
+            margin-top: 20px;
+        }
     }
 </style>
