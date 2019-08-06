@@ -4,7 +4,7 @@
             <div class="linha">
                 <div class="button-contaniner">
                     <ls-card-display>
-                        <select class="ql-font btn-editor">
+                        <select ref="select" class="ql-font btn-editor" @change="fontChange">
                             <option selected class="ql-font-Montserrat">Montserrat</option>
                             <option value="Roboto" class="ql-font-Roboto">Roboto</option>
                         </select>
@@ -116,6 +116,18 @@ export default {
             },
             placeholder: 'Insira seu texto aqui!'
         });
+        quill.focus();
+    },
+    methods: {
+        fontChange(el) {
+            console.log(el.srcElement)
+            if(el.srcElement.value === 'Roboto'){
+                el.srcElement.classList.add('ql-font-Roboto')
+
+            } else if (el.srcElement.value === 'ql-font-Montserrat') {
+                el.srcElement.classList.add('q')
+            }
+        }
     },
 }
 </script>
@@ -123,15 +135,11 @@ export default {
 @import url('https://fonts.googleapis.com/css?family=Montserrat|Roboto&display=swap');
 #custom-editor{
     #toolbar{
-        position: relative;
         display: flex;
-        flex-direction: column;
         align-items: center;
-        min-height: 100px;
+        min-height: 90px;
         background-color: #fafafa;
         border-bottom: 1.5px solid #ddd;
-        padding: 0px 8px;
-        flex: 1;
     }
     #editor{
         background-color: white;
@@ -157,15 +165,23 @@ export default {
         outline:none;
         font-size: 1.3rem;
         width: 100%;
+        color: #303030;
     }
     .card--display{
         max-height: 90px;
     }
     .card-body{
-        padding: 0.3rem 0.6rem;
+        padding: 0.3rem;
     }
-    .ql-font, .ql-size{
-        height: 46px;
+    .ql-font{
+        height: 40px;
+        width: 300px;
+        padding-left: 15px;
+    }
+    .ql-size{
+        width: 80px;
+        height: 40px;
+        padding-left: 10px;
     }
     .b-right{
         border-right: solid black 1px;
@@ -174,10 +190,10 @@ export default {
     .coluna{
         flex-grow: 1;
         max-width: 100%;
-        height: 46px;
+        height: 40px;
     }
     .button-contaniner{
-        margin-right: 30px;
+        margin-right: 25px;
     }
     .linha{
         display: flex;
