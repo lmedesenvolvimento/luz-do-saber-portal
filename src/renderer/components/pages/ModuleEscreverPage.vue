@@ -4,8 +4,8 @@
         class="page-container escrever"
     >
         <navbar
-            navbar-title="Escrever"
-            :navbar-subtitle="''"
+            navbar-title="Módulo Escrever"
+            :navbar-subtitle="'Temas'"
             :navbar-icon="getModuleImage"
         />
         
