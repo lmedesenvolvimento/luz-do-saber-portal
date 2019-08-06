@@ -3,6 +3,7 @@
         <div class="page-container">
             <navbar :navbar-title="book.title" :navbar-subtitle="''" />
             <div class="gameplay">
+                <div class="btn icon-close" v-if="fullscreen" @click.stop="maximize"></div>
                 <div class="step-bars">
                     <div
                         v-for="(value, index) in images"
@@ -15,7 +16,7 @@
                     <div class="col-flow image-viewer">
                         <figure class="image fill">
                             <transition-group name="fade">
-                                <div v-for="image in images" v-show="isVisible(image)" :key="image.key" class="img-wrap fill">
+                                <div v-for="image in images" v-show="isVisible(image)" :key="image.key" class="img-wrap fill" :class="{'division' : !notSingle(image)}">
                                     <viewer :options="viewerOpts">
                                         <slot name="image">
                                             <img :src="image.source">
@@ -38,7 +39,7 @@
                             <div class="icon-next"></div>
                         </b-btn>
                     </div>
-                    <div class="footer-info">                        
+                    <div class="footer-info" v-if="!fullscreen">                        
                         <div v-b-tooltip="{ title:'Capa do Livro', container: '.footer-info'}" class="btn-book cover" @click.stop="toPage(0)"></div>
                         <div v-b-tooltip="{ title:'Informações', container: '.footer-info'}" class="btn-book info" @click.stop="toPage(images.length-1)"></div>
                         <a v-b-tooltip="{ title:'Download', trigger: 'hover click', container: '.footer-info'}" :href="book.pdf_url" :download="book.title" class="btn-book download"></a>
@@ -121,6 +122,9 @@ export default {
         isVisible( image ){
             return image === this.images[this.getPosition]
         },
+        notSingle( image ){
+            return image === this.images[0] || image === this.images[this.images.length-1]
+        },
         next () {
             if (this.getPosition < this.images.length - 1) {
                 this.getPosition++
@@ -142,15 +146,15 @@ export default {
             console.log('test')
         },
         maximize() {
-            var elem = document.querySelector('.gameplay')
+            var elem = document.querySelector('body')
 
             if(this.fullscreen===''){
                 this.fullscreen = 'fullscreen'
-                elem.requestFullscreen()
+                // elem.requestFullscreen()
             }
             else{
                 this.fullscreen = ''
-                document.exitFullscreen()
+                // document.exitFullscreen()
             }
             
         },
@@ -186,7 +190,7 @@ export default {
 <style lang="scss" scoped>
 .biblioteca{
     &.fullscreen{
-        z-index: 9999; 
+        z-index: 999; 
         width: 100vw;
         height: 100vh; 
         max-width: 100vw;
@@ -209,8 +213,35 @@ export default {
             top: 0; 
             left: 0;
         }
+        .btn{
+            &.icon-close{
+                position: absolute;
+                top: 0;
+                right: 0;
+                margin: 0;
+                padding: 0;
+                cursor: pointer;
+                @include embed_image("~@/assets/images/icons/biblioteca/icon-close.png", 56px, 59px);
+            }
+        }
+        .step-bars{
+            margin: 3% 15%;
+            width: 70%;
+        }
+        .gameplay-body{
+            height: 70vh;
+            max-height: 70vh;
+            margin-top: 10vh;
+            margin-bottom: 4vh;
+            border: none;
+            .img-wrap div{
+                height: 100%;
+            }
+        }
     }
 }
+
+
 
 .gameplay-body{
     height: calc(#{ $gameplay-height} + #{$gameplay-header-height });
@@ -288,13 +319,13 @@ export default {
             justify-content: center;
             width: 100%;
             height: 100%;
-            // &::after{
-            //     background: linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 45%,rgba(0,0,0,0.2) 50%,rgba(0,0,0,0) 100%);
-            //     content: "";
-            //     height: 74%;
-            //     width: 2em;
-            //     position: absolute;
-            // }
+            .division::after{
+                background: linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 45%,rgba(0,0,0,0.2) 50%,rgba(0,0,0,0) 100%);
+                content: "";
+                height: 74%;
+                width: 2em;
+                position: absolute;
+            }
         }
         .img-wrap{
             position: absolute;
