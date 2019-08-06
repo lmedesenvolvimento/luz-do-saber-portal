@@ -61,14 +61,14 @@ export default {
     methods: {
         onChange(event){
             if (this.canSendResponse) return
-            
-            this.setAnswer({ 
-                type: this.type, 
+
+            this.setAnswer({
+                type: this.type,
                 data: this.item.id,
                 vm: this
             })
         },
         ...mapActions('Activity', ['setAnswer'])
-    }    
+    }
 }
 </script>
