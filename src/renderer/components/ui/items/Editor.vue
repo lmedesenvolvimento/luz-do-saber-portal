@@ -3,7 +3,7 @@
         <div id="toolbar">
             <div class="linha">
                 <div class="button-contaniner">
-                    <ls-card-display>
+                    <ls-card-display class="ql-font-Montserrat">
                         <select ref="select" class="ql-font btn-editor" @change="fontChange">
                             <option selected class="ql-font-Montserrat">Montserrat</option>
                             <option value="Roboto" class="ql-font-Roboto">Roboto</option>
@@ -69,6 +69,20 @@
             </div>
         </div>
         <div id="editor"></div>
+        <div id="editor-footer" class="linha">
+            <b-button class="btn-editor">
+                <img :src="newText" alt="Lista ordenada" class="icon">
+            </b-button>
+            <b-button class="btn-editor">
+                <img :src="save" alt="Lista ordenada" class="icon">
+            </b-button>
+            <b-button class="btn-editor">
+                <img :src="print" alt="Lista ordenada" class="icon">
+            </b-button>
+            <b-button class="btn-editor">
+                <img :src="gallery" alt="Lista ordenada" class="icon">
+            </b-button>
+        </div>
     </div>
 </template>
 <script>
@@ -107,7 +121,20 @@ export default {
         },
         ordered() {
             return require('@/assets/images/icons/escrever/editor/marcador 2.png')
-        }
+        },
+        newText() {
+            return require('@/assets/images/icons/escrever/editor/novo escrever.png')
+        },
+        save() {
+            return require('@/assets/images/icons/escrever/editor/salvar escrever.png')
+        },
+        print() {
+            return require('@/assets/images/icons/escrever/editor/imprimir escrever.png')
+        },
+        gallery() {
+            return require('@/assets/images/icons/escrever/editor/galeria escrever.png')
+        },
+
     },
     mounted() {
         var quill = new Quill('#editor', {
@@ -120,12 +147,13 @@ export default {
     },
     methods: {
         fontChange(el) {
-            console.log(el.srcElement)
             if(el.srcElement.value === 'Roboto'){
+                el.srcElement.classList.remove('ql-font-Montserrat')
                 el.srcElement.classList.add('ql-font-Roboto')
 
-            } else if (el.srcElement.value === 'ql-font-Montserrat') {
-                el.srcElement.classList.add('q')
+            } else if (el.srcElement.value === 'Montserrat') {
+                el.srcElement.classList.remove('ql-font-Roboto')
+                el.srcElement.classList.add('ql-font-Montserrat')
             }
         }
     },
@@ -134,21 +162,41 @@ export default {
 <style lang="scss">
 @import url('https://fonts.googleapis.com/css?family=Montserrat|Roboto&display=swap');
 #custom-editor{
+    margin-top: 40px;
+    box-shadow: 1px 1px 20px #3a3a3a;
+    border-radius: 0px 0px 10px 10px;
     #toolbar{
         display: flex;
         align-items: center;
         min-height: 90px;
         background-color: #fafafa;
-        border-bottom: 1.5px solid #ddd;
+        border-bottom: 1px solid #ddd;
     }
     #editor{
         background-color: white;
         font-family: "Montserrat";
         font-size: 18px;
         max-width: 100%;
-        height: 300px;
+        height: 500px;
+        text-transform: none;
         .ql-editor{
             height: 100%;
+            padding-left: 15px;
+            text-indent: 25px;
+        }
+    }
+    #editor-footer{
+        display: flex;
+        align-items: center;
+        min-height: 70px;
+        background-color: #fafafa;
+        border-top: 1px solid #ddd;
+        border-radius: 0px 0px 10px 10px;
+        .icon{
+            max-width: 60px;
+            &:hover{
+                cursor: pointer;
+            }
         }
     }
     .ql-font-Montserrat {
@@ -164,8 +212,8 @@ export default {
         overflow: hidden;
         outline:none;
         font-size: 1.3rem;
-        width: 100%;
         color: #303030;
+        box-shadow: none !important;
     }
     .card--display{
         max-height: 90px;
@@ -175,7 +223,8 @@ export default {
     }
     .ql-font{
         height: 40px;
-        width: 300px;
+        flex-grow: 1;
+        max-width: 330px;
         padding-left: 15px;
     }
     .ql-size{

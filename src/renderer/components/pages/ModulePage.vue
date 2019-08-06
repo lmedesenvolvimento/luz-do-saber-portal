@@ -25,7 +25,6 @@
                     </div>
                 </b-col>
             </b-row>
-            <editor></editor>
         </div>
     </div>
 </template>
@@ -36,13 +35,11 @@ import { filter, omit } from 'lodash'
 import { RouteMixin } from './index'
 import VueCircle from '../ui/CircleProgressThemes'
 import Navbar from '../ui/navbars/Navbar'
-import Editor from '../ui/items/Editor'
 
 export default {
     components: {
         VueCircle,
         Navbar,
-        Editor
     },
     mixins: [RouteMixin],
     data() {
