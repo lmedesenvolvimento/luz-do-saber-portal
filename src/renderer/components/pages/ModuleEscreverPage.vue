@@ -12,16 +12,18 @@
         <div class="page-container-wrap-spacing">
             <b-row>
                 <b-col v-for="theme in getWriteThemes" :key="theme.id" cols="12" md="6">
-                    <div class="write-theme-card">
-                        <div class="write-theme-card-icon">
-                            <img :src="theme.icon" :alt="theme.title">
+                    <router-link :to="{ name: theme.route }">
+                        <div class="write-theme-card">
+                            <div class="write-theme-card-icon">
+                                <img :src="theme.icon" :alt="theme.title">
+                            </div>
+                            <div class="write-theme-card-title">
+                                <div>
+                                    <h2>{{ theme.title }}</h2>
+                                </div>                            
+                            </div>                        
                         </div>
-                        <div class="write-theme-card-title">
-                            <div>
-                                <h2>{{ theme.title }}</h2>
-                            </div>                            
-                        </div>                        
-                    </div>
+                    </router-link>
                 </b-col>
             </b-row>
             <router-link :to="{ name: 'letter' }">Carta</router-link>
@@ -44,19 +46,23 @@ export default {
             return [
                 {
                     title: 'Editor de Texto',
-                    icon: require('@/assets/images/write-module-icon-editor-texto.png')
+                    icon: require('@/assets/images/write-module-icon-editor-texto.png'),
+                    route: 'letter'
                 },
                 {
                     title: 'Jornal',
-                    icon: require('@/assets/images/write-module-icon-jornal.png')
+                    icon: require('@/assets/images/write-module-icon-jornal.png'),
+                    route: 'letter'
                 },
                 {
                     title: 'Lista',
-                    icon: require('@/assets/images/write-module-icon-lista.png')
+                    icon: require('@/assets/images/write-module-icon-lista.png'),
+                    route: 'letter'
                 },
                 {
                     title: 'Cartão de Aniversário',
-                    icon: require('@/assets/images/write-module-icon-cartao-aniversario.png')
+                    icon: require('@/assets/images/write-module-icon-cartao-aniversario.png'),
+                    route: 'letter'
                 }
             ]
         }       
