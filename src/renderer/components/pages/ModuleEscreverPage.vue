@@ -47,22 +47,22 @@ export default {
                 {
                     title: 'Editor de Texto',
                     icon: require('@/assets/images/write-module-icon-editor-texto.png'),
-                    route: 'letter'
+                    route: 'text-editor'
                 },
                 {
                     title: 'Jornal',
                     icon: require('@/assets/images/write-module-icon-jornal.png'),
-                    route: 'letter'
+                    route: 'journal'
                 },
                 {
                     title: 'Lista',
                     icon: require('@/assets/images/write-module-icon-lista.png'),
-                    route: 'letter'
+                    route: 'list'
                 },
                 {
                     title: 'Cartão de Aniversário',
                     icon: require('@/assets/images/write-module-icon-cartao-aniversario.png'),
-                    route: 'letter'
+                    route: 'birthday-card'
                 }
             ]
         }       
