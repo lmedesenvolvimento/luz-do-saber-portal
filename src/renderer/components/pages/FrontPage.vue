@@ -3,8 +3,9 @@
         <b-container fluid>
             <b-row align-v="center" align-h="center" class="flex-2 content">
                 <b-container fluid>
-                    <b-row class="m-5" align-v="center" align-h="center">
+                    <b-row class="m-5 flex-column" align-v="center" align-h="center">
                         <div class="frontpage-logo" :class="{'animated': isLoading}"></div>
+                        <div class="front-page-logo-title"></div>
                     </b-row>
 
                     <transition name="fade" mode="out-in">
@@ -108,7 +109,6 @@ export default {
         },
         getModules() {
             this.loading = true
-            console.log('Here')
             this.fetchModules().then(({ modulos }) => {
                 this.read = find(modulos, { slug: 'ler' })
                 setTimeout(() => {

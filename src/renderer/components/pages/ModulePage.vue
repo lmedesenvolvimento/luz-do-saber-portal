@@ -50,6 +50,9 @@ export default {
     computed: {
         getThemes(){
             const { params } = this.$route
+
+            if(!this.activeModule) return
+
             if (params.target_audience !== 'geral'){
                 return filter(this.activeModule.themes, { target_audience: params.target_audience })
             } else {
@@ -57,13 +60,12 @@ export default {
             }
         },
         renderNavTitle(){
-            return this.activeModule.title ? 'Módulo ' + this.activeModule.title : ''
+            return ( this.activeModule && this.activeModule.title ) ? 'Módulo ' + this.activeModule.title : ''
         },
         ...mapState('Modules', ['activeModule'])
     },
     created(){
         this.fetchModule(this.$route.params.module_slug).then(this.registerUserProgress)
-        console.log(this.getThemes)
     },
     beforeDestroy(){
         this.destroyModule();
