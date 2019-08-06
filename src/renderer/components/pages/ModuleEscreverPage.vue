@@ -17,7 +17,9 @@
                             <img :src="getModuleImage" alt="">
                         </div>
                         <div class="write-theme-card-title">
-                            <h2>{{ theme.title }}</h2>
+                            <div>
+                                <h2>{{ theme.title }}</h2>
+                            </div>                            
                         </div>                        
                     </div>
                 </b-col>
@@ -62,7 +64,8 @@ export default {
     .write-theme-card {
         background-image: url('~@/assets/images/write-module-background.png');
         background-position:  center;
-        background-repeat:  no-repeat;        
+        background-repeat:  no-repeat; 
+        cursor: pointer;       
         text-align: center;
         width: 378px;
         height: 188px;
@@ -85,7 +88,11 @@ export default {
 
         }
         .write-theme-card-title{
-            margin-top: 20px;
+            margin-top: 20px;                                  
+        }
+        transition: transform 0.2s ease-in-out;
+        &:hover{
+            transform: scale(1.1);
         }
     }
 </style>
