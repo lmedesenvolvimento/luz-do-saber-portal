@@ -9,7 +9,18 @@
             :navbar-icon="getModuleImage"
         />
         <div class="page-container-wrap-spacing">
-            <p>{{ getModule.title }}</p>
+            <b-row>
+                <b-col
+                    v-for="m in getModules"
+                    :key="m.key"
+                >
+                    <router-link :to="{ name: 'write-module', params: { escrever_id: m.key } }">
+                        <b-card>
+                            {{ m.title }}
+                        </b-card>
+                    </router-link>
+                </b-col>
+            </b-row>
         </div>
     </div>
 </template>
@@ -22,9 +33,8 @@ export default {
         getModuleImage(){
             return require('@/assets/images/btn-write.png')
         },
-        getModule(){
-            console.log(this.$route.params)
-            return this.$store.getters['WriteModule/getWriteModuleByRef'](this.$route.params.escrever_id)
+        getModules(){
+            return this.$store.getters['WriteModule/getWriteModules']
         }
     }
 }
