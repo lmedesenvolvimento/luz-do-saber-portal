@@ -8,16 +8,21 @@
             :navbar-subtitle="''"
             :navbar-icon="getModuleImage"
         />
-        <div class="page-container-wrap-spacing">
-            <p>{{ getModule.title }}</p>
+        <div v-if="getModule.key === 'carta'">
+            <editor></editor>
         </div>
+        <!-- <div class="page-container-wrap-spacing">
+            <p>{{ getModule.title }}</p>
+        </div> -->
     </div>
 </template>
 
 <script>
 import Navbar from '../ui/navbars/Navbar'
+import Editor from '../ui/items/Editor'
+
 export default {
-    components: { Navbar },
+    components: { Navbar,Editor},
     computed: {
         getModuleImage(){
             return require('@/assets/images/btn-write.png')
