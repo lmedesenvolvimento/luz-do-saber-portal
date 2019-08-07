@@ -16,7 +16,5 @@ import { ItemProps } from './index.js'
 
 export default {
     mixins: [ItemProps],
-    mounted() {
-    },
 }
 </script>
