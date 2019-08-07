@@ -4,8 +4,8 @@
         class="page-container escrever"
     >
         <navbar
-            navbar-title="Escrever"
-            :navbar-subtitle="''"
+            navbar-title="Módulo Escrever"
+            :navbar-subtitle="'Temas'"
             :navbar-icon="getModuleImage"
         />
         <div class="page-container-wrap-spacing">
@@ -25,7 +25,6 @@
                     </router-link>
                 </b-col>
             </b-row>
-            <router-link :to="{ name: 'letter' }">Carta</router-link>
         </div>        
     </div>
 </template>
