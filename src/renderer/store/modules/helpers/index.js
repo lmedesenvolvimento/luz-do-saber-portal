@@ -68,7 +68,7 @@ export function validationInAnswer({ state, commit }, { vm, type, data }) {
 export function validationInSelection({ state, commit }, { vm, type, data }) {
     let { selection } = state
     let dataIsPresent = values(selection).filter(v => v.data === data).length
-    
+
     if (dataIsPresent) {
         return false
     }
@@ -88,9 +88,9 @@ export function validationInSelection({ state, commit }, { vm, type, data }) {
 
     if (selection.key && selection.value) {
         let filterAsnswer = filter(values(state.answers), a => a.key.data === selection.key.data)
-        
+
         let answer = find(
-            filterAsnswer, 
+            filterAsnswer,
             a => a.value.data.includes(selection.value.data)
         )
 
@@ -136,6 +136,7 @@ export function getExtenalParams(question) {
     switch (question.external_param_type) {
     case 'substantivo_proprio':
         if (question.external_param_total < 1) {
+            if (!user.friends) return
             values(user.friends).forEach((friend) => {
                 external_params.push({ 'name': friend.name })
             })
