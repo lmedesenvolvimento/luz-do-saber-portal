@@ -4,31 +4,31 @@ import db from '@/services/Session'
 
 const state = {
     modules: {
-        carta: {
-            key: 'carta',
+        editor: {
+            key: 'editor',
             title: 'Editor de Texto',
-            icon: null,
+            icon: require('@/assets/images/write-module-icon-editor-texto.png'),
             completed: false,
             data: {}
         },
         jornal: {
             key: 'jornal',
             title: 'Jornal',
-            icon: null,
+            icon: require('@/assets/images/write-module-icon-jornal.png'),
             completed: false,
             data: {}
         },
         lista: {
             key: 'lista',
             title: 'Lista',
-            icon: null,
+            icon: require('@/assets/images/write-module-icon-lista.png'),
             completed: false,
             data: {}
         },
         cartao: {
             key: 'cartao',
             title: 'Cartão de Visita',
-            icon: null,
+            icon: require('@/assets/images/write-module-icon-cartao-visita.png'),
             completed: false,
             data: {}
         }
