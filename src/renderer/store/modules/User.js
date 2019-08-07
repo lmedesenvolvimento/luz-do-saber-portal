@@ -7,7 +7,9 @@ import db from '@/services/Session'
 import router from '@/router'
 
 const state = {
-    currentUser: {},
+    currentUser: {
+        empty: true
+    },
 }
 
 const mutations = {
