@@ -4,8 +4,8 @@ import db from '@/services/Session'
 
 const state = {
     modules: {
-        carta: {
-            key: 'carta',
+        editor: {
+            key: 'editor',
             title: 'Editor de Texto',
             icon: require('@/assets/images/write-module-icon-editor-texto.png'),
             completed: false,
