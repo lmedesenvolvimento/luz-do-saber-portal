@@ -15,9 +15,6 @@ export default {
         this.recoveryUserDatabase()
         this.recoveryPointingsDatabase()
     },
-    mounted() {
-        console.log('mounted')
-    },
     methods: {
         ...mapActions('User',['recoveryUserDatabase']),
         ...mapActions('Pointings',['recoveryPointingsDatabase'])
