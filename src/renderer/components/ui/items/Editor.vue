@@ -215,6 +215,9 @@ export default {
         color: #303030;
         box-shadow: none !important;
     }
+    .btn{
+        padding: 0;
+    }
     .card--display{
         max-height: 90px;
     }
@@ -224,7 +227,7 @@ export default {
     .ql-font{
         height: 40px;
         flex-grow: 1;
-        max-width: 330px;
+        width: 330px;
         padding-left: 15px;
     }
     .ql-size{
