@@ -6,7 +6,7 @@
             <vue-plyr>
                 <div class="plyr__video-embed">
                     <iframe
-                        src="https://www.youtube.com/watch?v=GO94XCuXEqs?iv_load_policy=3&playsinline=1&showinfo=0&rel=0&enablejsapi=1"
+                        :src="item.text"
                         allowfullscreen allowtransparency allow="autoplay"
                     >
                     </iframe>
