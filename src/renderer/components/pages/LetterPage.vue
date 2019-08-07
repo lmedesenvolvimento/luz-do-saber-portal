@@ -13,7 +13,6 @@
 
 <script>
 import Navbar from '../ui/navbars/Navbar'
-import Editor from '../ui/items/Editor'
 
 export default {
     components: { Navbar, Editor },
