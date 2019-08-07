@@ -84,7 +84,7 @@ export default {
     },
     computed: {
         isAuthorized(){
-            return this.currentUser ? true : false
+            return (this.currentUser && !this.currentUser.empty) ? true : false
         },
         isLoading(){
             return this.loading
