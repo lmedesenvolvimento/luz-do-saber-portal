@@ -38,6 +38,13 @@ const mutations = {
     merge(state, payload){
         const { data, type } = payload
         Vue.set(state, type, data)
+    },
+    reset(state){
+        Vue.set(state, 'activities', Object.assign({}))
+        Vue.set(state, 'units', {}, Object.assign({}))
+        Vue.set(state, 'themes', {}, Object.assign({}))
+        Vue.set(state, 'modules', {}, Object.assign({}))
+        console.log('IS DISPATCH')
     }
 }
 
@@ -67,6 +74,10 @@ const actions = {
             commit('merge', { data: modules, type: 'modules' })
             commit('merge', { data: activities, type: 'activities' })
         }
+    },
+    resetPointings({ commit }){
+        console.log('resetPointings')
+        commit('reset')
     }
 }
 

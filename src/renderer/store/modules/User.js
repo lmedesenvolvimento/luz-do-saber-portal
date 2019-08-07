@@ -7,7 +7,7 @@ import db from '@/services/Session'
 import router from '@/router'
 
 const state = {
-    currentUser: null
+    currentUser: {},
 }
 
 const mutations = {
@@ -25,7 +25,7 @@ const mutations = {
 }
 
 const actions = {
-    createUserDatabase({ commit }, payload){
+    createUserDatabase({ commit, dispatch }, payload){
         let snapshot = db.value()
 
         if (snapshot.data && !snapshot.data.name) {
@@ -40,6 +40,7 @@ const actions = {
             },
             friends: {},
             books: {},
+            write: {},
             pointings: {
                 units: {},
                 themes: {},
@@ -48,12 +49,14 @@ const actions = {
             }
         }).write()
 
-        commit('SET_USER', db.value())
+
+        dispatch('recoveryUserDatabase')
     },
 
-    destroyUserDatabase({ commit }) {
+    destroyUserDatabase({ commit, dispatch }) {
         resetUser()
         commit('SET_USER', null)
+        dispatch('Pointings/resetPointings', null, { root: true })
         router.replace({ name: 'home-page'}) // go to first
     },
 
@@ -62,6 +65,7 @@ const actions = {
         if (payload.data && payload.data.name) {
             commit('SET_USER', payload)
             dispatch('Books/fetchBooks', null, { root: true })
+            dispatch('WriteModule/createWriteModule', null, { root: true })
         }
     },
     addFriend({ commit }, friend){
@@ -79,6 +83,7 @@ function resetUser() {
     return db.set('data.name', null)
         .set('friends', {})
         .set('books', {})
+        .set('write', {})
         .set('pointings', {
             units: {},
             themes: {},

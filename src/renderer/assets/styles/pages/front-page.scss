@@ -47,4 +47,15 @@
             }
         }
     }
+    .front-page-logo-title{
+        display: block;
+        position: relative;
+        width: 360px;
+        height: 32px;
+        margin-top: -16px;
+        background-image: url('~@/assets/images/logo/fundamental.png');
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+    }
 }

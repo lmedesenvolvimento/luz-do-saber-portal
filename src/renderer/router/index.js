@@ -13,7 +13,7 @@ export default new Router({
         {
             path: '/game/escrever/geral',
             name: 'write',
-            component: require('@/components/pages/ModuleEscreverPage.vue').default
+            component: require('@/components/pages/ModulesEscreverPage.vue').default
         },
         {
             path: '/game/biblioteca/geral',
@@ -26,29 +26,9 @@ export default new Router({
             component: require('@/components/pages/ModuleBibliotecaLivroPage.vue').default
         },
         {
-            path: '/game/escrever/geral/carta',
-            name: 'letter',
-            component: require('@/components/pages/LetterPage.vue').default
-        },
-        {
-            path: '/game/escrever/geral/lista',
-            name: 'list',
-            component: require('@/components/pages/ListPage.vue').default
-        },
-        {
-            path: '/game/escrever/geral/cartao-de-aniversario',
-            name: 'birthday-card',
-            component: require('@/components/pages/BirthdayCardPage.vue').default
-        },
-        {
-            path: '/game/escrever/geral/editor-de-texto',
-            name: 'text-editor',
-            component: require('@/components/pages/TextEditorPage.vue').default
-        },
-        {
-            path: '/game/escrever/geral/jornal',
-            name: 'journal',
-            component: require('@/components/pages/JournalPage.vue').default
+            path: '/game/escrever/geral/:escrever_id',
+            name: 'write-module',
+            component: require('@/components/pages/ModuleEscreverPage.vue').default
         },
         {
             path: '/game/:module_slug/:target_audience',
