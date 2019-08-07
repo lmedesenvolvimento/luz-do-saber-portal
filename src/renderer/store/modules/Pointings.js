@@ -40,11 +40,10 @@ const mutations = {
         Vue.set(state, type, data)
     },
     reset(state){
-        Vue.set(state, 'activities', Object.assign({}))
-        Vue.set(state, 'units', {}, Object.assign({}))
-        Vue.set(state, 'themes', {}, Object.assign({}))
-        Vue.set(state, 'modules', {}, Object.assign({}))
-        console.log('IS DISPATCH')
+        Vue.set(state, 'activities', {})
+        Vue.set(state, 'units', {})
+        Vue.set(state, 'themes', {},)
+        Vue.set(state, 'modules', {})
     }
 }
 
@@ -76,7 +75,6 @@ const actions = {
         }
     },
     resetPointings({ commit }){
-        console.log('resetPointings')
         commit('reset')
     }
 }
