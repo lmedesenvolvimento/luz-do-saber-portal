@@ -4,9 +4,9 @@
         class="page-container escrever"
     >
         <navbar
-            navbar-title="Módulo Escrever"
-            :navbar-subtitle="'Temas'"
-            :navbar-icon="getModuleImage"
+            :navbar-title="getModule.title"
+            :navbar-subtitle="''"
+            :navbar-icon="getModule.icon"
         />         
         <div>      
             <p>{{ getModule.title }}</p>
