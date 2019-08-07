@@ -110,6 +110,7 @@ export default {
                     data: transferData.id,
                     vm: this
                 })
+                console.log(transferData.text + '/' + vm.item.text);
             } else {
                 vm.invalid = true;
                 transferData.invalid = true
