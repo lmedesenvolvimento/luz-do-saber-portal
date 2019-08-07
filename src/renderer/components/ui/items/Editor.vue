@@ -70,17 +70,17 @@
         </div>
         <div id="editor"></div>
         <div id="editor-footer" class="linha">
-            <b-button class="btn-editor">
-                <img :src="newText" alt="Lista ordenada" class="icon">
+            <b-button class="btn-editor" @click="newLetter">
+                <img :src="newText" alt="Novo" class="icon">
             </b-button>
-            <b-button class="btn-editor">
-                <img :src="save" alt="Lista ordenada" class="icon">
+            <b-button class="btn-editor" @click="saveLetter">
+                <img :src="save" alt="Salvar" class="icon">
             </b-button>
-            <b-button class="btn-editor">
-                <img :src="print" alt="Lista ordenada" class="icon">
+            <b-button class="btn-editor" @click="printLetter">
+                <img :src="print" alt="Imprimir" class="icon">
             </b-button>
-            <b-button class="btn-editor">
-                <img :src="gallery" alt="Lista ordenada" class="icon">
+            <b-button class="btn-editor" @click="openGallery">
+                <img :src="gallery" alt="Galeria" class="icon">
             </b-button>
         </div>
     </div>
@@ -97,6 +97,13 @@ Quill.register(Font, true);
 
 export default {
     components: { ...FormProps },
+    data() {
+        return {
+            text: String,
+            length: Number,
+            quill: Object
+        }
+    },
     computed: {
         bold() {
             return require('@/assets/images/icons/escrever/editor/N.png')
@@ -137,13 +144,13 @@ export default {
 
     },
     mounted() {
-        var quill = new Quill('#editor', {
+        this.quill = new Quill('#editor', {
             modules: {
                 toolbar: '#toolbar'
             },
             placeholder: 'Insira seu texto aqui!'
         });
-        quill.focus();
+        this.quill.focus();
     },
     methods: {
         fontChange(el) {
@@ -155,6 +162,19 @@ export default {
                 el.srcElement.classList.remove('ql-font-Roboto')
                 el.srcElement.classList.add('ql-font-Montserrat')
             }
+        },
+        newLetter(){
+
+        },
+        saveLetter(){
+            this.text = this.quill.getText();
+            console.log(this.text)
+        },
+        openGallery(){
+
+        },
+        printLetter(){
+
         }
     },
 }
