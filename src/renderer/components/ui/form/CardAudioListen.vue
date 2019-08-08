@@ -6,7 +6,7 @@
                     <card-display>                                          
                         <slot>  
                             <b-col>
-                                <b-row>
+                                <b-row align-v="center">
                                     <b-col cols="7">
                                         <pre>{{ item.text }}</pre>
                                     </b-col>
