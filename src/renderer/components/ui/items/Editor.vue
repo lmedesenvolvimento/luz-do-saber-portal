@@ -70,7 +70,7 @@
         </div>
         <div id="editor"></div>
         <div id="editor-footer" class="linha">
-            <b-button class="btn-editor" @click="newLetter">
+            <b-button v-b-modal.modal-center class="btn-editor" @click="newLetter">
                 <img :src="newText" alt="Novo" class="icon">
             </b-button>
             <b-button class="btn-editor" @click="saveLetter">
@@ -83,6 +83,9 @@
                 <img :src="gallery" alt="Galeria" class="icon">
             </b-button>
         </div>
+        <b-modal id="modal-center" v-model="modalShow" centered title="Apagar carta e começar uma nova">
+            <p class="my-4">Tem certeza de que deseja começar uma nova carta? O que você já escreveu será descartado se não for salvo antes</p>
+        </b-modal>
     </div>
 </template>
 <script>
@@ -101,7 +104,8 @@ export default {
         return {
             text: String,
             length: Number,
-            quill: Object
+            quill: Object,
+            modalShow: false
         }
     },
     computed: {
@@ -164,7 +168,10 @@ export default {
             }
         },
         newLetter(){
-
+            this.length = this.quill.getLength()
+            if  (this.quill.getText() !== '\n' && this.length > 0){
+                this.modalShow = !this.modalShow               
+            }
         },
         saveLetter(){
             this.text = this.quill.getText();
