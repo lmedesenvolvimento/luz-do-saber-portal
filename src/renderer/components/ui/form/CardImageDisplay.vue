@@ -2,7 +2,7 @@
     <div class="card--display" :class="$attrs.class">
         <b-card
             :class="imgSize"
-            class="card-image-display img-medium"
+            class="card-image-display"
             no-body
         >
             <b-card-body>
@@ -27,7 +27,6 @@ export default {
     },
     computed: {
         imgSize(){
-            console.log(this.template.font_size)
             switch(this.template.font_size){
             case 'small':
                 return 'img-small';
