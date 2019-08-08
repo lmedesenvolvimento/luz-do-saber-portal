@@ -25,9 +25,10 @@
 import RadioInput from './RadioInput.vue'
 export default {
     mixins: [RadioInput],
-    data () {
-        return {
-            uri: 'https://luz-do-saber-staging.herokuapp.com/audios/comecar/meu-nome/meu-primeiro-nome/1.mp3',
+    props: {
+        uri: {
+            type: String,
+            required: true,
         }
     },
     computed: {
