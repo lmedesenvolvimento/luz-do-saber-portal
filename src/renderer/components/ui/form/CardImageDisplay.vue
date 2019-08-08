@@ -1,7 +1,8 @@
 <template>
     <div class="card--display" :class="$attrs.class">
         <b-card
-            class="card-image-display"
+            :class="imgSize"
+            class="card-image-display img-medium"
             no-body
         >
             <b-card-body>
@@ -25,6 +26,20 @@ export default {
         template: Object
     },
     computed: {
+        imgSize(){
+            console.log(this.template.font_size)
+            switch(this.template.font_size){
+            case 'small':
+                return 'img-small';
+                break;
+            case 'medium':
+                return 'img-medium';
+                break;
+            default:
+                return '';
+                break;
+            }
+        },
         picture(){
             return this.item.images.length ? this.item.images[0].url : 'https://picsum.photos/300/200'
         },
@@ -35,4 +50,12 @@ export default {
 }
 </script>
 <style>
+.img-small{
+    width: 58px;
+    height: 58px;
+}
+.img-medium{
+    width: 74px;
+    height: 74px;
+}
 </style>
