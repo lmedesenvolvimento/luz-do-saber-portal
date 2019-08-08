@@ -86,9 +86,6 @@ export default {
         }
     },
     computed: {
-        getModuleImage(){
-            return require('@/assets/images/btn-write.png')
-        },
         book(){
             const id = parseInt(this.$route.params.livro_id)
             const book = this.$store.getters['Books/getBookById'](id)
@@ -104,7 +101,6 @@ export default {
         }
     },
     created() {
-        console.log(this.book)
         for (let i = 0; i < this.book.pages.length; i++) {
             let image = {
                 key: 'imagem ' + (i + 1),
@@ -121,6 +117,7 @@ export default {
 
             picture.src = this.book.pages[i].url
         }
+        this.getPosition = this.book.lastPage || 0
         this.image = this.images[this.getPosition]
         this.image.visible = true
         if (!Element.prototype.requestFullscreen) {
@@ -153,9 +150,6 @@ export default {
         toPage (index) {
             this.getPosition = index
             this.image = this.images[this.getPosition]
-        },
-        download() {
-            console.log('test')
         },
         maximize() {
             var elem = document.querySelector('body')
