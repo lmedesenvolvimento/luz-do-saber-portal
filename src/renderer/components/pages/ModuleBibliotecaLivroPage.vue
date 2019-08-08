@@ -15,13 +15,16 @@
                 <div class="gameplay-body">
                     <div class="col-flow image-viewer">
                         <figure class="image fill">
-                            <transition-group name="fade">
-                                <div v-for="image in images" v-show="isVisible(image)" :key="image.key" class="img-wrap fill" :class="{'division' : !notSingle(image)}">
-                                    <viewer :options="viewerOpts">
-                                        <slot name="image">
-                                            <img :src="image.source">
-                                        </slot>
-                                    </viewer>
+                            <transition-group class="transition-span" name="fade">
+                                <div v-for="image in images" v-show="isVisible(image)" :key="image.key" class="img-wrap fill">
+                                    <div class="lazy-load" v-if="image.loaded" :class="{'division' : !notSingle(image)}">
+                                        <viewer :options="viewerOpts">
+                                            <slot name="image">
+                                                <img :src="image.source">
+                                            </slot>
+                                        </viewer>
+                                    </div>
+                                    <b-spinner v-else label="Carregando..." variant="warning"></b-spinner>
                                 </div>
                             </transition-group>
                         </figure>
@@ -42,7 +45,7 @@
                     <div class="footer-info" v-if="!fullscreen">                        
                         <div v-b-tooltip="{ title:'Capa do Livro', container: '.footer-info'}" class="btn-book cover" @click.stop="toPage(0)"></div>
                         <div v-b-tooltip="{ title:'Informações', container: '.footer-info'}" class="btn-book info" @click.stop="toPage(images.length-1)"></div>
-                        <a v-b-tooltip="{ title:'Download', trigger: 'hover click', container: '.footer-info'}" :href="book.pdf_url" :download="book.title" class="btn-book download"></a>
+                        <a v-b-tooltip="{ title:'Download', trigger: 'hover', container: '.footer-info'}" :href="book.pdf_url" :download="book.title" class="btn-book download"></a>
                         <div v-b-tooltip="{ title:'Tela Cheia', container: '.footer-info'}" class="btn-book maximize" @click.stop="maximize"></div>
                     </div>
                 </div>
@@ -103,11 +106,20 @@ export default {
     created() {
         console.log(this.book)
         for (let i = 0; i < this.book.pages.length; i++) {
-            this.images.push({
+            let image = {
                 key: 'imagem ' + (i + 1),
                 source: this.book.pages[i].url,
-                visible: false
-            })
+                loaded: false
+            }
+            this.images.push(image)
+
+            let picture =  new Image()
+            
+            picture.onload = () => {
+                image.loaded = true
+            }
+
+            picture.src = this.book.pages[i].url
         }
         this.image = this.images[this.getPosition]
         this.image.visible = true
@@ -150,11 +162,11 @@ export default {
 
             if(this.fullscreen===''){
                 this.fullscreen = 'fullscreen'
-                // elem.requestFullscreen()
+                elem.requestFullscreen()
             }
             else{
                 this.fullscreen = ''
-                // document.exitFullscreen()
+                document.exitFullscreen()
             }
             
         },
@@ -238,6 +250,13 @@ export default {
                 height: 100%;
             }
         }
+        .image-viewer{
+            .image{
+                .transition-span{
+                    height: 100%;
+                }
+            }
+        }
     }
 }
 
@@ -251,7 +270,7 @@ export default {
 .gameplay-footer{
     display: flex;
     align-items: center;
-    max-height: 70px;
+    max-height: 90px;
 }
 
 .bar{
@@ -313,18 +332,23 @@ export default {
 .image-viewer{
     .image{
         position: relative;
-        span{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .transition-span{
             display: flex;
             align-items: center;
             justify-content: center;
             width: 100%;
-            height: 100%;
+            height: 70%;
+            position: relative;
             .division::after{
-                background: linear-gradient(to right, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 45%,rgba(0,0,0,0.2) 50%,rgba(0,0,0,0) 100%);
+                background: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0) 100%);
                 content: "";
-                height: 74%;
-                width: 2em;
+                height: 100%;
+                width: 10em;
                 position: absolute;
+                mix-blend-mode: multiply;
             }
         }
         .img-wrap{
@@ -334,20 +358,23 @@ export default {
             display: flex;
             div{
                 width: auto;
-                height: 80%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
             img {
                 height: 100%; 
                 width: 100%; 
                 object-fit: contain;
-                filter: drop-shadow(0 0 0.75rem #252525);
+                filter: drop-shadow(rgba(132, 132, 132, 0.8) -10px 0px 1rem);
             }
         }
     }
 }
 
 .fade-enter-active, .fade-leave-active {
-    transition: opacity .5s;
+    transition: opacity 0.2s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
     opacity: 0;
