@@ -3,8 +3,8 @@
         <div v-if="isPlayerWithImage">
             <div class="card--text-audio">
                 <div :class="activity.item_template.key.font_size" class="text-audio-image-box">
-                    <card-display>                                          
-                        <slot>  
+                    <card-display>
+                        <slot>
                             <b-col>
                                 <b-row align-v="center">
                                     <b-col cols="7">
@@ -13,13 +13,13 @@
                                     <b-col>
                                         <async-image :src="item.images.length ? item.images[0].url : null" />
                                     </b-col>
-                                </b-row>   
-                            </b-col> 
+                                </b-row>
+                            </b-col>
                             <hr>
-                            <card-audio ref="plyr" :item="item" class="plyr-flat" /> 
-                        </slot>                        
+                            <card-audio ref="plyr" :item="item" class="plyr-flat" />
+                        </slot>
                     </card-display>
-                </div>                    
+                </div>
             </div>
         </div>
         <div v-else class="card--text-audio">
@@ -80,11 +80,14 @@ export default {
     props: {
         item: Object,
         template: Object,
+        uri: {
+            type: String,
+            required: true
+        }
     },
     data(){
         return {
-            valid: false,
-            uri: 'https://luz-do-saber-staging.herokuapp.com/audios/comecar/meu-nome/meu-primeiro-nome/1.mp3',
+            valid: false
         }
     },
     computed:{
@@ -114,7 +117,7 @@ export default {
         ...mapActions('Activity', ['triggerSuccess']),
         ended(){
             this.valid = true
-            
+
             if(this.isPlayerWithImage){
                 this.triggerSuccess();
             } else {
@@ -124,9 +127,9 @@ export default {
                     vm: this
                 })
             }
-        },        
+        },
     },
-    
+
 }
 </script>
 
