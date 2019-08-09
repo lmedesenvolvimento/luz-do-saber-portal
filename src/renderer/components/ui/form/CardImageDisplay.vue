@@ -48,7 +48,7 @@ export default {
     }
 }
 </script>
-<style>
+<style lang="scss">
 .img-small{
     width: 58px;
     height: 58px;
@@ -56,5 +56,6 @@ export default {
 .img-medium{
     width: 74px;
     height: 74px;
+    margin: -8px;
 }
 </style>
