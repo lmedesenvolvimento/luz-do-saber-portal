@@ -12,9 +12,10 @@
                         /> -->
                         <ls-card-audio-listen-with-player
                             :item="item"
+                            :uri="item.audios.length ? item.audios[0].url : ''"
                             :template="activity.item_template.key"
                         >
-                            <async-image src="https://picsum.photos/300/200" :alt="getKeys[0].text" />
+                            <async-image :src="item.images.length ? item.images[0].url : ''" :alt="getKeys[0].text" />
                             <!-- {{ item.letters[0].text }} -->
                         </ls-card-audio-listen-with-player>
                     </b-col>
