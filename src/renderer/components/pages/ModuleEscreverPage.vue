@@ -8,12 +8,12 @@
             :navbar-subtitle="''"
             :navbar-icon="getModuleImage"
         />
-        <div v-if="getModule.key === 'carta'">
+        <div v-if="getModule.key === 'editor'">
             <editor></editor>
         </div>
-        <!-- <div class="page-container-wrap-spacing">
+        <div v-else class="page-container-wrap-spacing">
             <p>{{ getModule.title }}</p>
-        </div> -->
+        </div>
     </div>
 </template>
 
