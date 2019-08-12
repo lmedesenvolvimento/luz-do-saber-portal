@@ -4,7 +4,7 @@
         class="page-container escrever"
     >
         <navbar
-            navbar-title="Escrever"
+            :navbar-title="getModule.title"
             :navbar-subtitle="''"
             :navbar-icon="getModuleImage"
         />
@@ -26,7 +26,7 @@ export default {
     computed: {
         getModuleImage(){
             return require('@/assets/images/btn-write.png')
-        },
+        },        
         getModule(){
             console.log(this.$route.params)
             return this.$store.getters['WriteModule/getWriteModuleByRef'](this.$route.params.escrever_id)
@@ -36,5 +36,5 @@ export default {
 </script>
 
 <style>
-
+    
 </style>
