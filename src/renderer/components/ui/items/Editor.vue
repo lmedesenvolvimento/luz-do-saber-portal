@@ -24,14 +24,14 @@
                     <ls-card-display>
                         <div>
                             <div class="linha">
-                                <button class="ql-bold btn-editor coluna b-right">
-                                    <img :src="bold" alt="Negrito">
+                                <button class="ql-bold btn-editor coluna b-right" @click="selectButton">
+                                    <img class="btn-image" :src="bold" alt="Negrito">
                                 </button>
-                                <button class="ql-italic btn-editor coluna b-right">
-                                    <img :src="italic" alt="Itálico">
+                                <button class="ql-italic btn-editor coluna b-right" @click="selectButton">
+                                    <img class="btn-image" :src="italic" alt="Itálico">
                                 </button>
-                                <button class="ql-underline btn-editor coluna">
-                                    <img :src="underline" alt="Sublinhado">
+                                <button class="ql-underline btn-editor coluna" @click="selectButton">
+                                    <img class="btn-image" :src="underline" alt="Sublinhado">
                                 </button>
                             </div>
                         </div>
@@ -40,14 +40,14 @@
                 <div class="button-contaniner">
                     <ls-card-display>
                         <div class="linha">
-                            <button class="ql-align btn-editor coluna b-right" selected>
-                                <img :src="left" alt="Alinhamento à esquerda">
+                            <button class="ql-align btn-editor coluna b-right" selected @click="selectButton">
+                                <img class="btn-image" :src="left" alt="Alinhamento à esquerda">
                             </button>
-                            <button class="ql-align btn-editor coluna b-right" value="center">
-                                <img :src="center" alt="Alinhamento ao centro">
+                            <button class="ql-align btn-editor coluna b-right" value="center" @click="selectButton">
+                                <img class="btn-image" :src="center" alt="Alinhamento ao centro">
                             </button>
-                            <button class="ql-align btn-editor coluna" value="right">
-                                <img :src="right" alt="Alinhamento à direita">
+                            <button class="ql-align btn-editor coluna" value="right" @click="selectButton">
+                                <img class="btn-image" :src="right" alt="Alinhamento à direita">
                             </button>
                         </div>
                     </ls-card-display>
@@ -56,11 +56,11 @@
                     <ls-card-display>
                         <span class="ql-formats">
                             <div class="linha">
-                                <button class="ql-list btn-editor coluna b-right" value="bullet">
-                                    <img :src="bullet" alt="Lista não ordenada">
+                                <button class="ql-list btn-editor coluna b-right" value="bullet" @click="selectButton">
+                                    <img class="btn-image" :src="bullet" alt="Lista não ordenada">
                                 </button>
-                                <button class="ql-list btn-editor coluna" value="ordered">
-                                    <img :src="ordered" alt="Lista ordenada">
+                                <button class="ql-list btn-editor coluna" value="ordered" @click="selectButton">
+                                    <img class="btn-image" :src="ordered" alt="Lista ordenada">
                                 </button>
                             </div>
                         </span>
@@ -167,6 +167,15 @@ export default {
                 el.srcElement.classList.add('ql-font-Montserrat')
             }
         },
+        selectButton(btn){
+            console.log(btn.srcElement.parentNode)
+            if (btn.srcElement.classList.contains('btn-image')){
+                if (!btn.srcElement.parentNode.classList.contains('btn-selected'))
+                    btn.srcElement.parentNode.classList.add('btn-selected')
+                else
+                    btn.srcElement.parentNode.classList.remove('btn-selected')
+            }
+        },
         newLetter(){
             this.length = this.quill.getLength()
             if  (this.quill.getText() !== '\n' && this.length > 0){
@@ -174,8 +183,8 @@ export default {
             }
         },
         saveLetter(){
-            this.text = this.quill.getText();
-            console.log(this.text)
+            if (this.quill.getText() !== '\n')
+                this.text = this.quill.getText();
         },
         openGallery(){
 
@@ -249,7 +258,7 @@ export default {
         max-height: 90px;
     }
     .card-body{
-        padding: 0.3rem;
+        padding: 0.25rem;
     }
     .ql-font{
         height: 40px;
@@ -279,6 +288,9 @@ export default {
         flex-grow: 1;
         justify-content: center;
         align-items: center;
+    }
+    .btn-selected{
+        background-color: rgba(102, 102, 102, 0.34)
     }
 }
 </style>
