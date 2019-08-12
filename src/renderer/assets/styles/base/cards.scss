@@ -40,7 +40,9 @@
     }
     &:not(.plyr-flat){
         margin: auto;
-        width: 360px;
+        width: 100%;
+        min-width: 200px;
+        max-width: 360px;
     }
     &:not(.plyr-flat)::before {
         position: relative;
