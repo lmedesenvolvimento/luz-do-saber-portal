@@ -24,13 +24,13 @@
                     <ls-card-display>
                         <div>
                             <div class="linha">
-                                <button class="ql-bold btn-editor coluna b-right" @click="selectButton">
+                                <button class="ql-bold btn-editor coluna b-right e-border-left" @click="selectButton">
                                     <img class="btn-image" :src="bold" alt="Negrito">
                                 </button>
                                 <button class="ql-italic btn-editor coluna b-right" @click="selectButton">
                                     <img class="btn-image" :src="italic" alt="Itálico">
                                 </button>
-                                <button class="ql-underline btn-editor coluna" @click="selectButton">
+                                <button class="ql-underline btn-editor coluna e-border-right" @click="selectButton">
                                     <img class="btn-image" :src="underline" alt="Sublinhado">
                                 </button>
                             </div>
@@ -40,13 +40,13 @@
                 <div class="button-contaniner">
                     <ls-card-display>
                         <div class="linha">
-                            <button class="ql-align btn-editor coluna b-right" selected @click="selectButton">
+                            <button class="ql-align btn-editor coluna b-right e-border-left" selected @click="selectButton">
                                 <img class="btn-image" :src="left" alt="Alinhamento à esquerda">
                             </button>
                             <button class="ql-align btn-editor coluna b-right" value="center" @click="selectButton">
                                 <img class="btn-image" :src="center" alt="Alinhamento ao centro">
                             </button>
-                            <button class="ql-align btn-editor coluna" value="right" @click="selectButton">
+                            <button class="ql-align btn-editor coluna e-border-right" value="right" @click="selectButton">
                                 <img class="btn-image" :src="right" alt="Alinhamento à direita">
                             </button>
                         </div>
@@ -56,10 +56,10 @@
                     <ls-card-display>
                         <span class="ql-formats">
                             <div class="linha">
-                                <button class="ql-list btn-editor coluna b-right" value="bullet" @click="selectButton">
+                                <button class="ql-list btn-editor coluna b-right e-border-left" value="bullet" @click="selectButton">
                                     <img class="btn-image" :src="bullet" alt="Lista não ordenada">
                                 </button>
-                                <button class="ql-list btn-editor coluna" value="ordered" @click="selectButton">
+                                <button class="ql-list btn-editor coluna e-border-right" value="ordered" @click="selectButton">
                                     <img class="btn-image" :src="ordered" alt="Lista ordenada">
                                 </button>
                             </div>
@@ -71,15 +71,15 @@
         <div id="editor"></div>
         <div id="editor-footer" class="linha">
             <b-button v-b-modal.modal-center class="btn-editor" @click="newLetter">
-                <img :src="newText" alt="Novo" class="icon">
+                <img v-b-tooltip="{ title:'Novo', trigger: 'hover', container: '#editor-footer'}" :src="newText" alt="Novo" class="icon">
             </b-button>
-            <b-button class="btn-editor" @click="saveLetter">
+            <b-button v-b-tooltip="{ title:'Salvar', trigger: 'hover', container: '#editor-footer'}" class="btn-editor" @click="saveLetter">
                 <img :src="save" alt="Salvar" class="icon">
             </b-button>
-            <b-button class="btn-editor" @click="printLetter">
+            <b-button v-b-tooltip="{ title:'Imprimir', trigger: 'hover', container: '#editor-footer'}" class="btn-editor" @click="printLetter">
                 <img :src="print" alt="Imprimir" class="icon">
             </b-button>
-            <b-button class="btn-editor" @click="openGallery">
+            <b-button v-b-tooltip="{ title:'Galeria', trigger: 'hover', container: '#editor-footer'}" class="btn-editor" @click="openGallery">
                 <img :src="gallery" alt="Galeria" class="icon">
             </b-button>
         </div>
@@ -234,6 +234,24 @@ export default {
                 cursor: pointer;
             }
         }
+        .tooltip{
+            filter: drop-shadow(0 2px 0.7rem #AEAEAE);
+            .tooltip-inner{
+                @include itim_regular;
+                background-color: #FDFDFD;
+                color: #676767;
+                font-size: 1rem;      
+                text-transform: uppercase;
+                padding: 8px 20px;
+                border-radius: 20px;
+            }
+            .arrow{
+                &::before{
+                    border-width: 0.8rem 0.5rem 0;
+                    border-top-color: #fff;                
+                }
+            }
+        }
     }
     .ql-font-Montserrat {
         font-family: 'Montserrat', sans-serif;
@@ -290,7 +308,15 @@ export default {
         align-items: center;
     }
     .btn-selected{
-        background-color: rgba(102, 102, 102, 0.34)
+        background-color: rgba(102, 102, 102, 0.24)
+    }
+    .e-border-left{
+        border-top-left-radius: 0.5rem;
+        border-bottom-left-radius: 0.5rem;
+    }
+    .e-border-right{
+        border-top-right-radius: 0.5rem;
+        border-bottom-right-radius: 0.5rem;
     }
 }
 </style>
