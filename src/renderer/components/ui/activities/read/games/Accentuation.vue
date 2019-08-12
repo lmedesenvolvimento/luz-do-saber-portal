@@ -67,8 +67,7 @@ export default {
         this.getKeys.forEach(key => {
             this.getValues.forEach(value => {
                 if(key.id === value.key_id) {
-                    this.symbols.push({text: value.text});
-                    this.symbols[this.symbols.length-1].correct = false
+                    this.symbols.push({text: value.text, correct: false});
                 }                
             });
         });
