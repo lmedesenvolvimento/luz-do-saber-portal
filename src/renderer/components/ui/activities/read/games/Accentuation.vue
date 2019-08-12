@@ -73,16 +73,7 @@ export default {
         });
     },
     methods: {
-        normalizeWord (word) {
-            return word.split('').map(function (letter) {
-                let i = this.accents.indexOf(letter)
-                return (i !== -1) ? this.out[i] : letter
-            }.bind({
-                accents: 'ÀÁÂÃÄÅĄàáâãäåąßÒÓÔÕÕÖØÓòóôõöøóÈÉÊËĘèéêëęðÇĆçćÐÌÍÎÏìíîïÙÚÛÜùúûüÑŃñńŠŚšśŸÿýŽŻŹžżź',
-                out: 'AAAAAAAaaaaaaaBOOOOOOOOoooooooEEEEEeeeeeeCCccDIIIIiiiiUUUUuuuuNNnnSSssYyyZZZzzz'
-            })
-            ).join('')
-        }
+        
     }
 }
 </script>
