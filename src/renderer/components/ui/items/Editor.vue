@@ -79,10 +79,8 @@
             <b-button v-b-tooltip="{ title:'Imprimir', trigger: 'hover', container: '#editor-footer'}" class="btn-editor" @click="printLetter">
                 <img :src="print" alt="Imprimir" class="icon">
             </b-button>
-            <b-button v-b-tooltip="{ title:'Galeria', trigger: 'hover', container: '#editor-footer'}" class="btn-editor" @click="openGallery">
-                <img :src="gallery" alt="Galeria" class="icon">
-            </b-button>
         </div>
+        <!-- Modal Place Holder -->
         <b-modal id="modal-center" v-model="modalShow" centered title="Apagar carta e começar uma nova">
             <p class="my-4">Tem certeza de que deseja começar uma nova carta? O que você já escreveu será descartado se não for salvo antes</p>
         </b-modal>
@@ -92,11 +90,26 @@
 import Quill from 'quill';
 import FormProps from '@ui/form'
 import 'quill/dist/quill.snow.css';
-
+import Vue from 'vue';
+import VueHtmlToPaper from 'vue-html-to-paper';
 const Font = Quill.import('formats/font');
 
 Font.whitelist = ['Montserrat', 'Roboto'];
 Quill.register(Font, true);
+
+const options = {
+    name: '_blank',
+    specs: [
+        'fullscreen=yes',
+        'titlebar=yes',
+        'scrollbars=yes'
+    ],
+    styles: [
+        'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
+        'https://unpkg.com/kidlat-css/css/kidlat.css'
+    ]
+};
+Vue.use(VueHtmlToPaper, options);
 
 export default {
     components: { ...FormProps },
@@ -142,9 +155,6 @@ export default {
         print() {
             return require('@/assets/images/icons/escrever/editor/imprimir escrever.png')
         },
-        gallery() {
-            return require('@/assets/images/icons/escrever/editor/galeria escrever.png')
-        },
 
     },
     mounted() {
@@ -186,11 +196,9 @@ export default {
             if (this.quill.getText() !== '\n')
                 this.text = this.quill.getText();
         },
-        openGallery(){
-
-        },
         printLetter(){
-
+            // console.log( this.quill.container.innerHTML )
+            this.$htmlToPaper('editor', options)
         }
     },
 }
