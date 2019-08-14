@@ -55,5 +55,5 @@ export default {
     'ls-display-18-items': require('./custom/Display18Items.vue').default,
     'ls-item-texto-em-blocos': require('./custom/TextoEmBlocos.vue').default,
     'ls-item-inicial-amigos': require('./custom/InicialAmigos.vue').default,
-    'ls-item-journal': require('./Editor.vue').default,
+    'ls-item-journal': require('./Journal.vue').default,
 }

@@ -8,7 +8,7 @@
             :navbar-subtitle="''"
             :navbar-icon="getModuleImage"
         />
-        <div v-if="getModule.key === 'journal'">
+        <div v-if="getModule.key === 'jornal'">
             <journal></journal>
         </div>
         <div v-else class="page-container-wrap-spacing">    
