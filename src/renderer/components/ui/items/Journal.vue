@@ -3,12 +3,16 @@
         <div class="journal">
             <div class="journal-page-container">
                 <div v-if="singlePage" class="journal-page">
-                    <div class="journal-decoration-1"/>
-                    <div class="journal-decoration-2"/>
+                    <div class="journal-decoration-1" />
+                    <div class="journal-decoration-2" />
                     <div class="journal-content">
-                    
+                        <div class="journal-header-title">
+                            <h2>INSIRA O NOME DO JORNAL</h2>
+                        </div>
+                        <div class="journal-header-image">
+                        </div>
                     </div>
-                    <div class="journal-decoration-1"/>
+                    <div class="journal-decoration-1" />
                 </div>
             </div>
         </div>
@@ -39,11 +43,9 @@ export default {
         padding: 15px 45px 15px 45px; 
     }
     .journal-page{
-        border: solid 3px;
-        border-color: #dddddd;
         border-radius: 3px;
-        background-color: #eeeeee;
-        padding: 5px;
+        background-color: #cccccc;
+        padding: 10px 5px 5px 5px;
     }
     .journal-page-container{
         border: solid 3px;
@@ -66,10 +68,20 @@ export default {
         margin-bottom: 5px; 
     } 
     .journal-content{
-        background-image: linear-gradient(-90deg,white, #dddddd);
+        background-image: linear-gradient(-90deg,white, #dedede);
         height: 450px;
         margin-bottom: 5px; 
     }   
+    .journal-header-title{
+        text-align: center;
+        padding: 15px 0 15px 0;
+    }    
+    .journal-header-image{
+        margin: 0 10px 0 10px;
+        border: solid 5px;
+        border-color: #cccccc;
+        height: 150px;
+    }
     .journal-footer{
         display: flex;
         align-items: center;
