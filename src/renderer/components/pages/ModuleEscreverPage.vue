@@ -6,9 +6,12 @@
         <navbar
             :navbar-title="getModule.title"
             :navbar-subtitle="''"
-            :navbar-icon="getModule.icon"
-        />         
-        <div>      
+            :navbar-icon="getModuleImage"
+        />
+        <div v-if="getModule.key === 'journal'">
+            <journal></journal>
+        </div>
+        <div v-else class="page-container-wrap-spacing">    
             <p>{{ getModule.title }}</p>
         </div>
     </div>
@@ -16,8 +19,9 @@
 
 <script>
 import Navbar from '../ui/navbars/Navbar'
+import Journal from '../ui/items/Journal'
 export default {
-    components: { Navbar },
+    components: { Navbar, Journal },
     computed: {
         getModuleImage(){
             return require('@/assets/images/btn-write.png')
