@@ -65,7 +65,7 @@ export default {
         border-radius: 2px; 
         margin-top: 5px; 
         height: 20px;
-        margin-bottom: 5px; 
+        margin-bottom: 10px; 
     } 
     .journal-content{
         background-image: linear-gradient(-90deg,white, #dedede);
@@ -77,7 +77,7 @@ export default {
         padding: 15px 0 15px 0;
     }    
     .journal-header-image{
-        margin: 0 10px 0 10px;
+        margin: 0 7px 0 7px;
         border: solid 5px;
         border-color: #cccccc;
         height: 150px;
