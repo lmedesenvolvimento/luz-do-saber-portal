@@ -7,9 +7,27 @@
                     <div class="journal-decoration-2" />
                     <div class="journal-content">
                         <div class="journal-header-title">
-                            <h2>INSIRA O NOME DO JORNAL</h2>
+                            <h3>INSIRA O NOME DO JORNAL</h3>
                         </div>
                         <div class="journal-header-image">
+                        </div>
+                        <div>
+                            <div class="journal-header-story-left">
+                                <div class="journal-header-story-title">
+                                    <h5>TÍTULO DO LADO ESQUERDO</h5>
+                                </div>
+                                <div class="journal-header-story-subtitle">
+                                    <p>Insira o conteúdo da matéria do lado esquerdo</p>
+                                </div>
+                            </div>                                
+                            <div class="journal-header-story-right">
+                                <div class="journal-header-story-title">
+                                    <h5>TÍTULO DO LADO ESQUERDO</h5>
+                                </div>
+                                <div class="journal-header-story-subtitle">
+                                    <p>Insira o conteúdo da matéria do lado esquerdo</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="journal-decoration-1" />
@@ -74,13 +92,29 @@ export default {
     }   
     .journal-header-title{
         text-align: center;
-        padding: 15px 0 15px 0;
+        padding: 20px 0 12px 0;       
     }    
     .journal-header-image{
         margin: 0 7px 0 7px;
         border: solid 5px;
         border-color: #cccccc;
-        height: 150px;
+        height: 170px;
+    }    
+    .journal-header-story-left{
+        width: 50%;
+        float: left;
+        border-right: solid;
+        height: 210px;
+        border-color: #cccccc;
+        padding: 10px;
+    }
+    .journal-header-story-right{
+        width: 50%;
+        float: right;
+        border-left: solid;
+        height: 210px;
+        border-color: #cccccc;
+        padding: 10px;
     }
     .journal-footer{
         display: flex;
