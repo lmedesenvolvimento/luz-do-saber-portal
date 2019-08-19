@@ -197,7 +197,10 @@ export default {
                 this.text = this.quill.getText();
         },
         printLetter(){
-            // console.log( this.quill.container.innerHTML )
+            if(!process.env.IS_WEB){
+                alert('Navegador não suportado!')
+                return;
+            }
             this.$htmlToPaper('editor', options)
         }
     },
