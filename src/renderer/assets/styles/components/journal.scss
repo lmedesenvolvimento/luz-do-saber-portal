@@ -81,8 +81,16 @@ $primary-font-color: #007CB2;
     }    
     .journal-page-1{
         margin-right: -15px;
-        .journal-page-1-title{
+        .journal-page-1-header{
             text-align: center;
+            .journal-page-1-title{
+                color: $primary-font-color;
+                font-size: 28px;
+                border: none;
+                background: none;
+                text-transform: uppercase;
+                text-align: center;
+            }
         }
         .journal-page-1-image{
             margin: 0 7px 0 7px;
@@ -179,6 +187,13 @@ $primary-font-color: #007CB2;
         text-transform: uppercase;
         overflow: hidden;
         resize: none;
+    }
+    .journal-input-story-subtitle{
+        font-size: 20px;
+        border: none;
+        background: none;
+        text-transform: uppercase;
+        text-align: center;
     }
     .journal-input-story-text{
         font-size: 16px;
