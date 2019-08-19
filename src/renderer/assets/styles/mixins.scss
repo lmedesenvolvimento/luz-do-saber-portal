@@ -176,6 +176,7 @@
     &.texto {
         [class*="card--"], .draggshadow {
             width: $value;
+            margin: auto;
         }
     }
     .card--display{
