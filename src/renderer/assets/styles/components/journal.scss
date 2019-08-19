@@ -1,4 +1,5 @@
 $bd-color: #cccccc;
+$primary-font-color: #007CB2;
 
 .journal{
     .journal-container{
@@ -26,12 +27,12 @@ $bd-color: #cccccc;
         width: 50%;       
     }    
     .journal-decoration-1{
-        background-color: #007CB2;
+        background-color: $primary-font-color;
         border-radius: 2px; 
         height: 5px;
     }
     .journal-decoration-2{
-        background-color: #007CB2;
+        background-color: $primary-font-color;
         border-radius: 2px; 
         margin-top: 5px; 
         height: 20px;
@@ -45,7 +46,15 @@ $bd-color: #cccccc;
     .journal-cover{
         .journal-cover-title{
             text-align: center;
-            padding: 20px 0 12px 0;       
+            padding: 20px 0 20px 0; 
+            input{
+                color: $primary-font-color;
+                font-size: 32px;
+                border: none;
+                background: none;
+                text-transform: uppercase;
+                text-align: center;
+            }      
         }    
         .journal-cover-image{
             margin: 0 7px 0 7px;
@@ -57,7 +66,7 @@ $bd-color: #cccccc;
             width: 50%;
             float: left;
             border-right: solid;
-            height: 210px;
+            height: 202px;
             border-color: $bd-color;
             padding: 10px;
         }
@@ -65,7 +74,7 @@ $bd-color: #cccccc;
             width: 50%;
             float: right;
             border-left: solid;
-            height: 210px;
+            height: 202px;
             border-color: $bd-color;
             padding: 10px;
         }
