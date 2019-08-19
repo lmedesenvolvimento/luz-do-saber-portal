@@ -81,8 +81,12 @@
             </b-button>
         </div>
         <!-- Modal Place Holder -->
-        <b-modal id="modal-center" v-model="modalShow" centered title="Apagar carta e começar uma nova">
+        <b-modal id="modal-center" ref="modal-center" v-model="modalShow" centered title="Apagar carta e começar uma nova" hide-footer>
             <p class="my-4">Tem certeza de que deseja começar uma nova carta? O que você já escreveu será descartado se não for salvo antes</p>
+            <div class="modal-footer">
+                <b-button class="btn-newletter" @click="newLetter2">Sim! Começar nova carta</b-button>
+                <b-button class="btn-closemodal" @click="closeModal">Cancelar</b-button>
+            </div>
         </b-modal>
     </div>
 </template>
@@ -106,7 +110,8 @@ const options = {
     ],
     styles: [
         'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
-        'https://unpkg.com/kidlat-css/css/kidlat.css'
+        'https://unpkg.com/kidlat-css/css/kidlat.css',
+        '~@/assets/styles/base/print.scss'
     ]
 };
 Vue.use(VueHtmlToPaper, options);
@@ -202,132 +207,17 @@ export default {
                 return;
             }
             this.$htmlToPaper('editor', options)
+        },
+        closeModal(){
+            this.$refs['modal-center'].hide()
+        },
+        newLetter2(){
+            this.quill.deleteText(0, this.quill.getLength());
+            this.text = ''
+            this.$refs['modal-center'].hide()
         }
     },
 }
 </script>
 <style lang="scss">
-@import url('https://fonts.googleapis.com/css?family=Montserrat|Roboto&display=swap');
-#custom-editor{
-    margin-top: 40px;
-    box-shadow: 1px 1px 20px #3a3a3a;
-    border-radius: 0px 0px 10px 10px;
-    #toolbar{
-        display: flex;
-        align-items: center;
-        min-height: 90px;
-        background-color: #fafafa;
-        border-bottom: 1px solid #ddd;
-    }
-    #editor{
-        background-color: white;
-        font-family: "Montserrat";
-        font-size: 18px;
-        max-width: 100%;
-        height: 500px;
-        text-transform: none;
-        .ql-editor{
-            height: 100%;
-            padding-left: 15px;
-            text-indent: 25px;
-        }
-    }
-    #editor-footer{
-        display: flex;
-        align-items: center;
-        min-height: 70px;
-        background-color: #fafafa;
-        border-top: 1px solid #ddd;
-        border-radius: 0px 0px 10px 10px;
-        .icon{
-            max-width: 60px;
-            &:hover{
-                cursor: pointer;
-            }
-        }
-        .tooltip{
-            filter: drop-shadow(0 2px 0.7rem #AEAEAE);
-            .tooltip-inner{
-                @include itim_regular;
-                background-color: #FDFDFD;
-                color: #676767;
-                font-size: 1rem;      
-                text-transform: uppercase;
-                padding: 8px 20px;
-                border-radius: 20px;
-            }
-            .arrow{
-                &::before{
-                    border-width: 0.8rem 0.5rem 0;
-                    border-top-color: #fff;                
-                }
-            }
-        }
-    }
-    .ql-font-Montserrat {
-        font-family: 'Montserrat', sans-serif;
-    }
-    .ql-font-Roboto {
-        font-family: 'Roboto', sans-serif;
-    }
-    .btn-editor {
-        background: Transparent no-repeat;
-        border: none;
-        cursor: pointer;
-        overflow: hidden;
-        outline:none;
-        font-size: 1.3rem;
-        color: #303030;
-        box-shadow: none !important;
-    }
-    .btn{
-        padding: 0;
-    }
-    .card--display{
-        max-height: 90px;
-    }
-    .card-body{
-        padding: 0.25rem;
-    }
-    .ql-font{
-        height: 40px;
-        flex-grow: 1;
-        width: 330px;
-        padding-left: 15px;
-    }
-    .ql-size{
-        width: 80px;
-        height: 40px;
-        padding-left: 10px;
-    }
-    .b-right{
-        border-right: solid black 1px;
-        height: 100%;
-    }
-    .coluna{
-        flex-grow: 1;
-        max-width: 100%;
-        height: 40px;
-    }
-    .button-contaniner{
-        margin-right: 25px;
-    }
-    .linha{
-        display: flex;
-        flex-grow: 1;
-        justify-content: center;
-        align-items: center;
-    }
-    .btn-selected{
-        background-color: rgba(102, 102, 102, 0.24)
-    }
-    .e-border-left{
-        border-top-left-radius: 0.5rem;
-        border-bottom-left-radius: 0.5rem;
-    }
-    .e-border-right{
-        border-top-right-radius: 0.5rem;
-        border-bottom-right-radius: 0.5rem;
-    }
-}
 </style>
