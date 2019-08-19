@@ -9,25 +9,53 @@
                             <div class="journal-decoration-2" />
                             <div class="journal-content">
                                 <div class="journal-cover-title">
-                                    <input v-model="coverTitle" type="text" placeholder="INSIRA O NOME DO JORNAL">
+                                    <input 
+                                        v-model="coverTitle" 
+                                        type="text" 
+                                        placeholder="Insira o nome do jornal"
+                                    />
                                 </div>
                                 <div class="journal-cover-image">
                                 </div>
                                 <div>
                                     <div class="journal-cover-story-left">
                                         <div class="journal-story-title">
-                                            <h5>Título do lado esquerdo</h5>
+                                            <textarea 
+                                                v-model="coverStoryLeftTitle" 
+                                                cols="17" rows="2" 
+                                                class="journal-input-story-title" 
+                                                type="text" 
+                                                placeholder="Título do lado esquerdo"
+                                            />
                                         </div>
                                         <div class="journal-story-subtitle">
-                                            <p>Insira o conteúdo da matéria do lado esquerdo</p>
+                                            <textarea 
+                                                v-model="coverStoryLeftText" 
+                                                cols="20" rows="7"
+                                                class="journal-input-story-text"
+                                                type="text" 
+                                                placeholder="Insira o conteúdo da matéria do lado esquerdo"
+                                            />
                                         </div>
                                     </div>                                
                                     <div class="journal-cover-story-right">
                                         <div class="journal-story-title">
-                                            <h5>Título do lado direito</h5>
+                                            <textarea 
+                                                v-model="coverStoryRightTitle" 
+                                                cols="17" rows="2" 
+                                                class="journal-input-story-title" 
+                                                type="text" 
+                                                placeholder="Título do lado direito"
+                                            />
                                         </div>
                                         <div class="journal-story-subtitle">
-                                            <p>Insira o conteúdo da matéria do lado direito</p>
+                                            <textarea 
+                                                v-model="coverStoryRightText" 
+                                                cols="20" rows="7"
+                                                class="journal-input-story-text"
+                                                type="text" 
+                                                placeholder="Insira o conteúdo da matéria do lado direito"
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -185,6 +213,12 @@ export default {
             coverStoryLeftText: '',
             coverStoryRightTitle: '',
             coverStoryRightText: '',
+            page1Title: '',
+            page1Subtitle: '',
+            page1StoryLeftTitle: '',
+            page1StoryLeftText: '',
+            page1StoryRightTitle: '',
+            page1StoryRightText: '',
         }
     },
     computed: {
