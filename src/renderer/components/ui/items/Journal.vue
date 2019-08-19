@@ -9,7 +9,7 @@
                             <div class="journal-decoration-2" />
                             <div class="journal-content">
                                 <div class="journal-cover-title">
-                                    <h3>INSIRA O NOME DO JORNAL</h3>
+                                    <input v-model="coverTitle" type="text" placeholder="INSIRA O NOME DO JORNAL">
                                 </div>
                                 <div class="journal-cover-image">
                                 </div>
@@ -179,7 +179,12 @@
 export default {
     data(){
         return {
-            pageName: 'capa'
+            pageName: 'capa',
+            coverTitle: '',
+            coverStoryLeftTitle: '',
+            coverStoryLeftText: '',
+            coverStoryRightTitle: '',
+            coverStoryRightText: '',
         }
     },
     computed: {
