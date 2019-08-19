@@ -1,3 +1,5 @@
+$bd-color: #cccccc;
+
 .journal{
     .journal-container{
         margin-top: 40px;
@@ -10,7 +12,7 @@
     }
     .journal-page{
         border-radius: 3px;
-        background-color: #cccccc;
+        background-color: $bd-color;
         padding: 10px 5px 5px 5px;
     }    
     .journal-page-container{
@@ -48,7 +50,7 @@
         .journal-cover-image{
             margin: 0 7px 0 7px;
             border: solid 5px;
-            border-color: #cccccc;
+            border-color: $bd-color;
             height: 170px;
         }    
         .journal-cover-story-left{
@@ -56,7 +58,7 @@
             float: left;
             border-right: solid;
             height: 210px;
-            border-color: #cccccc;
+            border-color: $bd-color;
             padding: 10px;
         }
         .journal-cover-story-right{
@@ -64,7 +66,7 @@
             float: right;
             border-left: solid;
             height: 210px;
-            border-color: #cccccc;
+            border-color: $bd-color;
             padding: 10px;
         }
     }    
@@ -76,7 +78,7 @@
         .journal-page-1-image{
             margin: 0 7px 0 7px;
             border: solid 5px;
-            border-color: #cccccc;
+            border-color: $bd-color;
             height: 210px;
         }  
         .journal-page-1-story-left{
@@ -84,7 +86,7 @@
             float: left;
             border-right: solid;
             height: 170px;
-            border-color: #cccccc;
+            border-color: $bd-color;
             padding: 10px;
         }
         .journal-page-1-story-right{
@@ -92,7 +94,7 @@
             float: right;
             border-left: solid;
             height: 170px;
-            border-color: #cccccc;
+            border-color: $bd-color;
             padding: 10px;
         }
 
@@ -112,11 +114,11 @@
                 margin: 0 -10px 0 -10px;
                 border-left: solid 5px;
                 border-right: solid 5px;
-                border-color: #cccccc;
+                border-color: $bd-color;
                 .journal-page-2-story-top-image{
                     height:140px;
                     border-bottom: solid 5px;
-                    border-color: #cccccc;
+                    border-color: $bd-color;
                 }
             }
             .journal-page-2-story-top-3{
@@ -128,20 +130,41 @@
         .journal-page-2-story-bottom{
             .journal-page-2-story-bottom-image{
                 border: solid 5px;
-                border-color: #cccccc;
+                border-color: $bd-color;
                 margin: 0 7px 0 7px;
                 height: 100px;
             }
             .journal-page-2-story-bottom-image{
                 border: solid 5px;
-                border-color: #cccccc;
+                border-color: $bd-color;
                 margin: 0 7px 0 7px;
                 height: 100px;
             }
+        }        
+    }
+    .journal-back-cover{
+        .journal-back-cover-story-left{            
+            border-right: solid;
+            height: 220px;
+            border-color: $bd-color;
+            padding: 10px 10px 10px 25px;
         }
-        .journal-story-cont{
+        .journal-back-cover-story-right{
+            border-left: solid;
+            height: 220px;
+            border-color: $bd-color;
             padding: 10px;
-        }
+        }      
+        .journal-back-cover-image{  
+            border: solid 5px;     
+            height: 170px;  
+            border-color: $bd-color;  
+            margin: 0 7px 0 7px;            
+        }  
+    }
+    
+    .journal-story-cont{
+        padding: 10px;
     }
     .journal-footer{
         display: flex;
