@@ -70,9 +70,19 @@
                                     <div class="journal-decoration-1" />
                                     <div class="journal-decoration-2" />
                                     <div class="journal-content">
-                                        <div class="journal-page-1-title">
-                                            <h3>Matéria de destaque</h3>
-                                            <h5>Subtítulo da matéria</h5>
+                                        <div class="journal-page-1-header">
+                                            <input 
+                                                v-model="page1Title" 
+                                                class="journal-page-1-title"
+                                                type="text" 
+                                                placeholder="Matéria de destaque"
+                                            />
+                                            <input 
+                                                v-model="page1Subtitle" 
+                                                class="journal-input-story-subtitle" 
+                                                type="text" 
+                                                placeholder="Subtítulo da matéria"
+                                            />
                                         </div>
                                         <div class="journal-page-1-image">
                                         </div>
