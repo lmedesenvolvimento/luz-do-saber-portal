@@ -61,13 +61,16 @@ $primary-font-color: #007CB2;
             border: solid 5px;
             border-color: $bd-color;
             height: 170px;
-            img{                            
-                height:160px;
-                margin-left: auto;
-                margin-right: auto;
-                display: block;
-            }
-            
+            div{
+                background-color: #3a3a3a;
+                img{                            
+                    max-height: 160px;
+                    max-width: 460px;
+                    margin-left: auto;
+                    margin-right: auto;
+                    display: block;
+                }
+            } 
         }    
         .journal-cover-story-left{
             width: 50%;
@@ -104,6 +107,16 @@ $primary-font-color: #007CB2;
             border: solid 5px;
             border-color: $bd-color;
             height: 210px;
+            div{
+                background-color: #3a3a3a;
+                img{                            
+                    max-height:200px;
+                    max-width: 468px;
+                    margin-left: auto;
+                    margin-right: auto;
+                    display: block;
+                }
+            } 
         }  
         .journal-page-1-story-left{
             width: 50%;
@@ -143,6 +156,16 @@ $primary-font-color: #007CB2;
                     height:140px;
                     border-bottom: solid 5px;
                     border-color: $bd-color;
+                    div{
+                        background-color: #3a3a3a;
+                        img{                            
+                            max-height:135px;
+                            max-width: 154px;
+                            margin-left: auto;
+                            margin-right: auto;
+                            display: block;
+                        }
+                    }
                 }
             }
             .journal-page-2-story-top-3{
@@ -155,13 +178,23 @@ $primary-font-color: #007CB2;
                 border: solid 5px;
                 border-color: $bd-color;
                 margin: 0 7px 0 7px;
-                height: 100px;
+                height: 100px;                 
             }
             .journal-page-2-story-bottom-image{
                 border: solid 5px;
                 border-color: $bd-color;
                 margin: 0 7px 0 7px;
                 height: 100px;
+                div{
+                    background-color: #3a3a3a;
+                    img{                            
+                        max-height:90px;
+                        max-width: 470px;
+                        margin-left: auto;
+                        margin-right: auto;
+                        display: block;
+                    }
+                }
             }
         }        
     }
@@ -182,7 +215,17 @@ $primary-font-color: #007CB2;
             border: solid 5px;     
             height: 170px;  
             border-color: $bd-color;  
-            margin: 0 7px 0 7px;            
+            margin: 0 7px 0 7px;   
+            div{
+                background-color: #3a3a3a;
+                img{                            
+                    max-height:160px;
+                    max-width: 460px;
+                    margin-left: auto;
+                    margin-right: auto;
+                    display: block;
+                }
+            }         
         }  
     }
     .journal-input-story-title{
