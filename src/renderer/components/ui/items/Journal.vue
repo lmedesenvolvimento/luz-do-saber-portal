@@ -15,8 +15,21 @@
                                         placeholder="Insira o nome do jornal"
                                     />
                                 </div>
-                                <div class="journal-cover-image">
+                                <div 
+                                    class="journal-cover-image"
+                                    @click="$refs.coverImageInput.click()"
+                                >
+                                    <input 
+                                        ref="coverImageInput"
+                                        style="display: none"                                             
+                                        type="file"                                             
+                                        @change="onFileSelected"                                            
+                                    >
+                                    <div v-if="coverImage">
+                                        <img :src="coverImage" alt="">
+                                    </div>  
                                 </div>
+                                
                                 <div>
                                     <div class="journal-cover-story-left">
                                         <div class="journal-story-title">
@@ -303,6 +316,7 @@ export default {
         return {
             pageName: 'capa',
             coverTitle: '',
+            coverImage: null,
             coverStoryLeftTitle: '',
             coverStoryLeftText: '',
             coverStoryRightTitle: '',
@@ -334,6 +348,11 @@ export default {
         }
     },
     methods: {
+        onFileSelected(event) {
+            const file = event.target.files[0]
+            this.coverImage = URL.createObjectURL(file);
+            console.log(this.coverImage)
+        },
         toPrevPage() {
             switch(this.pageName){
             case '1 - 2':
