@@ -22,14 +22,14 @@
                                     <input 
                                         ref="coverImageInput"
                                         style="display: none"                                             
-                                        type="file"                                             
-                                        @change="onFileSelected"                                            
+                                        type="file"     
+                                        accept="image/gif, image/jpeg, image/png"                                         
+                                        @change="onFileSelectedCover"                 
                                     >
                                     <div v-if="coverImage">
-                                        <img :src="coverImage" alt="">
+                                        <img :src="coverImage" alt="Imagem de capa">
                                     </div>  
-                                </div>
-                                
+                                </div>                                
                                 <div>
                                     <div class="journal-cover-story-left">
                                         <div class="journal-story-title">
@@ -96,8 +96,21 @@
                                                 type="text" 
                                                 placeholder="Subtítulo da matéria"
                                             />
-                                        </div>
-                                        <div class="journal-page-1-image">
+                                        </div>                                        
+                                        <div 
+                                            class="journal-page-1-image"
+                                            @click="$refs.page1ImageInput.click()"
+                                        >
+                                            <input 
+                                                ref="page1ImageInput"
+                                                style="display: none"                                             
+                                                type="file"     
+                                                accept="image/gif, image/jpeg, image/png"                                         
+                                                @change="onFileSelectedPage1"                 
+                                            >
+                                            <div v-if="page1Image">
+                                                <img :src="page1Image" alt="Imagem da página 1">
+                                            </div>  
                                         </div>
                                         <div>
                                             <div class="journal-page-1-story-left">
@@ -175,9 +188,22 @@
                                                     </div>
                                                 </b-col>
                                                 <b-col>
-                                                    <div class="journal-page-2-story-top-2">
-                                                        <div class="journal-page-2-story-top-image">                                                            
-                                                        </div> 
+                                                    <div class="journal-page-2-story-top-2">                                                       
+                                                        <div 
+                                                            class="journal-page-2-story-top-image"
+                                                            @click="$refs.page2ImageTopInput.click()"
+                                                        >
+                                                            <input 
+                                                                ref="page2ImageTopInput"
+                                                                style="display: none"                                             
+                                                                type="file"     
+                                                                accept="image/gif, image/jpeg, image/png"                                         
+                                                                @change="onFileSelectedPage2Top"                 
+                                                            >
+                                                            <div v-if="page2ImageTop">
+                                                                <img :src="page2ImageTop" alt="Imagem 1 da página 2">
+                                                            </div>  
+                                                        </div>
                                                         <div class="journal-story-cont">
                                                             <textarea 
                                                                 v-model="page2StoryText2" 
@@ -204,8 +230,21 @@
                                                 </b-col>
                                             </b-row>
                                         </div>
-                                        <div class="journal-page-2-story-bottom">
-                                            <div class="journal-page-2-story-bottom-image">                                                
+                                        <div class="journal-page-2-story-bottom">                                           
+                                            <div 
+                                                class="journal-page-2-story-bottom-image"
+                                                @click="$refs.page2ImageBottomInput.click()"
+                                            >
+                                                <input 
+                                                    ref="page2ImageBottomInput"
+                                                    style="display: none"                                             
+                                                    type="file"     
+                                                    accept="image/gif, image/jpeg, image/png"                                         
+                                                    @change="onFileSelectedPage2Bottom"                 
+                                                >
+                                                <div v-if="page2ImageBottom">
+                                                    <img :src="page2ImageBottom" alt="Imagem 2 da página 2">
+                                                </div>  
                                             </div>
                                             <div class="journal-story-cont">
                                                 <textarea 
@@ -271,9 +310,22 @@
                                             </div>
                                         </b-col>
                                     </b-row>
-                                </div>
-                                <div class="journal-back-cover-image">
-                                </div>                                
+                                </div> 
+                                <div 
+                                    class="journal-back-cover-image"
+                                    @click="$refs.backCoverImageInput.click()"
+                                >
+                                    <input 
+                                        ref="backCoverImageInput"
+                                        style="display: none"                                             
+                                        type="file"     
+                                        accept="image/gif, image/jpeg, image/png"                                         
+                                        @change="onFileSelectedBackCover"                 
+                                    >
+                                    <div v-if="backCoverImage">
+                                        <img :src="backCoverImage" alt="Imagem do verso">
+                                    </div>  
+                                </div>                                                            
                                 <div class="journal-story-cont">
                                     <textarea 
                                         v-model="backCoverFooterText" 
@@ -323,20 +375,24 @@ export default {
             coverStoryRightText: '',
             page1Title: '',
             page1Subtitle: '',
+            page1Image: null,
             page1StoryLeftTitle: '',
             page1StoryLeftText: '',
             page1StoryRightTitle: '',
             page1StoryRightText: '',
             page2StoryTitle: '',
+            page2ImageTop: null,
             page2StoryText1: '',
             page2StoryText2: '',
             page2StoryText3: '',
+            page2ImageBottom: null,
             page2FooterText: '',
             backCoverStoryLeftTitle: '',
             backCoverStoryLeftText: '',
             backCoverStoryRightTitle: '',
             backCoverStoryRightText: '',
-            backCoverFooterText: ''
+            backCoverImage: null,
+            backCoverFooterText: '',
         }
     },
     computed: {
@@ -348,10 +404,25 @@ export default {
         }
     },
     methods: {
-        onFileSelected(event) {
+        onFileSelectedCover(event) {
             const file = event.target.files[0]
             this.coverImage = URL.createObjectURL(file);
-            console.log(this.coverImage)
+        },
+        onFileSelectedPage1(event) {
+            const file = event.target.files[0]
+            this.page1Image = URL.createObjectURL(file);
+        },
+        onFileSelectedPage2Top(event) {
+            const file = event.target.files[0]
+            this.page2ImageTop = URL.createObjectURL(file);
+        },
+        onFileSelectedPage2Bottom(event) {
+            const file = event.target.files[0]
+            this.page2ImageBottom = URL.createObjectURL(file);
+        },
+        onFileSelectedBackCover(event) {
+            const file = event.target.files[0]
+            this.backCoverImage = URL.createObjectURL(file);
         },
         toPrevPage() {
             switch(this.pageName){
