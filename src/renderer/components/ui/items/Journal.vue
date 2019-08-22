@@ -2,8 +2,8 @@
     <div class="journal">
         <b-row class="journal-container">
             <b-col>
-                <div class="journal-box">
-                    <div v-if="pageName=='capa'" class="journal-page-container journal-single-page">
+                <div id="journalCanvas" class="journal-box">
+                    <div v-show="pageName=='capa'" class="journal-page-container journal-single-page">
                         <div class="journal-page journal-cover">
                             <div class="journal-decoration-1" />
                             <div class="journal-decoration-2" />
@@ -76,7 +76,7 @@
                             <div class="journal-decoration-1" />
                         </div>
                     </div>
-                    <div v-else-if="pageName=='1 - 2'" class="journal-page-container">
+                    <div v-show="pageName=='1 - 2'" class="journal-page-container">
                         <b-row>
                             <b-col class="journal-page-1">
                                 <div class="journal-page">
@@ -262,7 +262,7 @@
                             </b-col>
                         </b-row>                    
                     </div>
-                    <div v-else-if="pageName=='verso'" class="journal-page-container journal-single-page">
+                    <div v-show="pageName=='verso'" class="journal-page-container journal-single-page">
                         <div class="journal-page journal-back-cover">
                             <div class="journal-decoration-1" />
                             <div class="journal-decoration-2" />
@@ -356,6 +356,11 @@
                             </b-button>
                         </b-row>
                     </b-col>  
+                    <b-col>
+                        <b-button @click="genPDF()">
+                            a
+                        </b-button>
+                    </b-col>
                 </b-row>
             </b-col>        
         </b-row>
@@ -363,9 +368,14 @@
 </template>
 
 <script>
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 export default {
     data(){
         return {
+            doc: new jsPDF({
+                orientation: 'landscape'
+            }),
             pageName: 'capa',
             coverTitle: '',
             coverImage: null,
@@ -423,6 +433,25 @@ export default {
         onFileSelectedBackCover(event) {
             const file = event.target.files[0]
             this.backCoverImage = URL.createObjectURL(file);
+        },
+        genPDF(){  
+            this.toNextPage();            
+            html2canvas(document.getElementById('journalCanvas')).then((canvas) => {                                     
+                let img = canvas.toDataURL('image/png');
+                this.doc.addImage(img, 'PNG', 0, 0); 
+                console.log(this.pageName)
+                this.doc.addPage(); 
+                if(this.pageName == 'verso'){
+                    this.doc.save('test.pdf');
+                    this.doc = new jsPDF({
+                        orientation: 'landscape'
+                    })
+                }
+                if(this.pageName != 'verso'){
+                    this.genPDF();
+                }
+            });  
+             
         },
         toPrevPage() {
             switch(this.pageName){
