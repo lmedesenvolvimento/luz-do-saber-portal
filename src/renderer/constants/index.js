@@ -49,7 +49,8 @@ export const GameSubtypes = {
     writeTheWord: 'escreva-o-nome',
     completeSentences: 'completa-frase-com-audio',
     accentuation: 'acentuacao',
-    textReading: 'apresentacao-leitura'
+    textReading: 'apresentacao-leitura',
+    findTheWord: 'descubra-a-palavra'
 }
 
 export const ItemTypes = {
