@@ -41,6 +41,7 @@ export const GameSubtypes = {
     friendsName: 'meus-amigos-fotos',
     dominoName: 'domino-de-nomes',
     grouping: 'agrupamento',
+    storeLetters: 'agrupamento-de-maiusculas',
     secretWord: 'palavra-secreta',
     completeSentence: 'completa-frase',
     letterGroup: 'nao-pertence',
