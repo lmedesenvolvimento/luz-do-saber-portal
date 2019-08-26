@@ -6,19 +6,27 @@
                     {{ item.text }}
                 </div>
                 <div class="items-container">
-                    <b-card
-                        v-for="item in answers" 
-                        :key="item.id"
-                        no-body
-                        class="drop-group-item"
-                        :class="{ 'invalid': invalid, 'valid': valid }"
-                    >
-                        <b-card-body>
-                            <slot name="transfer-data">
-                                <div> {{ item.text }}</div>
-                            </slot>
-                        </b-card-body>
-                    </b-card>
+                    <b-row>
+                        <b-col
+                            v-for="item in answers" 
+                            :key="item.id"
+                            :cols="isLetterBox(item)"
+                            :class="{letterbox :isLetterBox(item)}"
+                        >
+                            {{ item.id }}
+                            <b-card                        
+                                no-body
+                                class="drop-group-item"
+                                :class="{ 'invalid': invalid, 'valid': valid }"
+                            >
+                                <b-card-body>
+                                    <slot name="transfer-data">
+                                        <div> {{ item.text }}</div>
+                                    </slot>
+                                </b-card-body>
+                            </b-card>
+                        </b-col>
+                    </b-row>                    
                 </div>
             </div>
             <div v-else-if="answers.length" class="card-input drop-group">
@@ -102,11 +110,19 @@ export default {
                     })
                 }
             }
-        }        
+        },
+        isLetterBox(item){
+            if(item.type == 'letra'){
+                return 6;
+            }
+            return 12;
+        }     
     },
 }
 </script>
 
 <style>
-
+    .letterbox{
+        border: solid;
+    }
 </style>
