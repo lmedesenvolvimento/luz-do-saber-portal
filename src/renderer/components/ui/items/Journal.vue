@@ -340,7 +340,7 @@
                         </div>
                     </div>
                 </div>
-                <b-row align-h="center" class="journal-footer">
+                <b-row align-h="end" class="journal-footer">
                     <b-col cols="4">
                         <b-row align-h="center">
                             <b-button v-b-modal.modal-center class="btn-journal" @click="toPrevPage">
@@ -356,10 +356,15 @@
                             </b-button>
                         </b-row>
                     </b-col>  
-                    <b-col>
-                        <b-button @click="genPDF()">
-                            a
-                        </b-button>
+                    <b-col cols="4">
+                        <b-row align-h="end">
+                            <b-button v-b-modal.modal-center class="btn-journal" @click="printPDF()">
+                                <img :src="prevPage" alt="Página anterior">
+                            </b-button>
+                            <b-button v-b-modal.modal-center class="btn-journal" @click="newJournal()">
+                                <img :src="prevPage" alt="Página anterior">
+                            </b-button>
+                        </b-row>
                     </b-col>
                 </b-row>
             </b-col>        
@@ -403,6 +408,7 @@ export default {
             backCoverStoryRightText: '',
             backCoverImage: null,
             backCoverFooterText: '',
+            isPrinting: false
         }
     },
     computed: {
@@ -416,6 +422,7 @@ export default {
     methods: {
         onFileSelectedCover(event) {
             const file = event.target.files[0]
+            console.log(file);
             this.coverImage = URL.createObjectURL(file);
         },
         onFileSelectedPage1(event) {
@@ -434,19 +441,59 @@ export default {
             const file = event.target.files[0]
             this.backCoverImage = URL.createObjectURL(file);
         },
+        newJournal(){
+            this.pageName = 'capa',
+            this.coverTitle = '',
+            this.coverImage = null,
+            this.coverStoryLeftTitle = '',
+            this.coverStoryLeftText = '',
+            this.coverStoryRightTitle = '',
+            this.coverStoryRightText = '',
+            this.page1Title = '',
+            this.page1Subtitle = '',
+            this.page1Image = null,
+            this.page1StoryLeftTitle = '',
+            this.page1StoryLeftText = '',
+            this.page1StoryRightTitle = '',
+            this.page1StoryRightText = '',
+            this.page2StoryTitle = '',
+            this.page2ImageTop = null,
+            this.page2StoryText1 = '',
+            this.page2StoryText2 = '',
+            this.page2StoryText3 = '',
+            this.page2ImageBottom = null,
+            this.page2FooterText = '',
+            this.backCoverStoryLeftTitle = '',
+            this.backCoverStoryLeftText = '',
+            this.backCoverStoryRightTitle = '',
+            this.backCoverStoryRightText = '',
+            this.backCoverImage = null,
+            this.backCoverFooterText = '',
+            this.isPrinting = false
+        },
+        printPDF(){
+            if(this.isPrinting == false){
+                this.isPrinting = true;
+                this.pageName = 'capa';
+                this.genPDF();
+            }
+        },
         genPDF(){  
             this.toNextPage();            
             html2canvas(document.getElementById('journalCanvas')).then((canvas) => {                                     
                 let img = canvas.toDataURL('image/png');
                 this.doc.addImage(img, 'PNG', 0, 0); 
-                console.log(this.pageName)
-                this.doc.addPage(); 
-                if(this.pageName == 'verso'){
+                if(!this.isPrinting){
                     this.doc.save('test.pdf');
                     this.doc = new jsPDF({
                         orientation: 'landscape'
                     })
                 }
+                if((this.pageName == 'verso') && (this.isPrinting)){
+                    this.isPrinting = false;
+                    this.genPDF();
+                }
+                this.doc.addPage(); 
                 if(this.pageName != 'verso'){
                     this.genPDF();
                 }
