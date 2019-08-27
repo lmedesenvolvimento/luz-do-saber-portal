@@ -3,43 +3,28 @@
         <slot :props="{answers}">
             <div v-if="answers.length && template.custom_image_full_url" class="card-input drop-group" :style="{'background-image': `url(${template.custom_image_full_url})`}">
                 <div class="title">
-                    {{ item.text }}                    
-                </div>                
-                <div v-if="(answers[0].type == 'letra') || (answers[0].type == 'numero')" class="items-container">
-                    <b-row>
+                    {{ item.text }}
+                </div>
+                <div class="items-container">
+                    <b-row :class="{'letter-box' :isLetterBox(item)}">
                         <b-col
                             v-for="item in answers" 
                             :key="item.id"
-                            cols="6"
+                            :cols="isLetterBox(item)"
                         >   
-                            <b-card                                
+                            <b-card                        
                                 no-body
                                 class="drop-group-item"
                                 :class="{ 'invalid': invalid, 'valid': valid }"
                             >
                                 <b-card-body>
                                     <slot name="transfer-data">
-                                        <div>{{ item.text }}</div>
+                                        <div> {{ item.text }}</div>
                                     </slot>
                                 </b-card-body>
                             </b-card>
                         </b-col>
                     </b-row>                    
-                </div>
-                <div v-else class="items-container">
-                    <b-card
-                        v-for="item in answers" 
-                        :key="item.id"
-                        no-body
-                        class="drop-group-item"
-                        :class="{ 'invalid': invalid, 'valid': valid }"
-                    >
-                        <b-card-body>
-                            <slot name="transfer-data">
-                                <div> {{ item.text }}</div>
-                            </slot>
-                        </b-card-body>
-                    </b-card>
                 </div>
             </div>
             <div v-else-if="answers.length" class="card-input drop-group">
@@ -123,11 +108,22 @@ export default {
                     })
                 }
             }
-        }        
+        },
+        isLetterBox(item){
+            if(item.type == 'letra'){
+                return 6;
+            }
+            return 12;
+        }     
     },
 }
 </script>
 
 <style>
+    .letter-box{
+        margin: 0 100px 0 100px;
+    }
+    .letter-box-item{
 
+    }
 </style>
