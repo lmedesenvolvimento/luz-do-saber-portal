@@ -70,7 +70,7 @@ export default {
             if(cont == 0) this.selectedAlphabet.push(letter);
         })
         this.letters = this.getValues;
-        this.selectedAlphabet = shuffle(this.selectedAlphabet).slice(0,6);
+        this.selectedAlphabet = shuffle(this.selectedAlphabet).slice(0, 12 - this.activity.total_correct_items);
         this.selectedAlphabet.forEach(letter => {
             let obj = {
                 text: letter,
@@ -82,10 +82,8 @@ export default {
         for(let i = 0; i < this.letters.length; i++){
             this.letters[i].color = this.getColorsArray[i];
         }
-    },
-    destroyed(){
-        this.letters = [];
-    }    
+        console.log()
+    }   
 }
 </script>
 
