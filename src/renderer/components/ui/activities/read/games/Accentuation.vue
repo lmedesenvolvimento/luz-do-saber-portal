@@ -25,9 +25,10 @@
                                     :item="item"
                                     :type="'key'"
                                     :template="activity.item_template.key"
+                                    :custom-validate="customValidate"
                                 >
                                     <template slot="transfer-data">
-                                        {{ symbols[position] }}
+                                        {{ symbols[position].correct ? symbols[position].text : dataTransfer.text }}
                                     </template>
                                 </ls-card-droppable>                                                               
                             </div>                            
@@ -35,7 +36,7 @@
                         <b-col class="name-container">
                             <div class="accentuation-word">
                                 <ls-card-display class="name">
-                                    {{ normalizeWord(item.text) }}
+                                    {{ symbols[position].correct ? item.text : normalizeWord(item.text) }}
                                 </ls-card-display>
                             </div>
                         </b-col>    
@@ -58,19 +59,21 @@ export default {
     mixins: [MapMixins, ListMixin, CreateAnswersMixins],
     data () {
         return {
-            symbols: []
+            symbols: [],
+            dataTransfer: {text: '~'}
         }
     },
-    mounted() {
-        this.createAnswersArray();
+    created () {
         this.getKeys.forEach(key => {
             this.getValues.forEach(value => {
                 if(key.id === value.key_id) {
-                    this.symbols.push(value.text);
+                    this.symbols.push({text: value.text, correct: false});
                 }                
             });
-            
         });
+    },
+    mounted() {
+        this.createAnswersArray();
     },
     methods: {
         normalizeWord (word) {
@@ -82,6 +85,31 @@ export default {
                 out: 'AAAAAAAaaaaaaaBOOOOOOOOoooooooEEEEEeeeeeeCCccDIIIIiiiiUUUUuuuuNNnnSSssYyyZZZzzz'
             })
             ).join('')
+        },
+        customValidate(transferData, nativeElement, vm){
+            this.dataTransfer = transferData
+            if (this.dataTransfer.id === vm.item.value_ids[0]){
+                this.symbols.forEach(e => {
+                    if (e.text === this.dataTransfer.text){
+                        e.correct = true
+                    }
+                });
+                vm.valid = true;
+                transferData.valid = true
+                vm.setAnswer({
+                    type: 'value',
+                    data: transferData.id,
+                    vm: this
+                })
+            }else{
+                vm.invalid = true;
+                transferData.invalid = true
+                vm.setAnswer({
+                    type: 'value',
+                    data: -1,
+                    vm: this
+                })
+            }
         }
     }
 }
