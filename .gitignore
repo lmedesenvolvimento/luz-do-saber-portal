@@ -12,6 +12,7 @@ package-*.json
 yarn.lock
 
 # Env
+.env
 .env.development
 
 # Local Database
