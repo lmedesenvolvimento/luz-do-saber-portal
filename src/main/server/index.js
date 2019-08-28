@@ -7,16 +7,16 @@ const boostrapAPI = () => {
     const __static = express.static(path.join(__dirname, 'static'));
 
     app.get('/ping', (req, res) => {
-        res.send('Hello Electron')
-    })
+        res.send('Hello Electron');
+    });
     
     app.use(__static);
 
     app.listen(PORT, () => {
-        console.log(`API up listening on port ${PORT}!`)
+        console.log(`API up listening on port ${PORT}!`);
     });
 
     return app;
 }
 
-module.exports = boostrapAPI
+module.exports = boostrapAPI;
