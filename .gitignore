@@ -11,6 +11,8 @@ thumbs.db
 package-*.json
 yarn.lock
 
+src/main/server/public
+
 # Env
 .env
 .env.development
