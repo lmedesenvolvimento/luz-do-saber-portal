@@ -4,13 +4,13 @@ const PORT = 9000;
 
 const boostrapAPI = () => {
     const app = express();
-    const static = express.static(path.join(__dirname, 'static'));
+    const __static = express.static(path.join(__dirname, 'static'));
 
     app.get('/ping', (req, res) => {
         res.send('Hello Electron')
     })
     
-    app.use(static);
+    app.use(__static);
 
     app.listen(PORT, () => {
         console.log(`API up listening on port ${PORT}!`)
