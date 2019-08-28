@@ -8,9 +8,10 @@
             >      
                 <card-display>
                     <b-row style="margin: 5px">
-                        <b-col v-for="(item, position) in getValues" :key="position" align-self="center" :md="valueColSize" class="item"> 
+                        <b-col v-for="(item, position) in letters" :key="position" align-self="center" :md="valueColSize" class="item"> 
                             <Item 
                                 v-if="answers"
+                                :class="{'lowercase-letter': item.key_id == -1}"
                                 :item="item"
                                 :type="'value'"
                                 :template="activity.item_template.value"
@@ -42,25 +43,54 @@
 <script>
 import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from '@ui/activities/mixins'
 
-import ui from '@/components/ui'
-import alerts from '@/components/alerts'
-
 import Item from '@/components/ui/items/Item'
 
 import groupDrop from '@/components/ui/form/CardGroupDroppable'
 import cardDisplay from '@/components/ui/form/CardDisplay'
-
+import { shuffle } from 'lodash'
 import { mapState, mapActions } from 'vuex'
 
 export default {
     components: { Item, groupDrop, cardDisplay },
-    mixins: [ListMixin, MapMixins, CreateAnswersMixins],    
+    mixins: [ListMixin, MapMixins, CreateAnswersMixins], 
+    data(){
+        return{
+            letters: null,
+            alphabet: ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'],
+            selectedAlphabet:[]
+        }
+    },   
     created(){
-        this.createAnswersArray()
+        this.createAnswersArray();        
+        this.alphabet.forEach(letter => {
+            let cont = 0;
+            this.getValues.forEach(value => {
+                if(value.text == letter) cont++;
+            })
+            if(cont == 0) this.selectedAlphabet.push(letter);
+        })
+        this.letters = this.getValues;
+        this.selectedAlphabet = shuffle(this.selectedAlphabet).slice(0,6);
+        this.selectedAlphabet.forEach(letter => {
+            let obj = {
+                text: letter,
+                key_id: -1
+            }
+            this.letters.push(Object.assign({}, obj));
+        }) 
+        this.letters = shuffle(this.letters);
+        for(let i = 0; i < this.letters.length; i++){
+            this.letters[i].color = this.getColorsArray[i];
+        }
     },
+    destroyed(){
+        this.letters = [];
+    }    
 }
 </script>
 
 <style>
-
+    .lowercase-letter{
+        text-transform: lowercase;
+    }
 </style>
