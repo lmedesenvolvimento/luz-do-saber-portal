@@ -160,6 +160,11 @@
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
             />
+            <ls-activity-read-store-letters
+                v-if="gameSubtypes.storeLetters === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+            />
             <ls-activity-read-complete-sentences
                 v-if="gameSubtypes.completeSentences === activity.subtype.slug" 
                 :value-col-size="valueColSize"
@@ -172,6 +177,11 @@
             />
             <ls-activity-read-text-reading
                 v-if="gameSubtypes.textReading === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+            />
+            <ls-activity-find-the-word
+                v-if="gameSubtypes.findTheWord === activity.subtype.slug" 
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
             />
