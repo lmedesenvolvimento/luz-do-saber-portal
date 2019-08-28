@@ -28,8 +28,10 @@ const winURL = process.env.NODE_ENV === 'development'
   : `file://${__dirname}/index.html`
 
 function createWindow () {
-  // Initialize API server
-  boostrapAPI();
+  if (process.env.NODE_ENV === 'development') {
+    // Initialize API server
+    boostrapAPI(global.__static || __dirname);
+  }
 
   /**
    * Initial window options

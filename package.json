@@ -29,6 +29,7 @@
     "bootstrap-vue": "^2.0.0-rc.13",
     "bourbon": "^5.1.0",
     "dotenv": "^7.0.0",
+    "express-static-gzip": "^2.0.3",
     "faker": "^4.1.0",
     "flexboxgrid": "^6.3.1",
     "leader-line": "^1.0.5",
