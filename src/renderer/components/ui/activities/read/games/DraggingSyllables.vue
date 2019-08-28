@@ -36,7 +36,7 @@
             <b-col class="activity-values">
                 <ls-card-display id="values-container-display">
                     <b-row class="values-container" align-h="center">
-                        <b-col v-for="(item, position) in getValues" :key="position" align-self="center" class="item value-syllables">
+                        <b-col v-for="(item, position) in shuffleValues" :key="position" align-self="center" class="item value-syllables">
                             <div class="silaba texto" :class="activity.item_template.value.font_size">
                                 <ls-card-draggable
                                     v-if="answers"
@@ -61,6 +61,7 @@ import ui from '@/components/ui'
 import AsyncImage from '@ui/AsyncImage'
 import Item from '@/components/ui/items/Item'
 import { mapState, mapActions } from 'vuex'
+import { shuffle } from 'lodash'
 
 import FormProps from '@ui/form'
 
@@ -74,6 +75,7 @@ export default {
     data() {
         return {
             newItens: [],
+            shuffleValues: [],
             dataTransfer: {text: 'SAN'},
         }
     },
@@ -91,6 +93,8 @@ export default {
                 i++
             }
         }
+        this.shuffleValues = this.getValues;
+        this.shuffleValues = shuffle(this.shuffleValues)
     },
     methods: {
         validateBySyllabe(transferData, nativeElement, vm){
