@@ -3,9 +3,30 @@
         <slot :props="{answers}">
             <div v-if="answers.length && template.custom_image_full_url" class="card-input drop-group" :style="{'background-image': `url(${template.custom_image_full_url})`}">
                 <div class="title">
-                    {{ item.text }}
+                    {{ item.text }}                    
+                </div>                
+                <div v-if="(answers[0].type == 'letra') || (answers[0].type == 'numero')" class="items-container">
+                    <b-row align-h="center">
+                        <b-col cols="6">
+                            <b-row style="padding: 0 30px 0 30px">          
+                                <b-card   
+                                    v-for="item in answers" 
+                                    :key="item.id"                  
+                                    no-body
+                                    class="drop-group-item"
+                                    :class="{ 'invalid': invalid, 'valid': valid }"                                    
+                                >
+                                    <b-card-body>
+                                        <slot name="transfer-data">
+                                            <div>{{ item.text }}</div>
+                                        </slot>
+                                    </b-card-body>
+                                </b-card>
+                            </b-row>
+                        </b-col>
+                    </b-row>                                        
                 </div>
-                <div class="items-container">
+                <div v-else class="items-container">
                     <b-card
                         v-for="item in answers" 
                         :key="item.id"
