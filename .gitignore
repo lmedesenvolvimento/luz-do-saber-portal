@@ -22,3 +22,8 @@ db.json
 
 # Deploy Web
 docker-web-app
+
+#Static files
+static/api
+static/images
+static/audios
