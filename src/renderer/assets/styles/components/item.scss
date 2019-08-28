@@ -13,9 +13,12 @@
            max-width: none;
            width: 100%;
            justify-content: center;
-           .texto{
+           > div{
+               width: 100%;
+           }
+           .texto, &.texto{
                [class^="card--"] {
-                   max-height: $item-text-max-heigth;
+                   max-height: $item-text-max-heigth;                   
                    .bg-color{
                        overflow: hidden;
                    }

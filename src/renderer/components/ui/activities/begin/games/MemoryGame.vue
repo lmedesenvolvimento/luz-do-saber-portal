@@ -23,7 +23,17 @@
                                 bg-color="#FFFFFF"
                                 class="back"
                             >
-                                <div>{{ card.value }}</div>
+                                <div v-if="card.type === 'key'">
+                                    {{ card.value }}
+                                </div>
+                                <div v-else>
+                                    <div v-if="card.value.length > 0">
+                                        <img class="m-image" :src="card.value[0].url">
+                                    </div>
+                                    <div v-else>
+                                        {{ card.first_letter }}
+                                    </div>
+                                </div>
                             </ls-card-display>
                         </div>
                     </b-col>
@@ -65,16 +75,14 @@ export default {
         },
         createArray(items){
             let cards = []
-            let values = items.keys.map( function(k) {
+            let values = items.keys.map( function(k) {                    
                 let {id, text, value_ids} = k
                 let aux = {id, value: text, value_ids, type: 'key'}
                 return aux
             })
             let values2 = items.values.map( function(k) {
-                if(k.images.length>=0)
-                    k.images = k.first_letter
-                let {id, images, key_id} = k
-                let aux = {id, value: images, key_id, type: 'value'}
+                let {id, images, key_id, first_letter} = k
+                let aux = {id, value: images, key_id, type: 'value', first_letter}
                 return aux
             })
             cards = values.concat(values2)
@@ -146,5 +154,10 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+    .m-image{
+        max-width: 120px;
+    }
 </style>
+
+
