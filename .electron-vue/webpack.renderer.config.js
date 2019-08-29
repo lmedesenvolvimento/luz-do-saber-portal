@@ -172,7 +172,6 @@ if (process.env.NODE_ENV !== 'production') {
  */
 if (process.env.NODE_ENV === 'production') {
   rendererConfig.devtool = ''
-
   rendererConfig.plugins.push(
     new BabiliWebpackPlugin(),
     new CopyWebpackPlugin([
@@ -184,7 +183,8 @@ if (process.env.NODE_ENV === 'production') {
     ]),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"production"',
-      'process.env.BASE_API_URL': '"https://luz-do-saber-staging.herokuapp.com"'
+      'process.env.BUILD_TARGET': process.env.BUILD_TARGET !== 'web' ? '"any"' : '"web"',
+      'process.env.BASE_API_URL': process.env.BUILD_TARGET !== 'web' ? '"http://localhost:9000"' : '"https://luz-do-saber-staging.herokuapp.com"'
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
