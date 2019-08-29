@@ -25,7 +25,7 @@ const mutations = {
 
 const actions = {
     async fetchUnit({ commit }, params){
-        let { data } = await API.get(`/game/${params.module_slug}/${params.theme_slug}/${params.unit_slug}`)
+        let { data } = await API.get(`/game/${params.module_slug}/${params.theme_slug}/${params.unit_slug}.json`)
         commit('SET_UNIT', data)
         commit('SET_NAVIGATOR_PARAMS', params)
     },

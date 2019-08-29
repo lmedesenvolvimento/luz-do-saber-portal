@@ -12,13 +12,10 @@ if (process.env.NODE_ENV !== 'development') {
 
 const MENU_TEMPLATE = [
   {
-    label: 'Encerrar Sessão',
+    label: 'Encerrar Sessao',
     submenu: [
-      {
-        label: 'Sair',
-        click: () => app.quit()
-      }
-    ]
+      { label: 'Sair', role: 'close' }
+    ]    
   }
 ]
 
@@ -29,7 +26,6 @@ const winURL = process.env.NODE_ENV === 'development'
 
 function createWindow () {
   if (process.env.NODE_ENV !== 'development') {
-    // Initialize API server
     boostrapAPI();
   }
 
@@ -44,6 +40,7 @@ function createWindow () {
       webSecurity: false
     }
   })
+
 
   if (process.env.NODE_ENV !== 'development') {
     mainWindow.maximize()
