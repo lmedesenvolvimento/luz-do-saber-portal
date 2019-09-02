@@ -159,8 +159,18 @@ export default {
             },1000)
         },
         actualRaffleWord () {
-            if (this.searchString(this.words[0],this.actualRaffleWord)) this.loseCounter[0]++;
-            if (this.searchString(this.words[1],this.actualRaffleWord)) this.loseCounter[1]++;
+            if (this.searchString(this.words[0],this.actualRaffleWord)){
+                this.loseCounter[0]++;
+                if(this.loseCounter[0] == 4){
+                    this.triggerSuccess();
+                }
+            } 
+            if (this.searchString(this.words[1],this.actualRaffleWord)){
+                this.loseCounter[1]++;
+                if(this.loseCounter[1] == 4){
+                    this.triggerSuccess();
+                }
+            }
         }
     },
     created(){
@@ -189,7 +199,7 @@ export default {
     },
     mounted() {
         this.createAnswersArray()
-    },
+    },    
     methods: {
         isCheck(item){
             return false
@@ -263,7 +273,7 @@ export default {
 
         },
         ...mapActions('Activity', ['setActivityAttrs','setAnswer','triggerSuccess'])
-    },
+    },    
 }
 </script>
 
