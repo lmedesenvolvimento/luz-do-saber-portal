@@ -39,7 +39,7 @@ import Navbar from '../ui/navbars/Navbar'
 export default {
     components: {
         VueCircle,
-        Navbar
+        Navbar,
     },
     mixins: [RouteMixin],
     data() {
@@ -98,8 +98,8 @@ export default {
             }
         },
         getThemeImage(theme) {
-            return theme.cover_url ? theme.cover_url : ''
-        },
+            return theme.cover_url ? theme.cover_url : 'http://pngimg.com/uploads/book/book_PNG51049.png'
+        }, 
         getProgressTheme(theme){
             const units = this.getProgressUnitsByThemeId(theme)
             const total = ( filter(units, { completed: true }).length / theme.units.length ) * 100
