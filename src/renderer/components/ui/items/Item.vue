@@ -43,15 +43,14 @@
                 :item="item"
                 :template="template"
             ></ls-card-audio-listen>
-
             <ls-card-group-droppable
-                v-else-if="(template.custom === Types.custom.caixaPalavras) || (template.custom === Types.custom.grupoPalavras)"
+                v-else-if="((template.custom === Types.custom.caixaPalavras) || (template.custom === Types.custom.grupoPalavras))"
                 label="key.text"
                 name="card-input"
                 :item="item"
                 :bg-color="item.color"
                 :template="template"
-            >
+            >                
                 {{ item.text }}
             </ls-card-group-droppable>
 
