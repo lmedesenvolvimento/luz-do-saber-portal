@@ -163,7 +163,10 @@ if (process.env.NODE_ENV !== 'production') {
   rendererConfig.plugins.push(
     new webpack.DefinePlugin({
       '__static': `"${path.join(__dirname, '../static').replace(/\\/g, '\\\\')}"`
-    })
+    }),
+    new webpack.DefinePlugin({
+      'process.env.BUILD_TARGET': '"web"',
+    }),
   )
 }
 
