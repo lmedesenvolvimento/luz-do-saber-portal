@@ -11,7 +11,10 @@ thumbs.db
 package-*.json
 yarn.lock
 
+src/main/server/public
+
 # Env
+.env
 .env.development
 
 # Local Database
@@ -19,3 +22,8 @@ db.json
 
 # Deploy Web
 docker-web-app
+
+#Static files
+static/api
+static/images
+static/audios

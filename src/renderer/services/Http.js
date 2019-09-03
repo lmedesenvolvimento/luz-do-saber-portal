@@ -7,7 +7,7 @@ const cache = setupCache({
 
 const api = axios.create({
     adapter: cache.adapter,
-    baseURL: process.env.BASE_API_URL
+    baseURL: process.env.BUILD_TARGET === 'web' ? process.env.BASE_API_URL : `${process.env.BASE_API_URL}/api`
 })
 
 export default api

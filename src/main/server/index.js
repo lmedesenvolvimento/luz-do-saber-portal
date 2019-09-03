@@ -1,20 +1,22 @@
+const path = require('path');
 const express = require('express');
-const nocache = require('nocache');
-const Router = require('./router');
 const PORT = 9000;
 
 const boostrapAPI = () => {
     const app = express();
+    const __static = express.static(path.join(__dirname, 'static'));
 
-    app.use(nocache())
+    app.get('/ping', (req, res) => {
+        res.send('Hello Electron');
+    });
     
-    Router(app);
-    
+    app.use(__static);
+
     app.listen(PORT, () => {
-        console.log(`API up listening on port ${PORT}!`)
+        console.log(`API up listening on port ${PORT}!`);
     });
 
     return app;
 }
 
-module.exports = boostrapAPI
+module.exports = boostrapAPI;
