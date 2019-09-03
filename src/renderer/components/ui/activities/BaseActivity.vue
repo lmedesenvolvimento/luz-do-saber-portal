@@ -165,11 +165,6 @@
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
             />
-            <ls-activity-read-complete-sentences
-                v-if="gameSubtypes.completeSentences === activity.subtype.slug" 
-                :value-col-size="valueColSize"
-                :key-col-size="keyColSize"
-            />
             <ls-activity-read-accentuation
                 v-if="gameSubtypes.accentuation === activity.subtype.slug" 
                 :value-col-size="valueColSize"
