@@ -1,6 +1,46 @@
 <template>
     <div class="container-fluid complete-word">
-        <b-row align-h="center" class="column">
+        <b-col>
+            <b-row align-v="center"> 
+                <b-col cols="12" md="4" sm="4">
+                    <async-image :src="getKeys[0].images[0].url" style="width: 200px"></async-image>
+                </b-col>
+                <b-col>
+                    <b-row>
+                        <b-col v-for="(item, position) in letters" :key="position">                            
+                            <div v-if="item.id == -1">
+                                <ls-card-display>                                       
+                                    {{ item.text }}
+                                </ls-card-display> 
+                            </div>
+                            <div v-else>
+                                <ls-card-droppable
+                                    class="letra texto"
+                                    :item="item"
+                                    :type="'key'"
+                                    :template="activity.item_template.key"
+                                    :custom-validate="customValidate"
+                                >                                   
+                                </ls-card-droppable>
+                            </div>                                                      
+                        </b-col>
+                    </b-row>
+                </b-col>
+            </b-row>
+            <ls-card-display>
+                <b-row align-v="center" align-h="center" cols="12" md="12">
+                    <b-col v-for="(item, position) in getValues" :key="position" align-self="center" cols="12" :sm="3" :md="3" lg="2" class="item">
+                        <Item 
+                            :item="item"
+                            :type="'value'"
+                            :template="activity.item_template.value"
+                            :size="activity.item_template.value.font_size"
+                        />
+                    </b-col>
+                </b-row>
+            </ls-card-display>
+        </b-col>
+        <!-- <b-row align-h="center" class="column">
             <b-col v-if="hasKeys" class="activity-keys">
                 <b-row align-v="center">
                     <b-col cols="12" md="4" sm="4">
@@ -58,11 +98,10 @@
                     </b-row>
                 </b-col>
             </b-col>
-        </b-row>
+        </b-row> -->
     </div>
 </template>
 <script>
-// script
 import { MapMixins, ListMixin, CreateAnswersMixins } from '@ui/activities/mixins'
 import ui from '@/components/ui'
 import { cloneDeep, findIndex } from 'lodash'
@@ -76,98 +115,55 @@ import FormProps from '@ui/form'
 export default {
     components: {
         ...FormProps,
-        AsyncImage,
+        AsyncImage
     },
     mixins: [MapMixins, ListMixin, CreateAnswersMixins],
     props:{ type: String },
     data() {
         return {
-            incompleteWord: {},
-            correctPiece: {},
-            separator: this.type,
-            selectItem: null,
-            correctIndex: -1,
+            letters: [],
         }
     },
     computed: {
         ...mapState('Activity', ['answers'])
     },
-    watch: {
-        selectItem(value){
-            if(value){
-                const pieceIndex = this.correctIndex
-                let selectPiece = this.incompleteWord.pieces[pieceIndex]
-                selectPiece.text = value.text
-                if(value.text===this.correctPiece.text)
-                    selectPiece.valid = true
-                else 
-                    selectPiece.invalid = true
-            }
-        },
-    },
     created(){
-        this.incompleteWord = cloneDeep(this.getKeys[0])
-        this.correctPiece = this.getValues.filter(value => value.key_id)
-        this.clearIncompleteWord(this.separator, this.correctPiece[0])
-    },
-    mounted() {
-        this.createAnswersArray()
+        this.createAnswersArray();
+        this.getKeys[0].letters.forEach(letter => {
+            let id = -1;
+            this.getValues.forEach(value => {
+                if(value.key_id && (value.text == letter.text)){
+                    id = value.id;
+                }
+            })
+            let text = letter.text        
+            this.letters.push(Object.assign({}, {text, id}))
+        })
     },
     methods: {
-        triggerFocus(args, item) {  
-            if(args.target.getAttribute('data-canTrigger')!=='false'){
-                this.selectItem = item
-                setTimeout(()=> {
-                    this.incompleteWord.pieces[this.correctIndex].invalid = false
-                    this.incompleteWord.pieces[this.correctIndex].valid = false
-                    this.incompleteWord.pieces[this.correctIndex].text = ''
-                    this.selectItem = ''
-                }, 600)
-            }
-        },
-        clearIncompleteWord(type, correct){
-            let pieces = []
-            this.correctPiece = correct
-            if(type === 'letra'){
-                pieces = this.incompleteWord.letters
-            } else if(type === 'silaba'){
-                pieces = this.incompleteWord.syllables
-            }
-            for(let i = 0; i<pieces.length; i++){
-                pieces[i].template = cloneDeep(this.activity.item_template.key)
-                if(pieces[i].text === correct.text){
-                    pieces[i].text = ''
-                    pieces[i].value_ids = this.incompleteWord.value_ids
-                    this.correctIndex = i
-                } else {
-                    pieces[i].template.tags = null
-                }
-            }
-            this.incompleteWord.pieces = pieces
-        },
-        ...mapActions('Activity', ['setAnswer'])
-    },
-}
-</script>
-<style lang="scss">
-.complete-word{
-    .key-pieces{
-        .silaba{
-            .card{
-                &.valid, &.invalid{
-                    &::after{
-                        content: none !important;
-                    }
-                }        
+        customValidate(transferData, nativeElement, vm){
+            this.dataTransfer = transferData
+            if (this.dataTransfer.id === vm.item.id){                
+                vm.valid = true;
+                transferData.valid = true
+                vm.setAnswer({
+                    type: 'value',
+                    data: transferData.id,
+                    vm: this
+                })
+            }else{
+                vm.invalid = true;
+                transferData.invalid = true
+                vm.setAnswer({
+                    type: 'value',
+                    data: -1,
+                    vm: this
+                })
             }
         }
     }
-
-    .silaba,
-    .letra{
-        .card-body{
-            min-height: 60px;
-        }
-    }    
 }
+</script>
+<style lang="scss">
+
 </style>
