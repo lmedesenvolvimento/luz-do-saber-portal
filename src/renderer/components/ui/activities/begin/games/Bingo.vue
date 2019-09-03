@@ -219,18 +219,7 @@ export default {
                 })
             }
 
-        },
-        // ignora a acentuação das letras dos nomes na hora de comparar com as letras do bingo
-        normalizeWord (word) {
-            return word.split('').map(function (letter) {
-                let i = this.accents.indexOf(letter)
-                return (i !== -1) ? this.out[i] : letter
-            }.bind({
-                accents: 'ÀÁÂÃÄÅĄàáâãäåąßÒÓÔÕÕÖØÓòóôõöøóÈÉÊËĘèéêëęðÇĆçćÐÌÍÎÏìíîïÙÚÛÜùúûüÑŃñńŠŚšśŸÿýŽŻŹžżź',
-                out: 'AAAAAAAaaaaaaaBOOOOOOOOoooooooEEEEEeeeeeeCCccDIIIIiiiiUUUUuuuuNNnnSSssYyyZZZzzz'
-            })
-            ).join('')
-        },
+        },        
         actualizeBingoTimer(){
             // decresce o contador até zero
             if(this.unraffleLetters.length > 0){

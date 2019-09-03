@@ -52,8 +52,7 @@ export default {
             return this.theme.title ? 'Tema ' + this.theme.title : ''
         },
         baseUrl(){
-            return process.env.BASE_API_URL ? process.env.BASE_API_URL : 'https://luz-do-saber-staging.herokuapp.com'
-
+            return process.env.BASE_API_URL || 'https://luz-do-saber-staging.herokuapp.com'
         },
         themeImage(){
             return this.theme.cover_url ? this.theme.cover_url : ''
