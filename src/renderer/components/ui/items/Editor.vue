@@ -70,7 +70,7 @@
         </div>
         <div id="editor"></div>
         <div id="editor-footer" class="linha">
-            <b-button v-b-modal.modal-center class="btn-editor" @click="newLetter">
+            <b-button class="btn-editor" @click="newLetter">
                 <img v-b-tooltip="{ title:'Novo', trigger: 'hover', container: '#editor-footer'}" :src="newText" alt="Novo" class="icon">
             </b-button>
             <b-button v-b-tooltip="{ title:'Salvar', trigger: 'hover', container: '#editor-footer'}" class="btn-editor" @click="saveLetter">
@@ -193,7 +193,8 @@ export default {
         },
         newLetter(){
             this.length = this.quill.getLength()
-            if  (this.quill.getText() !== '\n' && this.length > 0){
+            console.log(this.length)
+            if  (this.quill.getText() !== '\n' && this.length > gi1){
                 this.modalShow = !this.modalShow               
             }
         },
