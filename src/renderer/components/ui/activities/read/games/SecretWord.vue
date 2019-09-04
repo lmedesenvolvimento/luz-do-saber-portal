@@ -154,18 +154,7 @@ export default {
                 })
             }
 
-        },        
-        // ignora a acentuação das letras dos nomes na hora de comparar com as letras
-        normalizeWord (word) {
-            return word.split('').map(function (letter) {
-                let i = this.accents.indexOf(letter)
-                return (i !== -1) ? this.out[i] : letter
-            }.bind({
-                accents: 'ÀÁÂÃÄÅĄàáâãäåąßÒÓÔÕÕÖØÓòóôõöøóÈÉÊËĘèéêëęðÇĆçćÐÌÍÎÏìíîïÙÚÛÜùúûüÑŃñńŠŚšśŸÿýŽŻŹžżź',
-                out: 'AAAAAAAaaaaaaaBOOOOOOOOoooooooEEEEEeeeeeeCCccDIIIIiiiiUUUUuuuuNNnnSSssYyyZZZzzz'
-            })
-            ).join('')
-        },
+        },  
         // procura se uma string está contida em outra string
         searchString(arr, str) {
             for(let i = 0; i < arr.length;i++){
