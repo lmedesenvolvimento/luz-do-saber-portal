@@ -10,14 +10,14 @@
                         <b-col v-for="(item, position) in letters" :key="position">                            
                             <div v-if="item.id == -1">
                                 <ls-card-display
-                                    class="letra texto"
+                                    class="complete-word-card"
                                 >                                       
                                     {{ item.text }}
                                 </ls-card-display> 
                             </div>
                             <div v-else>
                                 <ls-card-droppable
-                                    class="letra texto"
+                                    class="complete-word-card"
                                     :item="item"
                                     :type="'key'"
                                     :template="activity.item_template.key"
@@ -110,6 +110,8 @@ export default {
     }
 }
 </script>
-<style lang="scss">
-
+<style scoped lang="scss">
+    .complete-word-card{
+        width: 74px;
+    }
 </style>
