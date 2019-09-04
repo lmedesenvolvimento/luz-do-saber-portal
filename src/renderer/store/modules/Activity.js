@@ -103,7 +103,7 @@ const actions = {
 
             let { module_slug, theme_slug, unit_slug, position } = payload.params
             let extenalParams = getExtenalParams(payload.question)
-            let { data } = await API.get(`/game/${module_slug}/${theme_slug}/${unit_slug}/${position}`, extenalParams)
+            let { data } = await API.get(`/game/${module_slug}/${theme_slug}/${unit_slug}/${position}.json`, extenalParams)
 
             commit('SET_ACTIVITY', Object.assign(data.question, { position: position }))
         } catch (error) {
