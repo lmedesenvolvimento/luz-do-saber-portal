@@ -16,13 +16,13 @@ const mutations = {
 
 const actions = {
     async fetchModule({ commit }, slug){
-        let { data } = await API.get(`/game/${slug}`)
+        let { data } = await API.get(`/game/${slug}.json`)
         commit('SET_ACTIVE_MODULE', data)
         return data
 
     },
     async fetchModules({ commit }){
-        let { data } = await API.get('/game')
+        let { data } = await API.get('/game.json')
         commit('SET_MODULES', data.modulos)
         return data
     },
