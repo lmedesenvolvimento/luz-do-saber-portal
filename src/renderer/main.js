@@ -9,7 +9,7 @@ import store from './store'
 import './directives'
 import './plugins/v-viewer'
 import './plugins/plyr'
-import './plugins/vue-boostrap'
+import './plugins/bootstrap-vue'
 
 import Assets from './services/Assets'
 
@@ -26,12 +26,10 @@ Vue.config.productionTip = false
 
 Assets.loadCache()
 
-document.addEventListener('DOMContentLoaded', () => {
-    /* eslint-disable no-new */
-    new Vue({
-        components: { App },
-        router,
-        store,
-        template: '<App/>'
-    }).$mount('#app')
-})
+/* eslint-disable no-new */
+new Vue({
+    components: { App },
+    router,
+    store,
+    template: '<App/>'
+}).$mount('#app')
