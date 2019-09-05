@@ -21,21 +21,31 @@ export default {
             required: true
         }
     },
+    data() {
+        return {
+            firstAudio: null,
+            secondAudio: null,
+        }
+    },
+    created() {
+        this.loadAudio();
+    },
     methods: {
+        loadAudio() {
+            this.firstAudio = new Audio();
+            this.firstAudio.src = require('@/assets/audios/1-bem-vindo.mp3');
+
+            this.secondAudio = new Audio();
+            this.secondAudio.src = require('@/assets/audios/2-seu-nome.mp3');
+        },
         gameStart() {
             this.onClickStartButton()
 
-            let audio = new Audio();
-            audio.src = require('@/assets/audios/1-bem-vindo.mp3');
-            audio.play();
+            this.firstAudio.play();
 
             window.setTimeout(function() {
-                let audio = new Audio();
-                audio.src = require('@/assets/audios/2-seu-nome.mp3');
-                audio.play();
-            }, 3500);
-
-            window.clearTimeout();
+                this.secondAudio.play();
+            }.bind(this), 4000);
         },
     }
 }
