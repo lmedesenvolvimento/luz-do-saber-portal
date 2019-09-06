@@ -179,6 +179,13 @@
             margin: auto;
         }
     }
+    &.imagem {
+        [class*="card--"]{
+            .card-body{
+                padding: 4px;
+            }
+        }
+    }
     .card--display{
         &.card-inline-player {
             width: ( $value + $inline-player-width ) !important;
