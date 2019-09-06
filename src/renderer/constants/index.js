@@ -12,7 +12,7 @@ export const ActivityTypes = {
         },
         join: {
             text: 'atividade-texto-texto',
-            text: 'atividade-texto-imagem'
+            imagem: 'atividade-texto-imagem'
         },
     },
     game: 'jogo',
