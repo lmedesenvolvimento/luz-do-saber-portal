@@ -86,46 +86,19 @@
                                             </div>  
                                         </div>
                                         <div>
-                                            <div class="journal-page-1-story-left">
-                                                <div class="journal-story-title">
+                                            <div v-for="i in 2" :key="i" :class="{'journal-page-1-story-left': i == 1, 'journal-page-1-story-right': i == 2}">
+                                                <div v-for="j in 2" :key="j" :class="{'journal-story-title': j == 1, 'journal-story-subtitle': j == 2}">
                                                     <textarea 
-                                                        v-model="page1StoryLeftTitle" 
-                                                        cols="17" rows="2" 
-                                                        class="journal-input-story-title" 
+                                                        :v-model="{page1StoryLeftTitle: i == 1 && j == 1, page1StoryRightTitle: i == 2 && j == 1,
+                                                                   page1StoryLeftText: i == 1 && j == 2, page1StoryRightText: i == 2 && j == 2}" 
+                                                        :cols="numberCols(j)" 
+                                                        :rows="numberRows(j)" 
+                                                        :class="{'journal-input-story-title': j == 1, 'journal-input-story-text': j == 2}" 
                                                         type="text" 
-                                                        placeholder="Título do lado esquerdo"
+                                                        :placeholder="placeholderText(i, j)"
                                                     />
-                                                </div>
-                                                <div class="journal-story-subtitle">
-                                                    <textarea 
-                                                        v-model="page1StoryLeftText" 
-                                                        cols="20" rows="6"
-                                                        class="journal-input-story-text"
-                                                        type="text" 
-                                                        placeholder="Insira o conteúdo da matéria do lado esquerdo"
-                                                    />
-                                                </div>
-                                            </div>                                
-                                            <div class="journal-page-1-story-right">
-                                                <div class="journal-story-title">
-                                                    <textarea 
-                                                        v-model="page1StoryRightTitle" 
-                                                        cols="17" rows="2" 
-                                                        class="journal-input-story-title" 
-                                                        type="text" 
-                                                        placeholder="Título do lado direito"
-                                                    />
-                                                </div>
-                                                <div class="journal-story-subtitle">
-                                                    <textarea 
-                                                        v-model="page1StoryRightText" 
-                                                        cols="20" rows="6"
-                                                        class="journal-input-story-text"
-                                                        type="text" 
-                                                        placeholder="Insira o conteúdo da matéria do lado direito"
-                                                    />
-                                                </div>
-                                            </div>
+                                                </div>                                        
+                                            </div>                                            
                                         </div>
                                     </div>
                                     <div class="journal-decoration-1" />
@@ -242,46 +215,19 @@
                             <div class="journal-content">                                
                                 <div>
                                     <b-row>
-                                        <b-col class="journal-back-cover-story-left">
-                                            <div class="journal-story-title">
+                                        <b-col v-for="i in 2" :key="i" :class="{'journal-back-cover-story-left': i == 1, 'journal-back-cover-story-right': i == 2}">
+                                            <div v-for="j in 2" :key="j" :class="{'journal-story-title': j == 1, 'journal-story-subtitle': j == 2}">
                                                 <textarea 
-                                                    v-model="backCoverStoryLeftTitle" 
-                                                    cols="17" rows="2" 
-                                                    class="journal-input-story-title" 
+                                                    :v-model="{backCoverStoryLeftTitle: i == 1 && j == 1, backCoverStoryRightTitle: i == 2 && j == 1,
+                                                               backCoverStoryLeftText: i == 1 && j == 2, backCoverStoryRightText: i == 2 && j == 2}" 
+                                                    :cols="numberCols(j)" 
+                                                    :rows="numberRows(j)" 
+                                                    :class="{'journal-input-story-title': j == 1, 'journal-input-story-text': j == 2}" 
                                                     type="text" 
-                                                    placeholder="Título do lado esquerdo"
+                                                    :placeholder="placeholderText(i, j)"
                                                 />
-                                            </div>
-                                            <div class="journal-story-subtitle">
-                                                <textarea 
-                                                    v-model="backCoverStoryLeftText" 
-                                                    cols="20" rows="8"
-                                                    class="journal-input-story-text"
-                                                    type="text" 
-                                                    placeholder="Insira o conteúdo da matéria do lado esquerdo"
-                                                />
-                                            </div>
-                                        </b-col>
-                                        <b-col class="journal-back-cover-story-right">
-                                            <div class="journal-story-title">
-                                                <textarea 
-                                                    v-model="backCoverStoryRightTitle" 
-                                                    cols="16" rows="2" 
-                                                    class="journal-input-story-title" 
-                                                    type="text" 
-                                                    placeholder="Título do lado direito"
-                                                />
-                                            </div>
-                                            <div class="journal-story-subtitle">
-                                                <textarea 
-                                                    v-model="backCoverStoryRightText" 
-                                                    cols="19" rows="8"
-                                                    class="journal-input-story-text"
-                                                    type="text" 
-                                                    placeholder="Insira o conteúdo da matéria do lado direito"
-                                                />
-                                            </div>
-                                        </b-col>
+                                            </div>                                        
+                                        </b-col>                                         
                                     </b-row>
                                 </div> 
                                 <div 
