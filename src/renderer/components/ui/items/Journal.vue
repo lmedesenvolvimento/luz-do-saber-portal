@@ -31,46 +31,19 @@
                                     </div>  
                                 </div>                                
                                 <div>
-                                    <div class="journal-cover-story-left">
-                                        <div class="journal-story-title">
+                                    <div v-for="i in 2" :key="i" :class="{'journal-cover-story-left': i == 1, 'journal-cover-story-right': i == 2}">
+                                        <div v-for="j in 2" :key="j" :class="{'journal-story-title': j == 1, 'journal-story-subtitle': j == 2}">
                                             <textarea 
-                                                v-model="coverStoryLeftTitle" 
-                                                cols="17" rows="2" 
-                                                class="journal-input-story-title" 
+                                                :v-model="{coverStoryLeftTitle: i == 1 && j == 1, coverStoryRightTitle: i == 2 && j == 1,
+                                                           coverStoryLeftText: i == 1 && j == 2, coverStoryRightText: i == 2 && j == 2}" 
+                                                :cols="numberCols(j)" 
+                                                :rows="numberRows(j)" 
+                                                :class="{'journal-input-story-title': j == 1, 'journal-input-story-text': j == 2}" 
                                                 type="text" 
-                                                placeholder="Título do lado esquerdo"
+                                                :placeholder="placeholderText(i, j)"
                                             />
-                                        </div>
-                                        <div class="journal-story-subtitle">
-                                            <textarea 
-                                                v-model="coverStoryLeftText" 
-                                                cols="20" rows="7"
-                                                class="journal-input-story-text"
-                                                type="text" 
-                                                placeholder="Insira o conteúdo da matéria do lado esquerdo"
-                                            />
-                                        </div>
-                                    </div>                                
-                                    <div class="journal-cover-story-right">
-                                        <div class="journal-story-title">
-                                            <textarea 
-                                                v-model="coverStoryRightTitle" 
-                                                cols="17" rows="2" 
-                                                class="journal-input-story-title" 
-                                                type="text" 
-                                                placeholder="Título do lado direito"
-                                            />
-                                        </div>
-                                        <div class="journal-story-subtitle">
-                                            <textarea 
-                                                v-model="coverStoryRightText" 
-                                                cols="20" rows="7"
-                                                class="journal-input-story-text"
-                                                type="text" 
-                                                placeholder="Insira o conteúdo da matéria do lado direito"
-                                            />
-                                        </div>
-                                    </div>
+                                        </div>                                        
+                                    </div> 
                                 </div>
                             </div>
                             <div class="journal-decoration-1" />
@@ -408,10 +381,10 @@ export default {
             backCoverStoryRightText: '',
             backCoverImage: null,
             backCoverFooterText: '',
-            isPrinting: false
+            isPrinting: false,
         }
     },
-    computed: {
+    computed: {            
         prevPage() {
             return require('@/assets/images/icons/escrever/icon-prev.png')
         },
@@ -420,6 +393,31 @@ export default {
         }
     },
     methods: {
+        // Placeholders
+        placeholderText(i, j){
+            console.log(i, j);
+            if (i == 1){
+                if (j == 1){
+                    return 'Titulo do lado esquerdo';
+                } else {
+                    return 'Insira o conteúdo da matéria do lado esquerdo';
+                }
+            } else {
+                if (j == 1){
+                    return 'Titulo do lado direito';
+                } else {
+                    return 'Insira o conteúdo da matéria do lado direito';
+                }
+            }
+        },   
+        numberCols(j){
+            if(j == 1) return 17;
+            else return 20;
+        },
+        numberRows(j){
+            if(j == 1) return 2;
+            else return 7;
+        },  
         onFileSelectedCover(event) {
             const file = event.target.files[0]
             console.log(file);
