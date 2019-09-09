@@ -2,27 +2,29 @@
     <div class="container-fluid">
         <b-row align-v="center">
             <b-col cols="3" align-v="center" align-h="center">
-                <b-row class="bingo-container" align-v="center" align-h="center">
-                    <async-image class="bingo-roulette" :src="bingoRoulette" alt="roleta do bingo" />
-                    <async-image class="bingo-panel" :src="bingoCounter" alt="contador do bingo" />
-                    <div
-                        class="bingo-counter"
-                        :class="{'bingo-counter-animation': animateBingoCounter}"
-                    >
-                        <h2 v-if="showTimer" style="color: #13c5c4;">{{ getDuration }}</h2>
-                        <h2 v-else>{{ actualRaffleWord }}</h2>
-                    </div>
-                </b-row>
-                <b-row align-h="start">
-                    <div
-                        v-for="bingoWord in allWords"
-                        :key="bingoWord"
-                        class="bingo-word"
-                        :class="{'bingo-raffle-word': searchString(raffleWords,bingoWord)}"
-                    >
-                        {{ bingoWord }}
-                    </div>
-                </b-row>
+                <div style="positon: relative">
+                    <b-row class="bingo-container" align-v="center" align-h="center">
+                        <async-image class="bingo-roulette" :src="bingoRoulette" alt="roleta do bingo" />
+                        <async-image class="bingo-panel" :class="{'bingo-word-panel': isWordBingo}" :src="bingoCounter" alt="contador do bingo" />
+                        <div
+                            class="bingo-counter"
+                            :class="{'bingo-counter-animation': animateBingoCounter}"
+                        >
+                            <h2 v-if="showTimer" style="color: #13c5c4;">{{ getDuration }}</h2>
+                            <h2 v-else>{{ actualRaffleWord }}</h2>
+                        </div>
+                    </b-row>
+                    <b-row align-h="start">
+                        <div
+                            v-for="bingoWord in allWords"
+                            :key="bingoWord"
+                            class="bingo-word"
+                            :class="{'bingo-raffle-word': searchString(raffleWords,bingoWord)}"
+                        >
+                            <p :class="{'bingo-word-big': isWordBingo}">{{ bingoWord }}</p>
+                        </div>
+                    </b-row>
+                </div>
             </b-col>
             <b-col cols="9" align-v="center" align-h="center">
                 <b-row>
@@ -36,7 +38,7 @@
                             <b-col
                                 v-for="(item, position) in getBingoValues"
                                 :key="position"
-                                :sm="2"
+                                :sm="{2 : !isWordBingo}"
                             >
                                 <div class="item">
                                     <div class="substantivo_comum medium">
@@ -80,12 +82,12 @@
                             <b-col
                                 v-for="word in words[i-1]"
                                 :key="word"
-                                :sm="2"
+                                :sm="{2 : !isWordBingo}"
                                 class="item"
                             >
                                 <div class="item">
                                     <div class="substantivo_comum medium">
-                                        <ls-card-display
+                                        <ls-card-display                                            
                                             :valid="searchString(raffleWords, word)"
                                         >
                                             {{ word }}
@@ -132,7 +134,8 @@ export default {
             showTimer: true,
             animateBingoCounter: false,
             loseCounter: [0,0],
-            isCounter: true
+            isCounter: true,
+            isWordBingo: false
         }
     },
     computed:{
@@ -188,6 +191,9 @@ export default {
         // pega os valores e os joga numa matriz de palavras
         this.scramblePlayerWords = shuffle(this.scramblePlayerWords);
         for(let i = 0; i < this.getValues.length; i++){
+            if(this.getValues[i].text.length > 4){
+                this.isWordBingo = true;
+            }
             if(i < this.activity.total_correct_items){
                 this.words[0].push(this.getValues[i].text)
             }else{
