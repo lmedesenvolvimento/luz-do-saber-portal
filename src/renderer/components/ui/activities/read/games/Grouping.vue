@@ -43,7 +43,7 @@
                                                     cols="6"
                                                     class="mb-2"
                                                 >
-                                                    <div class="silaba">
+                                                    <div class="letra">
                                                         <b-card
                                                             no-body
                                                             class="drop-group-item"
@@ -115,6 +115,10 @@ export default {
 
 <style lang="scss">
     #grouping-activity{
+
+        .bg-color{
+            background-color: transparent !important;
+        }
 
         .activity-keys{
             flex-grow: 1.3;
