@@ -106,7 +106,7 @@ export default {
             return this.$refs.plyr.player
         },
         isPlayerWithImage() {
-            return (this.item.images[0].url != null) && (this.item.value_ids == null)
+            return (this.item.images.length && this.item.images[0].url != null) && (this.item.value_ids == null)
         }
     },
     mounted(){
