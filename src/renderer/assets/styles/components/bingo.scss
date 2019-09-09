@@ -13,8 +13,10 @@
 }
 .bingo-panel{
     position: fixed;
-    margin-top: 2px;
     z-index: 1;
+    &.bingo-word-panel{
+        transform: scaleX(1.3);
+    }    
 }
 .bingo-counter{
     position: fixed;
@@ -70,7 +72,11 @@
     height: 50px;
     margin: 2px;
     &.bingo-raffle-word{
-        background-color: #13c5c4;
+        background-color: #13c5c4;        
+    }
+    .bingo-word-big{
+        padding-top: 5px;
+        font-size: 10px;
     }
 }
 
