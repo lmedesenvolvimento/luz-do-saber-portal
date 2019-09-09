@@ -24,10 +24,15 @@
                                 class="back"
                             >
                                 <div v-if="card.type === 'key'">
-                                    {{ card.value }}
-                                </div>
+                                    <div v-if="isImage && card.images.length" class="m-image-container">
+                                        <img class="m-image" :src="card.images[0].url">
+                                    </div>
+                                    <div v-else>
+                                        {{ card.value }}
+                                    </div>
+                                </div>                                    
                                 <div v-else>
-                                    <div v-if="card.value.length > 0">
+                                    <div v-if="card.value.length > 0" class="m-image-container">
                                         <img class="m-image" :src="card.value[0].url">
                                     </div>
                                     <div v-else>
@@ -60,6 +65,11 @@ export default {
             firstClick: true,
         }
     },
+    computed: {
+        isImage() {
+            return this.activity.item_template === 'imagem'
+        }
+    },
     created(){
         this.cards = this.createArray(this.activity.items)
         this.createAnswersArray()
@@ -75,11 +85,13 @@ export default {
         },
         createArray(items){
             let cards = []
+            
             let values = items.keys.map( function(k) {                    
-                let {id, text, value_ids} = k
-                let aux = {id, value: text, value_ids, type: 'key'}
+                let {id, text, images, value_ids} = k
+                let aux = {id, value: text, images, value_ids, type: 'key'}
                 return aux
             })
+
             let values2 = items.values.map( function(k) {
                 let {id, images, key_id, first_letter} = k
                 let aux = {id, value: images, key_id, type: 'value', first_letter}
@@ -155,9 +167,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.m-image-container{
+    position: relative;
+    overflow: hidden;
+    padding-left: 4px;
+    padding-right: 4px;
     .m-image{
-        max-width: 120px;
+        width: auto;
+        max-width: 100%;
+        max-height: 160px;
     }
+}
 </style>
 
 
