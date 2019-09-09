@@ -1,12 +1,18 @@
 <template>
     <nav class="navbar navbar-default">
-        <router-link variant="link" :to="custom ? historyBackUnit : historyBack">
+        <router-link variant="link" :to="historyBackUnit">
             <div class="icon-prev-screen"></div>
         </router-link>
 
-        <b-btn class="navbar-icons icon-right" variant="link" to="/">
+        <router-link 
+            class="navbar-icons icon-right"
+            variant="link"
+            :to="{
+                name: 'home-page',
+            }"
+        >
             <div class="icon-home"></div>
-        </b-btn>
+        </router-link>
 
         <span class="flex"></span>
 
