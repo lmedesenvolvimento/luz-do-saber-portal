@@ -129,6 +129,7 @@ export default {
             timer: 5000,
             actualRaffleLetter: '',
             showTimer: true,
+            isCounter: true,
             animateBingoCounter: false,
             timeOut: null
         }
@@ -155,7 +156,10 @@ export default {
     },
     watch: {
         showTimer() {
-            this.animateBingoCounter = true;
+            if(this.isCounter){
+                this.animateBingoCounter = true;
+            }
+            this.isCounter = !this.isCounter;
             this.timeOut = setTimeout(() => {
                 this.animateBingoCounter = false;
             },1000)
@@ -182,7 +186,7 @@ export default {
         // embaralhamos o vetor de letras
         this.scramblePlayerLetters = shuffle(this.scramblePlayerLetters);
     },
-    baforeDestroy() {
+    beforeDestroy() {
         // impede que continuem sendo chamados após sair da fase
         delete this.unraffleLetters
         delete this.actualizeBingoTimer

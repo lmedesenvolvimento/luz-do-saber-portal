@@ -20,8 +20,9 @@
     position: fixed;
     margin-top: 4px;
     z-index: 2;    
+    transition: transform .5s;
     &.bingo-counter-animation{
-        @include rubberBand;
+        transform: scale(2);
     }
 }
 .bingo-card{
