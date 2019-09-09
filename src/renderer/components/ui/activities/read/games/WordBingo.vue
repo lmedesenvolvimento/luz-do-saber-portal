@@ -131,7 +131,8 @@ export default {
             timer: 5000,
             showTimer: true,
             animateBingoCounter: false,
-            loseCounter: [0,0]
+            loseCounter: [0,0],
+            isCounter: true
         }
     },
     computed:{
@@ -153,8 +154,11 @@ export default {
     },
     watch: {
         showTimer() {
-            this.animateBingoCounter = true;
-            setTimeout(() => {
+            if(this.isCounter){
+                this.animateBingoCounter = true;
+            }
+            this.isCounter = !this.isCounter;
+            this.timeOut = setTimeout(() => {
                 this.animateBingoCounter = false;
             },1000)
         },
