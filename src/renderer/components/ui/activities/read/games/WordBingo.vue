@@ -39,6 +39,7 @@
                                 v-for="(item, position) in getBingoValues"
                                 :key="position"
                                 :sm="{2 : !isWordBingo}"
+                                style="margin: 0 5px 0 5px"
                             >
                                 <div class="item">
                                     <div class="substantivo_comum medium">
@@ -169,12 +170,14 @@ export default {
             if (this.searchString(this.words[0],this.actualRaffleWord)){
                 this.loseCounter[0]++;
                 if(this.loseCounter[0] == 4){
+                    this.activity.pointings[0].quantity = 10;
                     this.triggerSuccess();
                 }
             } 
             if (this.searchString(this.words[1],this.actualRaffleWord)){
                 this.loseCounter[1]++;
                 if(this.loseCounter[1] == 4){
+                    this.activity.pointings[0].quantity = 10;
                     this.triggerSuccess();
                 }
             }
