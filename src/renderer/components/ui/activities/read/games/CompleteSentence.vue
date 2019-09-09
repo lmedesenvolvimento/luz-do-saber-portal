@@ -286,10 +286,12 @@ export default {
                 padding: 1rem !important;
             }
         }
-        .item .substantivo_comum .texto{
-            width: auto !important;
-            .draggshadow{
-                width: auto !important;
+        .card-input.draggshadow{
+            width: auto;
+            max-width: 100%;
+            .card .card-body{
+                max-height: 55px;
+                padding: 1rem !important;
             }
         }
     }
