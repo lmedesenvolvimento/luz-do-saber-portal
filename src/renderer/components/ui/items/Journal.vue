@@ -40,7 +40,7 @@
                                                 :rows="numberRows(j)" 
                                                 :class="{'journal-input-story-title': j == 1, 'journal-input-story-text': j == 2}" 
                                                 type="text" 
-                                                :placeholder="placeholderText(i, j)"
+                                                :placeholder="placeholderStory(i, j)"
                                             />
                                         </div>                                        
                                     </div> 
@@ -58,16 +58,11 @@
                                     <div class="journal-content">
                                         <div class="journal-page-1-header">
                                             <input 
-                                                v-model="page1Title" 
-                                                class="journal-page-1-title"
+                                                v-for="i in 2" :key="i"
+                                                :v-model="{page1Title: i == 1, page1Subtitle: i == 2}" 
+                                                :class="{'journal-page-1-title': i == 1, 'journal-input-story-subtitle': i == 2}"
                                                 type="text" 
-                                                placeholder="Matéria de destaque"
-                                            />
-                                            <input 
-                                                v-model="page1Subtitle" 
-                                                class="journal-input-story-subtitle" 
-                                                type="text" 
-                                                placeholder="Subtítulo da matéria"
+                                                :placeholder="placeholderTitle(i)"
                                             />
                                         </div>                                        
                                         <div 
@@ -95,7 +90,7 @@
                                                         :rows="numberRows(j)" 
                                                         :class="{'journal-input-story-title': j == 1, 'journal-input-story-text': j == 2}" 
                                                         type="text" 
-                                                        :placeholder="placeholderText(i, j)"
+                                                        :placeholder="placeholderStory(i, j)"
                                                     />
                                                 </div>                                        
                                             </div>                                            
@@ -224,7 +219,7 @@
                                                     :rows="numberRows(j)" 
                                                     :class="{'journal-input-story-title': j == 1, 'journal-input-story-text': j == 2}" 
                                                     type="text" 
-                                                    :placeholder="placeholderText(i, j)"
+                                                    :placeholder="placeholderStory(i, j)"
                                                 />
                                             </div>                                        
                                         </b-col>                                         
@@ -340,7 +335,7 @@ export default {
     },
     methods: {
         // Placeholders
-        placeholderText(i, j){
+        placeholderStory(i, j){
             console.log(i, j);
             if (i == 1){
                 if (j == 1){
@@ -356,6 +351,10 @@ export default {
                 }
             }
         },   
+        placeholderTitle(i){
+            if(i == 1) return 'Matéria de destaque';
+            else return 'Subtítulo da matéria'
+        },
         numberCols(j){
             if(j == 1) return 17;
             else return 20;
@@ -363,7 +362,7 @@ export default {
         numberRows(j){
             if(j == 1) return 2;
             else return 7;
-        },  
+        },         
         onFileSelectedCover(event) {
             const file = event.target.files[0]
             console.log(file);
