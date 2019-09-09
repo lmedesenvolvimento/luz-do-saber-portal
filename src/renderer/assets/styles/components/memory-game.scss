@@ -38,7 +38,7 @@
         height: 200px;
         transform: translate3d(0,0,0);
         transform-style: preserve-3d;
-        backface-visibility: hidden;
+        backface-visibility: unset;
         &.flip{
             animation: flip-scale-up-ver 0.5s linear both;
         }
