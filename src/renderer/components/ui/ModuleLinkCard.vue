@@ -14,6 +14,20 @@
             />
         </a>
         <router-link
+            v-else-if="data.slug == 'comecar'"
+            class="clean-links"
+            :to="getComecarUnitRoute"
+            replace
+        >
+            <vue-circle
+                class="m-5"
+                :label="label || data.title"
+                :image="getModuleImage"
+                :color="getModuleColor"
+                :progress="getProgress"
+            />
+        </router-link>
+        <router-link
             v-else
             class="clean-links"
             :to="{
@@ -50,7 +64,7 @@ export default {
         toggleVisibleLerSubModule: {
             type: Function,
             required: false
-        },
+        }
     },
     computed: {
         getModuleImage(){
@@ -112,10 +126,16 @@ export default {
                 return 'module';
             }
         },
+        getComecarUnitRoute() {
+            return this.data.themes[0].units_url + '/' + this.data.themes[0].slug;
+        }
     },
     methods: {
         getProgressThemesByModuleId(m){
             return this.$store.getters['Pointings/getThemesByModuleId'](m.id, this.targetAudience)
+        },
+        testGetData() {
+            console.log(this.data.themes[0].units_url);
         }
     }
 }
