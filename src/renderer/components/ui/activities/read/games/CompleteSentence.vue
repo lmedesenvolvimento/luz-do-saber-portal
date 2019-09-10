@@ -4,10 +4,9 @@
             <h2>   
                 <span v-for="(s, position) in splitedSentence" :key="position" style="display: inline-block">
                     <span v-if="!searchString(hiddenElements, s)" class="sentence">{{ s.text }}</span>
-                    <span v-else>                             
-                        <div class="item">
+                    <span v-else class="item">                             
+                        <div class="validate-icon-top" :class="activity.item_template.value.font_size">
                             <ls-card-droppable
-                                class="letra"
                                 :item="s"
                                 :type="'key'"
                                 :template="activity.item_template.key"
@@ -36,6 +35,9 @@
                             :template="activity.item_template.key"
                             :custom-validate="customValidate"
                         >
+                            <template slot="transfer-data">
+                                {{ item.transferData ? item.transferData.text : item.text }}
+                            </template>
                         </ls-card-droppable>
                     </div>
                 </span>
@@ -99,6 +101,7 @@ import { mapActions } from 'vuex'
 import { MapMixins, ListMixin, CreateAnswersMixins } from '@ui/activities/mixins'
 import ui from '@/components/ui'
 import { clone } from 'lodash'
+import { setTimeout } from 'timers';
 
 export default {
     components: { ...ui },    
@@ -109,6 +112,7 @@ export default {
             $refsInput: [],
             sentence: '',
             splitedSentence: [],  
+            dataTransfer: null
         }
     },
     mounted() {
@@ -195,23 +199,32 @@ export default {
             })
         },
         customValidate(transferData, nativeElement, vm){
-            this.dataTransfer = transferData
-            if (this.dataTransfer.id === vm.item.id){
+            Vue.set(vm.item, 'transferData', transferData)
+            
+            if (vm.item.transferData.id === vm.item.id){
                 vm.valid = true;
                 transferData.valid = true
+
                 vm.setAnswer({
                     type: 'value',
                     data: transferData.id,
                     vm: this
                 })
-            }else{
-                vm.item.incorrect = true;
-                vm.invalid = true;
+            }else {                
+                vm.item.incorrect = true
+                vm.invalid = true
+
+                transferData.invalid = true
+
                 vm.setAnswer({
                     type: 'value',
                     data: -1,
                     vm: this
                 })
+
+                setTimeout(() => {
+                    Vue.set(vm.item, 'transferData', null)
+                }, 1000)
             }
         },
         checkAwnser(event, item, position) {
@@ -246,7 +259,7 @@ export default {
                 const updates = clone(this.splitedSentence)
                 updates[position].invalid = false
                 Vue.set(this, 'splitedSentence', updates)
-            }, time * 1000)
+            }, time * 500)
         },
         inputSize(text){
             if (text.length < 2){
@@ -279,16 +292,17 @@ export default {
         
         .card-input.card--draggable 
         {
-            width: auto;
-            max-width: 100%;
+            width: 105%;
             .card .card-body{
                 max-height: 55px;
                 padding: 1rem !important;
             }
         }
+        .card--display .card .card-body{
+            padding: 1.5rem;
+        }
         .card-input.draggshadow{
             width: auto;
-            max-width: 100%;
             .card .card-body{
                 max-height: 55px;
                 padding: 1rem !important;
@@ -303,5 +317,6 @@ export default {
         .letra{
             max-width:58px;
         }
+
     }
 </style>
