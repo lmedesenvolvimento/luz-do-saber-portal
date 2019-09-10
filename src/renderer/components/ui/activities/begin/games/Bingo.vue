@@ -4,14 +4,17 @@
             <b-col cols="3" align-v="center" align-h="center">
                 <b-row class="bingo-container" align-v="center" align-h="center">
                     <async-image class="bingo-roulette" :src="bingoRoulette" alt="roleta do bingo" />
-                    <async-image class="bingo-panel" :src="bingoCounter" alt="contador do bingo" />
-                    <div
-                        class="bingo-counter"
-                        :class="{'bingo-counter-animation': animateBingoCounter}"
-                    >
-                        <h2 v-if="showTimer" style="color: #13c5c4;">{{ getDuration }}</h2>
-                        <h2 v-else>{{ actualRaffleLetter }}</h2>
-                    </div>
+                    <div class="bingo-panel">
+                        <div class="bingo-panel-inside">
+                            <div
+                                class="bingo-counter"
+                                :class="{'bingo-counter-animation': animateBingoCounter}"
+                            >
+                                <h2 v-if="showTimer" style="color: #13c5c4;">{{ getDuration }}</h2>
+                                <h2 v-else>{{ actualRaffleLetter }}</h2>
+                            </div>
+                        </div>                            
+                    </div>                    
                 </b-row>
                 <b-row align-h="start">
                     <div
