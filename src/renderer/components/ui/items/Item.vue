@@ -1,5 +1,5 @@
 <template>
-    <div :class="[item.type, template.type, template.font_size]">
+    <div :class="[item.type, template.type, fontSize]">
         <div v-if="!isPrimitiveItem" class="item">
             <ls-item-cracha-box
                 v-if="template.custom === Types.custom.crachaBox"
@@ -84,8 +84,11 @@ export default {
         isPrimitiveItem(){
             return this.template.custom ? false : true
         },
-        getItemClass()   {
+        getItemClass() {
             return `${this.item ? this.item.type : ''} ${ this.template ? this.template.type : '' }`
+        },
+        fontSize() {
+            return this.template.font_size ? this.template.font_size : 'big'
         }
     }
 }
