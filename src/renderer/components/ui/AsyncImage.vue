@@ -61,6 +61,7 @@ export default {
     img {
         display: inline-block;
         max-width: 100%;
+        height: auto;
         margin: auto;
     }
     > svg{
