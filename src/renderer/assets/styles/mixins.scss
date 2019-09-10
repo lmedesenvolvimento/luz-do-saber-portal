@@ -78,7 +78,7 @@
     font-family: 'Shitzu Porko Light', Arial, Helvetica, sans-serif;
 }
 
-@mixin custom-card($input: false, $size: 'medium'){
+@mixin custom-card($input: false, $size: 'default'){
     padding: 8px 0px;
     .card {
         padding: 0.20rem;
@@ -221,7 +221,7 @@
         .card{
             &:not(.valid):not(.invalid){
                 &::before{
-                    @include custom-dropcard-content(6px, 6px, 0.5);
+                    @include custom-dropcard-content(6px, 6px, 0.6);
                 }
             }
         }
@@ -229,7 +229,7 @@
     &.card--draggable{
       .dragging, .dropped{
             &::before{
-                @include custom-dropcard-content(6px, 6px, 0.5);
+                @include custom-dropcard-content(6px, 6px, 0.6);
             }
         }
     }
