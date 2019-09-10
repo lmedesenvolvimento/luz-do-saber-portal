@@ -3,7 +3,7 @@
         <div class="page-container">
             <navbar :navbar-title="book.title" :navbar-subtitle="''" />
             <div class="gameplay">
-                <div class="btn icon-close" v-if="fullscreen" @click.stop="maximize"></div>
+                <div v-if="fullscreen" class="btn icon-close" @click.stop="maximize"></div>
                 <div class="step-bars">
                     <div
                         v-for="(value, index) in images"
@@ -17,7 +17,7 @@
                         <figure class="image fill">
                             <transition-group class="transition-span" name="fade">
                                 <div v-for="image in images" v-show="isVisible(image)" :key="image.key" class="img-wrap fill">
-                                    <div class="lazy-load" v-if="image.loaded" :class="{'division' : !notSingle(image)}">
+                                    <div v-if="image.loaded" class="lazy-load" :class="{'division' : !notSingle(image)}">
                                         <viewer :options="viewerOpts">
                                             <slot name="image">
                                                 <img :src="image.source">
@@ -42,7 +42,7 @@
                             <div class="icon-next"></div>
                         </b-btn>
                     </div>
-                    <div class="footer-info" v-if="!fullscreen">                        
+                    <div v-if="!fullscreen" class="footer-info">
                         <div v-b-tooltip="{ title:'Capa do Livro', container: '.footer-info'}" class="btn-book cover" @click.stop="toPage(0)"></div>
                         <div v-b-tooltip="{ title:'Informações', container: '.footer-info'}" class="btn-book info" @click.stop="toPage(images.length-1)"></div>
                         <a v-b-tooltip="{ title:'Download', trigger: 'hover', container: '.footer-info'}" :href="book.pdf_url" :download="book.title" class="btn-book download"></a>

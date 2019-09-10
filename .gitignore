@@ -27,3 +27,5 @@ docker-web-app
 static/api
 static/images
 static/audios
+
+dist
