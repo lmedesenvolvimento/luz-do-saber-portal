@@ -27,11 +27,10 @@
                     :template="activity.item_template.key"
                 />
             </div>
-            <div v-else>
-                <span v-for="(item, position) in splitedSentence" :key="position" class="sentence" style="display: inline-block">
-                    <div class="item">
+            <b-row v-else align-h="center">
+                <span v-for="(item, position) in splitedSentence" :key="position" class="item sentence">
+                    <div class="validate-icon-top" :class="[activity.item_template.value.font_size, inputSize(item.text)]">
                         <ls-card-droppable
-                            class="letra"
                             :item="item"
                             :type="'key'"
                             :template="activity.item_template.key"
@@ -40,16 +39,16 @@
                         </ls-card-droppable>
                     </div>
                 </span>
-            </div>
+            </b-row>
         </b-row>
         <b-row v-if="getKeys.length === 1 && activity.item_template.key.type === 'audio'" class="activity-values">               
             <b-col
                 v-for="(item, position) in splitedSentence"
                 :key="item.id"
-                class="word item"
+                class="item"
                 md="auto"
             > 
-                <div v-if="item.hasInput === true" :class="activity.item_template.value.font_size" class="silaba validate-icon-top">      
+                <div v-if="item.hasInput === true" :class="[activity.item_template.value.font_size, inputSize(item.text)]" class="validate-icon-top">  
                     <div class="card-input card--input-text">
                         <label>
                             <b-card
@@ -248,8 +247,16 @@ export default {
                 updates[position].invalid = false
                 Vue.set(this, 'splitedSentence', updates)
             }, time * 1000)
-        }
-        ,
+        },
+        inputSize(text){
+            if (text.length < 2){
+                return 'letra'
+            } else if (text.length < 4) {
+                return 'silaba'
+            } else {
+                return 'substantivo_comum'
+            }
+        },
         ...mapActions('Activity', ['setAnswer'])
     }
 }
@@ -261,11 +268,7 @@ export default {
             margin: 0px 6px;
         }
         .card-input.card--input-text{
-            width: auto !important;
-            max-width: 100%;
-        }
-        .word{
-            font-size: 24px;
+            // max-width: 130px;
         }
         .activity-keys{
             padding: 0;
@@ -293,6 +296,18 @@ export default {
                 max-height: 55px;
                 padding: 1rem !important;
             }
+        }
+        .silaba{
+            max-width: 74px;
+            height: auto;
+        }
+        .substantivo_comum{
+            max-width: 185px;
+            height: auto;
+        }
+        .letra{
+            max-width:58px;
+            height: auto;
         }
     }
 </style>
