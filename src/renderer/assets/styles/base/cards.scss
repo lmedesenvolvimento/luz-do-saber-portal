@@ -107,6 +107,10 @@
 .card-input.card--droppable{
     @include custom-card;
     .card{
+        .card-body{
+            overflow: hidden;
+            white-space: nowrap;
+        }
         &:not(.valid):not(.invalid){
             &::before{
                 @include custom-dropcard-content;
