@@ -3,9 +3,8 @@
     flex-direction: column;
     flex: 1;
     background-color: white;
-    width: 100%;
+    min-width: 1024px;
     max-width: 1024px;
-    // max-height: calc(81vh - 150px);
     margin: 24px auto 0px;
     box-shadow: 3px 3px 18px transparentize($color: #000, $amount: 0.9);
     border-bottom-left-radius: 8px;
