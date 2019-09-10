@@ -4,14 +4,17 @@
             <b-col cols="3" align-v="center" align-h="center">
                 <div style="positon: relative">
                     <b-row class="bingo-container" align-v="center" align-h="center">
-                        <async-image class="bingo-roulette" :src="bingoRoulette" alt="roleta do bingo" />
-                        <async-image class="bingo-panel" :class="{'bingo-word-panel': isWordBingo}" :src="bingoCounter" alt="contador do bingo" />
-                        <div
-                            class="bingo-counter"
-                            :class="{'bingo-counter-animation': animateBingoCounter}"
-                        >
-                            <h2 v-if="showTimer" style="color: #13c5c4;">{{ getDuration }}</h2>
-                            <h2 v-else>{{ actualRaffleWord }}</h2>
+                        <async-image class="bingo-roulette" :src="bingoRoulette" alt="roleta do bingo" />   
+                        <div class="bingo-panel bingo-panel-word">
+                            <div class="bingo-panel-inside">
+                                <div
+                                    class="bingo-counter"
+                                    :class="{'bingo-counter-animation': animateBingoCounter}"
+                                >
+                                    <h2 v-if="showTimer" style="color: #13c5c4;">{{ getDuration }}</h2>
+                                    <h2 v-else>{{ actualRaffleWord }}</h2>
+                                </div>
+                            </div>                            
                         </div>
                     </b-row>
                     <b-row align-h="start">
@@ -34,12 +37,10 @@
                         <b-row align-v="center" align-h="center">
                             <p style="color: white">sua cartela</p>
                         </b-row>
-                        <b-row align-v="center" align-h="center">
+                        <b-row align-v="center" align-h="center" class="bingo-card-player-row">
                             <b-col
                                 v-for="(item, position) in getBingoValues"
                                 :key="position"
-                                :sm="{2 : !isWordBingo}"
-                                style="margin: 0 5px 0 5px"
                             >
                                 <div class="item">
                                     <div class="substantivo_comum medium">
@@ -79,11 +80,10 @@
                         class="bingo-card"
                         :valid="loseCounter[i-1]==4"
                     >
-                        <b-row align-v="center" align-h="center">
+                        <b-row align-v="center" align-h="center" class="bingo-card-row">
                             <b-col
                                 v-for="word in words[i-1]"
                                 :key="word"
-                                :sm="{2 : !isWordBingo}"
                                 class="item"
                             >
                                 <div class="item">
