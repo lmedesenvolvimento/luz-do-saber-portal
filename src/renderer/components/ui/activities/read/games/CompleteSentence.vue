@@ -267,9 +267,6 @@ export default {
         .sentence{
             margin: 0px 6px;
         }
-        .card-input.card--input-text{
-            // max-width: 130px;
-        }
         .activity-keys{
             padding: 0;
         }
@@ -298,16 +295,13 @@ export default {
             }
         }
         .silaba{
-            max-width: 74px;
-            height: auto;
+            max-width: 78px;
         }
         .substantivo_comum{
-            max-width: 185px;
-            height: auto;
+            max-width: 138px;
         }
         .letra{
             max-width:58px;
-            height: auto;
         }
     }
 </style>
