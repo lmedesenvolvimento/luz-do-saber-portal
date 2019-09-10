@@ -6,12 +6,6 @@
             :navbar-icon="themeImage"
             :custom="getThemeName()"
         />
-        <!-- <navbar
-            v-else
-            :navbar-title="renderNavTitle"
-            :navbar-subtitle="'Unidades'"
-            :navbar-icon="themeImage"
-        /> -->
         <div class="page-container-wrap-spacing">
             <b-row v-if="theme">
                 <b-col v-for="unit in theme.units" :key="unit.id" cols="12" md="6">
