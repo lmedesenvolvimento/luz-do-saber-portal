@@ -4,7 +4,7 @@
             :navbar-title="renderNavTitle"
             :navbar-subtitle="'Unidades'"
             :navbar-icon="themeImage"
-            :custom="getThemeName()"
+            :custom="getThemeName"
         />
         <div class="page-container-wrap-spacing">
             <b-row v-if="theme">
@@ -49,6 +49,16 @@ export default {
         }
     },
     computed: {
+        getThemeName() {
+            let correctThemeName;
+            if (this.$route.params.module_slug === 'comecar') {
+                correctThemeName = true;
+            } else {
+                correctThemeName = false;
+            }
+
+            return correctThemeName;
+        },
         renderNavTitle(){
             return this.theme.title ? 'Tema ' + this.theme.title : ''
         },
@@ -69,16 +79,6 @@ export default {
         this.destroyTheme()
     },
     methods: {
-        getThemeName() {
-            let correctThemeName;
-            if (this.$route.params.module_slug === 'comecar') {
-                correctThemeName = true;
-            } else {
-                correctThemeName = false;
-            }
-
-            return correctThemeName;
-        },
         getThemeColor(theme){
             switch (theme.modulo_id) {
             case 1:
