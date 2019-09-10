@@ -102,9 +102,10 @@ let webConfig = {
         removeComments: true
       },
       nodeModules: false
-    }),
+    }),    
     new webpack.DefinePlugin({
       'process.env.IS_WEB': 'true',
+      'process.env.BUILD_TARGET': '"web"',
       'process.env.BASE_API_URL': '"https://luz-do-saber-staging.herokuapp.com"'
     }),
     new webpack.HotModuleReplacementPlugin(),
