@@ -14,14 +14,25 @@
 .bingo-panel{
     position: fixed;
     z-index: 1;
-    overflow: hidden;
-    &.bingo-word-panel{
-        transform: scaleX(1.3);
-    }    
+    border: solid 3px;
+    width: 100px;
+    border-radius: 15px;
+    border-color: #13c5c4;
+    background-color:white;  
+    height: 56px;
+    &.bingo-panel-word{
+        width: 170px;
+    }
+    .bingo-panel-inside{
+        border-radius: 8px;
+        margin: 3px;
+        background-color:#eeeeee;
+        height: 43px;        
+    }     
 }
 .bingo-counter{
-    position: fixed;
-    margin-top: 4px;
+    margin-top: 4px;    
+    text-align: center;
     z-index: 2;    
     transition: transform .5s;
     &.bingo-counter-animation{
@@ -31,6 +42,12 @@
 .bingo-card{
     width: 800px;
     margin: 3px 0 3px 30px;
+}
+.bingo-card-player-row{
+    padding: 0 20px 0 20px;
+}
+;.bingo-card-row{
+    padding: 0 10px 0 10px;
 }
 .bingo-card-player .card-body{
     background-color: #ffb141;  
