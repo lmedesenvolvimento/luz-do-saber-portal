@@ -115,6 +115,18 @@
     }
 }
 
+.imagem{
+    text-align: center;
+    .card-input.card--radio-input{
+        display: inline-block;
+        margin: auto;
+        min-width: 98px;
+        .image img{
+            max-height: 64px;
+        }
+    }
+}
+
 .card-image-display{
     max-width: 400px;
     margin: auto;
