@@ -34,46 +34,48 @@
                     <ls-card-display
                         class="bingo-card bingo-card-player"
                     >
-                        <b-row align-v="center" align-h="center">
-                            <p style="color: white">sua cartela</p>
-                        </b-row>
-                        <b-row align-v="center" align-h="center" class="bingo-card-player-row">
-                            <b-col
-                                v-for="(item, position) in getBingoValues"
-                                :key="position"
-                            >
-                                <div class="item">
-                                    <div class="substantivo_comum medium">
-                                        <div class="card-input card--radio-input" :class="$attrs.class">
-                                            <label>
-                                                <b-card
-                                                    no-body
-                                                    :class="{ 'invalid': item.invalid, 'valid': item.valid }"
-                                                >
-                                                    <b-card-body
-                                                        style="background-color: white"
+                        <b-col>
+                            <b-row align-v="center" align-h="center">
+                                <p style="color: white">sua cartela</p>
+                            </b-row>
+                            <b-row align-v="center" align-h="center" class="bingo-card-player-row">
+                                <b-col
+                                    v-for="(item, position) in getBingoValues"
+                                    :key="position"
+                                >
+                                    <div class="item">
+                                        <div class="substantivo_comum medium">
+                                            <div class="card-input card--radio-input" :class="$attrs.class">
+                                                <label>
+                                                    <b-card
+                                                        no-body
+                                                        :class="{ 'invalid': item.invalid, 'valid': item.valid }"
                                                     >
-                                                        <div class="bingo-word-player-item">
-                                                            {{ item.text }}
-                                                        </div>
-                                                    </b-card-body>
-                                                </b-card>
+                                                        <b-card-body
+                                                            style="background-color: white"
+                                                        >
+                                                            <div class="bingo-word-player-item">
+                                                                {{ item.text }}
+                                                            </div>
+                                                        </b-card-body>
+                                                    </b-card>
 
-                                                <input
-                                                    v-model="item.selected"
-                                                    class="input"
-                                                    type="checkbox"
-                                                    true-value="valid"
-                                                    false-value="invalid"
-                                                    :name="`input-${position}`"
-                                                    @change.stop="checkRaffle(item)"
-                                                />
-                                            </label>
+                                                    <input
+                                                        v-model="item.selected"
+                                                        class="input"
+                                                        type="checkbox"
+                                                        true-value="valid"
+                                                        false-value="invalid"
+                                                        :name="`input-${position}`"
+                                                        @change.stop="checkRaffle(item)"
+                                                    />
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </b-col>
-                        </b-row>
+                                </b-col>
+                            </b-row>
+                        </b-col>                        
                     </ls-card-display>
                     <ls-card-display
                         v-for="i in 2" :key="i"
