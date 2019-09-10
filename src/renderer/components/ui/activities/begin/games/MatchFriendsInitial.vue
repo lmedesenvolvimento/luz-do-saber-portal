@@ -17,6 +17,7 @@
                                 :item="item"
                                 :type="'key'"
                                 :template="activity.item_template.key"
+                                :use-data-transfer="'first_letter'"
                             >
                                 <template slot="transfer-data">
                                     {{ item.first_letter }}
@@ -73,10 +74,21 @@ export default {
         ...ui,
     },
     mixins: [ListMixin, MapMixins, CreateAnswersMixins],
+    data() {
+        return {
+            arrayValues: []
+        }
+    },
     computed: {
         newArrayValues() {
-            return shuffle(this.activity.items.values)
+            return shuffle(this.arrayValues)
         }
+    },
+    created () {
+        this.arrayValues = this.activity.items.values;
+        this.arrayValues.forEach(element => {
+            
+        });
     },
     mounted(){
         this.createAnswersArray()
@@ -92,7 +104,6 @@ export default {
 <style lang="scss">
     .activity-keys{
         padding-right: 1.0rem;
-
         .item{
             .drop-and-name{
                 display: flex;
@@ -105,27 +116,20 @@ export default {
                     position: relative;
                     right: 0.9rem;
                     max-width: 200px;
-
                 }
                 .name * >{
                     display: flex;
                     justify-content: center;
                     padding: 0 !important;
                     .card-body{
-                        padding-left: 1.7rem;
+                        padding-left: 2.0rem;
                         text-align: left;
-                        font-size: 22px;
                         flex-grow: 1;
                     }
                 }
                 .drop{
-                    // max-width: 80px;
-                    // padding-left: 3rem;
                     margin-right: -1.5rem;
                     z-index: 1;
-                    .card-body{
-                        font-size: 24px;
-                    }
                 }
             }
         }
