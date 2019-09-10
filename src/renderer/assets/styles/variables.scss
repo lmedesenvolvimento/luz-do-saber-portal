@@ -65,7 +65,7 @@ $card-input-box-shadow-success-color: #7DB239;
 $card-input-box-shadow-danger-color: #C72929;
 $card-empty-color: #CDCBCB;
 $card-empty-shadow-color: #ABABAB;
-$card-border-radius: 1.05rem;
+$card-border-radius: 1.25rem;
 
 // Fontsizes
 $font-size-variants: (
@@ -132,6 +132,7 @@ $item-types-width: (
 );
 
 $item-sizes: (
+    big: 'default',
     medium: 'medium',
     small: 'small',
     'extreme-small': 'extreme-small'
