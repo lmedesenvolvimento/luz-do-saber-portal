@@ -78,11 +78,11 @@
     font-family: 'Shitzu Porko Light', Arial, Helvetica, sans-serif;
 }
 
-@mixin custom-card($input: false, $size: 'gluglu'){
+@mixin custom-card($input: false, $size: 'default'){
     padding: 8px 0px;
     .card {
         padding: 0.20rem;
-        border-radius: $card-border-radius;
+        border-radius: ($card-border-radius * 0.8);
         box-shadow: 0px 0px 6px transparentize($color: $card-input-box-shadow-color, $amount: 0.1);
         border: 1px solid #fff;
         transition: transform 0.2s ease-in-out;
@@ -160,6 +160,11 @@
         &.selected{
             background-color: #ccc;
         }
+        pre{
+            @include custom_scroll_bar;
+            margin: 10px 0px;
+            max-height: 100%;
+        }
     }
     @if $size == 'medium' {
         @include custom-card-medium($input);
@@ -177,6 +182,13 @@
         [class*="card--"], .draggshadow {
             width: $value;
             margin: auto;
+        }
+    }
+    &.imagem {
+        [class*="card--"]{
+            .card-body{
+                padding: 4px;
+            }
         }
     }
     .card--display{
@@ -209,7 +221,7 @@
         .card{
             &:not(.valid):not(.invalid){
                 &::before{
-                    @include custom-dropcard-content(6px, 0.6);
+                    @include custom-dropcard-content(6px, 6px, 0.6);
                 }
             }
         }
@@ -217,7 +229,7 @@
     &.card--draggable{
       .dragging, .dropped{
             &::before{
-                @include custom-dropcard-content(6px, 0.6);
+                @include custom-dropcard-content(6px, 6px, 0.6);
             }
         }
     }

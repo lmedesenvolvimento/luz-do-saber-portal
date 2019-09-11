@@ -12,6 +12,7 @@ export const ActivityTypes = {
         },
         join: {
             text: 'atividade-texto-texto',
+            imagem: 'atividade-texto-imagem'
         },
     },
     game: 'jogo',
@@ -48,7 +49,6 @@ export const GameSubtypes = {
     matchFriendsInitial: 'encaixe-letras',
     theWordsSecret: 'segredo-das-palavras',
     writeTheWord: 'escreva-o-nome',
-    completeSentences: 'completa-frase-com-audio',
     accentuation: 'acentuacao',
     textReading: 'apresentacao-leitura',
     findTheWord: 'descubra-a-palavra'

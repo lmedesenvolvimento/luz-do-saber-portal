@@ -57,11 +57,24 @@ export default {
         length(){
             return (this.isNotWord) ? 1 : 11
         },
+        isCanSubmitValidation() {
+            const model = this.model.toLowerCase()
+            const value = this.value.text.toLowerCase()
+
+            if (this.model.length === 0) return false
+
+            if (model  === value){
+                return true
+            }
+
+            return ( this.valid || this.invalid ) ? false : true
+        }
     },
     watch: {
         model(value){
-            if ((this.valid || this.invalid) || this.model.length === 0) return
-            this.isNotWord ? this.whenNotWord(value) : this.whenWord(value)
+            if (this.isCanSubmitValidation) {
+                this.isNotWord ? this.whenNotWord(value) : this.whenWord(value)
+            }
         }
     },
     mounted(){

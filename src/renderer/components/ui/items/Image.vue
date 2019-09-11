@@ -32,13 +32,20 @@
             :name="activity.type.slug"
             :bg-color="item.color"
         >
-            {{ item.text }}
+            <async-image 
+                :src="item.images[0].url" 
+                :alt="item.text" 
+                :disable-zoom="true" 
+            />
         </ls-card-input>
     </div>
 </template>
 <script>
 import { ItemProps } from './index.js'
+import AsyncImage from '@ui/AsyncImage'
+
 export default {
+    components: { AsyncImage },
     mixins: [ItemProps],
     mounted() {
     },
