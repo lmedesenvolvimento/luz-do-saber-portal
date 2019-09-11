@@ -286,7 +286,11 @@ export default {
                     if (arr[i].match(str[j])) counter++;
                 }
             }
-            if (counter == str.length) return true;
+            if (counter == str.length) {
+                this.activity.pointings[0].quantity = 10;
+                this.triggerSuccess();
+                return true;
+            } 
             return false;
         },
         // seta as respostas num array
@@ -300,7 +304,7 @@ export default {
 
             this.setAnswers(answers)
         },
-        ...mapActions('Activity', ['setActivityAttrs','setAnswer'])
+        ...mapActions('Activity', ['setActivityAttrs','setAnswer','triggerSuccess'])
     },
 }
 </script>
