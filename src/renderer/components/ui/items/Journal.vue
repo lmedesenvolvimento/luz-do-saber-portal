@@ -336,7 +336,6 @@ export default {
     methods: {
         // Placeholders
         placeholderStory(i, j){
-            console.log(i, j);
             if (i == 1){
                 if (j == 1){
                     return 'Titulo do lado esquerdo';
@@ -365,7 +364,6 @@ export default {
         },         
         onFileSelectedCover(event) {
             const file = event.target.files[0]
-            console.log(file);
             this.coverImage = URL.createObjectURL(file);
         },
         onFileSelectedPage1(event) {
