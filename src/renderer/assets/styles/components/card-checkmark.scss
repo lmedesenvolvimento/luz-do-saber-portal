@@ -25,14 +25,21 @@
             border-radius: 0.6rem !important;
             padding: 0px !important;
         }
-        &::after{
-            @extend .invisible;
+        &.valid, &.invalid {
+            &::after{
+                @extend .invisible;
+            }
         }
     }
-    
+
     .card.limited-width-input {
         min-width: 300px;
         flex: 1;
+        &.valid, &.invalid {
+            &::after{
+                @extend .invisible;
+            }
+        }
     }
     input {
         display: block;
