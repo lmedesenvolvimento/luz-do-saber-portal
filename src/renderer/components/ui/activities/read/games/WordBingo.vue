@@ -91,7 +91,8 @@
                                 <div class="item">
                                     <div class="substantivo_comum medium">
                                         <ls-card-display                                            
-                                            :valid="searchString(raffleWords, word)"
+                                            :valid="searchString(raffleWords, word)"  
+                                            class="bingo-card-word"                              
                                         >
                                             {{ word }}
                                         </ls-card-display>
