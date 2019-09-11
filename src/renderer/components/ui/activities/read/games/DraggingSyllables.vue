@@ -22,7 +22,9 @@
                                                 :custom-validate="validateBySyllabe"
                                             >
                                                 <template slot="transfer-data">
-                                                    {{ syllables.correct ? syllables.syllable.text : dataTransfer.text }}
+                                                    <div>
+                                                        {{ syllables.correct ? syllables.syllable.text : syllables.syllable.text }}
+                                                    </div>
                                                 </template>
                                             </ls-card-droppable>
                                         </div>
@@ -76,7 +78,7 @@ export default {
         return {
             newItens: [],
             shuffleValues: [],
-            dataTransfer: {text: 'SAN'},
+            dataTransfer: {text: null},
         }
     },
     mounted() {
