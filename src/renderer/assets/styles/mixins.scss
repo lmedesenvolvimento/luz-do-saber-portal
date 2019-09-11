@@ -112,6 +112,7 @@
             padding: 1rem;
             transition: box-shadow 0.2s ease-in-out;
             @include card-body-box-shadow($card-input-box-shadow-color, 0.8);
+            
         }
         &.valid, &.invalid{
             .bg-color{
@@ -207,6 +208,7 @@
             height: 100%;
         }
         .card-body{
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -214,7 +216,7 @@
             padding: 0.5rem;
             border-radius: 0.6rem !important;
             height: 100%;
-            @include card-body-box-shadow($card-input-box-shadow-color,0.9, 3px);
+            @include card-body-box-shadow($card-input-box-shadow-color,0.9, 3px);            
         }
     }
     &.card--droppable{
@@ -222,6 +224,9 @@
             &:not(.valid):not(.invalid){
                 &::before{
                     @include custom-dropcard-content(6px, 6px, 0.6);
+                }
+                &.empty::before{
+                    display: none;
                 }
             }
         }
