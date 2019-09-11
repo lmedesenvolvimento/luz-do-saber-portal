@@ -78,7 +78,7 @@
                 <b-row>
                     <b-col class="items" align-self="center">
                         <b-row>
-                            <b-col v-for="item in getValuesItems" :key="item.id" :md="valueColSize" class="item">
+                            <b-col v-for="item in getValuesItems" :key="item.id" :md="valueColSize" class="item" align-self="center">
                                 <drag
                                     class="draggable texto medium"
                                     :class="{'dropped':item.dropped, 'dragging': item.dragging}"
@@ -102,9 +102,9 @@
                             </b-col>
                         </b-row>
                     </b-col>
-                    <div class="vertical-items">
+                    <b-col class="vertical-items">
                         <b-row class="column flex">
-                            <b-col class="item item-vertical">
+                            <b-col class="item item-vertical" align-self="center">
                                 <drag
                                     class="draggable texto medium"
                                     :class="{'dropped':getLeftValue.dropped, 'dragging': getLeftValue.dragging}"
@@ -123,7 +123,7 @@
                                     </ls-card-display>
                                 </drag>
                             </b-col>
-                            <b-col class="item item-vertical">
+                            <b-col class="item item-vertical" align-self="center">
                                 <drag
                                     class="draggable texto medium"
                                     :class="{'dropped':getRightValue.dropped, 'dragging': getRightValue.dragging}"
@@ -143,7 +143,7 @@
                                 </drag>
                             </b-col>
                         </b-row>
-                    </div>
+                    </b-col>
                 </b-row>
             </b-col>
         </b-row>
@@ -274,3 +274,129 @@ export default {
     }
 }
 </script>
+<style lang="scss">
+.game-domino-name{
+    max-height: 450px;
+    margin: auto;
+    .card-body{
+        font-size: 16px !important;
+    }
+    .item-vertical{
+        flex: 1;
+        cursor: pointer;
+        .card--display, .card--display .card{
+            height: 100%;
+            .bg-color, .card-body{
+                height: 100%;
+            }
+            .card-body{
+                display: flex;
+                align-items: center;
+                .writing-vertical{
+                    writing-mode: vertical-rl;
+                    text-align: center;
+                }
+            }
+        }
+    }
+    .domino{
+        padding: 8px;
+        border-radius: 1rem;
+        > .card-body{
+            @include card-body-box-shadow($card-input-box-shadow-color,0.9, 6px);
+            display: flex;
+            flex-direction: column;
+            border-radius: 1rem;
+            background-color: #f4f4f4;
+            width: 100%;
+            height: 100%;
+            .domino-middle{
+                flex: 1;
+                padding: 8px 0px;
+                .item-vertical{
+                    max-width: 51px;
+                    .card--display{
+                        max-width: 48px;
+                        .card-body{
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        }
+                    }
+                }
+            }
+        }
+        .domino-text{
+            display: flex;
+        }
+        .domino-divider{
+            border-radius: 1rem;
+        }
+    }
+    .activity-keys{
+        height: calc(100% - 10vh);
+        .item{
+            padding: 0px 4px;
+        }
+    }
+    .activity-values{
+        height: calc(100% - 5vh);
+        .items, .vertical-items{
+            display: flex;
+            height: 100%;
+            > .row{
+                height: 100%;
+            }
+        }
+        .vertical-items{
+            .item{
+                max-width: 58px;
+            }
+        }
+        .item{
+            padding: 0px 10px;
+        }
+    }
+
+    @include media-breakpoint-down("md") {
+        > .row {
+            flex-direction: column;
+        }
+    }
+
+    .item:not(.item-vertical){
+        .droppable, .draggable{
+            width: 155px;
+        }
+    }
+    .droppable, .draggable{
+        height: 100%;
+    }
+    .draggable {
+        &.dropped, &.dragging{
+            .card{
+                .bg-color{
+                    @extend .invisible;
+                 }
+                &::before{
+                    @include custom-dropcard-content;
+                    border-radius: 0.6em;
+                }
+            }
+        }
+    }
+    .droppable {
+        .empty{
+            .card {
+                .bg-color{
+                    @extend .invisible;
+                 }
+                &::before{
+                    @include custom-dropcard-content;
+                    border-radius: 0.6em;
+                }
+            }
+        }
+    }
+}
+</style>

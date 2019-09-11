@@ -70,7 +70,6 @@ export default {
         this.newArray = this.getKeys
         this.newArray.forEach(e => {
             e.valid = false
-            e.invalid = false
         });
     },
     mounted() {
@@ -99,7 +98,6 @@ export default {
             }
         })
         this.newValues[count].push({text:'=', type:'caractere_especial'})
-        console.log(this.newValues)
     },methods: {
         checkAwnser(event, item, position) {
             const updates = clone(this.newArray)
@@ -107,7 +105,6 @@ export default {
                 return
             }
             if (event.target.value.toLowerCase() === item.text.toLowerCase()){
-                console.log(item)
                 this.setAnswer({
                     type: 'value',
                     data: item.value_ids[0],
@@ -124,7 +121,6 @@ export default {
                     data: -1,
                     vm: {}
                 })
-                console.log('errou')
                 updates[position].invalid = true
                 this.removeInvalid(item, 1, position)
             }
