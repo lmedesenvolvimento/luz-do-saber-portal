@@ -13,20 +13,41 @@
 }
 .bingo-panel{
     position: fixed;
-    margin-top: 2px;
     z-index: 1;
+    border: solid 3px;
+    width: 100px;
+    border-radius: 15px;
+    border-color: #13c5c4;
+    background-color:white;  
+    height: 56px;
+    &.bingo-panel-word{
+        width: 170px;
+    }
+    .bingo-panel-inside{
+        border-radius: 8px;
+        margin: 3px;
+        background-color:#eeeeee;
+        height: 43px;        
+    }     
 }
 .bingo-counter{
-    position: fixed;
-    margin-top: 4px;
+    margin-top: 4px;    
+    text-align: center;
     z-index: 2;    
+    transition: transform .5s;
     &.bingo-counter-animation{
-        @include rubberBand;
+        transform: scale(1.5);
     }
 }
 .bingo-card{
     width: 800px;
     margin: 3px 0 3px 30px;
+}
+.bingo-card-player-row{
+    padding: 0 80px 0 80px;
+}
+;.bingo-card-row{
+    padding: 0 10px 0 10px;
 }
 .bingo-card-player .card-body{
     background-color: #ffb141;  
@@ -58,6 +79,9 @@
         background-color: #13c5c4;
     }    
 }
+.bingo-card-word{
+    margin: 10px 0 10px 0;
+}
 .bingo-word{
     display: inline-grid;
     text-align: center;
@@ -69,7 +93,17 @@
     height: 50px;
     margin: 2px;
     &.bingo-raffle-word{
-        background-color: #13c5c4;
+        background-color: #13c5c4;        
+    }
+    .bingo-word-big{
+        padding-top: 5px;
+        font-size: 10px;
+    }
+    &:hover {
+        transition: transform .5s;
+        transform: scale(1.5);
+        border: solid 1px;
+        border-color: white;
     }
 }
 
