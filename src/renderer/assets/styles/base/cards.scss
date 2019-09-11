@@ -76,7 +76,7 @@
             outline: none;
             border: none;
             width: 100%;
-            height: 24px;
+            height: 28px;
             text-align: center;
             text-transform: uppercase;
             border-bottom: 2px solid transparentize($card-input-dark-border-color, 1);
@@ -107,10 +107,26 @@
 .card-input.card--droppable{
     @include custom-card;
     .card{
+        .card-body{
+            overflow: hidden;
+            white-space: nowrap;
+        }
         &:not(.valid):not(.invalid){
             &::before{
                 @include custom-dropcard-content;
             }
+        }
+    }
+}
+
+.imagem{
+    text-align: center;
+    .card-input.card--radio-input{
+        display: inline-block;
+        margin: auto;
+        min-width: 98px;
+        .image img{
+            max-height: 64px;
         }
     }
 }

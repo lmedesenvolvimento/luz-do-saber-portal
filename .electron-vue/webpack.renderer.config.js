@@ -19,7 +19,7 @@ const { VueLoaderPlugin } = require('vue-loader')
  * that provide pure *.vue files that need compiling
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/webpack-configurations.html#white-listing-externals
  */
-let whiteListedModules = ['vue', 'lodash', 'leader-line']
+let whiteListedModules = ['vue', 'lodash', 'leader-line', 'bootstrap-vue']
 
 let rendererConfig = {
   devtool: '#cheap-module-eval-source-map',
@@ -39,6 +39,10 @@ let rendererConfig = {
             data: `
               @import "./src/renderer/assets/styles/variables";
               @import "./src/renderer/assets/styles/mixins";
+              @import "~bootstrap/scss/_functions.scss";
+              @import "~bootstrap/scss/_variables.scss";
+              @import "~bootstrap/scss/_mixins.scss";
+              @import "~bootstrap/scss/_utilities.scss";
             `
           }
         }]
