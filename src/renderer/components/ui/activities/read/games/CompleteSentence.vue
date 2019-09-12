@@ -123,6 +123,7 @@ export default {
         } else {
             this.multipleCorrectItem();
         }
+        // console.log(this.splitedSentence);
     },    
     methods: {        
         splitSentence(arr, str){
@@ -163,40 +164,41 @@ export default {
         },
         multipleCorrectItem(){
             let words = this.sentence.split(' ')
-            let aux = []
+            let aux = []         
+            let getValues = this.getValues;
             words.forEach(word => {
                 let objectWord = {
                     text: word,
                     hasInput: false,
-                    value_ids: this.getKeys[0].value_ids
+                    value_ids: this.getKeys[0].value_ids,
                 }
                 aux.push(Object.assign({}, objectWord))
             })
-            let lastPosition = 0      
-            aux.forEach((word, i, ss) => {
-                word.value_ids = [];
-                this.getValues.forEach((value, v, values) => {
-                    if(word.text == value.text){
-                        ss[i] = value;
-                        ss[i].hasInput = true;
-                        ss[i].valid = false;
-                        if (ss.length !== values.length){
-                            let aux2 = []
-                            for (let j = lastPosition; j < i; j++){
-                                if (ss[j].hasInput == false)
-                                    aux2.push(ss[j])
-                            }
-                            lastPosition = i+1;
-                            aux2 = aux2.reduce( function( prevVal, elem ) {
-                                return prevVal + ' ' + elem.text;
-                            },'');
-                            aux2 = aux2.substr(1);
-                            this.splitedSentence.push(aux2)
+            let lastPosition = 0 
+            for(let i = 0; i < aux.length; i++)
+            {
+                let lastFound = 5555;
+                for (let v = 0; v < getValues.length; v++){
+                    console.log('to olhando a palavra '+aux[i].text+' na posição '+i)
+                    if (aux[i].text === getValues[v].text)
+                    {
+                        if (lastFound !== i)
+                        {
+                            this.splitedSentence.push(aux[i])
+                            console.log('achei '+aux[i].text+'['+i+']')
+                            lastFound = i;
+                            break;
+                        } else {
+                            console.log('Até achei, mas é igual a anterior')
                         }
-                        this.splitedSentence.push(ss[i])
+                        console.log('lastFound', lastFound)
                     }
-                })
-            })
+                    else{
+                        console.log(aux[i].text+' Não é igual a '+ getValues[v].text)
+                    }
+                }
+                console.log('')
+            }
         },
         customValidate(transferData, nativeElement, vm){
             Vue.set(vm.item, 'transferData', transferData)
