@@ -105,8 +105,8 @@ export default {
             const total = ( filter(units, { completed: true }).length / theme.units.length ) * 100
             return  total || 5
         },
-        registerUserProgress(module){
-            module.themes.forEach((theme) => {
+        registerUserProgress(_module){
+            _module.themes.forEach((theme) => {
                 const units = this.getProgressUnitsByThemeId(theme)
                 const completed = filter(units, { completed: true }).length === theme.units.length
                 const payload = {
