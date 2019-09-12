@@ -7,7 +7,7 @@
             >
                 <b-card-body>
                     <slot name="transfer-data">
-                        <div> {{ transferData.text }}</div>
+                        <div> {{ transferDataText }}</div>
                     </slot>
                 </b-card-body>
             </b-card>
@@ -23,11 +23,20 @@ export default {
     components: { Drop },
     mixins: [RadioInput],
     props: {
+        defaultAttr: {
+            type: String,
+            default: 'text'            
+        },
         customValidate: Function
-    },
+    },    
     data(){
         return {
             transferData: {}
+        }
+    },
+    computed: {
+        transferDataText(){
+            return this.transferData[this.defaultAttr]
         }
     },
     created(){
@@ -36,7 +45,7 @@ export default {
     methods: {
         onDrop(transferData, nativeElement){
             if (this.valid) return
-
+            
             if (!this.customValidate){
                 this.transferData = transferData
                 if (this.item.value_ids.includes(transferData.id)) {
