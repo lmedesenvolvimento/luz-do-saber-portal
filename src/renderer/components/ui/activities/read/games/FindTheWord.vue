@@ -34,6 +34,7 @@
                                             :ref="position"
                                             type="text"
                                             maxlength="11"
+                                            autocomplete="off"
                                             @blur="checkAwnser(...arguments, item, position)"
                                         />
                                     </b-card-body>
