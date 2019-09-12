@@ -104,11 +104,38 @@ export default {
                 }
                 this.add(payload)
             })
+            this.registerReadProgress()
+        },
+        registerReadProgress(){
+            const { module_slug } = this.$route.params
+
+            if (module_slug !== 'comecar') return false
+
+            console.log('Pass')
+
+            this.fetchModule(module_slug).then(_module => {
+                _module.themes.forEach((theme) => {
+                    const units = this.getProgressUnitsByThemeId(theme)
+                    const completed = filter(units, { completed: true }).length === theme.units.length
+                    const payload = {
+                        data: {
+                            ...omit(theme, ['units']),
+                            completed
+                        },
+                        type: 'themes',
+                    }
+                    this.add(payload)
+                })
+            })
         },
         getActivitiesProgressByUnitId(unit){
             return this.$store.getters['Pointings/getPointingsActivitiesByUnitId'](unit.id)
         },
+        getProgressUnitsByThemeId(theme){
+            return this.$store.getters['Pointings/getUnitsByThemeId'](theme.id)
+        },
         ...mapActions('Theme', ['fetchTheme','destroyTheme']),
+        ...mapActions('Modules', ['fetchModule']),
         ...mapActions('Pointings', ['add'])
     }
 };
