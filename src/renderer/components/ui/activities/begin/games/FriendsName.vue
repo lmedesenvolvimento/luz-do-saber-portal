@@ -6,11 +6,18 @@
                     <b-col v-for="(friend, index) in localFriends" :key="index" class="friends-divider" md="3" cols="12">
                         <b-card no-body class="my-2">
                             <b-card-body class="outer">
-                                <async-image 
+                                <div class="card-input card--input-image">
+                                    <b-card no-body>
+                                        <b-card-body class="icon-photo">
+                                            <input type="file" name="friend-image">
+                                        </b-card-body>
+                                    </b-card>
+                                </div>
+                                <async-image
                                     class="img-placeholder" 
-                                    src="https://flash.za.com/wp-content/uploads/2015/08/Generic-Profile-1600x1600.png" 
-                                    alt="placeholder" 
-                                />
+                                    src="https://flash.za.com/wp-content/uploads/2015/08/Generic-Profile-1600x1600.png"
+                                    alt="placeholder"
+                                />                                
                                 <div class="card-input card--input-text ">
                                     <label>
                                         <b-card
@@ -136,6 +143,27 @@ export default {
             .outer{
                 padding: 10px;
             }
+        }
+    }
+
+    .card--input-image{
+        width: 60px;
+        height: 64px;
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        .icon-photo{
+            width: 60px;
+            height: 64px;
+            @include embed_image("~@/assets/images/icons/comecar/photo-camera.png", 30px, 24px);
+        }
+        .card-body{
+            padding: unset !important;
+        }
+        input{
+            width: 0;
+            height: 0;
+            visibility: none;
         }
     }
 </style>
