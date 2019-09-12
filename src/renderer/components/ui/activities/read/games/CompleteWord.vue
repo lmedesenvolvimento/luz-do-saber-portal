@@ -108,7 +108,6 @@ export default {
     created(){
         this.incompleteWord = cloneDeep(this.getKeys[0])
         this.correctPiece = this.getValues.filter(value => value.key_id)
-        this.clearIncompleteWord(this.separator, this.correctPiece[0])
         this.clearIncompleteWord(this.separator, this.correctPiece)
     },
     mounted() {
@@ -118,24 +117,40 @@ export default {
         triggerFocus(item) {
             this.selectItem = item
         },
-        clearIncompleteWord(type, correct){
+        getIndex(arr, obj, attr){
+            for(let i = 0; i<arr.length; i++){
+                if(arr[i][attr] === obj[attr])
+                    return i;
+            }
+            return -1;
+        },
+        clearIncompleteWord(type, arr){
             let pieces = []
-            this.correctPiece = correct
+            let correct = cloneDeep(arr)
             if(type === 'letra'){
                 pieces = this.incompleteWord.letters
             } else if(type === 'silaba'){
                 pieces = this.incompleteWord.syllables
             }
-            for(let i = 0; i<pieces.length; i++){
-                pieces[i].template = cloneDeep(this.activity.item_template.key)
-                if(pieces[i].text === correct.text){
-                    pieces[i].text = ''
-                    pieces[i].value_ids = this.incompleteWord.value_ids
-                    this.correctIndex = i
-                } else {
-                    pieces[i].template.tags = null
+            for(let i = 0; i<correct.length; i++){
+                for(let j = 0; j<pieces.length; j++){
+                    let check = pieces[j].text === correct[i].text
+                    if(check){
+                        if(!pieces[j].value_ids)
+                            pieces[j].value_ids = []
+                        pieces[j].value_ids.push(correct[i].id)
+                    }
                 }
+                correct[i].text = ''
             }
+            pieces.map((p) => {
+                p.template = cloneDeep(this.activity.item_template.key)
+                if(!(p.value_ids && p.value_ids.length>0)){
+                    p.template.tags = null
+                } else {
+                    p.text=''
+                }
+            })
             this.incompleteWord.pieces = pieces
         },
         ...mapActions('Activity', ['setAnswer'])
