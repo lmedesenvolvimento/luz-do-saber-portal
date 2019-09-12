@@ -9,7 +9,15 @@
                     <b-col cols="12" md="8" sm="8" class="pieces-row">
                         <b-row>
                             <b-col v-for="(piece, index) in incompleteWord.pieces" :key="index" :md="1" class="key-pieces item">                                        
-                                <div v-if="piece.template.tags === null" :class="[piece.type, 'texto', activity.item_template.key.font_size]">
+                                <ls-card-droppable
+                                    v-if="piece.template.tags === 'encaixar'"
+                                    :class="[piece.type, 'texto', activity.item_template.key.font_size]"
+                                    :item="piece"
+                                    :type="'key'"
+                                    :template="activity.item_template.key"
+                                >
+                                </ls-card-droppable>
+                                <div v-else :class="[piece.type, 'texto', activity.item_template.key.font_size]">
                                     <ls-card-display
                                         :item="piece"
                                         :valid="piece.valid"
@@ -18,14 +26,6 @@
                                         {{ piece.text }}
                                     </ls-card-display>                                    
                                 </div>
-                                <ls-card-droppable
-                                    v-else-if="piece.template.tags === 'encaixar'"
-                                    class="letra texto"
-                                    :item="piece"
-                                    :type="'key'"
-                                    :template="activity.item_template.key"
-                                >
-                                </ls-card-droppable>
                             </b-col>
                         </b-row>
                     </b-col>
@@ -46,13 +46,12 @@
                                 </b-col>
                             </b-row>
                         </ls-card-display>
-                        <b-col v-for="(item, position) in getValues" v-else :key="position" align-self="center" cols="12" :sm="3" :md="3" lg="2" class="item" data-canTrigger="false" @click="triggerFocus(...arguments, item)">
+                        <b-col v-for="(item, position) in getValues" v-else :key="position" align-self="center" cols="12" :sm="3" :md="3" lg="2" class="item selection" @click="triggerFocus(item)">
                             <Item 
                                 :item="item"
                                 :type="'value'"
                                 :template="activity.item_template.value"
                                 :size="activity.item_template.value.font_size"
-                                data-canTrigger="false"
                             />                                
                         </b-col>
                     </b-row>
@@ -83,7 +82,6 @@ export default {
     data() {
         return {
             incompleteWord: {},
-            correctPiece: {},
             separator: this.type,
             selectItem: null,
             correctIndex: -1,
@@ -95,13 +93,15 @@ export default {
     watch: {
         selectItem(value){
             if(value){
-                const pieceIndex = this.correctIndex
-                let selectPiece = this.incompleteWord.pieces[pieceIndex]
-                selectPiece.text = value.text
-                if(value.text===this.correctPiece.text)
+                const pieceIndex = value.id
+                let pieces = this.incompleteWord.pieces.filter(p => p.value_ids)
+                let piece = pieces.filter((p) => p.value_ids.includes(pieceIndex))[0]
+                if(piece){
+                    let selectedPieceIndex = this.getIndex(this.incompleteWord.pieces, piece, 'value_ids')
+                    let selectPiece = this.incompleteWord.pieces[selectedPieceIndex]
+                    selectPiece.text = value.text
                     selectPiece.valid = true
-                else 
-                    selectPiece.invalid = true
+                }
             }
         },
     },
@@ -109,21 +109,14 @@ export default {
         this.incompleteWord = cloneDeep(this.getKeys[0])
         this.correctPiece = this.getValues.filter(value => value.key_id)
         this.clearIncompleteWord(this.separator, this.correctPiece[0])
+        this.clearIncompleteWord(this.separator, this.correctPiece)
     },
     mounted() {
         this.createAnswersArray()
     },
     methods: {
-        triggerFocus(args, item) {  
-            if(args.target.getAttribute('data-canTrigger')!=='false'){
-                this.selectItem = item
-                setTimeout(()=> {
-                    this.incompleteWord.pieces[this.correctIndex].invalid = false
-                    this.incompleteWord.pieces[this.correctIndex].valid = false
-                    this.incompleteWord.pieces[this.correctIndex].text = ''
-                    this.selectItem = ''
-                }, 600)
-            }
+        triggerFocus(item) {
+            this.selectItem = item
         },
         clearIncompleteWord(type, correct){
             let pieces = []
@@ -160,6 +153,21 @@ export default {
                     }
                 }        
             }
+        }
+    }
+
+    .item{
+        pointer-events: none;
+    }
+
+    .card-input{
+        pointer-events: all;
+    }
+
+    .selection{
+        .bg-color{
+            background-color: transparent !important;
+            color: #5F4343 !important;
         }
     }
 
