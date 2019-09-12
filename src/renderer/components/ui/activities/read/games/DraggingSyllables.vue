@@ -23,7 +23,7 @@
                                             >
                                                 <template slot="transfer-data">
                                                     <div>
-                                                        {{ syllables.correct ? syllables.syllable.text : syllables.syllable.text }}
+                                                        {{ syllables.correct ? syllables.syllable.text : dataTransfer.text }}
                                                     </div>
                                                 </template>
                                             </ls-card-droppable>
@@ -78,7 +78,7 @@ export default {
         return {
             newItens: [],
             shuffleValues: [],
-            dataTransfer: {text: null},
+            dataTransfer: {text: ''},
         }
     },
     mounted() {

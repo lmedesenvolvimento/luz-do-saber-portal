@@ -225,8 +225,11 @@
                 &::before{
                     @include custom-dropcard-content(6px, 6px, 0.6);
                 }
-                &.empty::before{
-                    display: none;
+                .card-body{
+                    &::after{
+                        content: '\0000a0';
+                        display: inline;
+                    }
                 }
             }
         }
@@ -235,6 +238,12 @@
       .dragging, .dropped{
             &::before{
                 @include custom-dropcard-content(6px, 6px, 0.6);
+            }
+            .card-body{
+                &::after{
+                    content: '\0000a0';
+                    display: inline;
+                }
             }
         }
     }
@@ -269,6 +278,7 @@
     border-radius: ($card-border-radius * $border-radius-multiplier);
     box-shadow: inset 0px 9px 1px 1px $card-empty-shadow-color;
     content: '';
+    z-index: 1;
 }
 
 // Card
