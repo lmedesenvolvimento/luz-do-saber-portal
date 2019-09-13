@@ -1,11 +1,13 @@
 @import '~animate-scss/_properties';
 @import '~animate-scss/_attention-seekers/attention-seekers';
 
+.bingo{
+    padding: 15px;
+}
 .bingo-container{
     display: flex;
     flex-flow: column;
-    margin: 140px 0 150px 0;
-    
+    margin-bottom: 20px;    
 }
 .bingo-roulette{
     position: fixed;        
@@ -80,7 +82,7 @@
     }    
 }
 .bingo-card-word{
-    margin: 10px 0 10px 0;
+    margin: 5px 0 5px 0;
 }
 .bingo-word{
     display: inline-grid;
