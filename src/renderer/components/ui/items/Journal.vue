@@ -302,8 +302,8 @@
 </template>
 
 <script>
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
+// import html2canvas from 'html2canvas';
+// import jsPDF from 'jspdf';
 import AsyncImage from '@ui/AsyncImage'
 export default {
     components: {        
@@ -311,9 +311,9 @@ export default {
     },
     data(){
         return {
-            doc: new jsPDF({
-                orientation: 'landscape'
-            }),
+            // doc: new jsPDF({
+            //     orientation: 'landscape'
+            // }),
             pageName: 'capa',
             coverTitle: '',
             coverImage: null,
@@ -435,31 +435,31 @@ export default {
             if(this.isPrinting == false){
                 this.isPrinting = true;
                 this.pageName = 'capa';
-                this.genPDF();
+                // this.genPDF();
             }
         },
-        genPDF(){  
-            this.toNextPage();            
-            html2canvas(document.getElementById('journalCanvas')).then((canvas) => {                                     
-                let img = canvas.toDataURL('image/png');
-                this.doc.addImage(img, 'PNG', 0, 0); 
-                if(!this.isPrinting){
-                    this.doc.save('test.pdf');
-                    this.doc = new jsPDF({
-                        orientation: 'landscape'
-                    })
-                }
-                if((this.pageName == 'verso') && (this.isPrinting)){
-                    this.isPrinting = false;
-                    this.genPDF();
-                }
-                this.doc.addPage(); 
-                if(this.pageName != 'verso'){
-                    this.genPDF();
-                }
-            });  
+        // genPDF(){  
+        //     this.toNextPage();            
+        //     html2canvas(document.getElementById('journalCanvas')).then((canvas) => {                                     
+        //         let img = canvas.toDataURL('image/png');
+        //         this.doc.addImage(img, 'PNG', 0, 0); 
+        //         if(!this.isPrinting){
+        //             this.doc.save('test.pdf');
+        //             this.doc = new jsPDF({
+        //                 orientation: 'landscape'
+        //             })
+        //         }
+        //         if((this.pageName == 'verso') && (this.isPrinting)){
+        //             this.isPrinting = false;
+        //             // this.genPDF();
+        //         }
+        //         this.doc.addPage(); 
+        //         if(this.pageName != 'verso'){
+        //             // this.genPDF();
+        //         }
+        //     });  
              
-        },
+        // },
         toPrevPage() {
             switch(this.pageName){
             case '1 - 2':
