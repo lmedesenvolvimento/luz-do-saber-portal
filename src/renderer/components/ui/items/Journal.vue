@@ -26,9 +26,12 @@
                                         accept="image/gif, image/jpeg, image/png"                                         
                                         @change="onFileSelectedCover"                 
                                     >
-                                    <div v-if="coverImage">
+                                    <div v-if="coverImage" class="cover-image">
                                         <img :src="coverImage" alt="Imagem de capa">
-                                    </div>  
+                                    </div>                                       
+                                    <div v-else class="placeholder-image">
+                                        <async-image src="" alt="placeholder" />
+                                    </div>
                                 </div>                                
                                 <div>
                                     <div v-for="i in 2" :key="i" :class="{'journal-cover-story-left': i == 1, 'journal-cover-story-right': i == 2}">
@@ -76,9 +79,12 @@
                                                 accept="image/gif, image/jpeg, image/png"                                         
                                                 @change="onFileSelectedPage1"                 
                                             >
-                                            <div v-if="page1Image">
+                                            <div v-if="page1Image" class="cover-image">
                                                 <img :src="page1Image" alt="Imagem da página 1">
-                                            </div>  
+                                            </div> 
+                                            <div v-else class="placeholder-image">
+                                                <async-image src="" alt="placeholder" />
+                                            </div>
                                         </div>
                                         <div>
                                             <div v-for="i in 2" :key="i" :class="{'journal-page-1-story-left': i == 1, 'journal-page-1-story-right': i == 2}">
@@ -141,9 +147,12 @@
                                                                 accept="image/gif, image/jpeg, image/png"                                         
                                                                 @change="onFileSelectedPage2Top"                 
                                                             >
-                                                            <div v-if="page2ImageTop">
+                                                            <div v-if="page2ImageTop" class="cover-image">
                                                                 <img :src="page2ImageTop" alt="Imagem 1 da página 2">
                                                             </div>  
+                                                            <div v-else class="placeholder-image">
+                                                                <async-image src="" alt="placeholder" />
+                                                            </div>
                                                         </div>
                                                         <div class="journal-story-cont">
                                                             <textarea 
@@ -183,9 +192,12 @@
                                                     accept="image/gif, image/jpeg, image/png"                                         
                                                     @change="onFileSelectedPage2Bottom"                 
                                                 >
-                                                <div v-if="page2ImageBottom">
+                                                <div v-if="page2ImageBottom" class="cover-image">
                                                     <img :src="page2ImageBottom" alt="Imagem 2 da página 2">
                                                 </div>  
+                                                <div v-else class="placeholder-image">
+                                                    <async-image src="" alt="placeholder" />
+                                                </div>
                                             </div>
                                             <div class="journal-story-cont">
                                                 <textarea 
@@ -236,9 +248,12 @@
                                         accept="image/gif, image/jpeg, image/png"                                         
                                         @change="onFileSelectedBackCover"                 
                                     >
-                                    <div v-if="backCoverImage">
+                                    <div v-if="backCoverImage" class="cover-image">
                                         <img :src="backCoverImage" alt="Imagem do verso">
                                     </div>  
+                                    <div v-else class="placeholder-image">
+                                        <async-image src="" alt="placeholder" />
+                                    </div>
                                 </div>                                                            
                                 <div class="journal-story-cont">
                                     <textarea 
@@ -289,7 +304,11 @@
 <script>
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import AsyncImage from '@ui/AsyncImage'
 export default {
+    components: {        
+        AsyncImage
+    },
     data(){
         return {
             doc: new jsPDF({
