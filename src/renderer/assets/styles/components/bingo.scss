@@ -10,11 +10,11 @@
     margin-bottom: 20px;    
 }
 .bingo-roulette{
-    position: fixed;        
+    position: absolute;        
     z-index: 0;
 }
 .bingo-panel{
-    position: fixed;
+    position: absolute;
     z-index: 1;
     border: solid 3px;
     width: 100px;
