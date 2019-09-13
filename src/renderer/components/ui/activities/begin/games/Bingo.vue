@@ -1,6 +1,6 @@
 <template>
     <div class="container-fluid">
-        <b-row align-v="center">
+        <b-row align-v="center" class="bingo">
             <b-col cols="3" align-v="center" align-h="center">
                 <b-row class="bingo-container" align-v="center" align-h="center">
                     <async-image class="bingo-roulette" :src="bingoRoulette" alt="roleta do bingo" />

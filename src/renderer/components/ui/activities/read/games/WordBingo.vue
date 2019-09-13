@@ -1,8 +1,8 @@
 <template>
     <div class="container-fluid">
-        <b-row align-v="center">
+        <b-row align-v="center" class="bingo">
             <b-col cols="3" align-v="center" align-h="center">
-                <div style="positon: relative">
+                <div style="position: relative">
                     <b-row class="bingo-container" align-v="center" align-h="center">
                         <async-image class="bingo-roulette" :src="bingoRoulette" alt="roleta do bingo" />   
                         <div class="bingo-panel bingo-panel-word">
@@ -42,8 +42,9 @@
                                 <b-col
                                     v-for="(item, position) in getBingoValues"
                                     :key="position"
+                                    class="item"
                                 >
-                                    <div class="item">
+                                    <div class="item letra">
                                         <div class="substantivo_comum medium">
                                             <div class="card-input card--radio-input" :class="$attrs.class">
                                                 <label>
@@ -88,7 +89,7 @@
                                 :key="word"
                                 class="item"
                             >
-                                <div class="item">
+                                <div class="item letra">
                                     <div class="substantivo_comum medium">
                                         <ls-card-display                                            
                                             :valid="searchString(raffleWords, word)"  
@@ -199,7 +200,7 @@ export default {
         for(let i = 0; i < this.getValues.length; i++){
             if(this.getValues[i].text.length > 4){
                 this.isWordBingo = true;
-            }
+            }            
             if(i < this.activity.total_correct_items){
                 this.words[0].push(this.getValues[i].text)
             }else{
