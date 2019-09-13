@@ -2,30 +2,32 @@
     <div class="container-fluid">
         <b-row align-v="center" class="bingo">
             <b-col cols="3" align-v="center" align-h="center">
-                <b-row class="bingo-container" align-v="center" align-h="center">
-                    <async-image class="bingo-roulette" :src="bingoRoulette" alt="roleta do bingo" />
-                    <div class="bingo-panel">
-                        <div class="bingo-panel-inside">
-                            <div
-                                class="bingo-counter"
-                                :class="{'bingo-counter-animation': animateBingoCounter}"
-                            >
-                                <h2 v-if="showTimer" style="color: #13c5c4;">{{ getDuration }}</h2>
-                                <h2 v-else>{{ actualRaffleLetter }}</h2>
-                            </div>
-                        </div>                            
-                    </div>                    
-                </b-row>
-                <b-row align-h="start">
-                    <div
-                        v-for="bingoLetter in alphabet"
-                        :key="bingoLetter"
-                        class="bingo-letter"
-                        :class="{'bingo-raffle-letter': searchString(raffleLetters,bingoLetter)}"
-                    >
-                        <h4>{{ bingoLetter }}</h4>
-                    </div>
-                </b-row>
+                <div style="position: relative">
+                    <b-row class="bingo-container" align-v="center" align-h="center">
+                        <async-image class="bingo-roulette" :src="bingoRoulette" alt="roleta do bingo" />
+                        <div class="bingo-panel">
+                            <div class="bingo-panel-inside">
+                                <div
+                                    class="bingo-counter"
+                                    :class="{'bingo-counter-animation': animateBingoCounter}"
+                                >
+                                    <h2 v-if="showTimer" style="color: #13c5c4;">{{ getDuration }}</h2>
+                                    <h2 v-else>{{ actualRaffleLetter }}</h2>
+                                </div>
+                            </div>                            
+                        </div>                    
+                    </b-row>
+                    <b-row align-h="start">
+                        <div
+                            v-for="bingoLetter in alphabet"
+                            :key="bingoLetter"
+                            class="bingo-letter"
+                            :class="{'bingo-raffle-letter': searchString(raffleLetters,bingoLetter)}"
+                        >
+                            <h4>{{ bingoLetter }}</h4>
+                        </div>
+                    </b-row>
+                </div>
             </b-col>
             <b-col cols="9" align-v="center" align-h="center">
                 <b-row>
