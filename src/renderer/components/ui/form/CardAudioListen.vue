@@ -112,8 +112,10 @@ export default {
         }
     },
     mounted(){
-        this.player.on('ended', this.ended)
-        this.player.volume = 0.7
+        if (this.player){
+            this.player.on('ended', this.ended)
+            this.player.volume = 0.7
+        }
     },
     methods: {
         ...mapActions('Activity', ['triggerSuccess']),
