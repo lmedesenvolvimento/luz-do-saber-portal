@@ -224,6 +224,15 @@ export default {
             * .draggshadow{
                 height: 100%;
             }
+            &.texto{
+                @each $type, $value in $item-letter-types {
+                    &:not(.#{$type}){
+                        .bg-color {
+                            color: $text-color;
+                        }
+                    }
+                }
+            }
         }
 
         .img-grouping{

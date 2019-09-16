@@ -1,7 +1,7 @@
 <template>
     <div class="container-fluid"> 
-        <div class="rearrange-name">
-            <b-row align-v="center" align-h="center">
+        <div class="rearrange-name flex fill">
+            <b-row align-v="center" align-h="center" class="fill">
                 <b-col 
                     v-for="item in activity.items.keys"
                     :key="item.id"
