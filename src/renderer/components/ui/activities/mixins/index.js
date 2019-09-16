@@ -3,7 +3,6 @@ import Item from '@/components/ui/items/Item'
 const ColorizeTypes = [
     'letra',
     'caractere_especial',
-    'numero',
     'silaba'
 ]
 
