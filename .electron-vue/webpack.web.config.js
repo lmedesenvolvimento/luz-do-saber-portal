@@ -29,6 +29,10 @@ let webConfig = {
               data: `
               @import "./src/renderer/assets/styles/variables";
               @import "./src/renderer/assets/styles/mixins";
+              @import "~bootstrap/scss/_functions.scss";
+              @import "~bootstrap/scss/_variables.scss";
+              @import "~bootstrap/scss/_mixins.scss";
+              @import "~bootstrap/scss/_utilities.scss";
             `
             }
           }
@@ -102,9 +106,10 @@ let webConfig = {
         removeComments: true
       },
       nodeModules: false
-    }),
+    }),    
     new webpack.DefinePlugin({
       'process.env.IS_WEB': 'true',
+      'process.env.BUILD_TARGET': '"web"',
       'process.env.BASE_API_URL': '"https://luz-do-saber-staging.herokuapp.com"'
     }),
     new webpack.HotModuleReplacementPlugin(),

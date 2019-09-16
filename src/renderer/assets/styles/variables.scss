@@ -65,7 +65,7 @@ $card-input-box-shadow-success-color: #7DB239;
 $card-input-box-shadow-danger-color: #C72929;
 $card-empty-color: #CDCBCB;
 $card-empty-shadow-color: #ABABAB;
-$card-border-radius: 1.05rem;
+$card-border-radius: 1.15rem;
 
 // Fontsizes
 $font-size-variants: (
@@ -117,7 +117,7 @@ $item-types-width: (
         letra: 74px,
         numero: 74px,
         caractere_especial: 74px,
-        silaba: 85px,
+        silaba: 95px,
         substantivo_comum: 210px,
         substantivo_proprio: 210px
     ),
@@ -125,13 +125,14 @@ $item-types-width: (
         letra: 58px,
         numero: 58px,
         caractere_especial: 58px,
-        silaba: 74px,
+        silaba: 80px,
         substantivo_comum: 185px,
         substantivo_proprio: 185px
     )
 );
 
 $item-sizes: (
+    big: 'big',
     medium: 'medium',
     small: 'small',
     'extreme-small': 'extreme-small'
