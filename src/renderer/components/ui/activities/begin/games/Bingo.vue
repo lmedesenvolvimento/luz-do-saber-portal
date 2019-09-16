@@ -1,28 +1,33 @@
 <template>
     <div class="container-fluid">
-        <b-row align-v="center">
+        <b-row align-v="center" class="bingo">
             <b-col cols="3" align-v="center" align-h="center">
-                <b-row class="bingo-container" align-v="center" align-h="center">
-                    <async-image class="bingo-roulette" :src="bingoRoulette" alt="roleta do bingo" />
-                    <async-image class="bingo-panel" :src="bingoCounter" alt="contador do bingo" />
-                    <div
-                        class="bingo-counter"
-                        :class="{'bingo-counter-animation': animateBingoCounter}"
-                    >
-                        <h2 v-if="showTimer" style="color: #13c5c4;">{{ getDuration }}</h2>
-                        <h2 v-else>{{ actualRaffleLetter }}</h2>
-                    </div>
-                </b-row>
-                <b-row align-h="start">
-                    <div
-                        v-for="bingoLetter in alphabet"
-                        :key="bingoLetter"
-                        class="bingo-letter"
-                        :class="{'bingo-raffle-letter': searchString(raffleLetters,bingoLetter)}"
-                    >
-                        <h4>{{ bingoLetter }}</h4>
-                    </div>
-                </b-row>
+                <div style="position: relative">
+                    <b-row class="bingo-container" align-v="center" align-h="center">
+                        <async-image class="bingo-roulette" :src="bingoRoulette" alt="roleta do bingo" />
+                        <div class="bingo-panel">
+                            <div class="bingo-panel-inside">
+                                <div
+                                    class="bingo-counter"
+                                    :class="{'bingo-counter-animation': animateBingoCounter}"
+                                >
+                                    <h2 v-if="showTimer" style="color: #13c5c4;">{{ getDuration }}</h2>
+                                    <h2 v-else>{{ actualRaffleLetter }}</h2>
+                                </div>
+                            </div>                            
+                        </div>                    
+                    </b-row>
+                    <b-row align-h="start">
+                        <div
+                            v-for="bingoLetter in alphabet"
+                            :key="bingoLetter"
+                            class="bingo-letter"
+                            :class="{'bingo-raffle-letter': searchString(raffleLetters,bingoLetter)}"
+                        >
+                            <h4>{{ bingoLetter }}</h4>
+                        </div>
+                    </b-row>
+                </div>
             </b-col>
             <b-col cols="9" align-v="center" align-h="center">
                 <b-row>
@@ -129,6 +134,7 @@ export default {
             timer: 5000,
             actualRaffleLetter: '',
             showTimer: true,
+            isCounter: true,
             animateBingoCounter: false,
             timeOut: null
         }
@@ -155,7 +161,10 @@ export default {
     },
     watch: {
         showTimer() {
-            this.animateBingoCounter = true;
+            if(this.isCounter){
+                this.animateBingoCounter = true;
+            }
+            this.isCounter = !this.isCounter;
             this.timeOut = setTimeout(() => {
                 this.animateBingoCounter = false;
             },1000)
@@ -182,7 +191,7 @@ export default {
         // embaralhamos o vetor de letras
         this.scramblePlayerLetters = shuffle(this.scramblePlayerLetters);
     },
-    baforeDestroy() {
+    beforeDestroy() {
         // impede que continuem sendo chamados após sair da fase
         delete this.unraffleLetters
         delete this.actualizeBingoTimer
@@ -279,7 +288,11 @@ export default {
                     if (arr[i].match(str[j])) counter++;
                 }
             }
-            if (counter == str.length) return true;
+            if (counter == str.length) {
+                this.activity.pointings[0].quantity = 10;
+                this.triggerSuccess();
+                return true;
+            } 
             return false;
         },
         // seta as respostas num array
@@ -293,7 +306,7 @@ export default {
 
             this.setAnswers(answers)
         },
-        ...mapActions('Activity', ['setActivityAttrs','setAnswer'])
+        ...mapActions('Activity', ['setActivityAttrs','setAnswer','triggerSuccess'])
     },
 }
 </script>

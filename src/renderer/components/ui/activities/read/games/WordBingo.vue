@@ -1,92 +1,99 @@
 <template>
     <div class="container-fluid">
-        <b-row align-v="center">
+        <b-row align-v="center" class="bingo">
             <b-col cols="3" align-v="center" align-h="center">
-                <b-row class="bingo-container" align-v="center" align-h="center">
-                    <async-image class="bingo-roulette" :src="bingoRoulette" alt="roleta do bingo" />
-                    <async-image class="bingo-panel" :src="bingoCounter" alt="contador do bingo" />
-                    <div
-                        class="bingo-counter"
-                        :class="{'bingo-counter-animation': animateBingoCounter}"
-                    >
-                        <h2 v-if="showTimer" style="color: #13c5c4;">{{ getDuration }}</h2>
-                        <h2 v-else>{{ actualRaffleWord }}</h2>
-                    </div>
-                </b-row>
-                <b-row align-h="start">
-                    <div
-                        v-for="bingoWord in allWords"
-                        :key="bingoWord"
-                        class="bingo-word"
-                        :class="{'bingo-raffle-word': searchString(raffleWords,bingoWord)}"
-                    >
-                        {{ bingoWord }}
-                    </div>
-                </b-row>
+                <div style="position: relative">
+                    <b-row class="bingo-container" align-v="center" align-h="center">
+                        <async-image class="bingo-roulette" :src="bingoRoulette" alt="roleta do bingo" />   
+                        <div class="bingo-panel bingo-panel-word">
+                            <div class="bingo-panel-inside">
+                                <div
+                                    class="bingo-counter"
+                                    :class="{'bingo-counter-animation': animateBingoCounter}"
+                                >
+                                    <h2 v-if="showTimer" style="color: #13c5c4;">{{ getDuration }}</h2>
+                                    <h2 v-else>{{ actualRaffleWord }}</h2>
+                                </div>
+                            </div>                            
+                        </div>
+                    </b-row>
+                    <b-row align-h="start">
+                        <div
+                            v-for="bingoWord in allWords"
+                            :key="bingoWord"
+                            class="bingo-word"
+                            :class="{'bingo-raffle-word': searchString(raffleWords,bingoWord)}"
+                        >
+                            <p :class="{'bingo-word-big': isWordBingo}">{{ bingoWord }}</p>
+                        </div>
+                    </b-row>
+                </div>
             </b-col>
             <b-col cols="9" align-v="center" align-h="center">
                 <b-row>
                     <ls-card-display
                         class="bingo-card bingo-card-player"
                     >
-                        <b-row align-v="center" align-h="center">
-                            <p style="color: white">sua cartela</p>
-                        </b-row>
-                        <b-row align-v="center" align-h="center">
-                            <b-col
-                                v-for="(item, position) in getBingoValues"
-                                :key="position"
-                                :sm="2"
-                            >
-                                <div class="item">
-                                    <div class="substantivo_comum medium">
-                                        <div class="card-input card--radio-input" :class="$attrs.class">
-                                            <label>
-                                                <b-card
-                                                    no-body
-                                                    :class="{ 'invalid': item.invalid, 'valid': item.valid }"
-                                                >
-                                                    <b-card-body
-                                                        style="background-color: white"
+                        <b-col>
+                            <b-row align-v="center" align-h="center">
+                                <p style="color: white">sua cartela</p>
+                            </b-row>
+                            <b-row align-v="center" align-h="center" class="bingo-card-player-row">
+                                <b-col
+                                    v-for="(item, position) in getBingoValues"
+                                    :key="position"
+                                    class="item"
+                                >
+                                    <div class="item letra">
+                                        <div class="substantivo_comum medium">
+                                            <div class="card-input card--radio-input" :class="$attrs.class">
+                                                <label>
+                                                    <b-card
+                                                        no-body
+                                                        :class="{ 'invalid': item.invalid, 'valid': item.valid }"
                                                     >
-                                                        <div class="bingo-word-player-item">
-                                                            {{ item.text }}
-                                                        </div>
-                                                    </b-card-body>
-                                                </b-card>
+                                                        <b-card-body
+                                                            style="background-color: white"
+                                                        >
+                                                            <div class="bingo-word-player-item">
+                                                                {{ item.text }}
+                                                            </div>
+                                                        </b-card-body>
+                                                    </b-card>
 
-                                                <input
-                                                    v-model="item.selected"
-                                                    class="input"
-                                                    type="checkbox"
-                                                    true-value="valid"
-                                                    false-value="invalid"
-                                                    :name="`input-${position}`"
-                                                    @change.stop="checkRaffle(item)"
-                                                />
-                                            </label>
+                                                    <input
+                                                        v-model="item.selected"
+                                                        class="input"
+                                                        type="checkbox"
+                                                        true-value="valid"
+                                                        false-value="invalid"
+                                                        :name="`input-${position}`"
+                                                        @change.stop="checkRaffle(item)"
+                                                    />
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </b-col>
-                        </b-row>
+                                </b-col>
+                            </b-row>
+                        </b-col>                        
                     </ls-card-display>
                     <ls-card-display
                         v-for="i in 2" :key="i"
                         class="bingo-card"
                         :valid="loseCounter[i-1]==4"
                     >
-                        <b-row align-v="center" align-h="center">
+                        <b-row align-v="center" align-h="center" class="bingo-card-row">
                             <b-col
                                 v-for="word in words[i-1]"
                                 :key="word"
-                                :sm="2"
                                 class="item"
                             >
-                                <div class="item">
+                                <div class="item letra">
                                     <div class="substantivo_comum medium">
-                                        <ls-card-display
-                                            :valid="searchString(raffleWords, word)"
+                                        <ls-card-display                                            
+                                            :valid="searchString(raffleWords, word)"  
+                                            class="bingo-card-word"                              
                                         >
                                             {{ word }}
                                         </ls-card-display>
@@ -131,7 +138,9 @@ export default {
             timer: 5000,
             showTimer: true,
             animateBingoCounter: false,
-            loseCounter: [0,0]
+            loseCounter: [0,0],
+            isCounter: true,
+            isWordBingo: false
         }
     },
     computed:{
@@ -153,8 +162,11 @@ export default {
     },
     watch: {
         showTimer() {
-            this.animateBingoCounter = true;
-            setTimeout(() => {
+            if(this.isCounter){
+                this.animateBingoCounter = true;
+            }
+            this.isCounter = !this.isCounter;
+            this.timeOut = setTimeout(() => {
                 this.animateBingoCounter = false;
             },1000)
         },
@@ -162,12 +174,14 @@ export default {
             if (this.searchString(this.words[0],this.actualRaffleWord)){
                 this.loseCounter[0]++;
                 if(this.loseCounter[0] == 4){
+                    this.activity.pointings[0].quantity = 10;
                     this.triggerSuccess();
                 }
             } 
             if (this.searchString(this.words[1],this.actualRaffleWord)){
                 this.loseCounter[1]++;
                 if(this.loseCounter[1] == 4){
+                    this.activity.pointings[0].quantity = 10;
                     this.triggerSuccess();
                 }
             }
@@ -184,6 +198,9 @@ export default {
         // pega os valores e os joga numa matriz de palavras
         this.scramblePlayerWords = shuffle(this.scramblePlayerWords);
         for(let i = 0; i < this.getValues.length; i++){
+            if(this.getValues[i].text.length > 4){
+                this.isWordBingo = true;
+            }            
             if(i < this.activity.total_correct_items){
                 this.words[0].push(this.getValues[i].text)
             }else{
