@@ -8,7 +8,7 @@
         />
         <div class="page-container-wrap-spacing">
             <b-row v-if="theme">
-                <b-col v-for="unit in theme.units" :key="unit.id" cols="12" md="6">
+                <b-col v-for="unit in theme.units" :key="unit.id" cols="6">
                     <div class="theme-unit-box">
                         <router-link
                             :to="{
