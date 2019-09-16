@@ -8,7 +8,9 @@
                             <b-col>
                                 <b-row align-v="center">
                                     <b-col cols="7">
-                                        <pre>{{ item.text }}</pre>
+                                        <div class="text-container">
+                                            <pre>{{ item.text }}</pre>
+                                        </div>
                                     </b-col>
                                     <b-col>
                                         <async-image :src="item.images.length ? item.images[0].url : null" />
@@ -106,12 +108,14 @@ export default {
             return this.$refs.plyr.player
         },
         isPlayerWithImage() {
-            return (this.item.images[0].url != null) && (this.item.value_ids == null)
+            return (this.item.images.length && this.item.images[0].url != null) && (this.item.value_ids == null)
         }
     },
     mounted(){
-        this.player.on('ended', this.ended)
-        this.player.volume = 0.7
+        if (this.player){
+            this.player.on('ended', this.ended)
+            this.player.volume = 0.7
+        }
     },
     methods: {
         ...mapActions('Activity', ['triggerSuccess']),
@@ -133,9 +137,21 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
     .text-audio-image-box{
         margin-top: -20px;
+        .text-container{
+            @include custom_scroll_bar;
+            width: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+            max-height: 20em;
+            padding: 24px;
+            pre {
+                white-space: pre-wrap;
+                overflow: hidden;
+            }
+        }
     }
 </style>
 
