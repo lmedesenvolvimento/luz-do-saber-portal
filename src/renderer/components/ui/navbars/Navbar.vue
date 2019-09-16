@@ -67,6 +67,7 @@ export default {
 
 <style lang="scss">
 .navbar {
+    min-width: $body-min-width;
     .btn-link{
         padding: 0.375rem 0.35rem;
     }
