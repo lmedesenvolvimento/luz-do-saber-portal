@@ -1,7 +1,9 @@
 .circle-box {
-    min-width: 320px;
+    min-width: 360px;
     max-width: 460px;
+    margin: auto;
 }
+
 .circle-and-box{
     display: flex;
     transition: all 0.2s ease-in;
