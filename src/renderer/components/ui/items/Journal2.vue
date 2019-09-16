@@ -2,24 +2,57 @@
     <div class="journal">        
         <b-row class="journal-container">
             <b-col>
-                <div id="journalCanvas" class="journal-box">
-                    <div class="journal-page-container journal-single-page">
-                        <div class="journal-page journal-cover">
-                            <div class="journal-decoration-1" />
-                            <div class="journal-decoration-2" />
-                            <div class="journal-content">
-                                <div v-for="page in pages" :key="page.nameIndex">
-                                    <journal-page    
-                                        v-if="page.nameIndex == pageName"                                     
-                                        :have-title="page.haveTitle"
-                                        :have-story-title="page.haveStoryTitle"
-                                    />
-                                </div>                                
+                <div style="margin: 25px">
+                    <div
+                        v-for="page in pages" 
+                        :key="page.nameIndex" 
+                    >
+                        <div   
+                            v-show="page.nameIndex == pageName"                       
+                            class="journal-page-container"
+                            :class="{'journal-single-page': page.typePage == 'single'}"
+                        >
+                            <div                                   
+                                v-if="page.typePage == 'single'"      
+                            >
+                                <journal-page        
+                                    :type-page="page.typePage"               
+                                    :have-title="page.haveTitle"
+                                    :have-story-title="page.haveStoryTitle"
+                                    :have-cover-image="page.haveCoverImage"
+                                    :have-left-and-right-story="page.haveLeftAndRightStory"
+                                    :extra-rows="page.extraRows"
+                                />  
                             </div>
-                            <div class="journal-decoration-1" />
+                            <div v-else>
+                                <b-row>
+                                    <b-col>
+                                        <journal-page      
+                                            class="journal-left-page" 
+                                            :type-page="page.subPages[0].typePage"               
+                                            :have-title="page.subPages[0].haveTitle"
+                                            :have-story-title="page.subPages[0].haveStoryTitle"
+                                            :have-cover-image="page.subPages[0].haveCoverImage"
+                                            :have-left-and-right-story="page.subPages[0].haveLeftAndRightStory"
+                                            :extra-rows="page.subPages[0].extraRows"
+                                        /> 
+                                    </b-col>
+                                    <b-col>
+                                        <journal-page   
+                                            class="journal-right-page"    
+                                            :type-page="page.subPages[1].typePage"               
+                                            :have-title="page.subPages[1].haveTitle"
+                                            :have-story-title="page.subPages[1].haveStoryTitle"
+                                            :have-cover-image="page.subPages[1].haveCoverImage"
+                                            :have-left-and-right-story="page.subPages[1].haveLeftAndRightStory"
+                                            :extra-rows="page.extraRows"
+                                        /> 
+                                    </b-col>
+                                </b-row>                     
+                            </div>  
                         </div>
                     </div>
-                </div>
+                </div>                
                 <b-row align-h="end" class="journal-footer">
                     <b-col cols="4">
                         <b-row align-h="center">
@@ -68,13 +101,39 @@ export default {
                 nameIndex: 'capa',
                 typePage: 'single',
                 haveTitle: true,
-                haveStoryTitle: false
+                haveStoryTitle: false,
+                haveCoverImage: true,
+                haveLeftAndRightStory: true,
+                extraRows: 0,
+                subPages: []
             },
             {
                 nameIndex: '1 - 2',
-                typePage: 'dual',
+                typePage: 'dual',                
+                subPages: [{
+                    haveTitle: false,
+                    haveStoryTitle: true,
+                    haveCoverImage: true,
+                    haveLeftAndRightStory: true,
+                    extraRows: 1
+                },
+                {
+                    haveTitle: false,
+                    haveStoryTitle: false,
+                    haveCoverImage: false,
+                    haveLeftAndRightStory: false,
+                    extraRows: 1
+                }]
+            },
+            {
+                nameIndex: 'verso',
+                typePage: 'single',
                 haveTitle: false,
-                haveStoryTitle: true
+                haveStoryTitle: false,
+                haveCoverImage: false,
+                haveLeftAndRightStory: true,
+                extraRows: 0,
+                subPages: []
             }]
         }
     },
