@@ -6,6 +6,7 @@
         :header-class="renderModuleSlug"
         :hide-footer="true"
         :no-close-on-backdrop="true"
+        @show="onShow"
         @hide="onHidden"
     >
         <template slot="modal-header">
@@ -40,6 +41,13 @@ import { mapState, mapActions, mapGetters } from 'vuex'
 import { find } from 'lodash'
 
 import AudioReader from '@/services/AudioReader'
+
+const feedbackAudios  = [
+    new Audio(require('@/assets/audios/feedback/0-star.mp3')),
+    new Audio(require('@/assets/audios/feedback/01-star.mp3')),
+    new Audio(require('@/assets/audios/feedback/02-stars.mp3')),
+    new Audio(require('@/assets/audios/feedback/03-stars.mp3'))
+]
 
 export default {    
     data(){
@@ -153,7 +161,12 @@ export default {
                 return require('@/assets/images/icons/star-empty.png')
             }
         },
+        onShow(){
+            AudioReader.stop()
+            this.triggerPlayAudioFeedback()
+        },
         onHidden(){
+            this.triggerStopAudioFeedback()
             this.hideAlertActivitySuccess()
         },
         resetActivity(){
@@ -161,6 +174,8 @@ export default {
             const question = find(this.unit.questions, { order: this.activity.order })
 
             this.destroyActivity()
+
+            AudioReader.stop()
 
             this.fetchActivity({
                 params,
@@ -175,6 +190,23 @@ export default {
             this.$store.dispatch('Unit/nextActivity')
             this.destroyActivity()
             this.onHidden()
+        },
+        triggerPlayAudioFeedback(){
+            try {                
+                return feedbackAudios[this.totalStars].play()            
+            } catch (error) {
+                console.warn(error)
+            }
+        },
+        triggerStopAudioFeedback(){
+            feedbackAudios.forEach(audio => {
+                try {
+                    audio.pause()
+                    audio.currentTime = 0
+                } catch (error) {
+                    console.warn(error)
+                }
+            })
         },
         ...mapActions(['hideAlertActivitySuccess']),
         ...mapActions('Activity',['fetchActivity','destroyActivity'])
