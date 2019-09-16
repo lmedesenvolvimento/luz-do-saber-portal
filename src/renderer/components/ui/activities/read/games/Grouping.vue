@@ -115,9 +115,9 @@ export default {
 
 <style lang="scss">
     #grouping-activity{
-
         .bg-color{
             background-color: transparent !important;
+            color: $text-color;
         }
 
         .activity-keys{
