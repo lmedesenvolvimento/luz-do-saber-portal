@@ -23,6 +23,7 @@
                                     :image-above-content="page.imageAboveContent"
                                     :have-left-and-right-story="page.haveLeftAndRightStory"
                                     :extra-rows="page.extraRows"
+                                    :footer-text="page.footerText"
                                 />  
                             </div>
                             <div v-else>
@@ -37,6 +38,7 @@
                                             :image-above-content="page.subPages[1].imageAboveContent"
                                             :have-left-and-right-story="page.subPages[0].haveLeftAndRightStory"
                                             :extra-rows="page.subPages[0].extraRows"
+                                            :footer-text="page.subPages[0].footerText"
                                         /> 
                                     </b-col>
                                     <b-col>
@@ -48,7 +50,8 @@
                                             :have-cover-image="page.subPages[1].haveCoverImage"
                                             :image-above-content="page.subPages[1].imageAboveContent"
                                             :have-left-and-right-story="page.subPages[1].haveLeftAndRightStory"
-                                            :extra-rows="page.extraRows"
+                                            :extra-rows="page.subPages[1].extraRows"
+                                            :footer-text="page.subPages[1].footerText"
                                         /> 
                                     </b-col>
                                 </b-row>                     
@@ -107,8 +110,9 @@ export default {
                 haveStoryTitle: false,
                 haveCoverImage: true,
                 imageAboveContent: true,
-                haveLeftAndRightStory: true,
+                haveLeftAndRightStory: true,                
                 extraRows: 0,
+                footerText: false,
                 subPages: []
             },
             {
@@ -120,7 +124,8 @@ export default {
                     haveCoverImage: true,
                     imageAboveContent: true,
                     haveLeftAndRightStory: true,
-                    extraRows: 1
+                    extraRows: 1,
+                    footerText: false
                 },
                 {
                     haveTitle: false,
@@ -128,7 +133,8 @@ export default {
                     haveCoverImage: false,
                     imageAboveContent: true,
                     haveLeftAndRightStory: false,
-                    extraRows: 1
+                    extraRows: 1,
+                    footerText: true
                 }]
             },
             {
@@ -140,6 +146,7 @@ export default {
                 imageAboveContent: false,
                 haveLeftAndRightStory: true,
                 extraRows: 0,
+                footerText: true,
                 subPages: []
             }]
         }
