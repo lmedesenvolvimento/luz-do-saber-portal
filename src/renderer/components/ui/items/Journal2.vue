@@ -23,6 +23,7 @@
                                     :image-above-content="page.imageAboveContent"
                                     :have-left-and-right-story="page.haveLeftAndRightStory"
                                     :extra-rows="page.extraRows"
+                                    :have-three-parts-story="page.haveThreePartsStory"
                                     :footer-text="page.footerText"
                                 />  
                             </div>
@@ -38,6 +39,7 @@
                                             :image-above-content="page.subPages[1].imageAboveContent"
                                             :have-left-and-right-story="page.subPages[0].haveLeftAndRightStory"
                                             :extra-rows="page.subPages[0].extraRows"
+                                            :have-three-parts-story="page.subPages[0].haveThreePartsStory"
                                             :footer-text="page.subPages[0].footerText"
                                         /> 
                                     </b-col>
@@ -51,6 +53,7 @@
                                             :image-above-content="page.subPages[1].imageAboveContent"
                                             :have-left-and-right-story="page.subPages[1].haveLeftAndRightStory"
                                             :extra-rows="page.subPages[1].extraRows"
+                                            :have-three-parts-story="page.subPages[1].haveThreePartsStory"
                                             :footer-text="page.subPages[1].footerText"
                                         /> 
                                     </b-col>
@@ -112,6 +115,7 @@ export default {
                 imageAboveContent: true,
                 haveLeftAndRightStory: true,                
                 extraRows: 0,
+                haveThreePartsStory: false,
                 footerText: false,
                 subPages: []
             },
@@ -125,6 +129,7 @@ export default {
                     imageAboveContent: true,
                     haveLeftAndRightStory: true,
                     extraRows: 1,
+                    haveThreePartsStory: false,
                     footerText: false
                 },
                 {
@@ -134,6 +139,7 @@ export default {
                     imageAboveContent: true,
                     haveLeftAndRightStory: false,
                     extraRows: 1,
+                    haveThreePartsStory: true,
                     footerText: true
                 }]
             },
@@ -146,6 +152,7 @@ export default {
                 imageAboveContent: false,
                 haveLeftAndRightStory: true,
                 extraRows: 0,
+                haveThreePartsStory: false,
                 footerText: true,
                 subPages: []
             }]
