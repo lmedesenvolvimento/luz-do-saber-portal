@@ -26,7 +26,9 @@
                     v-show="haveCoverImage && imageAboveContent"
                 >
                     <div>                       
-                        <journal-page-image />  
+                        <journal-page-image 
+                            image-type="full"
+                        />  
                     </div>                   
                 </div>                             
                 <div v-show="haveLeftAndRightStory">
@@ -50,7 +52,9 @@
                     v-show="haveCoverImage && !imageAboveContent"
                 >
                     <b-col>
-                        <journal-page-image />  
+                        <journal-page-image 
+                            image-type="full"
+                        />  
                     </b-col>                   
                 </div>
                 <div v-show="haveThreePartsStory" class="journal-three-parts-story">
@@ -76,7 +80,10 @@
                             </div>
                         </b-col>
                         <b-col>
-                            <div class="middle">                                                       
+                            <div class="middle">     
+                                <journal-page-image 
+                                    image-type="three-parts"
+                                />                                            
                                 <div class="journal-story-cont">
                                     <textarea                                         
                                         cols="11" rows="6"

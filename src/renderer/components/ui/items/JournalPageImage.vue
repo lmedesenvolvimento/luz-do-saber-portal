@@ -1,9 +1,9 @@
 <template>
     <div>
         <div             
-            class="journal-full-image"
+            :class="{'journal-full-image': imageType == 'full', 'journal-three-story-image': imageType == 'three-parts'}"
             @click="$refs.imageInput.click()"
-        >
+        >            
             <input 
                 ref="imageInput"
                 style="display: none"                                             
@@ -11,7 +11,7 @@
                 accept="image/gif, image/jpeg, image/png"                                         
                 @change="onFileSelectedCover"                 
             >
-            <div v-if="image" class="full-image">
+            <div v-if="image" :class="{'full-image': imageType == 'full', 'three-story-image': imageType == 'three-parts'}">
                 <img :src="image" alt="Imagem de capa">
             </div>                                       
             <div v-else class="placeholder-image">
@@ -26,6 +26,9 @@ import AsyncImage from '@ui/AsyncImage';
 export default {
     components: {        
         AsyncImage
+    },
+    props: {
+        imageType: String
     },
     data(){
         return{
