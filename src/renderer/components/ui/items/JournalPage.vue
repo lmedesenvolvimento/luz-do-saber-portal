@@ -60,7 +60,7 @@
                 <div v-show="haveThreePartsStory" class="journal-three-parts-story">
                     <b-row>
                         <b-col>
-                            <div>
+                            <div class="left">
                                 <div class="journal-story-title">
                                     <textarea                                         
                                         cols="10" rows="2" 
@@ -95,7 +95,7 @@
                             </div>
                         </b-col>
                         <b-col>
-                            <div>
+                            <div class="right">
                                 <div class="journal-story-cont">
                                     <textarea                                          
                                         cols="12" rows="13"
