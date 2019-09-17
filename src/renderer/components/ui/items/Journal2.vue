@@ -20,6 +20,7 @@
                                     :have-title="page.haveTitle"
                                     :have-story-title="page.haveStoryTitle"
                                     :have-cover-image="page.haveCoverImage"
+                                    :image-above-content="page.imageAboveContent"
                                     :have-left-and-right-story="page.haveLeftAndRightStory"
                                     :extra-rows="page.extraRows"
                                 />  
@@ -33,6 +34,7 @@
                                             :have-title="page.subPages[0].haveTitle"
                                             :have-story-title="page.subPages[0].haveStoryTitle"
                                             :have-cover-image="page.subPages[0].haveCoverImage"
+                                            :image-above-content="page.subPages[1].imageAboveContent"
                                             :have-left-and-right-story="page.subPages[0].haveLeftAndRightStory"
                                             :extra-rows="page.subPages[0].extraRows"
                                         /> 
@@ -44,6 +46,7 @@
                                             :have-title="page.subPages[1].haveTitle"
                                             :have-story-title="page.subPages[1].haveStoryTitle"
                                             :have-cover-image="page.subPages[1].haveCoverImage"
+                                            :image-above-content="page.subPages[1].imageAboveContent"
                                             :have-left-and-right-story="page.subPages[1].haveLeftAndRightStory"
                                             :extra-rows="page.extraRows"
                                         /> 
@@ -103,6 +106,7 @@ export default {
                 haveTitle: true,
                 haveStoryTitle: false,
                 haveCoverImage: true,
+                imageAboveContent: true,
                 haveLeftAndRightStory: true,
                 extraRows: 0,
                 subPages: []
@@ -114,6 +118,7 @@ export default {
                     haveTitle: false,
                     haveStoryTitle: true,
                     haveCoverImage: true,
+                    imageAboveContent: true,
                     haveLeftAndRightStory: true,
                     extraRows: 1
                 },
@@ -121,6 +126,7 @@ export default {
                     haveTitle: false,
                     haveStoryTitle: false,
                     haveCoverImage: false,
+                    imageAboveContent: true,
                     haveLeftAndRightStory: false,
                     extraRows: 1
                 }]
@@ -130,7 +136,8 @@ export default {
                 typePage: 'single',
                 haveTitle: false,
                 haveStoryTitle: false,
-                haveCoverImage: false,
+                haveCoverImage: true,
+                imageAboveContent: false,
                 haveLeftAndRightStory: true,
                 extraRows: 0,
                 subPages: []
