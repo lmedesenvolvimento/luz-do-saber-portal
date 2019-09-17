@@ -10,7 +10,7 @@
         />
         <div v-if="getModule.key === 'jornal'">
             <journal></journal>
-        </div>
+        </div>               
         <div v-else class="page-container-wrap-spacing">    
             <div v-if="getModule.key === 'editor'">
                 <editor></editor>
@@ -27,7 +27,7 @@ import Navbar from '../ui/navbars/Navbar'
 import Journal from '../ui/items/Journal'
 import Editor from '../ui/items/Editor'
 export default {
-    components: { Navbar, Journal ,Editor},
+    components: { Navbar, Journal, Editor},
     computed: {
         getModuleImage(){
             return require('@/assets/images/btn-write.png')
