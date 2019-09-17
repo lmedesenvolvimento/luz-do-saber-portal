@@ -8,7 +8,7 @@
             <div class="journal-content">
                 <div v-show="haveTitle" class="journal-cover-title">
                     <input 
-                        v-model="coverTitle" 
+                        v-model="title" 
                         type="text" 
                         placeholder="Insira o nome do jornal"
                     />
@@ -16,7 +16,7 @@
                 <div v-show="haveStoryTitle">
                     <input 
                         v-for="i in 2" :key="i"
-                        :v-model="{page1Title: i == 1, page1Subtitle: i == 2}" 
+                        :v-model="{storyTitle: i == 1, storySubtitle: i == 2}" 
                         :class="{'journal-page-title': i == 1, 'journal-input-story-subtitle': i == 2}"
                         type="text" 
                         :placeholder="placeholderTitle(i)"
@@ -34,8 +34,8 @@
                         <b-col v-for="i in 2" :key="i" :class="{'journal-story-left': i == 1, 'journal-story-right': i == 2}">
                             <div v-for="j in 2" :key="j" :class="{'journal-story-title': j == 1, 'journal-story-subtitle': j == 2}">
                                 <textarea 
-                                    :v-model="{coverStoryLeftTitle: i == 1 && j == 1, coverStoryRightTitle: i == 2 && j == 1,
-                                               coverStoryLeftText: i == 1 && j == 2, coverStoryRightText: i == 2 && j == 2}" 
+                                    :v-model="{storyLeftTitle: i == 1 && j == 1, storyRightTitle: i == 2 && j == 1,
+                                               storyLeftText: i == 1 && j == 2, storyRightText: i == 2 && j == 2}" 
                                     :cols="numberCols(j)" 
                                     :rows="numberRows(j)" 
                                     :class="{'journal-input-story-title': j == 1, 'journal-input-story-text': j == 2}" 
@@ -52,6 +52,19 @@
                     <b-col>
                         <journal-page-image />  
                     </b-col>                   
+                </div>
+                <div
+                    v-show="footerText"
+                >
+                    <div class="journal-story-cont">
+                        <textarea 
+                            v-model="storyFooterText" 
+                            cols="44" rows="2"
+                            class="journal-input-story-text"
+                            type="text" 
+                            placeholder="Insira um conteúdo aqui"
+                        />
+                    </div> 
                 </div>
             </div>
         </div>
@@ -72,13 +85,19 @@ export default {
         haveCoverImage: Boolean,
         imageAboveContent: Boolean,
         haveLeftAndRightStory: Boolean,
-        extraRows: Number
+        extraRows: Number,
+        footerText: Boolean
     },
     data(){
         return {
-            coverTitle: '',
-            page1Title: '',
-            page1Subtitle: '',   
+            title: '',
+            storyTitle: '',
+            storySubtitle: '',   
+            storyLeftTitle: '',
+            storyRightTitle: '',
+            storyLeftText: '',
+            storyRightText: '',
+            storyFooterText: ''
         }
     },    
     methods: {
