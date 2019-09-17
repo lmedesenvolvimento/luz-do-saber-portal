@@ -1,93 +1,97 @@
 .chart-progress{
-        position: relative;
-        transition: all 0.2s ease-in;
-        .card{
-            // max-width: 240px;
-            width: 240px;
-            margin: auto;
-        }
-        .card-body{
-            height: 255px;
-        }
-        .chart-progress-label{
-            max-width: 80%;
-            font-size: 22px;
-            text-align: center;
-            margin: -36px auto 0px;
-            padding-top: 4px;
-            border-radius: 4px;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-        .img-container{
-            width: 140px;
-            height: 140px;
-            margin: auto;
+    position: relative;
+    transition: all 0.2s ease-in;
+    .card{
+        width: 240px;
+        margin: auto;
+    }
+    .card-body{
+        height: 255px;
+    }
+    .chart-progress-label{
+        max-width: 80%;
+        font-size: 22px;
+        text-align: center;
+        margin: -36px auto 0px;
+        padding-top: 4px;
+        border-radius: 4px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+    .img-container{
+        width: 140px;
+        height: 140px;
+        margin: auto;
+        border-radius: 50%;
+        overflow: hidden;
+        img{
             border-radius: 50%;
+            overflow: hidden;
         }
-        .radial-container {
-            margin: 19px 0 0 4px;
-        }
-        .radial-progress-container, .img-container{
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            right: 0;
-            left: 0;
-            margin: auto;
-        }
+    }
+    .radial-container {
+        margin: 19px 0 0 4px;
+    }
+    .radial-progress-container, .img-container{
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        margin: auto;
+    }
 
-        .chart-progress-container{
-            // transform: scale(0.4);
-            width: 100%;
-        }
+    .chart-progress-container{
+        // transform: scale(0.4);
+        width: 100%;
+    }
 
-        .custom-content{
+    .custom-content{
+        @include fill;
+        position: relative;
+        align-content: center;
+        justify-content: center;
+        .row{
             @include fill;
-            position: relative;
-            align-content: center;
-            justify-content: center;
-            .row{
-                @include fill;
-            }
-        }
-
-        .custom-content-front{
-            display: none;
-        }
-        &:not(:hover){
-            .custom-content{
-                display: flex;
-            }
-            .chart-progress-label, .card{
-                background-color: transparent !important;
-            }
-            .card{
-                box-shadow: none !important;
-                border-color: transparent !important;
-            }
-        }
-        &:hover{
-            cursor: pointer;
-            transform: scale(1.05);
-
-            .chart-progress-label{
-                color: white !important;
-            }
-
-            // .custom-content{
-            //     display: none;
-            // }
-
-            // .custom-content-front{
-            //     display: flex !important;
-            // }
         }
     }
 
+    .custom-content-front{
+        display: none;
+    }
+    &:not(:hover){
+        .custom-content{
+            display: flex;
+        }
+        .chart-progress-label, .card{
+            background-color: transparent !important;
+        }
+        .card{
+            box-shadow: none !important;
+            border-color: transparent !important;
+        }
+    }
+    &:hover{
+        cursor: pointer;
+        transform: scale(1.05);
+
+        .chart-progress-label{
+            color: white !important;
+        }
+
+        // .custom-content{
+        //     display: none;
+        // }
+
+        // .custom-content-front{
+        //     display: flex !important;
+        // }
+    }
+}
+
 @include media-breakpoint-down(md){
     .chart-progress{
-        margin: 36px auto;
+        margin: 36px auto;        
     }
 }
 
