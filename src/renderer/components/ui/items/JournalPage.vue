@@ -53,6 +53,54 @@
                         <journal-page-image />  
                     </b-col>                   
                 </div>
+                <div v-show="haveThreePartsStory" class="journal-three-parts-story">
+                    <b-row>
+                        <b-col>
+                            <div>
+                                <div class="journal-story-title">
+                                    <textarea                                         
+                                        cols="10" rows="2" 
+                                        class="journal-input-story-title" 
+                                        type="text" 
+                                        placeholder="Título superior"
+                                    />
+                                </div>
+                                <div class="journal-story-subtitle">
+                                    <textarea                                         
+                                        cols="12" rows="11"
+                                        class="journal-input-story-text"
+                                        type="text" 
+                                        placeholder="Insira o conteúdo da matéria aqui"
+                                    />
+                                </div>
+                            </div>
+                        </b-col>
+                        <b-col>
+                            <div class="middle">                                                       
+                                <div class="journal-story-cont">
+                                    <textarea                                         
+                                        cols="11" rows="6"
+                                        class="journal-input-story-text"
+                                        type="text" 
+                                        placeholder="Insira a continuação da matéria"
+                                    />
+                                </div>
+                            </div>
+                        </b-col>
+                        <b-col>
+                            <div>
+                                <div class="journal-story-cont">
+                                    <textarea                                          
+                                        cols="12" rows="13"
+                                        class="journal-input-story-text"
+                                        type="text" 
+                                        placeholder="Insira a continuação da matéria"
+                                    />
+                                </div>
+                            </div>
+                        </b-col>
+                    </b-row>
+                </div>
                 <div
                     v-show="footerText"
                 >
@@ -86,6 +134,7 @@ export default {
         imageAboveContent: Boolean,
         haveLeftAndRightStory: Boolean,
         extraRows: Number,
+        haveThreePartsStory: Boolean,
         footerText: Boolean
     },
     data(){
