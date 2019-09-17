@@ -108,6 +108,13 @@
                         </b-col>
                     </b-row>
                 </div>
+                <div 
+                    v-show="footerImage"
+                >
+                    <journal-page-image 
+                        image-type="footer"
+                    />    
+                </div>
                 <div
                     v-show="footerText"
                 >
@@ -142,6 +149,7 @@ export default {
         haveLeftAndRightStory: Boolean,
         extraRows: Number,
         haveThreePartsStory: Boolean,
+        footerImage: Boolean,
         footerText: Boolean
     },
     data(){
