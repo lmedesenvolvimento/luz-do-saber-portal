@@ -77,12 +77,17 @@ $primary-font-color: #007CB2;
     } 
 }  
 .journal-three-parts-story{
-    
+    .left{       
+        margin: 10px 0 0 15px;
+    }
     .middle{
         margin: 0 -10px 0 -10px;
         border-left: solid 5px;
         border-right: solid 5px;        
         border-color: $bd-color;
+    }
+    .right{
+        margin-left: -15px;
     }
 }
 .journal-three-story-image{
@@ -133,6 +138,7 @@ $primary-font-color: #007CB2;
     border-right: solid;
     border-color: $bd-color;
     padding: 10px;
+    margin-left: 20px;
 }
 .journal-story-right{
     width: 50%;
