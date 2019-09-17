@@ -76,6 +76,33 @@ $primary-font-color: #007CB2;
         padding-top: 65px;
     } 
 }  
+.journal-story-header{
+    text-align: center;
+}
+.journal-input-story-title{
+    color: $primary-font-color;
+    font-size: 20px;
+    border: none;
+    background: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    resize: none;
+}
+.journal-input-story-subtitle{
+    font-size: 20px;
+    border: none;
+    background: none;
+    text-transform: uppercase;
+    text-align: center;
+}
+.journal-input-story-text{
+    font-size: 16px;
+    border: none;
+    background: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    resize: none;
+}
 .journal-three-parts-story{
     .left{       
         margin: 10px 0 0 15px;
@@ -161,30 +188,6 @@ $primary-font-color: #007CB2;
 }
 .journal-right-page{
     margin-left: -15px;
-}
-.journal-input-story-title{
-    color: $primary-font-color;
-    font-size: 20px;
-    border: none;
-    background: none;
-    text-transform: uppercase;
-    overflow: hidden;
-    resize: none;
-}
-.journal-input-story-subtitle{
-    font-size: 20px;
-    border: none;
-    background: none;
-    text-transform: uppercase;
-    text-align: center;
-}
-.journal-input-story-text{
-    font-size: 16px;
-    border: none;
-    background: none;
-    text-transform: uppercase;
-    overflow: hidden;
-    resize: none;
 }
 .journal-story-cont{
     padding: 10px;
