@@ -1,7 +1,7 @@
 <template>
     <div>
         <div             
-            :class="{'journal-full-image': imageType == 'full', 'journal-three-story-image': imageType == 'three-parts'}"
+            :class="{'journal-full-image': imageType == 'full', 'journal-three-story-image': imageType == 'three-parts', 'journal-footer-image': imageType == 'footer'}"
             @click="$refs.imageInput.click()"
         >            
             <input 
@@ -11,7 +11,7 @@
                 accept="image/gif, image/jpeg, image/png"                                         
                 @change="onFileSelectedCover"                 
             >
-            <div v-if="image" :class="{'full-image': imageType == 'full', 'three-story-image': imageType == 'three-parts'}">
+            <div v-if="image" :class="{'full-image': imageType == 'full', 'three-story-image': imageType == 'three-parts', 'footer-image': imageType == 'footer'}">
                 <img :src="image" alt="Imagem de capa">
             </div>                                       
             <div v-else class="placeholder-image">
