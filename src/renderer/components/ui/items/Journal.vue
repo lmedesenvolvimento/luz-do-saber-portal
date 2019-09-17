@@ -81,15 +81,7 @@
                             </b-button>
                         </b-row>
                     </b-col>  
-                    <b-col cols="4">
-                        <b-row align-h="end">
-                            <b-button v-b-modal.modal-center class="btn-journal">
-                                <img :src="prevPage" alt="Página anterior">
-                            </b-button>
-                            <b-button v-b-modal.modal-center class="btn-journal">
-                                <img :src="prevPage" alt="Página anterior">
-                            </b-button>
-                        </b-row>
+                    <b-col cols="4">                        
                     </b-col>
                 </b-row>
             </b-col>        
