@@ -189,7 +189,6 @@ export default {
             }
         },
         toNextPage() {
-            console.log( this.pages.length)
             if(this.indexPage < this.pages.length - 1){
                 this.indexPage += 1;
                 this.pageName = this.pages[this.indexPage].nameIndex;
