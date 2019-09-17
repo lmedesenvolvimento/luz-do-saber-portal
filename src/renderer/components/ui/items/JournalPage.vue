@@ -14,13 +14,19 @@
                     />
                 </div>
                 <div v-show="haveStoryTitle">
-                    <input 
-                        v-for="i in 2" :key="i"
-                        :v-model="{storyTitle: i == 1, storySubtitle: i == 2}" 
-                        :class="{'journal-page-title': i == 1, 'journal-input-story-subtitle': i == 2}"
-                        type="text" 
-                        :placeholder="placeholderTitle(i)"
-                    />
+                    <b-col>
+                        <div
+                            v-for="i in 2" :key="i"      
+                            class="journal-story-header"                
+                        >
+                            <input                             
+                                :v-model="{storyTitle: i == 1, storySubtitle: i == 2}" 
+                                :class="{'journal-page-title': i == 1, 'journal-input-story-subtitle': i == 2}"
+                                type="text"                                    
+                                :placeholder="placeholderTitle(i)"
+                            />
+                        </div>
+                    </b-col>                    
                 </div>
                 <div
                     v-show="haveCoverImage && imageAboveContent"
