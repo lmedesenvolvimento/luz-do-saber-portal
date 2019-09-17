@@ -98,8 +98,6 @@
 </template>
 
 <script>
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
 import JournalPage from './JournalPage';
 export default {
     components: { 
