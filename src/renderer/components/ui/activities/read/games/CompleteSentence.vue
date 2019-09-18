@@ -70,8 +70,10 @@
                         </label>
                     </div>
                 </div>
-                <div v-else>
-                    {{ item }}
+                <div v-else :class="activity.item_template.value.font_size"> 
+                    <div class>
+                        {{ item }}
+                    </div>
                 </div>        
             </b-col>
         </b-row>
@@ -165,6 +167,7 @@ export default {
             this.splitedSentence.push(Object.assign({}, sentences))
         },
         multipleCorrectItem(){
+            this.sentence = this.sentence.replace(/,/g, '')
             let palavras = this.sentence.split(' ')
             let words = []         
             let values = clone(this.getValues)
