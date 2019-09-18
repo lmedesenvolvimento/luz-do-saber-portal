@@ -125,7 +125,7 @@ export default {
         } else {
             this.multipleCorrectItem()
         }
-        // console.log(this.splitedSentence);
+        console.log('splitedSentence',this.splitedSentence);
     },    
     methods: {        
         splitSentence(arr, str){
@@ -152,7 +152,7 @@ export default {
             return false;
         },
         uniqueCorrectItem(){
-            this.getValues.forEach(element => {    
+            this.values.forEach(element => {    
                 let hiddenElement = {
                     text: element.text
                 }       
@@ -165,32 +165,65 @@ export default {
             this.splitedSentence.push(Object.assign({}, sentences))
         },
         multipleCorrectItem(){
-            let words = this.sentence.split(' ')
-            let aux = []         
-            let getValues = this.getValues
-            words.forEach((word, w) => {
+            let palavras = this.sentence.split(' ')
+            let words = []         
+            let values = clone(this.getValues)
+            palavras.forEach((word, w) => {
                 let objectWord = {
                     text: word,
                     hasInput: false,
                     id: w
                 }
-                aux.push(Object.assign({}, objectWord))
+                words.push(Object.assign({}, objectWord))
             })
-            let lastPosition = aux.length;
-            for (let i = 0; i < aux.length; i++){
-                console.log('to olhando a palavra '+aux[i].text+' na posição '+i)
-                for (let j = 0; j < getValues.length; j++){
-                    if (aux[i].text === getValues[j].text){
-                        console.log('achei '+aux[i].text+'['+i+']. Ele tava na posição '+j)
-                        this.splitedSentence.push(aux[i])
-                        getValues.splice(j, 1)
-                        console.log(getValues)
+            let allSentence = false;
+            if (words.length === values.length)
+                allSentence = true;
+            let lastPosition = 0 
+            for (let i = 0; i < words.length; i++){
+                console.log('to olhando a palavra '+words[i].text+' na posição '+i)
+                for (let j = 0; j < values.length; j++){
+                    if (words[i].text === values[j].text){
+                        console.log('ACHEI PORRA '+words[i].text+'['+i+']. Ele tava na posição '+j)
+                        words[i] = values[j];
+                        words[i].hasInput = true;
+                        words[i].valid = false;
+                        if (allSentence === false){
+                            let aux2 = []
+                            for (let l = lastPosition; l < i; l++){
+                                if (words[l].hasInput == false)
+                                    aux2.push(words[l])
+                            }
+                            lastPosition = i+1
+                            aux2 = aux2.reduce( function( prevVal, elem ) {
+                                return prevVal + ' ' + elem.text;
+                            },'')
+                            aux2 = aux2.substr(1)
+                            this.splitedSentence.push(aux2)
+                        }
+                        this.splitedSentence.push(words[i])
+                        values.splice(j, 1)
                         break;
                     } else {
-                        console.log(getValues[j].text+'['+j+'] Não é '+aux[i].text)
+                        console.log(values[j].text+'['+j+'] Não é '+words[i].text)
                     }
                 }
                 console.log('');
+            }
+            let aux2 = []
+            if (allSentence === false){
+                if (allSentence === false){
+                    let aux2 = []
+                    for (let l = lastPosition; l < words.length; l++){
+                        if (words[l].hasInput == false)
+                            aux2.push(words[l])
+                    }
+                    aux2 = aux2.reduce( function( prevVal, elem ) {
+                        return prevVal + ' ' + elem.text;
+                    },'')
+                    aux2 = aux2.substr(1)
+                    this.splitedSentence.push(aux2)
+                }
             }
         },
         customValidate(transferData, nativeElement, vm){
