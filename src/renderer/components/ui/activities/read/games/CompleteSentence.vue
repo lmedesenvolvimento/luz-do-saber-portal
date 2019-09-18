@@ -168,8 +168,9 @@ export default {
         },
         multipleCorrectItem(){
             this.sentence = this.sentence.replace(/,/g, '')
+            console.log(this.sentence)
             let palavras = this.sentence.split(' ')
-            let words = []         
+            let words = []
             let values = clone(this.getValues)
             palavras.forEach((word, w) => {
                 let objectWord = {
@@ -187,7 +188,6 @@ export default {
                 console.log('to olhando a palavra '+words[i].text+' na posição '+i)
                 for (let j = 0; j < values.length; j++){
                     if (words[i].text === values[j].text){
-                        console.log('ACHEI PORRA '+words[i].text+'['+i+']. Ele tava na posição '+j)
                         words[i] = values[j];
                         words[i].hasInput = true;
                         words[i].valid = false;
@@ -207,11 +207,8 @@ export default {
                         this.splitedSentence.push(words[i])
                         values.splice(j, 1)
                         break;
-                    } else {
-                        console.log(values[j].text+'['+j+'] Não é '+words[i].text)
                     }
                 }
-                console.log('');
             }
             let aux2 = []
             if (allSentence === false){
