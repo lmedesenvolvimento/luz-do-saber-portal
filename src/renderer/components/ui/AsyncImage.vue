@@ -56,6 +56,7 @@ export default {
 
 <style lang="scss">
 .image{
+    position: relative;
     display: block;
     margin: auto;
     img {

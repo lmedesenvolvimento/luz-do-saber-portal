@@ -31,7 +31,6 @@ export const GameSubtypes = {
     unscramble: 'desembaralhar-nome',
     rearrangeName: 'monte-seu-nome',
     jigsaw: 'quebra-cabecas',
-    matchFriendsInitial: 'encaixe-letras',
     draggingSyllables: 'formacao-de-palavras',
     completeWordSyllables: 'completa-palavra-com-silaba',
     completeWordLetters: 'completa-palavra-com-letra',

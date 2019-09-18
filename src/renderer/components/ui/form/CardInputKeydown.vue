@@ -57,11 +57,24 @@ export default {
         length(){
             return (this.isNotWord) ? 1 : 11
         },
+        isCanSubmitValidation() {
+            const model = this.model.toLowerCase()
+            const value = this.value.text.toLowerCase()
+
+            if (this.model.length === 0) return false
+
+            if (model  === value){
+                return true
+            }
+
+            return ( this.valid || this.invalid ) ? false : true
+        }
     },
     watch: {
         model(value){
-            if ((this.valid || this.invalid) || this.model.length === 0) return
-            this.isNotWord ? this.whenNotWord(value) : this.whenWord(value)
+            if (this.isCanSubmitValidation) {
+                this.isNotWord ? this.whenNotWord(value) : this.whenWord(value)
+            }
         }
     },
     mounted(){
@@ -74,19 +87,18 @@ export default {
         onKeyDown(event){
             if (this.isNotWord && this.model && (event.key.length <= 1)) this.model = event.key
         },
-        whenNotWord(value){
-            if (this.model.toLowerCase() === this.value.text.toLowerCase()) {
+        whenNotWord(){
+            const model = this.model.toLowerCase()
+            const value = this.value.text.toLowerCase()
+
+            if (model === value) {
                 this.setAnswer({
                     type: this.type,
                     data: this.value.id,
                     vm: this
                 })
 
-                let nextElementEmpty = this.$el.closest('.activity, .game').querySelector('input:invalid')
-
-                if (nextElementEmpty) {
-                    nextElementEmpty.focus()
-                }
+                this.toNextInput()
             } else {
                 this.setAnswer({
                     type: this.type,
@@ -96,21 +108,35 @@ export default {
             }
         },
         whenWord(value){
-            if (value.length <= this.value.text.length){
+            if (value.length < this.value.text.length) return false
+            if (value.length === this.value.text.length) {
                 if (value.toLowerCase() === this.value.text.toLowerCase()){
                     this.setAnswer({
                         type: this.type,
                         data: this.value.id,
                         vm: this
                     })
+                    this.toNextInput()
+                } else {
+                    this.setAnswer({
+                        type: this.type,
+                        data: -1,
+                        vm: this
+                    })
                 }
+                return true
             }
-            else {
-                this.setAnswer({
-                    type: this.type,
-                    data: -1,
-                    vm: this
-                })
+            
+            this.setAnswer({
+                type: this.type,
+                data: -1,
+                vm: this
+            })
+        },
+        toNextInput(){
+            let nextElementEmpty = this.$el.closest('.activity, .game').querySelector('input:invalid')
+            if (nextElementEmpty) {
+                nextElementEmpty.focus()
             }
         }
     },
