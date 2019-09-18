@@ -43,8 +43,9 @@
                                     v-for="(item, position) in getBingoValues"
                                     :key="position"
                                     class="item"
+                                    cols="3"
                                 >
-                                    <div class="item letra">
+                                    <div class="item letra bingo-card-player-col">
                                         <div class="substantivo_comum medium">
                                             <div class="card-input card--radio-input" :class="$attrs.class">
                                                 <label>
