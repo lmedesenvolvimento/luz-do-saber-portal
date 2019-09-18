@@ -22,7 +22,7 @@
                             v-for="bingoWord in allWords"
                             :key="bingoWord"
                             class="bingo-word"
-                            :class="{'bingo-raffle-word': searchString(raffleWords,bingoWord)}"
+                            :class="{'bingo-raffle-word': searchString(raffleWords,bingoWord), 'bingo-word-zoom': isWordBingo}"
                         >
                             <p :class="{'bingo-word-big': isWordBingo}">{{ bingoWord }}</p>
                         </div>
@@ -140,7 +140,7 @@ export default {
             animateBingoCounter: false,
             loseCounter: [0,0],
             isCounter: true,
-            isWordBingo: false
+            isWordBingo: false,
         }
     },
     computed:{
