@@ -46,7 +46,7 @@
     margin: 3px 0 3px 30px;
 }
 .bingo-card-player-row{
-    padding: 0 80px 0 80px;
+    padding: 0 10px 0 10px;
 }
 ;.bingo-card-row{
     padding: 0 10px 0 10px;
@@ -100,7 +100,9 @@
     .bingo-word-big{
         padding-top: 5px;
         font-size: 10px;
-    }
+    }    
+}
+.bingo-word-zoom{
     &:hover {
         transition: transform .5s;
         transform: scale(1.5);
