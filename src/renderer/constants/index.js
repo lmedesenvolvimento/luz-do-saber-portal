@@ -50,7 +50,8 @@ export const GameSubtypes = {
     writeTheWord: 'escreva-o-nome',
     accentuation: 'acentuacao',
     textReading: 'apresentacao-leitura',
-    findTheWord: 'descubra-a-palavra'
+    findTheWord: 'descubra-a-palavra',
+    assembleWord: 'monte-a-palavra',
 }
 
 export const ItemTypes = {
