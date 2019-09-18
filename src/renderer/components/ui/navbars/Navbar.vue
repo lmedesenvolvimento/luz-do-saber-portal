@@ -1,6 +1,6 @@
 <template>
     <nav class="navbar navbar-default">
-        <router-link variant="link" :to="historyBackUnit">
+        <router-link variant="link" :to="custom ? historyBackUnit : historyBack">
             <div class="icon-prev-screen"></div>
         </router-link>
 
@@ -51,6 +51,14 @@ export default {
             customRouteLink: ''
         }
     },
+    mounted() {
+        customRoute: {
+            // if (this.$route.path === '/game/comecar/meu-nome/meu-nome') {
+            //     console.log(this.$route.path);
+            //     this.customRouteLink = false;
+            // }
+        }
+    },
     methods: {
         ...mapActions('User', ['destroyUserDatabase'])
     }
@@ -59,6 +67,7 @@ export default {
 
 <style lang="scss">
 .navbar {
+    min-width: $body-min-width;
     .btn-link{
         padding: 0.375rem 0.35rem;
     }

@@ -17,11 +17,7 @@
                                 :item="item"
                                 :type="'key'"
                                 :template="activity.item_template.key"
-                                :use-data-transfer="'first_letter'"
                             >
-                                <template slot="transfer-data">
-                                    {{ item.first_letter }}
-                                </template>
                             </ls-card-droppable>
                         </b-col>
                         <b-col class="name-container">

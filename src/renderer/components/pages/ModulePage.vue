@@ -11,7 +11,7 @@
         />
         <div class="page-container-wrap-spacing">
             <b-row>
-                <b-col v-for="theme in getThemes" :key="theme.id" cols="12" md="6">
+                <b-col v-for="theme in getThemes" :key="theme.id" cols="6">
                     <div class="my-2 circle-box">
                         <router-link :to="{ name: 'theme', params: { module_slug: $route.params.module_slug, theme_slug: theme.slug } }">
                             <vue-circle
@@ -105,8 +105,8 @@ export default {
             const total = ( filter(units, { completed: true }).length / theme.units.length ) * 100
             return  total || 5
         },
-        registerUserProgress(module){
-            module.themes.forEach((theme) => {
+        registerUserProgress(_module){
+            _module.themes.forEach((theme) => {
                 const units = this.getProgressUnitsByThemeId(theme)
                 const completed = filter(units, { completed: true }).length === theme.units.length
                 const payload = {

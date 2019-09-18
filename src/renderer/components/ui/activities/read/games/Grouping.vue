@@ -115,9 +115,9 @@ export default {
 
 <style lang="scss">
     #grouping-activity{
-
         .bg-color{
             background-color: transparent !important;
+            color: $text-color;
         }
 
         .activity-keys{
@@ -223,6 +223,15 @@ export default {
         .text-grouping{
             * .draggshadow{
                 height: 100%;
+            }
+            &.texto{
+                @each $type, $value in $item-letter-types {
+                    &:not(.#{$type}){
+                        .bg-color {
+                            color: $text-color;
+                        }
+                    }
+                }
             }
         }
 
