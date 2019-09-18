@@ -132,14 +132,17 @@
 }
 
 .card-image-display{
-    max-width: 400px;
+    max-width: 330px;
     margin: auto;
     .card-img img{
+        position: relative;
         max-height: 168px;
     }
     .card-img svg {
         width: 168px;
-        height: 168px;
+        height: auto;
+        max-width: 100%;
+        max-height: 168px;
     }
 }
 

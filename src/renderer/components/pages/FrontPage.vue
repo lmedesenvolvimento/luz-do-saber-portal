@@ -124,7 +124,7 @@ export default {
 
 <style lang="scss" scoped>
 #frontpage{
-    position: absolute;
+    position: relative;
     top: 0;
     bottom: 0;
     left: 0;
