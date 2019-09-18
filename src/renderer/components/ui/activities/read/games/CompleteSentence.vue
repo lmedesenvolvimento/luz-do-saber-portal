@@ -112,16 +112,18 @@ export default {
             $refsInput: [],
             sentence: '',
             splitedSentence: [],  
-            dataTransfer: null
+            dataTransfer: null,
+            values_ids: [],
         }
     },
     mounted() {
         this.createAnswersArray(),
         this.sentence = this.getKeys[0].text
+        this.values_ids = this.getKeys[0].value_ids
         if(this.activity.total_correct_items == 1){
-            this.uniqueCorrectItem();
+            this.uniqueCorrectItem()
         } else {
-            this.multipleCorrectItem();
+            this.multipleCorrectItem()
         }
         // console.log(this.splitedSentence);
     },    
@@ -165,39 +167,30 @@ export default {
         multipleCorrectItem(){
             let words = this.sentence.split(' ')
             let aux = []         
-            let getValues = this.getValues;
-            words.forEach(word => {
+            let getValues = this.getValues
+            words.forEach((word, w) => {
                 let objectWord = {
                     text: word,
                     hasInput: false,
-                    value_ids: this.getKeys[0].value_ids,
+                    id: w
                 }
                 aux.push(Object.assign({}, objectWord))
             })
-            let lastPosition = 0 
-            for(let i = 0; i < aux.length; i++)
-            {
-                let lastFound = 5555;
-                for (let v = 0; v < getValues.length; v++){
-                    console.log('to olhando a palavra '+aux[i].text+' na posição '+i)
-                    if (aux[i].text === getValues[v].text)
-                    {
-                        if (lastFound !== i)
-                        {
-                            this.splitedSentence.push(aux[i])
-                            console.log('achei '+aux[i].text+'['+i+']')
-                            lastFound = i;
-                            break;
-                        } else {
-                            console.log('Até achei, mas é igual a anterior')
-                        }
-                        console.log('lastFound', lastFound)
-                    }
-                    else{
-                        console.log(aux[i].text+' Não é igual a '+ getValues[v].text)
+            let lastPosition = aux.length;
+            for (let i = 0; i < aux.length; i++){
+                console.log('to olhando a palavra '+aux[i].text+' na posição '+i)
+                for (let j = 0; j < getValues.length; j++){
+                    if (aux[i].text === getValues[j].text){
+                        console.log('achei '+aux[i].text+'['+i+']. Ele tava na posição '+j)
+                        this.splitedSentence.push(aux[i])
+                        getValues.splice(j, 1)
+                        console.log(getValues)
+                        break;
+                    } else {
+                        console.log(getValues[j].text+'['+j+'] Não é '+aux[i].text)
                     }
                 }
-                console.log('')
+                console.log('');
             }
         },
         customValidate(transferData, nativeElement, vm){
