@@ -338,6 +338,10 @@ export default {
         }
         .silaba{
             max-width: 78px;
+            .card-input.card--draggable .card .card-body{
+                color: #5F4343 !important;
+                background-color: #fff !important;
+            } 
         }
         .substantivo_comum{
             max-width: 138px;
