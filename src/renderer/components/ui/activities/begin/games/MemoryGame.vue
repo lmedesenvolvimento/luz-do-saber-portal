@@ -39,7 +39,9 @@
                             >
                                 <div v-if="card.type === 'key'">
                                     <div
-                                        v-if="isImage && card.images.length"
+                                        v-if="
+                                            isImage(card) && card.images.length
+                                        "
                                         class="m-image-container"
                                     >
                                         <img
@@ -96,17 +98,15 @@ export default {
             firstClick: true
         };
     },
-    computed: {
-        isImage() {
-            return this.activity.item_template === 'imagem';
-        }
-    },
     created() {
         this.cards = this.createArray(this.activity.items);
         this.createAnswersArray();
         this.setActivityAttrs({ total_correct_items: this.getKeys.length });
     },
     methods: {
+        isImage(item) {
+            return this.activity.item_template[item.type].type === 'imagem';
+        },
         unflipCards() {
             if (this.firstClick) {
                 this.cards.map(function(c) {
