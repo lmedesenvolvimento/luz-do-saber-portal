@@ -10,6 +10,7 @@
                                 :item="item"
                                 :type="'key'"
                                 :template="activity.item_template.key"
+                                :custom-validate="validateByText"
                             >
                             </ls-card-droppable>
                         </div>
@@ -21,7 +22,7 @@
                             v-if="answers"
                             :item="item"
                             :type="'key'"
-                            :template="activity.item_template.key"
+                            :template="activity.item_template.value"
                         />
                     </b-col>
                 </b-row>
@@ -33,10 +34,10 @@
                 :class="{ 
                     'flex-4': getValues.length >= 12
                 }"
-                class="activity-values" 
+                class="activity-values"
             >
                 <b-row>
-                    <b-col v-for="(item, position) in Shuffle_Array(getValues)" :key="position" align-self="center" :md="valueColSize" :sm="6" class="item"> 
+                    <b-col v-for="(item, position) in getValues" :key="position" align-self="center" :md="valueColSize" :sm="6" class="item"> 
                         <Item 
                             v-if="answers"
                             :item="item"
@@ -53,6 +54,7 @@
 import { MapMixins, ListMixin, CreateAnswersMixins } from '@ui/activities/mixins'
 import ui from '@/components/ui'
 import AsyncImage from '@ui/AsyncImage'
+import { mapState, mapActions } from 'vuex'
 
 export default {
     components: {
@@ -65,42 +67,62 @@ export default {
             correctSyllabblesOrder: [],
         }
     },
+    computed: {
+        ...mapState('Activity', ['answers']),
+    },
     created() {
-        this.createAnswersArray();
-
         /**
         * * Percorre o array de sílabas e armazena cada uma em objetos separados
         * * dentro do array correctSyllablesOrder na ordem correta da palavra
         */
-        for (let index = 0; index < this.activity.items.values.length; index++) {
+        for (let index = 0; index < this.activity.items.keys[0].syllables.length; index++) {
             const element = new Object();
-            element.text = this.activity.items.values[index].text
+            element.text = this.activity.items.keys[0].syllables[index].text;
             this.correctSyllabblesOrder[index] = element;
         }
+
+        console.log(this.activity.items.keys[0].syllables);
+        
+    },
+    mounted() {
+        this.createAnswersArray();
+        console.log('getKeys: ' + this.getKeys);
+        
     },
     methods: {
-        // Método para embaralhar as sílabas da palavra
-        Shuffle_Array(arrayToShuffle) {
-            let counter = arrayToShuffle.length;
-            let temp;
-
-            // Enquanto existe elemento
-            while (counter > 0) {
-                // gerador de índice aleatório
-                let index = Math.floor(Math.random() * counter);
-
-                // Decresce o contador e substitui o último elemento por ele
-                counter--;
-                temp = arrayToShuffle[counter];
-                arrayToShuffle[counter] = arrayToShuffle[index];
-                arrayToShuffle[index] = temp;
-            }
+        validateByText(transferData, nativeElement, item) {
+            if (this.valid) return;
             
-            // Retorna o novo array embaralhado
-            let shuffledArray = new Array();
-            shuffledArray = arrayToShuffle;
-            return shuffledArray;
-        }
+            if (!this.customValidate){
+                item.transferData = transferData;
+
+                if (this.activity.items.keys[0].value_ids.includes(transferData.id)) {
+                    this.setAnswer({ 
+                        type: 'value',
+                        data: transferData.id,
+                        vm: this
+                    })
+
+                    console.log('if TRUE: ' + item.transferData.id);
+                    
+
+                    item.valid = true;
+                } else {
+                    this.setAnswer({ 
+                        type: 'value', 
+                        data: -1,
+                        vm: this
+                    })
+
+                    console.log('if false:');
+
+                    transferData.invalid = true
+                }
+            } else {
+                this.customValidate(transferData, nativeElement, this)
+            }
+        },
+        ...mapActions('Activity', ['setActivityAttrs', 'setAnswer']),
     }
 }
 </script>
