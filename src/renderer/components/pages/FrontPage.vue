@@ -17,7 +17,7 @@
                         </div>
                         <div v-else-if="isAuthorized && !isVisibleLerSubModule" key="frontpage-modules">
                             <b-row align-v="center" align-h="center">
-                                <div class="icon-exit" @click="destroyUserDatabase"></div>
+                                <div class="icon-exit" @click="showModal"></div>
                                 <ModuleLinkCard
                                     v-for="m in modules"
                                     :key="m.id"
@@ -56,6 +56,10 @@
                     </transition>
                 </b-container>
             </b-row>
+            <b-modal ref="my-modal" hide-footer title="Using Component Methods">
+                <b-button @click="hideModal">cancelar</b-button>
+                <b-button @click="exitModal">sair</b-button>
+            </b-modal>
         </b-container>
     </div>
 </template>
@@ -98,6 +102,17 @@ export default {
         }
     },
     methods: {
+        showModal(){
+            console.log('aaa');
+            this.$refs['my-modal'].show();
+        },
+        hideModal() {
+            this.$refs['my-modal'].hide();
+        },
+        exitModal(){
+            this.hideModal();
+            this.destroyUserDatabase();
+        },
         onGameStart(){
             this.canStart = true
         },
