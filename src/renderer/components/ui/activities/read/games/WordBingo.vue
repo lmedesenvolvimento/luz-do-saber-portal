@@ -22,7 +22,7 @@
                             v-for="bingoWord in allWords"
                             :key="bingoWord"
                             class="bingo-word"
-                            :class="{'bingo-raffle-word': searchString(raffleWords,bingoWord)}"
+                            :class="{'bingo-raffle-word': searchString(raffleWords,bingoWord), 'bingo-word-zoom': isWordBingo}"
                         >
                             <p :class="{'bingo-word-big': isWordBingo}">{{ bingoWord }}</p>
                         </div>
@@ -43,8 +43,9 @@
                                     v-for="(item, position) in getBingoValues"
                                     :key="position"
                                     class="item"
+                                    cols="3"
                                 >
-                                    <div class="item letra">
+                                    <div class="item letra bingo-card-player-col">
                                         <div class="substantivo_comum medium">
                                             <div class="card-input card--radio-input" :class="$attrs.class">
                                                 <label>
@@ -140,7 +141,7 @@ export default {
             animateBingoCounter: false,
             loseCounter: [0,0],
             isCounter: true,
-            isWordBingo: false
+            isWordBingo: false,
         }
     },
     computed:{
