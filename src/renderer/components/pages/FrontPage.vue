@@ -17,7 +17,7 @@
                         </div>
                         <div v-else-if="isAuthorized && !isVisibleLerSubModule" key="frontpage-modules">
                             <b-row align-v="center" align-h="center">
-                                <div class="icon-exit" @click="showModal"></div>
+                                <div class="icon-exit" @click="showExitModal"></div>
                                 <ModuleLinkCard
                                     v-for="m in modules"
                                     :key="m.id"
@@ -56,16 +56,14 @@
                     </transition>
                 </b-container>
             </b-row>
-            <b-modal ref="my-modal" hide-footer title="Using Component Methods">
-                <b-button @click="hideModal">cancelar</b-button>
-                <b-button @click="exitModal">sair</b-button>
-            </b-modal>
+            <ls-alert-confirm-exit :show-exit-modal="isExitModalVisible"></ls-alert-confirm-exit>
         </b-container>
     </div>
 </template>
 <script>
 import { find, filter } from 'lodash'
 import { mapActions, mapState } from 'vuex'
+import alerts from '@/components/alerts'
 
 import StartButton from '@/components/ui/StartButton'
 import SignupForm from '@/components/ui/SignupForm'
@@ -75,7 +73,8 @@ export default {
     components: {
         StartButton,
         SignupForm,
-        ModuleLinkCard
+        ModuleLinkCard,
+        ...alerts
     },
     data(){
         return {
@@ -84,6 +83,7 @@ export default {
             canStart: false,
             read: null,
             loading: false,
+            isExitModalVisible: false
         }
     },
     computed: {
@@ -102,17 +102,9 @@ export default {
         }
     },
     methods: {
-        showModal(){
-            console.log('aaa');
-            this.$refs['my-modal'].show();
-        },
-        hideModal() {
-            this.$refs['my-modal'].hide();
-        },
-        exitModal(){
-            this.hideModal();
-            this.destroyUserDatabase();
-        },
+        showExitModal(){           
+            this.isExitModalVisible = !this.isExitModalVisible;
+        },        
         onGameStart(){
             this.canStart = true
         },
