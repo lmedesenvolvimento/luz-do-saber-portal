@@ -50,7 +50,7 @@
                 class="item"
                 md="auto"
             > 
-                <div v-if="item.hasInput === true" :class="[activity.item_template.value.font_size, inputSize(item.text)]" class="validate-icon-top">  
+                <div v-if="item.isInteractive === true" :class="[activity.item_template.value.font_size, inputSize(item.text)]" class="validate-icon-top">  
                     <div class="card-input card--input-text">
                         <label>
                             <b-card
@@ -60,7 +60,6 @@
                                 <b-card-body>
                                     <input
                                         id="input-name"
-                                        :ref="position"
                                         type="value"
                                         maxlength="13"
                                         @blur="checkAwnser(...arguments, item, position)"
@@ -70,8 +69,10 @@
                         </label>
                     </div>
                 </div>
-                <div v-else>
-                    {{ item }}
+                <div v-else :class="activity.item_template.value.font_size"> 
+                    <div class>
+                        {{ item }}
+                    </div>
                 </div>        
             </b-col>
         </b-row>
@@ -109,19 +110,17 @@ export default {
     data () {
         return {
             hiddenElements: [],
-            $refsInput: [],
             sentence: '',
             splitedSentence: [],  
-            dataTransfer: null
         }
     },
     mounted() {
         this.createAnswersArray(),
         this.sentence = this.getKeys[0].text
         if(this.activity.total_correct_items == 1){
-            this.uniqueCorrectItem();
+            this.uniqueCorrectItem()
         } else {
-            this.multipleCorrectItem();
+            this.multipleCorrectItem()
         }
     },    
     methods: {        
@@ -149,7 +148,7 @@ export default {
             return false;
         },
         uniqueCorrectItem(){
-            this.getValues.forEach(element => {    
+            this.values.forEach(element => {    
                 let hiddenElement = {
                     text: element.text
                 }       
@@ -162,41 +161,54 @@ export default {
             this.splitedSentence.push(Object.assign({}, sentences))
         },
         multipleCorrectItem(){
-            let words = this.sentence.split(' ')
-            let aux = []
-            words.forEach(word => {
+            this.sentence = this.sentence.replace(/,/g, '')//removendo vírgulas da frase para não aparecerem nos inputs, nem atrapalharem na hora de separá-la por espaços
+            this.sentence = this.sentence.split(' ')//separando as palavras da frase em um vetor
+            let words = []//
+            let values = clone(this.getValues)
+            let allSentenceInteractive = false         
+            this.sentence.forEach((word, w) => {
                 let objectWord = {
                     text: word,
-                    hasInput: false,
-                    value_ids: this.getKeys[0].value_ids
+                    isInteractive: false,
                 }
-                aux.push(Object.assign({}, objectWord))
+                words.push(Object.assign({}, objectWord))
             })
-            let lastPosition = 0      
-            aux.forEach((word, i, ss) => {
-                word.value_ids = [];
-                this.getValues.forEach((value, v, values) => {
-                    if(word.text == value.text){
-                        ss[i] = value;
-                        ss[i].hasInput = true;
-                        ss[i].valid = false;
-                        if (ss.length !== values.length){
-                            let aux2 = []
-                            for (let j = lastPosition; j < i; j++){
-                                if (ss[j].hasInput == false)
-                                    aux2.push(ss[j])
-                            }
-                            lastPosition = i+1;
-                            aux2 = aux2.reduce( function( prevVal, elem ) {
-                                return prevVal + ' ' + elem.text;
-                            },'');
-                            aux2 = aux2.substr(1);
-                            this.splitedSentence.push(aux2)
+            if (words.length === values.length)
+                allSentenceInteractive = true
+            
+            let lastPosition = 0//última posição a ser encontrada de interação (input ou draggable)
+            for (let i = 0; i < words.length; i++){//percorrendo o vetor que contém TODAS as palavras da FRASE key.
+                for (let j = 0; j < values.length; j++){//percorrendo o vetor clone que contém os VALUES que precisam corresponder às keys
+                    //quando encontrar alguma correspondência
+                    if (words[i].text === values[j].text){
+                        words[i] = values[j];//deixa a palavra com o mesmo
+                        words[i].isInteractive = true;//importante para a renderização
+                        if (allSentenceInteractive === false){//se a frase não for toda com interação, juntar a parte apenas textual
+                            this.joinNonInteractiveWords(words, this.splitedSentence, lastPosition, i)
                         }
-                        this.splitedSentence.push(ss[i])
+                        lastPosition = i+1//agora a última posição é a próxima depois da atual
+                        this.splitedSentence.push(words[i])//adiciona a interação no vetor que será renderizado
+
+                        //retira do vetor clone a palavra que foi adicionada para evitar erros caso hajam 2 palavras iguais 
+                        //assim, ele pode parar na primeira palavra igual sem problemas, pois a anterior foi removida
+                        values.splice(j, 1)
+                        break;//sai do for porque já achou aquela palavra em específica, então vai para a próxima palavra dos VALUES
                     }
-                })
-            })
+                }
+                if (i === words.length-1 && !allSentenceInteractive){
+                    //quando chegar ao final da frase e não for uma frase que deve ser completamente preenchida pelo usuário
+                    //é preciso adicionar o resto da frase, já que a código para na última interação
+                    this.joinNonInteractiveWords(words, this.splitedSentence, lastPosition, i)
+                }
+            }
+        },
+        joinNonInteractiveWords(words, splitedSentence, lastPosition, actualPosition){
+            let notInteractiveWords = ''
+            for (let l = lastPosition; l <= actualPosition; l++){//vai olhar somente as palavras que estão antes da interação ou entre interações
+                if (words[l].isInteractive == false)//as palavras que são input não entram
+                    notInteractiveWords =  notInteractiveWords + ' ' + words[l].text//junta todas elas numa string
+            }
+            this.splitedSentence.push(notInteractiveWords)//adiciona essa string no vetor principal de renderização
         },
         customValidate(transferData, nativeElement, vm){
             Vue.set(vm.item, 'transferData', transferData)
@@ -310,6 +322,10 @@ export default {
         }
         .silaba{
             max-width: 78px;
+            .card-input.card--draggable .card .card-body{
+                color: #5F4343 !important;
+                background-color: #fff !important;
+            } 
         }
         .substantivo_comum{
             max-width: 138px;
