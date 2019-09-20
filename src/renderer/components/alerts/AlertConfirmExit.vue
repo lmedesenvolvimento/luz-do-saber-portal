@@ -1,7 +1,21 @@
 <template>
-    <b-modal ref="exit-modal" hide-footer title="Using Component Methods">
-        <b-button @click="hideModal">cancelar</b-button>
-        <b-button @click="exitModal">sair</b-button>
+    <b-modal ref="exit-modal" hide-footer content-class="confirm-exit">
+        <template slot="modal-header">
+            <b-col>
+                <b-row class="confirm-exit-header" align-h="center">
+                    <h2>sair</h2>
+                </b-row> 
+            </b-col>
+        </template>
+        <b-img center :src="require('@/assets/images/components/feedback/expression-star-0.png')" />  
+        <div class="confirm-exit-text">
+            <h5><b>OPS!</b></h5>
+            <h5>Você realmente deseja sair?</h5>   
+        </div>
+        <div class="confirm-exit-buttons">
+            <b-img center :src="require('@/assets/images/btn-close.png')" width="61" height="61" @click="hideModal" />
+            <b-img center :src="require('@/assets/images/icons/escrever/icon-next.png')" width="61" height="61" @click="exitModal" />
+        </div>
     </b-modal>
 </template>
 
