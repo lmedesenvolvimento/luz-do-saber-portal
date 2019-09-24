@@ -66,7 +66,6 @@ export default {
         return {
             // Este array será populado com objetos contendo as sílabas
             correctSyllabblesOrder: [],
-            numberOfCorrectAnswers: 0,
         }
     },
     computed: {
