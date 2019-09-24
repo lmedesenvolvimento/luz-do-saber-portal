@@ -18,12 +18,7 @@
                 </b-row>
                 <b-row>
                     <b-col v-for="(item, position) in getKeys" :key="position" :sm="keyColSize" class="item"> 
-                        <Item 
-                            v-if="answers"
-                            :item="item"
-                            :type="'value'"
-                            :template="activity.item_template.value"
-                        />
+                        <async-image :src="item.images.length ? item.images[0].url : ''" :alt="getKeys[0].text" />
                     </b-col>
                 </b-row>
             </b-col>
@@ -55,11 +50,11 @@ import { MapMixins, ListMixin, CreateAnswersMixins } from '@ui/activities/mixins
 import ui from '@/components/ui'
 import AsyncImage from '@ui/AsyncImage'
 import { mapState, mapActions } from 'vuex'
-import Vue from 'vue';
 
 export default {
     components: {
         ...ui,
+        AsyncImage,
     },
     mixins: [MapMixins, ListMixin, CreateAnswersMixins],
     data() {
