@@ -21,7 +21,7 @@
                         <Item 
                             v-if="answers"
                             :item="item"
-                            :type="'key'"
+                            :type="'value'"
                             :template="activity.item_template.value"
                         />
                     </b-col>
@@ -68,7 +68,7 @@ export default {
             correctSyllabblesOrder: [],
         }
     },
-    computed: {
+    computed: {        
         ...mapState('Activity', ['answers']),
     },
     created() {
@@ -85,41 +85,39 @@ export default {
     },
     mounted() {
         this.createAnswersArray();
-        console.log('getKeys: ' + this.getKeys);
     },
     methods: {
         validateByText(transferData, nativeElement, vm) {
+
+            vm.transferData = transferData;
             
             // * Utilizando variáveis auxiliares para melhorar a compreensão do método.
             let draggedObject = transferData;
             let dropZone = vm;
 
-            // if (this.valid) return;
+            // Checa se o objeto arrastado possui um ID que corresponde a um dos IDs existentes na resposta
+            // e se a sílaba sendo arrastada está na posição correta
+            const values_ids = this.getKeys.length ? this.getKeys[0].value_ids : []
             
-            if (!this.customValidate){
-                // Checa se o objeto arrastado possui um ID que corresponde a um dos IDs existentes na resposta
-                // e se a sílaba sendo arrastada está na posição correta
-                if (this.activity.items.keys[0].value_ids.includes(draggedObject.id)
-                        && draggedObject.text === dropZone.transferData.text) {
+            if (values_ids.includes(draggedObject.id)
+                    && draggedObject.text === dropZone.item.text) {
 
-                    dropZone.valid = true;
-                    
-                    vm.setAnswer({ 
-                        type: 'value',
-                        data: transferData.id,
-                        vm: this
-                    })
-                } else {
-                    dropZone.invalid = true
-
-                    vm.setAnswer({ 
-                        type: 'value', 
-                        data: -1,
-                        vm: this
-                    })
-                }
+                dropZone.valid = true
+                draggedObject.valid = true
+                
+                vm.setAnswer({ 
+                    type: 'value',
+                    data: transferData.id,
+                    vm: this
+                })
             } else {
-                this.customValidate(transferData, nativeElement, this)
+                dropZone.invalid = true
+
+                vm.setAnswer({ 
+                    type: 'value', 
+                    data: -1,
+                    vm: this
+                })
             }
         },
         ...mapActions('Activity', ['setActivityAttrs', 'setAnswer']),
