@@ -3,7 +3,7 @@
         <b-row align-h="center" :class="{'column': !horizontal,'reverse': (reverse && horizontal), 'reverse-column': ( reverse && !horizontal )}">
             <b-col v-if="hasKeys" class="activity-keys">
                 <b-row>
-                    <b-col v-for="(item, position) in correctSyllabblesOrder" :key="position" class="col-sm-3">
+                    <b-col v-for="(item, position) in correctSyllabblesOrder" :key="position" class="col-sm-3 item">
                         <div class="silaba texto validate-icon-top" :class="activity.item_template.key.font_size">
                             <ls-card-droppable
                                 class=""
@@ -55,6 +55,7 @@ import { MapMixins, ListMixin, CreateAnswersMixins } from '@ui/activities/mixins
 import ui from '@/components/ui'
 import AsyncImage from '@ui/AsyncImage'
 import { mapState, mapActions } from 'vuex'
+import Vue from 'vue';
 
 export default {
     components: {
@@ -65,6 +66,7 @@ export default {
         return {
             // Este array será populado com objetos contendo as sílabas
             correctSyllabblesOrder: [],
+            numberOfCorrectAnswers: 0,
         }
     },
     computed: {
@@ -80,43 +82,42 @@ export default {
             element.text = this.activity.items.keys[0].syllables[index].text;
             this.correctSyllabblesOrder[index] = element;
         }
-
-        console.log(this.activity.items.keys[0].syllables);
         
     },
     mounted() {
         this.createAnswersArray();
         console.log('getKeys: ' + this.getKeys);
-        
     },
     methods: {
-        validateByText(transferData, nativeElement, item) {
-            if (this.valid) return;
+        validateByText(transferData, nativeElement, vm) {
+            
+            // * Utilizando variáveis auxiliares para melhorar a compreensão do método.
+            let draggedObject = transferData;
+            let dropZone = vm;
+
+            // if (this.valid) return;
             
             if (!this.customValidate){
-                item.transferData = transferData;
+                // Checa se o objeto arrastado possui um ID que corresponde a um dos IDs existentes na resposta
+                // e se a sílaba sendo arrastada está na posição correta
+                if (this.activity.items.keys[0].value_ids.includes(draggedObject.id)
+                        && draggedObject.text === dropZone.transferData.text) {
 
-                if (this.activity.items.keys[0].value_ids.includes(transferData.id)) {
-                    this.setAnswer({ 
+                    dropZone.valid = true;
+                    
+                    vm.setAnswer({ 
                         type: 'value',
                         data: transferData.id,
                         vm: this
                     })
-
-                    console.log('if TRUE: ' + item.transferData.id);
-                    
-
-                    item.valid = true;
                 } else {
-                    this.setAnswer({ 
+                    dropZone.invalid = true
+
+                    vm.setAnswer({ 
                         type: 'value', 
                         data: -1,
                         vm: this
                     })
-
-                    console.log('if false:');
-
-                    transferData.invalid = true
                 }
             } else {
                 this.customValidate(transferData, nativeElement, this)
