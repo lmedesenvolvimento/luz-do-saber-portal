@@ -339,6 +339,10 @@ export default {
                 color: #5F4343 !important;
                 background-color: #fff !important;
             } 
+            .card-input.draggshadow .card .card-body{
+                color: #5F4343 !important;
+                background-color: #fff !important;
+            }
         }
         .substantivo_comum{
             max-width: 138px;
@@ -348,7 +352,11 @@ export default {
             .card-input.card--draggable .card .card-body{
                 color: #5F4343 !important;
                 background-color: #fff !important;
-            } 
+            }
+            .card-input.draggshadow .card .card-body{
+                color: #5F4343 !important;
+                background-color: #fff !important;
+            }
         }
 
     }
