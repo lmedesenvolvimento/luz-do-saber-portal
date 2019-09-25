@@ -2,6 +2,8 @@ import Vue from 'vue'
 import { filter, find, clone, values } from 'lodash'
 import API from '@/services/Http'
 
+import axios from 'axios'
+
 import {
     ClusterTypes,
     PointingsTypes,
@@ -17,6 +19,7 @@ import {
     mapActivity
 } from './helpers/pointings'
 
+let CancelToken = null
 
 const state = {
     activity: null,
@@ -25,7 +28,6 @@ const state = {
     log: Object.assign({}, initialStateLog),
     selection: {}
 }
-
 
 // Ler documentação quando for nessessário atualizar Lista ou multinível
 // https://br.vuejs.org/v2/guide/list.html#Limitacoes
@@ -97,19 +99,38 @@ const mutations = {
 
 
 const actions = {
-    async fetchActivity({ commit, dispatch }, payload) {
+    async fetchActivity({ commit }, payload) {
         try{
-            commit('CLEAR_CONNECTIONS')
+            if (CancelToken) CancelToken.cancel('Fetch activity operation canceled by user.')
 
-            let { module_slug, theme_slug, unit_slug, position } = payload.params
-            let extenalParams = getExtenalParams(payload.question)
-            let { data } = await API.get(`/game/${module_slug}/${theme_slug}/${unit_slug}/${position}.json`, extenalParams)
+            CancelToken = axios.CancelToken.source()
+            
+            commit('CLEAR_CONNECTIONS')
+            
+            const { 
+                module_slug, 
+                theme_slug, 
+                unit_slug, 
+                position 
+            } = payload.params
+
+            const extenalParams = getExtenalParams(payload.question)
+            
+            const req = [
+                '/game',
+                module_slug,
+                theme_slug,
+                unit_slug,
+                `${position}.json`
+            ]
+
+            const config = Object.assign(extenalParams, { cancelToken: CancelToken.token })            
+            const { data } = await API.get(req.join('/'), config)
 
             commit('SET_ACTIVITY', Object.assign(data.question, { position: position }))
         } catch (error) {
             console.warn(error)
         }
-
         return true
     },
 
