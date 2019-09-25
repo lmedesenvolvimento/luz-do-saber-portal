@@ -313,6 +313,7 @@ export default {
         }
         .card-input.card--droppable .card .card-body{
             max-height: 55px;
+            padding: 1rem !important;
         }
         
         .card-input.card--draggable 
