@@ -46,7 +46,7 @@
                 <b-container fluid>
                     <b-row align-v="center" align-h="center">
                         <div class="inline-player">
-                            <vue-plyr ref="plyr" :options="playerOptions">
+                            <vue-plyr v-if="uri" ref="plyr" :options="playerOptions">
                                 <audio>
                                     <source :src="uri" type="audio/mp3" />
                                 </audio>
@@ -84,7 +84,7 @@ export default {
         template: Object,
         uri: {
             type: String,
-            required: true
+            default: ''
         }
     },
     data(){
@@ -105,7 +105,7 @@ export default {
             return options
         },
         player() {
-            return this.$refs.plyr.player
+            return this.$refs.plyr ? this.$refs.plyr.player : null
         },
         isPlayerWithImage() {
             return (this.item.images.length && this.item.images[0].url != null) && (this.item.value_ids == null)
