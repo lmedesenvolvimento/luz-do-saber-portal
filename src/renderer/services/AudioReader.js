@@ -15,7 +15,7 @@ export default {
     },
     stop(){
         if (!this.audio) return
-        this.audio.pause();
-        this.audio.currentTime = 0;
+        this.audio.pause()
+        this.audio.currentTime = 0
     }
 }

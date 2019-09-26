@@ -28,24 +28,24 @@ export default {
         }
     },
     created() {
-        this.loadAudio();
+        this.loadAudio()
     },
     methods: {
         loadAudio() {
-            this.firstAudio = new Audio();
-            this.firstAudio.src = require('@/assets/audios/1-bem-vindo.mp3');
+            this.firstAudio = new Audio()
+            this.firstAudio.src = require('@/assets/audios/1-bem-vindo.mp3')
 
-            this.secondAudio = new Audio();
-            this.secondAudio.src = require('@/assets/audios/2-seu-nome.mp3');
+            this.secondAudio = new Audio()
+            this.secondAudio.src = require('@/assets/audios/2-seu-nome.mp3')
         },
         gameStart() {
             this.onClickStartButton()
 
-            this.firstAudio.play();
+            this.firstAudio.play()
 
             window.setTimeout(function() {
-                this.secondAudio.play();
-            }.bind(this), 4000);
+                this.secondAudio.play()
+            }.bind(this), 4000)
         },
     }
 }

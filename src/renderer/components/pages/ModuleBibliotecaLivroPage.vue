@@ -121,10 +121,10 @@ export default {
         this.image = this.images[this.getPosition]
         this.image.visible = true
         if (!Element.prototype.requestFullscreen) {
-            Element.prototype.requestFullscreen = Element.prototype.mozRequestFullscreen || Element.prototype.webkitRequestFullscreen || Element.prototype.msRequestFullscreen;
+            Element.prototype.requestFullscreen = Element.prototype.mozRequestFullscreen || Element.prototype.webkitRequestFullscreen || Element.prototype.msRequestFullscreen
         }
         if (!document.exitFullscreen) {
-            document.exitFullscreen = document.mozExitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen;
+            document.exitFullscreen = document.mozExitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen
         }
     },
     methods: {
