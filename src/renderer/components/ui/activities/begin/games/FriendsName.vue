@@ -22,6 +22,7 @@
                                                     type="file"
                                                     name="friend-image"
                                                     accept="image/jpeg, image/png"
+                                                    autocomplete="off"
                                                     @change="
                                                         handleFileUpload(index)
                                                     "
@@ -69,17 +70,17 @@
     </div>
 </template>
 <script>
-import { mapState, mapActions } from 'vuex';
-import ui from '@/components/ui';
-import alerts from '@/components/alerts';
-import AsyncImage from '@ui/AsyncImage';
-import { cloneDeep, sortBy, shuffle } from 'lodash';
+import { mapState, mapActions } from 'vuex'
+import ui from '@/components/ui'
+import alerts from '@/components/alerts'
+import AsyncImage from '@ui/AsyncImage'
+import { cloneDeep, sortBy, shuffle } from 'lodash'
 import {
     MapMixins,
     ListMixin,
     CreateAnswersMixins,
     createAnswer
-} from '@ui/activities/mixins';
+} from '@ui/activities/mixins'
 
 export default {
     components: {
@@ -92,67 +93,67 @@ export default {
         return {
             localFriends: null,
             friendsAux: null
-        };
+        }
     },
     computed: {
         ...mapState('User', ['currentUser']),
         ...mapState('Activity', ['activity', 'answers']),
         friends() {
-            return this.localFriends;
+            return this.localFriends
         }
-    },
-    created() {
-        this.setActivityAttrs({ total_correct_items: this.getKeys.length });
-        this.localFriends = [];
-        for (let i = 0; i < 4; i++) {
-            this.localFriends.push({
-                name: '',
-                imgSrc: null,
-                id: i
-            });
-        }
-        this.friendsAux = cloneDeep(this.localFriends);
     },
     watch: {
         friends: {
             handler() {
-                console.log(this.checkAllFriendFilled());
-                console.log(this.localFriends);
+                console.log(this.checkAllFriendFilled())
+                console.log(this.localFriends)
                 if (this.checkAllFriendFilled()) {
                     for (let i = 0; i < this.localFriends.length; i++)
-                        this.addNewFriend(this.localFriends[i]);
-                    this.triggerSuccess();
+                        this.addNewFriend(this.localFriends[i])
+                    this.triggerSuccess()
                 }
             },
             deep: true
         }
     },
+    created() {
+        this.setActivityAttrs({ total_correct_items: this.getKeys.length })
+        this.localFriends = []
+        for (let i = 0; i < 4; i++) {
+            this.localFriends.push({
+                name: '',
+                imgSrc: null,
+                id: i
+            })
+        }
+        this.friendsAux = cloneDeep(this.localFriends)
+    },    
     mounted() {
-        this.createAnswersArray();
-        this.activity.pointings[0].quantity = 30;
-        this.activity.pointings[1].quantity = 30;
+        this.createAnswersArray()
+        this.activity.pointings[0].quantity = 30
+        this.activity.pointings[1].quantity = 30
     },
     methods: {
         ...mapActions('Activity', ['setActivityAttrs', 'triggerSuccess']),
         ...mapActions('User', ['addFriend']),
         // ...mapActions('Alert',['showAlertActivitySuccess']),
         handleFileUpload(index) {
-            let file = this.$refs[`file${index}`][0].files[0];
-            let reader = new FileReader();
+            let file = this.$refs[`file${index}`][0].files[0]
+            let reader = new FileReader()
             reader.onload = e => {
-                this.localFriends[index].imgSrc = e.target.result;
-                this.friendsAux[index].imgSrc = e.target.result;
-            };
+                this.localFriends[index].imgSrc = e.target.result
+                this.friendsAux[index].imgSrc = e.target.result
+            }
             reader.onerror = function(error) {
-                console.log(error);
-            };
-            reader.readAsDataURL(file);
+                console.log(error)
+            }
+            reader.readAsDataURL(file)
         },
         addNewFriend(data) {
-            this.addFriend(data);
+            this.addFriend(data)
         },
         addLocalFriend(friend, index) {
-            this.localFriends[index].name = friend.name;
+            this.localFriends[index].name = friend.name
         },
         checkAllFriendFilled() {
             for (let index in this.localFriends) {
@@ -160,14 +161,14 @@ export default {
                     this.localFriends[index].imgSrc == null ||
                     this.localFriends[index].name.length == 0
                 ) {
-                    return false;
+                    return false
                 }
             }
 
-            return true;
+            return true
         }
     }
-};
+}
 </script>
 <style lang="scss">
 .friends-name {

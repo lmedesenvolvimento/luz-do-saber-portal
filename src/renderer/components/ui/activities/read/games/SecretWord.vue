@@ -89,24 +89,10 @@ export default {
     mounted() {
         this.createAnswersArray()
         // coloca uma assinatura nos botões criados dentro da fase
-<<<<<<< HEAD
-        let i = 0
-        this.alphabet_1.forEach((letter) => {
-            let color = this.getColorsArray[i]
-            this.alphabetInputs_1.push(Object.assign({}, {letter, color}))
-            i++
-        })
-        this.alphabet_2.forEach((letter) => {
-            let color = this.getColorsArray[i]
-            this.alphabetInputs_2.push(Object.assign({}, {letter, color}))
-            i++
-        })
-=======
         alphabet_with_acents.forEach((letter, index) => {
             let color = this.getColorsArray[index]
             this.alphabetInputs.push(Object.assign({}, {letter, color}))
         })        
->>>>>>> master
         // define quais botões terão as respostas corretas
         for(let i = 0; i < this.activity.total_correct_items; i++){
             this.keyLetters.push(this.getKeys[0].letters[i].text)

@@ -72,23 +72,23 @@ export default {
         * * dentro do array correctSyllablesOrder na ordem correta da palavra
         */
         for (let index = 0; index < this.activity.items.keys[0].syllables.length; index++) {
-            const element = new Object();
-            element.text = this.activity.items.keys[0].syllables[index].text;
-            this.correctSyllabblesOrder[index] = element;
+            const element = new Object()
+            element.text = this.activity.items.keys[0].syllables[index].text
+            this.correctSyllabblesOrder[index] = element
         }
         
     },
     mounted() {
-        this.createAnswersArray();
+        this.createAnswersArray()
     },
     methods: {
         validateByText(transferData, nativeElement, vm) {
 
-            vm.transferData = transferData;
+            vm.transferData = transferData
             
             // * Utilizando variáveis auxiliares para melhorar a compreensão do método.
-            let draggedObject = transferData;
-            let dropZone = vm;
+            let draggedObject = transferData
+            let dropZone = vm
 
             // Checa se o objeto arrastado possui um ID que corresponde a um dos IDs existentes na resposta
             // e se a sílaba sendo arrastada está na posição correta
