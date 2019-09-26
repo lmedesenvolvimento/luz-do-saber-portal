@@ -1,4 +1,4 @@
-import BeginActivities from '@ui/activities/begin';
+import BeginActivities from '@ui/activities/begin'
 import ReadActivities from '@ui/activities/read'
 
 export default {

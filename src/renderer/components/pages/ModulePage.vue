@@ -68,7 +68,7 @@ export default {
         this.fetchModule(this.$route.params.module_slug).then(this.registerUserProgress)
     },
     beforeDestroy(){
-        this.destroyModule();
+        this.destroyModule()
     },
     methods: {
         getModuleImage(module){
@@ -80,7 +80,7 @@ export default {
             case 'escrever':
                 return require('@/assets/images/btn-write.png')
             default:
-                break;
+                break
             }
         },
         getModuleColor(module){
@@ -94,7 +94,7 @@ export default {
             case 'biblioteca':
                 return { color: 'black' }
             default:
-                break;
+                break
             }
         },
         getThemeImage(theme) {

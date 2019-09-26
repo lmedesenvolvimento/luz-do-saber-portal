@@ -146,14 +146,14 @@ export function getExtenalParams(question) {
         }
         break
     default:
-        break;
+        break
     }
 
     if (external_params.length) {
         return {
             params: { external_params },
             paramsSerializer: (params) => {
-                return qs.stringify(params, { encode: false });
+                return qs.stringify(params, { encode: false })
             }
         }
     } else {

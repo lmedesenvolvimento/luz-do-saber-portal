@@ -61,26 +61,26 @@ export default {
         }
     },   
     created(){
-        this.createAnswersArray();        
+        this.createAnswersArray()        
         this.alphabet.forEach(letter => {
-            let cont = 0;
+            let cont = 0
             this.getValues.forEach(value => {
-                if(value.text == letter) cont++;
+                if(value.text == letter) cont++
             })
-            if(cont == 0) this.selectedAlphabet.push(letter);
+            if(cont == 0) this.selectedAlphabet.push(letter)
         })
-        this.letters = this.getValues;
-        this.selectedAlphabet = shuffle(this.selectedAlphabet).slice(0, 12 - this.activity.total_correct_items);
+        this.letters = this.getValues
+        this.selectedAlphabet = shuffle(this.selectedAlphabet).slice(0, 12 - this.activity.total_correct_items)
         this.selectedAlphabet.forEach(letter => {
             let obj = {
                 text: letter,
                 key_id: -1
             }
-            this.letters.push(Object.assign({}, obj));
+            this.letters.push(Object.assign({}, obj))
         }) 
-        this.letters = shuffle(this.letters);
+        this.letters = shuffle(this.letters)
         for(let i = 0; i < this.letters.length; i++){
-            this.letters[i].color = this.getColorsArray[i];
+            this.letters[i].color = this.getColorsArray[i]
         }
         console.log()
     }   
