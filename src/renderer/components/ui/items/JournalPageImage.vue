@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import AsyncImage from '@ui/AsyncImage';
+import AsyncImage from '@ui/AsyncImage'
 export default {
     components: {        
         AsyncImage
@@ -38,7 +38,7 @@ export default {
     methods: {
         onFileSelectedCover(event) {
             const file = event.target.files[0]
-            this.image = URL.createObjectURL(file);
+            this.image = URL.createObjectURL(file)
         }, 
     }
     

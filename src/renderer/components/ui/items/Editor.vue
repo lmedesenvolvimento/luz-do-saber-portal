@@ -91,15 +91,15 @@
     </div>
 </template>
 <script>
-import Quill from 'quill';
+import Quill from 'quill'
 import FormProps from '@ui/form'
-import 'quill/dist/quill.snow.css';
-import Vue from 'vue';
-import VueHtmlToPaper from 'vue-html-to-paper';
-const Font = Quill.import('formats/font');
+import 'quill/dist/quill.snow.css'
+import Vue from 'vue'
+import VueHtmlToPaper from 'vue-html-to-paper'
+const Font = Quill.import('formats/font')
 
-Font.whitelist = ['Montserrat', 'Roboto'];
-Quill.register(Font, true);
+Font.whitelist = ['Montserrat', 'Roboto']
+Quill.register(Font, true)
 
 const options = {
     name: '_blank',
@@ -113,8 +113,8 @@ const options = {
         'https://unpkg.com/kidlat-css/css/kidlat.css',
         '~@/assets/styles/base/print.scss'
     ]
-};
-Vue.use(VueHtmlToPaper, options);
+}
+Vue.use(VueHtmlToPaper, options)
 
 export default {
     components: { ...FormProps },
@@ -168,8 +168,8 @@ export default {
                 toolbar: '#toolbar'
             },
             placeholder: 'Insira seu texto aqui!'
-        });
-        this.quill.focus();
+        })
+        this.quill.focus()
     },
     methods: {
         fontChange(el) {
@@ -200,12 +200,12 @@ export default {
         },
         saveLetter(){
             if (this.quill.getText() !== '\n')
-                this.text = this.quill.getText();
+                this.text = this.quill.getText()
         },
         printLetter(){
             if(!process.env.IS_WEB){
                 alert('Navegador não suportado!')
-                return;
+                return
             }
             this.$htmlToPaper('editor', options)
         },
@@ -213,7 +213,7 @@ export default {
             this.$refs['modal-center'].hide()
         },
         newLetter2(){
-            this.quill.deleteText(0, this.quill.getLength());
+            this.quill.deleteText(0, this.quill.getLength())
             this.text = ''
             this.$refs['modal-center'].hide()
         }

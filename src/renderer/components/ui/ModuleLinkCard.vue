@@ -80,7 +80,7 @@ export default {
             case 'biblioteca':
                 return require('@/assets/images/btn-books.png')
             default:
-                return '';
+                return ''
             }
         },
         getModuleColor(){
@@ -95,7 +95,7 @@ export default {
             case 'biblioteca':
                 return  { color: '#F8A728' }
             default:
-                return '';
+                return ''
             }
         },
         getProgress(){
@@ -119,15 +119,15 @@ export default {
         getRouterName() {
             switch (this.data.slug) {
             case 'escrever':
-                return 'write';
+                return 'write'
             case 'biblioteca':
-                return 'books';
+                return 'books'
             default:
-                return 'module';
+                return 'module'
             }
         },
         getComecarUnitRoute() {
-            return this.data.themes[0].units_url + '/' + this.data.themes[0].slug;
+            return this.data.themes[0].units_url + '/' + this.data.themes[0].slug
         },
     },
     methods: {

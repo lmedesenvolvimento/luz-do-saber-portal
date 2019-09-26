@@ -91,16 +91,16 @@ export default {
     mounted() {
         this.createAnswersArray()
         // coloca uma assinatura nos botões criados dentro da fase
-        let i = 0;
+        let i = 0
         this.alphabet_1.forEach((letter) => {
             let color = this.getColorsArray[i]
             this.alphabetInputs_1.push(Object.assign({}, {letter, color}))
-            i++;
+            i++
         })
         this.alphabet_2.forEach((letter) => {
             let color = this.getColorsArray[i]
             this.alphabetInputs_2.push(Object.assign({}, {letter, color}))
-            i++;
+            i++
         })
         // define quais botões terão as respostas corretas
         for(let i = 0; i < this.activity.total_correct_items; i++){
@@ -108,7 +108,7 @@ export default {
             this.notNormalizedLetters.push(this.getKeys[0].letters[i].text)
             this.keyIds.push(this.getKeys[0].value_ids[i])
         }       
-        this.controlCorrectItems();        
+        this.controlCorrectItems()
     },
     methods: {
         // controla qual array de letra é exibido por fase
@@ -123,10 +123,10 @@ export default {
         },
         // ajusta o número de items corretos baseado nas letras que se repetem
         controlCorrectItems(){
-            let noRepeatLetters = [];
+            let noRepeatLetters = []
             this.keyLetters.forEach(letter => {
                 if(!this.searchString(noRepeatLetters, letter)){
-                    noRepeatLetters.push(letter);
+                    noRepeatLetters.push(letter)
                 }                
             })
             this.setActivityAttrs({ total_correct_items: noRepeatLetters.length })
@@ -144,7 +144,7 @@ export default {
                     data: this.keyIds[0],
                     vm: this
                 })
-                this.keyIds.shift();
+                this.keyIds.shift()
             }else {
                 item.invalid = true
                 this.setAnswer({
@@ -158,9 +158,9 @@ export default {
         // procura se uma string está contida em outra string
         searchString(arr, str) {
             for(let i = 0; i < arr.length;i++){
-                if (arr[i].match(str)) return true;
+                if (arr[i].match(str)) return true
             }
-            return false;
+            return false
         },
         ...mapActions('Activity', ['setActivityAttrs','setAnswer'])
     },
