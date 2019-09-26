@@ -79,7 +79,7 @@ export default {
         this.newValues.push([])
         this.getValues.forEach((e, index, values)=>{
             if (index !== 0){
-                if (e.type === 'substantivo_proprio'){
+                if (e.type === 'substantivo_proprio' || e.type === 'substantivo_comum'){
                     this.newValues[count].push({text:'=', type:'caractere_especial'})
                     count++;
                     this.newValues.push([])
