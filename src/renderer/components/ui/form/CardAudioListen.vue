@@ -18,7 +18,7 @@
                                 </b-row>
                             </b-col>
                             <hr>
-                            <card-audio ref="plyr" :item="item" class="plyr-flat" />
+                            <card-audio ref="plyr" :item="item" :uri="uri" class="plyr-flat" />
                         </slot>
                     </card-display>
                 </div>
@@ -31,7 +31,7 @@
                 </slot>
                 <template slot="footer">
                     <b-card-footer>
-                        <card-audio ref="plyr" :item="item" class="plyr-flat" />
+                        <card-audio ref="plyr" :item="item" :uri="uri" class="plyr-flat" />
                     </b-card-footer>
                 </template>
             </card-display>
@@ -84,7 +84,7 @@ export default {
         template: Object,
         uri: {
             type: String,
-            default: ''
+            default: null
         }
     },
     data(){
@@ -92,7 +92,7 @@ export default {
             valid: false
         }
     },
-    computed:{
+    computed:{        
         isLimitExceeded() {
             return this.item.text.length > limitText
         },
