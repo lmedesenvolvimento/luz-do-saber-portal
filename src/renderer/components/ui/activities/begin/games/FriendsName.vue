@@ -105,8 +105,6 @@ export default {
     watch: {
         friends: {
             handler() {
-                console.log(this.checkAllFriendFilled())
-                console.log(this.localFriends)
                 if (this.checkAllFriendFilled()) {
                     for (let i = 0; i < this.localFriends.length; i++)
                         this.addNewFriend(this.localFriends[i])

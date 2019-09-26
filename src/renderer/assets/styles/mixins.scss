@@ -176,6 +176,31 @@
     @else if $size == 'extreme-small' {
         @include custom-card-xsmall($input);
     }
+
+    &.card--draggable{
+        &:hover{
+            cursor: pointer;
+        }
+        .dragging, .dropped{
+            &::before{
+                @include custom-dropcard-content($size: $size);
+            }
+        }
+    }
+
+    &.card--droppable{
+        .card{
+            .card-body{
+                overflow: hidden;
+                white-space: nowrap;
+            }
+            &:not(.valid):not(.invalid){
+                &::before{
+                    @include custom-dropcard-content($size: $size);
+                }
+            }
+        }
+    }
 }
 
 @mixin item($value) {
@@ -265,7 +290,8 @@
     }
 }
 
-@mixin custom-dropcard-content($decreaseW: 8px, $decreaseH: 8px, $border-radius-multiplier: 0.8){
+@mixin custom-dropcard-content($decreaseW: 8px, $decreaseH: 8px, $border-radius-multiplier: 0.8, $size: 'default'){
+    $b-radius: map-get($map: $item-types-card-border-radius, $key: $size);
     position: absolute;
     top: 0;
     bottom: 0;
@@ -275,7 +301,7 @@
     height: calc(100% - #{$decreaseH});
     margin: auto;
     background-color: $card-empty-color;
-    border-radius: ($card-border-radius * $border-radius-multiplier);
+    border-radius: calc(#{$b-radius} * #{$border-radius-multiplier});
     box-shadow: inset 0px 9px 1px 1px $card-empty-shadow-color;
     content: '';
     z-index: 1;

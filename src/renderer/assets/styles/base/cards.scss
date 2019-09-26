@@ -91,33 +91,34 @@
 .card-checkmark{
     @include custom-card(true);
 }
+// DECREPTED
+// .card-input.card--draggable{
+//     @include custom-card(true);
+//     &:hover{
+//         cursor: pointer;
+//     }
+//     .dragging, .dropped{
+//         &::before{
+//             @include custom-dropcard-content;
+//         }
+//     }
+// }
 
-.card-input.card--draggable{
-    @include custom-card(true);
-    &:hover{
-        cursor: pointer;
-    }
-    .dragging, .dropped{
-        &::before{
-            @include custom-dropcard-content;
-        }
-    }
-}
-
-.card-input.card--droppable{
-    @include custom-card;
-    .card{
-        .card-body{
-            overflow: hidden;
-            white-space: nowrap;
-        }
-        &:not(.valid):not(.invalid){
-            &::before{
-                @include custom-dropcard-content;
-            }
-        }
-    }
-}
+// DECREPTED
+// .card-input.card--droppable{
+//     @include custom-card;
+//     .card{
+//         .card-body{
+//             overflow: hidden;
+//             white-space: nowrap;
+//         }
+//         &:not(.valid):not(.invalid){
+//             &::before{
+//                 @include custom-dropcard-content;
+//             }
+//         }
+//     }
+// }
 
 .imagem{
     text-align: center;
