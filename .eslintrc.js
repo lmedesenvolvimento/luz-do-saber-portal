@@ -13,6 +13,7 @@ module.exports = {
         'vue/singleline-html-element-content-newline': 'off',
         'vue/require-default-prop': 'off',
         'quotes': ['error', 'single'],
-        'indent': ['error', 4]
+        'indent': ['error', 4],
+        "semi": ["error", "never"]
     }
 }

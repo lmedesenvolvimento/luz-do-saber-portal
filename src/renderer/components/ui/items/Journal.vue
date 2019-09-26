@@ -90,7 +90,7 @@
 </template>
 
 <script>
-import JournalPage from './JournalPage';
+import JournalPage from './JournalPage'
 export default {
     components: { 
         JournalPage
@@ -164,24 +164,24 @@ export default {
         }
     },
     created() {
-        this.pageName = this.pages[0].nameIndex;
+        this.pageName = this.pages[0].nameIndex
     },
     methods: {
         // Placeholders
         onFileSelectedCover(event) {
             const file = event.target.files[0]
-            this.coverImage = URL.createObjectURL(file);
+            this.coverImage = URL.createObjectURL(file)
         },       
         toPrevPage() {
             if(this.indexPage > 0){
-                this.indexPage -= 1;
-                this.pageName = this.pages[this.indexPage].nameIndex;
+                this.indexPage -= 1
+                this.pageName = this.pages[this.indexPage].nameIndex
             }
         },
         toNextPage() {
             if(this.indexPage < this.pages.length - 1){
-                this.indexPage += 1;
-                this.pageName = this.pages[this.indexPage].nameIndex;
+                this.indexPage += 1
+                this.pageName = this.pages[this.indexPage].nameIndex
             }
         }
     }

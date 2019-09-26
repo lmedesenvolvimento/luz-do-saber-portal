@@ -29,14 +29,14 @@ export default {
         imgSize(){
             switch(this.template.font_size){
             case 'small':
-                return 'img-small';
-                break;
+                return 'img-small'
+                break
             case 'medium':
-                return 'img-medium';
-                break;
+                return 'img-medium'
+                break
             default:
-                return '';
-                break;
+                return ''
+                break
             }
         },
         picture(){

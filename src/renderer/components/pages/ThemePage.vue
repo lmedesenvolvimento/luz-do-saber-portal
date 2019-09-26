@@ -31,11 +31,11 @@
 
 <script>
 import { omit, filter } from 'lodash'
-import { mapState, mapActions, mapGetters } from 'vuex';
-import { RouteMixin } from './index';
+import { mapState, mapActions, mapGetters } from 'vuex'
+import { RouteMixin } from './index'
 
 import ThemesBox from '../ui/ThemesBox'
-import Navbar from '../ui/navbars/Navbar';
+import Navbar from '../ui/navbars/Navbar'
 
 export default {
     components: {
@@ -50,14 +50,14 @@ export default {
     },
     computed: {
         getThemeName() {
-            let correctThemeName;
+            let correctThemeName
             if (this.$route.params.module_slug === 'comecar') {
-                correctThemeName = true;
+                correctThemeName = true
             } else {
-                correctThemeName = false;
+                correctThemeName = false
             }
 
-            return correctThemeName;
+            return correctThemeName
         },
         renderNavTitle(){
             return this.theme.title ? 'Tema ' + this.theme.title : ''
@@ -88,7 +88,7 @@ export default {
             case 3:
                 return '#007CB2'
             default:
-                break;
+                break
             }
         },
         registerUserProgress(theme){
@@ -138,7 +138,7 @@ export default {
         ...mapActions('Modules', ['fetchModule']),
         ...mapActions('Pointings', ['add'])
     }
-};
+}
 </script>
 
 <style>

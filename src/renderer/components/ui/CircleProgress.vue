@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import VueCircle from 'vue2-circle-progress';
+import VueCircle from 'vue2-circle-progress'
 
 export default {
     components: {
@@ -48,5 +48,5 @@ export default {
             default: 0
         }
     }
-};
+}
 </script>
