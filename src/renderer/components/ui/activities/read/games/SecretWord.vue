@@ -95,7 +95,7 @@ export default {
         })        
         // define quais botões terão as respostas corretas
         for(let i = 0; i < this.activity.total_correct_items; i++){
-            this.keyLetters.push(this.normalizeWord(this.getKeys[0].letters[i].text))
+            this.keyLetters.push(this.getKeys[0].letters[i].text)
             this.notNormalizedLetters.push(this.getKeys[0].letters[i].text)
             this.keyIds.push(this.getKeys[0].value_ids[i])
         }       
