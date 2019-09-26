@@ -27,13 +27,13 @@
             </b-col>
         </b-row>
         <div>
-            <b-row v-for="i in 2" :key="i" align-h="between" align-v="center">
+            <b-row class="alphabet" align-v="center">
                 <div
-                    v-for="(item, position) in alphabetInputs(i)"
+                    v-for="(item, position) in alphabetInputs"
                     :key="position"
                     class="item"
                 >
-                    <div class="letra texto" :class="activity.item_template.value.font_size" style="width: 50px">
+                    <div class="letra texto medium">
                         <div class="card-input card--radio-input" :class="$attrs.class">
                             <label>
                                 <b-card
@@ -70,6 +70,7 @@ import { mapState, mapActions } from 'vuex'
 import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from '@ui/activities/mixins'
 import AsyncImage from '@ui/AsyncImage'
 import ui from '@/components/ui'
+import { alphabet_with_acents } from '@/constants'
 export default {
     components: {
         ...ui,
@@ -78,10 +79,7 @@ export default {
     mixins: [MapMixins, ListMixin, CreateAnswersMixins],
     data () {
         return {
-            alphabet_1: ['A','B','C','D','E','F','G','H','I','J','K','L','M'],
-            alphabet_2: ['N','O','P','Q','R','S','T','U','V','W','X','Y','Z'],
-            alphabetInputs_1: [],
-            alphabetInputs_2: [],
+            alphabetInputs: [],
             keyLetters: [],
             notNormalizedLetters: [],
             keyIds: [],
@@ -91,31 +89,19 @@ export default {
     mounted() {
         this.createAnswersArray()
         // coloca uma assinatura nos botões criados dentro da fase
-        let i = 0;
-        this.alphabet_1.forEach((letter) => {
-            let color = this.getColorsArray[i]
-            this.alphabetInputs_1.push(Object.assign({}, {letter, color}))
-            i++;
-        })
-        this.alphabet_2.forEach((letter) => {
-            let color = this.getColorsArray[i]
-            this.alphabetInputs_2.push(Object.assign({}, {letter, color}))
-            i++;
-        })
+        alphabet_with_acents.forEach((letter, index) => {
+            let color = this.getColorsArray[index]
+            this.alphabetInputs.push(Object.assign({}, {letter, color}))
+        })        
         // define quais botões terão as respostas corretas
         for(let i = 0; i < this.activity.total_correct_items; i++){
-            this.keyLetters.push(this.normalizeWord(this.getKeys[0].letters[i].text))
+            this.keyLetters.push(this.getKeys[0].letters[i].text)
             this.notNormalizedLetters.push(this.getKeys[0].letters[i].text)
             this.keyIds.push(this.getKeys[0].value_ids[i])
         }       
         this.controlCorrectItems();        
     },
-    methods: {
-        // controla qual array de letra é exibido por fase
-        alphabetInputs (index) {
-            if (index == 1) return this.alphabetInputs_1
-            return this.alphabetInputs_2
-        },
+    methods: {        
         // impede que o mesmo botão seja checado 2 ou mais vezes
         isChecked(item){
             if(item.valid || item.invalid) return false
@@ -167,8 +153,12 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.alphabet{
+    .letra{
+        margin: auto 8px;
+    }    
+}
 </style>
 
 
