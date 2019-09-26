@@ -10,7 +10,7 @@
             </b-card-body>
             <b-card-footer>
                 <div class="card--audio plyr-flat">
-                    <vue-plyr ref="plyr" :options="playerOptions">
+                    <vue-plyr v-if="uri" ref="plyr" :options="playerOptions">
                         <audio>
                             <source :src="uri" type="audio/mp3" />
                         </audio>
@@ -28,7 +28,7 @@ export default {
     props: {
         uri: {
             type: String,
-            required: true,
+            default: ''
         }
     },
     computed: {
@@ -40,11 +40,13 @@ export default {
             return options
         },
         player() {
-            return this.$refs.plyr.player
+            return this.$refs.plyr ? this.$refs.plyr.player : null
         }
     },
     mounted() {
-        this.player.volume = 0.7
+        if (this.player) {
+            this.player.volume = 0.7
+        }
     }
 }
 </script>

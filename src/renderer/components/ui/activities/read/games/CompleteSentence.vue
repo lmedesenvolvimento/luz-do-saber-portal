@@ -71,7 +71,7 @@
                 </div>
                 <div v-else :class="activity.item_template.value.font_size"> 
                     <div class>
-                        {{ item }}
+                        {{ item.text }}
                     </div>
                 </div>        
             </b-col>
@@ -101,7 +101,7 @@ import Vue from 'vue'
 import { mapActions } from 'vuex'
 import { MapMixins, ListMixin, CreateAnswersMixins } from '@ui/activities/mixins'
 import ui from '@/components/ui'
-import { clone } from 'lodash'
+import { clone, findIndex } from 'lodash'
 import { setTimeout } from 'timers'
 
 export default {
@@ -111,7 +111,8 @@ export default {
         return {
             hiddenElements: [],
             sentence: '',
-            splitedSentence: [],  
+            splitedSentence: [],
+            allSentenceInteractive: false
         }
     },
     mounted() {
@@ -148,7 +149,10 @@ export default {
             return false
         },
         uniqueCorrectItem(){
-            this.values.forEach(element => {    
+            if (this.sentence.includes('?'))
+                this.sentence = this.sentence.replace('?', ' ?')
+            let values = this.getValues
+            values.forEach(element => {    
                 let hiddenElement = {
                     text: element.text
                 }       
@@ -165,7 +169,6 @@ export default {
             this.sentence = this.sentence.split(' ')//separando as palavras da frase em um vetor
             let words = []//
             let values = clone(this.getValues)
-            let allSentenceInteractive = false         
             this.sentence.forEach((word, w) => {
                 let objectWord = {
                     text: word,
@@ -173,42 +176,52 @@ export default {
                 }
                 words.push(Object.assign({}, objectWord))
             })
-            if (words.length === values.length)
-                allSentenceInteractive = true
-            
-            let lastPosition = 0//última posição a ser encontrada de interação (input ou draggable)
-            for (let i = 0; i < words.length; i++){//percorrendo o vetor que contém TODAS as palavras da FRASE key.
-                for (let j = 0; j < values.length; j++){//percorrendo o vetor clone que contém os VALUES que precisam corresponder às keys
-                    //quando encontrar alguma correspondência
-                    if (words[i].text === values[j].text){
-                        words[i] = values[j]//deixa a palavra com o mesmo
-                        words[i].isInteractive = true//importante para a renderização
-                        if (allSentenceInteractive === false){//se a frase não for toda com interação, juntar a parte apenas textual
-                            this.joinNonInteractiveWords(words, this.splitedSentence, lastPosition, i)
-                        }
-                        lastPosition = i+1//agora a última posição é a próxima depois da atual
-                        this.splitedSentence.push(words[i])//adiciona a interação no vetor que será renderizado
-
-                        //retira do vetor clone a palavra que foi adicionada para evitar erros caso hajam 2 palavras iguais 
-                        //assim, ele pode parar na primeira palavra igual sem problemas, pois a anterior foi removida
-                        values.splice(j, 1)
-                        break//sai do for porque já achou aquela palavra em específica, então vai para a próxima palavra dos VALUES
-                    }
-                }
-                if (i === words.length-1 && !allSentenceInteractive){
-                    //quando chegar ao final da frase e não for uma frase que deve ser completamente preenchida pelo usuário
-                    //é preciso adicionar o resto da frase, já que a código para na última interação
-                    this.joinNonInteractiveWords(words, this.splitedSentence, lastPosition, i)
-                }
+            if (words.length === values.length){//se o array de keys e values for do mesmo tamanho, então toda a frase vai ser substituída
+                this.allSentenceInteractive = true
+                this.splitedSentence = this.makeCompleteSentence(words, values)
+            } else {
+                this.splitedSentence = this.getSplitedSentence(words, values)
             }
         },
-        joinNonInteractiveWords(words, splitedSentence, lastPosition, actualPosition){
-            let notInteractiveWords = ''
-            for (let l = lastPosition; l <= actualPosition; l++){//vai olhar somente as palavras que estão antes da interação ou entre interações
-                if (words[l].isInteractive == false)//as palavras que são input não entram
-                    notInteractiveWords =  notInteractiveWords + ' ' + words[l].text//junta todas elas numa string
-            }
-            this.splitedSentence.push(notInteractiveWords)//adiciona essa string no vetor principal de renderização
+        getSplitedSentence(words, values){
+            let splitedSentence = [] //array que vai ser retornado no fim da função
+            let lastPosition = 0 //última posição a ser encontrada de interação (input ou draggable)
+            values.forEach((value, index) => { //percorrendo o vetor que contém todos os values qeu serão interagíveis
+                let indexOfWord = findIndex(words, {text: value.text}) //busca uma correspondência do texto do value no do momento dentro do vetor com a frase inteira
+                if (indexOfWord !== -1){//se ela existir
+                    words[indexOfWord] = value //transforma o antigo valor no value correspondente
+                    words[indexOfWord].isInteractive = true//define q é interativo para renderizar como item
+                    if (!this.allSentenceInteractive){//se a frase toda não for interagível, temos que juntar numa string só as palavras anteriores
+                        this.joinNonInteractiveWords(words, splitedSentence, lastPosition, indexOfWord)
+                        lastPosition = indexOfWord + 1 //guardamos onde foi o último lugar que encontramos a palavra interagível 
+                    }
+                    splitedSentence.push(words[indexOfWord])//adicionamos a palavra que encontramos no vetor que será renderizado
+                }
+                if (index === values.length-1 && !this.allSentenceInteractive){
+                    //quando chegar ao final da frase e não for uma frase que deve ser completamente preenchida pelo usuário
+                    //é preciso adicionar o resto da frase, já que a código para na última interação
+                    this.joinNonInteractiveWords(words, splitedSentence, lastPosition, words.length)
+                }
+            })
+            return splitedSentence
+        },
+        makeCompleteSentence(words, values){
+            let sentence = []
+            words.forEach(word => {
+                let indexOfWord = findIndex(values, {text: word.text}) //busca uma correspondência do texto do value no do momento dentro do vetor com a frase inteira
+                if (indexOfWord !== -1){//se ela existir
+                    word = values[indexOfWord] //deixa a palavra com o mesmo
+                    word.isInteractive = true//importante para a renderização
+                    values.splice(indexOfWord, 1)//remove a palavra do vetor que estamos checando, pois se houver palavras iguais, o findIndex só retornará a primeira
+                }
+                sentence.push(word)
+            })
+            return sentence
+        },
+        joinNonInteractiveWords(words, splitedSentence, lastPosition, indexOfWord){
+            let newWord = words.slice(lastPosition, indexOfWord)
+            let sentence = newWord.map((w) => w.text).join(' ')
+            splitedSentence.push({text: sentence})
         },
         customValidate(transferData, nativeElement, vm){
             Vue.set(vm.item, 'transferData', transferData)
@@ -300,6 +313,7 @@ export default {
         }
         .card-input.card--droppable .card .card-body{
             max-height: 55px;
+            padding: 1rem !important;
         }
         
         .card-input.card--draggable 
@@ -326,12 +340,24 @@ export default {
                 color: #5F4343 !important;
                 background-color: #fff !important;
             } 
+            .card-input.draggshadow .card .card-body{
+                color: #5F4343 !important;
+                background-color: #fff !important;
+            }
         }
         .substantivo_comum{
             max-width: 138px;
         }
         .letra{
             max-width:58px;
+            .card-input.card--draggable .card .card-body{
+                color: #5F4343 !important;
+                background-color: #fff !important;
+            }
+            .card-input.draggshadow .card .card-body{
+                color: #5F4343 !important;
+                background-color: #fff !important;
+            }
         }
 
     }
