@@ -3,7 +3,7 @@
         <b-row id="grouping-activity" class="column" align-v="center" align-h="center">
             <b-col class="activity-keys">
                 <b-row class="fill">
-                    <b-col 
+                    <b-col
                         v-for="item in activity.items.keys"
                         :key="item.id"
                         :sm="keyColSize"
@@ -40,13 +40,13 @@
                                                 <b-col 
                                                     v-for="ans in slotProps.props.answers" 
                                                     :key="ans.id"
-                                                    cols="6"
+                                                    cols="4"
                                                     class="mb-2"
                                                 >
                                                     <div class="letra">
                                                         <b-card
                                                             no-body
-                                                            class="drop-group-item"
+                                                            class="card--drop-group-item"
                                                             :class="{ 'invalid': ans.invalid, 'valid': ans.valid }"
                                                         >
                                                             <b-card-body>
@@ -65,21 +65,23 @@
                 </b-row>
             </b-col>
             <b-col class="activity-values">
-                <b-row align-v="center" align-h="center">
-                    <b-col 
-                        v-for="item in activity.items.values"
-                        :key="item.id"
-                        :sm="valueColSize"
-                        class="item"
-                    >
-                        <Item
-                            :item="item"
-                            :type="'value'"
-                            :template="activity.item_template.value"
-                            :class="isBox ? 'text-grouping' : 'img-grouping'"
-                        />
-                    </b-col>
-                </b-row>
+                <card-display>
+                    <b-row align-v="center" align-h="center">
+                        <b-col 
+                            v-for="item in activity.items.values"
+                            :key="item.id"
+                            :sm="valueColSize"
+                            class="item"
+                        >
+                            <Item
+                                :item="item"
+                                :type="'value'"
+                                :template="activity.item_template.value"
+                                :class="isBox ? 'text-grouping' : 'img-grouping'"
+                            />
+                        </b-col>
+                    </b-row>
+                </card-display>
             </b-col>
         </b-row>
     </div>
@@ -120,14 +122,6 @@ export default {
             color: $text-color;
         }
 
-        .activity-keys{
-            flex-grow: 1.3;
-        }
-
-        .activity-values{
-            flex-grow: 0.7;
-        }
-
         .icon-img{
             height: 50px;
             width: 50px;
@@ -141,12 +135,8 @@ export default {
             width: 100%;
         }
 
-        .texto{
-            max-width: none !important;
-        }
-
-        .drop-group .drop-group-item{
-            margin: 0 auto !important;
+        .drop-group .card--drop-group-item {
+            pointer-events: none; 
         }
 
         .card-input.drop-group{
@@ -165,18 +155,14 @@ export default {
 
         .caixa{
             .card-input.drop-group{
-                height: 280px;
+                height: 220px;
             }
             .card{
-                width: 45%;
-                border-radius: 0.75rem;
-                padding: 0.15rem;
                 .bg-color {
                     border-radius: 0.6rem !important;
                 }
                 .card-body{
                     font-size: 18px;
-                    padding: 0.5rem;
                     border-radius: 0.6rem !important;
                 }
             }
@@ -189,7 +175,7 @@ export default {
 
             }
             .title{
-                padding-top: 7%;
+                padding-top: 15px;
             }
         }
 
