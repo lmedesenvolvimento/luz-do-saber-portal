@@ -162,6 +162,7 @@
             background-color: #ccc;
         }
         pre{
+            @include itim_regular;
             @include custom_scroll_bar;
             margin: 10px 0px;
             max-height: 100%;
