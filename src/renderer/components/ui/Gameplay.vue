@@ -79,12 +79,15 @@ export default {
     created(){
         const { params } = this.$route
         const position = parseInt(params.position)
+
+        if (position) return
+
         this.$router.push({
             name: 'activity',
             params: {
                 position: position || this.unit.questions[0].order
             }
-        })
+        }).catch(e => console.log(e))
     },
     methods: {
         ...mapActions('Unit', ['goActivity', 'nextActivity', 'prevActivity','setNavigatorOrder'])
