@@ -35,7 +35,7 @@
 import FillBackground from '@/components/ui/helpers/FillBackground'
 
 import { Drag } from 'vue-drag-drop'
-import { setTimeout } from 'timers';
+import { setTimeout } from 'timers'
 
 export default {
     components: { Drag, FillBackground },

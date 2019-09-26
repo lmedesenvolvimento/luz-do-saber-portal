@@ -102,7 +102,7 @@ import { mapActions } from 'vuex'
 import { MapMixins, ListMixin, CreateAnswersMixins } from '@ui/activities/mixins'
 import ui from '@/components/ui'
 import { clone } from 'lodash'
-import { setTimeout } from 'timers';
+import { setTimeout } from 'timers'
 
 export default {
     components: { ...ui },    
@@ -145,7 +145,7 @@ export default {
             for(let i = 0; i < arr.length; i++){
                 if(arr[i].text == str.text) return true
             }            
-            return false;
+            return false
         },
         uniqueCorrectItem(){
             this.values.forEach(element => {    
@@ -153,7 +153,7 @@ export default {
                     text: element.text
                 }       
                 this.hiddenElements.push(hiddenElement)
-            });
+            })
             this.splitSentence(this.hiddenElements, this.sentence)        
             let sentences = {
                 text: this.sentence
@@ -181,8 +181,8 @@ export default {
                 for (let j = 0; j < values.length; j++){//percorrendo o vetor clone que contém os VALUES que precisam corresponder às keys
                     //quando encontrar alguma correspondência
                     if (words[i].text === values[j].text){
-                        words[i] = values[j];//deixa a palavra com o mesmo
-                        words[i].isInteractive = true;//importante para a renderização
+                        words[i] = values[j]//deixa a palavra com o mesmo
+                        words[i].isInteractive = true//importante para a renderização
                         if (allSentenceInteractive === false){//se a frase não for toda com interação, juntar a parte apenas textual
                             this.joinNonInteractiveWords(words, this.splitedSentence, lastPosition, i)
                         }
@@ -192,7 +192,7 @@ export default {
                         //retira do vetor clone a palavra que foi adicionada para evitar erros caso hajam 2 palavras iguais 
                         //assim, ele pode parar na primeira palavra igual sem problemas, pois a anterior foi removida
                         values.splice(j, 1)
-                        break;//sai do for porque já achou aquela palavra em específica, então vai para a próxima palavra dos VALUES
+                        break//sai do for porque já achou aquela palavra em específica, então vai para a próxima palavra dos VALUES
                     }
                 }
                 if (i === words.length-1 && !allSentenceInteractive){
@@ -214,7 +214,7 @@ export default {
             Vue.set(vm.item, 'transferData', transferData)
             
             if (vm.item.transferData.id === vm.item.id){
-                vm.valid = true;
+                vm.valid = true
                 transferData.valid = true
 
                 vm.setAnswer({
