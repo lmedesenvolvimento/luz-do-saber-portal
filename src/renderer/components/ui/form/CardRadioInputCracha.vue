@@ -39,7 +39,20 @@ export default {
                 return require('@/assets/images/cracha-padrao-menor.png')
             }
         }
-    }
+    },
+    watch: {
+        invalid(newVal){
+            if(newVal){
+                // force render
+                this.$nextTick(() => {
+                    if(newVal) setTimeout( _ => {
+                        this.invalid = !this.invalid
+                        this.selected = false
+                    }, 600)
+                })
+            }
+        }
+    },
 }
 </script>
 <style lang="scss">
