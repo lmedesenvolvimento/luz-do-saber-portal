@@ -27,19 +27,19 @@ export default {
     },
     watch: {
         showExitModal(){
-            this.showModal();
+            this.showModal()
         }
     },
     methods: {       
         showModal(){
-            this.$refs['exit-modal'].show();
+            this.$refs['exit-modal'].show()
         },
         hideModal() {
-            this.$refs['exit-modal'].hide();
+            this.$refs['exit-modal'].hide()
         },
         exitModal(){
-            this.hideModal();
-            this.destroyUserDatabase();
+            this.hideModal()
+            this.destroyUserDatabase()
         },
         ...mapActions('User',['createUserDatabase', 'destroyUserDatabase']),
     }

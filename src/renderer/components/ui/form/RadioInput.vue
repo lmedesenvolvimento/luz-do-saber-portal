@@ -1,6 +1,6 @@
 <script>
 import { mapState, mapActions } from 'vuex'
-import { values } from 'lodash';
+import { values } from 'lodash'
 import uniqid from 'uniqid'
 
 import FillBackground from '@/components/ui/helpers/FillBackground'
@@ -32,7 +32,7 @@ export default {
     },
     computed: {
         uid(){
-            return uniqid();
+            return uniqid()
         },
         canSendResponse(){
             // se o tipo da questão não é associação e o input está no estado válido ou inválido

@@ -100,9 +100,9 @@ export default {
         getIndex(arr, obj, attr) {
             for (let i = 0; i < arr.length; i++) {
                 if (arr[i][attr] === obj[attr])
-                    return i;
+                    return i
             }
-            return -1;
+            return -1
         },
         clearIncompleteWord(type, arr) {
             let pieces = []

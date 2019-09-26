@@ -103,7 +103,7 @@ export default {
     },
     methods: {
         showExitModal(){           
-            this.isExitModalVisible = !this.isExitModalVisible;
+            this.isExitModalVisible = !this.isExitModalVisible
         },        
         onGameStart(){
             this.canStart = true

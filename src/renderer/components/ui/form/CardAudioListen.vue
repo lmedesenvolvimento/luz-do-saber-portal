@@ -123,7 +123,7 @@ export default {
             this.valid = true
 
             if(this.isPlayerWithImage){
-                this.triggerSuccess();
+                this.triggerSuccess()
             } else {
                 this.setAnswer({
                     type: 'value',

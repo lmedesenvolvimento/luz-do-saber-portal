@@ -28,12 +28,12 @@ export default {
                 .value()
 
             let res = filter(answers, (a) => {
-                const value_id = this.item.value_ids[0];
+                const value_id = this.item.value_ids[0]
                 return (a.value.data.includes(value_id) && a.valid === true)
             })
 
             res.forEach(element => {
-                this.isValid = true;
+                this.isValid = true
             })
 
         }
