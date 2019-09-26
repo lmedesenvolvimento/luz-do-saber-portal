@@ -113,24 +113,55 @@ $item-letter-types: (
 );
 
 
+$base-fontsize-letter: 74px;
+$base-fontsize-syllabus: 95px;
+$substantive-fontsize: 210px;
+
 $item-types-width: (
     default: (
-        letra: 74px,
-        numero: 74px,
-        caractere_especial: 74px,
-        silaba: 95px,
-        substantivo_comum: 210px,
-        substantivo_proprio: 210px
+        letra: $base-fontsize-letter,
+        numero: $base-fontsize-letter,
+        caractere_especial: $base-fontsize-letter,
+        silaba: $base-fontsize-syllabus,
+        substantivo_comum: $substantive-fontsize,
+        substantivo_proprio: $substantive-fontsize
     ),
     medium: (
-        letra: 58px,
-        numero: 58px,
-        caractere_especial: 58px,
-        silaba: 80px,
-        substantivo_comum: 185px,
-        substantivo_proprio: 185px
+        letra: ( $base-fontsize-letter / 1.28 ),
+        numero: ( $base-fontsize-letter / 1.28 ),
+        caractere_especial: ( $base-fontsize-letter / 1.28 ),
+        silaba: ( $base-fontsize-syllabus / 1.18 ),
+        substantivo_comum: ( $substantive-fontsize / 1,13 ),
+        substantivo_proprio: ( $substantive-fontsize / 1,13 )
+    ),
+    small: (
+        letra: ( $base-fontsize-letter / 1.40 ),
+        numero: ( $base-fontsize-letter / 1.40 ),
+        caractere_especial: ( $base-fontsize-letter / 1.40 ),
+        silaba: ( $base-fontsize-syllabus / 1.32 ),
+        substantivo_comum: ( $substantive-fontsize / 1,31 ),
+        substantivo_proprio: ( $substantive-fontsize / 1,31 )
     )
 );
+
+$item-types-card-padding: (
+    default: 0.2rem,
+    medium: ( 0.2rem / 1.50 ),
+    small: ( 0.2rem / 1.75 )
+);
+
+$item-types-card-border-radius: (
+    default: $card-border-radius,
+    medium: ( $card-border-radius / 1.25 ),
+    small: ( $card-border-radius / 1.5 )
+);
+
+$item-types-card-body-padding: (
+    default: 1rem,
+    medium: ( 1rem / 1.25 ),
+    small: ( 1rem / 1.50 )
+);
+
 
 $item-sizes: (
     big: 'big',

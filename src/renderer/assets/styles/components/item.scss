@@ -73,17 +73,36 @@
         }
     }
 
-    @each $type, $value in map-get($map: $item-types-width, $key: 'default') {
-        .#{$type}{
-            @include item($value);
+    @each $size, $value in $item-types-width {
+        @each $type, $value in map-get($map: $item-types-width, $key: $size) {
+            @if $size == 'default' {
+                .#{$type}{
+                    @include item($value);
+                }
+            }
+            @else {
+                .#{$type}.#{$size}{
+                    @include item($value);
+                }
+            }
         }
     }
 
-    @each $type, $value in map-get($map: $item-types-width, $key: 'medium') {
-        .#{$type}.medium {
-            @include item($value);
-        }
-    }
+
+    // @each $type, $value in map-get($map: $item-types-width, $key: 'medium') {
+    //     .#{$type}.medium {
+    //         @include item($value);
+    //         &::after {
+    //             content: '#{$value}';
+    //         }
+    //     }
+    // }
+
+    // @each $type, $value in map-get($map: $item-types-width, $key: 'small') {
+    //     .#{$type}.small {
+    //         @include item($value);
+    //     }
+    // }
 
     &.col-sm-1, &.col-md-1, .col-1{
         display: inline-flex;
