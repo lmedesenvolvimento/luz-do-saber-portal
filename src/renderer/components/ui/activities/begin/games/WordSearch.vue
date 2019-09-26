@@ -100,11 +100,11 @@ export default {
             for(let i = 0; i<this.getValues.length; i++){
                 if(this.getValues[i].text===word || this.getValues[i].text===this.reverseString(word)){
                     answer = this.getValues[i]
-                    break;
+                    break
                 } else
                     continue
             }
-            return answer;
+            return answer
         },
         paint(index,letter){
             let srcElement = {indexi: index, indexj: letter}
@@ -165,10 +165,10 @@ export default {
                 return false
         },
         reverseString(str) {
-            let splitString = str.split('');
-            let reverseArray = splitString.reverse();
-            let joinArray = reverseArray.join('');
-            return joinArray;
+            let splitString = str.split('')
+            let reverseArray = splitString.reverse()
+            let joinArray = reverseArray.join('')
+            return joinArray
         },
         checkIfFits(g, b, t, w, d){
             if(d==='hor'){

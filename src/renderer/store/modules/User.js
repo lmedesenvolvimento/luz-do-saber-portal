@@ -77,7 +77,7 @@ const actions = {
 
 const getters = {
     friends({ currentUser }){
-        return values(currentUser.friends)
+        return currentUser ? values(currentUser.friends) : []
     }
 }
 

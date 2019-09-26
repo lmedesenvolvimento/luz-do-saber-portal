@@ -100,7 +100,7 @@ export default {
         },
         feedbackText4: function () {
             if(this.totalStars == 3){
-                return '!';
+                return '!'
             }
             return '.'
         },
@@ -113,7 +113,7 @@ export default {
             case 2:
                 return 'Deseja tentar novamente?'
             case 3:
-                return 'Você completou a atividade';
+                return 'Você completou a atividade'
             default:
                 return ''
             }
@@ -184,7 +184,7 @@ export default {
                 if (this.activity) AudioReader.simplePlay(this.activity.statement.audio)
             })
 
-            this.onHidden();
+            this.onHidden()
         },
         nextActivity(){
             this.$store.dispatch('Unit/nextActivity')
