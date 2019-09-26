@@ -71,7 +71,7 @@ export default {
         this.newArray = this.getKeys
         this.newArray.forEach(e => {
             e.valid = false
-        });
+        })
     },
     mounted() {
         this.createAnswersArray()
@@ -81,7 +81,7 @@ export default {
             if (index !== 0){
                 if (e.type === 'substantivo_proprio'){
                     this.newValues[count].push({text:'=', type:'caractere_especial'})
-                    count++;
+                    count++
                     this.newValues.push([])
                 }
                 this.newValues[count].push(e)
@@ -90,7 +90,7 @@ export default {
                 if (values[index+1].type !== 'caractere_especial' && values[index+1].type !== 'silaba'){
                     this.newValues[count].push(e)
                     this.newValues[count].push({text:'=', type:'caractere_especial'})
-                    count++;
+                    count++
                     this.newValues.push([])
                 }else{
                     this.newValues[count].push(e)

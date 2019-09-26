@@ -115,7 +115,7 @@ import alerts from '@/components/alerts'
 import { shuffle, range, filter } from 'lodash'
 import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from '@ui/activities/mixins'
 import moment from 'moment'
-import { clearTimeout } from 'timers';
+import { clearTimeout } from 'timers'
 
 export default {
     components: {
@@ -142,10 +142,10 @@ export default {
     computed: {
         // retorna as imagens da roleta e do painel interno
         bingoRoulette() {
-            return require('@/assets/images/components/bingo/globo-bingo.png');
+            return require('@/assets/images/components/bingo/globo-bingo.png')
         },
         bingoCounter(){
-            return require('@/assets/images/components/bingo/painel-bingo.png');
+            return require('@/assets/images/components/bingo/painel-bingo.png')
         },
         // ajusta o formato em que o horário será exibido
         getDuration(){
@@ -162,20 +162,20 @@ export default {
     watch: {
         showTimer() {
             if(this.isCounter){
-                this.animateBingoCounter = true;
+                this.animateBingoCounter = true
             }
-            this.isCounter = !this.isCounter;
+            this.isCounter = !this.isCounter
             this.timeOut = setTimeout(() => {
-                this.animateBingoCounter = false;
+                this.animateBingoCounter = false
             },1000)
         }
     },
     created(){
         this.createAnswersArray()
         //preenche um vetor com o alfabeto, que perderá letras a cada jogada
-        this.unraffleLetters = this.alphabet.slice(0);
+        this.unraffleLetters = this.alphabet.slice(0)
         // inicia o contador
-        if (this.actualizeBingoTimer) this.actualizeBingoTimer();
+        if (this.actualizeBingoTimer) this.actualizeBingoTimer()
     },
     mounted(){
         //insere as letras do jogador num array
@@ -189,7 +189,7 @@ export default {
             }
         })
         // embaralhamos o vetor de letras
-        this.scramblePlayerLetters = shuffle(this.scramblePlayerLetters);
+        this.scramblePlayerLetters = shuffle(this.scramblePlayerLetters)
     },
     beforeDestroy() {
         // impede que continuem sendo chamados após sair da fase
@@ -234,66 +234,66 @@ export default {
             if(this.unraffleLetters.length > 0){
                 if(this.timer > 0){
                     this.timeOut = setTimeout(() => {
-                        this.timer -= 1000;
-                        this.actualizeBingoTimer();
+                        this.timer -= 1000
+                        this.actualizeBingoTimer()
                     },1000)
                 }
                 // quando chega a zero, e exibindo o contador, ele seleciona aleatoriamente uma letra do alfabeto
                 else if (this.showTimer){
                     // os primeiros valores sorteados são referentes as letras embaralhadas do nome do jogador
                     if(this.scramblePlayerLetters.length > 0){
-                        this.unraffleLetters.splice( this.unraffleLetters.indexOf(this.scramblePlayerLetters[0]) ,1);
-                        this.actualRaffleLetter = this.scramblePlayerLetters[0];
-                        this.raffle(this.scramblePlayerLetters[0]);
-                        this.scramblePlayerLetters.shift();
+                        this.unraffleLetters.splice( this.unraffleLetters.indexOf(this.scramblePlayerLetters[0]) ,1)
+                        this.actualRaffleLetter = this.scramblePlayerLetters[0]
+                        this.raffle(this.scramblePlayerLetters[0])
+                        this.scramblePlayerLetters.shift()
 
                     }
                     // após todas as letras do nome do jogador terem sido sorteadas, letras remanescentes são sorteadas aleatoriamente
                     else {
-                        const letterIndex = Math.floor(Math.random()*this.unraffleLetters.length);
-                        const letter = this.unraffleLetters[letterIndex];
-                        this.unraffleLetters.splice(letterIndex,1);
-                        this.actualRaffleLetter = letter;
-                        this.raffle(letter);
+                        const letterIndex = Math.floor(Math.random()*this.unraffleLetters.length)
+                        const letter = this.unraffleLetters[letterIndex]
+                        this.unraffleLetters.splice(letterIndex,1)
+                        this.actualRaffleLetter = letter
+                        this.raffle(letter)
                     }
-                    this.showTimer = false;
-                    this.timer = 5000;
-                    this.actualizeBingoTimer();
+                    this.showTimer = false
+                    this.timer = 5000
+                    this.actualizeBingoTimer()
                 }
                 // quando chega a zero, e exibindo a letra sorteada, ele reinicia a contagem regressiva
                 else {
-                    this.showTimer = true;
-                    this.timer = 5000;
-                    this.actualizeBingoTimer();
+                    this.showTimer = true
+                    this.timer = 5000
+                    this.actualizeBingoTimer()
                 }
             }
 
         },
         // marca a letra como sorteada, trocando sua cor
         raffle(letter) {
-            this.raffleLetters.push(letter);
+            this.raffleLetters.push(letter)
         },
         // verifica se a letra já foi sorteada, percorrendo o vetor raffleLetters
         searchString(arr, str) {
             for(let i = 0; i < arr.length; i++){
-                if (arr[i].match(str)) return true;
+                if (arr[i].match(str)) return true
             }
-            return false;
+            return false
         },
         // pesquisa se todas letras de um nome já saíram
         searchStringInArray(arr, str) {
-            let counter = 0;
+            let counter = 0
             for(let i = 0; i < arr.length;i++){
                 for (let j = 0; j < str.length; j++){
-                    if (arr[i].match(str[j])) counter++;
+                    if (arr[i].match(str[j])) counter++
                 }
             }
             if (counter == str.length) {
-                this.activity.pointings[0].quantity = 10;
-                this.triggerSuccess();
-                return true;
+                this.activity.pointings[0].quantity = 10
+                this.triggerSuccess()
+                return true
             } 
-            return false;
+            return false
         },
         // seta as respostas num array
         setAnswersArray(a){

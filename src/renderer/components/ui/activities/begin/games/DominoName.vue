@@ -155,7 +155,7 @@ import { mapActions } from 'vuex'
 import { MapMixins, ListMixin, CreateAnswersMixins } from '@ui/activities/mixins'
 import { chain, take, takeRight, sortBy, map, last, first, findIndex, random } from 'lodash'
 import { Drag, Drop } from 'vue-drag-drop'
-import FormComponents from '@ui/form';
+import FormComponents from '@ui/form'
 
 export default {
     components: { ...FormComponents, Drag, Drop },
