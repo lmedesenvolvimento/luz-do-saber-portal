@@ -107,12 +107,12 @@
                 border: 1px solid transparent;
             }
             text-align: center;
-            font-size: 24px;
+            font-size: map-get($map: $item-font-size, $key: $size);
             padding: map-get($map: $item-types-card-body-padding, $key: $size );
             transition: box-shadow 0.2s ease-in-out;
-            @include card-body-box-shadow($card-input-box-shadow-color, 0.8);
-            
+            @include card-body-box-shadow($card-input-box-shadow-color, 0.8);                   
         }
+
         &.valid, &.invalid{
             .bg-color{
                 background-color: transparent !important;
@@ -167,14 +167,27 @@
             max-height: 100%;
         }
     }
-    @if $size == 'medium' {
-        @include custom-card-medium($input);
+
+    &.card--droppable {
+        .card{
+            &:not(.valid):not(.invalid){
+                .card-body > div {
+                    &::after{
+                        content: '\0000a0';
+                        display: inline-block;
+                        width: 0px;
+                        height: map-get($map: $item-font-size, $key: $size);
+                    }     
+                }
+            }
+        }
     }
-    @else if $size == 'small' {
-        @include custom-card-small($input);
-    }
-    @else if $size == 'extreme-small' {
-        @include custom-card-xsmall($input);
+
+    &.card--input-text{
+        input{
+            height: map-get($map: $item-font-size, $key: $size);
+            font-size: map-get($map: $item-font-size, $key: $size);
+        }
     }
 
     &.card--draggable{
@@ -188,8 +201,8 @@
                     $decreaseH: map-get($map: $item-types-card-padding, $key: $size),
                     $size: $size
                 );
-            }
-        }
+            }            
+        }        
     }
 
     &.card--droppable{
@@ -228,30 +241,6 @@
     .card--display{
         &.card-inline-player {
             width: ( $value + $inline-player-width ) !important;
-        }
-    }
-}
-
-@mixin custom-card-medium($input: false){
-    .card {
-        .card-body{            
-            font-size: 21px;            
-        }
-    }    
-}
-
-@mixin custom-card-small($input: false){
-    .card {
-        .card-body {
-            font-size: 14px;
-        }
-    }
-}
-
-@mixin custom-card-xsmall($input: false){
-    .card {
-        .card-body {
-            font-size: 14px;
         }
     }
 }

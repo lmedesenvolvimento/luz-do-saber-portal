@@ -114,7 +114,7 @@ $item-letter-types: (
 
 
 $base-fontsize-letter: 74px;
-$base-fontsize-syllabus: 95px;
+$base-fontsize-syllabus: 100px;
 $substantive-fontsize: 210px;
 
 $item-types-width: (
@@ -168,6 +168,13 @@ $item-sizes: (
     medium: 'medium',
     small: 'small',
     'extreme-small': 'extreme-small'
+);
+
+$item-font-size: (
+    big: 24px,
+    medium: 18px,
+    small: 14px,
+    'extreme-small': 12px
 );
 
 // Player
