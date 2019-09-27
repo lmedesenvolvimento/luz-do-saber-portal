@@ -279,6 +279,7 @@ export default {
     max-height: 450px;
     margin: auto;
     .card-body{
+        padding: 0.5rem;
         font-size: 16px !important;
     }
     .item-vertical{
@@ -292,6 +293,7 @@ export default {
             .card-body{
                 display: flex;
                 align-items: center;
+                padding: 0.5rem;
                 .writing-vertical{
                     writing-mode: vertical-rl;
                     text-align: center;
