@@ -89,9 +89,9 @@
         transition: transform 0.2s ease-in-out;    
         .bg-color{
             background: #fff;
-            border-radius: $b-radius;
+            border-radius: calc( #{$b-radius} * 0.8);
             &[style]{
-                border-radius: $b-radius;
+                border-radius: calc( #{$b-radius} * 0.8);
                 color: #fff;
             }
             .card-body {
@@ -183,7 +183,11 @@
         }
         .dragging, .dropped{
             &::before{
-                @include custom-dropcard-content($size: $size);
+                @include custom-dropcard-content(
+                    $decreaseW: map-get($map: $item-types-card-padding, $key: $size),
+                    $decreaseH: map-get($map: $item-types-card-padding, $key: $size),
+                    $size: $size
+                );
             }
         }
     }
@@ -196,7 +200,11 @@
             }
             &:not(.valid):not(.invalid){
                 &::before{
-                    @include custom-dropcard-content($size: $size);
+                    @include custom-dropcard-content(
+                        $decreaseW: map-get($map: $item-types-card-padding, $key: $size),
+                        $decreaseH: map-get($map: $item-types-card-padding, $key: $size),
+                        $size: $size
+                    );
                 }
             }
         }
@@ -226,52 +234,10 @@
 
 @mixin custom-card-medium($input: false){
     .card {
-        border-radius: 0.75rem;
-        padding: 0.15rem;
-        .bg-color {
-            border-radius: 0.6rem !important;
-            height: 100%;
+        .card-body{            
+            font-size: 21px;            
         }
-        .card-body{
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 21px;
-            padding: 0.5rem;
-            border-radius: 0.6rem !important;
-            height: 100%;
-            @include card-body-box-shadow($card-input-box-shadow-color,0.9, 3px);            
-        }
-    }
-    &.card--droppable{
-        .card{
-            &:not(.valid):not(.invalid){
-                &::before{
-                    @include custom-dropcard-content(6px, 6px, 0.6);
-                }
-                .card-body{
-                    &::after{
-                        content: '\0000a0';
-                        display: inline;
-                    }
-                }
-            }
-        }
-    }
-    &.card--draggable{
-      .dragging, .dropped{
-            &::before{
-                @include custom-dropcard-content(6px, 6px, 0.6);
-            }
-            .card-body{
-                &::after{
-                    content: '\0000a0';
-                    display: inline;
-                }
-            }
-        }
-    }
+    }    
 }
 
 @mixin custom-card-small($input: false){
@@ -290,15 +256,17 @@
     }
 }
 
-@mixin custom-dropcard-content($decreaseW: 8px, $decreaseH: 8px, $border-radius-multiplier: 0.8, $size: 'default'){
+@mixin custom-dropcard-content($decreaseW: 0.125rem, $decreaseH: 0.125rem, $border-radius-multiplier: 0.8, $size: 'default'){
     $b-radius: map-get($map: $item-types-card-border-radius, $key: $size);
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    width: calc(100% - #{$decreaseW});
-    height: calc(100% - #{$decreaseH});
+    @if $decreaseW {
+        width: calc(100% - #{ $decreaseW + 0.2rem });
+        height: calc(100% - #{ $decreaseH + 0.2rem });
+    }
     margin: auto;
     background-color: $card-empty-color;
     border-radius: calc(#{$b-radius} * #{$border-radius-multiplier});
