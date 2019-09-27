@@ -88,7 +88,6 @@ export default {
             return `${this.item ? this.item.type : ''} ${ this.template ? this.template.type : '' }`
         },
         fontSize() {
-            console.log(this.size)
             if (this.size) {
                 return this.size
             }
