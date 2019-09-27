@@ -20,7 +20,7 @@
                 class="activity-values align-items-end"
             >
                 <b-row align-v="end" align-h="end" class="fill">
-                    <b-col v-for="(item, position) in getValues" :key="position" align-self="end" :md="valueColSize" :sm="6" class="item"> 
+                    <b-col v-for="(item, position) in getValues" :key="position" align-self="center" :md="valueColSize" :sm="6" class="item"> 
                         <Item 
                             v-if="answers"
                             :item="item"
