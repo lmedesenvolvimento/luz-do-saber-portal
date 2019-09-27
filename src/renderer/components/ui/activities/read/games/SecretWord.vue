@@ -33,7 +33,7 @@
                     :key="position"
                     class="item"
                 >
-                    <div class="letra texto medium">
+                    <div class="letra texto small">
                         <div class="card-input card--radio-input" :class="$attrs.class">
                             <label>
                                 <b-card
@@ -158,6 +158,13 @@ export default {
     .letra{
         margin: auto 8px;
     }    
+    input.invisible{
+        display: block;
+        width: 0px;
+        height: 0px;
+        margin: 0px;
+        padding: 0px;
+    }
 }
 </style>
 

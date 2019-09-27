@@ -10,7 +10,7 @@
                         v-model="model"
                         v-focus="focus"
                         :name="$attrs.name"
-                        :maxlength="length"
+                        :maxlength="maxLength||length"
                         :disabled="valid"
                         :required="true"
                         type="text"
@@ -37,7 +37,7 @@ export default {
     props:{
         maxLength: {
             type: Number,
-            default: 1,
+            default: null,
             required: false
         },
         value: {
