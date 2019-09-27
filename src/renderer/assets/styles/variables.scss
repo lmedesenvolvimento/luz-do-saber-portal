@@ -127,9 +127,9 @@ $item-types-width: (
         substantivo_proprio: $substantive-fontsize
     ),
     medium: (
-        letra: ( $base-fontsize-letter / 1.28 ),
-        numero: ( $base-fontsize-letter / 1.28 ),
-        caractere_especial: ( $base-fontsize-letter / 1.28 ),
+        letra: ( $base-fontsize-letter / 1.20 ),
+        numero: ( $base-fontsize-letter / 1.20 ),
+        caractere_especial: ( $base-fontsize-letter / 1.20 ),
         silaba: ( $base-fontsize-syllabus / 1.18 ),
         substantivo_comum: ( $substantive-fontsize / 1,13 ),
         substantivo_proprio: ( $substantive-fontsize / 1,13 )
@@ -145,13 +145,13 @@ $item-types-width: (
 );
 
 $item-types-card-padding: (
-    default: 0.2rem,
-    medium: ( 0.2rem / 1.50 ),
+    default: 0.125rem,
+    medium: ( 0.2rem / 1.60 ),
     small: ( 0.2rem / 1.75 )
 );
 
 $item-types-card-border-radius: (
-    default: $card-border-radius,
+    default: 1.15rem,
     medium: ( $card-border-radius / 1.25 ),
     small: ( $card-border-radius / 1.5 )
 );

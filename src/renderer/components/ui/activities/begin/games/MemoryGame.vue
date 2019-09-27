@@ -169,6 +169,7 @@ export default {
                     if (this.openedCards[0].type !== this.openedCards[1].type) {
                         let value = find(this.openedCards, ['type', 'value'])
                         let key = find(this.openedCards, ['type', 'key'])
+                        console.log(key.value_ids.join(', '), value.id)
                         if (key.value_ids.includes(value.id))
                             this.matched(value)
                         else this.unmatched()
