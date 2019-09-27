@@ -1,4 +1,7 @@
 [class*='card--']{
+    .card .card-body{
+        font-size: 24px;
+    }
     @include custom-card(true);
 }
 
@@ -76,6 +79,7 @@
             outline: none;
             border: none;
             width: 100%;
+            font-size: 24px;
             height: 28px;
             text-align: center;
             text-transform: uppercase;
