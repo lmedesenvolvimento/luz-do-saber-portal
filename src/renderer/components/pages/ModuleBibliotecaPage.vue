@@ -11,12 +11,14 @@
         <div class="page-container-wrap-spacing">
             <b-row is="transition-group" name="book-animation">
                 <b-col v-for="livro in livros" :key="livro.id" sm="4">
-                    <router-link :to="{ name: 'book', params: { livro_id: livro.id } }">
-                        <b-card class="book-card">
-                            <div class="book-title">{{ livro.title }}</div>
-                            <async-image class="book-cover" :src="livro.cover_url ? livro.cover_url : null" :alt="`capa do livro ${livro.title}`" />
-                        </b-card>
-                    </router-link>
+                    <div v-show="containSearch(livro.title)">
+                        <router-link :to="{ name: 'book', params: { livro_id: livro.id } }">
+                            <b-card class="book-card">
+                                <div class="book-title">{{ livro.title }}</div>
+                                <async-image class="book-cover" :src="livro.cover_url ? livro.cover_url : null" :alt="`capa do livro ${livro.title}`" />
+                            </b-card>
+                        </router-link>
+                    </div>
                 </b-col>
             </b-row>
         </div>
@@ -38,6 +40,7 @@ export default {
     data(){
         return {
             livros: [],
+            searchBook: 'A ',
         }
     },
     computed: {
@@ -49,10 +52,17 @@ export default {
     created(){
         this.fetchBooks().then((livros) => {
             this.livros = livros
-        })
+        })        
     },
     methods: {
         registerUserProgress(module){
+            return true
+        },
+        containSearch(bookTitle){
+            console.log(bookTitle)
+            if(bookTitle.toLowerCase().indexOf(this.searchBook.toLowerCase())){
+                return false
+            } 
             return true
         },
         ...mapActions('Books', ['fetchBooks']),
