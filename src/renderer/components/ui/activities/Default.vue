@@ -15,9 +15,7 @@
             </b-col>
             <b-col
                 v-if="hasValues" 
-                :class="{ 
-                    'flex-4': getValues.length >= 12 
-                }"
+                :class="{ 'flex-2': isValueTemplateFlex2, 'flex-4': isValueTemplateFlex4 }"
                 class="activity-values" 
             >
                 <b-row>
