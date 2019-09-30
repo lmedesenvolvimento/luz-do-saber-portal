@@ -50,7 +50,15 @@ export const ListMixin = {
             }
 
             return r
-        }
+        },
+        isValueTemplateFlex2() {
+            const { key } = this.activity.item_template
+            const isKeyTextHasOneItemPerLine = !this.horizontal && (key.type === 'texto' && key.total_per_line === 1)
+            return isKeyTextHasOneItemPerLine
+        },
+        isValueTemplateFlex4() {
+            return this.getValues.length >= 12
+        },
     },
     created(){
         this.addColors()
