@@ -71,9 +71,9 @@ export default {
         * * Percorre o array de sílabas e armazena cada uma em objetos separados
         * * dentro do array correctSyllablesOrder na ordem correta da palavra
         */
-        for (let index = 0; index < this.activity.items.keys[0].syllables.length; index++) {
-            const element = new Object()
-            element.text = this.activity.items.keys[0].syllables[index].text
+        for (let index in this.getKeys[0].syllables) {
+            const element = new Object
+            element.text = this.getKeys[0].syllables[index].text
             this.correctSyllabblesOrder[index] = element
         }
         
