@@ -1,46 +1,43 @@
 <template>
     <div id="find-the-word" class="container-fluid">        
         <b-row align-h="center" :class="{'column': !horizontal,'reverse': (reverse && horizontal), 'reverse-column': ( reverse && !horizontal )}">
-            <b-col
-                class="activity-values" 
-            >
+            <b-col class="activity-keys">
                 <b-row>
-                    <b-row v-for="(item, position) in newValues" :key="position">
-                        <b-col v-for="(item2, position2) in item" :key="position2" align-self="center" :md="valueColSize" :sm="6" class="item">
-                            <div v-if="item2.type !=='caractere_especial'">
-                                <ls-card-display>
-                                    {{ item2.text }}
-                                </ls-card-display>
-                            </div>
-                            <div v-else class="special-char">
-                                {{ item2.text }}
-                            </div>
-                        </b-col>
-                    </b-row> 
-                </b-row>
-            </b-col>
-            <b-col v-if="hasKeys" class="activity-keys">
-                <b-row>
-                    <b-col v-for="(item, position) in newArray" :key="position" :sm="keyColSize" class="item"> 
-                        <div class="card-input card--input-text">
-                            <label>
-                                <b-card
-                                    no-body
-                                    :class="{ 'invalid': item.invalid, 'valid': item.valid }"
-                                >
-                                    <b-card-body>
-                                        <input
-                                            id="input-name"
-                                            :ref="position"
-                                            type="text"
-                                            maxlength="11"
-                                            autocomplete="off"
-                                            @blur="checkAwnser(...arguments, item, position)"
-                                        />
-                                    </b-card-body>
-                                </b-card>
-                            </label>
-                        </div>
+                    <b-col v-for="(line, position) in lines" :key="position" cols="12">
+                        <b-row align-h="center" align-v="center">
+                            <b-col v-for="(item, position2) in line" :key="position2" align-self="center" class="item" :md="getItemSize(item)">
+                                <b-row v-if="!item.isInput">
+                                    <b-col v-if="item.type !=='caractere_especial'">
+                                        <ls-card-display>
+                                            {{ item.text }}
+                                        </ls-card-display>
+                                    </b-col>
+                                    <b-col v-else class="special-char">
+                                        {{ item.text }}
+                                    </b-col>
+                                </b-row>
+                                <b-row v-else>
+                                    <b-col class="card-input card--input-text">
+                                        <label>
+                                            <b-card
+                                                no-body
+                                                :class="{ 'invalid': item.invalid, 'valid': item.valid }"
+                                            >
+                                                <b-card-body>
+                                                    <input
+                                                        id="input-name"
+                                                        type="text"
+                                                        maxlength="11"
+                                                        autocomplete="off"
+                                                        @blur="checkAwnser(...arguments, item, position, position2)"
+                                                    />
+                                                </b-card-body>
+                                            </b-card>
+                                        </label>
+                                    </b-col>
+                                </b-row>
+                            </b-col>
+                        </b-row>
                     </b-col>
                 </b-row>
             </b-col>
@@ -62,46 +59,55 @@ export default {
     mixins: [MapMixins, ListMixin, CreateAnswersMixins],
     data() {
         return {
-            newArray: [],
-            $refsInput: [],
-            newValues: []
+            awnsers: [],
+            newValues: [],
+            lines: [],
         }
     },
     created () {
-        this.newArray = this.getKeys
-        this.newArray.forEach(e => {
+        this.awnsers = this.getKeys
+        this.awnsers.forEach(e => {
             e.valid = false
         })
     },
     mounted() {
         this.createAnswersArray()
-        let count = 0
-        this.newValues.push([])
+        let line = []
+        let indexAwnser = 0
         this.getValues.forEach((e, index, values)=>{
-            if (index !== 0){
-                if (e.type === 'substantivo_proprio'){
-                    this.newValues[count].push({text:'=', type:'caractere_especial'})
-                    count++
-                    this.newValues.push([])
-                }
-                this.newValues[count].push(e)
+            e.isInput = false
+            if (index === 0) {
+                line.push(e)
             }
-            else{
-                if (values[index+1].type !== 'caractere_especial' && values[index+1].type !== 'silaba'){
-                    this.newValues[count].push(e)
-                    this.newValues[count].push({text:'=', type:'caractere_especial'})
-                    count++
-                    this.newValues.push([])
-                }else{
-                    this.newValues[count].push(e)
+            else {
+                if (e.type === 'substantivo_proprio' || e.type === 'substantivo_comum'){
+                    line.push({text:'=', type:'caractere_especial', isInput: false})
+                    this.awnsers[indexAwnser].isInput = true
+                    line.push(this.awnsers[indexAwnser])
+                    indexAwnser++
+                    this.lines.push(line)
+                    line = []
+                    line.push(e)
+                } else {
+                    line.push(e)
+                    if (index === values.length-1) {
+                        line.push({text:'=', type:'caractere_especial', isInput: false})
+                        this.awnsers[indexAwnser].isInput = true
+                        line.push(this.awnsers[indexAwnser])
+                        this.lines.push(line)
+                    }
                 }
-                
             }
         })
-        this.newValues[count].push({text:'=', type:'caractere_especial'})
     },methods: {
-        checkAwnser(event, item, position) {
-            const updates = clone(this.newArray)
+        getItemSize(item){
+            if (item.isInput)
+                return 4
+            else
+                return 1
+        },
+        checkAwnser(event, item, linePosition, itemPosition) {
+            const updates = clone(this.lines)
             if (event.target.value === ''){
                 return
             }
@@ -111,9 +117,7 @@ export default {
                     data: item.value_ids[0],
                     vm: {}
                 })
-                if (this.$refs[position+1]!=null)
-                    this.$refs[position+1][0].focus()
-                updates[position].valid = true
+                updates[linePosition][itemPosition].valid = true
                 event.target.disabled = true
             } 
             else {
@@ -122,16 +126,16 @@ export default {
                     data: -1,
                     vm: {}
                 })
-                updates[position].invalid = true
-                this.removeInvalid(item, 1, position)
+                updates[linePosition][itemPosition].invalid = true
+                this.removeInvalid(item, 1, linePosition, itemPosition)
             }
-            Vue.set(this, 'newArray', updates)
+            Vue.set(this, 'lines', updates)
         },
-        removeInvalid(item, time, position){
+        removeInvalid(item, time, linePosition, itemPosition){
             setTimeout(()=> {
-                const updates = clone(this.newArray)
-                updates[position].invalid = false
-                Vue.set(this, 'newArray', updates)
+                const updates = clone(this.lines)
+                updates[linePosition][itemPosition].invalid  = false
+                Vue.set(this, 'lines', updates)
             }, time * 1000)
         }
         ,
@@ -144,20 +148,6 @@ export default {
 #find-the-word{
     .special-char{
         font-size: 40px;
-    }
-    .activity-values{
-        padding: 0;
-        .row{
-            width: 100%;
-            margin: 0;
-            justify-content: flex-end;
-        }
-    }
-    .activity-keys{
-        padding: 0;
-    }
-    .card--input-text{
-        max-width: 260px;
     }
 }
 </style>
