@@ -20,18 +20,18 @@
                         />
                     </b-col>
                 </b-row>
-            </div>
+            </div>            
             <b-row is="transition-group" name="book-animation">
-                <b-col v-for="livro in livros" :key="livro.id" sm="4">
-                    <div v-if="containSearch(livro.title)">
+                <div v-for="livro in livros" :key="livro.id" class="book-container">
+                    <div v-if="containSearch(livro.title)" class="book-sub-container">
                         <router-link :to="{ name: 'book', params: { livro_id: livro.id } }">
                             <b-card class="book-card">
                                 <div class="book-title">{{ livro.title }}</div>
                                 <async-image class="book-cover" :src="livro.cover_url ? livro.cover_url : null" :alt="`capa do livro ${livro.title}`" />
                             </b-card>
-                        </router-link>
-                    </div>                    
-                </b-col>
+                        </router-link> 
+                    </div>
+                </div>
             </b-row>
         </div>
     </div>
@@ -51,7 +51,7 @@ export default {
     },
     data(){
         return {
-            livros: [],
+            livros: [],            
             searchBook: '',
         }
     },
@@ -61,17 +61,10 @@ export default {
         },
         ...mapState('Modules', ['activeModule'])
     },
-    watch: {
-        searchBook(){
-            this.fetchBooks().then((livros) => {
-                this.livros = livros
-            })
-        }
-    },
+    
     created(){
-        this.fetchBooks().then((livros) => {
-            this.livros = livros
-            
+        this.fetchBooks().then((livros) => {            
+            this.livros = livros              
         })   
     },
     methods: {
@@ -100,10 +93,15 @@ export default {
             width: 100%;
             height: 50px;
         }
+        .book-container{            
+            max-width: 33%;  
+            .book-sub-container{
+                padding: 0 10px 0 10px;  
+            }
+        }
         .book-cover{
             max-width: 100px;
         }
-
         .book-title{
             display: inline;
             align-self: center;
