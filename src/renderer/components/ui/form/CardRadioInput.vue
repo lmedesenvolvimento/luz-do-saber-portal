@@ -32,10 +32,12 @@ export default {
 <style lang="scss">
     .card--radio-input{        
         .input{
+            position: absolute;
             display: block;
             visibility: hidden;
             width: 0px;
             height: 0px;
+            z-index: -9999;
         }
         label{
             display: block;
