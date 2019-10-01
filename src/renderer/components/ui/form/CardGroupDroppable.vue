@@ -3,43 +3,66 @@
         <slot :props="{answers}">
             <div v-if="answers.length && template.custom_image_full_url" class="card-input drop-group" :style="{'background-image': `url(${template.custom_image_full_url})`}">
                 <div class="title">
-                    {{ item.text }}                    
+                    {{ item.text }}
                 </div>                
                 <div v-if="(answers[0].type == 'letra') || (answers[0].type == 'numero')" class="items-container">
                     <b-row align-h="center">
                         <b-col cols="6">
-                            <b-row style="padding: 0 30px 0 30px">          
-                                <b-card   
-                                    v-for="item in answers" 
-                                    :key="item.id"                  
-                                    no-body
-                                    class="drop-group-item"
-                                    :class="{ 'invalid': invalid, 'valid': valid }"                                    
+                            <b-row align-h="center">
+                                <b-col
+                                    v-for="item in answers"
+                                    :key="item.id"
+                                    cols="4"
                                 >
-                                    <b-card-body>
-                                        <slot name="transfer-data">
-                                            <div>{{ item.text }}</div>
-                                        </slot>
-                                    </b-card-body>
-                                </b-card>
+                                    <div class="item">
+                                        <div class="texto letra medium">
+                                            <div class="card--drop-group-item">
+                                                <b-card
+                                                    no-body
+                                                    :class="{ 'invalid': invalid, 'valid': valid }"
+                                                >
+                                                    <b-card-body>
+                                                        <slot name="transfer-data">
+                                                            <div>{{ item.text }}</div>
+                                                        </slot>
+                                                    </b-card-body>
+                                                </b-card>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </b-col>
                             </b-row>
                         </b-col>
-                    </b-row>                                        
+                    </b-row>
                 </div>
                 <div v-else class="items-container">
-                    <b-card
-                        v-for="item in answers" 
-                        :key="item.id"
-                        no-body
-                        class="drop-group-item"
-                        :class="{ 'invalid': invalid, 'valid': valid }"
-                    >
-                        <b-card-body>
-                            <slot name="transfer-data">
-                                <div> {{ item.text }}</div>
-                            </slot>
-                        </b-card-body>
-                    </b-card>
+                    <b-row align-h="center" align-v="center">
+                        <b-col cols="6">
+                            <b-row align-h="center" align-v="center">
+                                <b-col 
+                                    v-for="item in answers"
+                                    :key="item.id"
+                                    cols="6" 
+                                >
+                                    <div class="item">
+                                        <div class="texto medium">
+                                            <b-card
+                                                no-body
+                                                class="drop-group-item"
+                                                :class="{ 'invalid': invalid, 'valid': valid }"
+                                            >
+                                                <b-card-body>
+                                                    <slot name="transfer-data">
+                                                        <div> {{ item.text }}</div>
+                                                    </slot>
+                                                </b-card-body>
+                                            </b-card>
+                                        </div>
+                                    </div>
+                                </b-col>
+                            </b-row>
+                        </b-col>
+                    </b-row>
                 </div>
             </div>
             <div v-else-if="answers.length" class="card-input drop-group">
@@ -47,19 +70,25 @@
                     {{ item.text }}
                 </div>
                 <div class="items-container">
-                    <b-card
-                        v-for="item in answers" 
+                    <div 
+                        v-for="item in answers"
                         :key="item.id"
-                        no-body
-                        class="drop-group-item"
-                        :class="{ 'invalid': invalid, 'valid': valid }"
+                        class="item"
                     >
-                        <b-card-body>
-                            <slot name="transfer-data">
-                                <div> {{ item.text }}</div>
-                            </slot>
-                        </b-card-body>
-                    </b-card>
+                        <div class="texto medium">
+                            <b-card
+                                no-body
+                                class="drop-group-item"
+                                :class="{ 'invalid': invalid, 'valid': valid }"
+                            >
+                                <b-card-body>
+                                    <slot name="transfer-data">
+                                        <div> {{ item.text }}</div>
+                                    </slot>
+                                </b-card-body>
+                            </b-card>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div v-else class="card-input drop-group" :style="{'background-image': `url(${template.custom_image_full_url})`}">
