@@ -68,7 +68,7 @@ export default {
         this.awnsers = this.getKeys
         this.awnsers.forEach(e => {
             e.valid = false
-        });
+        })
     },
     mounted() {
         this.createAnswersArray()

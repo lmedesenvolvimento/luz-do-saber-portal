@@ -63,7 +63,7 @@ import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from '@ui/act
 import ItemComponents from '@ui/form/index.js'
 import AsyncImage from '@ui/AsyncImage'
 import { mapState, mapActions } from 'vuex'
-import { clearInterval, setTimeout, clearTimeout } from 'timers';
+import { clearInterval, setTimeout, clearTimeout } from 'timers'
 
 export default {
     components: {
@@ -84,12 +84,12 @@ export default {
         ...mapState('Activity', ['answers']),
     },
     mounted() {
-        this.totalLetters = this.activity.items.values[0].total_letters; // Campo input tem o tamanho da palavra correta
-        this.createAnswersArray();
+        this.totalLetters = this.activity.items.values[0].total_letters // Campo input tem o tamanho da palavra correta
+        this.createAnswersArray()
 
     },
     destroyed() {
-        this.wrongWords.length = 0; // Zera o array de palavras erradas
+        this.wrongWords.length = 0 // Zera o array de palavras erradas
     },
     methods: {
         checkAnswer() {

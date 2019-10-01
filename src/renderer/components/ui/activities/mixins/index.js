@@ -3,7 +3,8 @@ import Item from '@/components/ui/items/Item'
 const ColorizeTypes = [
     'letra',
     'caractere_especial',
-    'silaba'
+    'silaba',
+    'numero'
 ]
 
 export const ListMixin = {
@@ -49,31 +50,39 @@ export const ListMixin = {
             }
 
             return r
-        }
+        },
+        isValueTemplateFlex2() {
+            const { key } = this.activity.item_template
+            const isKeyTextHasOneItemPerLine = !this.horizontal && (key.type === 'texto' && key.total_per_line === 1)
+            return isKeyTextHasOneItemPerLine
+        },
+        isValueTemplateFlex4() {
+            return this.getValues.length >= 12
+        },
     },
     created(){
         this.addColors()
     },
     methods: {
         addColors(){
-            for (var key in this.activity.items.values) {
-                if (this.activity.items.values.hasOwnProperty(key)) {
-                    if (ColorizeTypes.includes(this.activity.items.values[key].type)){
-                        this.activity.items.values[key].color = this.getColorsArray[key]
+            this.getValues.forEach((value, key) => {
+                if (this.getValues.hasOwnProperty(key)) {
+                    if (ColorizeTypes.includes(this.getValues[key].type)){
+                        this.getValues[key].color = this.getColorsArray[key]
                     }
                     else {
-                        this.activity.items.values[key].color = null
+                        this.getValues[key].color = null
                     }
                 }
-            }
-            for (var key in this.activity.items.keys) {
-                if (ColorizeTypes.includes(this.activity.items.keys[key].type)) {
-                    this.activity.items.keys[key].color = this.getColorsArray[key]
+            })
+            this.getKeys.forEach((value, key) => {
+                if (ColorizeTypes.includes(this.getKeys[key].type)) {
+                    this.getKeys[key].color = this.getColorsArray[key]
                 }
                 else {
-                    this.activity.items.keys[key].color = null
+                    this.getKeys[key].color = null
                 }
-            }
+            })
         },
         addColorsToType(type){
             for (var key in this.activity.items.values) {

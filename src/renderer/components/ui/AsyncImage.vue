@@ -57,7 +57,7 @@ export default {
 <style lang="scss">
 .image{
     position: relative;
-    display: block;
+    display: inline-block;
     margin: auto;
     img {
         display: inline-block;

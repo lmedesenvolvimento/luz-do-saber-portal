@@ -21,6 +21,7 @@
                             :item="item"
                             :type="'key'"
                             :template="activity.item_template.key"
+                            :size="activity.item_template.value.font_size"
                         />
                     </b-col>
                 </b-row>

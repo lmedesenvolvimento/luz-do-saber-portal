@@ -107,3 +107,9 @@ export const viewerOpts = {
     'url': 'data-source'
 }
 
+
+export const alphabet = [ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+
+export const acents = ['Á', 'À', 'Ã', 'Â', 'É', 'Ê', 'Í', 'Ó', 'Ô', 'Ú']
+
+export const alphabet_with_acents = alphabet.concat(acents)

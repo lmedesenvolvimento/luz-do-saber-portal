@@ -71,14 +71,13 @@ export default {
             if (e.syllables.length > 2){
                 for (let i = e.syllables.length - 1; i >= 1; i--)
                 {
-                    let rnd = this.getRndInteger(1, i);
-                    let temp = e.syllables[i];
-                    e.syllables[i] = e.syllables[rnd];
-                    e.syllables[rnd] = temp;
+                    let rnd = this.getRndInteger(1, i)
+                    let temp = e.syllables[i]
+                    e.syllables[i] = e.syllables[rnd]
+                    e.syllables[rnd] = temp
                 }
             }
-        });
-        console.log(this.shuffleValues);
+        })
     },
     mounted() {
         this.createAnswersArray()
@@ -89,7 +88,7 @@ export default {
     },
     methods: {
         getRndInteger(min, max) {
-            return Math.floor(Math.random() * (max - min + 1) ) + min;
+            return Math.floor(Math.random() * (max - min + 1) ) + min
         },
         checkAwnser(event, item, position) {
             const updates = clone(this.shuffleValues)
