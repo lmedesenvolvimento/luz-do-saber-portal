@@ -81,10 +81,10 @@ export default {
         }
     },
     created () {
-        this.arrayValues = this.activity.items.values;
+        this.arrayValues = this.activity.items.values
         this.arrayValues.forEach(element => {
             
-        });
+        })
     },
     mounted(){
         this.createAnswersArray()

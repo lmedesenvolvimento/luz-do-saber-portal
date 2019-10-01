@@ -81,11 +81,11 @@ import {
     MapMixins,
     CreateAnswersMixins,
     createAnswer
-} from '@ui/activities/mixins';
-import ItemComponents from '@ui/form/index.js';
-import { shuffle, find } from 'lodash';
+} from '@ui/activities/mixins'
+import ItemComponents from '@ui/form/index.js'
+import { shuffle, find } from 'lodash'
 
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapState } from 'vuex'
 
 export default {
     components: { ...ItemComponents },
@@ -96,53 +96,53 @@ export default {
             openedCards: [],
             matchedCards: [],
             firstClick: true
-        };
+        }
     },
     created() {
-        this.cards = this.createArray(this.activity.items);
-        this.createAnswersArray();
-        this.setActivityAttrs({ total_correct_items: this.getKeys.length });
+        this.cards = this.createArray(this.activity.items)
+        this.createAnswersArray()
+        this.setActivityAttrs({ total_correct_items: this.getKeys.length })
     },
     methods: {
         isImage(item) {
-            return this.activity.item_template[item.type].type === 'imagem';
+            return this.activity.item_template[item.type].type === 'imagem'
         },
         unflipCards() {
             if (this.firstClick) {
                 this.cards.map(function(c) {
-                    (c.class.unflip = true), (c.class.flipped = false);
-                });
+                    (c.class.unflip = true), (c.class.flipped = false)
+                })
                 setTimeout(
                     () =>
                         this.cards.map(function(c) {
-                            c.class.unflip = false;
+                            c.class.unflip = false
                         }),
                     1200
-                );
-                this.firstClick = false;
+                )
+                this.firstClick = false
             }
         },
         createArray(items) {
-            let cards = [];
+            let cards = []
 
             let values = items.keys.map(function(k) {
-                let { id, text, images, value_ids } = k;
-                let aux = { id, value: text, images, value_ids, type: 'key' };
-                return aux;
-            });
+                let { id, text, images, value_ids } = k
+                let aux = { id, value: text, images, value_ids, type: 'key' }
+                return aux
+            })
 
             let values2 = items.values.map(function(k) {
-                let { id, images, key_id, first_letter } = k;
+                let { id, images, key_id, first_letter } = k
                 let aux = {
                     id,
                     value: images,
                     key_id,
                     type: 'value',
                     first_letter
-                };
-                return aux;
-            });
-            cards = values.concat(values2);
+                }
+                return aux
+            })
+            cards = values.concat(values2)
 
             for (let i = 0; i < cards.length; i++) {
                 cards[i]['class'] = {
@@ -151,10 +151,10 @@ export default {
                     success: false,
                     fail: false,
                     unflip: false
-                };
+                }
             }
 
-            return shuffle(cards);
+            return shuffle(cards)
         },
 
         toggleFlip(card) {
@@ -163,59 +163,60 @@ export default {
                 !this.matchedCards.includes(card) &&
                 this.openedCards.length <= 1
             ) {
-                this.openedCards.push(card);
-                card.class.flip = true;
+                this.openedCards.push(card)
+                card.class.flip = true
                 if (this.openedCards.length === 2) {
                     if (this.openedCards[0].type !== this.openedCards[1].type) {
-                        let value = find(this.openedCards, ['type', 'value']);
-                        let key = find(this.openedCards, ['type', 'key']);
+                        let value = find(this.openedCards, ['type', 'value'])
+                        let key = find(this.openedCards, ['type', 'key'])
+                        console.log(key.value_ids.join(', '), value.id)
                         if (key.value_ids.includes(value.id))
-                            this.matched(value);
-                        else this.unmatched();
+                            this.matched(value)
+                        else this.unmatched()
                     } else {
-                        this.unmatched();
+                        this.unmatched()
                     }
                 }
             }
         },
         matched(value) {
-            this.openedCards[0].class.success = true;
-            this.openedCards[1].class.success = true;
-            this.matchedCards = _.concat(this.matchedCards, this.openedCards);
-            this.openedCards = [];
+            this.openedCards[0].class.success = true
+            this.openedCards[1].class.success = true
+            this.matchedCards = _.concat(this.matchedCards, this.openedCards)
+            this.openedCards = []
             this.setAnswer({
                 type: 'value',
                 data: value.id,
                 vm: {}
-            });
+            })
         },
         unmatched() {
             setTimeout(() => {
-                this.openedCards[0].class.fail = true;
-                this.openedCards[1].class.fail = true;
-            }, 600);
+                this.openedCards[0].class.fail = true
+                this.openedCards[1].class.fail = true
+            }, 600)
             this.setAnswer({
                 type: 'value',
                 data: -1,
                 vm: {}
-            });
+            })
             setTimeout(() => {
-                this.openedCards[0].class.unflip = true;
-                this.openedCards[1].class.unflip = true;
-                this.openedCards[0].class.fail = false;
-                this.openedCards[1].class.fail = false;
-            }, 2000);
+                this.openedCards[0].class.unflip = true
+                this.openedCards[1].class.unflip = true
+                this.openedCards[0].class.fail = false
+                this.openedCards[1].class.fail = false
+            }, 2000)
             setTimeout(() => {
-                this.openedCards[0].class.unflip = false;
-                this.openedCards[1].class.unflip = false;
-                this.openedCards[0].class.flip = false;
-                this.openedCards[1].class.flip = false;
-                this.openedCards = [];
-            }, 3000);
+                this.openedCards[0].class.unflip = false
+                this.openedCards[1].class.unflip = false
+                this.openedCards[0].class.flip = false
+                this.openedCards[1].class.flip = false
+                this.openedCards = []
+            }, 3000)
         },
         ...mapActions('Activity', ['setActivityAttrs', 'setAnswer'])
     }
-};
+}
 </script>
 <style lang="scss" scoped>
 .m-image-container {

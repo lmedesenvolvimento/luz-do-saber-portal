@@ -67,13 +67,13 @@ export default {
         this.getKeys.forEach(key => {
             this.getValues.forEach(value => {
                 if(key.id === value.key_id) {
-                    this.symbols.push({text: value.text, correct: false});
+                    this.symbols.push({text: value.text, correct: false})
                 }                
-            });
-        });
+            })
+        })
     },
     mounted() {
-        this.createAnswersArray();
+        this.createAnswersArray()
     },
     methods: {
         normalizeWord (word) {
@@ -93,8 +93,8 @@ export default {
                     if (e.text === this.dataTransfer.text){
                         e.correct = true
                     }
-                });
-                vm.valid = true;
+                })
+                vm.valid = true
                 transferData.valid = true
                 vm.setAnswer({
                     type: 'value',
@@ -102,7 +102,7 @@ export default {
                     vm: this
                 })
             }else{
-                vm.invalid = true;
+                vm.invalid = true
                 transferData.invalid = true
                 vm.setAnswer({
                     type: 'value',

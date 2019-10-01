@@ -62,7 +62,7 @@ export default {
     methods: {
         ...mapActions('User', ['destroyUserDatabase'])
     }
-};
+}
 </script>
 
 <style lang="scss">

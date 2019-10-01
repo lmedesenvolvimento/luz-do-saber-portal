@@ -19,11 +19,12 @@
     "pack": "npm run pack:main && npm run pack:renderer",
     "pack:main": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.main.config.js",
     "pack:renderer": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.renderer.config.js",
+    "eslint:fix": "eslint --fix --ext .js,.vue --ignore-path .gitignore .",
     "postinstall": ""
   },
   "dependencies": {
     "animate-scss": "^3.2.1",
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "axios-cache-adapter": "^2.3.0",
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.0-rc.13",
@@ -32,7 +33,7 @@
     "faker": "^4.1.0",
     "flexboxgrid": "^6.3.1",
     "leader-line": "^1.0.5",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "lowdb": "^1.0.0",
     "moment-timer": "^1.3.0",
     "nocache": "^2.0.0",
