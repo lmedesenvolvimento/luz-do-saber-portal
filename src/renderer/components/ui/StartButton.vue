@@ -40,6 +40,7 @@ export default {
         },
         gameStart() {
             this.onClickStartButton()
+            this.openFullscreen()
 
             this.firstAudio.play()
 
@@ -47,6 +48,19 @@ export default {
                 this.secondAudio.play()
             }.bind(this), 4000)
         },
+        openFullscreen(){
+            const elem = document.querySelector('html')
+
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen()
+            } else if (elem.mozRequestFullScreen) { /* Firefox */
+                elem.mozRequestFullScreen()
+            } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+                elem.webkitRequestFullscreen()
+            } else if (elem.msRequestFullscreen) { /* IE/Edge */
+                elem.msRequestFullscreen()
+            }
+        }
     }
 }
 </script>
