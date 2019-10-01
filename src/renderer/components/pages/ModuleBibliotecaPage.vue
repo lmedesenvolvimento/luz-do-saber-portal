@@ -8,7 +8,7 @@
             :navbar-subtitle="''"
             :navbar-icon="getModuleImage"
         />        
-        <div class="page-container-wrap-spacing">
+        <div class="page-container-wrap-spacing--sm">
             <div>
                 <b-row>
                     <b-col sm="4">
@@ -86,7 +86,8 @@ export default {
     #biblioteca{
         .book-search{
             @include card_boxshadow;
-            border-radius: 20px;
+            border-radius: 1.25rem;
+            border: 1.5px solid #ccc;
             margin: 15px auto;
             outline: none;
             padding: 10px;
