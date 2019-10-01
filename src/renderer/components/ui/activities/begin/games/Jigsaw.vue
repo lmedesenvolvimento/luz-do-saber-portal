@@ -119,8 +119,8 @@ export default {
     },
     created(){
         // cria um array de respostas/letras que somem. drop usado por primeira letra nunca pode sumir
-        this.inicial = this.activity.items.keys[0].text;
-        this.name = this.activity.items.values[0].text;
+        this.inicial = this.activity.items.keys[0].text
+        this.name = this.activity.items.values[0].text
         setTimeout(()=> {
             let cards = this.cards
             for(let i = 0; i< cards.length; i++){

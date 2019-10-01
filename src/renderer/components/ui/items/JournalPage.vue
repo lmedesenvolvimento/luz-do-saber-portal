@@ -141,7 +141,7 @@
 </template>
 
 <script>
-import JournalPageImage from './JournalPageImage';
+import JournalPageImage from './JournalPageImage'
 export default {
     components: { 
         JournalPageImage
@@ -172,31 +172,31 @@ export default {
     },    
     methods: {
         placeholderTitle(i){
-            if(i == 1) return 'Matéria de destaque';
+            if(i == 1) return 'Matéria de destaque'
             else return 'Subtítulo da matéria'
         },       
         placeholderStory(i, j){
             if (i == 1){
                 if (j == 1){
-                    return 'Titulo do lado esquerdo';
+                    return 'Titulo do lado esquerdo'
                 } else {
-                    return 'Insira o conteúdo da matéria do lado esquerdo';
+                    return 'Insira o conteúdo da matéria do lado esquerdo'
                 }
             } else {
                 if (j == 1){
-                    return 'Titulo do lado direito';
+                    return 'Titulo do lado direito'
                 } else {
-                    return 'Insira o conteúdo da matéria do lado direito';
+                    return 'Insira o conteúdo da matéria do lado direito'
                 }
             }
         },
         numberCols(j){
-            if(j == 1) return 17;
-            else return 20;
+            if(j == 1) return 17
+            else return 20
         },
         numberRows(j){
-            if(j == 1) return 2;
-            else return (7 + this.extraRows);
+            if(j == 1) return 2
+            else return (7 + this.extraRows)
         },               
     }
 }

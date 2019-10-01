@@ -116,9 +116,9 @@ import { shuffle, range, filter } from 'lodash'
 import AsyncImage from '@ui/AsyncImage'
 import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from '@ui/activities/mixins'
 import moment from 'moment'
-import { setTimeout } from 'timers';
-import Activity from '@/store/modules/Activity';
-import Bingo from '@/components/ui/activities/begin/games/Bingo';
+import { setTimeout } from 'timers'
+import Activity from '@/store/modules/Activity'
+import Bingo from '@/components/ui/activities/begin/games/Bingo'
 
 export default {
     components: {
@@ -150,10 +150,10 @@ export default {
         },
         // retorna as imagens da roleta e do painel interno
         bingoRoulette() {
-            return require('@/assets/images/components/bingo/globo-bingo.png');
+            return require('@/assets/images/components/bingo/globo-bingo.png')
         },
         bingoCounter(){
-            return require('@/assets/images/components/bingo/painel-bingo.png');
+            return require('@/assets/images/components/bingo/painel-bingo.png')
         },
         // ajusta o formato em que o horário será exibido
         getDuration(){
@@ -164,26 +164,26 @@ export default {
     watch: {
         showTimer() {
             if(this.isCounter){
-                this.animateBingoCounter = true;
+                this.animateBingoCounter = true
             }
-            this.isCounter = !this.isCounter;
+            this.isCounter = !this.isCounter
             this.timeOut = setTimeout(() => {
-                this.animateBingoCounter = false;
+                this.animateBingoCounter = false
             },1000)
         },
         actualRaffleWord () {
             if (this.searchString(this.words[0],this.actualRaffleWord)){
-                this.loseCounter[0]++;
+                this.loseCounter[0]++
                 if(this.loseCounter[0] == 4){
-                    this.activity.pointings[0].quantity = 10;
-                    this.triggerSuccess();
+                    this.activity.pointings[0].quantity = 10
+                    this.triggerSuccess()
                 }
             } 
             if (this.searchString(this.words[1],this.actualRaffleWord)){
-                this.loseCounter[1]++;
+                this.loseCounter[1]++
                 if(this.loseCounter[1] == 4){
-                    this.activity.pointings[0].quantity = 10;
-                    this.triggerSuccess();
+                    this.activity.pointings[0].quantity = 10
+                    this.triggerSuccess()
                 }
             }
         }
@@ -197,10 +197,10 @@ export default {
             this.playerWords.push(Object.assign({}, this.getKeys[i]))
         }
         // pega os valores e os joga numa matriz de palavras
-        this.scramblePlayerWords = shuffle(this.scramblePlayerWords);
+        this.scramblePlayerWords = shuffle(this.scramblePlayerWords)
         for(let i = 0; i < this.getValues.length; i++){
             if(this.getValues[i].text.length > 4){
-                this.isWordBingo = true;
+                this.isWordBingo = true
             }            
             if(i < this.activity.total_correct_items){
                 this.words[0].push(this.getValues[i].text)
@@ -211,9 +211,9 @@ export default {
                 this.unraffleWords.push(this.getValues[i].text)
             }
         }
-        this.unraffleWords = shuffle(this.unraffleWords);
-        this.allWords = this.unraffleWords.slice();
-        this.actualizeBingoTimer();
+        this.unraffleWords = shuffle(this.unraffleWords)
+        this.allWords = this.unraffleWords.slice()
+        this.actualizeBingoTimer()
     },
     mounted() {
         this.createAnswersArray()
@@ -251,41 +251,41 @@ export default {
         },
         // marca a letra como sorteada, trocando sua cor
         raffle(word) {
-            this.raffleWords.push(word);
+            this.raffleWords.push(word)
         },
         searchString(arr, str) {
             for(let i = 0; i < arr.length; i++){
-                if (arr[i].match(str)) return true;
+                if (arr[i].match(str)) return true
             }
-            return false;
+            return false
         },
         actualizeBingoTimer(){
             // decresce o contador até zero
             if(this.unraffleWords.length > 0){
                 if(this.timer > 0){
                     setTimeout(() => {
-                        this.timer -= 1000;
-                        this.actualizeBingoTimer();
+                        this.timer -= 1000
+                        this.actualizeBingoTimer()
                     },1000)
                 }
                 // quando chega a zero, e exibindo o contador, ele seleciona aleatoriamente uma letra do alfabeto
                 else if (this.showTimer){     
                     // sorteia aleatoriamente uma das palavras sorteáveis                
-                    const wordIndex = Math.floor(Math.random()*this.unraffleWords.length);
-                    const word = this.unraffleWords[wordIndex];
-                    this.unraffleWords.splice(wordIndex,1);
-                    this.actualRaffleWord = word;
-                    this.raffle(word);
+                    const wordIndex = Math.floor(Math.random()*this.unraffleWords.length)
+                    const word = this.unraffleWords[wordIndex]
+                    this.unraffleWords.splice(wordIndex,1)
+                    this.actualRaffleWord = word
+                    this.raffle(word)
 
-                    this.showTimer = false;
-                    this.timer = 5000;
-                    this.actualizeBingoTimer();
+                    this.showTimer = false
+                    this.timer = 5000
+                    this.actualizeBingoTimer()
                 }
                 // quando chega a zero, e exibindo o contador, ele seleciona aleatoriamente uma letra do alfabeto
                 else {
-                    this.showTimer = true;
-                    this.timer = 5000;
-                    this.actualizeBingoTimer();
+                    this.showTimer = true
+                    this.timer = 5000
+                    this.actualizeBingoTimer()
                 }
             }
 

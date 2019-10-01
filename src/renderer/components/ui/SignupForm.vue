@@ -44,7 +44,7 @@ export default {
         return {
             user: { name: ''},
             errMsg: ''
-        };
+        }
     },
     methods: {
         submitLogin(){

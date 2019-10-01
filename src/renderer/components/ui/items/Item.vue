@@ -88,6 +88,9 @@ export default {
             return `${this.item ? this.item.type : ''} ${ this.template ? this.template.type : '' }`
         },
         fontSize() {
+            if (this.size) {
+                return this.size
+            }
             return this.template.font_size ? this.template.font_size : ''
         }
     }
