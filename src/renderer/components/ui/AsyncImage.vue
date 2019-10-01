@@ -58,6 +58,8 @@ export default {
 .image{
     position: relative;
     display: inline-block;
+    width: 100%;
+    max-width: 100%;
     margin: auto;
     img {
         display: inline-block;
