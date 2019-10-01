@@ -7,18 +7,30 @@
             navbar-title="Biblioteca"
             :navbar-subtitle="''"
             :navbar-icon="getModuleImage"
-        />
+        />        
         <div class="page-container-wrap-spacing">
+            <div>
+                <b-row>
+                    <b-col sm="4">
+                        <input
+                            v-model="searchBook"
+                            class="book-search" 
+                            type="text" 
+                            placeholder="Procurar por..."
+                        />
+                    </b-col>
+                </b-row>
+            </div>
             <b-row is="transition-group" name="book-animation">
                 <b-col v-for="livro in livros" :key="livro.id" sm="4">
-                    <div v-show="containSearch(livro.title)">
+                    <div v-if="containSearch(livro.title)">
                         <router-link :to="{ name: 'book', params: { livro_id: livro.id } }">
                             <b-card class="book-card">
                                 <div class="book-title">{{ livro.title }}</div>
                                 <async-image class="book-cover" :src="livro.cover_url ? livro.cover_url : null" :alt="`capa do livro ${livro.title}`" />
                             </b-card>
                         </router-link>
-                    </div>
+                    </div>                    
                 </b-col>
             </b-row>
         </div>
@@ -40,7 +52,7 @@ export default {
     data(){
         return {
             livros: [],
-            searchBook: 'A ',
+            searchBook: '',
         }
     },
     computed: {
@@ -49,18 +61,25 @@ export default {
         },
         ...mapState('Modules', ['activeModule'])
     },
+    watch: {
+        searchBook(){
+            this.fetchBooks().then((livros) => {
+                this.livros = livros
+            })
+        }
+    },
     created(){
         this.fetchBooks().then((livros) => {
             this.livros = livros
-        })        
+            
+        })   
     },
     methods: {
         registerUserProgress(module){
             return true
         },
         containSearch(bookTitle){
-            console.log(bookTitle)
-            if(bookTitle.toLowerCase().indexOf(this.searchBook.toLowerCase())){
+            if(bookTitle.toLowerCase().indexOf(this.searchBook.toLowerCase()) == -1){
                 return false
             } 
             return true
@@ -72,6 +91,15 @@ export default {
 
 <style lang="scss">
     #biblioteca{
+        .book-search{
+            @include card_boxshadow;
+            border-radius: 20px;
+            margin: 15px auto;
+            outline: none;
+            padding: 10px;
+            width: 100%;
+            height: 50px;
+        }
         .book-cover{
             max-width: 100px;
         }
