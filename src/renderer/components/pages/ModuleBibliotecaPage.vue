@@ -67,7 +67,7 @@ export default {
         }
 
         .book-title{
-            display: flex;
+            display: inline;
             align-self: center;
             font-size: 1.2rem;
             text-align: center;
@@ -76,9 +76,10 @@ export default {
         }
 
         .book-card{
+            @include card_boxshadow;
             border-radius: 20px;
             transition: transform 0.3s ease-out;
-            @include card_boxshadow;
+            margin: 15px auto;
             &:hover{
                 transform: scale(1.05);
             }

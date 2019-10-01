@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require('path')
 module.exports = {
     mode: 'development',
     entry: [
@@ -24,9 +24,9 @@ module.exports = {
             loader: 'babel-loader',
             query: {
                 presets: [
-                    ["@babel/env", {
-                        "targets": {
-                            "browsers": "last 2 chrome versions"
+                    ['@babel/env', {
+                        'targets': {
+                            'browsers': 'last 2 chrome versions'
                         }
                     }]
                 ]
@@ -43,4 +43,4 @@ module.exports = {
         host: '0.0.0.0',
         port: 8080,
     }
-};
+}

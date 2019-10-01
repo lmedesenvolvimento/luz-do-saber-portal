@@ -17,7 +17,7 @@
                         </div>
                         <div v-else-if="isAuthorized && !isVisibleLerSubModule" key="frontpage-modules">
                             <b-row align-v="center" align-h="center">
-                                <div class="icon-exit" @click="destroyUserDatabase"></div>
+                                <div class="icon-exit" @click="showExitModal"></div>
                                 <ModuleLinkCard
                                     v-for="m in modules"
                                     :key="m.id"
@@ -56,12 +56,14 @@
                     </transition>
                 </b-container>
             </b-row>
+            <ls-alert-confirm-exit :show-exit-modal="isExitModalVisible"></ls-alert-confirm-exit>
         </b-container>
     </div>
 </template>
 <script>
 import { find, filter } from 'lodash'
 import { mapActions, mapState } from 'vuex'
+import alerts from '@/components/alerts'
 
 import StartButton from '@/components/ui/StartButton'
 import SignupForm from '@/components/ui/SignupForm'
@@ -71,7 +73,8 @@ export default {
     components: {
         StartButton,
         SignupForm,
-        ModuleLinkCard
+        ModuleLinkCard,
+        ...alerts
     },
     data(){
         return {
@@ -80,6 +83,7 @@ export default {
             canStart: false,
             read: null,
             loading: false,
+            isExitModalVisible: false
         }
     },
     computed: {
@@ -98,6 +102,9 @@ export default {
         }
     },
     methods: {
+        showExitModal(){           
+            this.isExitModalVisible = !this.isExitModalVisible
+        },        
         onGameStart(){
             this.canStart = true
         },

@@ -49,7 +49,7 @@ export default {
     props: {
         template: Object
     }
-};
+}
 </script>
 <style lang="scss" scoped>
     .card--radio-input{

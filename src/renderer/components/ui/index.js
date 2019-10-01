@@ -4,4 +4,4 @@ export default {
     'ls-gameplay': require('@/components/ui/Gameplay').default,
     'ls-image': require('@/components/ui/AsyncImage').default,
     ...formComponents
-};
+}

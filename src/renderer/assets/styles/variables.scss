@@ -89,7 +89,7 @@ $gameplay-heading-bg-color: lighten(#f4f4f4, 2.5);
 $gameplay-header-height: 100px;
 $gameplay-footer-height: 50px;
 $gameplay-border-color: #ddd;
-$gameplay-height: calc(70vh - #{ $navbar-height - 24px });
+$gameplay-height: 640px;
 $gameplay-max-height: 640px;
 
 // Item
@@ -113,30 +113,68 @@ $item-letter-types: (
 );
 
 
+$base-fontsize-letter: 74px;
+$base-fontsize-syllabus: 100px;
+$substantive-fontsize: 210px;
+
 $item-types-width: (
     default: (
-        letra: 74px,
-        numero: 74px,
-        caractere_especial: 74px,
-        silaba: 95px,
-        substantivo_comum: 210px,
-        substantivo_proprio: 210px
+        letra: $base-fontsize-letter,
+        numero: $base-fontsize-letter,
+        caractere_especial: $base-fontsize-letter,
+        silaba: $base-fontsize-syllabus,
+        substantivo_comum: $substantive-fontsize,
+        substantivo_proprio: $substantive-fontsize
     ),
     medium: (
-        letra: 58px,
-        numero: 58px,
-        caractere_especial: 58px,
-        silaba: 80px,
-        substantivo_comum: 185px,
-        substantivo_proprio: 185px
+        letra: ( $base-fontsize-letter / 1.20 ),
+        numero: ( $base-fontsize-letter / 1.20 ),
+        caractere_especial: ( $base-fontsize-letter / 1.20 ),
+        silaba: ( $base-fontsize-syllabus / 1.18 ),
+        substantivo_comum: ( $substantive-fontsize / 1,13 ),
+        substantivo_proprio: ( $substantive-fontsize / 1,13 )
+    ),
+    small: (
+        letra: ( $base-fontsize-letter / 1.40 ),
+        numero: ( $base-fontsize-letter / 1.40 ),
+        caractere_especial: ( $base-fontsize-letter / 1.40 ),
+        silaba: ( $base-fontsize-syllabus / 1.32 ),
+        substantivo_comum: ( $substantive-fontsize / 1,31 ),
+        substantivo_proprio: ( $substantive-fontsize / 1,31 )
     )
 );
+
+$item-types-card-padding: (
+    default: 0.125rem,
+    medium: ( 0.2rem / 1.60 ),
+    small: ( 0.2rem / 1.75 )
+);
+
+$item-types-card-border-radius: (
+    default: 1.15rem,
+    medium: ( $card-border-radius / 1.25 ),
+    small: ( $card-border-radius / 1.5 )
+);
+
+$item-types-card-body-padding: (
+    default: 1rem,
+    medium: ( 1rem / 1.25 ),
+    small: ( 1rem / 1.50 )
+);
+
 
 $item-sizes: (
     big: 'big',
     medium: 'medium',
     small: 'small',
     'extreme-small': 'extreme-small'
+);
+
+$item-font-size: (
+    big: 24px,
+    medium: 18px,
+    small: 14px,
+    'extreme-small': 12px
 );
 
 // Player

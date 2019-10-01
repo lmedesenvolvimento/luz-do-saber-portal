@@ -84,7 +84,7 @@ export default {
     mounted() {
         this.createAnswersArray()
         for (let item1 of this.activity.items.keys){
-            this.newItens.push(JSON.parse(JSON.stringify(item1)));
+            this.newItens.push(JSON.parse(JSON.stringify(item1)))
         }
         for (let item1 of this.newItens){
             let i = 0
@@ -95,15 +95,15 @@ export default {
                 i++
             }
         }
-        this.shuffleValues = this.getValues;
+        this.shuffleValues = this.getValues
         this.shuffleValues = shuffle(this.shuffleValues)
     },
     methods: {
         validateBySyllabe(transferData, nativeElement, vm){
             this.dataTransfer = transferData
             if (transferData.text === vm.item.text){
-                vm.valid = true;
-                transferData.valid = true;
+                vm.valid = true
+                transferData.valid = true
                 for (let item1 of this.newItens){
                     for(let item2 of item1.syllables){
                         if(item2.syllable.text === transferData.text){
@@ -117,7 +117,7 @@ export default {
                     vm: this
                 })
             } else {
-                vm.invalid = true;
+                vm.invalid = true
                 transferData.invalid = true
                 vm.setAnswer({
                     type: 'value',
