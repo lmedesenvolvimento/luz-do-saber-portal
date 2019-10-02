@@ -11,4 +11,5 @@ export default {
     'ls-activity-friends-name': require('@ui/activities/begin/games/FriendsName.vue').default,
     'ls-activity-match-friends-initial': require('@ui/activities/begin/games/MatchFriendsInitial.vue').default,
     'ls-activity-write-word': require('@ui/activities/begin/games/WriteTheWord.vue').default,
+    'ls-activity-my-cracha': require('@ui/activities/begin/games/MyCracha.vue').default,
 }
