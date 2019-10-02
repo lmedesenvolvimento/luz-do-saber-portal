@@ -56,6 +56,7 @@ import AsyncImage from '@ui/AsyncImage'
 import { mapState, mapActions } from 'vuex'
 import { alphabet } from '@/constants'
 import { get } from 'http'
+import { chain, take, takeRight, sortBy, map, last, first, findIndex, random } from 'lodash'
 
 export default {
     components: {
@@ -74,20 +75,28 @@ export default {
         ...mapState('Activity', ['answers']),
     },
     mounted() {
-        alphabet.forEach((letter, index) => {
-            this.alphabet.push(Object.assign({}, {letter}))
-        })
+        for (let i = 0; i < this.activity.items.values.length; i++) {
+            const id = this.activity.items.values[i].id
+            const text = this.activity.items.values[i].text
 
+            this.ids.push({text, id})
+        }
+        
         this.getValues.forEach((item, index) => {
             this.correctLetters.push(item.text)
         })
 
-        for (let i = 0; i < this.activity.items.values.length; i++) {
-            const element = this.activity.items.values[i].id
-            
-            this.ids.push(element)
-        }
-        
+        alphabet.forEach((letter, index) => {
+            if (this.searchLetter(this.correctLetters, letter)) {
+                const id = _.find(this.ids, function(o) { return o.text === letter ? o.id : '' })
+
+                this.alphabet.push({letter, id})
+                
+            } else {
+                this.alphabet.push(Object.assign({}, {letter}))
+            }
+        })
+
         
         this.createAnswersArray()
     },
@@ -98,7 +107,7 @@ export default {
                 item.valid = true
                 this.setAnswer({
                     type: 'value',
-                    data: this.ids[0],
+                    data: item.id.id,
                     vm: this
                 })
 
