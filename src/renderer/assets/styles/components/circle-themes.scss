@@ -6,7 +6,7 @@
 
 .circle-and-box{
     display: flex;
-    transition: all 0.2s ease-in;
+    transition: transform 0.2s ease-in;
     align-items: center;
     .col {
         padding: 0;
@@ -19,7 +19,7 @@
         border-radius: 6px;
         margin-left: -5.5rem;
         background-color: white;
-        z-index: -1;
+        // z-index: -1;
         box-shadow: 0px 0px 36px 1px rgba(123, 123, 132, 0.48);
         min-height: 100px;
         min-width: 100px;
@@ -33,10 +33,12 @@
         }
     }
     .container-circle {
+        position: relative;
         max-width: 140px;
         max-height: 140px;
         align-items: center;
         justify-content: center;
+        z-index: 3;
     }
 
     .img-container{
