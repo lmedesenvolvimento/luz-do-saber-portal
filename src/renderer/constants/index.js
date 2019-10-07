@@ -52,7 +52,7 @@ export const GameSubtypes = {
     textReading: 'apresentacao-leitura',
     findTheWord: 'descubra-a-palavra',
     assembleWord: 'monte-a-palavra',
-    myCracha: 'meu-cracha'
+    myCracha: 'meu-cracha',
 }
 
 export const ItemTypes = {
