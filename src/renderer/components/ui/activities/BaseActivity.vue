@@ -93,6 +93,11 @@
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
             />
+            <ls-activity-my-cracha
+                v-if="gameSubtypes.myCracha === activity.subtype.slug"
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+            />
             <ls-activity-read-word-bingo
                 v-if="gameSubtypes.wordBingo === activity.subtype.slug"
                 :value-col-size="valueColSize"
