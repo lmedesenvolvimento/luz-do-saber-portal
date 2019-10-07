@@ -145,7 +145,8 @@ export default {
             reader.onerror = function(error) {
                 console.log(error)
             }
-            reader.readAsDataURL(file)
+            if (file)
+                reader.readAsDataURL(file)
         },
         addNewFriend(data) {
             this.addFriend(data)
