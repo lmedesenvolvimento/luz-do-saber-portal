@@ -7,17 +7,31 @@
             navbar-title="Biblioteca"
             :navbar-subtitle="''"
             :navbar-icon="getModuleImage"
-        />
-        <div class="page-container-wrap-spacing">
+        />        
+        <div class="page-container-wrap-spacing--sm">
+            <div>
+                <b-row>
+                    <b-col sm="4">
+                        <input
+                            v-model="searchBook"
+                            class="book-search" 
+                            type="text" 
+                            placeholder="Procurar por..."
+                        />
+                    </b-col>
+                </b-row>
+            </div>            
             <b-row is="transition-group" name="book-animation">
-                <b-col v-for="livro in livros" :key="livro.id" sm="4">
-                    <router-link :to="{ name: 'book', params: { livro_id: livro.id } }">
-                        <b-card class="book-card">
-                            <div class="book-title">{{ livro.title }}</div>
-                            <async-image class="book-cover" :src="livro.cover_url ? livro.cover_url : null" :alt="`capa do livro ${livro.title}`" />
-                        </b-card>
-                    </router-link>
-                </b-col>
+                <div v-for="livro in livros" :key="livro.id" class="book-container">
+                    <div v-if="containSearch(livro.title)" class="book-sub-container">
+                        <router-link :to="{ name: 'book', params: { livro_id: livro.id } }">
+                            <b-card class="book-card">
+                                <div class="book-title">{{ livro.title }}</div>
+                                <async-image class="book-cover" :src="livro.cover_url ? livro.cover_url : null" :alt="`capa do livro ${livro.title}`" />
+                            </b-card>
+                        </router-link> 
+                    </div>
+                </div>
             </b-row>
         </div>
     </div>
@@ -37,7 +51,8 @@ export default {
     },
     data(){
         return {
-            livros: [],
+            livros: [],            
+            searchBook: '',
         }
     },
     computed: {
@@ -46,13 +61,20 @@ export default {
         },
         ...mapState('Modules', ['activeModule'])
     },
+    
     created(){
-        this.fetchBooks().then((livros) => {
-            this.livros = livros
-        })
+        this.fetchBooks().then((livros) => {            
+            this.livros = livros              
+        })   
     },
     methods: {
         registerUserProgress(module){
+            return true
+        },
+        containSearch(bookTitle){
+            if(bookTitle.toLowerCase().indexOf(this.searchBook.toLowerCase()) == -1){
+                return false
+            } 
             return true
         },
         ...mapActions('Books', ['fetchBooks']),
@@ -62,10 +84,25 @@ export default {
 
 <style lang="scss">
     #biblioteca{
+        .book-search{
+            @include card_boxshadow;
+            border-radius: 1.25rem;
+            border: 1.5px solid #ccc;
+            margin: 15px auto;
+            outline: none;
+            padding: 10px;
+            width: 100%;
+            height: 50px;
+        }
+        .book-container{            
+            max-width: 33%;  
+            .book-sub-container{
+                padding: 0 10px 0 10px;  
+            }
+        }
         .book-cover{
             max-width: 100px;
         }
-
         .book-title{
             display: inline;
             align-self: center;
