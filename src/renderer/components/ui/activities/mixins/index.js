@@ -65,9 +65,15 @@ export const ListMixin = {
     },
     methods: {
         addColors(){
+            const keyTemplate = this.activity.item_template.key
+            const valueTemplate = this.activity.item_template.value
             this.getValues.forEach((value, key) => {
                 if (this.getValues.hasOwnProperty(key)) {
                     if (ColorizeTypes.includes(this.getValues[key].type)){
+                        // Se for número e se noo mesmo não estiver contido a tag arrastar ignorar a coloração
+                        if (!/arrastar/.test(valueTemplate.tags) && this.getValues[key].type === 'numero'){
+                            return true
+                        }
                         this.getValues[key].color = this.getColorsArray[key]
                     }
                     else {
