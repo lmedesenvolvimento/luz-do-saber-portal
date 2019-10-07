@@ -190,6 +190,11 @@
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
             />
+            <ls-activity-uppercase-letters
+                v-if="gameSubtypes.uppercaseLetters === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+            />
         </div>
     </div>
 </template>
