@@ -11,27 +11,17 @@
                                 <div class="outer">
                                     <div class="card-input card--input-image">
                                         <div class="icon-photo">
-                                            <input
-                                                :id="`file${name.text}`"
+                                            <input 
                                                 :ref="`file${name.text}`"
-                                                type="file"
-                                                name="my-image"
-                                                accept="image/jpeg, image/png"
-                                                autocomplete="off"
-                                                @change="
-                                                    handleFileUpload(name.text)
-                                                "
-                                            />
+                                                style="display: none"                                             
+                                                type="file"     
+                                                accept="image/gif, image/jpeg, image/png"                                         
+                                                @change="handleFileUpload(name.text)"                 
+                                            >
                                         </div>
-                                    </div>
-                                    <async-image
-                                        v-if="name.images[0] === null"
-                                        class="img-placeholder"
-                                        src="https://flash.za.com/wp-content/uploads/2015/08/Generic-Profile-1600x1600.png"
-                                        alt="placeholder"
-                                    />
-                                    <div v-else class="image">
-                                        <img :src="name.images[0]" class="photo" />
+                                        <div v-if="userName !== null" :ref="'imgContainer'" class="image">
+                                            <div :style="{backgroundImage: `url('${imgSrc}')`}" class="photo" />
+                                        </div>
                                     </div>
                                 </div>
                                 {{ name.text }}
@@ -46,6 +36,7 @@
 <script>
 import { MapMixins, ListMixin, CreateAnswersMixins } from '@ui/activities/mixins'
 import FormProps from '@ui/form'
+import Vue from 'vue'
 
 export default {
     components: {
@@ -54,38 +45,37 @@ export default {
     mixins: [MapMixins, ListMixin, CreateAnswersMixins,],
     data() {
         return {
-            userName: Object
+            userName: null
         }
     },
     computed: {
         name() {
             return this.userName ? this.userName : {text: 'Fulano'}
+        },
+        imgSrc(){
+            return this.userName && this.userName.imgSrc ? this.userName.imgSrc : ''
         }
     },
     mounted() {
         this.createAnswersArray()
-        this.userName = this.getKeys[0]
+        if (this.userName === null)
+            this.userName = this.getKeys[0]
     },
     methods: {
         handleFileUpload(index) {
             let file = this.$refs[`file${index}`].files[0]
             let reader = new FileReader()
 
-            // reader.onload = e => {
-            //     this.userName.imgSrc = e.target.result
-            // }
-            // reader.onerror = function(error) {
-            //     console.log(error)
-            // }
-            // console.log('file', file)
-            // reader.readAsDataURL(file)
-
-            reader.onloadend = function () {
-                this.userName.images.push(reader.result)
+            reader.onload = e => {
+                Vue.set(this.userName, 'imgSrc',e.target.result)
+                //adicionando o background liso após a foto ser carregada
+                this.$refs['imgContainer'].classList.add('grey-bg')
             }
-            if (file) {
+            reader.onerror = function(error) {
+                console.log(error)
+            }
+            if (file)
                 reader.readAsDataURL(file)
-            }
         },
     },
 }
@@ -101,7 +91,6 @@ export default {
             top: 40%;
         }
         .outer{
-            border: 1px solid black;
             position: relative;
             margin: 0 134px;
             bottom: 8px;
@@ -109,19 +98,15 @@ export default {
             height: 95px;
         }
         .card--input-image {
-            display: flex;
-            justify-content: center;
-            top: -10px;
-            position: relative;
-            right: 50px;
+            padding: 0;
             z-index: 99;
-
+            height: 95px;
             .icon-photo {
-                display: flex;
-                align-items: center;
-                justify-content: center;
                 width: 49px;
+                position: absolute;
                 height: 44px;
+                cursor: pointer;
+                z-index: 10;
                 cursor: pointer;
                 @include embed_image(
                     '~@/assets/images/icons/comecar/photo-camera.png',
@@ -141,9 +126,18 @@ export default {
             }
         }
         .image{
-            bottom: 60px;
-            width: 150px;
-            height: 95px;
+            width: 100%;
+            border-radius: 8px;
+            .photo{
+                height: 95px;
+                width: 100%;
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+        }
+        .grey-bg{
+            background-color: #ececec;
         }
     }
 </style>
