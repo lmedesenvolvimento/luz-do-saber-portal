@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid">        
+    <div class="uppercase-letters container-fluid">        
         <b-row align-h="center" :class="{'column': !horizontal,'reverse': (reverse && horizontal), 'reverse-column': ( reverse && !horizontal )}">
             <b-col v-if="hasKeys" class="activity-keys">
                 <b-row>
@@ -132,20 +132,22 @@ export default {
 }
 </script>
 
-<style>
-    .image img {
-        max-width: inherit;
-        width: 400px;
-    }
-    .image {
-        width: 300px;
-    }
-    .activity-values {
-        flex-wrap: wrap;
-        justify-content: end !important;
-        height: 80% !important;
-    }
-    .item {
-        padding-right: 10px;
+<style lang="scss">
+    .uppercase-letters{
+        .image img {
+            max-width: inherit;
+            width: 400px;
+        }
+        .image {
+            width: 300px;
+        }
+        .activity-values {
+            flex-wrap: wrap;
+            justify-content: end !important;
+            height: 80% !important;
+        }
+        .item {
+            padding-right: 10px;
+        }
     }
 </style>
