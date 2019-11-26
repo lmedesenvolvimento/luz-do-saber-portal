@@ -1,0 +1,413 @@
+<template>
+    <div id="convite" class="fill container convite">
+        <div class="page-container">
+            <div class="gameplay flex-center">
+                <div class="gameplay-body flex-center">
+                    <div class="convite-card flex-center">
+                        <div class="photo-input">
+                            <input
+                                id="file-convite"
+                                ref="file-convite"
+                                type="file"
+                                class="photo-holder"
+                                name="convite-image"
+                                accept="image/jpeg, image/png"
+                                autocomplete="off"
+                                @change="handleFileUpload('file-convite')"
+                            />
+                            <div
+                                v-if="convitePhoto.imgSrc !== undefined"
+                                class="image"
+                            >
+                                <img :src="convitePhoto.imgSrc" class="photo" />
+                            </div>
+                        </div>
+                        <div class="convite-text">
+                            <div class="text title">Convite</div>
+                            <div class="text data">Data:</div>
+                            <div class="text hora">Hora:</div>
+                            <div class="text local">Local:</div>
+                            <div
+                                class="input-text"
+                                v-for="text in texts"
+                                :key="text.nome"
+                                :class="text.nome"
+                            >
+                                <textarea
+                                    v-if="text.type === 'textarea'"
+                                    :placeholder="text.placeholder"
+                                    maxlength="100"
+                                ></textarea>
+                                <input
+                                    v-else
+                                    v-model="text.value"
+                                    type="text"
+                                    :placeholder="text.placeholder"
+                                    :class="[text.nome, 'input']"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gameplay-footer">
+                    <div class="footer-info flex-center">
+                        <div
+                            v-b-tooltip="{
+                                title: 'Novo Convite',
+                                container: '.footer-info'
+                            }"
+                            class="btn-convite novo"
+                        ></div>
+                        <div
+                            v-b-tooltip="{
+                                title: 'Salvar',
+                                trigger: 'hover',
+                                container: '.footer-info'
+                            }"
+                            class="btn-convite salvar"
+                        ></div>
+                        <div
+                            v-b-tooltip="{
+                                title: 'Imprimir',
+                                container: '.footer-info'
+                            }"
+                            class="btn-convite imprimir"
+                        ></div>
+                        <div
+                            v-b-tooltip="{
+                                title: 'Galeria',
+                                container: '.footer-info'
+                            }"
+                            class="btn-convite galeria"
+                        ></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+export default {
+    data() {
+        return {
+            texts: [
+                {
+                    nome: 'saudacao-input',
+                    value: '',
+                    placeholder: 'Insira a saudação',
+                    type: 'text'
+                },
+                {
+                    nome: 'texto-input',
+                    value: '',
+                    placeholder: 'Insira o texto',
+                    type: 'textarea'
+                },
+                {
+                    nome: 'data-input',
+                    value: '',
+                    placeholder: 'DD/MM',
+                    type: 'text'
+                },
+                {
+                    nome: 'hora-input',
+                    value: '',
+                    placeholder: '00:00',
+                    type: 'text'
+                },
+                {
+                    nome: 'local-input',
+                    value: '',
+                    placeholder: 'Insira o local',
+                    type: 'text'
+                },
+                {
+                    nome: 'agradecimento-input',
+                    value: '',
+                    placeholder: 'Agradecimento',
+                    type: 'text'
+                },
+                {
+                    nome: 'assinatura-input',
+                    value: '',
+                    placeholder: '',
+                    type: 'text'
+                }
+            ],
+            convitePhoto: {}
+        }
+    },
+    created() {
+        console.log(Boolean(this.convitePhoto.imgSrc !== undefined))
+    },
+    methods: {
+        handleFileUpload(name) {
+            let file = this.$refs[name].files[0]
+            let reader = new FileReader()
+            reader.onload = (e) => {
+                this.convitePhoto.imgSrc = e.target.result
+            }
+            reader.onerror = function(error) {
+                console.log(error)
+            }
+            if (file) reader.readAsDataURL(file)
+            console.log(Boolean(this.convitePhoto.imgSrc !== undefined))
+            console.log(this.convitePhoto.imgSrc)
+        }
+    }
+}
+</script>
+<style lang="scss">
+.convite {
+    .img-placeholder,
+    .image {
+        width: 100%;
+        height: 200px;
+    }
+
+    .image {
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+            margin: unset;
+        }
+    }
+
+    .flex-center {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .gameplay {
+        .gameplay-body {
+            width: 100%;
+            border: none;
+            padding: 50px;
+        }
+
+        .gameplay-footer {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-height: 90px;
+        }
+    }
+
+    .convite-card {
+        background-image: url('~@/assets/images/components/convite/convite.png');
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 651px 499px;
+        width: 651px;
+        height: 499px;
+        position: relative;
+
+        .convite-text {
+            color: #003147;
+            @include baloo_bhaina;
+            position: relative;
+            width: 70%;
+            height: 85%;
+            padding: 0px 30px;
+            align-self: flex-start;
+            font-size: 18px;
+
+            .input-text,
+            .text {
+                position: absolute;
+                font-weight: 200;
+            }
+
+            .input-text {
+                @include itim_regular;
+                text-transform: capitalize;
+                color: #0276b1;
+
+                &.saudacao-input {
+                    top: 120px;
+                    left: 57px;
+                }
+
+                &.texto-input {
+                    top: 166px;
+                    left: 57px;
+                }
+
+                &.data-input {
+                    top: 274px;
+                    left: 117px;
+                }
+
+                &.hora-input {
+                    top: 273px;
+                    left: 274px;
+                }
+
+                &.local-input {
+                    top: 324px;
+                    left: 117px;
+                }
+
+                &.agradecimento-input {
+                    top: 374px;
+                    left: 217px;
+
+                    input {
+                        text-align: right;
+                    }
+                }
+
+                &.assinatura-input {
+                    top: 401px;
+                    left: 217px;
+
+                    input {
+                        text-align: right;
+                    }
+                }
+            }
+
+            .title {
+                @include pacifico;
+                text-transform: capitalize;
+                font-size: 52px;
+                top: 38px;
+                left: 138px;
+            }
+
+            .data {
+                top: 274px;
+                left: 53px;
+            }
+
+            .hora {
+                top: 274px;
+                left: 213px;
+            }
+
+            .local {
+                top: 326px;
+                left: 54px;
+            }
+
+            .input {
+                &.saudacao-input {
+                    width: 150px;
+                }
+
+                &.data-input {
+                    width: 70px;
+                }
+
+                &.hora-input {
+                    width: 50px;
+                }
+
+                &.local-input {
+                    width: 240px;
+                }
+
+                &.agradecimento-input {
+                    width: 150px;
+                }
+
+                &.assinatura-input {
+                    width: 150px;
+                }
+            }
+
+            input {
+                background: none;
+                border: none;
+                color: inherit;
+
+                &::placeholder {
+                    color: #b7b7b7;
+                }
+            }
+
+            textarea {
+                color: inherit;
+                background: none;
+                border: none;
+                resize: none;
+                width: 300px;
+                height: 90px;
+                line-height: 27px;
+
+                &::placeholder {
+                    color: #b7b7b7;
+                }
+            }
+        }
+
+        .photo-input {
+            position: absolute;
+            right: 49px;
+            top: 139px;
+        }
+
+        .photo-holder {
+            @include embed_image(
+                '~@/assets/images/components/convite/photo-holder.png',
+                204px,
+                200px
+            );
+
+            &:hover {
+                filter: brightness(60%);
+                cursor: pointer;
+            }
+        }
+    }
+
+    .btn-convite {
+        &.galeria {
+            @include embed_image(
+                '~@/assets/images/icons/escrever/convite/btn-galeria.png',
+                56px,
+                56px
+            );
+        }
+
+        &.imprimir {
+            @include embed_image(
+                '~@/assets/images/icons/escrever/convite/btn-imprimir.png',
+                56px,
+                56px
+            );
+        }
+
+        &.novo {
+            @include embed_image(
+                '~@/assets/images/icons/escrever/convite/btn-novo.png',
+                56px,
+                56px
+            );
+        }
+
+        &.salvar {
+            @include embed_image(
+                '~@/assets/images/icons/escrever/convite/btn-salvar.png',
+                56px,
+                56px
+            );
+        }
+
+        max-height: 56px;
+        user-select: none;
+        outline: none;
+
+        &:hover,
+        &:focus,
+        &:active {
+            cursor: pointer;
+        }
+    }
+}
+</style>
