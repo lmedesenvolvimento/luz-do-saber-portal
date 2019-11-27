@@ -4,24 +4,6 @@
             <div class="gameplay flex-center">
                 <div class="gameplay-body flex-center">
                     <div class="convite-card flex-center">
-                        <div class="photo-input">
-                            <input
-                                id="file-convite"
-                                ref="file-convite"
-                                type="file"
-                                class="photo-holder"
-                                name="convite-image"
-                                accept="image/jpeg, image/png"
-                                autocomplete="off"
-                                @change="handleFileUpload('file-convite')"
-                            />
-                            <div
-                                v-if="convitePhoto.imgSrc !== undefined"
-                                class="image"
-                            >
-                                <img :src="convitePhoto.imgSrc" class="photo" />
-                            </div>
-                        </div>
                         <div class="convite-text">
                             <div class="text title">Convite</div>
                             <div class="text data">Data:</div>
@@ -40,12 +22,41 @@
                                 ></textarea>
                                 <input
                                     v-else
+                                    :id="text.nome"
                                     v-model="text.value"
                                     type="text"
                                     :placeholder="text.placeholder"
+                                    :maxlength="text.maxLength"
                                     :class="[text.nome, 'input']"
                                 />
                             </div>
+                        </div>
+                        <div class="photo-input">
+                            <label class="flex-center">
+                                <div class="flex-center">
+                                    <div
+                                        v-if="convitePhoto !== ''"
+                                        class="image"
+                                    >
+                                        <img
+                                            :src="convitePhoto"
+                                            class="photo"
+                                        />
+                                    </div>
+                                    <div v-else class="photo-holder"></div>
+                                    <input
+                                        id="file-convite"
+                                        ref="file-convite"
+                                        type="file"
+                                        name="convite-image"
+                                        accept="image/jpeg, image/png"
+                                        autocomplete="off"
+                                        @change="
+                                            handleFileUpload('file-convite')
+                                        "
+                                    />
+                                </div>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -95,7 +106,8 @@ export default {
                     nome: 'saudacao-input',
                     value: '',
                     placeholder: 'Insira a saudação',
-                    type: 'text'
+                    type: 'text',
+                    maxLength: 15
                 },
                 {
                     nome: 'texto-input',
@@ -107,64 +119,84 @@ export default {
                     nome: 'data-input',
                     value: '',
                     placeholder: 'DD/MM',
-                    type: 'text'
+                    type: 'text',
+                    maxLength: 5
                 },
                 {
                     nome: 'hora-input',
                     value: '',
                     placeholder: '00:00',
-                    type: 'text'
+                    type: 'text',
+                    maxLength: 5
                 },
                 {
                     nome: 'local-input',
                     value: '',
                     placeholder: 'Insira o local',
-                    type: 'text'
+                    type: 'text',
+                    maxLength: 24
                 },
                 {
                     nome: 'agradecimento-input',
                     value: '',
                     placeholder: 'Agradecimento',
-                    type: 'text'
+                    type: 'text',
+                    maxLength: 14
                 },
                 {
                     nome: 'assinatura-input',
                     value: '',
                     placeholder: '',
-                    type: 'text'
+                    type: 'text',
+                    maxLength: 14
                 }
             ],
-            convitePhoto: {}
+            convitePhoto: ''
         }
     },
-    created() {
-        console.log(Boolean(this.convitePhoto.imgSrc !== undefined))
+    mounted() {
+        const dateinput = document.getElementById('data-input')
+        const timeinput = document.getElementById('hora-input')
+
+        this.inputMask(dateinput, '/')
+        this.inputMask(timeinput, ':')
     },
     methods: {
         handleFileUpload(name) {
             let file = this.$refs[name].files[0]
             let reader = new FileReader()
             reader.onload = (e) => {
-                this.convitePhoto.imgSrc = e.target.result
+                this.convitePhoto = e.target.result
             }
             reader.onerror = function(error) {
                 console.log(error)
             }
             if (file) reader.readAsDataURL(file)
-            console.log(Boolean(this.convitePhoto.imgSrc !== undefined))
-            console.log(this.convitePhoto.imgSrc)
+        },
+        inputMask(elm, type) {
+            const separator = type
+            elm.addEventListener('keypress', function(e) {
+                if (e.keyCode < 47 || e.keyCode > 57) {
+                    e.preventDefault()
+                }
+                let len = elm.value.length
+
+                if (len !== 1) {
+                    if (e.keyCode == 47) {
+                        e.preventDefault()
+                    }
+                }
+
+                if (len === 2) {
+                    elm.value += separator
+                }
+            })
         }
     }
 }
 </script>
 <style lang="scss">
 .convite {
-    .img-placeholder,
-    .image {
-        width: 100%;
-        height: 200px;
-    }
-
     .image {
         overflow: hidden;
         display: flex;
@@ -350,9 +382,42 @@ export default {
             position: absolute;
             right: 49px;
             top: 139px;
+            width: 204px;
+            height: 200px;
+
+            div,
+            label {
+                width: 204px;
+                height: 200px;
+            }
+
+            input {
+                width: 0;
+                height: 0;
+                visibility: hidden;
+                outline: none;
+            }
+
+            .image {
+                max-height: 200px;
+                transform: rotate(13deg);
+                width: 170px;
+                height: 166px;
+
+                &:hover {
+                    filter: brightness(60%);
+                    cursor: pointer;
+                }
+
+                img {
+                    width: 204px;
+                }
+            }
         }
 
         .photo-holder {
+            width: 204px;
+            height: 200px;
             @include embed_image(
                 '~@/assets/images/components/convite/photo-holder.png',
                 204px,
