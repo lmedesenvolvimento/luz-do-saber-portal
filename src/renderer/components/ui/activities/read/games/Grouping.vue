@@ -155,7 +155,7 @@ export default {
 
         .caixa{
             .card-input.drop-group{
-                height: 220px;
+                height: 280px;
             }
             .card{
                 .bg-color {
