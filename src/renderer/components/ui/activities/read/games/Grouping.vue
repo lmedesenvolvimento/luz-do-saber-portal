@@ -74,6 +74,16 @@
                             class="item"
                         >
                             <Item
+                                v-if="activity.title.text === 'AGRUPAMENTO'"
+                                v-b-tooltip.hover
+                                :title="item.text"
+                                :item="item"
+                                :type="'value'"
+                                :template="activity.item_template.value"
+                                :class="isBox ? 'text-grouping' : 'img-grouping'"
+                            />
+                            <Item
+                                v-else
                                 :item="item"
                                 :type="'value'"
                                 :template="activity.item_template.value"
@@ -108,7 +118,7 @@ export default {
             return this.activity.item_template.key.custom === 'game-caixa-de-palavras' ? true : false
         },
     },
-    created(){
+    created(){        
         this.addColorsToType('substantivo_comum')
         this.createAnswersArray()
     },
@@ -117,6 +127,12 @@ export default {
 
 <style lang="scss">
     #grouping-activity{
+        .tooltip-helper {
+            width: 150px;
+            height: 60px;
+            background: #222;
+        }
+
         .bg-color{
             background-color: transparent !important;
             color: $text-color;
