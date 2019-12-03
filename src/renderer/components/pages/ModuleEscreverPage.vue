@@ -11,6 +11,9 @@
         <div v-else-if="getModule.key === 'cartao'">
             <convite></convite>
         </div>
+        <div v-else-if="getModule.key === 'lista'">
+            <lista></lista>
+        </div>
         <div v-else class="page-container-wrap-spacing">
             <div v-if="getModule.key === 'editor'">
                 <editor></editor>
@@ -26,8 +29,9 @@ import Navbar from '../ui/navbars/Navbar'
 import Journal from '../ui/items/Journal'
 import Editor from '../ui/items/Editor'
 import Convite from '../ui/items/Convite'
+import Lista from '../ui/items/Lista'
 export default {
-    components: { Navbar, Journal, Editor, Convite },
+    components: { Navbar, Journal, Editor, Convite, Lista },
     computed: {
         getModuleImage() {
             return require('@/assets/images/btn-write.png')
