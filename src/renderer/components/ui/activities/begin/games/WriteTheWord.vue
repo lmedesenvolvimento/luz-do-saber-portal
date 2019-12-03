@@ -24,6 +24,8 @@
                             <label>
                                 <b-card
                                     no-body
+                                    class="write-card"
+
                                     :class="{ 'invalid': answer.invalid, 'valid': answer.valid }"
                                 >
                                     <b-card-body>
@@ -63,7 +65,6 @@ import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from '@ui/act
 import ItemComponents from '@ui/form/index.js'
 import AsyncImage from '@ui/AsyncImage'
 import { mapState, mapActions } from 'vuex'
-import { clearInterval, setTimeout, clearTimeout } from 'timers'
 
 export default {
     components: {
@@ -93,32 +94,48 @@ export default {
     },
     methods: {
         checkAnswer() {
-            if (this.answer.text != '' && this.answer.text != null) {
-                if (this.answer.text === this.getValues[0].text.toLowerCase()) {
+            let rxp = /^\S(?!\s*$).+/
+
+            if (rxp.test(this.answer.text)) {
+                // Checa se a palavra escrita é idêntica a resposta correta
+                if (this.answer.text.toLowerCase() === this.getValues[0].text.toLowerCase()) {
                     Vue.set(this.answer, 'valid', true)
                     
                     setTimeout(() => {
                         this.setAnswer({
                             type: 'value',
                             data: this.getValues[0].id,
-                            vm: this.answer
+                            vm: {}
                         })
-                    }, 2000)
+                    }, 1000)
 
-                } else if (!this.wrongWords.includes(this.answer.text)) {
+                    return
+                }
+                
+                // Caso a palavra esteja errada e ainda não tenha sido escrita
+                // a adiciona no array de palavras erradas e limpa o input
+                if (!this.wrongWords.includes(this.answer.text)) {
                     this.wrongWords.push(this.answer.text)
+                    Vue.set(this.answer, 'invalid', true)
+                    
                     this.setAnswer({
                         type: 'value',
                         data: -1,
-                        vm: this.answer
+                        vm: {}
                     })
 
-                    this.answer.text = ''
-                }
+                    setTimeout(() => {
+                        this.answer.text = ''
+                        Vue.set(this.answer, 'invalid', false)
+                    }, 1000)
 
+                    return
+                }
+            } else {
+                this.answer.text = ''
             }
         },
-        ...mapActions('Activity', ['setActivityAttrs', 'setAnswer'])
+        ...mapActions('Activity', ['setAnswer'])
     },
 }
 </script>
@@ -127,6 +144,14 @@ export default {
 .write-word {
     justify-content: flex-end;
     width: auto;
+
+    .write-card{
+        .invalid {
+            .card-body {
+                transition-delay: 5s;
+            }
+        }
+    }
 
     .image img{
         width: auto;
