@@ -147,6 +147,7 @@ export default {
             overflow-y: auto;
             max-height: 20em;
             padding: 24px;
+            font-size: 14px;
             pre {
                 white-space: pre-wrap;
                 overflow: hidden;
