@@ -62,6 +62,7 @@
                                         id="input-name"
                                         type="value"
                                         maxlength="13"
+                                        autocomplete="off"
                                         @blur="checkAwnser(...arguments, item, position)"
                                     />
                                 </b-card-body>
