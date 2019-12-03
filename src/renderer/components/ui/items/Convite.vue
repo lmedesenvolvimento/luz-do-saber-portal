@@ -3,20 +3,21 @@
         <div class="page-container">
             <div class="gameplay flex-center">
                 <div class="gameplay-body flex-center">
-                    <div class="convite-card flex-center">
+                    <div id="convite-card" class="convite-card flex-center">
                         <div class="convite-text">
                             <div class="text title">Convite</div>
                             <div class="text data">Data:</div>
                             <div class="text hora">Hora:</div>
                             <div class="text local">Local:</div>
                             <div
-                                class="input-text"
                                 v-for="text in texts"
                                 :key="text.nome"
+                                class="input-text"
                                 :class="text.nome"
                             >
                                 <textarea
                                     v-if="text.type === 'textarea'"
+                                    :id="text.nome"
                                     :placeholder="text.placeholder"
                                     maxlength="100"
                                 ></textarea>
@@ -28,6 +29,7 @@
                                     :placeholder="text.placeholder"
                                     :maxlength="text.maxLength"
                                     :class="[text.nome, 'input']"
+                                    @keypress.enter="focusNext(text.nome)"
                                 />
                             </div>
                         </div>
@@ -83,6 +85,7 @@
                                 container: '.footer-info'
                             }"
                             class="btn-convite imprimir"
+                            @click="printLetter"
                         ></div>
                         <div
                             v-b-tooltip="{
@@ -98,6 +101,18 @@
     </div>
 </template>
 <script>
+import Vue from 'vue'
+import VueHtmlToPaper from 'vue-html-to-paper'
+const options = {
+    name: '_blank',
+    specs: ['fullscreen=yes', 'titlebar=yes', 'scrollbars=yes'],
+    styles: [
+        'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
+        'https://unpkg.com/kidlat-css/css/kidlat.css',
+        '~@/assets/styles/base/print.scss'
+    ]
+}
+Vue.use(VueHtmlToPaper, options)
 export default {
     data() {
         return {
@@ -191,6 +206,20 @@ export default {
                     elm.value += separator
                 }
             })
+        },
+        focusNext(nome) {
+            const itemsLength = this.texts.length
+            const index = this.texts.findIndex((t) => t.nome === nome)
+            if (itemsLength > index + 1) {
+                document.getElementById(this.texts[index + 1].nome).focus()
+            }
+        },
+        printLetter() {
+            this.$htmlToPaper('convite-card', options)
+            if (!process.env.IS_WEB) {
+                alert('Navegador não suportado!')
+                return
+            }
         }
     }
 }
