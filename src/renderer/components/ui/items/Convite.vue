@@ -124,16 +124,12 @@
     </div>
 </template>
 <script>
+import { cloneDeep } from 'lodash'
 import Vue from 'vue'
 import VueHtmlToPaper from 'vue-html-to-paper'
 const options = {
     name: '_blank',
     specs: ['fullscreen=yes', 'titlebar=yes', 'scrollbars=yes'],
-    styles: [
-        'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
-        'https://unpkg.com/kidlat-css/css/kidlat.css',
-        '~@/assets/styles/base/print.scss'
-    ]
 }
 Vue.use(VueHtmlToPaper, options)
 export default {
@@ -195,7 +191,7 @@ export default {
         }
     },
     mounted() {
-        this.initialStateText = JSON.parse(JSON.stringify(this.texts))
+        this.initialStateText = cloneDeep(this.texts)
         const dateinput = document.getElementById('data-input')
         const timeinput = document.getElementById('hora-input')
 
@@ -256,7 +252,8 @@ export default {
             this.$refs['modal-center'].hide()
         },
         newLetter2() {
-            this.texts = JSON.parse(JSON.stringify(this.initialStateText))
+            console.log(this.initialStateText)
+            this.texts = cloneDeep(this.initialStateText)
             document.querySelector('textarea').value = ''
             this.$refs['file-convite'].value = ''
             this.convitePhoto =  ''
