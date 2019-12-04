@@ -70,6 +70,7 @@
                                 container: '.footer-info'
                             }"
                             class="btn-convite novo"
+                            @click="newLetter"
                         ></div>
                         <div
                             v-b-tooltip="{
@@ -98,6 +99,28 @@
                 </div>
             </div>
         </div>
+        <!-- Modal Place Holder -->
+        <b-modal
+            id="modal-center"
+            ref="modal-center"
+            v-model="modalShow"
+            centered
+            title="Apagar convite e começar um novo"
+            hide-footer
+        >
+            <p class="my-4">
+                Tem certeza de que deseja escrever um novo convite? O que você
+                já escreveu será descartado se não for salvo antes
+            </p>
+            <div class="modal-footer">
+                <b-button class="btn-newletter" @click="newLetter2">
+                    Sim! Escrever um novo convite
+                </b-button>
+                <b-button class="btn-closemodal" @click="closeModal">
+                    Cancelar
+                </b-button>
+            </div>
+        </b-modal>
     </div>
 </template>
 <script>
@@ -166,10 +189,13 @@ export default {
                     maxLength: 14
                 }
             ],
-            convitePhoto: ''
+            convitePhoto: '',
+            initialStateText: '',
+            modalShow: false
         }
     },
     mounted() {
+        this.initialStateText = JSON.parse(JSON.stringify(this.texts))
         const dateinput = document.getElementById('data-input')
         const timeinput = document.getElementById('hora-input')
 
@@ -179,14 +205,16 @@ export default {
     methods: {
         handleFileUpload(name) {
             let file = this.$refs[name].files[0]
-            let reader = new FileReader()
-            reader.onload = (e) => {
-                this.convitePhoto = e.target.result
+            if(file!==''){
+                let reader = new FileReader()
+                reader.onload = (e) => {
+                    this.convitePhoto = e.target.result
+                }
+                reader.onerror = function(error) {
+                    console.log(error)
+                }
+                if (file) reader.readAsDataURL(file)
             }
-            reader.onerror = function(error) {
-                console.log(error)
-            }
-            if (file) reader.readAsDataURL(file)
         },
         inputMask(elm, type) {
             const separator = type
@@ -215,11 +243,25 @@ export default {
             }
         },
         printLetter() {
-            this.$htmlToPaper('convite-card', options)
             if (!process.env.IS_WEB) {
                 alert('Navegador não suportado!')
                 return
             }
+            this.$htmlToPaper('convite-card', options)
+        },
+        newLetter() {
+            this.modalShow = !this.modalShow
+        },
+        closeModal() {
+            this.$refs['modal-center'].hide()
+        },
+        newLetter2() {
+            this.texts = JSON.parse(JSON.stringify(this.initialStateText))
+            document.querySelector('textarea').value = ''
+            this.$refs['file-convite'].value = ''
+            this.convitePhoto =  ''
+            // this.handleFileUpload('file-convite')
+            this.$refs['modal-center'].hide()
         }
     }
 }
