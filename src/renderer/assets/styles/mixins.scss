@@ -1,69 +1,82 @@
-@mixin  baloo_bhaina{
-    font-family: "Baloo Bhaina", Helvetica, sans-serif;
+@mixin baloo_bhaina {
+    font-family: 'Baloo Bhaina', Helvetica, sans-serif;
     text-transform: uppercase;
 }
 
-@mixin  itim_regular{
-    font-family: "Itim Regular", Helvetica, sans-serif;
+@mixin itim_regular {
+    font-family: 'Itim Regular', Helvetica, sans-serif;
     text-transform: uppercase;
 }
 
-@mixin  becca_script{
-    font-family: "Becca & Perry", Helvetica, sans-serif;
+@mixin becca_script {
+    font-family: 'Becca & Perry', Helvetica, sans-serif;
+}
+
+@mixin pacifico {
+    font-family: 'Pacifico', Helvetica, sans-serif;
 }
 
 @mixin card_boxshadow {
-    box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 5px 8px 0 rgba(0,0,0,.14), 0 1px 14px 0 rgba(0,0,0,.12);
+    box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2),
+        0 5px 8px 0 rgba(0, 0, 0, 0.14), 0 1px 14px 0 rgba(0, 0, 0, 0.12);
 }
 
 @mixin card_boxshadow_inset {
     box-shadow: inset 0px 0px 24px #999;
 }
 
-@mixin embed_image($url, $width, $height){
-    &::before{
+@mixin embed_image($url, $width, $height) {
+    &::before {
         background-repeat: no-repeat;
         background-color: transparent;
         background-image: url($url);
-        background-size: $width $height ;
+        background-size: $width $height;
         display: inline-block;
         width: $width;
         height: $height;
-        content:"";
+        content: '';
     }
 }
 
-@mixin custom_scroll_bar(){
+@mixin custom_scroll_bar() {
     &::-webkit-scrollbar {
         width: 7px;
         height: 7px;
     }
+
     &::-webkit-scrollbar-button {
         width: 0px;
         height: 0px;
     }
+
     &::-webkit-scrollbar-thumb {
-        background: transparentize(#999, 0.50);
+        background: transparentize(#999, 0.5);
         border: 0px none #ffffff;
         border-radius: 50px;
     }
+
     &::-webkit-scrollbar-thumb:hover {
         background: transparentize(#999, 0.3);
     }
+
     &::-webkit-scrollbar-thumb:active {
         background: transparentize(#999, 0.1);
     }
+
     &::-webkit-scrollbar-track {
         background: transparent;
         border: 0px none #ffffff;
         border-radius: 50px;
     }
+
     &::-webkit-scrollbar-track:hover {
         background: transparent;
     }
+
     &::-webkit-scrollbar-track:active {
         background: transparent;
     }
+
     &::-webkit-scrollbar-corner {
         background: transparent;
     }
@@ -78,46 +91,61 @@
     font-family: 'Shitzu Porko Light', Arial, Helvetica, sans-serif;
 }
 
-@mixin custom-card($input: false, $size: 'default'){
-    $b-radius: map-get($map: $item-types-card-border-radius, $key: $size);
+@mixin custom-card($input: false, $size: 'default') {
+    $b-radius: map-get(
+        $map: $item-types-card-border-radius,
+        $key: $size
+    );
     padding: 8px 0px;
+
     .card {
         padding: map-get($map: $item-types-card-padding, $key: $size);
-        border-radius: calc( #{$b-radius} * 0.8 );
-        box-shadow: 0px 0px 6px transparentize($color: $card-input-box-shadow-color, $amount: 0.1);
+        border-radius: calc(#{$b-radius} * 0.8);
+        box-shadow: 0px 0px 6px
+            transparentize($color: $card-input-box-shadow-color, $amount: 0.1);
         border: 1px solid #fff;
-        transition: transform 0.2s ease-in-out;    
-        .bg-color{
+        transition: transform 0.2s ease-in-out;
+
+        .bg-color {
             background: #fff;
-            border-radius: calc( #{$b-radius} * 0.8);
-            &[style]{
-                border-radius: calc( #{$b-radius} * 0.8);
+            border-radius: calc(#{$b-radius} * 0.8);
+
+            &[style] {
+                border-radius: calc(#{$b-radius} * 0.8);
                 color: #fff;
             }
+
             .card-body {
-                @include card-body-box-shadow($card-input-box-shadow-color, 0.66);
+                @include card-body-box-shadow(
+                    $card-input-box-shadow-color,
+                    0.66
+                );
             }
         }
 
         .card-body {
-            border-radius: calc( #{$b-radius} * 0.8);
+            border-radius: calc(#{$b-radius} * 0.8);
+
             @if $input {
                 border: 1px solid $card-input-dark-border-color;
             } @else {
                 border: 1px solid transparent;
             }
+
             text-align: center;
             font-size: map-get($map: $item-font-size, $key: $size);
-            padding: map-get($map: $item-types-card-body-padding, $key: $size );
+            padding: map-get($map: $item-types-card-body-padding, $key: $size);
             transition: box-shadow 0.2s ease-in-out;
-            @include card-body-box-shadow($card-input-box-shadow-color, 0.8);                   
+            @include card-body-box-shadow($card-input-box-shadow-color, 0.8);
         }
 
-        &.valid, &.invalid{
-            .bg-color{
+        &.valid,
+        &.invalid {
+            .bg-color {
                 background-color: transparent !important;
                 color: $text-color !important;
             }
+
             &::after {
                 position: absolute;
                 top: 0;
@@ -135,32 +163,46 @@
                 background-size: contain;
             }
         }
-        &.valid{
+
+        &.valid {
             .card-body {
-                @include card-body-box-shadow($card-input-box-shadow-success-color, 0.0, 3px);
+                @include card-body-box-shadow(
+                    $card-input-box-shadow-success-color,
+                    0,
+                    3px
+                );
             }
-            &::after{
+
+            &::after {
                 background-image: url('~@/assets/images/icons/success.png');
                 animation: blink 1s ease-in-out;
                 transition: opacity ease-out 1s;
                 opacity: 0;
             }
         }
-        &.invalid{
+
+        &.invalid {
             .card-body {
-                @include card-body-box-shadow($card-input-box-shadow-danger-color, 0.0, 3px);
+                @include card-body-box-shadow(
+                    $card-input-box-shadow-danger-color,
+                    0,
+                    3px
+                );
             }
-            &::after{
+
+            &::after {
                 background-image: url('~@/assets/images/icons/fail.png');
                 animation: blink 1s ease-in-out;
                 transition: opacity ease-out 1s;
                 opacity: 0;
             }
         }
-        &.selected{
+
+        &.selected {
             background-color: #ccc;
         }
-        pre{
+
+        pre {
             @include itim_regular;
             @include custom_scroll_bar;
             margin: 10px 0px;
@@ -169,53 +211,60 @@
     }
 
     &.card--droppable {
-        .card{
-            &:not(.valid):not(.invalid){
+        .card {
+            &:not(.valid):not(.invalid) {
                 .card-body > div {
-                    &::after{
+                    &::after {
                         content: '\0000a0';
                         display: inline-block;
                         width: 0px;
                         height: map-get($map: $item-font-size, $key: $size);
-                    }     
+                    }
                 }
             }
         }
     }
 
-    &.card--input-text{
-        input{
+    &.card--input-text {
+        input {
             height: map-get($map: $item-font-size, $key: $size);
             font-size: map-get($map: $item-font-size, $key: $size);
         }
     }
 
-    &.card--draggable{
-        &:hover{
+    &.card--draggable {
+        &:hover {
             cursor: pointer;
         }
-        .dragging, .dropped{
-            &::before{
+
+        .dragging,
+        .dropped {
+            &::before {
                 @include custom-dropcard-content(
-                    $decreaseW: map-get($map: $item-types-card-padding, $key: $size),
-                    $decreaseH: map-get($map: $item-types-card-padding, $key: $size),
+                    $decreaseW:
+                        map-get($map: $item-types-card-padding, $key: $size),
+                    $decreaseH:
+                        map-get($map: $item-types-card-padding, $key: $size),
                     $size: $size
                 );
-            }            
-        }        
+            }
+        }
     }
 
-    &.card--droppable{
-        .card{
-            .card-body{
+    &.card--droppable {
+        .card {
+            .card-body {
                 overflow: hidden;
                 white-space: nowrap;
             }
-            &:not(.valid):not(.invalid){
-                &::before{
+
+            &:not(.valid):not(.invalid) {
+                &::before {
                     @include custom-dropcard-content(
-                        $decreaseW: map-get($map: $item-types-card-padding, $key: $size),
-                        $decreaseH: map-get($map: $item-types-card-padding, $key: $size),
+                        $decreaseW:
+                            map-get($map: $item-types-card-padding, $key: $size),
+                        $decreaseH:
+                            map-get($map: $item-types-card-padding, $key: $size),
                         $size: $size
                     );
                 }
@@ -226,36 +275,49 @@
 
 @mixin item($value) {
     &.texto {
-        [class*="card--"], .draggshadow {
+        [class*='card--'],
+        .draggshadow {
             width: $value;
             margin: auto;
         }
     }
+
     &.imagem {
-        [class*="card--"]{
-            .card-body{
+        [class*='card--'] {
+            .card-body {
                 padding: 4px;
             }
         }
     }
-    .card--display{
+
+    .card--display {
         &.card-inline-player {
-            width: ( $value + $inline-player-width ) !important;
+            width: ($value + $inline-player-width) !important;
         }
     }
 }
 
-@mixin custom-dropcard-content($decreaseW: 0.125rem, $decreaseH: 0.125rem, $border-radius-multiplier: 0.8, $size: 'default'){
-    $b-radius: map-get($map: $item-types-card-border-radius, $key: $size);
+@mixin custom-dropcard-content(
+    $decreaseW: 0.125rem,
+    $decreaseH: 0.125rem,
+    $border-radius-multiplier: 0.8,
+    $size: 'default'
+) {
+    $b-radius: map-get(
+        $map: $item-types-card-border-radius,
+        $key: $size
+    );
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
+
     @if $decreaseW {
-        width: calc(100% - #{ $decreaseW + 0.2rem });
-        height: calc(100% - #{ $decreaseH + 0.2rem });
+        width: calc(100% - #{$decreaseW + 0.2rem});
+        height: calc(100% - #{$decreaseH + 0.2rem});
     }
+
     margin: auto;
     background-color: $card-empty-color;
     border-radius: calc(#{$b-radius} * #{$border-radius-multiplier});
@@ -266,5 +328,5 @@
 
 // Card
 @mixin card-body-box-shadow($color, $amount: 0.66, $border-width: 4px) {
- box-shadow: inset 0px 0px 0px $border-width transparentize($color, $amount);
+    box-shadow: inset 0px 0px 0px $border-width transparentize($color, $amount);
 }
