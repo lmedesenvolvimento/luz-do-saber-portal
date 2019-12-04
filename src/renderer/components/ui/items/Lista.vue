@@ -90,16 +90,12 @@
     </div>
 </template>
 <script>
+import { cloneDeep } from 'lodash'
 import Vue from 'vue'
 import VueHtmlToPaper from 'vue-html-to-paper'
 const options = {
     name: '_blank',
     specs: ['fullscreen=yes', 'titlebar=yes', 'scrollbars=yes'],
-    styles: [
-        'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
-        'https://unpkg.com/kidlat-css/css/kidlat.css',
-        '~@/assets/styles/base/print.scss'
-    ]
 }
 Vue.use(VueHtmlToPaper, options)
 export default {
@@ -130,7 +126,7 @@ export default {
         }
     },
     mounted() {
-        this.initialStateText = JSON.parse(JSON.stringify(this.items))
+        this.initialStateText = cloneDeep(this.items)
     },
     methods: {
         updateInputs(el) {
@@ -167,7 +163,7 @@ export default {
             this.$refs['modal-center'].hide()
         },
         newLetter2() {
-            this.items = JSON.parse(JSON.stringify(this.initialStateText))
+            this.items = cloneDeep(this.initialStateText)
             this.$refs['modal-center'].hide()
         }
     }
