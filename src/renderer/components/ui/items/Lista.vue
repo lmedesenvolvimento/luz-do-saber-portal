@@ -287,6 +287,10 @@ export default {
                     &.convidados {
                         background-image: url('~@/assets/images/components/lista/lista-de-convidados.png');
                     }
+
+                    &.desejos {
+                        background-image: url('~@/assets/images/components/lista/lista-de-desejos.png');
+                    }
                 }
 
                 .list-title {
