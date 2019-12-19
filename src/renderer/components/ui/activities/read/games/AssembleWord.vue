@@ -31,16 +31,24 @@
                 }"
                 class="activity-values"
             >
-                <b-row>
-                    <b-col v-for="(item, position) in getValues" :key="position" align-self="center" :md="valueColSize" :sm="6" class="item"> 
-                        <Item 
-                            v-if="answers"
-                            :item="item"
-                            :type="'value'"
-                            :template="activity.item_template.value"
-                        />
-                    </b-col>                    
-                </b-row>
+                <div class="card--display">
+                    <div class="card">
+                        <div class="bg-color">
+                            <div class="card-body">
+                                <b-row align-v="center" align-h="center">
+                                    <b-col v-for="(item, position) in getValues" :key="position" align-self="center" :md="valueColSize" :sm="4" class="item"> 
+                                        <Item 
+                                            v-if="answers"
+                                            :item="item"
+                                            :type="'value'"
+                                            :template="activity.item_template.value"
+                                        />
+                                    </b-col>
+                                </b-row>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </b-col>
         </b-row>
     </div>
