@@ -14,9 +14,9 @@ export const ItemProps = {
             require: false
         },
         template: Object,
-        group: Boolean,
+        group: Boolean
     },
-    data(){
+    data() {
         return {
             Types: ItemTypes,
             ActivityTypes: ActivityTypes
@@ -24,22 +24,32 @@ export const ItemProps = {
     },
     components: { ...FormInputs },
     computed: {
-        isJoinInput(){
-            return values(ActivityTypes.activity.join).includes(this.activity.type.slug)
+        isJoinInput() {
+            return values(ActivityTypes.activity.join).includes(
+                this.activity.type.slug
+            )
         },
-        isInput(){
+        isInput() {
             return this.hasTags && /input/.test(this.template.tags)
         },
-        isDrag(){
-            return this.hasTags && this.type === 'value' && /arrastar/.test(this.template.tags)
+        isDrag() {
+            return (
+                this.hasTags &&
+                this.type === 'value' &&
+                /arrastar/.test(this.template.tags)
+            )
         },
-        isDrop(){
-            return this.hasTags && this.type === 'key' && /encaixar/.test(this.template.tags)
+        isDrop() {
+            return (
+                this.hasTags &&
+                this.type === 'key' &&
+                /encaixar/.test(this.template.tags)
+            )
         },
-        hasTags(){
-            return ( this.template && this.template.tags ) ? true : false
+        hasTags() {
+            return this.template && this.template.tags ? true : false
         },
-        ...mapState('Activity', ['activity','answers'])
+        ...mapState('Activity', ['activity', 'answers'])
     }
 }
 
@@ -51,7 +61,8 @@ export default {
     'ls-item-text-image': require('./TextImage.vue').default,
     'ls-item-checkmark': require('./custom/CardCheckMark.vue').default,
     'ls-item-cracha-box': require('./custom/CrachaBox.vue').default,
-    'ls-card-display-validacao': require('./custom/CardDisplayValidacao.vue').default,
+    'ls-card-display-validacao': require('./custom/CardDisplayValidacao.vue')
+        .default,
     'ls-display-18-items': require('./custom/Display18Items.vue').default,
     'ls-item-texto-em-blocos': require('./custom/TextoEmBlocos.vue').default,
     'ls-item-inicial-amigos': require('./custom/InicialAmigos.vue').default,

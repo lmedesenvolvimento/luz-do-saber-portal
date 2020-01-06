@@ -11,15 +11,6 @@ export default {
             type: [String, Object],
             required: true
         },
-        selectedObjects: {
-            type: Array,
-            required: true
-        },
-        replaceOndrop: {
-            type: Function,
-            required: false,
-            default: null
-        },
         snap: {
             type: Object,
             required: false,
@@ -98,7 +89,7 @@ export default {
             event.relatedTarget.classList.add('can-drop')
         },
         ondragleave(event, snap) {
-            event.target.classList.remove('drop-target')
+            // event.target.classList.remove('drop-target')
             event.relatedTarget.classList.remove('can-drop')
             event.draggable.draggable({ snap })
         },
@@ -113,22 +104,18 @@ export default {
             if (data.dropped !== undefined && !data.dropped) {
                 data.dropped = true
             }
+            this.$emit('ondropEvent', event, this.expected, dropped)
         },
         ondropdeactivate(event) {
-            event.target.classList.remove('drop-active')
-            event.target.classList.remove('drop-target')
+            // event.target.classList.remove('drop-active')
+            // event.target.classList.remove('drop-target')
         }
     }
 }
 </script>
 <style lang="scss">
-.drop {
-    position: relative;
-    @include flex-center;
-    width: 222px;
-    height: 218px;
-
-    &.over {
+.drop-el {
+    &.drop-target {
         filter: brightness(90%);
     }
 }
