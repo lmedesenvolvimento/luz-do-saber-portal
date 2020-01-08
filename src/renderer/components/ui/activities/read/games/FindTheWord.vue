@@ -76,26 +76,27 @@ export default {
         let indexAwnser = 0
         this.getValues.forEach((e, index, values)=>{
             e.isInput = false
-            if (index === 0) {
-                line.push(e)
+            // create line
+            line.push(e)
+            if (e.type === 'substantivo_proprio' || e.type === 'substantivo_comum'){
+                // add equals in array
+                line.push({text:'=', type:'caractere_especial', isInput: false})
+                this.awnsers[indexAwnser].isInput = true
+                // add awnser in array with correct key
+                line.push(this.awnsers[indexAwnser])
+                indexAwnser++
+                // add full line in the array lines, this array going to call when mount lines in template
+                this.lines.push(line)
+                // clean the line for create new line
+                line = []
             }
             else {
-                if (e.type === 'substantivo_proprio' || e.type === 'substantivo_comum'){
+                line.push(e)
+                if (index === values.length-1) {
                     line.push({text:'=', type:'caractere_especial', isInput: false})
                     this.awnsers[indexAwnser].isInput = true
                     line.push(this.awnsers[indexAwnser])
-                    indexAwnser++
                     this.lines.push(line)
-                    line = []
-                    line.push(e)
-                } else {
-                    line.push(e)
-                    if (index === values.length-1) {
-                        line.push({text:'=', type:'caractere_especial', isInput: false})
-                        this.awnsers[indexAwnser].isInput = true
-                        line.push(this.awnsers[indexAwnser])
-                        this.lines.push(line)
-                    }
                 }
             }
         })
