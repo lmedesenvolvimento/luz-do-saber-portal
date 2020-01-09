@@ -1,9 +1,13 @@
-.jigsaw{
-    .total{
+.jigsaw {
+    .dragzone {
+        z-index: 100;
+    }
+
+    .total {
         width: 360px;
         height: 240px;
         background-image: url('~@/assets/images/components/navbar/navbar-bg.png');
-        background-color: #C72929;
+        background-color: #c72929;
         color: white;
         display: flex;
         align-items: center;
@@ -11,42 +15,42 @@
         flex-direction: column;
         user-select: none;
         cursor: default;
-        .inicial{
+        .inicial {
             font-size: 160px;
         }
-        .name{
+        .name {
             font-size: 34px;
         }
     }
 
-    .peca{
+    .peca {
         width: 180px;
         height: 120px;
         overflow: hidden;
         position: relative;
-        .p0{
+        .p0 {
             position: absolute;
             left: 0;
             top: 0;
         }
-        .p1{
+        .p1 {
             position: absolute;
             right: 0;
             top: 0;
         }
-        .p2{
+        .p2 {
             position: absolute;
             left: 0;
             bottom: 0;
         }
-        .p3{
+        .p3 {
             position: absolute;
             right: 0;
             bottom: 0;
         }
     }
 
-    .pecas{
+    .pecas {
         display: flex;
         flex-wrap: wrap;
         width: 365px;
@@ -55,27 +59,27 @@
         justify-content: space-around;
     }
 
-    .drag-container{
+    .drag-container {
         width: 385px;
         height: 325px;
         position: relative;
-        .draggable{
+        .draggable {
             position: absolute;
         }
     }
 
-    .drop-container{
-        &.droppable{
+    .drop-container {
+        &.droppable {
             filter: grayscale(100%);
             opacity: 0.3;
         }
         &.static,
-        &.success{
+        &.success {
             opacity: 1;
         }
-        &.fail{
+        &.fail {
             opacity: 0.8;
-            &::before{
+            &::before {
                 background-image: url('~@/assets/images/icons/fail.png');
                 background-size: 22px 23px;
                 width: 22px;
@@ -83,25 +87,25 @@
                 position: absolute;
                 content: '';
             }
-            &.p0::before{
+            &.p0::before {
                 left: 10px;
                 top: 49px;
             }
-            &.p2::before{
+            &.p2::before {
                 left: 10px;
                 top: 169px;
             }
-            &.p1::before{
+            &.p1::before {
                 right: 10px;
                 top: 49px;
             }
-            &.p3::before{
+            &.p3::before {
                 right: 10px;
                 top: 169px;
             }
         }
-        &.success{
-            &::before{
+        &.success {
+            &::before {
                 background-image: url('~@/assets/images/icons/success.png');
                 background-size: 22px 23px;
                 width: 22px;
@@ -109,31 +113,30 @@
                 position: absolute;
                 content: '';
             }
-            &.p0::before{
+            &.p0::before {
                 left: 10px;
                 top: 49px;
             }
-            &.p2::before{
+            &.p2::before {
                 left: 10px;
                 top: 169px;
             }
-            &.p1::before{
+            &.p1::before {
                 right: 10px;
                 top: 49px;
             }
-            &.p3::before{
+            &.p3::before {
                 right: 10px;
                 top: 169px;
             }
         }
     }
-    @include media-breakpoint-down('md'){
-        .jigsaw-container{
+    @include media-breakpoint-down('md') {
+        .jigsaw-container {
             flex-direction: column-reverse;
         }
-        .dragzone{
+        .dragzone {
             padding-top: 60px;
         }
     }
 }
-
