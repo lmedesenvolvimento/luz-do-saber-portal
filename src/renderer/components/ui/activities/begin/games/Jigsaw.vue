@@ -8,13 +8,13 @@
                             <div
                                 v-for="key in activeCards"
                                 :key="key.id"
-                                :style="cards[key.id].style"
+                                :style="key.style"
                                 class="draggable"
                             >
                                 <drag
                                     :data-transfer="key"
-                                    @onstartEvent="overEl(key)"
-                                    @onendEvent="hideEl(key)"
+                                    :snap-on="key.snapOn"
+                                    :dropped="key.dropped"
                                 >
                                     <div class="peca">
                                         <div
@@ -44,7 +44,9 @@
                         >
                             <drop
                                 :expected="key"
-                                @ondropEvent="onDrop(...arguments)"
+                                @ondropEvent="onDrop"
+                                @onhoverEvent="lightEl"
+                                @onhoverEndEvent="darkEl"
                             >
                                 <div class="peca">
                                     <div
@@ -94,9 +96,13 @@ export default {
                     class: 'static',
                     dragging: false,
                     dropped: true,
-                    style: { left: 0, top: 0, 'z-index': 0 },
-                    offsetX: 35,
-                    offsetY: 35,
+                    style: {
+                        left: 0,
+                        top: 0,
+                        'z-index': 0,
+                        transform: 'translate(465.25px, 41.25px)'
+                    },
+                    snapOn: '',
                     id: 0,
                     value_ids: 0
                 },
@@ -104,9 +110,13 @@ export default {
                     class: 'static',
                     dragging: false,
                     dropped: true,
-                    style: { left: '190px', top: '190px', 'z-index': 0 },
-                    offsetX: 215,
-                    offsetY: 35,
+                    style: {
+                        left: '190px',
+                        top: '190px',
+                        'z-index': 0,
+                        transform: 'translate(457.75px, -148.75px)'
+                    },
+                    snapOn: '',
                     id: 1,
                     value_ids: 1
                 },
@@ -114,9 +124,13 @@ export default {
                     class: 'static',
                     dragging: false,
                     dropped: true,
-                    style: { left: '190px', top: '40px', 'z-index': 0 },
-                    offsetX: 35,
-                    offsetY: 155,
+                    style: {
+                        left: '190px',
+                        top: '40px',
+                        'z-index': 0,
+                        transform: 'translate(275.25px, 123.75px)'
+                    },
+                    snapOn: '',
                     id: 2,
                     value_ids: 2
                 },
@@ -124,9 +138,13 @@ export default {
                     class: 'static',
                     dragging: false,
                     dropped: true,
-                    style: { left: 0, top: '150px', 'z-index': 0 },
-                    offsetX: 215,
-                    offsetY: 155,
+                    style: {
+                        left: 0,
+                        top: '150px',
+                        'z-index': 0,
+                        transform: 'translate(647.75px, 13.75px)'
+                    },
+                    snapOn: '',
                     id: 3,
                     value_ids: 3
                 }
@@ -136,9 +154,7 @@ export default {
     },
     computed: {
         activeCards: function() {
-            return this.cards.filter(function(c) {
-                return !c.dropped
-            })
+            return this.cards
         }
     },
     created() {
@@ -151,6 +167,8 @@ export default {
                 setTimeout(function timer() {
                     cards[i].class = 'droppable'
                     cards[i].dropped = false
+                    cards[i].snapOn = 'self'
+                    cards[i].style.transform = 'translate(0,0)'
                 }, i * 300)
             }
         }, 1800)
@@ -176,17 +194,10 @@ export default {
             let card = this.cards[index]
             card.dragging = true
         },
-        hideEl(item) {
-            item.style['z-index'] = 0
-        },
-        overEl(item) {
-            item.style['z-index'] = 10001
-        },
         onDragEnd(index, transferData, nativeElement) {
             let card = this.cards[index]
 
             if (transferData.valid) {
-                card.dropped = true
                 if (every(this.cards, 'dropped'))
                     setTimeout(() =>
                         this.setAnswer({
@@ -205,36 +216,59 @@ export default {
                 card.dragging = false
             }
         },
+        lightEl(event, isFull) {
+            let parent = event.currentTarget.parentElement
+            parent.style.filter = 'grayscale(50%)'
+            parent.style.opacity = 0.6
+            if (isFull === 'full') {
+                parent.style.filter = 'grayscale(0%)'
+                parent.style.opacity = 1
+            }
+        },
+        darkEl(event) {
+            let parent = event.currentTarget.parentElement
+            parent.style.filter = 'grayscale(100%)'
+            parent.style.opacity = 0.3
+        },
         onDrop(event, correct, dropped) {
-            console.log({ event, correct, dropped })
+            let card = correct
+            let transferData = this.cards.find((c) => c.id === dropped[0].id)
+            if (card.dropped) return false
+            console.log(this.cards.filter((c) => c.dropped))
+            this.lightEl(event, 'full')
+            this.dragging = true
+            transferData.dropped = true
+            transferData.snapOn = 'dropzone'
 
-            // let card = this.cards[index]
-            // if (card.dropped) return false
-            // this.transferData = transferData
-            // this.dragging = true
+            if (correct.id === transferData.id) {
+                card.class = 'success'
+                transferData.valid = true
+                this.dragging = false
+                this.onDragEnd(
+                    transferData.id,
+                    transferData,
+                    event.relatedTarget
+                )
+            } else {
+                // correct.value_ids = transferData.id
+                card.class = 'fail'
+                setTimeout(() => {
+                    card.class = 'droppable'
+                    // correct.value_ids = correct.id
+                    this.darkEl(event)
+                    transferData.snapOn = 'self'
+                    transferData.dropped = false
+                    this.dragging = false
+                    dropped.length = 0
+                }, 1200)
+                this.setAnswer({
+                    type: 'value',
+                    data: -1,
+                    vm: this
+                })
 
-            // console.log({ card, key })
-            // console.log(card === key)
-            // if (key.id === transferData.id) {
-            //     card.class = 'success'
-            //     transferData.valid = true
-            //     this.dragging = false
-            // } else {
-            //     key.value_ids = transferData.id
-            //     card.class = 'fail'
-            //     setTimeout(() => {
-            //         card.class = 'droppable'
-            //         key.value_ids = key.id
-            //         this.dragging = false
-            //     }, 1200)
-            //     this.setAnswer({
-            //         type: 'value',
-            //         data: -1,
-            //         vm: this
-            //     })
-
-            //     transferData.invalid = true
-            // }
+                transferData.invalid = true
+            }
         },
         ...mapActions('Activity', ['setActivityAttrs', 'setAnswer'])
     }
