@@ -87,11 +87,13 @@ export default {
             })
             event.target.classList.add('drop-target')
             event.relatedTarget.classList.add('can-drop')
+            this.$emit('onhoverEvent', event)
         },
         ondragleave(event, snap) {
             // event.target.classList.remove('drop-target')
             event.relatedTarget.classList.remove('can-drop')
             event.draggable.draggable({ snap })
+            this.$emit('onhoverEndEvent', event)
         },
         ondrop(event, dropped, snap) {
             event.draggable.draggable({ enabled: false })
@@ -99,8 +101,6 @@ export default {
                 event.relatedTarget.getAttribute('data-transfer')
             )
             dropped.push(data)
-            event.relatedTarget.offsetParent.offsetParent.style.transform =
-                'rotate(0deg)'
             if (data.dropped !== undefined && !data.dropped) {
                 data.dropped = true
             }
@@ -113,10 +113,4 @@ export default {
     }
 }
 </script>
-<style lang="scss">
-.drop-el {
-    &.drop-target {
-        filter: brightness(90%);
-    }
-}
-</style>
+<style lang="scss"></style>

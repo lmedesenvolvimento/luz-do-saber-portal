@@ -33,6 +33,11 @@ export default {
             type: Boolean,
             required: false,
             default: false
+        },
+        snapOn: {
+            type: String,
+            required: true,
+            default: 'self'
         }
     },
     data() {
@@ -49,6 +54,13 @@ export default {
             rotation: 0,
             translation: '',
             modeledDataTransfer: JSON.stringify(this.dataTransfer)
+        }
+    },
+    watch: {
+        snapOn: {
+            handler(value) {
+                if (value === 'self') this.resetOptionsState()
+            }
         }
     },
     mounted() {
@@ -89,12 +101,16 @@ export default {
             const startY = rect.top + rect.height / 2
             event.target.setAttribute('data-start-x', startX)
             event.target.setAttribute('data-start-y', startY)
+            const target = this.$el.parentElement
+            target.style['z-index'] = 10001
             this.$emit('onstartEvent', this.dataTransfer)
         },
         onEnd(event) {
             if (this.sigmoidInterval !== '') clearInterval(this.sigmoidInterval)
             event.target.style.transition = '0.1s'
             event.target.style.transform = this.translation + ' rotate(0deg)'
+            const target = this.$el.parentElement
+            target.style['z-index'] = 1
             this.$emit('onendEvent', this.dataTransfer)
         },
         sigmoid(x) {
@@ -107,6 +123,31 @@ export default {
                     translation + `rotate(${this.rotation}deg)`
                 if (Math.abs(this.rotation) < 0.01) this.rotation = 0
             }
+        },
+        resetOptionsState() {
+            const element = interact(this.$el.firstChild)
+            element.draggable({ enabled: true })
+            const snap = {
+                targets: [{ x: 0, y: 0, range: Infinity }],
+                relativePoints: [{ x: 0, y: 0 }],
+                enabled: true,
+                endOnly: true,
+                offset: 'self'
+            }
+            element.draggable({ snap })
+            this.$el.firstChild.style.transform = 'translate(0,0)'
+            this.$el.firstChild.setAttribute('data-start-x', 0)
+            this.$el.firstChild.setAttribute('data-start-y', 0)
+            this.$el.firstChild.setAttribute('data-x', 0)
+            this.$el.firstChild.setAttribute('data-y', 0)
+            // const dropSpace = document.querySelector('.drop')
+            // dropSpace.classList.add('drop-space')
+            // element.dropped = false
+            // element.droppedArr.length = 0
+            // p.dropped = false
+            // p.dragging = true
+            // this.draggableElements.length = 0
+            // setTimeout(() => (p.dragging = false), 400)
         }
     }
 }
