@@ -46,11 +46,9 @@ export default {
             snap: {
                 enabled: false
             },
-            ondropactivate: (event) => this.ondropactivate(event),
             ondragenter: (event) => this.ondragenter(event),
             ondragleave: (event) => this.ondragleave(event, snap),
-            ondrop: (event) => this.ondrop(event, droppedArr, snap),
-            ondropdeactivate: (event) => this.ondropdeactivate(event)
+            ondrop: (event) => this.ondrop(event, droppedArr, snap)
         })
     },
     methods: {
@@ -90,7 +88,6 @@ export default {
             this.$emit('onhoverEvent', event)
         },
         ondragleave(event, snap) {
-            // event.target.classList.remove('drop-target')
             event.relatedTarget.classList.remove('can-drop')
             event.draggable.draggable({ snap })
             this.$emit('onhoverEndEvent', event)
@@ -105,10 +102,6 @@ export default {
                 data.dropped = true
             }
             this.$emit('ondropEvent', event, this.expected, dropped)
-        },
-        ondropdeactivate(event) {
-            // event.target.classList.remove('drop-active')
-            // event.target.classList.remove('drop-target')
         }
     }
 }

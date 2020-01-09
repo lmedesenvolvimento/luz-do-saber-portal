@@ -127,27 +127,13 @@ export default {
         resetOptionsState() {
             const element = interact(this.$el.firstChild)
             element.draggable({ enabled: true })
-            const snap = {
-                targets: [{ x: 0, y: 0, range: Infinity }],
-                relativePoints: [{ x: 0, y: 0 }],
-                enabled: true,
-                endOnly: true,
-                offset: 'self'
-            }
+            const snap = this.initialSnapTarget
             element.draggable({ snap })
             this.$el.firstChild.style.transform = 'translate(0,0)'
             this.$el.firstChild.setAttribute('data-start-x', 0)
             this.$el.firstChild.setAttribute('data-start-y', 0)
             this.$el.firstChild.setAttribute('data-x', 0)
             this.$el.firstChild.setAttribute('data-y', 0)
-            // const dropSpace = document.querySelector('.drop')
-            // dropSpace.classList.add('drop-space')
-            // element.dropped = false
-            // element.droppedArr.length = 0
-            // p.dropped = false
-            // p.dragging = true
-            // this.draggableElements.length = 0
-            // setTimeout(() => (p.dragging = false), 400)
         }
     }
 }
