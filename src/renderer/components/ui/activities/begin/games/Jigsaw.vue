@@ -67,7 +67,6 @@
 </template>
 
 <script>
-// import Item from '@/components/ui/items/Item'
 import { every } from 'lodash'
 import {
     ListMixin,
@@ -77,7 +76,6 @@ import {
 } from '@ui/activities/mixins'
 import Drag from '@ui/items/Drag'
 import Drop from '@ui/items/Drop'
-import interact from 'interactjs'
 import ui from '@/components/ui'
 
 import { mapActions } from 'vuex'
@@ -207,14 +205,6 @@ export default {
                         })
                     )
             }
-            if (transferData.invalid) {
-                setTimeout(() => {
-                    card.dragging = false
-                    transferData.invalid = false
-                }, 600)
-            } else {
-                card.dragging = false
-            }
         },
         lightEl(event, isFull) {
             let parent = event.currentTarget.parentElement
@@ -233,8 +223,7 @@ export default {
         onDrop(event, correct, dropped) {
             let card = correct
             let transferData = this.cards.find((c) => c.id === dropped[0].id)
-            if (card.dropped) return false
-            console.log(this.cards.filter((c) => c.dropped))
+            if (transferData.dropped) return false
             this.lightEl(event, 'full')
             this.dragging = true
             transferData.dropped = true
@@ -250,11 +239,9 @@ export default {
                     event.relatedTarget
                 )
             } else {
-                // correct.value_ids = transferData.id
                 card.class = 'fail'
                 setTimeout(() => {
                     card.class = 'droppable'
-                    // correct.value_ids = correct.id
                     this.darkEl(event)
                     transferData.snapOn = 'self'
                     transferData.dropped = false
@@ -266,8 +253,6 @@ export default {
                     data: -1,
                     vm: this
                 })
-
-                transferData.invalid = true
             }
         },
         ...mapActions('Activity', ['setActivityAttrs', 'setAnswer'])
