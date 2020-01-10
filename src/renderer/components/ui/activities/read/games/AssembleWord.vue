@@ -30,21 +30,23 @@
                     'flex-4': getValues.length >= 12
                 }"
                 class="activity-values"
-            >
-                <div class="card--display">
-                    <div class="card">
-                        <div class="bg-color">
-                            <div class="card-body">
-                                <b-row align-v="center" align-h="center">
-                                    <b-col v-for="(item, position) in getValues" :key="position" align-self="center" :md="valueColSize" :sm="4" class="item"> 
-                                        <Item 
-                                            v-if="answers"
-                                            :item="item"
-                                            :type="'value'"
-                                            :template="activity.item_template.value"
-                                        />
-                                    </b-col>
-                                </b-row>
+            >   
+                <div class="col-md-12 col-12">
+                    <div class="card--display">
+                        <div class="card">
+                            <div class="bg-color">
+                                <div class="card-body">
+                                    <b-row align-v="center" align-h="center">
+                                        <b-col v-for="(item, position) in getValues" :key="position" align-self="center" class="item"> 
+                                            <Item 
+                                                v-if="answers"
+                                                :item="item"
+                                                :type="'value'"
+                                                :template="activity.item_template.value"
+                                            />
+                                        </b-col>
+                                    </b-row>
+                                </div>
                             </div>
                         </div>
                     </div>
