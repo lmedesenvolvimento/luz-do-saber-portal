@@ -73,29 +73,28 @@ export default {
     mounted() {
         this.createAnswersArray()
         let line = []
-        let indexAwnser = 0
         this.getValues.forEach((e, index, values)=>{
             e.isInput = false
+            let awnser = this.awnsers.find(el => el.id === e.key_id)
             // create line
-            line.push(e)
             if (e.type === 'substantivo_proprio' || e.type === 'substantivo_comum'){
+                line.push(e)
                 // add equals in array
                 line.push({text:'=', type:'caractere_especial', isInput: false})
-                this.awnsers[indexAwnser].isInput = true
+                awnser.isInput = true
                 // add awnser in array with correct key
-                line.push(this.awnsers[indexAwnser])
-                indexAwnser++
+                line.push(awnser)
                 // add full line in the array lines, this array going to call when mount lines in template
                 this.lines.push(line)
                 // clean the line for create new line
                 line = []
             }
             else {
-                line.push(e)
                 if (index === values.length-1) {
+                    line.push(e)
                     line.push({text:'=', type:'caractere_especial', isInput: false})
-                    this.awnsers[indexAwnser].isInput = true
-                    line.push(this.awnsers[indexAwnser])
+                    awnser.isInput = true
+                    line.push(awnser)
                     this.lines.push(line)
                 }
             }
