@@ -5,7 +5,7 @@
                 <b-row>
                     <b-col v-for="(line, position) in lines" :key="position" cols="12">
                         <b-row align-h="center" align-v="center">
-                            <b-col v-for="(item, position2) in line" :key="position2" align-self="center" class="item" :md="getItemSize(item)">
+                            <b-col v-for="(item, position2) in line" :key="position2" align-self="center" class="item" :md="item.colSize">
                                 <b-row v-if="!item.isInput">
                                     <b-col v-if="item.type !=='caractere_especial'">
                                         <ls-card-display>
@@ -72,40 +72,25 @@ export default {
     },
     mounted() {
         this.createAnswersArray()
-        let line = []
-        let indexAwnser = 0
-        this.getValues.forEach((e, index, values)=>{
-            e.isInput = false
-            // create line
-            line.push(e)
-            if (e.type === 'substantivo_proprio' || e.type === 'substantivo_comum'){
-                // add equals in array
-                line.push({text:'=', type:'caractere_especial', isInput: false})
-                this.awnsers[indexAwnser].isInput = true
-                // add awnser in array with correct key
-                line.push(this.awnsers[indexAwnser])
-                indexAwnser++
-                // add full line in the array lines, this array going to call when mount lines in template
-                this.lines.push(line)
-                // clean the line for create new line
-                line = []
-            }
-            else {
-                line.push(e)
-                if (index === values.length-1) {
-                    line.push({text:'=', type:'caractere_especial', isInput: false})
-                    this.awnsers[indexAwnser].isInput = true
-                    line.push(this.awnsers[indexAwnser])
-                    this.lines.push(line)
-                }
-            }
-        })
-    },methods: {
-        getItemSize(item){
-            if (item.isInput)
-                return 4
-            else
-                return 1
+        this.mountLineQuestion()
+    },
+    methods: {
+        mountLineQuestion() {
+            this.awnsers.forEach(a => {
+                // Make awnser true for active input type
+                a.isInput = true
+                a.colSize = 4
+                // Search values linked to awnser
+                const values = this.getValues.filter(el => el.key_id === a.id)
+                // Mount text showed
+                let text = values.map(v => v.text).join(' ')
+                // Append line to lines
+                this.lines.push([
+                    { text, type: a.type, isInput: false, colSize: 4 },
+                    { text:'=', type:'caractere_especial', isInput: false, colSize: 1 },
+                    a
+                ])
+            })
         },
         checkAwnser(event, item, linePosition, itemPosition) {
             const updates = clone(this.lines)
