@@ -17,6 +17,10 @@ export default {
             default() {
                 return undefined
             }
+        },
+        objects: {
+            type: [Array, Object],
+            required: false
         }
     },
     data() {
@@ -37,10 +41,16 @@ export default {
     mounted() {
         const snap = this.initialSnapTarget
         const droppedArr = this.dropped
+        const expected = this.expected
+        const check = this.checkdrop
         interact(this.$el).dropzone({
             accept: '.drag-el',
             overlap: 0.25,
             checker(dragEvent, event, dropped) {
+                // const dragId = JSON.parse(
+                //     draggableElement.getAttribute('data-transfer')
+                // )
+                // const canDrop = expected.value_ids.includes(dragId.id)
                 return dropped && !droppedArr.length > 0
             },
             snap: {
@@ -92,14 +102,32 @@ export default {
             event.draggable.draggable({ snap })
             this.$emit('onhoverEndEvent', event)
         },
+        checkdrop(drop, expected) {
+            return drop.id === expected.id
+        },
         ondrop(event, dropped, snap) {
             event.draggable.draggable({ enabled: false })
             const data = JSON.parse(
                 event.relatedTarget.getAttribute('data-transfer')
             )
-            dropped.push(data)
             if (data.dropped !== undefined && !data.dropped) {
                 data.dropped = true
+            }
+            if (
+                this.objects !== undefined &&
+                typeof this.objects === 'object' &&
+                this.objects.value_ids !== undefined
+            ) {
+                if (this.objects.id === data.id) dropped.push(this.objects)
+            } else if (this.objects !== undefined && this.objects.length) {
+                const object = this.objects.find((o) => o.id === data.id)
+                if (!object) {
+                    dropped.push({ id: undefined, text: undefined })
+                } else {
+                    dropped.push(object)
+                }
+            } else {
+                dropped.push(data)
             }
             this.$emit('ondropEvent', event, this.expected, dropped)
         }

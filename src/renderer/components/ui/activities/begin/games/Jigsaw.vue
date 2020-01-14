@@ -15,6 +15,7 @@
                                     :data-transfer="key"
                                     :snap-on="key.snapOn"
                                     :dropped="key.dropped"
+                                    :has-empty="false"
                                 >
                                     <div class="peca">
                                         <div
