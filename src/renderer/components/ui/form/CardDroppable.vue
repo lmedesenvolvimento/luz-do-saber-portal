@@ -1,13 +1,10 @@
 <template>
     <drop @drop="onDrop">
         <div class="card-input card--droppable">
-            <b-card
-                no-body
-                :class="{ 'invalid': invalid, 'valid': valid }"
-            >
+            <b-card no-body :class="{ invalid: invalid, valid: valid }">
                 <b-card-body>
                     <slot name="transfer-data">
-                        <div> {{ transferDataText }}</div>
+                        <div>{{ transferDataText }}</div>
                     </slot>
                 </b-card-body>
             </b-card>
@@ -25,31 +22,31 @@ export default {
     props: {
         defaultAttr: {
             type: String,
-            default: 'text'            
+            default: 'text'
         },
         customValidate: Function
-    },    
-    data(){
+    },
+    data() {
         return {
             transferData: {}
         }
     },
     computed: {
-        transferDataText(){
+        transferDataText() {
             return this.transferData[this.defaultAttr]
         }
     },
-    created(){
+    created() {
         this.transferData = this.item
     },
     methods: {
-        onDrop(transferData, nativeElement){
+        onDrop(transferData, nativeElement) {
             if (this.valid) return
-            
-            if (!this.customValidate){
+
+            if (!this.customValidate) {
                 this.transferData = transferData
                 if (this.item.value_ids.includes(transferData.id)) {
-                    this.setAnswer({ 
+                    this.setAnswer({
                         type: 'value',
                         data: transferData.id,
                         vm: this
@@ -57,8 +54,8 @@ export default {
 
                     transferData.valid = true
                 } else {
-                    this.setAnswer({ 
-                        type: 'value', 
+                    this.setAnswer({
+                        type: 'value',
                         data: -1,
                         vm: this
                     })
@@ -67,11 +64,10 @@ export default {
                 }
             } else {
                 this.customValidate(transferData, nativeElement, this)
-            }           
+            }
         }
     }
 }
 </script>
 
-<style>
-</style>
+<style></style>
