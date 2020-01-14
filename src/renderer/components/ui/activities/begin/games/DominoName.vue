@@ -17,11 +17,14 @@
                             >
                                 <drop
                                     class="droppable substantivo_proprio texto medium"
-                                    @drop="onDrop(item, ...arguments)"
+                                    :expected="item"
+                                    :objects="getAllValues"
+                                    @ondropEvent="onDrop"
                                 >
                                     <ls-card-display
                                         class="fill"
                                         :class="{ empty: !item.valid }"
+                                        :invalid="item.invalid"
                                         :bg-color="item.color"
                                     >
                                         {{ item.$next_letter }} |
@@ -34,10 +37,13 @@
                             <b-col class="item item-vertical">
                                 <drop
                                     class="droppable texto medium"
-                                    @drop="onDrop(getLeftKey, ...arguments)"
+                                    :expected="getLeftKey"
+                                    :objects="getAllValues"
+                                    @ondropEvent="onDrop"
                                 >
                                     <ls-card-display
                                         :class="{ empty: !getLeftKey.valid }"
+                                        :invalid="getLeftKey.invalid"
                                         :bg-color="getLeftKey.color"
                                     >
                                         <div class="writing-vertical">
@@ -55,10 +61,13 @@
                             >
                                 <drop
                                     class="droppable texto medium"
-                                    @drop="onDrop(getRightKey, ...arguments)"
+                                    :expected="getRightKey"
+                                    :objects="getAllValues"
+                                    @ondropEvent="onDrop"
                                 >
                                     <ls-card-display
                                         :class="{ empty: !getRightKey.valid }"
+                                        :invalid="getRightKey.invalid"
                                         :bg-color="getRightKey.color"
                                     >
                                         <div class="writing-vertical">
@@ -78,11 +87,14 @@
                             >
                                 <drop
                                     class="droppable texto medium"
-                                    @drop="onDrop(item, ...arguments)"
+                                    :expected="item"
+                                    :objects="getAllValues"
+                                    @ondropEvent="onDrop"
                                 >
                                     <ls-card-display
                                         class="fill card-sm"
                                         :class="{ empty: !item.valid }"
+                                        :invalid="item.invalid"
                                         :bg-color="item.color"
                                     >
                                         {{ item.text }} |
@@ -96,7 +108,7 @@
             </b-col>
             <b-col class="activity-values">
                 <b-row>
-                    <b-col class="items" align-self="center">
+                    <b-col class="items" md="8" align-self="center">
                         <b-row>
                             <b-col
                                 v-for="item in getValuesItems"
@@ -105,16 +117,19 @@
                                 class="item"
                                 align-self="center"
                             >
-                                <drag
-                                    class="draggable texto medium"
-                                    :class="{
+                                <!-- :class="{
                                         dropped: item.dropped,
                                         dragging: item.dragging
-                                    }"
-                                    :transfer-data="item"
-                                    :draggable="!item.dropped"
-                                    @dragstart="onDrag"
-                                    @dragend="onDragLeave"
+                                    }" -->
+                                <drag
+                                    class="draggable texto medium"
+                                    empty-class="dragging"
+                                    classname="draggable texto medium"
+                                    :data-transfer="{ id: item.id }"
+                                    :snap-on="item.snapOn"
+                                    :dropped="item.dropped"
+                                    @onstartEvent="onDrag"
+                                    @onendEvent="onDragLeave"
                                 >
                                     <ls-card-display
                                         class="fill"
@@ -141,11 +156,11 @@
                             >
                                 <drag
                                     class="draggable texto medium"
-                                    :class="{
-                                        dropped: getLeftValue.dropped,
-                                        dragging: getLeftValue.dragging
-                                    }"
-                                    :transfer-data="getLeftValue"
+                                    classname="draggable texto medium"
+                                    empty-class="dragging"
+                                    :data-transfer="{ id: getLeftValue.id }"
+                                    :snap-on="getLeftValue.snapOn"
+                                    :dropped="getLeftValue.dropped"
                                     :draggable="!getLeftValue.dropped"
                                     @dragstart="onDrag"
                                     @dragend="onDragLeave"
@@ -167,11 +182,11 @@
                             >
                                 <drag
                                     class="draggable texto medium"
-                                    :class="{
-                                        dropped: getRightValue.dropped,
-                                        dragging: getRightValue.dragging
-                                    }"
-                                    :transfer-data="getRightValue"
+                                    classname="draggable texto medium"
+                                    empty-class="dragging"
+                                    :data-transfer="{ id: getRightValue.id }"
+                                    :snap-on="getRightValue.snapOn"
+                                    :dropped="getRightValue.dropped"
                                     :draggable="!getRightValue.dropped"
                                     @dragstart="onDrag"
                                     @dragend="onDragLeave"
@@ -213,7 +228,9 @@ import {
     findIndex,
     random
 } from 'lodash'
-import { Drag, Drop } from 'vue-drag-drop'
+// import { Drag, Drop } from 'vue-drag-drop'
+import Drag from '@ui/items/Drag'
+import Drop from '@ui/items/Drop'
 import FormComponents from '@ui/form'
 
 export default {
@@ -229,6 +246,12 @@ export default {
         getValuesItems() {
             return chain(this.getValuesFirstItems)
                 .concat(this.getValuesLastItems)
+                .value()
+        },
+        getAllValues() {
+            return chain(this.getValuesItems)
+                .concat(this.getLeftValue)
+                .concat(this.getRightValue)
                 .value()
         },
         getValuesFirstItems() {
@@ -293,7 +316,8 @@ export default {
                 Vue.set(transferData, 'dragging', false)
             })
         },
-        onDrop(item, transferData, nativeElement) {
+        onDrop(nativeElement, item, data) {
+            const transferData = data[0]
             if (item.value_ids.includes(transferData.id)) {
                 this.setAnswer({
                     type: 'value',
@@ -310,7 +334,22 @@ export default {
                     data: -1,
                     vm: this
                 })
+                Vue.set(item, 'invalid', true)
                 Vue.set(transferData, 'dragging', false)
+                Vue.set(transferData, 'dropped', true)
+                setTimeout(() => {
+                    Vue.set(transferData, 'snapOn', 'self')
+                }, 300)
+                setTimeout(() => {
+                    Vue.set(transferData, 'snapOn', 'none')
+                    Vue.set(transferData, 'dropped', false)
+                    Vue.set(item, 'invalid', false)
+                }, 400)
+                setTimeout(() => (data.length = 0), 600)
+                // Vue.set(transferData, 'snapOn', 'self')
+                // data.length = 0
+                // Vue.set(refObject, 'snapOn', 'none')
+                // Vue.set(transferData, 'snapOn', 'self')
             }
         },
         mapNextLetter(data) {
@@ -357,6 +396,7 @@ export default {
                 .writing-vertical {
                     writing-mode: vertical-rl;
                     text-align: center;
+                    white-space: nowrap;
                 }
             }
         }
@@ -401,18 +441,22 @@ export default {
     }
     .activity-keys {
         height: calc(100% - 10vh);
+        z-index: 1;
         .item {
             padding: 0px 4px;
         }
     }
     .activity-values {
         height: calc(100% - 5vh);
+        z-index: 2;
+        overflow: visible !important;
         .items,
         .vertical-items {
             display: flex;
             height: 100%;
             > .row {
                 height: 100%;
+                width: 100%;
             }
         }
         .vertical-items {
@@ -422,6 +466,7 @@ export default {
         }
         .item {
             padding: 0px 10px;
+            height: 68px;
         }
     }
 
@@ -442,8 +487,8 @@ export default {
         height: 100%;
     }
     .draggable {
-        &.dropped,
-        &.dragging {
+        .dropped,
+        .dragging {
             .card {
                 .bg-color {
                     @extend .invisible;

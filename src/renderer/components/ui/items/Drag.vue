@@ -2,9 +2,17 @@
     <div class="drag-wrap">
         <div
             class="slot drag-el"
-            :class="classname"
+            :class="[classname, hasEmpty && dropped ? 'hidden' : '']"
             :data-transfer="modeledDataTransfer"
             draggable="false"
+        >
+            <slot />
+        </div>
+        <div
+            v-if="hasEmpty"
+            v-show="dragging || dropped"
+            class="slot empty-el"
+            :class="[classname, emptyClass]"
         >
             <slot />
         </div>
@@ -24,6 +32,11 @@ export default {
             required: false,
             default: false
         },
+        emptyClass: {
+            type: String,
+            required: false,
+            default: 'idle'
+        },
         classname: {
             type: [String, Array],
             required: false,
@@ -36,13 +49,17 @@ export default {
         },
         snapOn: {
             type: String,
-            required: true,
-            default: 'self'
+            required: false,
+            default: 'none'
+        },
+        hasEmpty: {
+            type: Boolean,
+            required: false,
+            default: true
         }
     },
     data() {
         return {
-            dragging: false,
             initialSnapTarget: {
                 targets: [{ x: 0, y: 0, range: Infinity }],
                 relativePoints: [{ x: 0, y: 0 }],
@@ -50,6 +67,7 @@ export default {
                 endOnly: true,
                 offset: 'self'
             },
+            dragging: false,
             sigmoidInterval: '',
             rotation: 0,
             translation: '',
@@ -103,6 +121,7 @@ export default {
             event.target.setAttribute('data-start-y', startY)
             const target = this.$el.parentElement
             target.style['z-index'] = 10001
+            this.dragging = true
             this.$emit('onstartEvent', this.dataTransfer)
         },
         onEnd(event) {
@@ -111,6 +130,7 @@ export default {
             event.target.style.transform = this.translation + ' rotate(0deg)'
             const target = this.$el.parentElement
             target.style['z-index'] = 1
+            this.dragging = false
             this.$emit('onendEvent', this.dataTransfer)
         },
         sigmoid(x) {
@@ -134,6 +154,7 @@ export default {
             this.$el.firstChild.setAttribute('data-start-y', 0)
             this.$el.firstChild.setAttribute('data-x', 0)
             this.$el.firstChild.setAttribute('data-y', 0)
+            this.snapOn = 'dropzone'
         }
     }
 }
@@ -141,6 +162,10 @@ export default {
 <style lang="scss" scoped>
 [draggable='false'] > * {
     pointer-events: none;
+}
+
+.hidden {
+    visibility: hidden;
 }
 
 .slot {
@@ -154,9 +179,11 @@ export default {
     justify-content: center;
     position: absolute;
     z-index: 10000;
+    min-width: 20px;
+    min-height: 20px;
 }
 
-.empty-space {
+.empty-el {
     position: absolute;
     z-index: 10;
 }
