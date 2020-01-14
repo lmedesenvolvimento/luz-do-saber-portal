@@ -1,21 +1,34 @@
 <template>
     <div class="container-fluid game-domino-name">
-        <b-row v-if="keys.length && values.length" class="reverse" align-v="center">
+        <b-row
+            v-if="keys.length && values.length"
+            class="reverse"
+            align-v="center"
+        >
             <b-col v-if="hasKeys" class="activity-keys flex-2">
                 <b-card class="domino fill">
                     <b-container class="fill d-flex column" fluid>
                         <b-row class="domino-top">
-                            <b-col v-for="item in getTopKeys" :key="item.id" cols="4" class="item">
+                            <b-col
+                                v-for="item in getTopKeys"
+                                :key="item.id"
+                                cols="4"
+                                class="item"
+                            >
                                 <drop
                                     class="droppable substantivo_proprio texto medium"
-                                    @drop="onDrop(item, ...arguments)"
+                                    :expected="item"
+                                    :objects="getAllValues"
+                                    @ondropEvent="onDrop"
                                 >
                                     <ls-card-display
                                         class="fill"
-                                        :class="{'empty': !item.valid}"
+                                        :class="{ empty: !item.valid }"
+                                        :invalid="item.invalid"
                                         :bg-color="item.color"
                                     >
-                                        {{ item.$next_letter }} | {{ item.text }}
+                                        {{ item.$next_letter }} |
+                                        {{ item.text }}
                                     </ls-card-display>
                                 </drop>
                             </b-col>
@@ -24,14 +37,18 @@
                             <b-col class="item item-vertical">
                                 <drop
                                     class="droppable texto medium"
-                                    @drop="onDrop(getLeftKey, ...arguments)"
+                                    :expected="getLeftKey"
+                                    :objects="getAllValues"
+                                    @ondropEvent="onDrop"
                                 >
                                     <ls-card-display
-                                        :class="{'empty': !getLeftKey.valid }"
+                                        :class="{ empty: !getLeftKey.valid }"
+                                        :invalid="getLeftKey.invalid"
                                         :bg-color="getLeftKey.color"
                                     >
                                         <div class="writing-vertical">
-                                            {{ getLeftKey.text }} | {{ getLeftKey.$next_letter }}
+                                            {{ getLeftKey.text }} |
+                                            {{ getLeftKey.$next_letter }}
                                         </div>
                                     </ls-card-display>
                                 </drop>
@@ -39,34 +56,49 @@
                             <b-col>
                                 <b-card class="fill domino-divider"></b-card>
                             </b-col>
-                            <b-col class="item item-vertical d-flex justify-content-end">
+                            <b-col
+                                class="item item-vertical d-flex justify-content-end"
+                            >
                                 <drop
                                     class="droppable texto medium"
-                                    @drop="onDrop(getRightKey, ...arguments)"
+                                    :expected="getRightKey"
+                                    :objects="getAllValues"
+                                    @ondropEvent="onDrop"
                                 >
                                     <ls-card-display
-                                        :class="{'empty': !getRightKey.valid}"
+                                        :class="{ empty: !getRightKey.valid }"
+                                        :invalid="getRightKey.invalid"
                                         :bg-color="getRightKey.color"
                                     >
                                         <div class="writing-vertical">
-                                            {{ getRightKey.$next_letter }} | {{ getRightKey.text }}
+                                            {{ getRightKey.$next_letter }} |
+                                            {{ getRightKey.text }}
                                         </div>
                                     </ls-card-display>
                                 </drop>
                             </b-col>
                         </b-row>
                         <b-row class="domino-bottom">
-                            <b-col v-for="item in getBottomKeys" :key="item.id" cols="4" class="item">
+                            <b-col
+                                v-for="item in getBottomKeys"
+                                :key="item.id"
+                                cols="4"
+                                class="item"
+                            >
                                 <drop
                                     class="droppable texto medium"
-                                    @drop="onDrop(item, ...arguments)"
+                                    :expected="item"
+                                    :objects="getAllValues"
+                                    @ondropEvent="onDrop"
                                 >
                                     <ls-card-display
                                         class="fill card-sm"
-                                        :class="{'empty': !item.valid}"
+                                        :class="{ empty: !item.valid }"
+                                        :invalid="item.invalid"
                                         :bg-color="item.color"
                                     >
-                                        {{ item.text }} | {{ item.$next_letter }}
+                                        {{ item.text }} |
+                                        {{ item.$next_letter }}
                                     </ls-card-display>
                                 </drop>
                             </b-col>
@@ -76,26 +108,40 @@
             </b-col>
             <b-col class="activity-values">
                 <b-row>
-                    <b-col class="items" align-self="center">
+                    <b-col class="items" md="8" align-self="center">
                         <b-row>
-                            <b-col v-for="item in getValuesItems" :key="item.id" :md="valueColSize" class="item" align-self="center">
+                            <b-col
+                                v-for="item in getValuesItems"
+                                :key="item.id"
+                                :md="valueColSize"
+                                class="item"
+                                align-self="center"
+                            >
+                                <!-- :class="{
+                                        dropped: item.dropped,
+                                        dragging: item.dragging
+                                    }" -->
                                 <drag
                                     class="draggable texto medium"
-                                    :class="{'dropped':item.dropped, 'dragging': item.dragging}"
-                                    :transfer-data="item"
-                                    :draggable="!item.dropped"
-                                    @dragstart="onDrag"
-                                    @dragend="onDragLeave"
+                                    empty-class="dragging"
+                                    classname="draggable texto medium"
+                                    :data-transfer="{ id: item.id }"
+                                    :snap-on="item.snapOn"
+                                    :dropped="item.dropped"
+                                    @onstartEvent="onDrag"
+                                    @onendEvent="onDragLeave"
                                 >
                                     <ls-card-display
                                         class="fill"
                                         :bg-color="item.color"
                                     >
                                         <div v-if="valueIsTop(item)">
-                                            {{ item.$next_letter }} | {{ item.text }}
+                                            {{ item.$next_letter }} |
+                                            {{ item.text }}
                                         </div>
                                         <div v-else>
-                                            {{ item.text }} | {{ item.$next_letter }}
+                                            {{ item.text }} |
+                                            {{ item.$next_letter }}
                                         </div>
                                     </ls-card-display>
                                 </drag>
@@ -104,11 +150,17 @@
                     </b-col>
                     <b-col class="vertical-items">
                         <b-row class="column flex">
-                            <b-col class="item item-vertical" align-self="center">
+                            <b-col
+                                class="item item-vertical"
+                                align-self="center"
+                            >
                                 <drag
                                     class="draggable texto medium"
-                                    :class="{'dropped':getLeftValue.dropped, 'dragging': getLeftValue.dragging}"
-                                    :transfer-data="getLeftValue"
+                                    classname="draggable texto medium"
+                                    empty-class="dragging"
+                                    :data-transfer="{ id: getLeftValue.id }"
+                                    :snap-on="getLeftValue.snapOn"
+                                    :dropped="getLeftValue.dropped"
                                     :draggable="!getLeftValue.dropped"
                                     @dragstart="onDrag"
                                     @dragend="onDragLeave"
@@ -118,16 +170,23 @@
                                         :bg-color="getLeftValue.color"
                                     >
                                         <div class="writing-vertical">
-                                            {{ getLeftValue.$next_letter }} | {{ getLeftValue.text }}
+                                            {{ getLeftValue.$next_letter }} |
+                                            {{ getLeftValue.text }}
                                         </div>
                                     </ls-card-display>
                                 </drag>
                             </b-col>
-                            <b-col class="item item-vertical" align-self="center">
+                            <b-col
+                                class="item item-vertical"
+                                align-self="center"
+                            >
                                 <drag
                                     class="draggable texto medium"
-                                    :class="{'dropped':getRightValue.dropped, 'dragging': getRightValue.dragging}"
-                                    :transfer-data="getRightValue"
+                                    classname="draggable texto medium"
+                                    empty-class="dragging"
+                                    :data-transfer="{ id: getRightValue.id }"
+                                    :snap-on="getRightValue.snapOn"
+                                    :dropped="getRightValue.dropped"
                                     :draggable="!getRightValue.dropped"
                                     @dragstart="onDrag"
                                     @dragend="onDragLeave"
@@ -137,7 +196,8 @@
                                         :bg-color="getRightValue.color"
                                     >
                                         <div class="writing-vertical">
-                                            {{ getRightValue.$next_letter }} | {{ getRightValue.text }}
+                                            {{ getRightValue.$next_letter }} |
+                                            {{ getRightValue.text }}
                                         </div>
                                     </ls-card-display>
                                 </drag>
@@ -152,57 +212,81 @@
 <script>
 import Vue from 'vue'
 import { mapActions } from 'vuex'
-import { MapMixins, ListMixin, CreateAnswersMixins } from '@ui/activities/mixins'
-import { chain, take, takeRight, sortBy, map, last, first, findIndex, random } from 'lodash'
-import { Drag, Drop } from 'vue-drag-drop'
+import {
+    MapMixins,
+    ListMixin,
+    CreateAnswersMixins
+} from '@ui/activities/mixins'
+import {
+    chain,
+    take,
+    takeRight,
+    sortBy,
+    map,
+    last,
+    first,
+    findIndex,
+    random
+} from 'lodash'
+// import { Drag, Drop } from 'vue-drag-drop'
+import Drag from '@ui/items/Drag'
+import Drop from '@ui/items/Drop'
 import FormComponents from '@ui/form'
 
 export default {
     components: { ...FormComponents, Drag, Drop },
     mixins: [MapMixins, ListMixin, CreateAnswersMixins],
-    data(){
+    data() {
         return {
             values: [],
             keys: []
         }
     },
     computed: {
-        getValuesItems(){
-            return chain(this.getValuesFirstItems).concat(this.getValuesLastItems).value()
+        getValuesItems() {
+            return chain(this.getValuesFirstItems)
+                .concat(this.getValuesLastItems)
+                .value()
         },
-        getValuesFirstItems(){
+        getAllValues() {
+            return chain(this.getValuesItems)
+                .concat(this.getLeftValue)
+                .concat(this.getRightValue)
+                .value()
+        },
+        getValuesFirstItems() {
             return take(this.values, 3)
         },
-        getValuesLastItems(){
+        getValuesLastItems() {
             return takeRight(this.values, 3)
         },
-        getTopKeys(){
+        getTopKeys() {
             return take(this.keys, 3).reverse()
         },
-        getBottomKeys(){
+        getBottomKeys() {
             return takeRight(this.keys, 3)
         },
-        getLeftKey(){
+        getLeftKey() {
             return this.keys[3]
         },
-        getRightKey(){
+        getRightKey() {
             return this.keys[4]
         },
-        getLeftValue(){
+        getLeftValue() {
             return this.values[3]
         },
-        getRightValue(){
+        getRightValue() {
             return this.values[4]
         }
     },
-    created(){
+    created() {
         this.addColorsToType('substantivo_proprio')
     },
     mounted() {
         this.keys = this.mapNextLetter(this.getKeys)
         this.values = this.mapNextLetter(this.getValues)
 
-        const randomIndex = random(0, (this.keys.length - 1))
+        const randomIndex = random(0, this.keys.length - 1)
 
         const randomKey = this.keys[randomIndex]
         const randomValues = this.values[randomIndex]
@@ -219,20 +303,21 @@ export default {
         })
     },
     methods: {
-        valueIsTop(item){
+        valueIsTop(item) {
             return this.getValuesFirstItems.includes(item)
         },
-        onDrag(transferData, nativeElement){
-            setTimeout(()=> {
+        onDrag(transferData, nativeElement) {
+            setTimeout(() => {
                 Vue.set(transferData, 'dragging', true)
             })
         },
-        onDragLeave(transferData, nativeElement){
-            setTimeout(()=> {
+        onDragLeave(transferData, nativeElement) {
+            setTimeout(() => {
                 Vue.set(transferData, 'dragging', false)
             })
         },
-        onDrop(item, transferData, nativeElement){
+        onDrop(nativeElement, item, data) {
+            const transferData = data[0]
             if (item.value_ids.includes(transferData.id)) {
                 this.setAnswer({
                     type: 'value',
@@ -240,30 +325,42 @@ export default {
                     vm: {}
                 })
 
-                Vue.set(item,'valid', true)
-                Vue.set(transferData,'dropped', true)
-                Vue.set(transferData,'dragging', false)
+                Vue.set(item, 'valid', true)
+                Vue.set(transferData, 'dropped', true)
+                Vue.set(transferData, 'dragging', false)
             } else {
                 this.setAnswer({
                     type: 'value',
                     data: -1,
                     vm: this
                 })
-                Vue.set(transferData,'dragging', false)
+                Vue.set(item, 'invalid', true)
+                Vue.set(transferData, 'dragging', false)
+                Vue.set(transferData, 'dropped', true)
+                setTimeout(() => {
+                    Vue.set(transferData, 'snapOn', 'self')
+                }, 300)
+                setTimeout(() => {
+                    Vue.set(transferData, 'snapOn', 'none')
+                    Vue.set(transferData, 'dropped', false)
+                    Vue.set(item, 'invalid', false)
+                }, 400)
+                setTimeout(() => (data.length = 0), 600)
+                // Vue.set(transferData, 'snapOn', 'self')
+                // data.length = 0
+                // Vue.set(refObject, 'snapOn', 'none')
+                // Vue.set(transferData, 'snapOn', 'self')
             }
         },
-        mapNextLetter(data){
+        mapNextLetter(data) {
             let result = map(data, (item, index, array) => {
-                if(index == (array.length - 1)){
+                if (index == array.length - 1) {
                     item.$next_letter = array[4].first_letter
-                }
-                else if (index === 3){
+                } else if (index === 3) {
                     item.$next_letter = array[5].first_letter
-                }
-                else if (index === 4){
+                } else if (index === 4) {
                     item.$next_letter = first(array).first_letter
-                }
-                else {
+                } else {
                     item.$next_letter = array[index + 1].first_letter
                 }
                 return item
@@ -275,51 +372,58 @@ export default {
 }
 </script>
 <style lang="scss">
-.game-domino-name{
+.game-domino-name {
     max-height: 450px;
     margin: auto;
-    .card-body{
+    .card-body {
         padding: 0.5rem;
         font-size: 16px !important;
     }
-    .item-vertical{
+    .item-vertical {
         flex: 1;
         cursor: pointer;
-        .card--display, .card--display .card{
+        .card--display,
+        .card--display .card {
             height: 100%;
-            .bg-color, .card-body{
+            .bg-color,
+            .card-body {
                 height: 100%;
             }
-            .card-body{
+            .card-body {
                 display: flex;
                 align-items: center;
                 padding: 0.5rem;
-                .writing-vertical{
+                .writing-vertical {
                     writing-mode: vertical-rl;
                     text-align: center;
+                    white-space: nowrap;
                 }
             }
         }
     }
-    .domino{
+    .domino {
         padding: 8px;
         border-radius: 1rem;
-        > .card-body{
-            @include card-body-box-shadow($card-input-box-shadow-color,0.9, 6px);
+        > .card-body {
+            @include card-body-box-shadow(
+                $card-input-box-shadow-color,
+                0.9,
+                6px
+            );
             display: flex;
             flex-direction: column;
             border-radius: 1rem;
             background-color: #f4f4f4;
             width: 100%;
             height: 100%;
-            .domino-middle{
+            .domino-middle {
                 flex: 1;
                 padding: 8px 0px;
-                .item-vertical{
+                .item-vertical {
                     max-width: 51px;
-                    .card--display{
+                    .card--display {
                         max-width: 48px;
-                        .card-body{
+                        .card-body {
                             display: flex;
                             align-items: center;
                             justify-content: center;
@@ -328,59 +432,68 @@ export default {
                 }
             }
         }
-        .domino-text{
+        .domino-text {
             display: flex;
         }
-        .domino-divider{
+        .domino-divider {
             border-radius: 1rem;
         }
     }
-    .activity-keys{
+    .activity-keys {
         height: calc(100% - 10vh);
-        .item{
+        z-index: 1;
+        .item {
             padding: 0px 4px;
         }
     }
-    .activity-values{
+    .activity-values {
         height: calc(100% - 5vh);
-        .items, .vertical-items{
+        z-index: 2;
+        overflow: visible !important;
+        .items,
+        .vertical-items {
             display: flex;
             height: 100%;
-            > .row{
+            > .row {
                 height: 100%;
+                width: 100%;
             }
         }
-        .vertical-items{
-            .item{
+        .vertical-items {
+            .item {
                 max-width: 58px;
             }
         }
-        .item{
+        .item {
             padding: 0px 10px;
+            height: 68px;
         }
     }
 
-    @include media-breakpoint-down("md") {
+    @include media-breakpoint-down('md') {
         > .row {
             flex-direction: column;
         }
     }
 
-    .item:not(.item-vertical){
-        .droppable, .draggable{
+    .item:not(.item-vertical) {
+        .droppable,
+        .draggable {
             width: 155px;
         }
     }
-    .droppable, .draggable{
+    .droppable,
+    .draggable {
         height: 100%;
     }
     .draggable {
-        &.dropped, &.dragging{
-            .card{
-                .bg-color{
+        .dropped,
+        .dragging {
+            .card {
+                .bg-color {
                     @extend .invisible;
-                 }
-                &::before{
+                }
+                &::before {
                     @include custom-dropcard-content;
                     border-radius: 0.6em;
                 }
@@ -388,12 +501,12 @@ export default {
         }
     }
     .droppable {
-        .empty{
+        .empty {
             .card {
-                .bg-color{
+                .bg-color {
                     @extend .invisible;
-                 }
-                &::before{
+                }
+                &::before {
                     @include custom-dropcard-content;
                     border-radius: 0.6em;
                 }
