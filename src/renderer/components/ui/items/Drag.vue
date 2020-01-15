@@ -1,5 +1,5 @@
 <template>
-    <div class="drag-wrap">
+    <div class="drag-wrap" :class="isAbsolute ? 'isAbsolute' : ''">
         <div
             class="slot drag-el"
             :class="[classname, hasEmpty && dropped ? 'hidden' : '']"
@@ -53,6 +53,11 @@ export default {
             default: 'none'
         },
         hasEmpty: {
+            type: Boolean,
+            required: false,
+            default: true
+        },
+        isAbsolute: {
             type: Boolean,
             required: false,
             default: true
@@ -154,7 +159,6 @@ export default {
             this.$el.firstChild.setAttribute('data-start-y', 0)
             this.$el.firstChild.setAttribute('data-x', 0)
             this.$el.firstChild.setAttribute('data-y', 0)
-            this.snapOn = 'dropzone'
         }
     }
 }
@@ -177,10 +181,12 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    position: absolute;
     z-index: 10000;
     min-width: 20px;
     min-height: 20px;
+    &.is-absolute {
+        position: absolute;
+    }
 }
 
 .empty-el {

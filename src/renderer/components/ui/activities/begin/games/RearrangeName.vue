@@ -1,8 +1,8 @@
 <template>
-    <div class="container-fluid"> 
+    <div class="container-fluid">
         <div class="rearrange-name flex fill">
             <b-row align-v="center" align-h="center" class="fill">
-                <b-col 
+                <b-col
                     v-for="item in activity.items.keys"
                     :key="item.id"
                     :sm="keyColSize"
@@ -13,12 +13,12 @@
                         :type="'key'"
                         :template="activity.item_template.key"
                     />
-                </b-col>                    
-            </b-row> 
-        </div> 
+                </b-col>
+            </b-row>
+        </div>
         <ls-card-display>
             <b-row align-v="around" align-h="around">
-                <b-col 
+                <b-col
                     v-for="item in activity.items.values"
                     :key="item.id"
                     :sm="valueColSize"
@@ -36,7 +36,12 @@
 </template>
 
 <script>
-import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from '@ui/activities/mixins'
+import {
+    ListMixin,
+    MapMixins,
+    CreateAnswersMixins,
+    createAnswer
+} from '@ui/activities/mixins'
 import { sampleSize, drop, range } from 'lodash'
 
 import ui from '@/components/ui'
@@ -47,7 +52,7 @@ import Item from '@/components/ui/items/Item'
 import { mapState, mapActions } from 'vuex'
 
 export default {
-    components: { 
+    components: {
         Item,
         ...ui,
         ...alerts
@@ -56,14 +61,19 @@ export default {
     props: {
         colSizes: Object
     },
-    created(){
+    created() {
         this.createAnswersArray()
     }
 }
 </script>
 
-<style>
-    .rearrange-name {
-        margin: 12px auto 12px;
-    }
+<style scoped>
+.rearrange-name {
+    margin: 12px auto 12px;
+}
+
+.item {
+    width: 62px;
+    height: 70px;
+}
 </style>
