@@ -70,7 +70,7 @@ import { mapState, mapActions } from 'vuex'
 import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from '@ui/activities/mixins'
 import AsyncImage from '@ui/AsyncImage'
 import ui from '@/components/ui'
-import { alphabet_with_acents } from '@/constants'
+import { alphabet_with_acents_with_symbols } from '@/constants'
 export default {
     components: {
         ...ui,
@@ -89,7 +89,7 @@ export default {
     mounted() {
         this.createAnswersArray()
         // coloca uma assinatura nos botões criados dentro da fase
-        alphabet_with_acents.forEach((letter, index) => {
+        alphabet_with_acents_with_symbols.forEach((letter, index) => {
             let color = this.getColorsArray[index]
             this.alphabetInputs.push(Object.assign({}, {letter, color}))
         })        
