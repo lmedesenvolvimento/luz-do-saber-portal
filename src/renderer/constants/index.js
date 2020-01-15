@@ -114,4 +114,8 @@ export const alphabet = [ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
 
 export const acents = ['Á', 'À', 'Ã', 'Â', 'É', 'Ê', 'Í', 'Ó', 'Ô', 'Ú']
 
+export const symbols = ['-']
+
 export const alphabet_with_acents = alphabet.concat(acents)
+
+export const alphabet_with_acents_with_symbols = alphabet.concat(acents).concat(symbols)
