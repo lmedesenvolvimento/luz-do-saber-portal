@@ -37,7 +37,7 @@
                             <div class="bg-color">
                                 <div class="card-body">
                                     <b-row align-v="center" align-h="center">
-                                        <b-col v-for="(item, position) in getValues" :key="position" align-self="center" class="item"> 
+                                        <b-col v-for="(item, position) in values" :key="position" align-self="center" class="item"> 
                                             <Item 
                                                 v-if="answers"
                                                 :item="item"
@@ -71,6 +71,7 @@ export default {
         return {
             // Este array será populado com objetos contendo as sílabas
             correctSyllabblesOrder: [],
+            values: []
         }
     },
     computed: {        
@@ -86,12 +87,26 @@ export default {
             element.text = this.getKeys[0].syllables[index].text
             this.correctSyllabblesOrder[index] = element
         }
-        
+        this.values = this.shuffle(this.getValues)
     },
     mounted() {
         this.createAnswersArray()
     },
     methods: {
+        shuffle(array) {
+            var currentIndex = array.length, temporaryValue, randomIndex
+            // While there remain elements to shuffle...
+            while (0 !== currentIndex) {
+                // Pick a remaining element...
+                randomIndex = Math.floor(Math.random() * currentIndex)
+                currentIndex -= 1
+                // And swap it with the current element.
+                temporaryValue = array[currentIndex]
+                array[currentIndex] = array[randomIndex]
+                array[randomIndex] = temporaryValue
+            }
+            return array
+        },
         validateByText(transferData, nativeElement, vm) {
 
             vm.transferData = transferData
