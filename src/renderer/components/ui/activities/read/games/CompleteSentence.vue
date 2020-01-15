@@ -174,7 +174,7 @@ export default {
                     text: word,
                     isInteractive: false,
                 }
-                objectWord.text = objectWord.text.replace(/[,\.\;\:]/g, '') //removendo vírgulas da frase para não aparecerem nos inputs, nem atrapalharem na hora de separá-la por espaços
+                objectWord.text = objectWord.text.replace(/[,\.\;\:\-]/g, '') //removendo vírgulas da frase para não aparecerem nos inputs, nem atrapalharem na hora de separá-la por espaços
                 words.push(Object.assign({}, objectWord))
             })
             if (words.length === values.length){//se o array de keys e values for do mesmo tamanho, então toda a frase vai ser substituída
