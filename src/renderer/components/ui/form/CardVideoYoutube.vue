@@ -3,7 +3,7 @@
         <b-card
             no-body
         >
-            <vue-plyr>
+            <vue-plyr ref="plyr" :emit="['ended']" @ended="ended">
                 <div class="plyr__video-embed">
                     <iframe
                         :src="item.text"
@@ -21,6 +21,15 @@ import RadioInput from './RadioInput.vue'
 
 export default {
     mixins: [RadioInput],
+    methods: {
+        ended(response) {
+            this.setAnswer({
+                type: 'value',
+                data: undefined,
+                vm: this
+            })
+        }
+    }
 }
 </script>
 
