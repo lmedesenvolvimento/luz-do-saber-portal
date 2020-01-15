@@ -136,6 +136,7 @@ export default {
             raffleWords: [],
             scramblePlayerWords: [],
             actualRaffleWord: '',
+            sortedWordsList: [],
             timer: 5000,
             showTimer: true,
             animateBingoCounter: false,
@@ -229,9 +230,9 @@ export default {
             // caso o item já tenha sido checado, retornamos aqui mesmo
             if(item.valid || item.invalid) return
             //testa se o item já pode ser marcado na cartela do jogador
-            if(this.searchString(this.scramblePlayerWords, item.text)){
+            // if(item.text === this.raffleWords){
+            if(this.searchString(this.sortedWordsList, item.text)){
                 this.playerWordsCounter++
-                this.actualizeBingoTimer()
 
                 if (this.playerWordsCounter < this.scramblePlayerWords.length) {
                     setTimeout(()=> {
@@ -287,10 +288,17 @@ export default {
                     const word = this.unraffleWords[wordIndex]
                     this.unraffleWords.splice(wordIndex,1)
                     this.actualRaffleWord = word
+                    
+                    this.sortedWordsList.push(word)
 
                     if (this.searchString(this.scramblePlayerWords, word)) {
                         this.showTimer = false
-                        this.timer = 5000
+
+                        setTimeout(() => {
+                            this.timer -= 4000
+                            this.checkAIWords(word)
+                            this.actualizeBingoTimer()
+                        }, 4000)
 
                     } else {
                         this.checkAIWords(word)
