@@ -37,7 +37,7 @@
                             <div class="bg-color">
                                 <div class="card-body">
                                     <b-row align-v="center" align-h="center">
-                                        <b-col v-for="(item, position) in getValues" :key="position" align-self="center" class="item"> 
+                                        <b-col v-for="(item, position) in values" :key="position" align-self="center" class="item"> 
                                             <Item 
                                                 v-if="answers"
                                                 :item="item"
@@ -60,6 +60,7 @@ import { MapMixins, ListMixin, CreateAnswersMixins } from '@ui/activities/mixins
 import ui from '@/components/ui'
 import AsyncImage from '@ui/AsyncImage'
 import { mapState, mapActions } from 'vuex'
+import { shuffle } from 'lodash'
 
 export default {
     components: {
@@ -71,6 +72,7 @@ export default {
         return {
             // Este array será populado com objetos contendo as sílabas
             correctSyllabblesOrder: [],
+            values: []
         }
     },
     computed: {        
@@ -86,7 +88,7 @@ export default {
             element.text = this.getKeys[0].syllables[index].text
             this.correctSyllabblesOrder[index] = element
         }
-        
+        this.values = shuffle(this.getValues)
     },
     mounted() {
         this.createAnswersArray()
