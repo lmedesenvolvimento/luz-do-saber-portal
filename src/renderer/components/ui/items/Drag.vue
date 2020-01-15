@@ -154,7 +154,6 @@ export default {
             this.$el.firstChild.setAttribute('data-start-y', 0)
             this.$el.firstChild.setAttribute('data-x', 0)
             this.$el.firstChild.setAttribute('data-y', 0)
-            this.snapOn = 'dropzone'
         }
     }
 }
