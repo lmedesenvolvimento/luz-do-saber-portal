@@ -4,9 +4,9 @@
         :dropped="dropped"
         :data-transfer="item"
         :is-absolute="false"
-        :draggable="!dropped"
-        @dragstart="onDrag"
-        @dragend="onDragEnd"
+        has-empty-slot
+        @onstartEvent="onDrag"
+        @onendEvent="onDragEnd"
     >
         <template slot="image">
             <div
@@ -32,15 +32,29 @@
         >
             <b-card no-body>
                 <fill-background :bg-color="bgColor">
-                    <b-card-body
-                        :class="{ dragging: dragging, dropped: dropped }"
-                    >
+                    <b-card-body>
                         <slot name="img"></slot>
                         <slot></slot>
                     </b-card-body>
                 </fill-background>
             </b-card>
         </div>
+
+        <template slot="empty-drag">
+            <div
+                class="card-input card--draggable"
+                :class="{ 'card-sm': isCardSm, ...$attrs.class }"
+            >
+                <b-card no-body>
+                    <fill-background :bg-color="bgColor">
+                        <b-card-body class="dragging dropped">
+                            <slot name="img"></slot>
+                            <slot></slot>
+                        </b-card-body>
+                    </fill-background>
+                </b-card>
+            </div>
+        </template>
     </drag>
 </template>
 
@@ -90,7 +104,8 @@ export default {
             return this.$el.offsetHeight
         },
         onDrag(transferData, nativeElement) {
-            this.dragging = true
+            // this.dragging = true
+            console.log(this.dragging)
         },
         onDragEnd(transferData, nativeElement) {
             if (transferData.valid) {
