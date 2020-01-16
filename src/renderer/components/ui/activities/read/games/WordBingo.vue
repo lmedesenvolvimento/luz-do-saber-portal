@@ -175,10 +175,6 @@ export default {
             this.timeOut = setTimeout(() => {
                 this.animateBingoCounter = false
             },1000)
-        },
-
-        bingoTimerID: function()  {
-            console.log(this.bingoTimerID)
         }
         
     },
