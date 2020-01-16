@@ -3,7 +3,7 @@
         <transition name="page">
             <div v-if="activity" key="gameplay">
                 <div v-if="hasDescription" class="gameplay-description">
-                    <div class="gameplay-description-text">{{ getDescription }} </div>
+                    <div class="gameplay-description-text mouse-pointer" @click="playAudio()">{{ getDescription }} </div>
                 </div>
                 <div class="gameplay-activity-container" :class="{'no-description': !hasDescription}">
                     <BaseActivity></BaseActivity>
@@ -25,7 +25,8 @@ export default {
     },
     data(){
         return {
-            isReady: false
+            isReady: false,
+            audioIsPlaying: false,
         }
     },
     computed: {
@@ -56,7 +57,7 @@ export default {
                 params: newVal.params, 
                 question: this.getQuestion
             }).then(() => {
-                if (this.activity) AudioReader.simplePlay(this.activity.statement.audio)
+                this.playAudio()
             })
         }
     },
@@ -67,7 +68,7 @@ export default {
             params, 
             question: this.getQuestion
         }).then(() => {
-            if (this.activity) AudioReader.simplePlay(this.activity.statement.audio)
+            this.playAudio()
         })
     },
     beforeDestroy(){
@@ -75,12 +76,22 @@ export default {
         AudioReader.stop()
     },    
     methods: {
+        playAudio() {
+            if (this.activity && !this.audioIsPlaying) {
+                this.audioIsPlaying = true
+                AudioReader.simplePlay(this.activity.statement.audio, (type) => {
+                    if (type === 'ended') this.audioIsPlaying = false
+                })
+            }
+        },
         ...mapActions('Unit', ['setNavigatorOrder']),
         ...mapActions('Activity', ['fetchActivity', 'destroyActivity'])
     }
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.mouse-pointer {
+    cursor: pointer;
+}
 </style>
