@@ -137,6 +137,9 @@ export default {
             scramblePlayerWords: [],
             actualRaffleWord: '',
             sortedWordsList: [],
+            playerTimerID: '',
+            bingoTimerID: '',
+            finishGame: false,
             timer: 5000,
             showTimer: true,
             animateBingoCounter: false,
@@ -173,6 +176,11 @@ export default {
                 this.animateBingoCounter = false
             },1000)
         },
+
+        bingoTimerID: function()  {
+            console.log(this.bingoTimerID)
+        }
+        
     },
     created(){
         this.words = [[],[]]
@@ -203,25 +211,37 @@ export default {
     },
     mounted() {
         this.createAnswersArray()
-    },    
+    },
+    destroyed() {
+        clearTimeout(this.playerTimerID)
+        clearTimeout(this.bingoTimerID)
+        this.finishGame = true
+    },
     methods: {
         checkAIWords(word) {
             if (this.searchString(this.words[0],this.actualRaffleWord)){
-                this.raffle(word)
                 this.loseCounter[0]++
+                this.raffle(word)
                 if(this.loseCounter[0] == 4){
                     this.activity.pointings[0].quantity = 10
                     this.triggerSuccess()
+                    this.finishGame = true
+                    return
                 }
+                
             } 
             if (this.searchString(this.words[1],this.actualRaffleWord)){
-                this.raffle(word)
                 this.loseCounter[1]++
+                this.raffle(word)
                 if(this.loseCounter[1] == 4){
                     this.activity.pointings[0].quantity = 10
                     this.triggerSuccess()
+                    this.finishGame = true
+                    return
                 }
             }
+
+            return
         },
         isCheck(item){
             return false
@@ -230,15 +250,8 @@ export default {
             // caso o item já tenha sido checado, retornamos aqui mesmo
             if(item.valid || item.invalid) return
             //testa se o item já pode ser marcado na cartela do jogador
-            // if(item.text === this.raffleWords){
             if(this.searchString(this.sortedWordsList, item.text)){
                 this.playerWordsCounter++
-
-                if (this.playerWordsCounter < this.scramblePlayerWords.length) {
-                    setTimeout(()=> {
-                        this.checkAIWords(item.text)
-                    }, 1000)
-                }
 
                 item.valid = true
                 this.setAnswer({
@@ -276,7 +289,7 @@ export default {
             // decresce o contador até zero
             if(this.unraffleWords.length > 0){
                 if(this.timer > 0){
-                    setTimeout(() => {
+                    this.bingoTimerID = setTimeout(() => {
                         this.timer -= 1000
                         this.actualizeBingoTimer()
                     },1000)
@@ -290,14 +303,20 @@ export default {
                     this.actualRaffleWord = word
                     
                     this.sortedWordsList.push(word)
+                    
 
                     if (this.searchString(this.scramblePlayerWords, word)) {
                         this.showTimer = false
+                        // this.timer -= 5000
 
-                        setTimeout(() => {
-                            this.timer -= 4000
-                            this.checkAIWords(word)
-                            this.actualizeBingoTimer()
+                        this.playerTimerID = window.setTimeout(() => {
+                            this.timer -= 5000
+
+                            if (!this.finishGame) {
+                                this.checkAIWords(word)
+    
+                                this.actualizeBingoTimer()
+                            }
                         }, 4000)
 
                     } else {
@@ -308,10 +327,12 @@ export default {
                     }
                 }
                 // quando chega a zero, e exibindo o contador, ele seleciona aleatoriamente uma letra do alfabeto
-                else if(this.playerWordsCounter < this.scramblePlayerWords.length) {
+                else if(this.playerWordsCounter < this.scramblePlayerWords.length && this.finishGame === false) {
                     this.showTimer = true
                     this.timer = 5000
                     this.actualizeBingoTimer()
+                } else {
+                    return
                 }
             }
 
