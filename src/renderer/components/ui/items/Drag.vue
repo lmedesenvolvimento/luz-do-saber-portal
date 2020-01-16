@@ -1,5 +1,5 @@
 <template>
-    <div class="drag-wrap" :class="isAbsolute ? 'isAbsolute' : ''">
+    <div class="drag-wrap" :class="isAbsolute || dragging ? 'isAbsolute' : ''">
         <div
             class="slot drag-el"
             :class="[classname, hasEmpty && dropped ? 'hidden' : '']"
@@ -13,8 +13,10 @@
             v-show="dragging || dropped"
             class="slot empty-el"
             :class="[classname, emptyClass]"
+            draggable="false"
         >
-            <slot />
+            <slot v-if="!hasEmptySlot" draggable="false" />
+            <slot v-else name="empty-drag" draggable="false" />
         </div>
     </div>
 </template>
@@ -61,6 +63,11 @@ export default {
             type: Boolean,
             required: false,
             default: true
+        },
+        hasEmptySlot: {
+            type: Boolean,
+            required: false,
+            default: false
         }
     },
     data() {
@@ -126,6 +133,10 @@ export default {
             event.target.setAttribute('data-start-y', startY)
             const target = this.$el.parentElement
             target.style['z-index'] = 10001
+            if (!this.isAbsolute) {
+                let container = document.querySelector('.activity-values')
+                if (container) container.style.overflow = 'visible'
+            }
             this.dragging = true
             this.$emit('onstartEvent', this.dataTransfer)
         },
@@ -135,6 +146,13 @@ export default {
             event.target.style.transform = this.translation + ' rotate(0deg)'
             const target = this.$el.parentElement
             target.style['z-index'] = 1
+            if (!this.isAbsolute) {
+                let container = document.querySelector('.activity-values')
+                if (container) {
+                    container.style['overflow-x'] = 'hidden'
+                    container.style['overflow-y'] = 'auto'
+                }
+            }
             this.dragging = false
             this.$emit('onendEvent', this.dataTransfer)
         },
