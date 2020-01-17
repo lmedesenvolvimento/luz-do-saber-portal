@@ -1,5 +1,5 @@
 <template>
-    <drop @drop="onDrop">
+    <drop :expected="item" @ondropEvent="onDrop">
         <div class="card-input card--droppable">
             <b-card no-body :class="{ invalid: invalid, valid: valid }">
                 <b-card-body>
@@ -13,7 +13,9 @@
 </template>
 
 <script>
-import { Drop } from 'vue-drag-drop'
+// import { Drop } from 'vue-drag-drop'
+import Vue from 'vue'
+import Drop from '@ui/items/Drop'
 import RadioInput from './RadioInput.vue'
 
 export default {
@@ -40,31 +42,46 @@ export default {
         this.transferData = this.item
     },
     methods: {
-        onDrop(transferData, nativeElement) {
+        onDrop(nativeElement, expected, dropped) {
             if (this.valid) return
 
+            let transferData = nativeElement.dragEvent.dataTransfer
             if (!this.customValidate) {
                 this.transferData = transferData
+                Vue.set(transferData, 'snapOn', 'dropzone')
+                Vue.set(transferData, 'dropped', false)
                 if (this.item.value_ids.includes(transferData.id)) {
                     this.setAnswer({
                         type: 'value',
                         data: transferData.id,
                         vm: this
                     })
-
-                    transferData.valid = true
+                    Vue.set(transferData, 'dropped', true)
                 } else {
                     this.setAnswer({
                         type: 'value',
                         data: -1,
                         vm: this
                     })
-
-                    transferData.invalid = true
+                    Vue.set(transferData, 'dragging', false)
+                    Vue.set(transferData, 'dropped', true)
+                    setTimeout(() => {
+                        Vue.set(transferData, 'snapOn', 'self')
+                    }, 600)
+                    setTimeout(() => {
+                        Vue.set(transferData, 'snapOn', 'none')
+                        Vue.set(transferData, 'dropped', false)
+                        dropped.length = 0
+                    }, 700)
                 }
             } else {
                 this.customValidate(transferData, nativeElement, this)
             }
+        },
+        showKeys(searchedObject, searchedKey) {
+            const hasKey = searchedObject.hasOwnProperty(searchedKey)
+            const keys = Object.keys(searchedObject)
+            return { hasKey, keys }
         }
     }
 }
