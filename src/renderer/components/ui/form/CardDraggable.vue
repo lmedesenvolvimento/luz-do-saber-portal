@@ -1,7 +1,7 @@
 <template>
     <drag
-        :snap-on="snapOn"
-        :dropped="dropped"
+        :snap-on="item.snapOn"
+        :dropped="item.dropped"
         :data-transfer="item"
         :is-absolute="false"
         has-empty-slot
@@ -105,7 +105,8 @@ export default {
         },
         onDrag(transferData, nativeElement) {
             // this.dragging = true
-            console.log(this.dragging)
+            // console.log(transferData)
+            // console.log(this.item)
         },
         onDragEnd(transferData, nativeElement) {
             if (transferData.valid) {
@@ -114,11 +115,8 @@ export default {
 
             if (transferData.invalid) {
                 setTimeout(() => {
-                    this.dragging = false
                     transferData.invalid = false
-                    this.snapOn = 'self'
                 }, 600)
-                setTimeout(() => (this.snapOn = 'none'), 800)
             } else {
                 this.dragging = false
             }
