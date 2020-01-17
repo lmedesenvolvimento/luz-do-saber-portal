@@ -79,6 +79,7 @@ export default {
                 endOnly: true,
                 offset: 'self'
             },
+            draggingElement: {},
             dragging: false,
             sigmoidInterval: '',
             rotation: 0,
@@ -95,7 +96,7 @@ export default {
     },
     mounted() {
         const snap = this.initialSnapTarget
-        interact(this.$el.firstChild).draggable({
+        this.draggingElement = interact(this.$el.firstChild).draggable({
             snap,
             inertia: {
                 allowResume: false
@@ -141,6 +142,8 @@ export default {
             this.$emit('onstartEvent', this.dataTransfer)
         },
         onEnd(event) {
+            event.dataTransfer = this.dataTransfer
+            // event.dataTransfer.snapOn = 'none'
             if (this.sigmoidInterval !== '') clearInterval(this.sigmoidInterval)
             event.target.style.transition = '0.1s'
             event.target.style.transform = this.translation + ' rotate(0deg)'
@@ -154,7 +157,7 @@ export default {
                 }
             }
             this.dragging = false
-            this.$emit('onendEvent', this.dataTransfer)
+            this.$emit('onendEvent', this.dataTransfer, event)
         },
         sigmoid(x) {
             return x / (1 + Math.abs(x))
@@ -168,10 +171,16 @@ export default {
             }
         },
         resetOptionsState() {
-            const element = interact(this.$el.firstChild)
+            const element = this.draggingElement
+            const snapOrigin = interact.modifiers.snap({
+                targets: [{ x: 0, y: 0, range: Infinity }],
+                relativePoints: [{ x: 0, y: 0 }],
+                enabled: true,
+                endOnly: true,
+                offset: 'self'
+            })
+            element.draggable({ snap: snapOrigin })
             element.draggable({ enabled: true })
-            const snap = this.initialSnapTarget
-            element.draggable({ snap })
             this.$el.firstChild.style.transform = 'translate(0,0)'
             this.$el.firstChild.setAttribute('data-start-x', 0)
             this.$el.firstChild.setAttribute('data-start-y', 0)
