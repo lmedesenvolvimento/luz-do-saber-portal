@@ -82,7 +82,7 @@
                     <ls-card-display
                         v-for="i in 2" :key="i"
                         class="bingo-card"
-                        :valid="loseCounter[i-1]==4"
+                        :valid="loseCounter[i-1]== getKeys.length"
                     >
                         <b-row align-v="center" align-h="center" class="bingo-card-row">
                             <b-col
@@ -189,7 +189,7 @@ export default {
         // pega os valores e os joga numa matriz de palavras
         this.scramblePlayerWords = shuffle(this.scramblePlayerWords)
         for(let i = 0; i < this.getValues.length; i++){
-            if(this.getValues[i].text.length > 4){
+            if(this.getValues[i].text.length > this.getKeys.length){
                 this.isWordBingo = true
             }            
             if(i < this.activity.total_correct_items){
@@ -218,7 +218,7 @@ export default {
             if (this.searchString(this.words[0],this.actualRaffleWord)){
                 this.loseCounter[0]++
                 this.raffle(word)
-                if(this.loseCounter[0] == 4){
+                if(this.loseCounter[0] == this.getKeys.length){
                     this.activity.pointings[0].quantity = 10
                     this.triggerSuccess()
                     this.finishGame = true
@@ -229,7 +229,7 @@ export default {
             if (this.searchString(this.words[1],this.actualRaffleWord)){
                 this.loseCounter[1]++
                 this.raffle(word)
-                if(this.loseCounter[1] == 4){
+                if(this.loseCounter[1] == this.getKeys.length){
                     this.activity.pointings[0].quantity = 10
                     this.triggerSuccess()
                     this.finishGame = true
