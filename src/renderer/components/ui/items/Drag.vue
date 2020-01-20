@@ -1,5 +1,5 @@
 <template>
-    <div class="drag-wrap">
+    <div class="drag-wrap" :class="isAbsolute || dragging ? 'isAbsolute' : ''">
         <div
             class="slot drag-el"
             :class="[classname, hasEmpty && dropped ? 'hidden' : '']"
@@ -13,13 +13,15 @@
             v-show="dragging || dropped"
             class="slot empty-el"
             :class="[classname, emptyClass]"
+            draggable="false"
         >
-            <slot />
+            <slot v-if="!hasEmptySlot" draggable="false" />
+            <slot v-else name="empty-drag" draggable="false" />
         </div>
     </div>
 </template>
 <script>
-import interact from 'interactjs'
+// import interact from 'interactjs'
 
 export default {
     props: {
@@ -56,6 +58,16 @@ export default {
             type: Boolean,
             required: false,
             default: true
+        },
+        isAbsolute: {
+            type: Boolean,
+            required: false,
+            default: true
+        },
+        hasEmptySlot: {
+            type: Boolean,
+            required: false,
+            default: false
         }
     },
     data() {
@@ -67,6 +79,7 @@ export default {
                 endOnly: true,
                 offset: 'self'
             },
+            draggingElement: {},
             dragging: false,
             sigmoidInterval: '',
             rotation: 0,
@@ -83,7 +96,7 @@ export default {
     },
     mounted() {
         const snap = this.initialSnapTarget
-        interact(this.$el.firstChild).draggable({
+        this.draggingElement = interact(this.$el.firstChild).draggable({
             snap,
             inertia: {
                 allowResume: false
@@ -121,17 +134,30 @@ export default {
             event.target.setAttribute('data-start-y', startY)
             const target = this.$el.parentElement
             target.style['z-index'] = 10001
+            if (!this.isAbsolute) {
+                let container = document.querySelector('.activity-values')
+                if (container) container.style.overflow = 'visible'
+            }
             this.dragging = true
             this.$emit('onstartEvent', this.dataTransfer)
         },
         onEnd(event) {
+            event.dataTransfer = this.dataTransfer
+            // event.dataTransfer.snapOn = 'none'
             if (this.sigmoidInterval !== '') clearInterval(this.sigmoidInterval)
             event.target.style.transition = '0.1s'
             event.target.style.transform = this.translation + ' rotate(0deg)'
             const target = this.$el.parentElement
             target.style['z-index'] = 1
+            if (!this.isAbsolute) {
+                let container = document.querySelector('.activity-values')
+                if (container) {
+                    container.style['overflow-x'] = 'hidden'
+                    container.style['overflow-y'] = 'auto'
+                }
+            }
             this.dragging = false
-            this.$emit('onendEvent', this.dataTransfer)
+            this.$emit('onendEvent', this.dataTransfer, event)
         },
         sigmoid(x) {
             return x / (1 + Math.abs(x))
@@ -145,10 +171,16 @@ export default {
             }
         },
         resetOptionsState() {
-            const element = interact(this.$el.firstChild)
+            const element = this.draggingElement
+            const snapOrigin = interact.modifiers.snap({
+                targets: [{ x: 0, y: 0, range: Infinity }],
+                relativePoints: [{ x: 0, y: 0 }],
+                enabled: true,
+                endOnly: true,
+                offset: 'self'
+            })
+            element.draggable({ snap: snapOrigin })
             element.draggable({ enabled: true })
-            const snap = this.initialSnapTarget
-            element.draggable({ snap })
             this.$el.firstChild.style.transform = 'translate(0,0)'
             this.$el.firstChild.setAttribute('data-start-x', 0)
             this.$el.firstChild.setAttribute('data-start-y', 0)
@@ -176,10 +208,12 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    position: absolute;
     z-index: 10000;
     min-width: 20px;
     min-height: 20px;
+    &.is-absolute {
+        position: absolute;
+    }
 }
 
 .empty-el {

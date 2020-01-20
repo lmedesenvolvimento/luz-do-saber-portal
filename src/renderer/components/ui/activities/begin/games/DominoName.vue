@@ -228,7 +228,6 @@ import {
     findIndex,
     random
 } from 'lodash'
-// import { Drag, Drop } from 'vue-drag-drop'
 import Drag from '@ui/items/Drag'
 import Drop from '@ui/items/Drop'
 import FormComponents from '@ui/form'
