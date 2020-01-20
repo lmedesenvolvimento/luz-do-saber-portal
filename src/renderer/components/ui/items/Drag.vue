@@ -21,7 +21,7 @@
     </div>
 </template>
 <script>
-import interact from 'interactjs'
+// import interact from 'interactjs'
 
 export default {
     props: {
