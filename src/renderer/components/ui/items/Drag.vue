@@ -172,13 +172,13 @@ export default {
         },
         resetOptionsState() {
             const element = this.draggingElement
-            const snapOrigin = interact.modifiers.snap({
+            const snapOrigin = {
                 targets: [{ x: 0, y: 0, range: Infinity }],
                 relativePoints: [{ x: 0, y: 0 }],
                 enabled: true,
                 endOnly: true,
                 offset: 'self'
-            })
+            }
             element.draggable({ snap: snapOrigin })
             element.draggable({ enabled: true })
             this.$el.firstChild.style.transform = 'translate(0,0)'
