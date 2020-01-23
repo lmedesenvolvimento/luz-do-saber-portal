@@ -9,7 +9,7 @@ export default {
     props: {
         expected: {
             type: [String, Object],
-            required: true
+            required: false
         },
         snap: {
             type: Object,
@@ -21,6 +21,11 @@ export default {
         objects: {
             type: [Array, Object],
             required: false
+        },
+        maxItems: {
+            type: [Number, String],
+            required: false,
+            default: 1
         }
     },
     data() {
@@ -35,23 +40,25 @@ export default {
                 endOnly: true,
                 offset: 'self'
             },
-            dropzoneSnap: this.snap || { x: 0, y: 0 }
+            dropzoneSnap: this.snap || { x: 0, y: 0 },
+            canDrop: false
         }
     },
     mounted() {
         const snap = this.initialSnapTarget
         const droppedArr = this.dropped
+        const maxItems = Number(this.maxItems)
         const expected = this.expected
-        const check = this.checkdrop
         interact(this.$el).dropzone({
             accept: '.drag-el',
-            overlap: 0.25,
+            overlap: 'center',
             checker(dragEvent, event, dropped) {
-                // const dragId = JSON.parse(
-                //     draggableElement.getAttribute('data-transfer')
-                // )
-                // const canDrop = expected.value_ids.includes(dragId.id)
-                return dropped && !droppedArr.length > 0
+                // if (dropped) {
+                //     console.log('canDrop')
+                // } else {
+                //     console.log('not dropped')
+                // }
+                return dropped && droppedArr.length < maxItems
             },
             snap: {
                 enabled: false
@@ -95,15 +102,15 @@ export default {
             })
             event.target.classList.add('drop-target')
             event.relatedTarget.classList.add('can-drop')
+
+            this.canDrop = true
             this.$emit('onhoverEvent', event)
         },
         ondragleave(event, snap) {
+            this.canDrop = false
             event.relatedTarget.classList.remove('can-drop')
             event.draggable.draggable({ snap })
             this.$emit('onhoverEndEvent', event)
-        },
-        checkdrop(drop, expected) {
-            return drop.id === expected.id
         },
         ondrop(event, dropped, snap) {
             event.draggable.draggable({ enabled: false })
