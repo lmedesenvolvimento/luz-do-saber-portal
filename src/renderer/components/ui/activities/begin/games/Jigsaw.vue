@@ -16,6 +16,11 @@
                                     :snap-on="key.snapOn"
                                     :dropped="key.dropped"
                                     :has-empty="false"
+                                    :style="
+                                        !key.canDrag
+                                            ? 'pointer-events: none'
+                                            : ''
+                                    "
                                 >
                                     <div class="peca">
                                         <div
@@ -168,6 +173,7 @@ export default {
                     cards[i].dropped = false
                     cards[i].snapOn = 'self'
                     cards[i].style.transform = 'translate(0,0)'
+                    cards[i].canDrag = true
                 }, i * 300)
             }
         }, 1800)
