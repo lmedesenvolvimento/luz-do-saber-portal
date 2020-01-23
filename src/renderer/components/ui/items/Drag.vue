@@ -2,7 +2,7 @@
     <div class="drag-wrap" :class="isAbsolute || dragging ? 'isAbsolute' : ''">
         <div
             class="slot drag-el"
-            :class="[classname, hasEmpty && dropped ? 'hidden' : '']"
+            :class="[classlist, hasEmpty && dropped ? 'hidden' : '']"
             :data-transfer="modeledDataTransfer"
             draggable="false"
         >
@@ -12,7 +12,7 @@
             v-if="hasEmpty"
             v-show="dragging || dropped"
             class="slot empty-el"
-            :class="[classname, emptyClass]"
+            :class="[classlist, emptyClass]"
             draggable="false"
         >
             <slot v-if="!hasEmptySlot" draggable="false" />
@@ -84,6 +84,7 @@ export default {
             sigmoidInterval: '',
             rotation: 0,
             translation: '',
+            classlist: this.classname,
             modeledDataTransfer: JSON.stringify(this.dataTransfer)
         }
     },
@@ -105,6 +106,8 @@ export default {
             onstart: (event) => this.onStart(event),
             onend: (event) => this.onEnd(event)
         })
+        if (this.classlist === 'idle')
+            this.classlist = this.$el.parentElement.classList.values()
     },
     methods: {
         onMove(event) {
@@ -134,6 +137,7 @@ export default {
             event.target.setAttribute('data-start-y', startY)
             const target = this.$el.parentElement
             target.style['z-index'] = 10001
+            target.parentElement.style['z-index'] = 10001
             if (!this.isAbsolute) {
                 let container = document.querySelector('.activity-values')
                 if (container) container.style.overflow = 'visible'
@@ -149,14 +153,15 @@ export default {
             event.target.style.transform = this.translation + ' rotate(0deg)'
             const target = this.$el.parentElement
             target.style['z-index'] = 1
-            if (!this.isAbsolute) {
-                let container = document.querySelector('.activity-values')
-                if (container) {
-                    container.style['overflow-x'] = 'hidden'
-                    container.style['overflow-y'] = 'auto'
-                }
-            }
-            this.dragging = false
+            target.parentElement.style['z-index'] = 1
+            // if (!this.isAbsolute) {
+            //     let container = document.querySelector('.activity-values')
+            //     if (container) {
+            //         container.style['overflow-x'] = 'hidden'
+            //         container.style['overflow-y'] = 'auto'
+            //     }
+            // }
+            // this.dragging = false
             this.$emit('onendEvent', this.dataTransfer, event)
         },
         sigmoid(x) {
@@ -172,13 +177,13 @@ export default {
         },
         resetOptionsState() {
             const element = this.draggingElement
-            const snapOrigin = interact.modifiers.snap({
+            const snapOrigin = {
                 targets: [{ x: 0, y: 0, range: Infinity }],
                 relativePoints: [{ x: 0, y: 0 }],
                 enabled: true,
                 endOnly: true,
                 offset: 'self'
-            })
+            }
             element.draggable({ snap: snapOrigin })
             element.draggable({ enabled: true })
             this.$el.firstChild.style.transform = 'translate(0,0)'
