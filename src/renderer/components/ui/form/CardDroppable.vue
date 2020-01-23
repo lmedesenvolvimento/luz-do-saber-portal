@@ -46,42 +46,45 @@ export default {
             if (this.valid) return
 
             let transferData = nativeElement.dragEvent.dataTransfer
+            Vue.set(transferData, 'snapOn', 'dropzone')
+            Vue.set(transferData, 'dropped', true)
+
             if (!this.customValidate) {
                 this.transferData = transferData
-                Vue.set(transferData, 'snapOn', 'dropzone')
-                Vue.set(transferData, 'dropped', false)
                 if (this.item.value_ids.includes(transferData.id)) {
                     this.setAnswer({
                         type: 'value',
                         data: transferData.id,
                         vm: this
                     })
-                    Vue.set(transferData, 'dropped', true)
+                    transferData.valid = true
                 } else {
                     this.setAnswer({
                         type: 'value',
                         data: -1,
                         vm: this
                     })
-                    Vue.set(transferData, 'dragging', false)
-                    Vue.set(transferData, 'dropped', true)
-                    setTimeout(() => {
-                        Vue.set(transferData, 'snapOn', 'self')
-                    }, 600)
-                    setTimeout(() => {
-                        Vue.set(transferData, 'snapOn', 'none')
-                        Vue.set(transferData, 'dropped', false)
-                        dropped.length = 0
-                    }, 700)
+                    transferData.invalid = true
                 }
             } else {
                 this.customValidate(transferData, nativeElement, this)
             }
-        },
-        showKeys(searchedObject, searchedKey) {
-            const hasKey = searchedObject.hasOwnProperty(searchedKey)
-            const keys = Object.keys(searchedObject)
-            return { hasKey, keys }
+
+            if (transferData.valid) {
+                Vue.set(transferData, 'dropped', true)
+            } else if (transferData.invalid) {
+                Vue.set(transferData, 'dragging', false)
+                Vue.set(transferData, 'dropped', true)
+                setTimeout(() => {
+                    Vue.set(transferData, 'snapOn', 'self')
+                }, 600)
+                setTimeout(() => {
+                    Vue.set(transferData, 'snapOn', 'none')
+                    Vue.set(transferData, 'dropped', false)
+                    Vue.set(transferData, 'invalid', false)
+                    dropped.length = 0
+                }, 700)
+            }
         }
     }
 }
