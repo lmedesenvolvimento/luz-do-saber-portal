@@ -41,10 +41,8 @@
 import ItemComponents, { ItemProps } from './index.js'
 export default {
     components: { ...ItemComponents },
-    mixins: [ ItemProps ],
+    mixins: [ItemProps]
 }
 </script>
 
-<style>
-
-</style>
+<style></style>
