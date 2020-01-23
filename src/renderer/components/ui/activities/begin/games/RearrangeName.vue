@@ -17,7 +17,7 @@
             </b-row>
         </div>
         <ls-card-display>
-            <b-row align-v="around" align-h="around">
+            <b-row align-v="center" align-h="around">
                 <b-col
                     v-for="item in activity.items.values"
                     :key="item.id"

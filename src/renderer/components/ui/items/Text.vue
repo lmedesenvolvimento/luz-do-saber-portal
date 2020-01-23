@@ -82,6 +82,6 @@
 <script>
 import { ItemProps } from './index.js'
 export default {
-    mixins: [ItemProps],
+    mixins: [ItemProps]
 }
 </script>
