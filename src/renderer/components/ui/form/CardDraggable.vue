@@ -16,7 +16,12 @@
             >
                 <b-card no-body>
                     <fill-background :bg-color="bgColor">
-                        <b-card-body>
+                        <b-card-body
+                            :class="{
+                                invalid: item.invalid,
+                                valid: item.valid
+                            }"
+                        >
                             <slot name="transfer-data">
                                 <div>{{ item.text }}</div>
                             </slot>
@@ -30,7 +35,10 @@
             class="card-input card--draggable"
             :class="{ 'card-sm': isCardSm, ...$attrs.class }"
         >
-            <b-card no-body>
+            <b-card
+                no-body
+                :class="{ invalid: item.invalid, valid: item.valid }"
+            >
                 <fill-background :bg-color="bgColor">
                     <b-card-body>
                         <slot name="img"></slot>
