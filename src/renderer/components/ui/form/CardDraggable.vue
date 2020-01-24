@@ -16,12 +16,7 @@
             >
                 <b-card no-body>
                     <fill-background :bg-color="bgColor">
-                        <b-card-body
-                            :class="{
-                                invalid: item.invalid,
-                                valid: item.valid
-                            }"
-                        >
+                        <b-card-body>
                             <slot name="transfer-data">
                                 <div>{{ item.text }}</div>
                             </slot>

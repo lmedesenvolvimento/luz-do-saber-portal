@@ -155,7 +155,6 @@ export default {
             } else {
                 dropZone.invalid = true
                 draggedObject.invalid = true
-                setTimeout(() => (draggedObject.invalid = false), 50)
 
                 vm.setAnswer({
                     type: 'value',
