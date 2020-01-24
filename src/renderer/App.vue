@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div id="app" :class="$context">
         <b-container class="fill" :class="$route.params.module_slug">
             <transition name="page" mode="out-in">
                 <router-view></router-view>

@@ -39,8 +39,6 @@ function logStats (proc, data) {
 }
 
 function startRenderer () {
-  require('dotenv').config({ path: '.env.development' })
-  
   return new Promise((resolve, reject) => {
     rendererConfig.entry.renderer = [path.join(__dirname, 'dev-client')].concat(rendererConfig.entry.renderer)
     rendererConfig.mode = 'development'
