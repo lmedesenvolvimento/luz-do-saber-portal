@@ -110,7 +110,8 @@ let webConfig = {
     new webpack.DefinePlugin({
       'process.env.IS_WEB': 'true',
       'process.env.BUILD_TARGET': '"web"',
-      'process.env.BASE_API_URL': '"https://luz-do-saber-staging.herokuapp.com"'
+      'process.env.CONTEXT': `\'${process.env.CONTEXT}\'`,
+      'process.env.BASE_API_URL': `\'${process.env.BASE_API_URL}\'`
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin()

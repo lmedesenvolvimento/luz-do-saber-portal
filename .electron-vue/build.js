@@ -2,8 +2,6 @@
 
 process.env.NODE_ENV = 'production'
 
-require('dotenv').config({ path: '.env' })
-
 const { say } = require('cfonts')
 const chalk = require('chalk')
 const del = require('del')
