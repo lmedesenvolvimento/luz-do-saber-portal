@@ -70,9 +70,9 @@ export default {
                 this.customValidate(transferData, nativeElement, this)
             }
 
-            if (transferData.valid || transferData.validWithoutFB) {
+            if (transferData.valid) {
                 Vue.set(transferData, 'dropped', true)
-            } else if (transferData.invalid || transferData.invalidWithoutFB) {
+            } else if (transferData.invalid) {
                 Vue.set(transferData, 'dragging', false)
                 Vue.set(transferData, 'dropped', true)
                 setTimeout(() => {

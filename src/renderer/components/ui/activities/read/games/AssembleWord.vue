@@ -145,7 +145,7 @@ export default {
                 draggedObject.text === dropZone.item.text
             ) {
                 dropZone.valid = true
-                draggedObject.validWithoutFB = true
+                draggedObject.valid = true
 
                 vm.setAnswer({
                     type: 'value',
@@ -154,7 +154,7 @@ export default {
                 })
             } else {
                 dropZone.invalid = true
-                draggedObject.invalidWithoutFB = true
+                draggedObject.invalid = true
                 setTimeout(() => (draggedObject.invalid = false), 50)
 
                 vm.setAnswer({
