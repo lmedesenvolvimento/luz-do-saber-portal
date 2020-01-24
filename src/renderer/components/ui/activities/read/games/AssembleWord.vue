@@ -119,6 +119,7 @@ export default {
                 })
             } else {
                 dropZone.invalid = true
+                draggedObject.invalid = true
 
                 vm.setAnswer({ 
                     type: 'value', 
