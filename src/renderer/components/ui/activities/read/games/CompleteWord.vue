@@ -21,7 +21,7 @@
                     </b-col>
                 </b-row>
             </b-col>
-            <b-col v-if="hasKeys" class="activity-keys">
+            <b-col v-if="hasKeys" class="activity-values">
                 <b-col class="activity-values" cols="12" md="12">
                     <b-row align-v="center" align-h="center" class="values-container">
                         <ls-card-display v-if="activity.item_template.value.tags==='arrastar'" class="card--display-container">
