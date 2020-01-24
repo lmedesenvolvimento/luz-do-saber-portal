@@ -35,10 +35,7 @@
             class="card-input card--draggable"
             :class="{ 'card-sm': isCardSm, ...$attrs.class }"
         >
-            <b-card
-                no-body
-                :class="{ invalid: item.invalid, valid: item.valid }"
-            >
+            <b-card no-body>
                 <fill-background :bg-color="bgColor">
                     <b-card-body>
                         <slot name="img"></slot>
