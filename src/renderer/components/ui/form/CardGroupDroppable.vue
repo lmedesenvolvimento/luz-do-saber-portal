@@ -55,16 +55,16 @@
                     </b-row>
                 </div>
                 <div v-else class="items-container">
-                    <b-row align-h="center" align-v="center">
-                        <b-col cols="6">
-                            <b-row align-h="center" align-v="center">
+                    <b-row align-h="center" align-v="center" class="h-100">
+                        <b-col cols="6" class="h-100"> 
+                            <b-row align-h="center" class="h-100 vertical-center"> 
                                 <b-col
                                     v-for="item in answers"
                                     :key="item.id"
                                     cols="6"
                                 >
-                                    <div class="item">
-                                        <div class="texto medium">
+                                    <div class="texto" :class="fontSize">
+                                        <div class="item">
                                             <b-card
                                                 no-body
                                                 class="drop-group-item"
@@ -148,6 +148,9 @@ export default {
             return this.template.custom === 'game-caixa-de-palavras'
                 ? true
                 : false
+        },
+        fontSize(){
+            return this.template.font_size ? this.template.font_size : ''
         }
     },
     created() {
@@ -196,4 +199,9 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.vertical-center{
+    padding-top: 25px;
+    align-content: space-evenly;
+}
+</style>
