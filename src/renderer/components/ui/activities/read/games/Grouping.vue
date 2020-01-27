@@ -173,15 +173,16 @@ export default {
             .card-input.drop-group{
                 height: 280px;
             }
-            .card{
-                .bg-color {
-                    border-radius: 0.6rem !important;
-                }
-                .card-body{
-                    font-size: 18px;
-                    border-radius: 0.6rem !important;
-                }
-            }
+            // DECAPRED
+            // .card{
+            //     .bg-color {
+            //         border-radius: 0.6rem !important;
+            //     }
+            //     .card-body{
+            //         font-size: 18px;
+            //         border-radius: 0.6rem !important;
+            //     }
+            // }
             .items-container{
                 display: flex;
                 flex-direction: column;
