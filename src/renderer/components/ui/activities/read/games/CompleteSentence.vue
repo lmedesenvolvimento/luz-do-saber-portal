@@ -59,7 +59,6 @@
                             >
                                 <b-card-body>
                                     <input
-                                        id="input-name"
                                         type="value"
                                         maxlength="13"
                                         autocomplete="off"
