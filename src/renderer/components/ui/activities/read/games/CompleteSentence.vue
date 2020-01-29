@@ -1,6 +1,6 @@
 <template>
     <div id="complete-sentence" class="container-fluid">
-        <b-row v-if="activity.total_correct_items == 1" align-v="center" align-h="center" class="activity-keys"> 
+        <b-row v-if="activity.total_correct_items == 1 && activity.item_template.key.type !== 'audio'" align-v="center" align-h="center" class="activity-keys"> 
             <h2>   
                 <span v-for="(s, position) in splitedSentence" :key="position" style="display: inline-block">
                     <span v-if="!searchString(hiddenElements, s)" class="sentence">{{ s.text }}</span>
@@ -111,7 +111,7 @@ export default {
         return {
             hiddenElements: [],
             sentence: '',
-            splitedSentence: [],
+            splitedSentence: [],//vetor que vai ser renderizado
             allSentenceInteractive: false
         }
     },
@@ -152,17 +152,42 @@ export default {
             if (this.sentence.includes('?'))
                 this.sentence = this.sentence.replace('?', ' ?')
             let values = this.getValues
-            values.forEach(element => {    
-                let hiddenElement = {
-                    text: element.text
-                }       
-                this.hiddenElements.push(hiddenElement)
-            })
-            this.splitSentence(this.hiddenElements, this.sentence)        
-            let sentences = {
-                text: this.sentence
+            let keys = this.getKeys
+            if (this.activity.item_template.value.tags === 'input') { //caso seja do tipo input
+                let a = keys[0].text.split(' ') //separa o texto em um vetor por palavra
+                let writtenSentence1 = {text: ' '}
+                let writtenSentence2 = {text: ' '}
+                let adicionou = false
+                a.forEach((element, index) => {
+                    if (!adicionou)
+                    {
+                        if (element == values[0].text) //se o texto da key for igual ao valor do value a ser preenchido
+                        {
+                            this.splitedSentence.push(writtenSentence1)
+                            values[0].isInteractive = true
+                            this.splitedSentence.push(values[0]) //adiciona ao vetor que vai ser renderizado
+                            adicionou = true
+                        } else {
+                            writtenSentence1.text+= element
+                        }
+                    } else {
+                        writtenSentence2.text+= element + ' '
+                    }
+                })
+                this.splitedSentence.push(writtenSentence2)
+            } else { //código como estava antes
+                values.forEach(element => {    
+                    let hiddenElement = {
+                        text: element.text
+                    }       
+                    this.hiddenElements.push(hiddenElement)
+                })
+                this.splitSentence(this.hiddenElements, this.sentence) 
+                let sentences = {
+                    text: this.sentence,
+                }   
+                this.splitedSentence.push(Object.assign({}, sentences))       
             }
-            this.splitedSentence.push(Object.assign({}, sentences))
         },
         multipleCorrectItem(){
             this.sentence = this.sentence.split(' ')//separando as palavras da frase em um vetor
@@ -225,7 +250,6 @@ export default {
         },
         customValidate(transferData, nativeElement, vm){
             Vue.set(vm.item, 'transferData', transferData)
-            
             if (vm.item.transferData.id === vm.item.id){
                 vm.valid = true
                 transferData.valid = true
@@ -258,6 +282,7 @@ export default {
                 return
             }
             if (event.target.value.toLowerCase() === item.text.toLowerCase()){
+                console.log(item.id)
                 this.setAnswer({
                     type: 'value',
                     data: item.id,
