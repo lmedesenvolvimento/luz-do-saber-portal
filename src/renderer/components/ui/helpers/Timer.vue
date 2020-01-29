@@ -25,7 +25,7 @@ export default {
         ...mapState('Activity', ['log'])
     },
     created(){
-        this.timer = setInterval(_ => this.incrementTimer(), WAIT_TIME)
+        // this.timer = setInterval(_ => this.incrementTimer(), WAIT_TIME)
     },
     beforeDestroy(){
         clearInterval(this.timer)
