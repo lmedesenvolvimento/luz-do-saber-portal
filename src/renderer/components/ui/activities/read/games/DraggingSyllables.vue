@@ -17,7 +17,7 @@
                                     ></async-image>
                                 </ls-card-display>
                             </b-col>
-                            <b-col>
+                            <b-col class="no-padding">
                                 <b-row
                                     align-h="start"
                                     class="syllables-row custom-row"
