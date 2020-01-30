@@ -25,7 +25,6 @@
                                         >
                                             <b-card-body>
                                                 <input
-                                                    id="input-name"
                                                     :ref="position"
                                                     type="text"
                                                     maxlength="11"
@@ -150,10 +149,7 @@ export default {
         padding-left: 1rem !important;
     }
 }
-#input-name{
-    padding: 0.7rem !important;
-    height: 26px;
-}
+
 </style>
 
 
