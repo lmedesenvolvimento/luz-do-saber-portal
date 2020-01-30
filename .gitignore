@@ -15,7 +15,6 @@ src/main/server/public
 
 # Env
 .env
-.env.development
 
 # Local Database
 db.json

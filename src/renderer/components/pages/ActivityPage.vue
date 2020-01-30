@@ -26,7 +26,6 @@ export default {
     data(){
         return {
             isReady: false,
-            audioIsPlaying: false,
         }
     },
     computed: {
@@ -57,7 +56,7 @@ export default {
                 params: newVal.params, 
                 question: this.getQuestion
             }).then(() => {
-                this.playAudio()
+                if (this.activity) AudioReader.simplePlay(this.activity.statement.audio)
             })
         }
     },
@@ -68,7 +67,7 @@ export default {
             params, 
             question: this.getQuestion
         }).then(() => {
-            this.playAudio()
+            if (this.activity) AudioReader.simplePlay(this.activity.statement.audio)
         })
     },
     beforeDestroy(){
@@ -77,12 +76,7 @@ export default {
     },    
     methods: {
         playAudio() {
-            if (this.activity && !this.audioIsPlaying) {
-                this.audioIsPlaying = true
-                AudioReader.simplePlay(this.activity.statement.audio, (type) => {
-                    if (type === 'ended') this.audioIsPlaying = false
-                })
-            }
+            if (AudioReader.audio.paused) AudioReader.audio.play()
         },
         ...mapActions('Unit', ['setNavigatorOrder']),
         ...mapActions('Activity', ['fetchActivity', 'destroyActivity'])
