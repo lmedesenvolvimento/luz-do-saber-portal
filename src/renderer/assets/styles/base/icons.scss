@@ -1,15 +1,19 @@
-@each $theme, $value in $icon-themes {
-    @each $icon-name in $icon-names {
-        .#{$theme} {
-            .#{$icon-name} {
-                @include embed_image("#{$value}#{$icon-name}.png", $icon-width, $icon-height);
-                max-height: $icon-height;
-                user-select: none;
-                outline: none;
-                &:hover,
-                &:focus,
-                &:active {
-                    cursor: pointer;
+@each $t in get-themes-keys() {
+    .#{$t} {
+        @each $theme, $value in get-value-theme($t, 'icon-themes') {
+            @each $icon-name in $icon-names {
+                .#{$theme} {
+                    .#{$icon-name} {
+                        @include embed_image("#{$value}#{$icon-name}.png", $icon-width, $icon-height);
+                        max-height: $icon-height;
+                        user-select: none;
+                        outline: none;
+                        &:hover,
+                        &:focus,
+                        &:active {
+                            cursor: pointer;
+                        }
+                    }
                 }
             }
         }

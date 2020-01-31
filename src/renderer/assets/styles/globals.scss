@@ -1,0 +1,90 @@
+/******
+*
+* Layout
+*
+*****/
+$spacer: 1rem;
+
+// Grid
+$gutter-size: 0.5rem;
+
+$navbar-height: 70px;
+$body-min-width: 1380px;
+$page-container-wrap-spacing: ($spacer * 8);
+$page-container-wrap-spacing-xs: ($spacer * 3);
+
+// Icons
+$icon-width: 62px;
+$icon-height: 62px;
+
+$icon-names: (
+    'icon-home',
+    'icon-next',
+    'icon-prev',
+    'icon-lista',
+    'icon-redo',
+    'counter',
+    'icon-prev-screen',
+    'icon-exit',
+);
+
+// Fontsizes
+$font-size-variants: (
+    small: 12px,
+    normal: 18px,
+    big: 24px
+);
+
+$font-displays: (
+    d1: 1rem,
+    d2: 2rem,
+    d3: 3rem,
+    d4: 4rem,
+    d5: 5rem,
+    d6: 6rem
+);
+
+// Item
+$item-min-width: 74px;
+$item-text-max-heigth: 85px;
+
+$item-types: (
+    'letra',
+    'numero',
+    'caractere_especial',
+    'silaba',
+    'substantivo_comum',
+    'substantivo_proprio'
+);
+
+$item-letter-types: (
+    'letra',
+    'numero',
+    'caractere_especial',
+    'lowercase-letter'
+);
+
+
+$base-fontsize-letter: 74px;
+$base-fontsize-syllabus: 100px;
+$substantive-fontsize: 210px;
+
+$item-sizes: (
+    big: 'big',
+    medium: 'medium',
+    small: 'small',
+    'extreme-small': 'extreme-small'
+);
+
+$item-font-size: (
+    big: 24px,
+    medium: 18px,
+    small: 14px,
+    'extreme-small': 12px
+);
+
+// Player
+$inline-player-width: 48px;
+
+// Books
+$book-card-height: 180px;

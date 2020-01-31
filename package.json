@@ -15,6 +15,7 @@
     "build:win32": "cross-env BUILD_TARGET=win32 node .electron-vue/build.js",
     "build:clean": "cross-env BUILD_TARGET=clean node .electron-vue/build.js",
     "build:web": "env-cmd -e web node .electron-vue/build.js",
+    "build:web:clone": "env-cmd -e web:clone node .electron-vue/build.js",
     "build:web:eja": "env-cmd -e web:eja node .electron-vue/build.js",
     "dev": "env-cmd -e development node .electron-vue/dev-runner.js",
     "dev:eja": "env-cmd -e development:eja node .electron-vue/dev-runner.js",
