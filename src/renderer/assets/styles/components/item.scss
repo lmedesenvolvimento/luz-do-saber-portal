@@ -1,48 +1,67 @@
-.item{
-    position: relative;
-    user-select: none;
-    outline: none;
-    label{
-        margin-bottom: 0px;
-    }
-
-    @each $type in $item-types {
-       .#{$type} {
-           display: inline-flex;
-           flex: 1;
-           max-width: none;
-           width: 100%;
-           justify-content: center;
-           > div{
-               width: 100%;
-           }
-           .texto, &.texto{
-               [class^="card--"] {
-                   max-height: $item-text-max-heigth;                   
-                   .bg-color{
-                       overflow: hidden;
+@each $t in get-themes-keys() {
+    .#{$t} {
+        .item{
+            position: relative;
+            user-select: none;
+            outline: none;
+            label{
+                margin-bottom: 0px;
+            }
+        
+            @each $type in $item-types {
+               .#{$type} {
+                   display: inline-flex;
+                   flex: 1;
+                   max-width: none;
+                   width: 100%;
+                   justify-content: center;
+                   > div{
+                       width: 100%;
                    }
-               }
-               .card {
-                   max-height: $item-text-max-heigth;
-               }
-           }
-           &.validate-icon-top, .card-inline-player, .silaba .card--input-text{
-                .card {
-                    &.valid, &.invalid{
-                        &::after{
-                            top: -24px !important;
-                            bottom: auto !important;
-                            left: 0 !important;
-                            right: 0 !important;
+                   .texto, &.texto{
+                       [class^="card--"] {
+                           max-height: $item-text-max-heigth;                   
+                           .bg-color{
+                               overflow: hidden;
+                           }
+                       }
+                       .card {
+                           max-height: $item-text-max-heigth;
+                       }
+                   }
+                   &.validate-icon-top, .card-inline-player, .silaba .card--input-text{
+                        .card {
+                            &.valid, &.invalid{
+                                &::after{
+                                    top: -24px !important;
+                                    bottom: auto !important;
+                                    left: 0 !important;
+                                    right: 0 !important;
+                                }
+                            }
                         }
                     }
-                }
+               }
+               @if $type == 'silaba' {
+                   .#{$type} {
+                        .card--input-text{
+                            .card {
+                                &.valid, &.invalid{
+                                    &::after{
+                                        top: -24px !important;
+                                        bottom: auto !important;
+                                        left: 0 !important;
+                                        right: 0 !important;
+                                    }
+                                }
+                            }
+                        }
+                   }
+               }
             }
-       }
-       @if $type == 'silaba' {
-           .#{$type} {
-                .card--input-text{
+        
+            @each $type in $item-letter-types {
+                .#{$type} {
                     .card {
                         &.valid, &.invalid{
                             &::after{
@@ -54,59 +73,44 @@
                         }
                     }
                 }
-           }
-       }
-    }
-
-    @each $type in $item-letter-types {
-        .#{$type} {
-            .card {
-                &.valid, &.invalid{
-                    &::after{
-                        top: -24px !important;
-                        bottom: auto !important;
-                        left: 0 !important;
-                        right: 0 !important;
+            }
+        
+            @each $size, $value in get-value-theme($t, 'item-types-width') {
+                @each $type, $value in map-get($map: get-value-theme($t, 'item-types-width'), $key: $size) {
+                    @if $size == 'default' {
+                        .#{$type}{
+                            @include item($value);
+                        }
+                    }
+                    @else {
+                        .#{$type}.#{$size}{
+                            @include item($value);
+                        }
                     }
                 }
             }
-        }
-    }
-
-    @each $size, $value in $item-types-width {
-        @each $type, $value in map-get($map: $item-types-width, $key: $size) {
-            @if $size == 'default' {
-                .#{$type}{
-                    @include item($value);
-                }
+        
+        
+            // @each $type, $value in map-get($map: $item-types-width, $key: 'medium') {
+            //     .#{$type}.medium {
+            //         @include item($value);
+            //         &::after {
+            //             content: '#{$value}';
+            //         }
+            //     }
+            // }
+        
+            // @each $type, $value in map-get($map: $item-types-width, $key: 'small') {
+            //     .#{$type}.small {
+            //         @include item($value);
+            //     }
+            // }
+        
+            &.col-sm-1, &.col-md-1, .col-1{
+                display: inline-flex;
+                max-width: none;
+                justify-content: center;
             }
-            @else {
-                .#{$type}.#{$size}{
-                    @include item($value);
-                }
-            }
         }
-    }
-
-
-    // @each $type, $value in map-get($map: $item-types-width, $key: 'medium') {
-    //     .#{$type}.medium {
-    //         @include item($value);
-    //         &::after {
-    //             content: '#{$value}';
-    //         }
-    //     }
-    // }
-
-    // @each $type, $value in map-get($map: $item-types-width, $key: 'small') {
-    //     .#{$type}.small {
-    //         @include item($value);
-    //     }
-    // }
-
-    &.col-sm-1, &.col-md-1, .col-1{
-        display: inline-flex;
-        max-width: none;
-        justify-content: center;
     }
 }

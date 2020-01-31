@@ -1,0 +1,30 @@
+@function get-theme($theme: "fundamental"){    
+    @return map-get($themes, $theme);
+}
+
+@function get-themes-keys() {
+    @return map-keys($map: $themes);
+}
+
+@function get-value-theme($theme: "fundametal", $key: "") {
+    @return map-deep-get($themes, $theme, $key);
+}
+
+@function item-types-card-border-radius($theme: 'fundamental') {
+    $card-border-radius: map-deep-get($themes, $theme, 'card-border-radius');
+
+    @return (
+        default: 1.15rem,
+        medium: ( $card-border-radius / 1.25 ),
+        small: ( $card-border-radius / 1.5 )
+    );
+}
+
+@function map-deep-get($map, $keys...) {
+    @each $key in $keys {
+        @if type_of($map) == 'map' {
+            $map: map-get($map, $key);
+        }
+    }
+    @return $map;
+}

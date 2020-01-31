@@ -5,18 +5,28 @@ body,html {
 
 body {
       @include baloo_bhaina;
-      background: url("~@/assets/images/default-bg.jpg") $bg-color no-repeat;
+      background: url("~@/assets/images/default-bg.jpg") no-repeat;
       background-size: cover;
-      color: $text-color;
+      @each $t in get-themes-keys() {
+          &.#{$t} {
+            color: get-value-theme($t, 'text-color');
+            background-color: get-value-theme($t, 'bg-color');
+          }
+      }
 }
 
-@each $color, $value in $theme-colors {
-    .#{$color} {
-        .navbar {
-            background-color: $value;
-        }
-        .plyr--audio .plyr__controls{
-            color: $value;
+@each $t in get-themes-keys() {
+    .#{$t} {
+        @each $color, $value in get-value-theme($t, 'theme-colors')  {
+            .#{$color} {
+                .navbar {
+                    background-color: $value;
+                }
+                .plyr--audio .plyr__controls{
+                    color: $value;
+                }
+            }
         }
     }
 }
+
