@@ -1,249 +1,253 @@
-.gameplay{
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    background-color: white;
-    min-width: 1024px;
-    max-width: 1024px;
-    margin: 24px auto 0px;
-    box-shadow: 3px 3px 18px transparentize($color: #000, $amount: 0.9);
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
-    .gameplay-heading{
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        min-height: $gameplay-header-height;
-        background-color: $gameplay-heading-bg-color;
-        border-bottom: 1.5px solid #ddd;
-        padding: 0px 8px;
-        flex: 1;
-        .gameplay-navigation{
-            @extend .fill;
-            position: absolute;
-            top: 0;
-            left: 0;
-            display: flex;
-            .gameplay-navigation-next,
-            .gameplay-navigation-prev{
-                flex: 1;
-                display: flex;
-                align-items: center;
-            }
-            .gameplay-navigation-next{
-                justify-content: flex-end;
-            }
-            .gameplay-navigation-prev{
-                justify-content: flex-start;
-            }
-        }
-        .gameplay-heading-title{
-            font-size: 25px;
-            line-height: 40px;
-            min-height: 40px;
-            text-transform: uppercase;
-            @include ellipsis(100%);
-        }
-    }
-    .gameplay-footer{
-        background-color: $gameplay-heading-bg-color;
-        border-top: 1.5px solid $gameplay-border-color;
-        border-left: 1px solid $gameplay-border-color;
-        border-right: 1px solid $gameplay-border-color;
-        border-bottom: 1px solid $gameplay-border-color;
-        border-bottom-left-radius: 8px;
-        border-bottom-right-radius: 8px;
-        max-height: $gameplay-footer-height;
-        flex: 1;
-        padding: 4px 16px;
-        .gameplay-footer-actions{
-            display: flex;
-            flex-direction: flex;
-            align-items: center;
-            width: 100%;
-            height: ($gameplay-footer-height - 8px);
-        }
-    }
-    .gameplay-body{
-        padding: 0px 42px 0px;
-        background-color: white;
-        border-left: $gameplay-border-color 1px solid;
-        border-right: $gameplay-border-color 1px solid;
-        display: flex;
-        height: $gameplay-height;
-        max-height: $gameplay-max-height;
-        flex-direction: column;
-        @include media-breakpoint-down('md'){
-            padding: 0px 4px 0px;
-        }
-         > * {
+@each $t in get-themes-keys() {
+    .#{$t} {
+        .gameplay{
             display: flex;
             flex-direction: column;
             flex: 1;
-            width: 100%;
-            height: 100%;
-         }
-         .activity, .game{
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-            width: 100%;
-            height: 100%;
-            overflow-x: hidden;
-            overflow-y: auto;
-            @include custom_scroll_bar;
-            > .container-fluid, > .container-fluid > .row{
-                flex: 1;
-            }
-            > .container-fluid{
+            background-color: white;
+            min-width: 1024px;
+            max-width: 1024px;
+            margin: 24px auto 0px;
+            box-shadow: 3px 3px 18px transparentize($color: #000, $amount: 0.9);
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            .gameplay-heading{
+                position: relative;
                 display: flex;
                 flex-direction: column;
-            }
-            > .container-fluid > .row{
                 align-items: center;
-                > .col{
+                justify-content: center;
+                min-height: get-value-theme($t, 'gameplay-header-height');
+                background-color: get-value-theme($t, 'gameplay-heading-bg-color');
+                border-bottom: 1.5px solid #ddd;
+                padding: 0px 8px;
+                flex: 1;
+                .gameplay-navigation{
+                    @extend .fill;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
                     display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    &.activity-values, &.activity-keys{
-                        @include custom_scroll_bar;
-                        height: 100%;
-                        max-height: 100%;
-                        overflow-x: hidden;
-                        overflow-y: auto;
-                        > .row{
-                            width: 100%;
-                            height: 100%;
-                            max-height: 100%;
-                            align-content: space-evenly;
-                            align-items: center;
-                            justify-content: center;
-                        }
-                    }
-                }
-                &.reverse-column{
-                    > .activity-values{
+                    .gameplay-navigation-next,
+                    .gameplay-navigation-prev{
+                        flex: 1;
+                        display: flex;
                         align-items: center;
                     }
-                    > .activity-keys{
-                        align-items: flex-start;
+                    .gameplay-navigation-next{
+                        justify-content: flex-end;
+                    }
+                    .gameplay-navigation-prev{
+                        justify-content: flex-start;
+                    }
+                }
+                .gameplay-heading-title{
+                    font-size: 25px;
+                    line-height: 40px;
+                    min-height: 40px;
+                    text-transform: uppercase;
+                    @include ellipsis(100%);
+                }
+            }
+            .gameplay-footer{
+                background-color: get-value-theme($t, 'gameplay-heading-bg-color');
+                border-top: 1.5px  solid  get-value-theme($t, 'gameplay-border-color');
+                border-left: 1px   solid  get-value-theme($t, 'gameplay-border-color');
+                border-right: 1px  solid  get-value-theme($t, 'gameplay-border-color');
+                border-bottom: 1px solid  get-value-theme($t, 'gameplay-border-color');
+                border-bottom-left-radius: 8px;
+                border-bottom-right-radius: 8px;
+                max-height: get-value-theme($t, 'gameplay-footer-height');
+                flex: 1;
+                padding: 4px 16px;
+                .gameplay-footer-actions{
+                    display: flex;
+                    flex-direction: flex;
+                    align-items: center;
+                    width: 100%;
+                    height: ( get-value-theme($t, 'gameplay-footer-height') - 8px );
+                }
+            }
+            .gameplay-body{
+                padding: 0px 42px 0px;
+                background-color: white;
+                border-left: get-value-theme($t, 'gameplay-border-color') 1px solid;
+                border-right: get-value-theme($t, 'gameplay-border-color') 1px solid;
+                display: flex;
+                height:  get-value-theme($t, 'gameplay-height');
+                max-height: get-value-theme($t, 'gameplay-max-height');
+                flex-direction: column;
+                @include media-breakpoint-down('md'){
+                    padding: 0px 4px 0px;
+                }
+                 > * {
+                    display: flex;
+                    flex-direction: column;
+                    flex: 1;
+                    width: 100%;
+                    height: 100%;
+                 }
+                 .activity, .game{
+                    display: flex;
+                    flex-direction: column;
+                    flex: 1;
+                    width: 100%;
+                    height: 100%;
+                    overflow-x: hidden;
+                    overflow-y: auto;
+                    @include custom_scroll_bar;
+                    > .container-fluid, > .container-fluid > .row{
+                        flex: 1;
+                    }
+                    > .container-fluid{
+                        display: flex;
+                        flex-direction: column;
+                    }
+                    > .container-fluid > .row{
+                        align-items: center;
+                        > .col{
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            &.activity-values, &.activity-keys{
+                                @include custom_scroll_bar;
+                                height: 100%;
+                                max-height: 100%;
+                                overflow-x: hidden;
+                                overflow-y: auto;
+                                > .row{
+                                    width: 100%;
+                                    height: 100%;
+                                    max-height: 100%;
+                                    align-content: space-evenly;
+                                    align-items: center;
+                                    justify-content: center;
+                                }
+                            }
+                        }
+                        &.reverse-column{
+                            > .activity-values{
+                                align-items: center;
+                            }
+                            > .activity-keys{
+                                align-items: flex-start;
+                            }
+                        }
+                    }
+                 }
+            }
+        }
+        
+        .gameplay{
+            position: relative;
+            padding-top: 12px;
+            .gameplay-description{
+                flex: 1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                max-height: 60px;
+                min-height: 60px;
+                width: 100%;
+                text-align: center;
+                font-size: 20px;
+                color: #717171;
+                margin: 0px;
+                .gameplay-description-text{
+                    @extend .subtitle;
+                    @include ellipsis;
+                    @include media-breakpoint-down('sm'){
+                        font-size: 14px;
+                        padding-left: 16px;
+                        padding-right: 16px;
                     }
                 }
             }
-         }
-    }
-}
-
-.gameplay{
-    position: relative;
-    padding-top: 12px;
-    .gameplay-description{
-        flex: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        max-height: 60px;
-        min-height: 60px;
-        width: 100%;
-        text-align: center;
-        font-size: 20px;
-        color: #717171;
-        margin: 0px;
-        .gameplay-description-text{
-            @extend .subtitle;
-            @include ellipsis;
-            @include media-breakpoint-down('sm'){
-                font-size: 14px;
-                padding-left: 16px;
-                padding-right: 16px;
-            }
-        }
-    }
-    .gameplay-activity-container{
-        @include custom_scroll_bar;
-        display: flex;
-        align-items: flex-start;
-        flex: 1;
-        max-height: 100%;
-        overflow-x: hidden;
-        overflow-y: auto;
-        padding: 0px 15px;
-        @include media-breakpoint-down('md'){
-            margin-top: 0px;
-        }
-        &.no-description{
-            margin-top: 0px;
-        }
-        > * {
-            width: 100%;
-            height: 100%;
-        }
-    }
-    .step-bars{
-        position: absolute;
-        display: flex;
-        background-color: #f4f4f4;
-        top: 0px;
-        left: 0px;
-        width: 100%;
-        height: 5px;
-        padding-bottom: 4px;
-        .bar{
-            flex: 1;
-            height: 5px;
-            margin-right: 8px;
-            background-color: #ddd;
-            &:last-child{
-                margin-right: 0px;
-            }
-            &:hover, &:active{
-                cursor: pointer;
-            }
-        }
-    }
-    .gameplay-footer-status{
-        padding: 0px 48px;
-        min-width: 20%;
-        text-align: center;
-        .title, .subtitle{
-            text-transform: uppercase;
-        }
-        .title{
-            font-size: 24px;
-            color: #00A8C8;
-        }
-        .subtitle{
-            @include itim_regular;
-            font-size: 12px;
-            color: #717171;
-            font-weight: 100;
-        }
-    }
-    .gameplay-footer-divider{
-        display: block;
-        width: 1px;
-        height: 75%;
-        background-color: #ddd;
-    }
-    .exercise-sample{
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        box-sizing: border-box;
-    }
-}
-
-@each $color, $value in $theme-colors {
-    .#{$color} {
-        .gameplay {
-            .step-bars .bar{
-                &.complete {
-                    background-color: $value;
+            .gameplay-activity-container{
+                @include custom_scroll_bar;
+                display: flex;
+                align-items: flex-start;
+                flex: 1;
+                max-height: 100%;
+                overflow-x: hidden;
+                overflow-y: auto;
+                padding: 0px 15px;
+                @include media-breakpoint-down('md'){
+                    margin-top: 0px;
                 }
-                &.active {
-                    background-color: transparentize($color: $value, $amount: 0.5);
+                &.no-description{
+                    margin-top: 0px;
+                }
+                > * {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+            .step-bars{
+                position: absolute;
+                display: flex;
+                background-color: #f4f4f4;
+                top: 0px;
+                left: 0px;
+                width: 100%;
+                height: 5px;
+                padding-bottom: 4px;
+                .bar{
+                    flex: 1;
+                    height: 5px;
+                    margin-right: 8px;
+                    background-color: #ddd;
+                    &:last-child{
+                        margin-right: 0px;
+                    }
+                    &:hover, &:active{
+                        cursor: pointer;
+                    }
+                }
+            }
+            .gameplay-footer-status{
+                padding: 0px 48px;
+                min-width: 20%;
+                text-align: center;
+                .title, .subtitle{
+                    text-transform: uppercase;
+                }
+                .title{
+                    font-size: 24px;
+                    color: #00A8C8;
+                }
+                .subtitle{
+                    @include itim_regular;
+                    font-size: 12px;
+                    color: #717171;
+                    font-weight: 100;
+                }
+            }
+            .gameplay-footer-divider{
+                display: block;
+                width: 1px;
+                height: 75%;
+                background-color: #ddd;
+            }
+            .exercise-sample{
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                box-sizing: border-box;
+            }
+        }
+    }
+    
+    @each $color, $value in $theme-colors {
+        .#{$color} {
+            .gameplay {
+                .step-bars .bar{
+                    &.complete {
+                        background-color: $value;
+                    }
+                    &.active {
+                        background-color: transparentize($color: $value, $amount: 0.5);
+                    }
                 }
             }
         }
