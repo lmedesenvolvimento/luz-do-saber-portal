@@ -91,11 +91,14 @@
     font-family: 'Shitzu Porko Light', Arial, Helvetica, sans-serif;
 }
 
-@mixin custom-card($input: false, $size: 'default') {
+@mixin custom-card($theme: 'fundamental',$input: false, $size: 'default') {
+    $item-types-card-padding: get-value-theme($theme, 'item-types-card-padding');
+    $card-input-box-shadow-color: get-value-theme($theme, 'card-input-box-shadow-color');        
     $b-radius: map-get(
-        $map: $item-types-card-border-radius,
+        $map: item-types-card-border-radius($theme),
         $key: $size
     );
+    
     padding: 8px 0px;
 
     .card {
@@ -127,14 +130,14 @@
             border-radius: calc(#{$b-radius} * 0.8);
 
             @if $input {
-                border: 1px solid $card-input-dark-border-color;
+                border: 1px solid get-value-theme($theme, 'card-input-dark-border-color');
             } @else {
                 border: 1px solid transparent;
             }
 
             text-align: center;
             font-size: map-get($map: $item-font-size, $key: $size);
-            padding: map-get($map: $item-types-card-body-padding, $key: $size);
+            padding: map-get($map: get-value-theme($theme, 'item-types-card-body-padding'), $key: $size);
             transition: box-shadow 0.2s ease-in-out;
             @include card-body-box-shadow($card-input-box-shadow-color, 0.8);
         }
@@ -143,7 +146,7 @@
         &.invalid {
             .bg-color {
                 background-color: transparent !important;
-                color: $text-color !important;
+                color: get-value-theme($theme, 'text-color') !important;
             }
 
             &::after {
@@ -167,7 +170,7 @@
         &.valid {
             .card-body {
                 @include card-body-box-shadow(
-                    $card-input-box-shadow-success-color,
+                    get-value-theme($theme, 'card-input-box-shadow-success-color'),
                     0,
                     3px
                 );
@@ -184,7 +187,7 @@
         &.invalid {
             .card-body {
                 @include card-body-box-shadow(
-                    $card-input-box-shadow-danger-color,
+                    get-value-theme($theme, 'card-input-box-shadow-danger-color'),
                     0,
                     3px
                 );
@@ -298,13 +301,14 @@
 }
 
 @mixin custom-dropcard-content(
+    $theme: 'fundamental',
     $decreaseW: 0.125rem,
     $decreaseH: 0.125rem,
     $border-radius-multiplier: 0.8,
     $size: 'default'
 ) {
     $b-radius: map-get(
-        $map: $item-types-card-border-radius,
+        $map: item-types-card-border-radius($theme),
         $key: $size
     );
     position: absolute;
@@ -319,14 +323,16 @@
     }
 
     margin: auto;
-    background-color: $card-empty-color;
+    background-color: get-value-theme($theme, 'card-empty-color');
     border-radius: calc(#{$b-radius} * #{$border-radius-multiplier});
-    box-shadow: inset 0px 9px 1px 1px $card-empty-shadow-color;
+    box-shadow: inset 0px 9px 1px 1px get-value-theme($theme, 'card-empty-shadow-color');
     content: '';
     z-index: 1;
 }
 
 // Card
 @mixin card-body-box-shadow($color, $amount: 0.66, $border-width: 4px) {
+    @debug $color;
+    @debug $color == 'color';
     box-shadow: inset 0px 0px 0px $border-width transparentize($color, $amount);
 }

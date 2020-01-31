@@ -126,137 +126,141 @@ export default {
 </script>
 
 <style lang="scss">
-    #grouping-activity{
-        .tooltip-helper {
-            width: 150px;
-            height: 60px;
-            background: #222;
-        }
-
-        .bg-color{
-            background-color: transparent !important;
-            color: $text-color;
-        }
-
-        .icon-img{
-            height: 50px;
-            width: 50px;
-            margin: auto;
-            background-repeat: no-repeat;
-            background-size: contain;
-            background-position: center;
-        }
-
-        .item{
-            width: 100%;
-        }
-
-        .drop-group .card--drop-group-item {
-            pointer-events: none; 
-        }
-
-        .card-input.drop-group{
-            display: flex;
-            flex-direction: column;
-            max-height: none !important;
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            text-align: center;
-        }
-
-        .title{
-            color: transparentize($color: #222, $amount: 0.6)
-        }
-
-        .caixa{
-            .card-input.drop-group{
-                height: 280px;
-            }
-            // DECAPRED
-            // .card{
-            //     .bg-color {
-            //         border-radius: 0.6rem !important;
-            //     }
-            //     .card-body{
-            //         font-size: 18px;
-            //         border-radius: 0.6rem !important;
-            //     }
-            // }
-            .items-container{
-                display: flex;
-                flex-direction: column;
-                flex: 1;
-                margin-top: 3.5rem;
-                justify-content: space-evenly;
-
-            }
-            .title{
-                padding-top: 15px;
-            }
-        }
-
-        .title-card{
-            margin-bottom: -20px;
-            padding: 0 50px;
-
-            * .card-body{
-                padding: 8px;
-            }
-        }
+    @each $t in get-themes-keys() {
+        .#{$t} {
+            #grouping-activity{
+                .tooltip-helper {
+                    width: 150px;
+                    height: 60px;
+                    background: #222;
+                }
         
-        .grupo{
-            .title{
-                font-size: 18px;
-                margin: auto;
-                text-align: center;
-            }
-            .conteudo{
+                .bg-color{
+                    background-color: transparent !important;
+                    color: get-value-theme($t, "text-color");
+                }
+        
+                .icon-img{
+                    height: 50px;
+                    width: 50px;
+                    margin: auto;
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                    background-position: center;
+                }
+        
+                .item{
+                    width: 100%;
+                }
+        
+                .drop-group .card--drop-group-item {
+                    pointer-events: none; 
+                }
+        
                 .card-input.drop-group{
-                    height: 160px;
-
-                    .card-body{
-                        font-size: 18px;
-                        padding: 5px;
+                    display: flex;
+                    flex-direction: column;
+                    max-height: none !important;
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    text-align: center;
+                }
+        
+                .title{
+                    color: transparentize($color: #222, $amount: 0.6)
+                }
+        
+                .caixa{
+                    .card-input.drop-group{
+                        height: 280px;
+                    }
+                    // DECAPRED
+                    // .card{
+                    //     .bg-color {
+                    //         border-radius: 0.6rem !important;
+                    //     }
+                    //     .card-body{
+                    //         font-size: 18px;
+                    //         border-radius: 0.6rem !important;
+                    //     }
+                    // }
+                    .items-container{
+                        display: flex;
+                        flex-direction: column;
+                        flex: 1;
+                        margin-top: 3.5rem;
+                        justify-content: space-evenly;
+        
+                    }
+                    .title{
+                        padding-top: 15px;
                     }
                 }
-            }
-        }
-
-        .text-grouping{
-            * .draggshadow{
-                height: 100%;
-            }
-            &.texto{
-                @each $type, $value in $item-letter-types {
-                    &:not(.#{$type}){
-                        .bg-color {
-                            color: $text-color;
+        
+                .title-card{
+                    margin-bottom: -20px;
+                    padding: 0 50px;
+        
+                    * .card-body{
+                        padding: 8px;
+                    }
+                }
+                
+                .grupo{
+                    .title{
+                        font-size: 18px;
+                        margin: auto;
+                        text-align: center;
+                    }
+                    .conteudo{
+                        .card-input.drop-group{
+                            height: 160px;
+        
+                            .card-body{
+                                font-size: 18px;
+                                padding: 5px;
+                            }
                         }
                     }
                 }
-            }
-        }
-
-        .img-grouping{
-            * .bg-color{
-                background-color: none;
-            }
-
-            * .card--draggable{
-                padding: 0;
-
-                * .card-body{
-                    padding: 5px !important;
+        
+                .text-grouping{
+                    * .draggshadow{
+                        height: 100%;
+                    }
+                    &.texto{
+                        @each $type, $value in $item-letter-types {
+                            &:not(.#{$type}){
+                                .bg-color {
+                                    color: get-value-theme($t, 'text-color');
+                                }
+                            }
+                        }
+                    }
                 }
-            }
-
-            * .draggshadow{
-                width: 70px;
-                height: 70px;
-
-                .card-body{
-                    padding: 5px 0 !important;
+        
+                .img-grouping{
+                    * .bg-color{
+                        background-color: none;
+                    }
+        
+                    * .card--draggable{
+                        padding: 0;
+        
+                        * .card-body{
+                            padding: 5px !important;
+                        }
+                    }
+        
+                    * .draggshadow{
+                        width: 70px;
+                        height: 70px;
+        
+                        .card-body{
+                            padding: 5px 0 !important;
+                        }
+                    }
                 }
             }
         }
