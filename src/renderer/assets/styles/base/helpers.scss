@@ -39,6 +39,14 @@
     flex-direction: column-reverse !important;
 }
 
+.justify-space-between{
+    justify-content: space-between;
+}
+
+.justify-space-evenly{
+    justify-content: space-evenly;
+}
+
 .flex{
     flex: 1;
 }

@@ -12,6 +12,15 @@ $eja: (
     
     navbar-bgcolor: #b03333,
     navbar-title-size: 32px,
+
+    module-icons: (
+        comecar: '~@/assets/images/btn-start.png',
+        ler: '~@/assets/images/btn-read.png',
+        ler-1: '~@/assets/images/btn-first-year.png',
+        ler-2: '~@/assets/images/btn-second-year.png',
+        escrever: '~@/assets/images/btn-write.png',
+        biblioteca: '~@/assets/images/btn-books.png'
+    ),
     
     theme-colors: (
         comecar: #b03333,
