@@ -1,0 +1,99 @@
+$fundamental: (    
+    /******
+    *
+    * Theme
+    *
+    *****/
+    
+    bg-color: #fff,
+    
+    text-color: #5F4343,
+    text-invert: #fff,
+    
+    navbar-bgcolor: #b03333,
+    navbar-title-size: 32px,
+
+    module-icons: (
+        comecar: '~@/assets/images/btn-start.png',
+        ler: '~@/assets/images/btn-read.png',
+        ler-1: '~@/assets/images/btn-first-year.png',
+        ler-2: '~@/assets/images/btn-second-year.png',
+        escrever: '~@/assets/images/btn-write.png',
+        biblioteca: '~@/assets/images/btn-books.png'
+    ),
+    
+    theme-colors: (
+        comecar: #b03333,
+        ler: #1b9f49,
+        escrever: #0b84ac,
+        biblioteca: #F8A728
+    ),
+        
+    icon-themes: (
+        comecar: '~@/assets/images/icons/comecar/',
+        ler: '~@/assets/images/icons/ler/',
+        escrever: '~@/assets/images/icons/escrever/',
+        biblioteca: '~@/assets/images/icons/biblioteca/'
+    ),
+    
+    // Cards
+    card-input-dark-border-color: #2B1F17,
+    card-input-box-shadow-intesity: 6px,
+    card-input-box-shadow-color: #666666,
+    card-input-box-shadow-success-color: #7DB239,
+    card-input-box-shadow-danger-color: #C72929,
+    card-empty-color: #CDCBCB,
+    card-empty-shadow-color: #ABABAB,
+    card-border-radius: 1.15rem,        
+    
+    
+    // Gameplay
+    gameplay-heading-bg-color: lighten(#f4f4f4, 2.5),
+    gameplay-header-height: 100px,
+    gameplay-footer-height: 50px,
+    gameplay-border-color: #ddd,
+    gameplay-height: 640px,
+    gameplay-max-height: 640px,
+        
+    
+    item-types-width: (
+        default: (
+            letra: $base-fontsize-letter,
+            numero: $base-fontsize-letter,
+            caractere_especial: $base-fontsize-letter,
+            silaba: $base-fontsize-syllabus,
+            substantivo_comum: $substantive-fontsize,
+            substantivo_proprio: $substantive-fontsize
+        ),
+        medium: (
+            letra: ( $base-fontsize-letter / 1.20 ),
+            numero: ( $base-fontsize-letter / 1.20 ),
+            caractere_especial: ( $base-fontsize-letter / 1.20 ),
+            silaba: ( $base-fontsize-syllabus / 1.18 ),
+            substantivo_comum: ( $substantive-fontsize / 1,13 ),
+            substantivo_proprio: ( $substantive-fontsize / 1,13 )
+        ),
+        small: (
+            letra: ( $base-fontsize-letter / 1.40 ),
+            numero: ( $base-fontsize-letter / 1.40 ),
+            caractere_especial: ( $base-fontsize-letter / 1.40 ),
+            silaba: ( $base-fontsize-syllabus / 1.32 ),
+            substantivo_comum: ( $substantive-fontsize / 1,31 ),
+            substantivo_proprio: ( $substantive-fontsize / 1,31 )
+        )
+    ),
+    
+    item-types-card-padding: (
+        default: 0.125rem,
+        medium: ( 0.2rem / 1.60 ),
+        small: ( 0.2rem / 1.75 )
+    ),
+
+    item-types-card-border-radius: item-types-card-border-radius('fundamental'),
+    
+    item-types-card-body-padding: (
+        default: 1rem,
+        medium: ( 1rem / 1.25 ),
+        small: ( 1rem / 1.50 )
+    )
+);

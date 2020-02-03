@@ -6,9 +6,8 @@
             @click="toggleVisibleLerSubModule"
         >
             <vue-circle
-                class="m-5"
                 :label="data.title"
-                :image="getModuleImage"
+                :slug="slug"
                 :progress="getProgress"
                 :color="getModuleColor"
             />
@@ -20,9 +19,8 @@
             replace
         >
             <vue-circle
-                class="m-5"
                 :label="label || data.title"
-                :image="getModuleImage"
+                :slug="slug"
                 :color="getModuleColor"
                 :progress="getProgress"
             />
@@ -37,9 +35,8 @@
             replace
         >
             <vue-circle
-                class="m-5"
                 :label="label || data.title"
-                :image="getModuleImage"
+                :slug="slug"
                 :color="getModuleColor"
                 :progress="getProgress"
             />
@@ -60,6 +57,10 @@ export default {
         data: {
             type: Object,
             required: true
+        },
+        slug: {
+            type: String,
+            default: 'ler'
         },
         toggleVisibleLerSubModule: {
             type: Function,
@@ -129,6 +130,9 @@ export default {
         getComecarUnitRoute() {
             return this.data.themes[0].units_url + '/' + this.data.themes[0].slug
         },
+    },
+    mounted(){
+        console.log(this.data)
     },
     methods: {
         getProgressThemesByModuleId(m){
