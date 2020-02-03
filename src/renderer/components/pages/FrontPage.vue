@@ -16,11 +16,12 @@
                             <SignupForm :on-submit="onSubmit" />
                         </div>
                         <div v-else-if="isAuthorized && !isVisibleLerSubModule" key="frontpage-modules">
-                            <b-row align-v="center" align-h="center">
+                            <b-row align-v="center" class="justify-space-evenly">
                                 <div class="icon-exit" @click="showExitModal"></div>
                                 <ModuleLinkCard
                                     v-for="m in modules"
                                     :key="m.id"
+                                    :slug="m.slug"
                                     :data="m"
                                     :toggle-visible-ler-sub-module="toggleVisibleLerSubModule"
                                 />
@@ -28,21 +29,23 @@
                         </div>
                         <div v-else-if="isAuthorized && isVisibleLerSubModule" key="frontpage-ler">
                             <b-row align-v="center" align-h="center">
-                                <div>
+                                <div class="ml-5 mr-5">
                                     <ModuleLinkCard
-                                        label="1º Ano"
                                         :data="read"
                                         :image="require('@/assets/images/btn-first-year.png')"
                                         :color="{ color: '#00963F' }"
+                                        label="1º Ano"
+                                        slug="ler-2"
                                         target-audience="primeiro-ano"
                                     />
                                 </div>
-                                <div>
+                                <div class="ml-5 mr-5">
                                     <ModuleLinkCard
                                         :data="read"
-                                        :label="'2º Ano'"
                                         :image="require('@/assets/images/btn-second-year.png')"
                                         :color="{ color: '#00963F' }"
+                                        label="2º Ano"
+                                        slug="ler-2"
                                         target-audience="segundo-ano"
                                     />
                                 </div>
