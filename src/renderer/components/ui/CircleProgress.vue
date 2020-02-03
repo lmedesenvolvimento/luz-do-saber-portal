@@ -11,7 +11,9 @@
 
             <div class="radial-container">
                 <div class="img-container" :style="{'background-color': color.color }">
-                    <img :src="image" class="img-fluid" :alt="label">
+                    <figure>
+                        <div class="image" :class="slug" :title="label"></div>
+                    </figure>
                 </div>
 
                 <vue-circle
@@ -41,7 +43,7 @@ export default {
     },
     props: {
         label: String,
-        image: String,
+        slug: String,
         color: Object,
         progress: {
             type: Number,
@@ -50,3 +52,28 @@ export default {
     }
 }
 </script>
+
+<style lang="scss">
+@each $t in get-themes-keys() {
+    .#{$t} {
+        .chart-progress {
+            .img-container {
+                overflow: hidden;
+            }
+            figure {
+                display: block;
+                .image {
+                    width: 140px;
+                    height: 140px;
+                    @each $key, $value in get-value-theme($t, 'module-icons') {
+                        &.#{$key} {
+                            background-image: url($value);
+                            background-size: contain;
+                        }
+                    }
+                }
+            }
+        }
+    }
+ }
+</style>
