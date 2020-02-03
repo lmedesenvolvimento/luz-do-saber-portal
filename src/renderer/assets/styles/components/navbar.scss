@@ -1,50 +1,54 @@
-.navbar{
-    @extend .container-fluid;
-    position: fixed;
-    width: 100%;
-    height: $navbar-height;
-    top: 0;
-    left: 0;
-    background: url('~@/assets/images/components/navbar/navbar-bg.png') repeat-x;
-    color: $text-invert;
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
-    user-select: none;
-    z-index: 80;
-    .title-holder{
-        display: flex !important;
-        align-items: center;
-        justify-content: center;
-        flex-direction: row;
-        @include ellipsis;
-    }
-    .vertical-bar{
-        border-left: 2px white solid;
-        height: 60px;
-        width: 2px;
-        margin: 0 15px;
-    }
-    .icon{
-        display: block;
-        max-width: 64px;
-        margin: 5px;
-    }
-    .subtitle{
-        font-size: 24px;
-    }
-    .navbar-title{
-        font-size: $navbar-title-size;
-        max-height: $navbar-title-size;
-        text-transform: uppercase;
-        text-align: center;
-        overflow: visible !important;
-        @include ellipsis;
-    }
-    .navbar-icons {
-        position: absolute;
-    }
-    .icon-right {
-        left: 90px;
+@each $t in get-themes-keys() {
+    .#{$t} {
+        .navbar{
+            @extend .container-fluid;
+            position: fixed;
+            width: 100%;
+            height: $navbar-height;
+            top: 0;
+            left: 0;
+            background: url('~@/assets/images/components/navbar/navbar-bg.png') repeat-x;
+            color: get-value-theme($t, 'text-invert');
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            user-select: none;
+            z-index: 80;
+            .title-holder{
+                display: flex !important;
+                align-items: center;
+                justify-content: center;
+                flex-direction: row;
+                @include ellipsis;
+            }
+            .vertical-bar{
+                border-left: 2px white solid;
+                height: 60px;
+                width: 2px;
+                margin: 0 15px;
+            }
+            .icon{
+                display: block;
+                max-width: 64px;
+                margin: 5px;
+            }
+            .subtitle{
+                font-size: 24px;
+            }
+            .navbar-title{
+                font-size: get-value-theme($t, 'navbar-title-size');
+                max-height: get-value-theme($t, 'navbar-title-size');
+                text-transform: uppercase;
+                text-align: center;
+                overflow: visible !important;
+                @include ellipsis;
+            }
+            .navbar-icons {
+                position: absolute;
+            }
+            .icon-right {
+                left: 90px;
+            }
+        }
     }
 }
