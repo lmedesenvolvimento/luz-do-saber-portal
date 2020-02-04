@@ -1,167 +1,172 @@
-@each $t in get-themes-keys() { 
-    [class*='card--']{
-        .card .card-body{
-            font-size: 24px;
+@each $t in get-themes-keys() {
+    .#{$t} {
+        .card {
+            border-radius: get-value-theme($t, 'card-border-radius');
         }
-        @include custom-card($t, true);
-    }
-    
-    .card-input {
-        @include custom-card($t, true);
-    }
-    
-    .card--display{
-        @include custom-card;
-        &.card--display-container {
-            width: 100%;
-            > .card > .bg-color > .card-body {
-                padding-top: 2rem !important;
-                padding-bottom: 2rem !important;
-            }
-        }
-    }
-    
-    .card--text-audio{
-        .card-footer{
-            background-color: white;
-            margin-top: 6px;
-            padding: 4px 0px;
-        }
-    }
-    
-    .card--audio{
-        &.plyr-flat{
-            padding: 0px !important;
-            .card {
-                padding: 0px !important;
-                background: transparent;
-                border: none;
-                box-shadow: none !important;
-                .plyr > .plyr__controls {
-                    padding: 4px 8px;
-                }
-            }
-        }
-        &:not(.plyr-flat){
-            margin: auto;
-            width: 100%;
-            min-width: 200px;
-            max-width: 360px;
-        }
-        &:not(.plyr-flat)::before {
-            position: relative;
-            width: 64px;
-            height: 48px;
-            display: block;
-            margin: auto;
-            margin-bottom: -4px;
-            background-color: white;
-            background-image: url('~@/assets/images/fone.png');
-            background-size: 70%;
-            background-position:  center;
-            background-repeat:  no-repeat;
-            content: ' ';
-            border-top-left-radius: 120px;
-            border-top-right-radius: 120px;
-            border-bottom-left-radius: 48px;
-            border-bottom-right-radius: 48px;
-            border: 1px solid #ddd;
-            border-bottom-color: transparent;
-            box-shadow: 0px -3px 6px  transparentize(#333, 0.8);
-            z-index: 1;
-        }
-    }
-    
-    .card-input{
-        background-color: transparent !important;
-        &.card--input-text{        
-            input{
-                background: transparent;
-                outline: none;
-                border: none;
-                width: 100%;
+        [class*='card--']{
+            .card .card-body{
                 font-size: 24px;
-                height: 28px;
-                text-align: center;
-                text-transform: uppercase;
-                border-bottom: 2px solid transparentize(get-value-theme($t, "card-input-dark-border-color"), 1);
-                transition: border-bottom 0.2s ease-in;
-                &:focus{
-                    border-bottom: 2px solid get-value-theme($t, "card-input-dark-border-color");
+            }
+            @include custom-card($t, true);
+        }
+        
+        .card-input {
+            @include custom-card($t, true);
+        }
+        
+        .card--display{
+            @include custom-card;
+            &.card--display-container {
+                width: 100%;
+                > .card > .bg-color > .card-body {
+                    padding-top: 2rem !important;
+                    padding-bottom: 2rem !important;
                 }
             }
         }
-    }
-    
-    .card-checkmark{
-        @include custom-card($t, true);
-    }
-    // DECREPTED
-    // .card-input.card--draggable{
-    //     @include custom-card(true);
-    //     &:hover{
-    //         cursor: pointer;
-    //     }
-    //     .dragging, .dropped{
-    //         &::before{
-    //             @include custom-dropcard-content;
-    //         }
-    //     }
-    // }
-    
-    // DECREPTED
-    // .card-input.card--droppable{
-    //     @include custom-card;
-    //     .card{
-    //         .card-body{
-    //             overflow: hidden;
-    //             white-space: nowrap;
-    //         }
-    //         &:not(.valid):not(.invalid){
-    //             &::before{
-    //                 @include custom-dropcard-content;
-    //             }
-    //         }
-    //     }
-    // }
-    
-    .imagem{
-        text-align: center;
-        .card-input.card--radio-input{
-            display: inline-block;
+        
+        .card--text-audio{
+            .card-footer{
+                background-color: white;
+                margin-top: 6px;
+                padding: 4px 0px;
+            }
+        }
+        
+        .card--audio{
+            &.plyr-flat{
+                padding: 0px !important;
+                .card {
+                    padding: 0px !important;
+                    background: transparent;
+                    border: none;
+                    box-shadow: none !important;
+                    .plyr > .plyr__controls {
+                        padding: 4px 8px;
+                    }
+                }
+            }
+            &:not(.plyr-flat){
+                margin: auto;
+                width: 100%;
+                min-width: 200px;
+                max-width: 360px;
+            }
+            &:not(.plyr-flat)::before {
+                position: relative;
+                width: 64px;
+                height: 48px;
+                display: block;
+                margin: auto;
+                margin-bottom: -4px;
+                background-color: white;
+                background-image: url('~@/assets/images/fone.png');
+                background-size: 70%;
+                background-position:  center;
+                background-repeat:  no-repeat;
+                content: ' ';
+                border-top-left-radius: 120px;
+                border-top-right-radius: 120px;
+                border-bottom-left-radius: 48px;
+                border-bottom-right-radius: 48px;
+                border: 1px solid #ddd;
+                border-bottom-color: transparent;
+                box-shadow: 0px -3px 6px  transparentize(#333, 0.8);
+                z-index: 1;
+            }
+        }
+        
+        .card-input{
+            background-color: transparent !important;
+            &.card--input-text{        
+                input{
+                    background: transparent;
+                    outline: none;
+                    border: none;
+                    width: 100%;
+                    font-size: 24px;
+                    height: 28px;
+                    text-align: center;
+                    text-transform: uppercase;
+                    border-bottom: 2px solid transparentize(get-value-theme($t, "card-input-dark-border-color"), 1);
+                    transition: border-bottom 0.2s ease-in;
+                    &:focus{
+                        border-bottom: 2px solid get-value-theme($t, "card-input-dark-border-color");
+                    }
+                }
+            }
+        }
+        
+        .card-checkmark{
+            @include custom-card($t, true);
+        }
+        // DECREPTED
+        // .card-input.card--draggable{
+        //     @include custom-card(true);
+        //     &:hover{
+        //         cursor: pointer;
+        //     }
+        //     .dragging, .dropped{
+        //         &::before{
+        //             @include custom-dropcard-content;
+        //         }
+        //     }
+        // }
+        
+        // DECREPTED
+        // .card-input.card--droppable{
+        //     @include custom-card;
+        //     .card{
+        //         .card-body{
+        //             overflow: hidden;
+        //             white-space: nowrap;
+        //         }
+        //         &:not(.valid):not(.invalid){
+        //             &::before{
+        //                 @include custom-dropcard-content;
+        //             }
+        //         }
+        //     }
+        // }
+        
+        .imagem{
+            text-align: center;
+            .card-input.card--radio-input{
+                display: inline-block;
+                margin: auto;
+                min-width: 98px;
+                .image img{
+                    max-height: 64px;
+                }
+            }
+        }
+        
+        .card-image-display{
+            max-width: 330px;
             margin: auto;
-            min-width: 98px;
-            .image img{
-                max-height: 64px;
+            .card-img img{
+                position: relative;
+                max-height: 168px;
+            }
+            .card-img svg {
+                width: 168px;
+                height: auto;
+                max-width: 100%;
+                max-height: 168px;
             }
         }
-    }
-    
-    .card-image-display{
-        max-width: 330px;
-        margin: auto;
-        .card-img img{
-            position: relative;
-            max-height: 168px;
-        }
-        .card-img svg {
-            width: 168px;
-            height: auto;
-            max-width: 100%;
-            max-height: 168px;
-        }
-    }
-    
-    @each $size, $value in $item-sizes {
-        .#{$size} {
-            [class*='card--']{
-                @include custom-card($t, true, $value);
-            }
-            .card--display{
-                @include custom-card($t, false, $value);
-            }
-            .card-input {
-                @include custom-card($t, true, $value);
+        
+        @each $size, $value in $item-sizes {
+            .#{$size} {
+                [class*='card--']{
+                    @include custom-card($t, true, $value);
+                }
+                .card--display{
+                    @include custom-card($t, false, $value);
+                }
+                .card-input {
+                    @include custom-card($t, true, $value);
+                }
             }
         }
     }

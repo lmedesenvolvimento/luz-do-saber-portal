@@ -296,6 +296,9 @@
     .card--display {
         &.card-inline-player {
             width: ($value + $inline-player-width) !important;
+            .inline-player {
+                max-width: $inline-player-width;
+            }
         }
     }
 }
@@ -332,7 +335,5 @@
 
 // Card
 @mixin card-body-box-shadow($color, $amount: 0.66, $border-width: 4px) {
-    @debug $color;
-    @debug $color == 'color';
     box-shadow: inset 0px 0px 0px $border-width transparentize($color, $amount);
 }
