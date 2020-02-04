@@ -1,85 +1,85 @@
 @charset 'UTF-8';
 
-@each $color, $value in $theme-colors {
-    .#{$color} {
-
-        $plyr-color-main: $value !default;
-
-        // Grayscale
-        $plyr-color-gray-9: hsl(210, 15%, 16%);
-        $plyr-color-gray-8: lighten($plyr-color-gray-9, 9%);
-        $plyr-color-gray-7: lighten($plyr-color-gray-8, 9%);
-        $plyr-color-gray-6: lighten($plyr-color-gray-7, 9%);
-        $plyr-color-gray-5: lighten($plyr-color-gray-6, 9%);
-        $plyr-color-gray-4: lighten($plyr-color-gray-5, 9%);
-        $plyr-color-gray-3: lighten($plyr-color-gray-4, 9%);
-        $plyr-color-gray-2: lighten($plyr-color-gray-3, 9%);
-        $plyr-color-gray-1: lighten($plyr-color-gray-2, 9%);
-        $plyr-color-gray-0: lighten($plyr-color-gray-1, 9%);
-
-
-
-        @import '~plyr/src/sass/settings/breakpoints';
-        @import '~plyr/src/sass/settings/cosmetics';
-        @import '~plyr/src/sass/settings/type';
-
-        @import '~plyr/src/sass/settings/badges';
-        @import '~plyr/src/sass/settings/captions';
-        @import '~plyr/src/sass/settings/controls';
-        @import '~plyr/src/sass/settings/helpers';
-        @import '~plyr/src/sass/settings/menus';
-        @import '~plyr/src/sass/settings/progress';
-        @import '~plyr/src/sass/settings/tooltips';
-
-        $plyr-range-thumb-bg: $value !default;
-        $plyr-control-spacing: 5px;
-
-        @import '~plyr/src/sass/settings/sliders';
-
-
-        @import '~plyr/src/sass/lib/animation';
-        @import '~plyr/src/sass/lib/functions';
-        @import '~plyr/src/sass/lib/mixins';
-
-        @import '~plyr/src/sass/base';
-
-        @import '~plyr/src/sass/components/badges';
-        @import '~plyr/src/sass/components/captions';
-        @import '~plyr/src/sass/components/control';
-        @import '~plyr/src/sass/components/controls';
-        @import '~plyr/src/sass/components/menus';
-        @import '~plyr/src/sass/components/sliders';
-        @import '~plyr/src/sass/components/poster';
-        @import '~plyr/src/sass/components/times';
-        @import '~plyr/src/sass/components/tooltips';
-        @import '~plyr/src/sass/components/video';
-        @import '~plyr/src/sass/components/progress';
-        @import '~plyr/src/sass/components/volume';
-
-        @import '~plyr/src/sass/states/fullscreen';
-
-        @import '~plyr/src/sass/plugins/ads';
-        @import '~plyr/src/sass/plugins/preview-thumbnails';
-
-        @import '~plyr/src/sass/utils/animation';
-        @import '~plyr/src/sass/utils/hidden';
-
-        .inline-player {
-            max-width: $inline-player-width !important;
-            .plyr {
-                min-width: 32px;
-                max-width: 32px;
-                margin-right: 4px;
-                .plyr__controls{
-                    padding: 0px;
+@each $t in get-themes-keys() {    
+    @each $color, $value in get-value-theme($t, 'theme-colors') {
+        .#{$color} {        
+            $plyr-color-main: $value !default;
+    
+            // Grayscale
+            $plyr-color-gray-9: hsl(210, 15%, 16%);
+            $plyr-color-gray-8: lighten($plyr-color-gray-9, 9%);
+            $plyr-color-gray-7: lighten($plyr-color-gray-8, 9%);
+            $plyr-color-gray-6: lighten($plyr-color-gray-7, 9%);
+            $plyr-color-gray-5: lighten($plyr-color-gray-6, 9%);
+            $plyr-color-gray-4: lighten($plyr-color-gray-5, 9%);
+            $plyr-color-gray-3: lighten($plyr-color-gray-4, 9%);
+            $plyr-color-gray-2: lighten($plyr-color-gray-3, 9%);
+            $plyr-color-gray-1: lighten($plyr-color-gray-2, 9%);
+            $plyr-color-gray-0: lighten($plyr-color-gray-1, 9%);
+    
+    
+    
+            @import '~plyr/src/sass/settings/breakpoints';
+            @import '~plyr/src/sass/settings/cosmetics';
+            @import '~plyr/src/sass/settings/type';
+    
+            @import '~plyr/src/sass/settings/badges';
+            @import '~plyr/src/sass/settings/captions';
+            @import '~plyr/src/sass/settings/controls';
+            @import '~plyr/src/sass/settings/helpers';
+            @import '~plyr/src/sass/settings/menus';
+            @import '~plyr/src/sass/settings/progress';
+            @import '~plyr/src/sass/settings/tooltips';
+    
+            $plyr-range-thumb-bg: $value !default;
+            $plyr-control-spacing: 5px;
+    
+            @import '~plyr/src/sass/settings/sliders';
+    
+    
+            @import '~plyr/src/sass/lib/animation';
+            @import '~plyr/src/sass/lib/functions';
+            @import '~plyr/src/sass/lib/mixins';
+    
+            @import '~plyr/src/sass/base';
+    
+            @import '~plyr/src/sass/components/badges';
+            @import '~plyr/src/sass/components/captions';
+            @import '~plyr/src/sass/components/control';
+            @import '~plyr/src/sass/components/controls';
+            @import '~plyr/src/sass/components/menus';
+            @import '~plyr/src/sass/components/sliders';
+            @import '~plyr/src/sass/components/poster';
+            @import '~plyr/src/sass/components/times';
+            @import '~plyr/src/sass/components/tooltips';
+            @import '~plyr/src/sass/components/video';
+            @import '~plyr/src/sass/components/progress';
+            @import '~plyr/src/sass/components/volume';
+    
+            @import '~plyr/src/sass/states/fullscreen';
+    
+            @import '~plyr/src/sass/plugins/ads';
+            @import '~plyr/src/sass/plugins/preview-thumbnails';
+    
+            @import '~plyr/src/sass/utils/animation';
+            @import '~plyr/src/sass/utils/hidden';
+    
+            .inline-player {
+                .plyr {
+                    min-width: 32px;
+                    max-width: 32px;
+                    margin-right: 4px;
+                    .plyr__controls{
+                        padding: 0px;
+                    }
                 }
+                // border-right: 1px solid #ddd;
             }
-            // border-right: 1px solid #ddd;
-        }
-
-        .plyr--audio .plyr__controls{
-            color: $value;
-            background-color: transparent;
+    
+            .plyr--audio .plyr__controls{
+                color: $value;
+                background-color: transparent;
+            }
         }
     }
 }
