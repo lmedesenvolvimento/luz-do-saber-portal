@@ -372,8 +372,6 @@ export default {
 </script>
 <style lang="scss">
 @each $t in get-themes-keys() {
-    @debug $t;
-    @debug get-value-theme($t, 'card-input-box-shadow-color');
     $card-input-box-shadow-color: get-value-theme($t, 'card-input-box-shadow-color');
     .game-domino-name {
         max-height: 450px;
