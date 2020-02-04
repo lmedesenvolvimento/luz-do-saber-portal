@@ -61,7 +61,7 @@
                                 <b-col
                                     v-for="item in answers"
                                     :key="item.id"
-                                    cols="6"
+                                    cols="12"
                                 >
                                     <div class="texto" :class="fontSize">
                                         <div class="item">
@@ -201,7 +201,10 @@ export default {
 
 <style lang="scss" scoped>
 .vertical-center{
-    padding-top: 25px;
+    padding: 25px 12px 12px 12px;
     align-content: space-evenly;
+}
+.card-input .card .card-body{
+    padding: 0.8rem;
 }
 </style>
