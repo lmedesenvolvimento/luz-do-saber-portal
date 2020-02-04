@@ -87,7 +87,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style>
 .lowercase-letter{
     text-transform: lowercase;
 }
