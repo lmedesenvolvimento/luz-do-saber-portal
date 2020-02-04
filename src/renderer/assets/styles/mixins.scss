@@ -277,6 +277,7 @@
 }
 
 @mixin item($value) {
+    @debug $value;
     &.texto {
         [class*='card--'],
         .draggshadow {
