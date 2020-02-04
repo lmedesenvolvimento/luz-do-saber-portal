@@ -1,6 +1,7 @@
 <template>
     <b-modal
         ref="alert-success-modal"
+        :modal-class="$context"
         content-class="feedback"
         :centered="true"
         :header-class="renderModuleSlug"

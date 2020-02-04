@@ -1,65 +1,66 @@
-.feedback {
-    background: url('~@/assets/images/components/feedback/comecar/background-comecar.png');
-    background-position-x: -80px;
-    border: hidden;
-    .feedback-header {
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-     }
-    .feedback-header-item {        
-        display: inline-flex;
-        margin: 0 auto;
-    }
-    .feedback-rounded-number {
-        display: flex;
-        border: solid 2px;
-        align-items: center;
-        justify-content: center;
-        width: 35px;
-        height: 35px;
-        border-radius: 50%;
-    }
-    .feedback-stars {
-        margin-top: -100px;
-    }
-    .feedback-small-stars {
-        width: 128px;
-        margin-top: 10px;
-    }
-    .modal-header {   
-         
-         color: #ddd;  
-         height: 140px; 
-         background-image: url('~@/assets/images/components/feedback/texture.png');
-         background-repeat: repeat-x;
-
-         @each $color, $value in $theme-colors {
-            &.#{$color} {
-                background-color: $value;
+@each $t in get-themes-keys() {
+    .#{$t} {
+        .feedback {
+            background: url('~@/assets/images/components/feedback/comecar/background-comecar.png');
+            background-position-x: -80px;
+            border: hidden;
+            .feedback-header {
+                margin: 0 auto;
+                display: flex;
+                flex-direction: column;
+             }
+            .feedback-header-item {        
+                display: inline-flex;
+                margin: 0 auto;
             }
-        }                 
-    }
-    .feedback-content {        
-        display: flex;
-        text-transform: uppercase;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 0px 8px;
-        flex: 1;
-        .feedback-itim {
-            font-family: "Itim Regular", Helvetica, sans-serif;
+            .feedback-rounded-number {
+                display: flex;
+                border: solid 2px;
+                align-items: center;
+                justify-content: center;
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+            }
+            .feedback-stars {
+                margin-top: -100px;
+            }
+            .feedback-small-stars {
+                width: 128px;
+                margin-top: 10px;
+            }
+            .modal-header {   
+                 
+                 color: #ddd;  
+                 height: 140px; 
+                 background-image: url('~@/assets/images/components/feedback/texture.png');
+                 background-repeat: repeat-x;
+        
+                 @each $color, $value in get-value-theme($t, theme-colors) {
+                    &.#{$color} {
+                        background-color: $value;
+                    }
+                }                 
+            }
+            .feedback-content {        
+                display: flex;
+                text-transform: uppercase;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: 0px 8px;
+                flex: 1;
+                .feedback-itim {
+                    font-family: "Itim Regular", Helvetica, sans-serif;
+                }
+                .feedback-golden {
+                    color: goldenrod;
+                }
+            }
+            .feedback-footer-buttons {
+                display: flex;
+                justify-content: center;
+            }
         }
-        .feedback-golden {
-            color: goldenrod;
-        }
     }
-    .feedback-footer-buttons {
-        display: flex;
-        justify-content: center;
-    }
-}
-
-
-
+}    
