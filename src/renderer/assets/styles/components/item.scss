@@ -74,39 +74,28 @@
                     }
                 }
             }
-        
-            @each $size, $value in get-value-theme($t, 'item-types-width') {
-                @each $type, $value in map-get($map: get-value-theme($t, 'item-types-width'), $key: $size) {
+            @each $type in $item-types {                 
+                @each $size, $types in get-value-theme($t, 'item-types-width') {
+                    $value: map-deep-get($themes, $t, 'item-types-width', $size, $type);
+
                     @if $size == 'default' {
+                        // @debug $t;
+                        // @debug 'item-types-width';
+                        // @debug $size;
+                        // @debug $type;
+                        // @debug $value;
                         .#{$type}{
-                            @debug type-of($inline-player-width);
                             @include item($value);
                         }
                     }
                     @else {
-                        .#{$type}.#{$size}{
+                        .#{$type}.#{size} {
                             @include item($value);
                         }
                     }
                 }
             }
-        
-        
-            // @each $type, $value in map-get($map: $item-types-width, $key: 'medium') {
-            //     .#{$type}.medium {
-            //         @include item($value);
-            //         &::after {
-            //             content: '#{$value}';
-            //         }
-            //     }
-            // }
-        
-            // @each $type, $value in map-get($map: $item-types-width, $key: 'small') {
-            //     .#{$type}.small {
-            //         @include item($value);
-            //     }
-            // }
-        
+                                
             &.col-sm-1, &.col-md-1, .col-1{
                 display: inline-flex;
                 max-width: none;
