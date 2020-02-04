@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid">        
+    <div id="store-letters" class="container-fluid">        
         <b-row id="grouping-activity" class="row" align-v="center" align-h="center">            
             <b-col
                 v-if="hasValues" 
@@ -87,8 +87,13 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+#store-letters{
     .lowercase-letter{
         text-transform: lowercase;
+        .slot {
+            width: 74px;
+        }
     }
+}
 </style>
