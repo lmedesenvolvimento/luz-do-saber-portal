@@ -1,5 +1,5 @@
 <template>
-    <div id="store-letters" class="container-fluid">        
+    <div class="container-fluid">        
         <b-row id="grouping-activity" class="row" align-v="center" align-h="center">            
             <b-col
                 v-if="hasValues" 
@@ -11,7 +11,7 @@
                         <b-col v-for="(item, position) in letters" :key="position" align-self="center" :md="valueColSize" class="item"> 
                             <Item 
                                 v-if="answers"
-                                :class="{'lowercase-letter': item.key_id == -1}"
+                                :class="{'letra lowercase-letter': item.key_id == -1}"
                                 :item="item"
                                 :type="'value'"
                                 :template="activity.item_template.value"
@@ -88,12 +88,7 @@ export default {
 </script>
 
 <style lang="scss">
-#store-letters{
-    .lowercase-letter{
-        text-transform: lowercase;
-        .slot {
-            width: 74px;
-        }
-    }
+.lowercase-letter{
+    text-transform: lowercase;
 }
 </style>
