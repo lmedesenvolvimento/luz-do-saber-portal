@@ -79,6 +79,7 @@
                 @each $type, $value in map-get($map: get-value-theme($t, 'item-types-width'), $key: $size) {
                     @if $size == 'default' {
                         .#{$type}{
+                            @debug type-of($inline-player-width);
                             @include item($value);
                         }
                     }

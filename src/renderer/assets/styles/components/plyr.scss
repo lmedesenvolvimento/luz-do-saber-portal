@@ -65,6 +65,7 @@
         @import '~plyr/src/sass/utils/hidden';
 
         .inline-player {
+            max-width: $inline-player-width !important;
             .plyr {
                 min-width: 32px;
                 max-width: 32px;

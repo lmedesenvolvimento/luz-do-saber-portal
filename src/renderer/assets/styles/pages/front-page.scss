@@ -1,61 +1,65 @@
-#frontpage{
-    @include itim_regular;
-    .front-page-logo {
-        max-width: 320px;
-    }
-
-    .frontpage-logo{
-        display: block;
-        position: relative;
-        width: 360px;
-        height: 240px;
-        &::before {
-            content: ' ';
-            background-image: url('~@/assets/images/logo/face.png');
-            background-repeat: no-repeat;
-            background-size: contain;
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            z-index: 3;
-        }
-        &::after {
-            content: ' ';
-            background-image: url('~@/assets/images/logo/sunburst.png');
-            background-repeat: no-repeat;
-            background-size: contain;
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            margin-top: -8px;
-            margin-left: -4px;
-            transform: rotate(0deg);
-            transition: transform 1s ease-out;
-            z-index: 1;
-        }
-        &.animated {
-            &::before {
-                animation: infinite-change-faces 3s linear infinite;
-                transition-property: none !important;
+@each $t in get-themes-keys() {
+    .#{$t} {    
+        #frontpage{
+            @include itim_regular;
+            .front-page-logo {
+                max-width: 320px;
             }
-            &::after {
-                animation: infinite-rotate-in-out 6s linear infinite;
+        
+            .frontpage-logo{
+                display: block;
+                position: relative;
+                width: 360px;
+                height: 240px;
+                &::before {
+                    content: ' ';
+                    background-image: url('~@/assets/images/logo/face.png');
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    z-index: 3;
+                }
+                &::after {
+                    content: ' ';
+                    background-image: url('~@/assets/images/logo/sunburst.png');
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    margin-top: -8px;
+                    margin-left: -4px;
+                    transform: rotate(0deg);
+                    transition: transform 1s ease-out;
+                    z-index: 1;
+                }
+                &.animated {
+                    &::before {
+                        animation: infinite-change-faces 3s linear infinite;
+                        transition-property: none !important;
+                    }
+                    &::after {
+                        animation: infinite-rotate-in-out 6s linear infinite;
+                    }
+                }
+            }
+            .front-page-logo-title{
+                display: block;
+                position: relative;
+                width: 360px;
+                height: 32px;
+                margin-top: -16px;
+                background-image: url('~@/assets/images/logo/fundamental.png');
+                background-repeat: no-repeat;
+                background-size: contain;
+                background-position: center;
             }
         }
-    }
-    .front-page-logo-title{
-        display: block;
-        position: relative;
-        width: 360px;
-        height: 32px;
-        margin-top: -16px;
-        background-image: url('~@/assets/images/logo/fundamental.png');
-        background-repeat: no-repeat;
-        background-size: contain;
-        background-position: center;
     }
 }
