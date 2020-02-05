@@ -34,7 +34,7 @@
                                         :data="read"
                                         :image="require('@/assets/images/btn-first-year.png')"
                                         :color="{ color: '#00963F' }"
-                                        label="1º Ano"
+                                        :label="$context === 'eja' ? 'EJA 1' : '1º Ano'"
                                         slug="ler-1"
                                         target-audience="primeiro-ano"
                                     />
@@ -44,7 +44,7 @@
                                         :data="read"
                                         :image="require('@/assets/images/btn-second-year.png')"
                                         :color="{ color: '#00963F' }"
-                                        label="2º Ano"
+                                        :label="$context === 'eja' ? 'EJA 2' : '2º Ano'"
                                         slug="ler-2"
                                         target-audience="segundo-ano"
                                     />
