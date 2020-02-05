@@ -14,7 +14,7 @@
       <!-- Add `node_modules/` to global paths so `require` works properly in development -->
       <script>
         require('module').globalPaths.push('<%= htmlWebpackPlugin.options.nodeModules.replace(/\\/g, '\\\\') %>')
-      </script>
+        </script>
     <% } %>
   </head>
   <body>
@@ -23,9 +23,9 @@
     <% if (!process.browser) { %>
       <script>
         if (process.env.NODE_ENV !== 'development') window.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
-      </script>
+        </script>
     <% } %>
-
+    
     <!-- webpack builds are automatically injected -->
   </body>
 </html>

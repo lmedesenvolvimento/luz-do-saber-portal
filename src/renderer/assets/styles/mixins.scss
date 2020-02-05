@@ -277,7 +277,6 @@
 }
 
 @mixin item($value) {
-    @debug $value;
     &.texto {
         [class*='card--'],
         .draggshadow {
@@ -337,4 +336,18 @@
 // Card
 @mixin card-body-box-shadow($color, $amount: 0.66, $border-width: 4px) {
     box-shadow: inset 0px 0px 0px $border-width transparentize($color, $amount);
+}
+
+// Colors
+/// Mixin printing a linear-gradient
+/// as well as a plain color fallback
+/// and the `-webkit-` prefixed declaration
+/// @access public
+/// @param {Keyword | Angle} $direction - Linear gradient direction
+/// @param {Arglist} $color-stops - List of color-stops composing the gradient
+// Doc: https://www.sitepoint.com/building-linear-gradient-mixin-sass/
+@mixin linear-gradient($direction, $color-stops...) {
+  background: nth(nth($color-stops, 1), 1);
+  background: -webkit-linear-gradient(legacy-direction($direction), $color-stops);
+  background: linear-gradient($direction, $color-stops);
 }

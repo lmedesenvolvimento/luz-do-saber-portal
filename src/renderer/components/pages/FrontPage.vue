@@ -4,8 +4,7 @@
             <b-row align-v="center" align-h="center" class="flex-2 content">
                 <b-container fluid>
                     <b-row class="m-5 flex-column" align-v="center" align-h="center">
-                        <div class="frontpage-logo" :class="{'animated': isLoading}"></div>
-                        <div class="front-page-logo-title"></div>
+                        <LogoAnimation :animated="loading" />
                     </b-row>
 
                     <transition name="fade" mode="out-in">
@@ -68,12 +67,14 @@ import { find, filter } from 'lodash'
 import { mapActions, mapState } from 'vuex'
 import alerts from '@/components/alerts'
 
+import LogoAnimation from '@/components/ui/LogoAnimation'
 import StartButton from '@/components/ui/StartButton'
 import SignupForm from '@/components/ui/SignupForm'
 import ModuleLinkCard from '@/components/ui/ModuleLinkCard'
 
 export default {
     components: {
+        LogoAnimation,
         StartButton,
         SignupForm,
         ModuleLinkCard,

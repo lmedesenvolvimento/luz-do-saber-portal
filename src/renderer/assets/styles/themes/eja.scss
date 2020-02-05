@@ -5,7 +5,12 @@ $eja: (
     *
     *****/
     
-    bg-color: #fff,
+    bg-color: (
+        start: #A1E8F7,
+        end: #fff
+    ),
+
+    bg-image: url('~@/assets/images/eja/bg-texture.png'),
     
     text-color: #5F4343,
     text-invert: #fff,
