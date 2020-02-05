@@ -1,49 +1,27 @@
 #dragging-syllables {
-    .activity-keys {
-        padding: 0;
+  display: flex;
+  justify-content: center;
+  .key-syllables {
+    padding: 0 0.5rem;
+  }
+  .image-container {
+    margin: 0.5rem;
+    .card--display {
+      padding: 0px;
+
+      .card .bg-color .card-body {
+        padding: 8px !important;
+      }
     }
+  }
 
-    .key-syllables {
-        max-width: 90px;
+  .image {
+    img {
+      max-width: 70px;
+      max-height: 60px;
     }
-
-    .syllables-row {
-        min-width: 450px;
-        max-width: 450px;
-    }
-
-    .value-syllables {
-        max-width: 90px;
-    }
-
-    .custom-row {
-        margin: 0px;
-        .no-padding {
-            padding: 0;
-        }
-    }
-
-    .image-container {
-        padding: 0 4px;
-        max-width: 106px;
-
-        .card--display {
-            padding: 0px;
-
-            .card .bg-color .card-body {
-                padding: 8px !important;
-            }
-        }
-    }
-
-    .image {
-        img {
-            max-width: 70px;
-            max-height: 60px;
-        }
-    }
-
-    .activity-values {
-        max-width: 320px;
-    }
+  }
+  .activity-values {
+    max-width: 300px;
+  }
 }
