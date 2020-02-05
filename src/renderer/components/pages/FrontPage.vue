@@ -35,7 +35,7 @@
                                         :image="require('@/assets/images/btn-first-year.png')"
                                         :color="{ color: '#00963F' }"
                                         label="1º Ano"
-                                        slug="ler-2"
+                                        slug="ler-1"
                                         target-audience="primeiro-ano"
                                     />
                                 </div>
