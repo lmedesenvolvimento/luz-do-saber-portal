@@ -5,12 +5,34 @@ body,html {
 
 body {
       @include baloo_bhaina;
-      background: url("~@/assets/images/default-bg.jpg") no-repeat;
-      background-size: cover;
-      @each $t in get-themes-keys() {
-          &.#{$t} {
-            color: get-value-theme($t, 'text-color');
-            background-color: get-value-theme($t, 'bg-color');
+      #app {
+          position: relative;
+          @each $t in get-themes-keys() {
+              $bg-color: get-value-theme($t, 'bg-color');
+              &.#{$t} {
+                background-size: cover;
+                @if type-of($value: $bg-color) == 'color' {
+                    background-image: get-value-theme($t, 'bg-image');
+                    background-color: $bg-color;
+                } 
+                @else {
+                    $start: map-deep-get($bg-color, 'start');
+                    $end: map-deep-get($bg-color, 'end');
+                    @include linear-gradient($start, $end);
+                    &::before {
+                        position: absolute;
+                        display: block;
+                        content: ' ';
+                        top: 0;
+                        bottom: 0;
+                        left: 0;
+                        right: 0;
+                        background-image: get-value-theme($t, 'bg-image');
+                        background-size: contain;
+                    }
+                }
+                color: get-value-theme($t, 'text-color');
+              }
           }
       }
 }
