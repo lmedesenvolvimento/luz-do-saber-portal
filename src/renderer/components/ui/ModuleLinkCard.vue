@@ -131,9 +131,6 @@ export default {
             return this.data.themes[0].units_url + '/' + this.data.themes[0].slug
         },
     },
-    mounted(){
-        console.log(this.data)
-    },
     methods: {
         getProgressThemesByModuleId(m){
             return this.$store.getters['Pointings/getThemesByModuleId'](m.id, this.targetAudience)
