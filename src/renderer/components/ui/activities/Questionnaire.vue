@@ -26,7 +26,6 @@
                             v-if="answers"
                             :item="item"
                             :type="'value'"
-                            :size="'small'"
                             :template="activity.item_template.value"
                         />
                     </b-col>                    
