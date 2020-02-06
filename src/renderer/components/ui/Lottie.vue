@@ -3,9 +3,12 @@
 </template>
 
 <script>
-import lottie from 'lottie-web'
 
-const FRAME_PER_SECONDS = 60
+if (process.env.NODE_ENV !== 'production') {
+    window.lottie = require('lottie-web')
+}
+
+const FRAME_PER_SECONDS = 30
 
 export default {
     props: {
@@ -53,7 +56,7 @@ export default {
     },    
     methods: {
         jumpToEnd() {
-            this.animation.goToAndStop(this.totalSeconds * FRAME_PER_SECONDS)
+            this.animation.goToAndStop(this.totalSeconds * FRAME_PER_SECONDS, true)
         }
     }
 }
