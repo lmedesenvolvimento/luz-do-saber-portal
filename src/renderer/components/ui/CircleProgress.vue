@@ -52,28 +52,3 @@ export default {
     }
 }
 </script>
-
-<style lang="scss">
-@each $t in get-themes-keys() {
-    .#{$t} {
-        .chart-progress {
-            .img-container {
-                overflow: hidden;
-            }
-            figure {
-                display: block;
-                .image {
-                    width: 140px;
-                    height: 140px;
-                    @each $key, $value in get-value-theme($t, 'module-icons') {
-                        &.#{$key} {
-                            background-image: url($value);
-                            background-size: contain;
-                        }
-                    }
-                }
-            }
-        }
-    }
- }
-</style>

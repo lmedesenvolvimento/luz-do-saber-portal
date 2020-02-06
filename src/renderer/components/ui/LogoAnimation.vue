@@ -1,7 +1,7 @@
 <template>
     <div id="logo-intro-animation">
-        <Lottie v-if="$context === 'eja'" :path="eja" :animated="animated" :total-seconds="50" />
-        <Lottie v-else :path="fundamental" :animated="animated" :total-seconds="12" />
+        <Lottie v-if="$context === 'eja'" :path="eja" :animated="animated" :total-seconds="4" />
+        <Lottie v-else :path="fundamental" :animated="animated" :total-seconds="4" />
     </div>
 </template>
 
