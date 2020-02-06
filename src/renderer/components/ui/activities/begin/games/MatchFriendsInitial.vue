@@ -32,7 +32,7 @@
                 <ls-card-display class="display-values">
                     <b-row>
                         <b-col
-                            v-for="item in newArrayValues"
+                            v-for="item in arrayValues"
                             :key="item.id"
                             class="item"
                             cols="12"
@@ -75,16 +75,9 @@ export default {
             arrayValues: []
         }
     },
-    computed: {
-        newArrayValues() {
-            return shuffle(this.arrayValues)
-        }
-    },
     created () {
-        this.arrayValues = this.activity.items.values
-        this.arrayValues.forEach(element => {
-            
-        })
+        this.arrayValues = shuffle(this.activity.items.values)
+        
     },
     mounted(){
         this.createAnswersArray()
