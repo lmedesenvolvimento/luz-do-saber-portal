@@ -168,7 +168,8 @@ export default {
                             this.splitedSentence.push(values[0]) //adiciona ao vetor que vai ser renderizado
                             adicionou = true
                         } else {
-                            writtenSentence1.text+= element
+                            console.log(element)
+                            writtenSentence1.text+= ' ' + element
                         }
                     } else {
                         writtenSentence2.text+= element + ' '
