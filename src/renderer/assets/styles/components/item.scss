@@ -74,22 +74,17 @@
                     }
                 }
             }
-            @each $type in $item-types {                 
+            @each $type in $item-types {
                 @each $size, $types in get-value-theme($t, 'item-types-width') {
                     $value: map-deep-get($themes, $t, 'item-types-width', $size, $type);
 
                     @if $size == 'default' {
-                        // @debug $t;
-                        // @debug 'item-types-width';
-                        // @debug $size;
-                        // @debug $type;
-                        // @debug $value;
                         .#{$type}{
                             @include item($value);
                         }
                     }
                     @else {
-                        .#{$type}.#{size} {
+                        .#{$type}.#{$size} {
                             @include item($value);
                         }
                     }
