@@ -1,13 +1,15 @@
 <template>
     <div class="container-fluid">
-        <b-row align-v="center">
-            <b-col sm="4">
+        <b-row align-h="center">
+            <b-col sm="auto">
                 <async-image
                     :src="getKeys[0].images[0].url"
                     :alt="getKeys[0].text"
                 />
             </b-col>
-            <b-col sm="8">
+        </b-row>
+        <b-row align-h="center">
+            <b-col sm="auto">
                 <b-row>
                     <div
                         v-for="(letter, index) in keyLetters"
