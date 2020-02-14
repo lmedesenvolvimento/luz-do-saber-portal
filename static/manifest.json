@@ -1,0 +1,19 @@
+{
+    "short_name": "Luz do Saber",
+    "name": "Software de aprendizagem Luz do Saber",
+    "icons": [
+        {
+            "src": "/static/icon-192x192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "/static/icon-512x512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ],
+    "start_url": "/?source=pwa",
+    "display": "fullscreen",
+    "orientation": "landscape"
+}

@@ -40,7 +40,9 @@ export default {
         },
         gameStart() {
             this.onClickStartButton()
-            this.openFullscreen()
+            if (this.$mq === 'lg') {
+                this.openFullscreen()
+            }
 
             this.firstAudio.play()
 
