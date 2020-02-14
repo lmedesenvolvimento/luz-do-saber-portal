@@ -10,12 +10,12 @@ import './directives'
 import './plugins/v-viewer'
 import './plugins/plyr'
 import './plugins/bootstrap-vue'
+import './plugins/mq-vue'
 
 import Assets from './services/Assets'
 
 // merge router with store
 sync(store, router)
-
 
 Vue.use(VueHammer)
 
