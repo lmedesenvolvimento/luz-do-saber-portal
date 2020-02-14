@@ -15,9 +15,14 @@
                                     :key="letterIndex"
                                     :class="l.class"
                                     class="letter"
+                                    :data-row="index"
+                                    :data-letter="letterIndex"
                                     @mousedown="allowPainting(true)"
+                                    @touchstart="allowPainting(true)"
                                     @mouseup="allowPainting(false)"
+                                    @touchend="allowPainting(false)"
                                     @mousemove="paint(index, letterIndex)"
+                                    @touchmove="(event) => touchPaint(event)"
                                 >
                                     {{ l.value }}
                                 </div>
@@ -43,7 +48,6 @@
         </b-row>
     </div>
 </template>
-
 <script>
 // import Item from '@/components/ui/items/Item'
 import { find } from 'lodash'
@@ -123,6 +127,15 @@ export default {
                 } else continue
             }
             return answer
+        },
+        touchPaint(event) {
+            if (event.type === 'touchmove') {
+                const element = document.elementFromPoint(
+                    event.touches[0].pageX,
+                    event.touches[0].pageY
+                )
+                this.paint(element.dataset.row, element.dataset.letter)
+            }
         },
         paint(index, letter) {
             let srcElement = { indexi: index, indexj: letter }
@@ -282,5 +295,4 @@ export default {
     }
 }
 </script>
-
 <style></style>
