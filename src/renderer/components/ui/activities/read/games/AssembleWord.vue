@@ -8,8 +8,21 @@
                 'reverse-column': reverse && !horizontal
             }"
         >
-            <b-col v-if="hasKeys" class="activity-keys">
-                <b-row>
+            <div v-if="hasKeys" class="container-fluid activity-keys">
+                <b-row align-v="center" align-h="center" class="my-3">
+                    <b-col
+                        v-for="(item, position) in getKeys"
+                        :key="position"
+                        sm="auto"
+                        class="item"
+                    >
+                        <async-image
+                            :src="item.images.length ? item.images[0].url : ''"
+                            :alt="getKeys[0].text"
+                        />
+                    </b-col>
+                </b-row>
+                <b-row align-v="center" align-h="center">
                     <b-col
                         v-for="(item, position) in correctSyllabblesOrder"
                         :key="position"
@@ -30,20 +43,7 @@
                         </div>
                     </b-col>
                 </b-row>
-                <b-row>
-                    <b-col
-                        v-for="(item, position) in getKeys"
-                        :key="position"
-                        :sm="keyColSize"
-                        class="item"
-                    >
-                        <async-image
-                            :src="item.images.length ? item.images[0].url : ''"
-                            :alt="getKeys[0].text"
-                        />
-                    </b-col>
-                </b-row>
-            </b-col>
+            </div>
         </b-row>
         <b-row>
             <b-col
