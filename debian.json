@@ -3,7 +3,7 @@
     "productName": "Luz do Saber",
     "description": "Software de aprendizagem Luz do Saber",
     "dest": "dist/installers/",
-    "icon": "static/Icon.png",
+    "icon": "static/icon.png",
     "categories": [
         "Utility",
         "Education"

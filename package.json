@@ -51,6 +51,7 @@
     "vue-drag-drop": "^1.1.4",
     "vue-electron": "^1.0.6",
     "vue-html-to-paper": "^1.1.0",
+    "vue-mq": "^1.0.1",
     "vue-plyr": "^5.1.3",
     "vue-pose": "^0.5.1",
     "vue-router": "^3.0.1",
