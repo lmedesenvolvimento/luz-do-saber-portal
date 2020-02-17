@@ -1,23 +1,27 @@
 <template>
-    <div v-if="ready" id="bingo">
+    <div id="bingo">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col">
-                    <p>
-                        Bingo! 
-                        <span class="countdown" :class="{'is-sorting': sorting}">{{ countDown }}s</span>
-                    </p>
-                    <h2>
-                        {{ sorted }}
-                    </h2>
-                    <p>
-                        Alphabet: <br>
-                        {{ alphabet.map(l => l.text).join(', ') }}
-                    </p>
-                </div>
-                <div class="col-9">
+            <b-row align-v="center">
+                <b-col>
+                    <div class="bingo-glob">
+                        <div class="bingo-glob-glass"></div>
+                        <div class="bingo-glob-painel">
+                            <span v-if="sorted" class="bingo-glob-painel-sorted-letter">{{ sorted }}</span>
+                            <span v-else>{{ countDown }}</span>
+                        </div>
+                        <div class="bingo-glob-balls">
+                            <div v-for="ball in balls" :key="ball" class="bingo-glob-ball"></div>
+                        </div>
+                    </div>                    
+                    <div class="bingo-sorted-letters">
+                        <div v-for="(l, index) in alphabet" :key="index" class="bingo-sorted-letter" :class="{'is-sorted': l.sorted}">
+                            {{ l.text }}
+                        </div>
+                    </div>
+                </b-col>
+                <b-col cols="9">
                     <div class="bingo-opponents container-fluid">
-                        <ls-card-display>
+                        <ls-card-display bg-color="#FFB147">
                             Sua Cartela
                             <div v-for="key in getKeys" :key="key.id" class="row bingo-player-letters">
                                 <div v-for="(l, index) in splitLetters(key.text)" :key="index.toString()" class="bingo-player-letter">
@@ -54,8 +58,8 @@
                             </div>
                         </ls-card-display>
                     </div>
-                </div>
-            </div>
+                </b-col>
+            </b-row>
         </div>
     </div>
 </template>
@@ -69,7 +73,8 @@ import {
     pick, 
     uniq, 
     deburr, 
-    clone
+    clone,
+    range
 } from 'lodash'
 import  { alphabet, alphabet_with_acents } from '@/constants'
 
@@ -77,7 +82,7 @@ import { MapMixins, ListMixin, CreateAnswersMixins } from '@ui/activities/mixins
 
 import ui from '@/components/ui'
 
-const TIMEOUT = 5
+const TIMEOUT = 1
 
 export default {
     components: {
@@ -86,11 +91,12 @@ export default {
     mixins: [MapMixins, ListMixin, CreateAnswersMixins],
     data(){
         return {
-            ready: false,
             sorting: true,
             sorted: null,
+            sorter: null,
             countDown: TIMEOUT,
             countDownId: null,
+            balls: range(0, 6),
             alphabet: alphabet.map((l, index) => {
                 return {
                     id: index,
@@ -122,36 +128,58 @@ export default {
             return this.getValues.filter((value) => !value.key_id)
         }
     },
+    watch: {
+        sortLetters(letters) {
+            const keyLetters = this.getKeys.map(({ text }) => {
+                return deburr(text).split('')
+            })
+
+            const flattenKeys = flattenDeep(keyLetters)
+
+            const keys = letters.filter(l => {
+                return flattenKeys.includes(l.text)
+            })
+
+            const isValid = keys.every(({ valid }) => valid)
+
+            if (isValid) {
+                const correctValue = find(this.getValues, (v) => v.key_id)
+                this.setAnswer({
+                    type: 'value',
+                    data: correctValue.id,
+                    vm: {}
+                })
+                this.clearAll()
+            }
+        }
+    },
     created() {
         this.mapKeyLetters()
         this.mapValueLetters()
         this.createAnswersArray()
-        this.start()
+        this.sorter = setTimeout(this.start, 3000)
     },
-    mounted() {
-        setTimeout(() => {
-            this.ready = true
-        }, 400)
-    },
-    destroyed(){
-        clearInterval(this.countDownId)
+    beforeDestroy(){
+        this.clearAll()
     },
     methods: {
         sort() {
             const letters = this.sortLetters.filter(l => !l.sorted)
             const sorted = sample(letters)
+
+            if (letters.length === 0) {
+                this.clearAll()
+                return
+            }                
             
             if (!sorted) {
                 return
             }
 
-            // console.log(sorted.id)
+            sorted.sorted = true
 
             this.sorted = sorted.text
-
-            sorted.sorted = true
             this.$set(this.alphabet, sorted.id, sorted)
-            // this.$set(this, 'sorted', sorted.id)
         },
         countdown(){
             if (!this.sorting) {
@@ -174,14 +202,18 @@ export default {
             clearInterval(this.countDownId)                                    
             this.sorting = false
             // reniciando sorteio
-            this.start()
+            this.sorter = setTimeout(this.start, 3000)
         },
-        start: debounce(function(){
-            console.log('Sorting...')
+        clearAll() {
+            // Limpando Thread contador e sorteio em andamento
+            clearTimeout(this.sorter)
+            clearInterval(this.countDownId)
+        },
+        start() {
             this.sorting = true
             this.sorted = null
             this.countDownId = setInterval(this.countdown, 1000)
-        }, 3000),
+        },
         
         mapKeyLetters() {
             this.activity.items.keys.forEach(key => {
@@ -251,19 +283,108 @@ export default {
 </script>
 
 <style lang="scss">
+@import '~animate-scss/_properties';
+@import '~animate-scss/_attention-seekers/attention-seekers';
+
 #bingo {
-    .countdown:not(.is-sorting) {
-        color: red;
-    }
-    .bingo-opponents, .bingo-player {
-        &-letters {
+    .bingo {
+        &-opponents, &-player {
+            &-letters {
+                justify-content: center;
+            }
+            &-letter {
+                padding-right: $gutter-size;
+                padding-left: $gutter-size;
+            }
+            .card .card-body {
+                .card-body {
+                    color: $text-color !important;
+                }
+            }
+        }
+        &-glob {
+            position: relative;
+            width: 100%;
+            &-glass {
+                display: block;
+                background: url('~@/assets/images/components/bingo/globo-bingo.png') no-repeat;
+                background-size: contain;
+                background-position: center;
+                width: 100%;
+                height: 100%;
+                padding-top: 100%;
+            }
+            &-painel {
+                position: absolute;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                top: 0;
+                bottom: 0;
+                right: 0;
+                left: 0;
+                background: url('~@/assets/images/components/bingo/painel-bingo.png') no-repeat;
+                background-position: center;
+                background-size: contain;
+                z-index: 2;
+                span {
+                    margin: auto;
+                    font-size: 24px;
+                }
+                &-sorted-letter{
+                    @include pulse(
+                        $duration: 1s,
+                        $count: 3
+                    )
+                }
+            }
+            &-balls {
+                position: absolute;
+                width: 110px;
+                height: 110px;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                margin: auto;
+            }
+            &-ball {
+                position: absolute;
+                width: 22px;
+                height: 22px;
+                background: url('~@/assets/images/components/bingo/bola-bingo.png') no-repeat;
+                background-position: center;
+                background-size: contain;
+                opacity: 0;
+                z-index: 1;
+                @for $i from 0 through 10  {
+                    transition: all 1s;
+                    &:nth-child(#{$i}) {                        
+                        animation: molecules-balls-animation-#{$i} 5s ( $i * 0.1s ) ease alternate-reverse infinite;
+                    }
+                }                
+            }
+        }
+        &-sorted-letters {
+            display: flex;
+            flex-wrap: wrap;
+            box-sizing: border-box;
+            margin: 2rem 0px;
+        }
+        &-sorted-letter {
+            display: flex;
+            align-items: center;
             justify-content: center;
+            width: 24px;
+            height: 24px;
+            background-color: #ccc;
+            color: white;
+            margin: 0.25rem;
+            border-radius: 50%;
+            &.is-sorted {
+                background-color: cyan;   
+            }
         }
-        &-letter {
-            padding-right: $gutter-size;
-            padding-left: $gutter-size;
-        }
-    }
+    }    
 }
 </style>
-
