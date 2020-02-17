@@ -28,7 +28,9 @@ let webConfig = {
             loader: 'sass-loader', options: {
               data: `
               @import "./src/renderer/assets/styles/variables";
+              @import "./src/renderer/assets/styles/functions";
               @import "./src/renderer/assets/styles/mixins";
+              @import "./src/renderer/assets/styles/keyframes";
               @import "~bootstrap/scss/_functions.scss";
               @import "~bootstrap/scss/_variables.scss";
               @import "~bootstrap/scss/_mixins.scss";
