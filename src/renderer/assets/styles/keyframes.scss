@@ -39,3 +39,32 @@
         background-image: url('~@/assets/images/logo/face.png');
     }
 }
+@for $i from 0 to 10 {
+    @keyframes molecules-balls-animation-#{$i} {
+        0% {
+            top: #{ percentage(random(100) / 100)};
+            left: #{percentage(random(100) / 100)};
+            opacity: (random(100) / 100);
+        }
+        25% {        
+            bottom: #{ percentage(random(100) / 100)};
+            right: #{percentage(random(100) / 100)};
+            opacity: (random(100) / 100);
+        }
+        50% {        
+            top: #{ percentage(random(100) / 100)};
+            left: #{percentage(random(100) / 100)};
+            opacity: (random(100) / 100);
+        }
+        75% {        
+            bottom: #{ percentage(random(100) / 100)};
+            right: #{percentage(random(100) / 100)};
+            opacity: (random(100) / 100);
+        }
+        100%{
+            top: #{ percentage(random(100) / 100)};
+            left: #{percentage(random(100) / 100)};
+            opacity: (random(100) / 100);
+        }
+    }
+}
