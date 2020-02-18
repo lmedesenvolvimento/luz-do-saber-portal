@@ -76,13 +76,13 @@ import {
     clone,
     range
 } from 'lodash'
-import  { alphabet, alphabet_with_acents } from '@/constants'
 
+import  { alphabet, alphabet_with_acents } from '@/constants'
 import { MapMixins, ListMixin, CreateAnswersMixins } from '@ui/activities/mixins'
 
 import ui from '@/components/ui'
 
-const TIMEOUT = 1
+const TIMEOUT = 5
 
 export default {
     components: {
@@ -167,8 +167,13 @@ export default {
             const letters = this.sortLetters.filter(l => !l.sorted)
             const sorted = sample(letters)
 
-            if (letters.length === 0) {
+            if (letters.length === 0) {                                            
+                // Exibindo o alerta de questão não resolvida
+                this.$store.dispatch('Activity/triggerSuccess')                
+
+                // Matando Threads
                 this.clearAll()
+
                 return
             }                
             
@@ -199,15 +204,24 @@ export default {
             this.countDown--
         },
         clear() {
-            clearInterval(this.countDownId)                                    
+            if (!this.sorting) {
+                return
+            }
+
+            clearInterval(this.countDownId)
+
             this.sorting = false
             // reniciando sorteio
             this.sorter = setTimeout(this.start, 3000)
         },
         clearAll() {
             // Limpando Thread contador e sorteio em andamento
-            clearTimeout(this.sorter)
             clearInterval(this.countDownId)
+            clearTimeout(this.sorter)
+
+            this.sorting = false
+            this.sorter = null
+            this.countDownId = null
         },
         start() {
             this.sorting = true
@@ -297,6 +311,9 @@ export default {
                 padding-left: $gutter-size;
             }
             .card .card-body {
+                .card:hover, .card:active {
+                    cursor: pointer;
+                }
                 .card-body {
                     color: $text-color !important;
                 }
