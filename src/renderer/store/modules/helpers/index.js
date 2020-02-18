@@ -160,3 +160,9 @@ export function getExtenalParams(question) {
         return { params: null }
     }
 }
+
+
+export function copyObjectWithoutObserver(observer){
+    const jsonstr = JSON.stringify(observer)
+    return JSON.parse(jsonstr)
+}
