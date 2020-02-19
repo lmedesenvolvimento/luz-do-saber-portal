@@ -72,7 +72,7 @@
         .gameplay-footer{
             display: flex;
             align-items: center;
-            max-height: 90px;
+            max-height: get-value-theme($t, 'gameplay-books-footer-height') !important;
         }
         
         .bar{
