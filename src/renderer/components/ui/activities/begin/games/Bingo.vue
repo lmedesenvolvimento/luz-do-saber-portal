@@ -129,28 +129,11 @@ export default {
         }
     },
     watch: {
-        sortLetters(letters) {
-            const keyLetters = this.getKeys.map(({ text }) => {
-                return deburr(text).split('')
-            })
-
-            const flattenKeys = flattenDeep(keyLetters)
-
-            const keys = letters.filter(l => {
-                return flattenKeys.includes(l.text)
-            })
-
-            const isValid = keys.every(({ valid }) => valid)
-
-            if (isValid) {
-                const correctValue = find(this.getValues, (v) => v.key_id)
-                this.setAnswer({
-                    type: 'value',
-                    data: correctValue.id,
-                    vm: {}
-                })
-                this.clearAll()
-            }
+        sortLetters: {
+            handler(letters) {
+                this.handlerSortLetters(letters)
+            },
+            immediate: true
         }
     },
     created() {
@@ -291,6 +274,29 @@ export default {
                 }
             }, 1000)
         },
+        handlerSortLetters(letters) {
+            const keyLetters = this.getKeys.map(({ text }) => {
+                return deburr(text).split('')
+            })
+
+            const flattenKeys = flattenDeep(keyLetters)
+
+            const keys = letters.filter(l => {
+                return flattenKeys.includes(l.text)
+            })
+
+            const isValid = keys.every(({ valid }) => valid)
+
+            if (isValid) {
+                const correctValue = find(this.getValues, (v) => v.key_id)
+                this.setAnswer({
+                    type: 'value',
+                    data: correctValue.id,
+                    vm: {}
+                })
+                this.clearAll()
+            }
+        },
         ...mapActions('Activity', ['setAnswer'])
     }
 }
@@ -301,6 +307,10 @@ export default {
 @import '~animate-scss/_attention-seekers/attention-seekers';
 
 #bingo {
+    height: 100%;
+    >.container-fluid, > .container-fluid > .row {
+        height: 100%;
+    }
     .bingo {
         &-opponents, &-player {
             &-letters {
@@ -398,6 +408,14 @@ export default {
             color: white;
             margin: 0.25rem;
             border-radius: 50%;
+            box-sizing: border-box;
+            &.is-word {
+                display: inline-flex;
+                width: auto;
+                padding-left: 8px;
+                padding-right: 8px;
+                border-radius: 1rem;
+            }
             &.is-sorted {
                 background-color: cyan;   
             }
