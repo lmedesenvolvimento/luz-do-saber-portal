@@ -1,15 +1,17 @@
 <template>
     <div class="container-fluid complete-word">
         <b-row align-h="center" class="column">
-            <b-col v-if="hasKeys" class="activity-keys">
-                <b-row align-v="center">
-                    <b-col cols="12" md="4" sm="4">
+            <div v-if="hasKeys" class="container-fluid activity-keys">
+                <b-row align-v="center" align-h="center">
+                    <b-col cols="12" md="auto" sm="auto">
                         <async-image
                             class="image"
                             :src="incompleteWord.images[0].url"
                         ></async-image>
                     </b-col>
-                    <b-col cols="12" md="8" sm="8" class="pieces-row">
+                </b-row>
+                <b-row align-v="center" align-h="center" class="my-3">
+                    <b-col cols="12" md="auto" sm="auto" class="pieces-row">
                         <b-row>
                             <b-col
                                 v-for="(piece, index) in incompleteWord.pieces"
@@ -49,7 +51,7 @@
                         </b-row>
                     </b-col>
                 </b-row>
-            </b-col>
+            </div>
             <b-col v-if="hasKeys" class="activity-values">
                 <b-col class="activity-values" cols="12" md="12">
                     <b-row
