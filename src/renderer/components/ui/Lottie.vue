@@ -3,8 +3,9 @@
 </template>
 
 <script>
+import axios from 'axios'
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'web') {
     window.lottie = require('lottie-web')
 }
 
@@ -24,7 +25,8 @@ export default {
     },
     data() {
         return {
-            animation: null
+            animation: null,
+            animationData: '',
         }
     },
     watch: {
@@ -40,9 +42,15 @@ export default {
             }
         }
     },
-    mounted() {
+    mounted() {                
+        const path = process.env.NODE_ENV !== 'development' ? 'http://localhost:9000/' + this.path : '/static/' + this.path
+
+        axios.get(path).then(({ data }) => {
+            this.animationData = data
+        })
+
         this.animation = lottie.loadAnimation({
-            path: this.path,
+            path,
             container: this.$el,
             renderer: 'svg',
             loop: true,
