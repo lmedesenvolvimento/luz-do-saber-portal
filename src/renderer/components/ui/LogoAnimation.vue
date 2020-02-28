@@ -18,8 +18,8 @@ export default {
     },
     data() {
         return {
-            fundamental: '/static/html5/fundamental/data.json',
-            eja: '/static/html5/eja/data.json'
+            fundamental: 'html5/fundamental/data.json',
+            eja: 'html5/eja/data.json'
         }
     }
 }
