@@ -35,6 +35,7 @@
     "env-cmd": "^10.0.1",
     "faker": "^4.1.0",
     "flexboxgrid": "^6.3.1",
+    "interactjs": "^1.8.5",
     "leader-line": "^1.0.5",
     "lodash": "^4.17.15",
     "lottie-web": "^5.6.3",
