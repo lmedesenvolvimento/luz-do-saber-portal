@@ -16,13 +16,14 @@ const MENU_TEMPLATE = [
         submenu: [
             { label: 'Sair', role: 'close' }
         ]    
-    },
-    {
-        label: 'Devtools',
-        submenu: [
-            { label: 'Toggle Devtools', role: 'toggleDevTools' }
-        ]    
     }
+    // DEBUG
+    // {
+    //     label: 'Devtools',
+    //     submenu: [
+    //         { label: 'Toggle Devtools', role: 'toggleDevTools' }
+    //     ]    
+    // }
 ]
 
 let mainWindow
