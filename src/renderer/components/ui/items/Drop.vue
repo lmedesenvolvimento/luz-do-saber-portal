@@ -4,7 +4,10 @@
     </div>
 </template>
 <script>
-// import interact from 'interactjs'
+if (process.env.NODE_ENV !== 'web') {
+    const interact = require('interactjs')
+}
+
 export default {
     props: {
         expected: {
