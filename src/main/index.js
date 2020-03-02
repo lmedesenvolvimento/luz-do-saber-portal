@@ -16,6 +16,12 @@ const MENU_TEMPLATE = [
         submenu: [
             { label: 'Sair', role: 'close' }
         ]    
+    },
+    {
+        label: 'Devtools',
+        submenu: [
+            { label: 'Toggle Devtools', role: 'toggleDevTools' }
+        ]    
     }
 ]
 
@@ -28,24 +34,25 @@ function createWindow () {
     if (process.env.NODE_ENV !== 'development') {
         boostrapAPI()
     }
-
+    
     /**
-   * Initial window options
-   */
+     * Initial window options
+     */
     mainWindow = new BrowserWindow({
         height: 800,
         useContentSize: true,
         width: 1440,
         webPreferences: {
-            webSecurity: false
+            webSecurity: false,
+            devTools: true
         }
     })
-
-
+    
+    
     if (process.env.NODE_ENV !== 'development') {
         mainWindow.maximize()
     }
-
+        
     mainWindow.loadURL(winURL)
 
     mainWindow.on('closed', () => {
