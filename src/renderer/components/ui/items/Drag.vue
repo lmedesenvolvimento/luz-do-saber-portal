@@ -22,7 +22,7 @@
 </template>
 <script>
 if (process.env.NODE_ENV !== 'web') {
-    const interact = require('interactjs')
+    window.interact = require('interactjs').default
 }
 
 export default {
