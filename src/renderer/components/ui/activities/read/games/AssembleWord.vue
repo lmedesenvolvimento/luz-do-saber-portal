@@ -26,7 +26,7 @@
                     <b-col
                         v-for="(item, position) in correctSyllabblesOrder"
                         :key="position"
-                        class="col-sm-3 item"
+                        class="col-sm-2 item"
                     >
                         <div
                             class="silaba texto validate-icon-top"
