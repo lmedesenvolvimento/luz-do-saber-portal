@@ -15,6 +15,8 @@ import {
     getExtenalParams
 } from './helpers'
 
+import { mapBeginDesktopActivity } from './helpers/begin'
+
 import {
     mapActivity
 } from './helpers/pointings'
@@ -125,7 +127,9 @@ const actions = {
             ]
 
             const config = Object.assign(extenalParams, { cancelToken: CancelToken.token })            
-            const { data } = await API.get(req.join('/'), config)
+            let { data } = await API.get(req.join('/'), config)
+
+            mapBeginDesktopActivity(data)
 
             commit('SET_ACTIVITY', Object.assign(data.question, { position: position }))
         } catch (error) {
