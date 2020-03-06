@@ -1,6 +1,11 @@
 @each $t in get-themes-keys() {
     .#{$t} {
         .biblioteca{
+
+            .bar{
+                margin-right: 0 !important;
+            }
+
             &.fullscreen{
                 z-index: 999; 
                 width: 100vw;
@@ -74,10 +79,6 @@
             display: flex;
             align-items: center;
             max-height: get-value-theme($t, 'gameplay-books-footer-height') !important;
-        }
-        
-        .bar{
-            margin-right: 0 !important;
         }
         
         .btn-book{
