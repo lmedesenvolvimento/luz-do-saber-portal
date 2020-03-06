@@ -54,8 +54,6 @@ export function clearConnection(state) {
 export function validationInAnswer({ state, commit }, { vm, type, data }) {
     let answer = find(values(state.answers), a => a.value.data.includes(data))
 
-    console.log('validationInAnswer', vm, type, values(state.answers), answer)
-
     if (!answer) {
         vm.invalid = true
         // register total error
@@ -164,7 +162,9 @@ export function getExtenalParams(question) {
 }
 
 
+
 export function copyObjectWithoutObserver(observer){
     const jsonstr = JSON.stringify(observer)
     return JSON.parse(jsonstr)
 }
+
