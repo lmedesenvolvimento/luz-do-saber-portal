@@ -129,7 +129,7 @@ const actions = {
             const config = Object.assign(extenalParams, { cancelToken: CancelToken.token })            
             let { data } = await API.get(req.join('/'), config)
 
-            if (process.env.NODE_ENV !== 'development' && process.env.NODE_ENV !== 'web') {
+            if (process.env.NODE_ENV !== 'development' && process.env.BUILD_TARGET !== 'web') {
                 mapBeginDesktopActivity(data)
             }
             
