@@ -12,6 +12,8 @@ import axios from 'axios'
 //     baseURL: process.env.BUILD_TARGET === 'web' ? process.env.BASE_API_URL : `${process.env.BASE_API_URL}/api`
 // })
 
+console.log(process.env.BASE_API_URL)
+
 const api = axios.create({
     baseURL: process.env.BUILD_TARGET === 'web' ? process.env.BASE_API_URL : `${process.env.BASE_API_URL}/api`
 })
