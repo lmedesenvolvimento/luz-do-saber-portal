@@ -32,7 +32,7 @@ const winURL = process.env.NODE_ENV === 'development'
     : `file://${__dirname}/index.html`
 
 function createWindow () {
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV !== 'development') {
         boostrapAPI()
     }
     
