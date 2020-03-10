@@ -67,6 +67,7 @@
 import { 
     chunk,
     flattenDeep, 
+    shuffle,
     uniq, 
 } from 'lodash'
 
@@ -84,11 +85,11 @@ export default {
             return this.alphabet
         },
         opponents() {
-            const opponents = this.getValues.filter((value) => !value.key_id)
+            return this.shuffleOpponentsCard()
+        },
+        totalOpponentsPerCard() {
             // O número de itens por cartela é baseado no total de itens que o jogador vai ter
-            const totalOpponentsPerCard = this.getValues.filter((value) => value.key_id).length
-            // dividindo cartela de oponentes
-            return chunk(opponents, totalOpponentsPerCard)
+            return this.getValues.filter((value) => value.key_id).length
         }
     },    
     created() {
@@ -139,6 +140,28 @@ export default {
                 
                 this.clearAll()
             }
+        },
+        shuffleOpponentsCard() {
+            // Debug
+            // console.log('shuffleOpponentsCard', new Date)
+
+            const shuffleValues = shuffle(this.getValues)
+
+            const opponents = chunk(shuffleValues, this.totalOpponentsPerCard)
+
+            if (this.getValues.length <= this.totalOpponentsPerCard) {
+                return opponents
+            }
+
+            const hasEqualCard = opponents.some((opponent) => {
+                return opponent.map(({ text }) => text) === this.getKeys.map(({ text }) => text)
+            })
+
+            if (hasEqualCard) {
+                return this.shuffleOpponentsCard()
+            }
+
+            return opponents
         }
     },
 }
