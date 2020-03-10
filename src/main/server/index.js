@@ -4,7 +4,12 @@ const PORT = 9000
 
 const boostrapAPI = () => {
     const app = express()
-    const __static = express.static(path.join(__dirname, 'static'))
+    const static_path = process.env.NODE_ENV === 'development' 
+        ? path.resolve(__dirname, '..', '..', '..', 'static') 
+        : path.join(__dirname, 'static')
+
+    
+    const __static = express.static(static_path)
 
     app.get('/ping', (req, res) => {
         res.send('Hello Electron')
