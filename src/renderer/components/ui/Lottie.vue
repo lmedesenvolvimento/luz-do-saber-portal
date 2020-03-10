@@ -5,7 +5,7 @@
 <script>
 import axios from 'axios'
 
-if (process.env.NODE_ENV !== 'web') {
+if (process.env.BUILD_TARGET !== 'web') {
     window.lottie = require('lottie-web')
 }
 
@@ -43,7 +43,8 @@ export default {
         }
     },
     mounted() {                
-        const path = process.env.NODE_ENV !== 'development' ? 'http://localhost:9000/' + this.path : '/static/' + this.path
+        const isDekstop = process.env.NODE_ENV !== 'development' && process.env.BUILD_TARGET !== 'web'
+        const path = isDekstop ? 'http://localhost:9000/' + this.path : '/static/' + this.path
 
         axios.get(path).then(({ data }) => {
             this.animationData = data

@@ -4,7 +4,7 @@
     </div>
 </template>
 <script>
-if (process.env.NODE_ENV !== 'web') {
+if (process.env.BUILD_TARGET !== 'web') {
     window.interact = require('interactjs').default
 }
 
