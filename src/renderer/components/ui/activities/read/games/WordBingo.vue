@@ -44,9 +44,9 @@
                             </div>
                         </ls-card-display>
                         
-                        <ls-card-display> 
+                        <ls-card-display v-for="(opponent, index) in opponents" :key="index.toString()"> 
                             <div class="row bingo-opponents-letters">
-                                <div v-for="value in opponents" :key="value.id" class="bingo-opponents-letter">
+                                <div v-for="value in opponent" :key="value.id" class="bingo-opponents-letter">
                                     <div class="item">
                                         <div class="texto medium" :class="[value.type]">
                                             <ls-card-display :valid="getLetter(value.text).sorted">
@@ -65,6 +65,7 @@
 </template>
 <script>
 import { 
+    chunk,
     flattenDeep, 
     uniq, 
 } from 'lodash'
@@ -81,6 +82,13 @@ export default {
     computed: {
         sortLetters(){                        
             return this.alphabet
+        },
+        opponents() {
+            const opponents = this.getValues.filter((value) => !value.key_id)
+            // O número de itens por cartela é baseado no total de itens que o jogador vai ter
+            const totalOpponentsPerCard = this.getValues.filter((value) => value.key_id).length
+            // dividindo cartela de oponentes
+            return chunk(opponents, totalOpponentsPerCard)
         }
     },    
     created() {
