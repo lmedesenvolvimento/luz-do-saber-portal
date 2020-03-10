@@ -129,8 +129,10 @@ const actions = {
             const config = Object.assign(extenalParams, { cancelToken: CancelToken.token })            
             let { data } = await API.get(req.join('/'), config)
 
-            mapBeginDesktopActivity(data)
-
+            if (process.env.NODE_ENV !== 'development' && process.env.NODE_ENV !== 'web') {
+                mapBeginDesktopActivity(data)
+            }
+            
             commit('SET_ACTIVITY', Object.assign(data.question, { position: position }))
         } catch (error) {
             console.warn(error)
