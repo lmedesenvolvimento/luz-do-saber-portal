@@ -2,11 +2,13 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import modules from './modules'
+import RemoteServerSyncPlugin from './plugins/remote-server-sync'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-    modules
+    modules,
+    plugins: [RemoteServerSyncPlugin]
 })
 
 // export default new Vuex.Store({
