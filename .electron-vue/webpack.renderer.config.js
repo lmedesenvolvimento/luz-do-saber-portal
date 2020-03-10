@@ -194,8 +194,7 @@ if (process.env.NODE_ENV === 'production') {
       'process.env.NODE_ENV': '"production"',
       'process.env.CONTEXT': `\'${process.env.CONTEXT}\'`,
       'process.env.BUILD_TARGET': process.env.BUILD_TARGET !== 'web' ? '"any"' : '"web"',
-      'process.env.BASE_API_URL': '"http://localhost:9000"'
-      // 'process.env.BASE_API_URL': process.env.BUILD_TARGET !== 'web' ? '"http://localhost:9000"' : `\'${process.env.BASE_API_URL}\'`
+      'process.env.BASE_API_URL': process.env.BUILD_TARGET !== 'web' ? '"http://localhost:9000"' : `\'${process.env.BASE_API_URL}\'`
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
