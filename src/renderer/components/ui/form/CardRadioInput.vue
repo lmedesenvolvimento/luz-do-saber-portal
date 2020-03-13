@@ -1,5 +1,11 @@
 <template>
-    <div :id="`input-${uid}`" class="card-input card--radio-input" :class="$attrs.class">
+    <div 
+        :id="`input-${uid}`"
+        class="card-input card--radio-input" 
+        :class="$attrs.class" 
+        @mousedown.stop="onMouseEvent"
+        @mouseup.stop="onMouseEvent"
+    >
         <label>
             <b-card 
                 no-body
@@ -18,15 +24,23 @@
                 type="radio"
                 :name="$attrs.name" 
                 v-bind="$attrs"
-                @click.prevent="onChange"
+                @click.prevent="onChange"                
             />
         </label>
     </div>
 </template>
 <script>
 import RadioInput from './RadioInput.vue'
+import { ClusterTypes } from '@/store/modules/helpers'
 export default {
-    mixins: [RadioInput]
+    mixins: [RadioInput],
+    methods: {
+        onMouseEvent(event) {
+            if (ClusterTypes.includes(this.activity.type.slug)) {
+                this.onChange(event)
+            }
+        }
+    }
 }
 </script>
 <style lang="scss">
