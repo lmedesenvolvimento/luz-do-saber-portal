@@ -99,16 +99,6 @@ let webConfig = {
   plugins: [
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({ filename: 'styles.css' }),
-    // new HtmlWebpackPlugin({
-    //   filename: 'index.html',
-    //   template: path.resolve(__dirname, '../src/index.ejs'),
-    //   minify: {
-    //     collapseWhitespace: true,
-    //     removeAttributeQuotes: true,
-    //     removeComments: true
-    //   },
-    //   nodeModules: false
-    // }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: path.resolve(__dirname, '../src/index.ejs'),
@@ -131,6 +121,16 @@ let webConfig = {
       },
       nodeModules: false
     }),    
+    // new HtmlWebpackPlugin({
+    //   filename: 'index.html',
+    //   template: path.resolve(__dirname, '../src/index.ejs'),
+    //   minify: {
+    //     collapseWhitespace: true,
+    //     removeAttributeQuotes: true,
+    //     removeComments: true
+    //   },
+    //   nodeModules: false
+    // }),    
     new webpack.DefinePlugin({
       'process.env.IS_WEB': 'true',
       'process.env.BUILD_TARGET': '"web"',
