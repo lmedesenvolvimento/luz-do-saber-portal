@@ -9,6 +9,10 @@ if (process.env.BUILD_TARGET !== 'web') {
     window.lottie = require('lottie-web')
 }
 
+else if (process.env.NODE_ENV === 'development') {
+    window.lottie = require('lottie-web')
+}
+
 const FRAME_PER_SECONDS = 30
 
 export default {
