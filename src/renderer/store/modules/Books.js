@@ -2,7 +2,7 @@ import Vue from 'vue'
 import uniqid from 'uniqid'
 import { find, values } from 'lodash'
 
-import API from '@/services/Http'
+import Http from '@/services/Http'
 import db from '@/services/Session'
 
 const state = {
@@ -27,7 +27,7 @@ const actions = {
     async fetchBooks({ commit, state }) {
         let books = db.get('books').value()
         if (!values(books).length) {
-            let { data } = await API.get('/game/biblioteca')
+            let { data } = await Http.axios.get('/game/biblioteca')
             let payload = convertBooksToHashMap(data.livros)
             // write in session
             db.set('books', payload).write()
