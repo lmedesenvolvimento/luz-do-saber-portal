@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import { filter, find, clone, values } from 'lodash'
-import API from '@/services/Http'
+
+import Http from '@/services/Http'
 
 import axios from 'axios'
 
@@ -20,6 +21,7 @@ import { mapBeginDesktopActivity } from './helpers/begin'
 import {
     mapActivity
 } from './helpers/pointings'
+
 
 let CancelToken = null
 
@@ -127,7 +129,7 @@ const actions = {
             ]
 
             const config = Object.assign(extenalParams, { cancelToken: CancelToken.token })            
-            let { data } = await API.get(req.join('/'), config)
+            let { data } = await Http.axios.get(req.join('/'), config)
 
             if (process.env.NODE_ENV !== 'development' && process.env.BUILD_TARGET !== 'web') {
                 mapBeginDesktopActivity(data)
