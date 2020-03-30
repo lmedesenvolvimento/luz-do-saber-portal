@@ -13,6 +13,7 @@ import './plugins/bootstrap-vue'
 import './plugins/mq-vue'
 
 import Assets from './services/Assets'
+import { asyncAxios } from './services/Http'
 
 // merge router with store
 sync(store, router)
@@ -26,12 +27,15 @@ Vue.config.productionTip = false
 
 Vue.prototype.$context = process.env.CONTEXT || 'fundamental'
 
-Assets.loadCache()
+asyncAxios(() => {
+    console.log('Loaded')
+    Assets.loadCache()
+    /* eslint-disable no-new */
+    new Vue({
+        components: { App },
+        router,
+        store,
+        template: '<App/>'
+    }).$mount('#app')
+})
 
-/* eslint-disable no-new */
-new Vue({
-    components: { App },
-    router,
-    store,
-    template: '<App/>'
-}).$mount('#app')

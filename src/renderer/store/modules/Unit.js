@@ -1,5 +1,5 @@
 import router from '@/router'
-import API from '@/services/Http'
+import Http from '@/services/Http'
 
 import { omit, dropRight } from 'lodash'
 
@@ -25,7 +25,7 @@ const mutations = {
 
 const actions = {
     async fetchUnit({ commit }, params){
-        let { data } = await API.get(`/game/${params.module_slug}/${params.theme_slug}/${params.unit_slug}.json`)
+        let { data } = await Http.axios.get(`/game/${params.module_slug}/${params.theme_slug}/${params.unit_slug}.json`)
         commit('SET_UNIT', data)
         commit('SET_NAVIGATOR_PARAMS', params)
     },
