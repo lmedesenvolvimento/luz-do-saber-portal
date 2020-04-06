@@ -100,8 +100,9 @@ export default {
             this.keyLetters.push(this.getKeys[0].letters[i].text)
             this.notNormalizedLetters.push(this.getKeys[0].letters[i].text)
             this.keyIds.push(this.getKeys[0].value_ids[i])
-        }       
-        this.controlCorrectItems()
+        }  
+        // DECREAPTED
+        // this.controlCorrectItems()
     },
     methods: {        
         // impede que o mesmo botão seja checado 2 ou mais vezes
@@ -109,18 +110,18 @@ export default {
             if(item.valid || item.invalid) return false
             return true
         },
+        // DECREAPTED
         // ajusta o número de items corretos baseado nas letras que se repetem
-        controlCorrectItems(){
-            let noRepeatLetters = []
-            this.keyLetters.forEach(letter => {
-                if(!this.searchString(noRepeatLetters, letter)){
-                    noRepeatLetters.push(letter)
-                }                
-            })
-            this.setActivityAttrs({ total_correct_items: noRepeatLetters.length })
-            // this.activity.total_correct_items = noRepeatLetters.length;
-            
-        },
+        // controlCorrectItems(){
+        // let noRepeatLetters = []
+        // this.keyLetters.forEach(letter => {
+        //     if(!this.searchString(noRepeatLetters, letter)){
+        //         noRepeatLetters.push(letter)
+        //     }                
+        // })
+        // this.setActivityAttrs({ total_correct_items: noRepeatLetters.length })
+        // this.activity.total_correct_items = noRepeatLetters.length;            
+        // },
         // faz a validação de um objeto criado na própria fase
         checkValid(item){
             if(item.valid || item.invalid) return
