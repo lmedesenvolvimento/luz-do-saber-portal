@@ -2,9 +2,7 @@
     <div 
         :id="`input-${uid}`"
         class="card-input card--radio-input" 
-        :class="$attrs.class" 
-        @mousedown.stop="onMouseEvent"
-        @mouseup.stop="onMouseEvent"
+        :class="$attrs.class"
     >
         <label>
             <b-card 
