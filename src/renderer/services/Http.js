@@ -17,14 +17,13 @@ let Http = {
 // })
 
 export function asyncAxios(callback) {
-    console.log(process.env.BUILD_TARGET, process.env.NODE_ENV)
     if (process.env.BUILD_TARGET === 'web' && process.env.NODE_ENV === 'production') {
         axios.get('/site').then(({ data }) => {
             Http.axios = axios.create({
                 baseURL: data.api_url
             })
     
-            if (callback) return callback()
+            if (callback) return callback(data)
         })
     }
 
@@ -33,14 +32,18 @@ export function asyncAxios(callback) {
             baseURL: `${process.env.BASE_API_URL}`
         })
         
-        if (callback) return callback()
+        if (callback) return callback({
+            GA: process.env.GA
+        })
     }
 
     Http.axios = axios.create({
         baseURL: `${process.env.BASE_API_URL}/api`
     })
 
-    if (callback) return callback()
+    if (callback) return callback({
+        GA: process.env.GA
+    })
 }
 
 
