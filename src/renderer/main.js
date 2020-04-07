@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import VueAnalytics from 'vue-analytics'
 import { sync } from 'vuex-router-sync'
 import { VueHammer } from 'vue2-hammer'
 import axios from 'axios'
@@ -27,9 +28,14 @@ Vue.config.productionTip = false
 
 Vue.prototype.$context = process.env.CONTEXT || 'fundamental'
 
-asyncAxios(() => {
-    console.log('Loaded')
+asyncAxios(({ GA }) => {
     Assets.loadCache()
+    
+    Vue.use(VueAnalytics, {
+        id: GA,
+        router
+    })
+
     /* eslint-disable no-new */
     new Vue({
         components: { App },
