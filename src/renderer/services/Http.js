@@ -23,7 +23,9 @@ export function asyncAxios(callback) {
                 baseURL: data.api_url
             })
     
-            if (callback) return callback(data)
+            if (callback) callback(data)
+            
+            return
         })
     }
 
@@ -32,16 +34,18 @@ export function asyncAxios(callback) {
             baseURL: `${process.env.BASE_API_URL}`
         })
         
-        if (callback) return callback({
+        if (callback) callback({
             GA: process.env.GA
         })
+
+        return
     }
 
     Http.axios = axios.create({
         baseURL: `${process.env.BASE_API_URL}/api`
     })
 
-    if (callback) return callback({
+    if (callback) callback({
         GA: process.env.GA
     })
 }
