@@ -30,11 +30,15 @@ Vue.prototype.$context = process.env.CONTEXT || 'fundamental'
 
 asyncAxios(({ GA }) => {
     Assets.loadCache()
-    
-    Vue.use(VueAnalytics, {
-        id: GA,
-        router
-    })
+
+    if (process.env.NODE_ENV === 'production' && GA){
+        console.log('VueAnalytics is enabled', GA)
+                
+        Vue.use(VueAnalytics, {
+            id: GA,
+            router
+        })
+    }    
 
     /* eslint-disable no-new */
     new Vue({
