@@ -125,16 +125,23 @@ export default {
         // faz a validação de um objeto criado na própria fase
         checkValid(item){
             if(item.valid || item.invalid) return
-            if(this.searchString(this.keyLetters, item.letter)){
-                item.valid = true
+            
+            const letters = this.alphabetInputs.filter(({ letter }) => letter === item.letter)
+            const values = this.getValues.filter(({ text }) =>  text === item.letter)
+
+            if (values.length) {
                 this.raffle.push(item.letter)
-                this.setAnswer({
-                    type: 'value',
-                    data: this.keyIds[0],
-                    vm: this
+
+                values.forEach((i) => {
+                    this.setAnswer({
+                        type: 'value',
+                        data: i.id,
+                        vm: i
+                    })
                 })
-                this.keyIds.shift()
-            }else {
+                
+                letters.forEach((l) => l.valid = true)
+            } else {
                 item.invalid = true
                 this.setAnswer({
                     type: 'value',
@@ -142,7 +149,6 @@ export default {
                     vm: this
                 })
             }
-
         },  
         // procura se uma string está contida em outra string
         searchString(arr, str) {
