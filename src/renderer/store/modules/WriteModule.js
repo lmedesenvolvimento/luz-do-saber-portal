@@ -27,7 +27,7 @@ const state = {
         },
         cartao: {
             key: 'cartao',
-            title: 'Cartão de Visita',
+            title: 'Convite',
             icon: require('@/assets/images/write-module-icon-cartao-visita.png'),
             completed: false,
             data: {}
