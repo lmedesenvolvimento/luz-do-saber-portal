@@ -15,6 +15,9 @@ export default {
         this.recoveryUserDatabase()
         this.recoveryPointingsDatabase()
     },
+    mounted() {
+        if (process.env.NODE_ENV !== 'production') this.$ga.disable()
+    },
     methods: {
         ...mapActions('User',['recoveryUserDatabase']),
         ...mapActions('Pointings',['recoveryPointingsDatabase'])
