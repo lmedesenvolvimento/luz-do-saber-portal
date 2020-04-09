@@ -146,19 +146,9 @@ export default {
         this.clearAll()
     },
     methods: {
-        sort() {
+        sort() {            
             const letters = this.sortLetters.filter(l => !l.sorted)
-            const sorted = sample(letters)
-
-            if (letters.length === 0) {                                            
-                // Exibindo o alerta de questão não resolvida
-                this.$store.dispatch('Activity/triggerSuccess')                
-
-                // Matando Threads
-                this.clearAll()
-
-                return
-            }                
+            const sorted = sample(letters)            
             
             if (!sorted) {
                 return
@@ -168,6 +158,21 @@ export default {
 
             this.sorted = sorted.text
             this.$set(this.alphabet, sorted.id, sorted)
+
+            // Verificando se algum oponente já ganhou
+            const isOpponentWon = this.validateOpponent()
+
+            if (isOpponentWon) {
+                setTimeout(() => {
+                    // Exibindo o alerta de questão não resolvida
+                    this.$store.dispatch('Activity/triggerSuccess', 0)
+                }, 1000)
+
+                // Matando Threads
+                this.clearAll()
+
+                return
+            }
         },
         countdown(){
             if (!this.sorting) {
@@ -257,7 +262,6 @@ export default {
                 alphabet[indexOf].valid = true
             } else {
                 alphabet[indexOf].invalid = true
-    
                 this.setAnswer({
                     type: 'value',
                     data: -1,
@@ -273,6 +277,15 @@ export default {
                     delete alphabet[indexOf].invalid
                 }
             }, 1000)
+        },
+        validateOpponent(){
+            const opponents = this.opponents.map((o) => {
+                return this.splitLetters(o.text).map((l) => this.getLetter(l))
+            })
+
+            return opponents.some((o) => {
+                return o.every((l) => l.sorted)
+            })
         },
         handlerSortLetters(letters) {
             const keyLetters = this.getKeys.map(({ text }) => {
