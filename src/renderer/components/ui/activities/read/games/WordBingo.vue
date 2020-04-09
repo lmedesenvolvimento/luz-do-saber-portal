@@ -162,8 +162,17 @@ export default {
             }
 
             return opponents
+        },
+        validateOpponent() {
+            const opponents = this.opponents.map((o) => {
+                return o.map((w) => this.getLetter(w.text))
+            })
+
+            return opponents.some((o) => {
+                return o.every((w) => w.sorted)
+            })
         }
-    },
+    }
 }
 </script>
 
