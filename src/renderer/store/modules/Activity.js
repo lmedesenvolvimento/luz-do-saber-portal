@@ -46,6 +46,10 @@ const mutations = {
         Vue.set(state, 'activity', activity)
     },
 
+    SET_TOTAL_STARS(state, totalStars) {
+        state.log.pointings.totalStars = totalStars
+    },
+
     INCREMENT_TIMER(state){
         state.log.timer.totalSeconds += 1
     },
@@ -189,13 +193,17 @@ const actions = {
     },
 
     // Feedback Actions
-    triggerSuccess({commit, dispatch, state}){
+    triggerSuccess({commit, dispatch, state}, totalStars){
         commit('TRIGGER_SUCCESS')
 
         // register user progress
         const activity = clone(state.activity)
         const newActivity = Object.assign(activity, state.log)
         const payload = { data: mapActivity(newActivity), type: 'activities' }
+
+        if (typeof totalStars === 'number') {
+            commit('SET_TOTAL_STARS', totalStars)
+        }
 
         dispatch('Pointings/add', payload, { root: true })
         dispatch('showAlertActivitySuccess', null, { root: true })
