@@ -39,7 +39,7 @@ asyncAxios(({ GA }) => {
             router
         })
     }    
-
+    
     /* eslint-disable no-new */
     new Vue({
         components: { App },
