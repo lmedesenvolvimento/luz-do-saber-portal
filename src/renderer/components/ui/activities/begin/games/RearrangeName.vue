@@ -71,9 +71,4 @@ export default {
 .rearrange-name {
     margin: 12px auto 12px;
 }
-
-.item {
-    width: 62px;
-    height: 70px;
-}
 </style>
