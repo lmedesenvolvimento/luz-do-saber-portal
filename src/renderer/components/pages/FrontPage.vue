@@ -104,6 +104,7 @@ export default {
         if (this.isAuthorized) {
             this.getModules()
         }
+        console.log('created')
     },
     methods: {
         showExitModal(){           
