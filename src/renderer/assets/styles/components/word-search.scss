@@ -37,6 +37,7 @@
             }
         }
         .letter{
+            touch-action: none;
             cursor: pointer;
             padding: 4px 10px;
             border: 2px solid rgba(43, 31, 23, 0.1);
