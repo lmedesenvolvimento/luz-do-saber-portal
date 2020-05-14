@@ -12,6 +12,7 @@ import './plugins/v-viewer'
 import './plugins/plyr'
 import './plugins/bootstrap-vue'
 import './plugins/mq-vue'
+import './plugins/cookies'
 
 import Assets from './services/Assets'
 import { asyncAxios } from './services/Http'
