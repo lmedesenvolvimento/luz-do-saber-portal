@@ -39,16 +39,21 @@ export default {
             this.secondAudio.src = require('@/assets/audios/2-seu-nome.mp3')
         },
         gameStart() {
+            const redirectPath = this.$cookies.get('redirectPath')
+
             this.onClickStartButton()
+
             if (this.$mq === 'lg') {
                 this.openFullscreen()
             }
 
-            this.firstAudio.play()
+            if(!redirectPath) {
+                this.firstAudio.play()
 
-            window.setTimeout(function() {
-                this.secondAudio.play()
-            }.bind(this), 4000)
+                window.setTimeout(function() {
+                    this.secondAudio.play()
+                }.bind(this), 4000)
+            }
         },
         openFullscreen(){
             const elem = document.querySelector('html')
