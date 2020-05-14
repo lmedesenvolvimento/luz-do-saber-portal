@@ -143,8 +143,8 @@ export default {
                 srcElement.indexi !== undefined ||
                 srcElement.indexj !== undefined
             ) {
-                let i = srcElement.indexi
-                let j = srcElement.indexj
+                let i = Number(srcElement.indexi)
+                let j = Number(srcElement.indexj)
                 let pi = this.previousI
                 let pj = this.previousJ
                 if (
