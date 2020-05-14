@@ -73,7 +73,7 @@ router.beforeEach((to, from, next) => {
     if (to.path !== '/' && !isAuthorized()){
         store.dispatch('User/destroyUserDatabase')
 
-        setRedirectPath(from.path)
+        setRedirectPath(to.path)
 
         return next({
             path: '/'
