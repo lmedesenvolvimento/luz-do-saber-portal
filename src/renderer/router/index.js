@@ -1,9 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import db from '@/services/Session'
+
+import store from '../store'
+
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
     routes: [
         {
             path: '/',
@@ -58,3 +62,33 @@ export default new Router({
         }
     ]
 })
+
+router.beforeEach((to, from, next) => {    
+    const snapshot = db.value()
+    
+    if (!isAuthorized() && snapshot.data && snapshot.data.name){
+        store.dispatch('User/destroyUserDatabase')
+    }
+
+    if (to.path !== '/' && !isAuthorized()){
+        store.dispatch('User/destroyUserDatabase')
+
+        setRedirectPath(from.path)
+
+        return next({
+            path: '/'
+        })
+    }
+
+    next()
+})
+
+function setRedirectPath(path) {
+    Vue.$cookies.set('redirectPath', path)
+}
+
+function isAuthorized() {
+    return !!Vue.$cookies.get('userName')
+}
+
+export default router
