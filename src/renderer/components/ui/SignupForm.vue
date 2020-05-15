@@ -11,12 +11,13 @@
                             <b-card-body>
                                 <input
                                     id="input-name"
-                                    v-model.trim="user.name"
+                                    v-model="user.name"
                                     v-focus="true"
                                     type="text"
                                     maxlength="11"
                                     autocomplete="off"
                                     required
+                                    @input.prevent="onInput"
                                 />
                             </b-card-body>
                         </b-card>
@@ -47,6 +48,10 @@ export default {
         }
     },
     methods: {
+        onInput(event) {
+            const result = event.target.value.replace(/[\s\d]/g, '')
+            this.$set(this.user, 'name', result)
+        },
         submitLogin(){
             if (this.user.name.length >= 3 && this.user.name.length <= 11){
                 if (this.user.name.match(/[^a-zA-Z\d\s:\u00C0-\u00FF]/g) === null) this.createUserDatabase(this.user)
