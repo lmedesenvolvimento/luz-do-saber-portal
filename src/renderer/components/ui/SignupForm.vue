@@ -2,7 +2,7 @@
     <b-form class="d-flex justify-content-center" @submit.prevent="submitLogin">
         <b-card no-body class="mx-5 shadow">
             <b-card-body class="align-items-center d-flex flex-column">
-                <h5>Digite seu nome abaixo para continuar.</h5>
+                <h5>Digite seu nome ou código abaixo para continuar.</h5>
                 <div class="card-input card--input-text mt-2">
                     <label>
                         <b-card
@@ -34,6 +34,13 @@
 
 <script>
 import { mapActions } from 'vuex'
+
+import Http from '@/services/Http'
+
+
+
+const REGEX_SYMBOLS = /[^a-zA-Z\s:\u00C0-\u00FF]/g
+
 export default {
     props: {
         onSubmit: {
@@ -49,19 +56,35 @@ export default {
     },
     methods: {
         onInput(event) {
-            const result = event.target.value.replace(/[\s\d]/g, '')
+            const result = event.target.value.replace(/[\s]/g, '')
             this.$set(this.user, 'name', result)
         },
-        submitLogin(){
+        async submitLogin(){
+            this.errMsg = null
+
             if (this.user.name.length >= 3 && this.user.name.length <= 11){
-                if (this.user.name.match(/[^a-zA-Z\d\s:\u00C0-\u00FF]/g) === null) this.createUserDatabase(this.user)
-                else this.errMsg = 'Proibido uso de símbolos.'
-            }
-            else{
-                this.errMsg = (this.user.name.length < 3) ? 'Mínimo de 3 letras.' : 'Máximo de 11 letras.'
-            }
-            if (!this.errMsg){
+                const userName = this.user.name
+                
+                if (userName.match(REGEX_SYMBOLS) === null) {
+                    this.errMsg = 'Proibido uso de símbolos.'
+                    return
+                }
+                
+                if (userName.match(/[\d]/g)) {                    
+                    try {                        
+                        const { data } = await Http.axios.get(`/game/user_game/me/${userName.toUpperCase()}`)
+                        this.createUserDatabase({name: data.firstName })
+                        this.onSubmit()
+                    } catch (error) {
+                        this.errMsg = 'Código não exite ou não encontrado.'
+                    }
+                    return
+                }
+
+                this.createUserDatabase(this.user)
                 this.onSubmit()
+            } else {
+                this.errMsg = (this.user.name.length < 3) ? 'Mínimo de 3 letras.' : 'Máximo de 11 letras.'
             }
         },
         ...mapActions('User',['createUserDatabase']),
