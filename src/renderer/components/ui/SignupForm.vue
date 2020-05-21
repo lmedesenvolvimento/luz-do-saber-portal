@@ -39,7 +39,7 @@ import Http from '@/services/Http'
 
 
 
-const REGEX_SYMBOLS = /[^a-zA-Z\s:\u00C0-\u00FF]/g
+const REGEX_SYMBOLS = /[^\w\s:\u00C0-\u00FF]/g
 
 export default {
     props: {
@@ -65,7 +65,7 @@ export default {
             if (this.user.name.length >= 3 && this.user.name.length <= 11){
                 const userName = this.user.name
                 
-                if (userName.match(REGEX_SYMBOLS) === null) {
+                if (userName.match(REGEX_SYMBOLS)) {
                     this.errMsg = 'Proibido uso de símbolos.'
                     return
                 }
