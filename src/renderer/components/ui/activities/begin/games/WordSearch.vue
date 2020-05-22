@@ -18,9 +18,9 @@
                                     :data-row="index"
                                     :data-letter="letterIndex"
                                     @mousedown="allowPainting(true)"
-                                    @touchstart="allowPainting(true)"
+                                    @touchstart="(e) => allowPainting(true, e)"
                                     @mouseup="allowPainting(false)"
-                                    @touchend="allowPainting(false)"
+                                    @touchend="(e) => allowPainting(false, e)"
                                     @mousemove="paint(index, letterIndex)"
                                     @touchmove="(event) => touchPaint(event)"
                                 >
@@ -87,7 +87,7 @@ export default {
         this.createAnswersArray()
     },
     methods: {
-        allowPainting(bool) {
+        allowPainting(bool, e = false) {
             this.allowPaint = bool
             if (!bool && this.actualWord.length > 0) {
                 let wordStr = this.actualWord.reduce(
@@ -113,6 +113,12 @@ export default {
                         vm: this
                     })
                 }
+            } else if(e && e.type === 'touchstart') {
+                const element = document.elementFromPoint(
+                    event.touches[0].pageX,
+                    event.touches[0].pageY
+                )
+                this.paint(element.dataset.row, element.dataset.letter)
             }
         },
         checkIfBelongs(word) {
