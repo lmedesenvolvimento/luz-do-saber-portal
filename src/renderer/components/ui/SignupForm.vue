@@ -73,7 +73,7 @@ export default {
                 if (userName.match(/[\d]/g)) {                    
                     try {                        
                         const { data } = await Http.axios.get(`/game/user_game/me/${userName.toUpperCase()}`)
-                        this.createUserDatabase({name: data.firstName })
+                        this.createUserDatabase({name: data.first_name })
                         this.onSubmit()
                     } catch (error) {
                         this.errMsg = 'Código não exite ou não encontrado.'
