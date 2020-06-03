@@ -26,13 +26,13 @@ body{
             .page-container-wrap-spacing{
                 padding-top: $page-container-wrap-spacing;
                 &--sm{
-                    padding-top: 2rem;
-                }
-            }
-            @include media-breakpoint-down('md'){
-                .page-container-wrap-spacing{
                     padding-top: $page-container-wrap-spacing-xs;
                 }
+            }
+        }
+        &.is-mobile {
+            .page-container .page-container-wrap-spacing {
+                padding-top: $page-container-wrap-spacing-xs;
             }
         }
     }
