@@ -116,6 +116,16 @@ export default {
                 name: 'lista de desejos',
                 class: 'desejos',
                 setted: false
+            },
+            {
+                name: 'lista de brincadeiras',
+                class: 'brincadeiras',
+                setted: false
+            },
+            {
+                name: 'lista de brinquedos',
+                class: 'brinquedos',
+                setted: false
             }
             ],
             items: [{
@@ -290,6 +300,12 @@ export default {
 
                     &.desejos {
                         background-image: url('~@/assets/images/components/lista/lista-de-desejos.png');
+                    }
+                    &.brincadeiras {
+                        background-image: url('~@/assets/images/components/lista/lista-de-brincadeiras.png');
+                    }
+                    &.brinquedos {
+                        background-image: url('~@/assets/images/components/lista/lista-de-brinquedos.png');
                     }
                 }
 
