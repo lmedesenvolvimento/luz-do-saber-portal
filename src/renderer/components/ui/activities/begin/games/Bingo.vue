@@ -124,6 +124,9 @@ export default {
                 return letters.includes(text)
             })
         },
+        playerLetters() {
+            return this.getKeys[0].letters.map((l) => l.text)
+        },
         opponents() {
             return this.getValues.filter((value) => !value.key_id)
         }
@@ -146,10 +149,21 @@ export default {
         this.clearAll()
     },
     methods: {
-        sort() {            
-            const letters = this.sortLetters.filter(l => !l.sorted)
-            const sorted = sample(letters)            
+        sort() {
+            let letters
             
+            // Recebendo todas as letras do jogador
+            letters = this.sortLetters.filter(l => {
+                return this.playerLetters.includes(l.text) && !l.sorted
+            })
+
+            // Caso todas de seu nome já tenha sido sorteada
+            if (letters.every(l => l.sorted)) {
+                letters = this.sortLetters.filter(l => !l.sorted) // sorteia as demais
+            }
+            
+            const sorted = sample(letters)
+
             if (!sorted) {
                 return
             }
