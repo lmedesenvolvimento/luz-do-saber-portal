@@ -1,5 +1,15 @@
 import Http from '@/services/Http'
 
+const karaokeModule = {
+    description: null,
+    id: 999,
+    slug: 'karaoke',
+    theme_url: '/game/karaoke/geral',
+    themes: [],
+    title: 'Karaokê',
+    type: 'karaoke'
+}
+
 const state = {
     activeModule: null,
     modules: []
@@ -23,6 +33,10 @@ const actions = {
     },
     async fetchModules({ commit }){
         let { data } = await Http.axios.get('/game.json')
+        
+        // remover quando o novo módulo vinher do servidor
+        data.modulos.push(karaokeModule)
+
         commit('SET_MODULES', data.modulos)
         return data
     },

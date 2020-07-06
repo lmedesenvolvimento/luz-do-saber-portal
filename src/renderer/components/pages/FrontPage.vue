@@ -23,7 +23,7 @@
                                     :slug="m.slug"
                                     :data="m"
                                     :toggle-visible-ler-sub-module="toggleVisibleLerSubModule"
-                                />
+                                />                                
                             </b-row>
                         </div>
                         <div v-else-if="isAuthorized && isVisibleLerSubModule" key="frontpage-ler">
