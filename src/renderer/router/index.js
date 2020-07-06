@@ -20,6 +20,11 @@ const router = new Router({
             component: require('@/components/pages/ModulesEscreverPage.vue').default
         },
         {
+            path: '/game/karaoke/geral',
+            name: 'karaoke',
+            component: require('@/components/pages/ModuleKaraokePage.vue').default
+        },
+        {
             path: '/game/biblioteca/geral',
             name: 'books',
             component: require('@/components/pages/ModuleBibliotecaPage.vue').default

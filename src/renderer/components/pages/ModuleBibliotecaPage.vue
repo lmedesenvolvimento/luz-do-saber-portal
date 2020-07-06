@@ -7,7 +7,7 @@
             navbar-title="Biblioteca"
             :navbar-subtitle="''"
             :navbar-icon="getModuleImage"
-        />        
+        />
         <div class="page-container-wrap-spacing--sm">
             <div>
                 <b-row>

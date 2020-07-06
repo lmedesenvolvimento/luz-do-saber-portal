@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueAnalytics from 'vue-analytics'
 import { sync } from 'vuex-router-sync'
 import { VueHammer } from 'vue2-hammer'
+import Splitting from 'splitting'
 import axios from 'axios'
 
 import App from './App'
@@ -27,6 +28,7 @@ if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 Vue.http = Vue.prototype.$http = axios
 Vue.config.productionTip = false
 
+Vue.prototype.Splitting = Splitting
 Vue.prototype.$context = process.env.CONTEXT || 'fundamental'
 
 asyncAxios(({ GA }) => {
