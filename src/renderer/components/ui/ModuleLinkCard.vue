@@ -80,6 +80,8 @@ export default {
                 return require('@/assets/images/btn-write.png')
             case 'biblioteca':
                 return require('@/assets/images/btn-books.png')
+            case 'karaoke':
+                return require('@/assets/images/btn-books.png')
             default:
                 return ''
             }
@@ -95,6 +97,8 @@ export default {
                 return { color: '#007CB2' }
             case 'biblioteca':
                 return  { color: '#F8A728' }
+            case 'karaoke':
+                return  { color: '#910281' }
             default:
                 return ''
             }
@@ -123,6 +127,8 @@ export default {
                 return 'write'
             case 'biblioteca':
                 return 'books'
+            case 'karaoke':
+                return 'karaoke'
             default:
                 return 'module'
             }

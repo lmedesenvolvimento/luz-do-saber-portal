@@ -20,21 +20,24 @@ $fundamental: (
         ler-1: '~@/assets/images/btn-first-year.png',
         ler-2: '~@/assets/images/btn-second-year.png',
         escrever: '~@/assets/images/btn-write.png',
-        biblioteca: '~@/assets/images/btn-books.png'
+        biblioteca: '~@/assets/images/btn-books.png',
+        karaoke: '~@/assets/images/btn-books.png'
     ),
     
     theme-colors: (
         comecar: #b03333,
         ler: #1b9f49,
         escrever: #0b84ac,
-        biblioteca: #F8A728
+        biblioteca: #F8A728,
+        karaoke: #910281
     ),
         
     icon-themes: (
         comecar: '~@/assets/images/icons/comecar/',
         ler: '~@/assets/images/icons/ler/',
         escrever: '~@/assets/images/icons/escrever/',
-        biblioteca: '~@/assets/images/icons/biblioteca/'
+        biblioteca: '~@/assets/images/icons/biblioteca/',
+        karaoke: '~@/assets/images/icons/biblioteca/'
     ),
     
     // Cards
