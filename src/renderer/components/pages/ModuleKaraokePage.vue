@@ -24,6 +24,7 @@
                                     :audio-url="s.audio"
                                     :subtitle-url="s.sub"
                                     :images="s.images"
+                                    :volume="volume"
                                     @canplay="canPlay"
                                     @timeupdate="timeUpdate"
                                 />
@@ -32,21 +33,52 @@
                     </div>
                 </div>
             </div>
+            <div class="karaoke-progress">
+                <span class="karaoke-progress-line" />
+                <span class="karaoke-progress-current-progress" :style="{'width': `${progress}%`}" />
+            </div>
             <div class="gameplay-footer">
                 <div class="gameplay-footer-actions">
                     <div class="gameplay-footer-action d-flex w-100">
                         <div class="gameplay-footer-status">
                             <div class="title">{{ currentTime }} / {{ duration }}</div>
                         </div>
-                        <div class="gameplay-footer-buttons flex d-flex">
-                            <button @click.stop="prev">Anterior</button>
-                            <button @click.stop="toogle">{{ playing ? 'Pause' : 'Play' }}</button>
-                            <button @click.stop="next">Próxima</button>
+                        <div class="gameplay-footer-buttons flex d-flex">                            
+                            <div 
+                                class="btn-karaoke-back" 
+                                aria-label="Anterior"
+                                @click.stop="prev" 
+                            ></div>
+                            <div 
+                                v-show="!playing"
+                                class="btn-karaoke-play" 
+                                aria-label="Tocar"
+                                @click.stop="toogle" 
+                            ></div>
+                            <div 
+                                v-show="playing"
+                                class="btn-karaoke-pause" 
+                                aria-label="Pausar"
+                                @click.stop="toogle" 
+                            ></div>
+                            <div 
+                                class="btn-karaoke-next" 
+                                aria-label="Próxima"
+                                @click.stop="next" 
+                            ></div>
                         </div>
-                        <div class="gameplay-footer-buttons">
-                            <button>Abaixar</button>
-                            Volume
-                            <button>Aumentar</button>
+                        <div class="gameplay-footer-buttons d-flex gameplay-footer-buttons--navigation">
+                            <div 
+                                class="btn-karaoke-volume-more" 
+                                aria-label="Aumentar Volume"
+                                @click.stop="incrementVolume" 
+                            ></div>
+                            <div class="icon-volume"></div>
+                            <div 
+                                class="btn-karaoke-volume-minus" 
+                                aria-label="Diminuir Volume"
+                                @click.stop="decrementVolume" 
+                            ></div>
                         </div>
                     </div>
                 </div>
@@ -93,7 +125,9 @@ export default {
             playing: false,
             songIndex: 0,
             currentTime: '00:00',
-            duration: '00:00'
+            duration: '00:00',
+            progress: 0,
+            volume: 0.5
         }
     },
     computed: {
@@ -112,6 +146,7 @@ export default {
     watch: {
         songIndex() {
             this.playing = false
+            this.progress = 0
         }
     },
     methods: {
@@ -125,6 +160,16 @@ export default {
                 this.songIndex--
             }
         },
+        incrementVolume(){
+            if (this.volume < 1) {
+                this.volume = this.volume + 0.25
+            }
+        },
+        decrementVolume(){
+            if (this.volume > 0) {
+                this.volume = this.volume - 0.25
+            }
+        },
         toogle() {
             this.playing = !this.playing
         },
@@ -132,10 +177,10 @@ export default {
             this.duration = duration
             this.currentTime = currentTime
         },
-        timeUpdate(payload){
-            const { duration, currentTime } = payload
+        timeUpdate({ duration, currentTime, progress }){
             this.$set(this, 'duration', duration)
             this.$set(this, 'currentTime', currentTime)
+            this.$set(this, 'progress', progress * 100)
         }
     }
 }
@@ -165,9 +210,44 @@ export default {
             position: relative;
         }
         &-footer {
-            &-buttons {
-                justify-content: center;
+            padding: 4px 16px !important;
+            &-actions {
+                height: 100% !important;
             }
+            &-status {
+                display: flex;
+                padding: 0px !important;
+                .title {
+                    display: block;
+                    margin: auto;
+                }
+            }
+            &-buttons {
+                align-items: center;
+                justify-content: center;
+                .icon-volume {
+                    margin-left: 8px;
+                    margin-right: 16px;
+                }
+                [class^=btn-]:not(:last-child){
+                    margin-right: 8px;
+                }
+                &--navigation {
+                    margin-left: 48px;
+                }
+            }
+        }
+    }
+    &-progress {
+        position: relative;
+        width: 100%;
+        height: 4px;
+        &-current-progress {
+            position: absolute;
+            height: 4px;
+            width: 0%;
+            background-color: #910281;
+            transition: width 0.2s ease-in;
         }
     }
 }
