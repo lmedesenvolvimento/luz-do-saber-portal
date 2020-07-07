@@ -1,3 +1,12 @@
+$karaoke-icons: (
+    btn-karaoke-next: '~@/assets/images/icons/btn-karaoke-next.png',
+    btn-karaoke-back: '~@/assets/images/icons/btn-karaoke-back.png',
+    btn-karaoke-play: '~@/assets/images/icons/btn-karaoke-play.png',
+    btn-karaoke-pause: '~@/assets/images/icons/btn-karaoke-pause.png',
+    btn-karaoke-volume-more: '~@/assets/images/icons/btn-volume-more.png',
+    btn-karaoke-volume-minus: '~@/assets/images/icons/btn-volume-minus.png'
+);
+
 @each $t in get-themes-keys() {
     .#{$t} {
         @each $theme, $value in get-value-theme($t, 'icon-themes') {
@@ -18,4 +27,23 @@
             }
         }
     }
+}
+
+@each $icon, $value in $karaoke-icons {
+    .#{$icon} {
+        @include embed_image($value, 52px, 52px);
+        max-height: 52px;
+        user-select: none;
+        outline: none;
+        &:hover,
+        &:focus,
+        &:active {
+            cursor: pointer;
+        }
+    }
+}
+
+.icon-volume {
+    @include embed_image('~@/assets/images/icons/icon-volume.png', 24px, 23px);
+    max-height: 23px;
 }
