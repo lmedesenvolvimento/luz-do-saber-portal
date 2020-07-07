@@ -58,6 +58,10 @@ export default {
             type: Number,
             default: 3
         },
+        volume: {
+            type: Number,
+            default: 0.5
+        },
         audioUrl: null,
         subtitleUrl: null
     },
@@ -91,6 +95,9 @@ export default {
     watch: {
         playing(nextValue){
             nextValue ? this.play() : this.pause()
+        },
+        volume(nextValue) {
+            this.player.volume = nextValue
         }
     },
     async mounted() {
@@ -152,7 +159,8 @@ export default {
         onTimeUpdate(){
             this.$emit('timeupdate', {
                 currentTime: this.currentTime(),
-                duration: this.duration()
+                duration: this.duration(),
+                progress: this.player.currentTime / this.player.duration
             })
 
             const nextLine = this.subtitles.find(line => {
@@ -172,6 +180,8 @@ export default {
             }            
         },
         canPlay() {
+            this.player.volume = this.volume
+
             this.$emit('canplay', {
                 currentTime: this.currentTime(),
                 duration: this.duration()
