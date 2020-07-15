@@ -81,7 +81,7 @@ export default {
             case 'biblioteca':
                 return require('@/assets/images/btn-books.png')
             case 'karaoke':
-                return require('@/assets/images/btn-books.png')
+                return require('@/assets/images/btn-karaoke.png')
             default:
                 return ''
             }
