@@ -48,6 +48,17 @@
                                         target-audience="segundo-ano"
                                     />
                                 </div>
+                                <div class="ml-5 mr-5">
+                                    <ModuleLinkCard
+                                        v-if="$context === 'fundamental'"
+                                        :data="read"
+                                        :image="require('@/assets/images/btn-third-year.png')"
+                                        :color="{ color: '#00963F' }"
+                                        :label="'3º Ano'"
+                                        slug="ler-3"
+                                        target-audience="terceiro-ano"
+                                    />
+                                </div>
                                 <b-col cols="12" class="my-1">
                                     <a class="d-block btn" @click="toggleVisibleLerSubModule">
                                         <b-img center :src="require('@/assets/images/btn-close.png')" width="61" height="61" />
