@@ -114,9 +114,9 @@
             <div
                 v-else
                 class="card-input drop-group"
-                :style="{
-                    'background-image': `url(${template.custom_image_full_url})`
-                }"
+                :style="[item.text === 'MAIÚSCULAS' ? 
+                    {'background-image': `url(https://i.ibb.co/6v1mK8S/caixa-2.png)`} : 
+                    {'background-image': `url(${template.custom_image_full_url})`}]"
             >
                 <div class="title">
                     {{ item.text }}
