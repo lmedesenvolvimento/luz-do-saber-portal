@@ -1,5 +1,5 @@
 <template>
-    <div class="card--display" :class="{ 'card-sm': isCardSm, ...$attrs.class}">
+    <div class="card--display" style="width: 100%;" :class="{ 'card-sm': isCardSm, ...$attrs.class}">
         <b-card
             no-body
             :class="{ 'invalid': invalid, 'valid': valid }"
