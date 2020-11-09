@@ -60,7 +60,8 @@ export default {
     data () {
         return {
             symbols: [],
-            dataTransfer: {text: '~'}
+            dataTransfer: {text: '~'},
+            accent: ''
         }
     },
     created () {
@@ -86,9 +87,36 @@ export default {
             })
             ).join('')
         },
+        getAcent (letters) {
+            const agudo = ['Á', 'É', 'Í', 'Ó', 'Ú']
+            const circuflexo = ['Â', 'Ê', 'Î', 'Ô', 'Û']
+            const til = ['Ã', 'Ẽ', 'Ĩ', 'Õ', 'Ũ']
+            for (let i = 0; i < letters.length; i++) {
+                for (let j = 0; j < agudo.length; j++) {
+                    if (letters[i].text === agudo[j]) {
+                        this.accent = '´'
+                        return
+                    }
+                }
+                for (let j = 0; j < circuflexo.length; j++) {
+                    if (letters[i].text === circuflexo[j]) {
+                        this.accent = '^'
+                        return
+                    }
+                }
+                for (let j = 0; j < til.length; j++) {
+                    if (letters[i].text === til[j]) {
+                        this.accent = '~'
+                        return
+                    }
+                }
+            }
+        },
         customValidate(transferData, nativeElement, vm){
             this.dataTransfer = transferData
-            if (this.dataTransfer.id === vm.item.value_ids[0]){
+            this.getAcent(vm.item.letters)
+            
+            if (this.dataTransfer.text === this.accent){
                 this.symbols.forEach(e => {
                     if (e.text === this.dataTransfer.text){
                         e.correct = true
