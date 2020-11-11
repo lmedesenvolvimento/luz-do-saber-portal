@@ -87,34 +87,25 @@ export default {
             })
             ).join('')
         },
-        getAcent (letters) {
+        contains (acento, text) {
+            return acento.some(el => text.includes(el))
+        },
+        getAcent (text) {
             const agudo = ['Á', 'É', 'Í', 'Ó', 'Ú']
             const circuflexo = ['Â', 'Ê', 'Î', 'Ô', 'Û']
             const til = ['Ã', 'Ẽ', 'Ĩ', 'Õ', 'Ũ']
-            for (let i = 0; i < letters.length; i++) {
-                for (let j = 0; j < agudo.length; j++) {
-                    if (letters[i].text === agudo[j]) {
-                        this.accent = '´'
-                        return
-                    }
-                }
-                for (let j = 0; j < circuflexo.length; j++) {
-                    if (letters[i].text === circuflexo[j]) {
-                        this.accent = '^'
-                        return
-                    }
-                }
-                for (let j = 0; j < til.length; j++) {
-                    if (letters[i].text === til[j]) {
-                        this.accent = '~'
-                        return
-                    }
-                }
+
+            if (this.contains(agudo, text)) {
+                this.accent = '´'
+            } else if (this.contains(circuflexo, text)) {
+                this.accent = '^'
+            } else if (this.contains(til, text)) {
+                this.accent = '~'
             }
         },
         customValidate(transferData, nativeElement, vm){
             this.dataTransfer = transferData
-            this.getAcent(vm.item.letters)
+            this.getAcent(vm.item.text)
             
             if (this.dataTransfer.text === this.accent){
                 this.symbols.forEach(e => {
