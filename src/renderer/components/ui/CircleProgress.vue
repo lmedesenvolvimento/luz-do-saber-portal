@@ -4,9 +4,11 @@
             <div
                 v-if="label"
                 :style="{'background-color': color.color, 'color': color.color }"
+                :class="{complementar: isComplementar}"
                 class="chart-progress-label shitzu-porko p2"
             >
                 {{ label }}
+                <!-- <p class="complementar">Complementar</p> -->
             </div>
 
             <div class="radial-container">
@@ -49,6 +51,20 @@ export default {
             type: Number,
             default: 0
         }
+    },
+    computed : {
+        isComplementar() {
+            if (this.label.includes('complementar')){
+                return true 
+            } else return false
+
+        }
     }
 }
 </script>
+<style>
+.complementar{
+    font-size: 18px !important;
+    margin-bottom: -13px !important;
+}
+</style>
