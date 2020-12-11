@@ -9,7 +9,7 @@
                 :label="data.title"
                 :slug="slug"
                 :progress="getProgress"
-                :color="getModuleColor"
+                :color="getModuleColor"                
             />
         </a>
         <router-link
