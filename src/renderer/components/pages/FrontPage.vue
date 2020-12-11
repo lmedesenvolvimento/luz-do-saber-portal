@@ -28,7 +28,7 @@
                         </div>
                         <div v-else-if="isAuthorized && isVisibleLerSubModule" key="frontpage-ler">
                             <b-row align-v="center" align-h="center">
-                                <div class="ml-5 mr-5">
+                                <div class="ml-2 mr-2">
                                     <ModuleLinkCard
                                         :data="read"
                                         :image="require('@/assets/images/btn-first-year.png')"
@@ -38,7 +38,17 @@
                                         target-audience="primeiro-ano"
                                     />
                                 </div>
-                                <div class="ml-5 mr-5">
+                                <div class="ml-2 mr-2">
+                                    <ModuleLinkCard
+                                        :data="read"
+                                        :image="require('@/assets/images/btn-first-year.png')"
+                                        :color="{ color: '#00963F' }"
+                                        :label="$context === 'eja' ? 'EJA 1 complementar' : '1º Ano complementar'"
+                                        slug="ler-1"
+                                        target-audience="primeiro-ano-complementar"
+                                    />
+                                </div>
+                                <div class="ml-2 mr-2">
                                     <ModuleLinkCard
                                         :data="read"
                                         :image="require('@/assets/images/btn-second-year.png')"
@@ -48,7 +58,18 @@
                                         target-audience="segundo-ano"
                                     />
                                 </div>
-                                <div class="ml-5 mr-5">
+                                <div class="ml-2 mr-2">
+                                    <ModuleLinkCard
+                                        :data="read"
+                                        :image="require('@/assets/images/btn-second-year.png')"
+                                        :color="{ color: '#00963F' }"
+                                        :label="$context === 'eja' ? 'EJA 2 complementar' : '2º Ano complementar'"
+                                        :complemento="true"
+                                        slug="ler-2"
+                                        target-audience="segundo-ano-complementar"
+                                    />
+                                </div>
+                                <div class="ml-2 mr-2">
                                     <ModuleLinkCard
                                         v-if="$context === 'fundamental'"
                                         :data="read"
@@ -57,6 +78,17 @@
                                         :label="'3º Ano'"
                                         slug="ler-3"
                                         target-audience="terceiro-ano"
+                                    />
+                                </div>
+                                <div class="ml-2 mr-2">
+                                    <ModuleLinkCard
+                                        v-if="$context === 'fundamental'"
+                                        :data="read"
+                                        :image="require('@/assets/images/btn-third-year.png')"
+                                        :color="{ color: '#00963F' }"
+                                        :label="'3º Ano complementar'"
+                                        slug="ler-3"
+                                        target-audience="terceiro-ano-complementar"
                                     />
                                 </div>
                                 <b-col cols="12" class="my-1">
