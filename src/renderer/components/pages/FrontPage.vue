@@ -28,69 +28,81 @@
                         </div>
                         <div v-else-if="isAuthorized && isVisibleLerSubModule" key="frontpage-ler">
                             <b-row align-v="center" align-h="center">
-                                <div class="ml-2 mr-2">
-                                    <ModuleLinkCard
-                                        :data="read"
-                                        :image="require('@/assets/images/btn-first-year.png')"
-                                        :color="{ color: '#00963F' }"
-                                        :label="$context === 'eja' ? 'EJA 1' : '1º Ano'"
-                                        slug="ler-1"
-                                        target-audience="primeiro-ano"
-                                    />
-                                </div>
-                                <div class="ml-2 mr-2">
-                                    <ModuleLinkCard
-                                        :data="read"
-                                        :image="require('@/assets/images/btn-first-year.png')"
-                                        :color="{ color: '#00963F' }"
-                                        :label="$context === 'eja' ? 'EJA 1 complementar' : '1º Ano complementar'"
-                                        slug="ler-1"
-                                        target-audience="primeiro-ano-complementar"
-                                    />
-                                </div>
-                                <div class="ml-2 mr-2">
-                                    <ModuleLinkCard
-                                        :data="read"
-                                        :image="require('@/assets/images/btn-second-year.png')"
-                                        :color="{ color: '#00963F' }"
-                                        :label="$context === 'eja' ? 'EJA 2' : '2º Ano'"
-                                        slug="ler-2"
-                                        target-audience="segundo-ano"
-                                    />
-                                </div>
-                                <div class="ml-2 mr-2">
-                                    <ModuleLinkCard
-                                        :data="read"
-                                        :image="require('@/assets/images/btn-second-year.png')"
-                                        :color="{ color: '#00963F' }"
-                                        :label="$context === 'eja' ? 'EJA 2 complementar' : '2º Ano complementar'"
-                                        :complemento="true"
-                                        slug="ler-2"
-                                        target-audience="segundo-ano-complementar"
-                                    />
-                                </div>
-                                <div class="ml-2 mr-2">
-                                    <ModuleLinkCard
-                                        v-if="$context === 'fundamental'"
-                                        :data="read"
-                                        :image="require('@/assets/images/btn-third-year.png')"
-                                        :color="{ color: '#00963F' }"
-                                        :label="'3º Ano'"
-                                        slug="ler-3"
-                                        target-audience="terceiro-ano"
-                                    />
-                                </div>
-                                <div class="ml-2 mr-2">
-                                    <ModuleLinkCard
-                                        v-if="$context === 'fundamental'"
-                                        :data="read"
-                                        :image="require('@/assets/images/btn-third-year.png')"
-                                        :color="{ color: '#00963F' }"
-                                        :label="'3º Ano complementar'"
-                                        slug="ler-3"
-                                        target-audience="terceiro-ano-complementar"
-                                    />
-                                </div>
+                                <a class="d-block btn margin-prev" :class="{disabled : slide===1}" @click="clickPrev">
+                                    <b-img center :src="require('@/assets/images/icons/escrever/icon-prev.png')" width="61" height="61" />
+                                </a>
+                                <transition name="fader" mode="out-in">
+                                    <b-row v-if="slide === 1" :key="1" class="slider1">
+                                        <div class="ml-2 mr-2">
+                                            <ModuleLinkCard
+                                                :data="read"
+                                                :image="require('@/assets/images/btn-first-year.png')"
+                                                :color="{ color: '#00963F' }"
+                                                :label="$context === 'eja' ? 'EJA 1' : '1º Ano'"
+                                                slug="ler-1"
+                                                target-audience="primeiro-ano"
+                                            />
+                                        </div>
+                                        <div class="ml-2 mr-2">
+                                            <ModuleLinkCard
+                                                :data="read"
+                                                :image="require('@/assets/images/btn-first-year.png')"
+                                                :color="{ color: '#00963F' }"
+                                                :label="$context === 'eja' ? 'EJA 1 complementar' : '1º Ano complementar'"
+                                                slug="ler-1"
+                                                target-audience="primeiro-ano-complementar"
+                                            />
+                                        </div>
+                                        <div class="ml-2 mr-2">
+                                            <ModuleLinkCard
+                                                :data="read"
+                                                :image="require('@/assets/images/btn-second-year.png')"
+                                                :color="{ color: '#00963F' }"
+                                                :label="$context === 'eja' ? 'EJA 2' : '2º Ano'"
+                                                slug="ler-2"
+                                                target-audience="segundo-ano"
+                                            />
+                                        </div>
+                                    </b-row>
+                                    <b-row v-else :key="2" class="slider2">
+                                        <div class="ml-2 mr-2">
+                                            <ModuleLinkCard
+                                                :data="read"
+                                                :image="require('@/assets/images/btn-second-year.png')"
+                                                :color="{ color: '#00963F' }"
+                                                :label="$context === 'eja' ? 'EJA 2 complementar' : '2º Ano complementar'"
+                                                :complemento="true"
+                                                slug="ler-2"
+                                                target-audience="segundo-ano-complementar"
+                                            />
+                                        </div>
+                                        <div class="ml-2 mr-2">
+                                            <ModuleLinkCard
+                                                v-if="$context === 'fundamental'"
+                                                :data="read"
+                                                :image="require('@/assets/images/btn-third-year.png')"
+                                                :color="{ color: '#00963F' }"
+                                                :label="'3º Ano'"
+                                                slug="ler-3"
+                                                target-audience="terceiro-ano"
+                                            />
+                                        </div>
+                                        <div class="ml-2 mr-2">
+                                            <ModuleLinkCard
+                                                v-if="$context === 'fundamental'"
+                                                :data="read"
+                                                :image="require('@/assets/images/btn-third-year.png')"
+                                                :color="{ color: '#00963F' }"
+                                                :label="'3º Ano complementar'"
+                                                slug="ler-3"
+                                                target-audience="terceiro-ano-complementar"
+                                            />
+                                        </div>
+                                    </b-row>
+                                </transition>
+                                <a :class="{disabled : slide===2}" class="d-block btn margin-next" @click="clickNext">
+                                    <b-img center :src="require('@/assets/images/icons/escrever/icon-next.png')" width="61" height="61" />
+                                </a>
                                 <b-col cols="12" class="my-1">
                                     <a class="d-block btn" @click="toggleVisibleLerSubModule">
                                         <b-img center :src="require('@/assets/images/btn-close.png')" width="61" height="61" />
@@ -130,7 +142,8 @@ export default {
             canStart: false,
             read: null,
             loading: false,
-            isExitModalVisible: false
+            isExitModalVisible: false,
+            slide: 1
         }
     },
     computed: {
@@ -150,6 +163,16 @@ export default {
         console.log('created')
     },
     methods: {
+        clickPrev() {
+            if(this.slide === 2) {
+                this.slide--
+            }
+        },
+        clickNext() {
+            if(this.slide === 1) {
+                this.slide++
+            }
+        },
         showExitModal(){           
             this.isExitModalVisible = !this.isExitModalVisible
         },        
@@ -188,9 +211,35 @@ export default {
         margin: auto;
     }
 }
+
+.fader-enter-active, .fader-leave-active {
+  transition: opacity .2s;
+}
+.fader-enter, .fader-leave-to {
+  opacity: 0;
+}
+
 .icon-exit{
     position: absolute;
     top: 4%;
     right: 4%;
+}
+
+.margin-prev {
+    margin-right: 100px;
+}
+
+.margin-next {
+    margin-left: 100px;
+}
+
+.disabled {
+   filter: grayscale(100%);  
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>
