@@ -7,6 +7,14 @@ $karaoke-icons: (
     btn-karaoke-volume-minus: '~@/assets/images/icons/btn-volume-minus.png'
 );
 
+$gibi-icons: (
+    btn-gibi-down: '~@/assets/images/icons/escrever/icon-down.png',
+    btn-gibi-up: '~@/assets/images/icons/escrever/icon-up.png',
+    btn-gibi-next: '~@/assets/images/icons/escrever/icon-next.png',
+    btn-gibi-prev: '~@/assets/images/icons/escrever/icon-prev.png',
+    btn-gibi-save: '~@/assets/images/icons/escrever/editor/salvar escrever.png',
+);
+
 @each $t in get-themes-keys() {
     .#{$t} {
         @each $theme, $value in get-value-theme($t, 'icon-themes') {
@@ -25,6 +33,20 @@ $karaoke-icons: (
                     }
                 }
             }
+        }
+    }
+}
+
+@each $icon, $value in $gibi-icons {
+    .#{$icon} {
+        @include embed_image($value, 61px, 61px);
+        max-height: 61px;
+        user-select: none;
+        outline: none;
+        &:hover,
+        &:focus,
+        &:active {
+            cursor: pointer;
         }
     }
 }
