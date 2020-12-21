@@ -20,19 +20,25 @@
                 </div>
             </div>
             <div class="items-wrap">
-                <CardDisplay>
-                    <div class="items">
-                        <div
-                            v-for="(item, index) in category.items"
-                            :key="index"
-                            class="item" 
-                        >
-                            <figure>
-                                <img :src="item._src" :alt="item.title">
-                            </figure>
-                        </div>
-                    </div>
-                </CardDisplay>
+                <div class="card--display" style="width: 100%;">
+                    <b-card
+                        no-body
+                    >
+                        <b-card-body>
+                            <div class="items">
+                                <div
+                                    v-for="(item, index) in category.items"
+                                    :key="index"
+                                    class="item" 
+                                >
+                                    <figure @click.stop="() => add(item)">
+                                        <img :src="item._src" :alt="item.title">
+                                    </figure>
+                                </div>
+                            </div>
+                        </b-card-body>
+                    </b-card>
+                </div>
             </div>
             <div class="gameplay-body">
                 <div class="gibi-container">
@@ -43,7 +49,27 @@
                         <div class="btn-gibi-down"></div>
                     </div>
                     <div class="canvas-container">
-                        <canvas></canvas>
+                        <div v-if="page" class="canvas">
+                            <v-stage 
+                                ref="stage"
+                                :config="configKonva" 
+                                @mousedown="handleStageMouseDown"
+                                @touchstart="handleStageMouseDown"
+                            >
+                                <v-layer>
+                                    <v-image
+                                        :config="{id: 'background', image: page.background}" 
+                                    />
+                                </v-layer>
+                                <CanvasPath 
+                                    v-for="path in page.paths" 
+                                    :id="path.name" 
+                                    :key="path.name" 
+                                    :data="path"
+                                    @change="onChangeElement"
+                                />
+                            </v-stage>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -59,7 +85,6 @@
                                                 <input
                                                     v-model="filename"
                                                     type="text"
-                                                    v-bind="$attrs"
                                                     autocomplete="off"
                                                     selectionDirection="backward"
                                                     placeholder="Título do Gibi"
@@ -79,16 +104,23 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import moment from 'moment'
 
-import CardDisplay from '@/components/ui/form/CardDisplay'
+import { v4 as uuidv4 } from 'uuid'
+
+import CanvasPath from '@/components/ui/items/gibi/CanvasPath'
 
 export default {
-    components: { CardDisplay },
+    components: { CanvasPath },
     data() {
         return {
-            filename: '',
+            configKonva: {
+                width: 750,
+                height: 450
+            },
+            background: null,
+            filename: null,
             activeCategory: 'cenarios',
             categories: [
                 { 
@@ -97,10 +129,12 @@ export default {
                     items: [
                         {
                             title: 'Montanha',
+                            type: 'background',
                             _src: require('@/assets/images/gibi/cenarios/01.jpg'),
                         },
                         {
                             title: 'Praia',
+                            type: 'background',
                             _src: require('@/assets/images/gibi/cenarios/02.jpg'),
                         },
                     ]
@@ -158,13 +192,75 @@ export default {
         getModuleImage(){
             return require('@/assets/images/btn-books.png')
         },
-        ...mapState('Modules', ['activeModule'])
+        page() {
+            return this.$store.getters['Gibi/currentPage']
+        },
+        ...mapState({
+            'pages': ({ Gibi }) => Gibi.pages,
+            'selectedShape': ({ Gibi }) => Gibi.selectedShape
+        })
+    },
+    mounted() {
+        this.newPage()
     },
     methods: {
+        add(element) {
+            element.type === 'background' 
+                ? this.addBackground(element)
+                : this.addElement(element)
+        },
+        addElement(element) {
+            this.page.paths.push({ ...element, name: uuidv4() })
+        },
+        addBackground(background){
+            const image = new Image()
+            
+            image.onload = () => {
+                this.page.background = image
+            }
+
+            image.src = background._src
+        },
+        removeElement() {
+            const pathIndex = this.page.paths.findIndex((path) => path.name === this.selectedShape)
+            this.page.paths.splice(pathIndex, 1)
+            this.selectShape(null)
+        },
+        handleStageMouseDown({ target }) {        
+            const stage = target.getStage()
+            const group = target.parent && target.parent.nodeType === 'Group' ? target.parent : null
+
+            // clicked on stage - clear selection
+            if (target.nodeType === stage.nodeType || target.attrs.id === 'background') {
+                this.selectShape(null)
+                return
+            }
+
+            // find clicked rect by its name
+            const name = group && group.name() || target && target.name()
+            const path = this.page && this.page.paths.find((r) => r.name === name)
+
+            if (path) {
+                this.selectShape(name)
+            }
+        },
+        onChangeElement() {
+            console.log(this.page)
+            this.updatePage(this.page)
+        },
         selectCategory(newCategory) {
             this.activeCategory = newCategory.slug
-        }
-    }
+        },
+        ...mapActions('Gibi', [
+            'newPage',
+            'removePage',
+            'updatePage',
+            'nextPage',
+            'prevPage',
+            'selectShape'
+        ]),
+        ...mapState('Modules', ['activeModule'])
+    },
 }
 </script>
 
@@ -191,6 +287,9 @@ export default {
         .item {
             max-width: 160px;
             padding: 8px;
+            &:hover {
+                cursor: pointer;
+            }
             img {
                 display: inline-block;
                 max-width: 100%;
@@ -224,6 +323,7 @@ export default {
             margin: 1.5rem 0px 1.5rem;
             border-radius: 16px;
             box-shadow: 0px 0px 24px transparentize($color: #000000, $amount: 0.6);
+            overflow: hidden;
         }
     }
 }
