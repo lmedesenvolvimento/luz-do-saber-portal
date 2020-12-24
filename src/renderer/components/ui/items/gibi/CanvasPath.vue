@@ -92,11 +92,11 @@ export default {
                 x: textPosition.x,
                 y: textPosition.y,
             }
-            const absTextNodeScale = textNode.getAbsoluteScale()
-            
+            const absTextNodeScale = textNode.getAbsoluteScale()            
             const textarea = document.createElement('textarea')
-
-            document.body.appendChild(textarea)
+            
+            const canvasContainer = document.getElementById('canvas')
+            canvasContainer.appendChild(textarea)
 
             textarea.value = textNode.text()
             textarea.style.position = 'absolute'
@@ -111,7 +111,7 @@ export default {
 
             textarea.addEventListener('blur', ({ target }) => {
                 this.data.text = target.value
-                document.body.removeChild(textarea)
+                canvasContainer.removeChild(textarea)
             })
         },
         handleTransformEnd(e) {

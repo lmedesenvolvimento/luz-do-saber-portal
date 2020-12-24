@@ -16,7 +16,6 @@ const state = {
 
 const actions = {
     newPage({ commit }) {
-        console.log(new Page())
         commit('ADD_PAGE', new Page())
     },
     nextPage({ commit, getters, state }) {
@@ -67,7 +66,7 @@ const mutations = {
         state.pages[pageIndex] = payload
     },
     SELECT_PAGE_BY_INDEX(state, newIndex) {
-        state.selectedPage = state.pages[newIndex] && state.pages[pageIndex].id
+        state.selectedPage = state.pages[newIndex] && state.pages[newIndex].id
     },
     SELECT_PAGE(state, id) {
         state.selectedPage = id

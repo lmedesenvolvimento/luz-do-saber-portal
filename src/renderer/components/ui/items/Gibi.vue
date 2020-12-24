@@ -15,6 +15,7 @@
                     v-for="$category in categories" 
                     :key="$category.slug" 
                     class="category"
+                    @click="selectCategory($category)"
                 >
                     {{ $category.title }}
                 </div>
@@ -43,13 +44,29 @@
             <div class="gameplay-body">
                 <div class="gibi-container">
                     <div class="gibi-navigation">
-                        <div class="btn-gibi-up"></div>
-                        <div class="btn-gibi-prev"></div>
-                        <div class="btn-gibi-prev"></div>
-                        <div class="btn-gibi-down"></div>
+                        <div 
+                            class="btn-gibi-up" 
+                            title="Página Anterior" 
+                            @click="prevPage"
+                        ></div>
+                        <div 
+                            class="btn-gibi-prev" 
+                            title="Nova Página"
+                            @click="newPage" 
+                        ></div>
+                        <div 
+                            class="btn-gibi-prev" 
+                            title="Remover Página Atual"
+                            @click="removePage" 
+                        ></div>
+                        <div 
+                            class="btn-gibi-down" 
+                            title="Próxima Página"
+                            @click="nextPage" 
+                        ></div>
                     </div>
                     <div class="canvas-container">
-                        <div v-if="page" class="canvas">
+                        <div v-if="page" id="canvas">
                             <v-stage 
                                 ref="stage"
                                 :config="configKonva" 
@@ -180,7 +197,22 @@ export default {
                 { 
                     slug: 'baloes',  
                     title: 'Balões', 
-                    items: []
+                    items: [
+                        {
+                            title: 'Balão 01',
+                            name: 'balloon-1',
+                            type: 'image',
+                            variant: 'balloon',
+                            text: 'Insira seu texto aqui',
+                            image: null,
+                            _src: require('@/assets/images/gibi/baloes/01.png'),
+                            width: 125,
+                            height: 100,
+                            draggable: true,
+                            fontSize: 14,
+                            padding: 8,
+                        }
+                    ]
                 }
             ],
         }
@@ -273,6 +305,9 @@ export default {
             flex: 1;
             text-align: center;
             padding: 16px;
+            &:hover {
+                cursor: pointer;
+            }
         }
     }
     .items-wrap {
@@ -317,6 +352,7 @@ export default {
             flex: 1;
         }
         .canvas-container {
+            position: relative;
             background-color: white;
             max-width: 80%;
             flex: 1;
