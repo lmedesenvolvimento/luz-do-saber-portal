@@ -128,6 +128,8 @@ import { v4 as uuidv4 } from 'uuid'
 
 import CanvasPath from '@/components/ui/items/gibi/CanvasPath'
 
+import categories from '@/services/GibiCatalog'
+
 export default {
     components: { CanvasPath },
     data() {
@@ -139,82 +141,7 @@ export default {
             background: null,
             filename: null,
             activeCategory: 'cenarios',
-            categories: [
-                { 
-                    slug: 'cenarios',
-                    title: 'Cenários', 
-                    items: [
-                        {
-                            title: 'Montanha',
-                            type: 'background',
-                            _src: require('@/assets/images/gibi/cenarios/01.jpg'),
-                        },
-                        {
-                            title: 'Praia',
-                            type: 'background',
-                            _src: require('@/assets/images/gibi/cenarios/02.jpg'),
-                        },
-                    ]
-                },
-                {
-                    slug: 'pessoas', 
-                    title: 'Pessoas', 
-                    items: [
-                        {
-                            title: 'Bola',
-                            name: 'image-1',
-                            type: 'image',
-                            image: null,
-                            x: 24,
-                            y: 24,
-                            rotation: 0,
-                            draggable: true,
-                            _src: require('@/assets/images/gibi/pessoas/ball.jpg'),
-                        },
-                        {
-                            title: 'Mestre Yoda',
-                            name: 'image-3',
-                            type: 'image',
-                            image: null,
-                            x: 24,
-                            y: 24,
-                            rotation: 0,
-                            draggable: true,
-                            _src: 'https://konvajs.org/assets/yoda.jpg',
-                        }
-                    ]
-                },
-                {
-                    slug: 'animais',  
-                    title: 'Animais', 
-                    items: []
-                },
-                { 
-                    slug: 'objetos',  
-                    title: 'Objetos', 
-                    items: []
-                },
-                { 
-                    slug: 'baloes',  
-                    title: 'Balões', 
-                    items: [
-                        {
-                            title: 'Balão 01',
-                            name: 'balloon-1',
-                            type: 'image',
-                            variant: 'balloon',
-                            text: 'Insira seu texto aqui',
-                            image: null,
-                            _src: require('@/assets/images/gibi/baloes/01.png'),
-                            width: 125,
-                            height: 100,
-                            draggable: true,
-                            fontSize: 14,
-                            padding: 8,
-                        }
-                    ]
-                }
-            ],
+            categories
         }
     },
     computed: {
@@ -328,6 +255,7 @@ export default {
             img {
                 display: inline-block;
                 max-width: 100%;
+                max-height: 84px;
             }
         }
     }
