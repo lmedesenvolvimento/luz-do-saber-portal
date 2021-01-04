@@ -14,6 +14,9 @@
         <div v-else-if="getModule.key === 'lista'">
             <lista></lista>
         </div>
+        <div v-else-if="getModule.key === 'gibi'">
+            <gibi></gibi>
+        </div>
         <div v-else class="page-container-wrap-spacing">
             <div v-if="getModule.key === 'editor'">
                 <editor></editor>
@@ -30,8 +33,9 @@ import Journal from '../ui/items/Journal'
 import Editor from '../ui/items/Editor'
 import Convite from '../ui/items/Convite'
 import Lista from '../ui/items/Lista'
+import Gibi from '../ui/items/Gibi'
 export default {
-    components: { Navbar, Journal, Editor, Convite, Lista },
+    components: { Navbar, Journal, Editor, Convite, Lista, Gibi },
     computed: {
         getModuleImage() {
             return require('@/assets/images/btn-write.png')
