@@ -14,6 +14,7 @@ import './plugins/plyr'
 import './plugins/bootstrap-vue'
 import './plugins/mq-vue'
 import './plugins/cookies'
+import './plugins/vue-konvas'
 
 import Assets from './services/Assets'
 import { asyncAxios } from './services/Http'
