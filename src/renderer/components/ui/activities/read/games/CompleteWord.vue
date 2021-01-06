@@ -198,6 +198,7 @@ export default {
         clearIncompleteWord(type, arr) {
             let pieces = []
             let correct = cloneDeep(arr)
+            let checked = true
             if (type === 'letra') {
                 pieces = this.incompleteWord.letters
             } else if (type === 'silaba') {
@@ -206,7 +207,8 @@ export default {
             for (let i = 0; i < correct.length; i++) {
                 for (let j = 0; j < pieces.length; j++) {
                     let check = pieces[j].text === correct[i].text
-                    if (check) {
+                    if (check & checked) {
+                        checked = false
                         if (!pieces[j].value_ids) pieces[j].value_ids = []
                         pieces[j].value_ids.push(correct[i].id)
                     }
@@ -217,8 +219,9 @@ export default {
                 p.template = cloneDeep(this.activity.item_template.key)
                 if (!(p.value_ids && p.value_ids.length > 0)) {
                     p.template.tags = null
-                } else {
-                    p.text = ''
+                } else {                   
+                    p.text = ''                  
+                    
                 }
             })
             this.incompleteWord.pieces = pieces
