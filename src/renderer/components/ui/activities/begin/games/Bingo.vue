@@ -125,7 +125,7 @@ export default {
             })
         },
         playerLetters() {
-            return this.getKeys[0].letters.map((l) => l.text)
+            return this.getKeys.map((l) => l.text)
         },
         opponents() {
             return this.getValues.filter((value) => !value.key_id)
@@ -156,6 +156,7 @@ export default {
             letters = this.sortLetters.filter(l => {
                 return this.playerLetters.includes(l.text) && !l.sorted
             })
+            
 
             // Caso todas de seu nome já tenha sido sorteada
             if (letters.every(l => l.sorted)) {
