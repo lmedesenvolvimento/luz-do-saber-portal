@@ -62,6 +62,7 @@
                                         type="value"
                                         maxlength="13"
                                         autocomplete="off"
+                                        @input="checkAwnserInput(...arguments, item, position)"
                                         @blur="checkAwnser(...arguments, item, position)"
                                     />
                                 </b-card-body>
@@ -303,6 +304,35 @@ export default {
                 this.removeInvalid(item, 1, position)
             }
             Vue.set(this, 'splitedSentence', updates)
+        },
+        checkAwnserInput(event, item, position) {
+            if (event.target.value.length >= item.text.length) {
+                const updates = clone(this.splitedSentence)
+                if (event.target.value === ''){
+                    return
+                }
+                if (event.target.value.toLowerCase() === item.text.toLowerCase()){
+                    this.setAnswer({
+                        type: 'value',
+                        data: item.id,
+                        vm: {}
+                    })
+                    if (this.$refs[position+1]!=null)
+                        this.$refs[position+1][0].focus()
+                    updates[position].valid = true
+                    event.target.disabled = true
+                } 
+                else {
+                    this.setAnswer({
+                        type: 'value',
+                        data: -1,
+                        vm: {}
+                    })
+                    updates[position].invalid = true
+                    this.removeInvalid(item, 1, position)
+                }
+                Vue.set(this, 'splitedSentence', updates)
+            }            
         },
         removeInvalid(item, time, position){
             setTimeout(()=> {
