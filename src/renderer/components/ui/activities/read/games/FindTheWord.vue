@@ -29,6 +29,7 @@
                                                         type="text"
                                                         maxlength="11"
                                                         autocomplete="off"
+                                                        @input="checkAwnserInput(...arguments, item, position, position2)"
                                                         @blur="checkAwnser(...arguments, item, position, position2)"
                                                     />
                                                 </b-card-body>
@@ -116,6 +117,35 @@ export default {
                 this.removeInvalid(item, 1, linePosition, itemPosition)
             }
             Vue.set(this, 'lines', updates)
+        },
+        checkAwnserInput(event, item, linePosition, itemPosition) {
+            if (event.target.value.length >= item.text.length ) {
+                const updates = clone(this.lines)
+                if (event.target.value === ''){
+                    return
+                }
+            
+                if (event.target.value.toLowerCase() === item.text.toLowerCase()){
+                    this.setAnswer({
+                        type: 'value',
+                        data: item.value_ids[0],
+                        vm: {}
+                    })
+                    updates[linePosition][itemPosition].valid = true
+                    event.target.disabled = true
+                } 
+                else {
+                    this.setAnswer({
+                        type: 'value',
+                        data: -1,
+                        vm: {}
+                    })
+                    updates[linePosition][itemPosition].invalid = true
+                    this.removeInvalid(item, 1, linePosition, itemPosition)
+                }
+                Vue.set(this, 'lines', updates)
+            }
+            
         },
         removeInvalid(item, time, linePosition, itemPosition){
             setTimeout(()=> {
