@@ -146,7 +146,8 @@ export default {
             incompleteWord: {},
             separator: this.type,
             selectItem: null,
-            correctIndex: -1
+            correctIndex: -1,
+            letraCerta: ''
         }
     },
     computed: {
@@ -178,14 +179,33 @@ export default {
         }
     },
     created() {
-        this.incompleteWord = cloneDeep(this.getKeys[0])
+        this.incompleteWord = cloneDeep(this.getKeys[0])       
         this.correctPiece = this.getValues.filter((value) => value.key_id)
+        this.getValues.map((el, index)=>{            
+            if(el.id === this.getKeys[0].value_ids[0]){
+                this.getKeys[0].text.split('').map((x)=> {
+                    if( this.removerAcento(x).toUpperCase() === el.text){
+                        this.correctPiece[0].text = x
+                    }
+                }) 
+            }
+        })    
+     
         this.clearIncompleteWord(this.separator, this.correctPiece)
     },
     mounted() {
         this.createAnswersArray()
     },
     methods: {
+        removerAcento(text) {
+            const a = 'àáäâãèéëêìíïîòóöôùúüûñçßÿœæŕśńṕẃǵǹḿǘẍźḧ·/_,:;'
+            const b = 'aaaaaeeeeiiiioooouuuuncsyoarsnpwgnmuxzh------'
+            const p = new RegExp(a.split('').join('|'), 'g')
+            return text.toString().toLowerCase().trim()
+                .replace(p, c => b.charAt(a.indexOf(c))) // Replace special chars
+                .replace(/&/g, '-and-') // Replace & with 'and'
+                .replace(/[\s\W-]+/g, '-') // Replace spaces, non-word characters and dashes with a single dash (-)
+        },
         triggerFocus(item) {
             this.selectItem = item
         },
