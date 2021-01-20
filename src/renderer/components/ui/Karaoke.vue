@@ -40,6 +40,7 @@ import moment from 'moment'
 
 import { parseSTRFile } from '@/utils/string'
 import { getRndInteger } from '@/utils/numbers'
+import Http from '@/services/Http'
 
 export default {
     model: {
@@ -131,10 +132,11 @@ export default {
             !this.playing ? this.play() : this.pause()         
         },
         async fetchSubtitle(){
-            const response = await fetch(this.subtitleUrl)
-            const text = await response.text()
-            this.subtitles = parseSTRFile(text)
+            const response = await Http.axios.get(this.subtitleUrl, {responseType: 'arraybuffer'})
+                .then(response => Buffer.from(response.data, 'binary').toString('latin1'))
+            this.subtitles = parseSTRFile(response)
         },
+       
         bindingsEvents() {
             this.player.addEventListener('play', this.onPlay)
             this.player.addEventListener('canplay', this.canPlay)
