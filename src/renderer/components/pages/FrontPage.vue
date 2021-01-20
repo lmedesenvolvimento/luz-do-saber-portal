@@ -160,8 +160,8 @@ export default {
         if (this.isAuthorized) {
             this.getModules()
         }
-        console.log('created')
     },
+    mounted() {},
     methods: {
         clickPrev() {
             if(this.slide === 2) {
@@ -189,6 +189,7 @@ export default {
             this.loading = true
             this.fetchModules().then(({ modulos }) => {
                 this.read = find(modulos, { slug: 'ler' })
+                this.modules.pop()
                 setTimeout(() => {
                     this.loading = false
                 }, 3000)

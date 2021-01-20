@@ -94,40 +94,43 @@ import moment from 'moment'
 import Navbar from '../ui/navbars/Navbar'
 import Karaoke from '../ui/Karaoke'
 
+import Http from '@/services/Http'
+
 export default {
     components: { Navbar, Karaoke },
     data() {
         return {
             songs: [
-                { 
-                    title: 'Is this love', 
-                    arstist: 'Bob Marley',
-                    audio: require('@/assets/songs/BOB MARLEY - IS THIS LOVE/BOB MARLEY - IS THIS LOVE.mp3'),
-                    sub: require('@/assets/songs/BOB MARLEY - IS THIS LOVE/BOB MARLEY - IS THIS LOVE.str'),
-                    images: [
-                        'https://source.unsplash.com/user/erondu',
-                        'https://source.unsplash.com/user/polarmermaid',
-                        'https://source.unsplash.com/user/guillaumeissaly29'
-                    ],
-                },
-                { 
-                    title: 'House Of The Rising Sun', 
-                    arstist: 'The Animals',
-                    audio: require('@/assets/songs/The Animals House Of The Rising Sun/The Animals House Of The Rising Sun.mp3'),
-                    sub: require('@/assets/songs/The Animals House Of The Rising Sun/The Animals House Of The Rising Sun.str'),
-                    images: [
-                        'https://source.unsplash.com/user/guillaumeissaly29',
-                        'https://source.unsplash.com/user/erondu',
-                        'https://source.unsplash.com/user/polarmermaid'
-                    ]
-                }
+                // { 
+                //     title: 'Is this love', 
+                //     arstist: 'Bob Marley',
+                //     audio: require('@/assets/songs/BOB MARLEY - IS THIS LOVE/BOB MARLEY - IS THIS LOVE.mp3'),
+                //     sub: require('@/assets/songs/BOB MARLEY - IS THIS LOVE/BOB MARLEY - IS THIS LOVE.str'),
+                //     images: [
+                //         'https://source.unsplash.com/user/erondu',
+                //         'https://source.unsplash.com/user/polarmermaid',
+                //         'https://source.unsplash.com/user/guillaumeissaly29'
+                //     ],
+                // },
+                // { 
+                //     title: 'House Of The Rising Sun', 
+                //     arstist: 'The Animals',
+                //     audio: require('@/assets/songs/The Animals House Of The Rising Sun/The Animals House Of The Rising Sun.mp3'),
+                //     sub: require('@/assets/songs/The Animals House Of The Rising Sun/The Animals House Of The Rising Sun.str'),
+                //     images: [
+                //         'https://source.unsplash.com/user/guillaumeissaly29',
+                //         'https://source.unsplash.com/user/erondu',
+                //         'https://source.unsplash.com/user/polarmermaid'
+                //     ]
+                // }
             ],
             playing: false,
             songIndex: 0,
             currentTime: '00:00',
             duration: '00:00',
             progress: 0,
-            volume: 0.5
+            volume: 0.5,
+            karaokesData: null
         }
     },
     computed: {
@@ -148,6 +151,22 @@ export default {
             this.playing = false
             this.progress = 0
         }
+    },
+    async created() {
+        await this.getKaraokes()
+        this.karaokesData.map(async (el)=> {
+            console.log(this.removeUrlParameters(el.audio))
+            const obj = {
+                title: el.title,
+                arstist: '',
+                audio: this.removeUrlParameters(el.audio),
+                sub: el.lyrics.url,
+                images: el.images.map((x)=> {
+                    return x.url
+                })
+            }
+            this.songs.push(obj)
+        })
     },
     methods: {
         next() {
@@ -181,6 +200,16 @@ export default {
             this.$set(this, 'duration', duration)
             this.$set(this, 'currentTime', currentTime)
             this.$set(this, 'progress', progress * 100)
+        },
+        async getKaraokes(){
+            let { data } = await Http.axios.get('https://editorluzdosaber.seduc.ce.gov.br/game/karaoke')
+            this.karaokesData = data.karaokes
+        },
+        removeUrlParameters(url) {
+            const str = '?'
+            const urlString = String(url.url)            
+            const result = urlString.substring(0, urlString.indexOf(str))            
+            return result
         }
     }
 }
