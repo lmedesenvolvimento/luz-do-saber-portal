@@ -4,13 +4,14 @@ body,html {
 }
 
 body {
-      @include baloo_bhaina;
       #app {
           position: relative;
           @each $t in get-themes-keys() {
               $bg-color: get-value-theme($t, 'bg-color');
               &.#{$t} {
                 background-size: cover;
+                font-family: get-value-theme($t, 'font-family');
+                text-transform: uppercase;
                 @if type-of($value: $bg-color) == 'color' {
                     background-image: get-value-theme($t, 'bg-image');
                     background-color: $bg-color;
