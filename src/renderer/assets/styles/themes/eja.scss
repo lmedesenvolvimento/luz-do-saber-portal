@@ -18,6 +18,8 @@ $eja: (
     navbar-bgcolor: #b03333,
     navbar-title-size: 32px,
 
+    font-family: 'Roboto',
+
     module-icons: (
         comecar: '~@/assets/images/eja/comecar.png',
         ler: '~@/assets/images/eja/ler.png',
@@ -35,7 +37,7 @@ $eja: (
     ),
         
     icon-themes: (
-        comecar: '~@/assets/images/icons/comecar/',
+        comecar: '~@/assets/images/eja/icons/comecar/',
         ler: '~@/assets/images/icons/ler/',
         escrever: '~@/assets/images/icons/escrever/',
         biblioteca: '~@/assets/images/icons/biblioteca/'

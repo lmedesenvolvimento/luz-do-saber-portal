@@ -20,9 +20,15 @@
   src: url('~@/assets/fonts/Pacifico-Regular.ttf') format('truetype');
 }
 
-.subtitle {
-  @include itim_regular;
-  text-transform: uppercase;
+.fundamental {
+  .subtitle {
+    @include itim_regular;
+  }
+}
+.eja {
+  .subtitle {
+    @include roboto;
+  }
 }
 
 @each $size in map-keys($map: $font-size-variants) {
