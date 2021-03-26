@@ -2,7 +2,6 @@
     position: relative;
     width: 62px;
     height: 62px;
-    @include embed_image('~@/assets/images/icons/comecar/counter.png', 50px, 50px);
     > span{
         position: absolute;
         display: flex;
