@@ -12,7 +12,7 @@ $eja: (
 
     bg-image: url('~@/assets/images/eja/bg-texture.png'),
     
-    text-color: #5F4343,
+    text-color: #2D3B4A,
     text-invert: #fff,
     
     navbar-bgcolor: #b03333,
@@ -55,11 +55,15 @@ $eja: (
     
     
     // Gameplay
-    gameplay-heading-bg-color: lighten(#f4f4f4, 2.5),
+    gameplay-heading-bg-color: #FFFFFF,
     gameplay-header-height: 100px,
+    gameplay-title-size: 22px,
+    gameplay-title-weight: bold,
     gameplay-footer-height: 50px,
+    gameplay-footer-title-color: #fff,
     gameplay-books-footer-height: 90px,
     gameplay-border-color: #ddd,
+    gameplay-border-radius: 0px,
     gameplay-height: 640px,
     gameplay-max-height: 640px,
         
