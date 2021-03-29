@@ -1,7 +1,8 @@
 @each $t in get-themes-keys() {
     .#{$t} {    
         #frontpage{
-            @include itim_regular;
+            font-family: get-value-theme($t, font-secundary);
+            text-transform: uppercase;
             .front-page-logo {
                 max-width: 320px;
             }
