@@ -38,10 +38,10 @@ $eja: (
     ),
         
     icon-themes: (
-        comecar: '~@/assets/images/eja/icons/comecar/',
-        ler: '~@/assets/images/icons/ler/',
-        escrever: '~@/assets/images/icons/escrever/',
-        biblioteca: '~@/assets/images/icons/biblioteca/'
+        comecar: '~@/assets/images/eja/icons/',
+        ler: '~@/assets/images/eja/icons/',
+        escrever: '~@/assets/images/eja/icons/',
+        biblioteca: '~@/assets/images/eja/icons/'
     ),
     
     // Cards
@@ -52,7 +52,8 @@ $eja: (
     card-input-box-shadow-danger-color: #C72929,
     card-empty-color: #CDCBCB,
     card-empty-shadow-color: #ABABAB,
-    card-border-radius: 1.15rem,        
+    card-border-radius: .15rem,
+    card-body-weight: bold,     
     
     
     // Gameplay
@@ -102,7 +103,7 @@ $eja: (
         small: ( 0.2rem / 1.75 )
     ),
 
-    item-types-card-border-radius: item-types-card-border-radius('fundamental'),
+    item-types-card-border-radius: item-types-card-border-radius('eja'),
     
     item-types-card-body-padding: (
         default: 1rem,
