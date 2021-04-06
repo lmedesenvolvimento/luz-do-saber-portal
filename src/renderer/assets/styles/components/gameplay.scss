@@ -4,7 +4,6 @@
             display: flex;
             flex-direction: column;
             flex: 1;
-            background-color: white;
             min-width: 1024px;
             max-width: 1024px;
             margin: 24px auto 0px;
@@ -14,14 +13,12 @@
             .gameplay-heading{
                 position: relative;
                 display: flex;
-                flex-direction: column;
                 align-items: center;
                 justify-content: center;
                 min-height: get-value-theme($t, 'gameplay-header-height');
                 background-color: get-value-theme($t, 'gameplay-heading-bg-color');
-                border-bottom: 1.5px solid #ddd;
                 padding: 0px 8px;
-                flex: 1;
+                flex: 1;              
                 .gameplay-navigation{
                     @extend .fill;
                     position: absolute;
@@ -42,7 +39,8 @@
                     }
                 }
                 .gameplay-heading-title{
-                    font-size: 25px;
+                    font-size: get-value-theme($t, 'gameplay-title-size');
+                    font-weight: get-value-theme($t, 'gameplay-title-weight');
                     line-height: 40px;
                     min-height: 40px;
                     text-transform: uppercase;
@@ -50,13 +48,12 @@
                 }
             }
             .gameplay-footer{
-                background-color: get-value-theme($t, 'gameplay-heading-bg-color');
                 border-top: 1.5px  solid  get-value-theme($t, 'gameplay-border-color');
                 border-left: 1px   solid  get-value-theme($t, 'gameplay-border-color');
                 border-right: 1px  solid  get-value-theme($t, 'gameplay-border-color');
                 border-bottom: 1px solid  get-value-theme($t, 'gameplay-border-color');
-                border-bottom-left-radius: 8px;
-                border-bottom-right-radius: 8px;
+                border-bottom-left-radius: get-value-theme($t, 'gameplay-border-radius');
+                border-bottom-right-radius: get-value-theme($t, 'gameplay-border-radius');
                 max-height: get-value-theme($t, 'gameplay-footer-height');
                 flex: 1;
                 padding: 4px 16px;
@@ -153,6 +150,7 @@
                 font-size: 20px;
                 color: #717171;
                 margin: 0px;
+                
                 .gameplay-description-text{
                     @extend .subtitle;
                     @include ellipsis;
@@ -186,7 +184,6 @@
             .step-bars{
                 position: absolute;
                 display: flex;
-                background-color: #f4f4f4;
                 top: 0px;
                 left: 0px;
                 width: 100%;
@@ -196,7 +193,6 @@
                     flex: 1;
                     height: 5px;
                     margin-right: 8px;
-                    background-color: #ddd;
                     &:last-child{
                         margin-right: 0px;
                     }
@@ -214,13 +210,19 @@
                 }
                 .title{
                     font-size: 24px;
-                    color: #00A8C8;
+                    color: get-value-theme($t, 'gameplay-footer-title-color');                
                 }
                 .subtitle{
-                    @include itim_regular;
+                    @if $t == 'eja' {
+                        font-family: get-value-theme($t, 'font-family');
+                        font-weight: 600;
+                        color: #fff;
+                    } @else {
+                        @include itim_regular;
+                        color: #717171;
+                        font-weight: 100;
+                    }
                     font-size: 12px;
-                    color: #717171;
-                    font-weight: 100;
                 }
             }
             .gameplay-footer-divider{
@@ -239,16 +241,66 @@
     }
     
     @each $color, $value in get-value-theme($t, 'theme-colors') {
-        .#{$color} {
-            .gameplay {
-                .step-bars .bar{
-                    &.complete {
-                        background-color: $value;
+        .#{$t} { 
+            .#{$color} {
+                .gameplay {
+                    .gameplay-heading {
+                        @if $t == 'fundamental' {                    
+                            border-bottom: 1.5px solid get-value-theme($t, 'gameplay-heading-bottom-color');
+                        }  @else {
+                            border-bottom: 1.5px solid $value;
+                        }
                     }
-                    &.active {
-                        background-color: transparentize($color: $value, $amount: 0.5);
+                    .gameplay-footer {
+                        @if $t == 'fundamental' {                    
+                            background-color: get-value-theme($t, 'gameplay-heading-bg-color');
+                        }  @else {
+                            background-color: $value;
+                            color: get-value-theme($t, 'text-invert')
+                        }
+                    }
+                    .step-bars .bar{
+                        &.complete {
+                            background-color: $value;
+                        }
+                        &.active {
+                            background-color: transparentize($color: $value, $amount: 0.5);
+                        }
                     }
                 }
+            }
+        }
+    }
+}
+
+.fundamental {
+    .gameplay {
+        background-color: white;
+        .gameplay-heading {
+            flex-direction: column;
+        }
+        .step-bars {
+            background-color: #f4f4f4;
+            .bar {
+                background-color: #ddd;
+            }
+        }
+    }
+}
+.eja {
+    .gameplay {
+        background-color: transparent;
+        .gameplay-heading {
+            flex-direction: row;
+
+            &-title {
+                margin-left: 10px;
+            }
+        }
+        .step-bars {
+            background-color: transparent;
+            .bar {
+                background-color: #fff;
             }
         }
     }

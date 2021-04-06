@@ -43,6 +43,9 @@ export const ListMixin = {
             let r = []
             let aux = 0
 
+            if(process.env.CONTEXT === 'eja')
+                c = ['96C93d']
+
             for (let i = 0; i < 100; i++) {
                 r.push(`#${c[aux]}`)
 

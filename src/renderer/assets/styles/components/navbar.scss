@@ -7,7 +7,6 @@
             height: $navbar-height;
             top: 0;
             left: 0;
-            background: url('~@/assets/images/components/navbar/navbar-bg.png') repeat-x;
             color: get-value-theme($t, 'text-invert');
             display: flex;
             flex-wrap: nowrap;
@@ -50,5 +49,11 @@
                 left: 90px;
             }
         }
+    }
+}
+
+.fundamental {
+    .navbar {
+        background: url('~@/assets/images/components/navbar/navbar-bg.png') repeat-x;
     }
 }
