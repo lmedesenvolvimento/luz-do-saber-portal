@@ -3,6 +3,11 @@
     text-transform: uppercase;
 }
 
+@mixin roboto {
+    font-family: 'Roboto', Helvetica, sans-serif;
+    text-transform: uppercase;
+}
+
 @mixin itim_regular {
     font-family: 'Itim Regular', Helvetica, sans-serif;
     text-transform: uppercase;
@@ -98,7 +103,16 @@
         $map: item-types-card-border-radius($theme),
         $key: $size
     );
-    
+    $to-map: item-types-card-border-radius($theme);
+
+    @debug "-------------------------";
+    @debug "$b-radius: #{$b-radius}";
+    @debug "-------------------------";
+    @debug "$theme: #{$theme}";
+    @debug "$size: #{$size}";
+    @debug "$to-map: #{$to-map}";
+    @debug "-------------------------";
+
     padding: 8px 0px;
 
     .card {

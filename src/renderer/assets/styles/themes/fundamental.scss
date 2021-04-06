@@ -14,6 +14,9 @@ $fundamental: (
     navbar-bgcolor: #b03333,
     navbar-title-size: 32px,
 
+    font-family: 'Baloo Bhaina',
+    font-secundary: 'Itim Regular',
+
     module-icons: (
         comecar: '~@/assets/images/btn-start.png',
         ler: '~@/assets/images/btn-read.png',
@@ -49,15 +52,21 @@ $fundamental: (
     card-input-box-shadow-danger-color: #C72929,
     card-empty-color: #CDCBCB,
     card-empty-shadow-color: #ABABAB,
-    card-border-radius: 1.15rem,        
+    card-border-radius: 1.15rem,  
+    card-body-weight: normal,     
     
     
     // Gameplay
     gameplay-heading-bg-color: lighten(#f4f4f4, 2.5),
+    gameplay-heading-bottom-color: #ddd,
+    gameplay-title-size: 25px,
+    gameplay-title-weight: normal,
     gameplay-header-height: 100px,
     gameplay-footer-height: 50px,
+    gameplay-footer-title-color: #00A8C8,
     gameplay-books-footer-height: 90px,
     gameplay-border-color: #ddd,
+    gameplay-border-radius: 8px,
     gameplay-height: 640px,
     gameplay-max-height: 640px,
         

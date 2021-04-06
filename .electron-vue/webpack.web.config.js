@@ -145,7 +145,9 @@ if (process.env.NODE_ENV === 'production') {
   webConfig.devtool = ''
 
   webConfig.plugins.push(
-    new BabiliWebpackPlugin(),
+    new BabiliWebpackPlugin({
+      simplify: false,
+    }, {}),
     new CopyWebpackPlugin([
       {
         from: path.join(__dirname, '../static'),
