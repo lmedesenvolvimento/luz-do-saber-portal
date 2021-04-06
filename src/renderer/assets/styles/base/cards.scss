@@ -2,6 +2,7 @@
     .#{$t} {
         .card {
             border-radius: get-value-theme($t, 'card-border-radius');
+            font-weight: get-value-theme($t, 'card-body-weight');
         }
         [class*='card--']{
             .card .card-body{
