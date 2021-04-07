@@ -104,21 +104,32 @@ export function validationInSelection({ state, commit }, { vm, type, data }) {
                 selection.value.vm.$el.querySelector('.card'),
                 leaderLineConfig
             )
-
+            leaderLine.positionByWindowResize = false
+            
+            document.getElementById('app').addEventListener('scroll', function() {
+                leaderLine.position()
+            }, false)
+            
             state.connections.push(leaderLine)
-
+            
             commit('CLEAR_SELECTION')
             commit('COMPUTED_ANSWER', answer.ref)
         } else {
             // notify user feedback
             selection.key.vm.invalid = true
             selection.value.vm.invalid = true
-
+            
             let line = new LeaderLine(
                 selection.value.vm.$el.querySelector('.card'),
                 selection.key.vm.$el.querySelector('.card'),
                 leaderLineConfig
             )
+                
+            line.positionByWindowResize = false
+
+            document.getElementById('app').addEventListener('scroll', function() {
+                line.position()
+            }, false)
 
             setTimeout( _=> line.remove(), 600)
 
