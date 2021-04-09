@@ -59,6 +59,7 @@
                             >
                                 <b-card-body>
                                     <input
+                                        :ref="`input-${position}`"
                                         type="value"
                                         maxlength="13"
                                         autocomplete="off"
@@ -317,8 +318,10 @@ export default {
                         data: item.id,
                         vm: {}
                     })
-                    if (this.$refs[position+1]!=null)
-                        this.$refs[position+1][0].focus()
+                    const toFocusIndex = updates.findIndex((item, index) => item.isInteractive && index > position && !item.valid)
+                    if (this.$refs[`input-${toFocusIndex}`]!=null) {
+                        this.$refs[`input-${toFocusIndex}`][0].focus()
+                    }
                     updates[position].valid = true
                     event.target.disabled = true
                 } 
