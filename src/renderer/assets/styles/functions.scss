@@ -14,10 +14,6 @@
     $card-border-radius: map-deep-get($themes, $theme, 'card-border-radius');
     $card-border-radius-medium: ( $card-border-radius / 1.25 );
 
-    @if ($theme == 'eja') {
-        @debug "$card-border-radius: #{$card-border-radius}";
-    }
-
     @return (
         big: $card-border-radius,
         default: $card-border-radius,
