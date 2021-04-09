@@ -52,7 +52,9 @@
                     <p>palavras erradas:</p>
 
                     <div class="wrong-words-list">
-                        <span v-for="word in wrongWords" :key="word">{{ word }}</span>
+                        <span v-for="word in wrongWords" :key="word.id" class="wrong-word">
+                            {{ word.text }}
+                        </span>
                     </div>
                 </ls-card-display>
             </b-col>
@@ -79,6 +81,7 @@ export default {
             },
             wrongWords: [],
             totalLetters: 0,
+            initialID: 0,
         }
     },
     computed: {
@@ -111,26 +114,26 @@ export default {
 
                     return
                 }
-                
-                // Caso a palavra esteja errada e ainda não tenha sido escrita
-                // a adiciona no array de palavras erradas e limpa o input
-                if (!this.wrongWords.includes(this.answer.text)) {
-                    this.wrongWords.push(this.answer.text)
-                    Vue.set(this.answer, 'invalid', true)
-                    
-                    this.setAnswer({
-                        type: 'value',
-                        data: -1,
-                        vm: {}
-                    })
-
-                    setTimeout(() => {
-                        this.answer.text = ''
-                        Vue.set(this.answer, 'invalid', false)
-                    }, 1000)
-
-                    return
+                if(this.wrongWords.length > 7) {
+                    this.wrongWords.shift()
+                    this.initialID = 0
                 }
+                this.wrongWords.push({ text: this.answer.text, id: this.initialID })
+                this.initialID++
+                Vue.set(this.answer, 'invalid', true)
+                
+                this.setAnswer({
+                    type: 'value',
+                    data: -1,
+                    vm: {}
+                })
+
+                setTimeout(() => {
+                    this.answer.text = ''
+                    Vue.set(this.answer, 'invalid', false)
+                }, 1000)
+
+                return
             } else {
                 this.answer.text = ''
             }
@@ -159,22 +162,43 @@ export default {
     }
 
     .wrong-words-display {
+        padding-top: 0px;
         .card {
             width: 180px;
-            height: 350px;
+            height: 400px;
         }
 
         .card-body {
-            height: 340px;
+            height: 393px;
         }
         
         .card-body {
             background-color: #fafafa;
             font-size: 16px;
+            .wrong-word {
+                margin-top: 8px;
+            }
             
             span {
                 margin-top: 5px;
                 display: block;
+            }
+        }
+        .wrong-words-list{
+            padding-left: 10px;
+        }
+        .wrong-word {
+            position: relative;
+            &::before {
+                background-image: url('~@/assets/images/icons/fail.png');
+                opacity: 0.7;
+                background-size: 22px 23px;
+                width: 22px;
+                height: 23px;
+                position: absolute;
+                left: 0px;
+                top: 2px;
+                content: '';
             }
         }
     }
