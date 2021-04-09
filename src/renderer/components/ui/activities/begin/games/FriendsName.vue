@@ -50,6 +50,7 @@
                                                     type="text"
                                                     maxlength="11"
                                                     autocomplete="off"
+                                                    placeholder="Digite aqui"
                                                     @blur="
                                                         addLocalFriend(
                                                             friend,
