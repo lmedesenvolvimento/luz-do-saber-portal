@@ -122,7 +122,7 @@ export default {
         ended(){
             this.valid = true
 
-            if(this.isPlayerWithImage){
+            if(this.isPlayerWithImage && this.isLimitExceeded){
                 this.triggerSuccess()
             } else {
                 this.setAnswer({
