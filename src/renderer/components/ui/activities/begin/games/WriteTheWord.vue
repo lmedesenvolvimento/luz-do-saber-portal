@@ -52,8 +52,9 @@
                     <p>palavras erradas:</p>
 
                     <div class="wrong-words-list">
-                        <span v-for="word in wrongWords" :key="word.id" class="wrong-word">
-                            {{ word.text }}
+                        <span v-for="word in wrongWords" :key="word.id" class="wrong-word" :class="{ 'minimize' : word.text.length > 6 }">
+                            <div class="fail-feedback"></div>
+                            <div class="fail-text">{{ word.text }}</div>
                         </span>
                     </div>
                 </ls-card-display>
@@ -67,6 +68,7 @@ import { ListMixin, MapMixins, CreateAnswersMixins, createAnswer } from '@ui/act
 import ItemComponents from '@ui/form/index.js'
 import AsyncImage from '@ui/AsyncImage'
 import { mapState, mapActions } from 'vuex'
+import { max } from 'moment'
 
 export default {
     components: {
@@ -82,6 +84,7 @@ export default {
             wrongWords: [],
             totalLetters: 0,
             initialID: 0,
+            maxListLength: 6
         }
     },
     computed: {
@@ -114,12 +117,14 @@ export default {
 
                     return
                 }
-                if(this.wrongWords.length > 7) {
-                    this.wrongWords.shift()
-                    this.initialID = 0
-                }
                 this.wrongWords.push({ text: this.answer.text, id: this.initialID })
                 this.initialID++
+                const ids = this.wrongWords.map(({ id }) => id)
+                console.log(ids)
+                if(this.wrongWords.length > this.maxListLength) {
+                    this.wrongWords.shift()
+                    if(this.initialID > this.maxListLength) this.initialID = 0
+                }
                 Vue.set(this.answer, 'invalid', true)
                 
                 this.setAnswer({
@@ -178,27 +183,32 @@ export default {
             .wrong-word {
                 margin-top: 8px;
             }
-            
-            span {
-                margin-top: 5px;
-                display: block;
-            }
         }
         .wrong-words-list{
             padding-left: 10px;
         }
         .wrong-word {
+            height: 42px;
             position: relative;
-            &::before {
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            padding-left: 17px;
+            .fail-feedback {
+                display: inline-flex;
                 background-image: url('~@/assets/images/icons/fail.png');
                 opacity: 0.7;
                 background-size: 22px 23px;
                 width: 22px;
                 height: 23px;
                 position: absolute;
-                left: 0px;
-                top: 2px;
-                content: '';
+                left: 0;
+            }
+            .fail-text {
+                width: 90px;
+            }
+            &.minimize {
+                font-size: 19px;
             }
         }
     }
