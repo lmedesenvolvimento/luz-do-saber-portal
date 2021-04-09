@@ -79,6 +79,7 @@
         }
         &.fail {
             opacity: 0.8;
+            position: relative;
             &::before {
                 background-image: url('~@/assets/images/icons/fail.png');
                 background-size: 22px 23px;
@@ -87,24 +88,19 @@
                 position: absolute;
                 content: '';
             }
-            &.p0::before {
-                left: 10px;
-                top: 49px;
-            }
+            &.p0::before,
             &.p2::before {
-                left: 10px;
-                top: 169px;
+                left: -37px;
+                top: 48px;
             }
-            &.p1::before {
-                right: 10px;
-                top: 49px;
-            }
+            &.p1::before,
             &.p3::before {
-                right: 10px;
-                top: 169px;
+                right: -37px;
+                top: 48px;
             }
         }
         &.success {
+            position: relative;
             &::before {
                 background-image: url('~@/assets/images/icons/success.png');
                 background-size: 22px 23px;
@@ -113,21 +109,15 @@
                 position: absolute;
                 content: '';
             }
-            &.p0::before {
-                left: 10px;
-                top: 49px;
-            }
+            &.p0::before,
             &.p2::before {
-                left: 10px;
-                top: 169px;
+                left: -37px;
+                top: 48px;
             }
-            &.p1::before {
-                right: 10px;
-                top: 49px;
-            }
+            &.p1::before,
             &.p3::before {
-                right: 10px;
-                top: 169px;
+                right: -37px;
+                top: 48px;
             }
         }
     }
