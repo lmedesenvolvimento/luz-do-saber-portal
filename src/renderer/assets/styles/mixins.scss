@@ -103,15 +103,6 @@
         $map: item-types-card-border-radius($theme),
         $key: $size
     );
-    $to-map: item-types-card-border-radius($theme);
-
-    @debug "-------------------------";
-    @debug "$b-radius: #{$b-radius}";
-    @debug "-------------------------";
-    @debug "$theme: #{$theme}";
-    @debug "$size: #{$size}";
-    @debug "$to-map: #{$to-map}";
-    @debug "-------------------------";
 
     padding: 8px 0px;
 
