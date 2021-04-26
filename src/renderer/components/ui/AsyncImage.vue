@@ -1,7 +1,7 @@
 <template>
     <div class="image" :class="$attrs.class">
         <transition name="fade" mode="out-in">
-            <facebook-loader v-if="!ready" primary-color="#999999" :speed="1" :animate="true"></facebook-loader>
+            <ImageContentLoader v-if="!ready" primary-color="#999999" :speed="1" :animate="true"></ImageContentLoader>
             <div v-else>
                 <viewer v-if="!disableZoom" :options="viewerOpts">
                     <slot name="image">
@@ -17,11 +17,11 @@
 </template>
 
 <script>
-import { FacebookLoader } from 'vue-content-loader'
+import ImageContentLoader from '@/components/ui/ImageContentLoader'
 import { viewerOpts } from '@/constants'
 export default {
     components: {
-        FacebookLoader
+        ImageContentLoader
     },
     inheritAttrs: false,
     props: {
