@@ -1,5 +1,5 @@
 .DS_Store
-dist/
+dist
 dist/electron/*
 dist/web/*
 build/*
@@ -31,4 +31,4 @@ static/images
 static/audios
 
 # IDE files
-.vscode/
+.vscode
