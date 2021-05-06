@@ -4,9 +4,9 @@
             no-body
         >
             <b-card-body>
-                <slot>
-                    <p>Fugiat laborum non adipisicing cillum veniam mollit.</p>
-                </slot>
+                <b-aspect :aspect="proportion" class="aspect-ratio">
+                    <slot></slot>
+                </b-aspect>
             </b-card-body>
             <b-card-footer>
                 <div class="card--audio plyr-flat">
@@ -29,6 +29,10 @@ export default {
         uri: {
             type: String,
             default: null
+        },
+        proportion: {
+            type: String,
+            default: '16:9'
         }
     },
     computed: {
@@ -63,5 +67,9 @@ export default {
             width: 100%;
         }
     }
+}
+.aspect-ratio .image img {
+    max-height: 367px;
+    max-width: 650px;
 }
 </style>
