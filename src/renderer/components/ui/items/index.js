@@ -59,6 +59,7 @@ export default {
     'ls-item-audio': require('./Audio.vue').default,
     'ls-item-video': require('./Video.vue').default,
     'ls-item-text-image': require('./TextImage.vue').default,
+    'ls-item-image-audio': require('./ImageAudio.vue').default,
     'ls-item-checkmark': require('./custom/CardCheckMark.vue').default,
     'ls-item-cracha-box': require('./custom/CrachaBox.vue').default,
     'ls-card-display-validacao': require('./custom/CardDisplayValidacao.vue')

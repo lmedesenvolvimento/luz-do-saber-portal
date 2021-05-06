@@ -30,7 +30,7 @@
     "axios": "^0.21.1",
     "axios-cache-adapter": "^2.7.3",
     "bootstrap": "^4.3.1",
-    "bootstrap-vue": "^2.0.0-rc.13",
+    "bootstrap-vue": "^2.21.2",
     "bourbon": "^5.1.0",
     "env-cmd": "^10.0.1",
     "faker": "^4.1.0",

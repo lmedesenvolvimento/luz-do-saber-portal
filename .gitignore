@@ -1,4 +1,5 @@
 .DS_Store
+dist
 dist/electron/*
 dist/web/*
 build/*
@@ -24,9 +25,10 @@ db.json
 docker-web-app
 dist-*
 
-#Static files
+# Static files
 static/api
 static/images
 static/audios
 
-dist
+# IDE files
+.vscode
