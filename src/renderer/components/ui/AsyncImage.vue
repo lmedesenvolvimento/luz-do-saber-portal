@@ -1,7 +1,7 @@
 <template>
     <div class="image" :class="$attrs.class">
         <transition name="fade" mode="out-in">
-            <ImageContentLoader v-if="!ready" primary-color="#999999" :speed="1" :animate="true"></ImageContentLoader>
+            <ImageLoader v-if="!ready" :color="color" />
             <div v-else>
                 <viewer v-if="!disableZoom" :options="viewerOpts">
                     <slot name="image">
@@ -17,14 +17,15 @@
 </template>
 
 <script>
-import ImageContentLoader from '@/components/ui/ImageContentLoader'
+import ImageLoader from './ImageLoader'
 import { viewerOpts } from '@/constants'
 export default {
     components: {
-        ImageContentLoader
+        ImageLoader
     },
     inheritAttrs: false,
     props: {
+        color: String,
         src: String,
         disableZoom: Boolean,
         alt: String
