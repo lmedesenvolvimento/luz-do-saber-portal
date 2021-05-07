@@ -38,7 +38,7 @@
                                                 :data="read"
                                                 :image="require('@/assets/images/btn-first-year.png')"
                                                 :color="{ color: '#00963F' }"
-                                                :label="$context === 'eja' ? 'Ciclo 1' : '1º Ano'"
+                                                :label="$context === 'eja' ? 'Ciclo EJA' : '1º Ano'"
                                                 slug="ler-1"
                                                 target-audience="primeiro-ano"
                                             />
