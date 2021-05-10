@@ -249,6 +249,7 @@
         .dropped {
             &::before {
                 @include custom-dropcard-content(
+                    $theme,
                     $decreaseW:
                         map-get($map: $item-types-card-padding, $key: $size),
                     $decreaseH:
@@ -269,6 +270,7 @@
             &:not(.valid):not(.invalid) {
                 &::before {
                     @include custom-dropcard-content(
+                        $theme,
                         $decreaseW:
                             map-get($map: $item-types-card-padding, $key: $size),
                         $decreaseH:
