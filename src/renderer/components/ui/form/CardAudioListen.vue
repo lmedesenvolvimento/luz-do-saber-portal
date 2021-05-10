@@ -145,12 +145,13 @@ export default {
             width: 100%;
             overflow-x: hidden;
             overflow-y: auto;
-            max-height: 20em;
+            max-height: 25em;
             padding: 24px;
             font-size: 14px;
             pre {
                 white-space: pre-wrap;
                 overflow: hidden;
+                font-size: 140%;
             }
         }
     }
