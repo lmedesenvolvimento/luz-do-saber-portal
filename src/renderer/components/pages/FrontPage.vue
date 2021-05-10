@@ -28,7 +28,7 @@
                         </div>
                         <div v-else-if="isAuthorized && isVisibleLerSubModule" key="frontpage-ler">
                             <b-row align-v="center" align-h="center">
-                                <a class="d-block btn margin-prev" :class="{disabled : slide===1}" @click="clickPrev">
+                                <a v-if="$context === 'fundamental'" class="d-block btn margin-prev" :class="{disabled : slide===1}" @click="clickPrev">
                                     <b-img center :src="require('@/assets/images/icons/escrever/icon-prev.png')" width="61" height="61" />
                                 </a>
                                 <transition name="fader" mode="out-in">
@@ -38,12 +38,12 @@
                                                 :data="read"
                                                 :image="require('@/assets/images/btn-first-year.png')"
                                                 :color="{ color: '#00963F' }"
-                                                :label="$context === 'eja' ? 'EJA 1' : '1º Ano'"
+                                                :label="$context === 'eja' ? 'Ciclo EJA' : '1º Ano'"
                                                 slug="ler-1"
                                                 target-audience="primeiro-ano"
                                             />
                                         </div>
-                                        <div class="ml-2 mr-2">
+                                        <div v-if="$context === 'fundamental'" class="ml-2 mr-2">
                                             <ModuleLinkCard
                                                 :data="read"
                                                 :image="require('@/assets/images/btn-first-year.png')"
@@ -53,7 +53,7 @@
                                                 target-audience="primeiro-ano-complementar"
                                             />
                                         </div>
-                                        <div class="ml-2 mr-2">
+                                        <div v-if="$context === 'fundamental'" class="ml-2 mr-2">
                                             <ModuleLinkCard
                                                 :data="read"
                                                 :image="require('@/assets/images/btn-second-year.png')"
@@ -65,7 +65,7 @@
                                         </div>
                                     </b-row>
                                     <b-row v-else :key="2" class="slider2">
-                                        <div class="ml-2 mr-2">
+                                        <div v-if="$context === 'fundamental'" class="ml-2 mr-2">
                                             <ModuleLinkCard
                                                 :data="read"
                                                 :image="require('@/assets/images/btn-second-year.png')"
@@ -76,9 +76,8 @@
                                                 target-audience="segundo-ano-complementar"
                                             />
                                         </div>
-                                        <div class="ml-2 mr-2">
+                                        <div v-if="$context === 'fundamental'" class="ml-2 mr-2">
                                             <ModuleLinkCard
-                                                v-if="$context === 'fundamental'"
                                                 :data="read"
                                                 :image="require('@/assets/images/btn-third-year.png')"
                                                 :color="{ color: '#00963F' }"
@@ -87,9 +86,8 @@
                                                 target-audience="terceiro-ano"
                                             />
                                         </div>
-                                        <div class="ml-2 mr-2">
+                                        <div v-if="$context === 'fundamental'" class="ml-2 mr-2">
                                             <ModuleLinkCard
-                                                v-if="$context === 'fundamental'"
                                                 :data="read"
                                                 :image="require('@/assets/images/btn-third-year.png')"
                                                 :color="{ color: '#00963F' }"
@@ -100,7 +98,7 @@
                                         </div>
                                     </b-row>
                                 </transition>
-                                <a :class="{disabled : slide===2}" class="d-block btn margin-next" @click="clickNext">
+                                <a v-if="$context === 'fundamental'" :class="{disabled : slide===2}" class="d-block btn margin-next" @click="clickNext">
                                     <b-img center :src="require('@/assets/images/icons/escrever/icon-next.png')" width="61" height="61" />
                                 </a>
                                 <b-col cols="12" class="my-1">
