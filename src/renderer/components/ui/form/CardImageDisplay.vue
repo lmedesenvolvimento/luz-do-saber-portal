@@ -7,7 +7,7 @@
         >
             <b-card-body>
                 <slot name="img">
-                    <async-image class="card-img" :src="picture" :alt="imgAlt" />
+                    <async-image class="card-img" color="#999" :src="picture" :alt="imgAlt" />
                 </slot>
                 <slot></slot>
             </b-card-body>
@@ -40,10 +40,10 @@ export default {
             }
         },
         picture(){
-            return this.item.images.length ? this.item.images[0].url : 'https://picsum.photos/300/200'
+            return this.item.images.length ? this.item.images[0].url : 'no-image'
         },
         imgAlt(){
-            return this.item.text
+            return this.picture === 'no-image' ? 'A imagem não foi encontrada' : this.item.text
         }
     }
 }

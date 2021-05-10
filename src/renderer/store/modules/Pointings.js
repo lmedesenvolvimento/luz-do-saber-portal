@@ -18,6 +18,7 @@ const mutations = {
         const uid = uniqid()
         const { data, type } = payload
         const collection = clone(state[type])
+        console.log({data, type, collection, state})
         collection[uid] = data
 
         Vue.set(state, type, collection)
