@@ -180,6 +180,11 @@
                 :value-col-size="valueColSize"
                 :key-col-size="keyColSize"
             />
+            <ls-activity-read-image-reading
+                v-if="gameSubtypes.imageReading === activity.subtype.slug" 
+                :value-col-size="valueColSize"
+                :key-col-size="keyColSize"
+            />
             <ls-activity-find-the-word
                 v-if="gameSubtypes.findTheWord === activity.subtype.slug" 
                 :value-col-size="valueColSize"

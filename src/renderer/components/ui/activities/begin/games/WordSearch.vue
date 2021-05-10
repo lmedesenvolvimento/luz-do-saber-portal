@@ -4,7 +4,7 @@
             <b-col class="word-canvas" @mouseleave="allowPainting(false)">
                 <b-row align-h="center" align-v="center">
                     <ls-card-display>
-                        <div class="grid">
+                        <div class="grid" :class="gridSize">
                             <div
                                 v-for="(r, index) in grid"
                                 :key="index"
@@ -67,6 +67,7 @@ export default {
     data() {
         return {
             grid: [],
+            gridSize: 'grid-11',
             directions: [],
             allowPaint: false,
             actualWord: [],
@@ -80,7 +81,12 @@ export default {
         ...mapState('Activity', ['activity', 'answers'])
     },
     created() {
-        this.grid = this.createGrid(this.getValues)
+        const biggerWord = this.getValues.reduce((biggerWord, currWord) => {
+            return biggerWord.text.length >= currWord.text.length ? biggerWord : currWord
+        })
+        const maxLength = biggerWord.text.length > 12 ? biggerWord.text.length : 12
+        this.gridSize = `grid-${maxLength}`
+        this.grid = this.createGrid(this.getValues, maxLength)
         this.setActivityAttrs({ total_correct_items: this.getValues.length })
     },
     mounted() {
@@ -176,11 +182,11 @@ export default {
                 }
             }
         },
-        createGrid(words) {
+        createGrid(words, maxLength) {
             let gridAux = []
-            for (let i = 0; i < 11; i++) {
+            for (let i = 0; i < maxLength; i++) {
                 gridAux[i] = []
-                for (let j = 0; j < 11; j++) {
+                for (let j = 0; j < maxLength; j++) {
                     gridAux[i].push({
                         value: this.randomChar(),
                         class: '',
@@ -196,7 +202,6 @@ export default {
                 })
                 this.putWord(words[i].text, gridAux)
             }
-
             return gridAux
         },
         cleanActualWord() {
