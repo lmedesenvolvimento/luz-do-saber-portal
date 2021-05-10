@@ -42,6 +42,7 @@ export default {
             return this.ready = true
         }
         image.src = this.src
+        console.log(this.src)
     },
     methods: {
         altImage: function(src){
