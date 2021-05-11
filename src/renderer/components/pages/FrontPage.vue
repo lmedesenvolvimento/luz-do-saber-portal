@@ -76,7 +76,7 @@
                                                 target-audience="segundo-ano-complementar"
                                             />
                                         </div>
-                                        <div v-if="$context === 'fundamental'" class="ml-2 mr-2">
+                                        <div v-if="$context === 'terceiro-ano'" class="ml-2 mr-2">
                                             <ModuleLinkCard
                                                 :data="read"
                                                 :image="require('@/assets/images/btn-third-year.png')"
