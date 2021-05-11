@@ -5,18 +5,20 @@
                 <div :class="activity.item_template.key.font_size" class="text-audio-image-box">
                     <card-display>
                         <slot>
-                            <b-col>
-                                <b-row align-v="center">
-                                    <b-col cols="7">
-                                        <div class="text-container">
-                                            <pre>{{ item.text }}</pre>
-                                        </div>
-                                    </b-col>
-                                    <b-col>
-                                        <async-image :src="item.images.length ? item.images[0].url : null" />
-                                    </b-col>
-                                </b-row>
-                            </b-col>
+                            <b-aspect aspect="16:9">
+                                <div class="text-container">
+                                    <div class="pre-text" v-html="item.text"></div>
+                                </div>
+                                <!-- <b-col cols="7">
+                                <b-col>
+                                    <b-row align-v="center">
+                                    </b-row>
+                                </b-col>
+                                </b-col>
+                                <b-col>
+                                    <async-image :src="item.images.length ? item.images[0].url : null" />
+                                </b-col> -->
+                            </b-aspect>
                             <hr>
                             <card-audio ref="plyr" :item="item" :uri="uri" class="plyr-flat" />
                         </slot>
@@ -69,7 +71,7 @@ import uniqid from 'uniqid'
 import { filter } from 'lodash'
 import { mapActions } from 'vuex'
 
-import AsyncImage from '@ui/AsyncImage'
+// import AsyncImage from '@ui/AsyncImage'
 import RadioInput from './RadioInput.vue'
 import CardAudio from './CardAudio'
 import CardDisplay from './CardDisplay'
@@ -77,7 +79,7 @@ import CardDisplay from './CardDisplay'
 const limitText = 50
 
 export default {
-    components: {AsyncImage, CardAudio, CardDisplay },
+    components: { CardAudio, CardDisplay },
     mixins: [RadioInput],
     props: {
         item: Object,
@@ -143,15 +145,20 @@ export default {
         .text-container{
             @include custom_scroll_bar;
             width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             overflow-x: hidden;
             overflow-y: auto;
             max-height: 25em;
             padding: 24px;
             font-size: 14px;
-            pre {
+            .pre-text {
                 white-space: pre-wrap;
                 overflow: hidden;
                 font-size: 140%;
+                width: 90%;
             }
         }
     }
