@@ -378,7 +378,7 @@ export default {
             display: flex;
             align-items: center;
             justify-content: center;
-            max-height: 90px;
+            height: 60px;
         }
     }
 
