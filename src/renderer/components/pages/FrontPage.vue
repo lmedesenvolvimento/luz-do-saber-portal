@@ -28,7 +28,7 @@
                         </div>
                         <div v-else-if="isAuthorized && isVisibleLerSubModule" key="frontpage-ler">
                             <b-row align-v="center" align-h="center">
-                                <a v-if="$context === 'fundamental'" class="d-block btn margin-prev" :class="{disabled : slide===1}" @click="clickPrev">
+                                <a v-if="$context === 'more-than-five'" class="d-block btn margin-prev" :class="{disabled : slide===1}" @click="clickPrev">
                                     <b-img center :src="require('@/assets/images/icons/escrever/icon-prev.png')" width="61" height="61" />
                                 </a>
                                 <transition name="fader" mode="out-in">
@@ -63,8 +63,6 @@
                                                 target-audience="segundo-ano"
                                             />
                                         </div>
-                                    </b-row>
-                                    <b-row v-else :key="2" class="slider2">
                                         <div v-if="$context === 'fundamental'" class="ml-2 mr-2">
                                             <ModuleLinkCard
                                                 :data="read"
@@ -97,8 +95,41 @@
                                             />
                                         </div>
                                     </b-row>
+                                    <b-row v-else :key="2" class="slider2">
+                                        <!-- <div v-if="$context === 'fundamental'" class="ml-2 mr-2">
+                                            <ModuleLinkCard
+                                                :data="read"
+                                                :image="require('@/assets/images/btn-second-year.png')"
+                                                :color="{ color: '#00963F' }"
+                                                :label="$context === 'eja' ? 'EJA 2 complementar' : '2º Ano complementar'"
+                                                :complemento="true"
+                                                slug="ler-2"
+                                                target-audience="segundo-ano-complementar"
+                                            />
+                                        </div>
+                                        <div v-if="$context === 'terceiro-ano'" class="ml-2 mr-2">
+                                            <ModuleLinkCard
+                                                :data="read"
+                                                :image="require('@/assets/images/btn-third-year.png')"
+                                                :color="{ color: '#00963F' }"
+                                                :label="'3º Ano'"
+                                                slug="ler-3"
+                                                target-audience="terceiro-ano"
+                                            />
+                                        </div>
+                                        <div v-if="$context === 'fundamental'" class="ml-2 mr-2">
+                                            <ModuleLinkCard
+                                                :data="read"
+                                                :image="require('@/assets/images/btn-third-year.png')"
+                                                :color="{ color: '#00963F' }"
+                                                :label="'3º Ano complementar'"
+                                                slug="ler-3"
+                                                target-audience="terceiro-ano-complementar"
+                                            />
+                                        </div> -->
+                                    </b-row>
                                 </transition>
-                                <a v-if="$context === 'fundamental'" :class="{disabled : slide===2}" class="d-block btn margin-next" @click="clickNext">
+                                <a v-if="$context === 'more-than-five'" :class="{disabled : slide===2}" class="d-block btn margin-next" @click="clickNext">
                                     <b-img center :src="require('@/assets/images/icons/escrever/icon-next.png')" width="61" height="61" />
                                 </a>
                                 <b-col cols="12" class="my-1">
