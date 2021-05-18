@@ -16,6 +16,66 @@
     .grid{
         user-select: none;
         display: grid;
+        &.grid-6{
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+            grid-template-areas: "." "." "." "." "." ".";
+            padding: 6px;
+            width: 263px;
+            .letters{
+                grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+                grid-template-rows: 1fr;
+                grid-template-areas: ". . . . . .";
+            }
+        }
+        &.grid-7{
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+            grid-template-areas: "." "." "." "." "." "." ".";
+            padding: 6px;
+            width: 307px;
+            .letters{
+                grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+                grid-template-rows: 1fr;
+                grid-template-areas: ". . . . . . .";
+            }
+        }
+        &.grid-8{
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+            grid-template-areas: "." "." "." "." "." "." "." ".";
+            padding: 6px;
+            width: 345px;
+            .letters{
+                grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+                grid-template-rows: 1fr;
+                grid-template-areas: ". . . . . . . .";
+            }
+        }
+        &.grid-9{
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+            grid-template-areas: "." "." "." "." "." "." "." "." ".";
+            padding: 6px;
+            width: 384px;
+            .letters{
+                grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+                grid-template-rows: 1fr;
+                grid-template-areas: ". . . . . . . . .";
+            }
+        }
+        &.grid-10{
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+            grid-template-areas: "." "." "." "." "." "." "." "." "." ".";
+            padding: 6px;
+            width: 423px;
+            .letters{
+                grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+                grid-template-rows: 1fr;
+                grid-template-areas: ". . . . . . . . . .";
+            }
+        }       
         &.grid-11{
             grid-template-columns: 1fr;
             grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
