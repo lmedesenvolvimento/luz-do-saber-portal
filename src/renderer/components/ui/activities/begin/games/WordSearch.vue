@@ -84,7 +84,8 @@ export default {
         const biggerWord = this.getValues.reduce((biggerWord, currWord) => {
             return biggerWord.text.length >= currWord.text.length ? biggerWord : currWord
         })
-        const maxLength = biggerWord.text.length > 12 ? biggerWord.text.length : 12
+        // Define o tamanho do grid
+        const maxLength = biggerWord.text.length > 8 ? biggerWord.text.length : 8
         this.gridSize = `grid-${maxLength}`
         this.grid = this.createGrid(this.getValues, maxLength)
         this.setActivityAttrs({ total_correct_items: this.getValues.length })
