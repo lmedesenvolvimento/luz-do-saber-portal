@@ -269,6 +269,13 @@ export default {
         pointer-events: none;
     }
 
+    .image {
+        img {
+            max-width: 400px;
+            max-height: 250px;
+        }
+    }
+
     .card-input {
         pointer-events: all;
     }

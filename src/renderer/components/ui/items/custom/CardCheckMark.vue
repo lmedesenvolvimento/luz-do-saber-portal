@@ -20,7 +20,9 @@
                     <b-card-body>
                         <slot>
                             <div v-if="template.type === 'imagem'" class="image">
-                                <async-image :src="item.images.length ? item.images[0].url : ''" :disable-zoom="true" />
+                                <b-aspect aspect="1">
+                                    <async-image :src="item.images.length ? item.images[0].url : ''" :disable-zoom="true" />
+                                </b-aspect>
                             </div>
                             <div v-else class="text">{{ item.text }}</div>
                         </slot>
@@ -65,6 +67,14 @@ export default {
             &:hover{
                 cursor: pointer;
             }
+        }
+    }
+    .image {
+        max-height: 220px;
+        max-width: 250px;
+        /deep/.image img {
+            max-height: 220px;
+            max-width: 270px;
         }
     }
 </style>
