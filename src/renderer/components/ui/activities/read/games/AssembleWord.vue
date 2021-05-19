@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid">
+    <div class="container-fluid assemble-word ">
         <b-row
             align-h="center"
             :class="{
@@ -168,4 +168,11 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss">
+.assemble-word {
+    .image img {
+        max-width: 400px;
+        max-height: 250px;
+    }
+}
+</style>
