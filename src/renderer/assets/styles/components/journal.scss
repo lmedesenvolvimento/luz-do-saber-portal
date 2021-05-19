@@ -22,6 +22,33 @@ $primary-font-color: #007CB2;
     padding: 5px;
     margin: 0px auto 0 auto;
 }
+.placeholder-image{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .photo-holder {
+        width: 96px;
+        height: 96px;
+        @include embed_image(
+            '~@/assets/images/components/journal/photo-holder.png',
+            96px,
+            96px
+        );
+
+        &::before {
+            background-size: contain;
+        }
+        
+        &:hover {
+            filter: drop-shadow(0 0 2px #777);
+            cursor: pointer;
+        }
+    }
+}
+
 .journal-single-page{
     width: 50%;       
 }    
@@ -70,28 +97,7 @@ $primary-font-color: #007CB2;
             display: block;
         }
     }
-    .placeholder-image{
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        .photo-holder {
-            width: 96px;
-            height: 96px;
-            @include embed_image(
-                '~@/assets/images/components/journal/photo-holder.png',
-                96px,
-                96px
-            );
-
-            &:hover {
-                filter: brightness(60%);
-                cursor: pointer;
-            }
-        }
-    } 
+    
 }  
 .journal-story-header{
     text-align: center;
@@ -138,6 +144,12 @@ $primary-font-color: #007CB2;
     height:140px;
     border-bottom: solid 5px;
     border-color: $bd-color;
+
+    .photo-holder, .photo-holder::before {
+        width: 80px;
+        height: 80px;
+    }
+
     .three-story-image{
         background-color: #3a3a3a;
         img{                            
@@ -148,11 +160,6 @@ $primary-font-color: #007CB2;
             display: block;
         }
     }
-    .placeholder-image{
-        width: 100px;
-        margin: auto;
-        padding-top: 50px;
-    } 
 } 
 
 .journal-footer-image{
@@ -160,6 +167,12 @@ $primary-font-color: #007CB2;
     border-color: $bd-color;
     margin: 0 7px 0 7px;
     height: 100px;
+
+    .photo-holder, .photo-holder::before {
+        width: 64px;
+        height: 64px;
+    }
+
     .footer-image{
         background-color: #3a3a3a;
         img{                            
@@ -170,11 +183,6 @@ $primary-font-color: #007CB2;
             display: block;
         }
     }
-    .placeholder-image{
-        width: 100px;
-        margin: auto;
-        padding-top: 30px;
-    } 
 }
 .journal-story-left{
     width: 50%;
