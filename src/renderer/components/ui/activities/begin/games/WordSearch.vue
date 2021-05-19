@@ -84,8 +84,7 @@ export default {
         const biggerWord = this.getValues.reduce((biggerWord, currWord) => {
             return biggerWord.text.length >= currWord.text.length ? biggerWord : currWord
         })
-        // Define o tamanho do grid
-        const maxLength = biggerWord.text.length > 8 ? biggerWord.text.length : 8
+        const maxLength = biggerWord.text.length > 6 ? biggerWord.text.length : 6
         this.gridSize = `grid-${maxLength}`
         this.grid = this.createGrid(this.getValues, maxLength)
         this.setActivityAttrs({ total_correct_items: this.getValues.length })
@@ -281,6 +280,7 @@ export default {
                 } else if (dir === 'ver') {
                     for (let l = 0; l < word.length; l++) {
                         let g = grid[beginIndex + l][transversal]
+                        // onde ele passa as letras pro grid
                         g.value = word[l]
                         g.free = false
                     }
