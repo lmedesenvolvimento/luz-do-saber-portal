@@ -71,10 +71,10 @@ export default {
     }
     .image {
         max-height: 220px;
-        max-width: 250px;
+        max-width: 220px;
         /deep/.image img {
             max-height: 220px;
-            max-width: 270px;
+            max-width: 250px;
         }
     }
 </style>
