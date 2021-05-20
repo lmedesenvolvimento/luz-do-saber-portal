@@ -23,9 +23,8 @@
                                     @touchend="(e) => allowPainting(false, e)"
                                     @mousemove="paint(index, letterIndex)"
                                     @touchmove="(event) => touchPaint(event)"
-                                >
-                                    {{ l.value }}
-                                </div>
+                                    v-html="l.value"
+                                ></div>
                             </div>
                         </div>
                     </ls-card-display>
@@ -274,14 +273,17 @@ export default {
                 if (dir === 'hor') {
                     for (let l = 0; l < word.length; l++) {
                         let g = grid[transversal][beginIndex + l]
-                        g.value = word[l]
+                        g.value = word[l] === ' ' ? '&nbsp;' : word[l]
+                        console.log({value: g.value})
                         g.free = false
                     }
                 } else if (dir === 'ver') {
                     for (let l = 0; l < word.length; l++) {
                         let g = grid[beginIndex + l][transversal]
                         // onde ele passa as letras pro grid
-                        g.value = word[l]
+                        
+                        g.value = word[l] === ' ' ? '&nbsp;' : word[l]
+                        console.log({value: g.value})
                         g.free = false
                     }
                 }
