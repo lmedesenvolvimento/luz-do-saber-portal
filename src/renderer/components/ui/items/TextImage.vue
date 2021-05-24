@@ -35,6 +35,9 @@ export default {
 .image {
     width: 240px;
     padding-top: 8px;
+    /deep/img {
+        max-height: 220px;
+    }
 }
 .direcao-change {
     flex-direction: column;
