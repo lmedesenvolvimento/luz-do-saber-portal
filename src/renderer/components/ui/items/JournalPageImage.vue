@@ -15,32 +15,28 @@
                 <img :src="image" alt="Imagem de capa">
             </div>                                       
             <div v-else class="placeholder-image">
-                <async-image src="" alt="placeholder" />
+                <div class="photo-holder"></div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import AsyncImage from '@ui/AsyncImage'
+
 export default {
-    components: {        
-        AsyncImage
-    },
     props: {
         imageType: String
     },
     data(){
         return{
-            image: null
+            image: null,
         }
     },
     methods: {
         onFileSelectedCover(event) {
             const file = event.target.files[0]
             this.image = URL.createObjectURL(file)
-        }, 
+        },
     }
-    
 }
 </script>

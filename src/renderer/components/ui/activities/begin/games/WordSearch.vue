@@ -23,9 +23,8 @@
                                     @touchend="(e) => allowPainting(false, e)"
                                     @mousemove="paint(index, letterIndex)"
                                     @touchmove="(event) => touchPaint(event)"
-                                >
-                                    {{ l.value }}
-                                </div>
+                                    v-html="l.value"
+                                ></div>
                             </div>
                         </div>
                     </ls-card-display>
@@ -84,7 +83,7 @@ export default {
         const biggerWord = this.getValues.reduce((biggerWord, currWord) => {
             return biggerWord.text.length >= currWord.text.length ? biggerWord : currWord
         })
-        const maxLength = biggerWord.text.length > 11 ? biggerWord.text.length : 11
+        const maxLength = biggerWord.text.length > 6 ? biggerWord.text.length : 6
         this.gridSize = `grid-${maxLength}`
         this.grid = this.createGrid(this.getValues, maxLength)
         this.setActivityAttrs({ total_correct_items: this.getValues.length })
@@ -274,13 +273,17 @@ export default {
                 if (dir === 'hor') {
                     for (let l = 0; l < word.length; l++) {
                         let g = grid[transversal][beginIndex + l]
-                        g.value = word[l]
+                        g.value = word[l] === ' ' ? '&nbsp;' : word[l]
+                        console.log({value: g.value})
                         g.free = false
                     }
                 } else if (dir === 'ver') {
                     for (let l = 0; l < word.length; l++) {
                         let g = grid[beginIndex + l][transversal]
-                        g.value = word[l]
+                        // onde ele passa as letras pro grid
+                        
+                        g.value = word[l] === ' ' ? '&nbsp;' : word[l]
+                        console.log({value: g.value})
                         g.free = false
                     }
                 }
