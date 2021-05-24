@@ -33,7 +33,7 @@ export default {
         },
         minWidth(){
             if(this.$attrs.item)
-                return this.$attrs.item.type === 'letra' ? 'inherit' : '100%'
+                return this.$attrs.item.type === 'letra' || this.$attrs.item.type === 'silaba' ? 'inherit' : '100%'
             else
                 return '100%'
         }   
