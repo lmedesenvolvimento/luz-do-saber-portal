@@ -1,5 +1,5 @@
 <template>
-    <div class="card--display" style="min-width: 100%;" :class="{ 'card-sm': isCardSm, ...$attrs.class}">
+    <div class="card--display" :style="{ 'min-width': minWidth }" :class="{ 'card-sm': isCardSm, ...$attrs.class}">
         <b-card
             no-body
             :class="{ 'invalid': invalid, 'valid': valid }"
@@ -30,7 +30,13 @@ export default {
     computed: {
         isCardSm(){
             return this.size === 'small'
-        }
+        },
+        minWidth(){
+            if(this.$attrs.item)
+                return this.$attrs.item.type === 'letra' ? 'inherit' : '100%'
+            else
+                return '100%'
+        }   
     }
 }
 </script>
