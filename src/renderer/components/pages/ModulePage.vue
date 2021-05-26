@@ -54,9 +54,9 @@ export default {
             if(!this.activeModule) return
 
             if (params.target_audience !== 'geral'){
-                return filter(this.activeModule.themes, { target_audience: params.target_audience })
+                return filter(this.activeModule.themes, { target_audience: params.target_audience, status: 'active' })
             } else {
-                return this.activeModule.themes
+                return filter(this.activeModule.themes, { status: 'active'})
             }
         },
         renderNavTitle(){
