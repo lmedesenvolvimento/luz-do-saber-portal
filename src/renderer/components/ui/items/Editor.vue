@@ -1,29 +1,27 @@
 <template>
     <div id="custom-editor">
-        <div id="toolbar">
-            <div class="linha">
-                <vue-editor v-model="content"></vue-editor>
-            </div>
-            <div id="editor-footer" class="linha">
-                <b-button class="btn-editor" @click="newLetter">
-                    <img v-b-tooltip="{ title:'Novo', trigger: 'hover', container: '#editor-footer'}" :src="newText" alt="Novo" class="icon">
-                </b-button>
-                <b-button v-b-tooltip="{ title:'Salvar', trigger: 'hover', container: '#editor-footer'}" class="btn-editor" @click="saveLetter">
-                    <img :src="save" alt="Salvar" class="icon">
-                </b-button>
-                <b-button v-b-tooltip="{ title:'Imprimir', trigger: 'hover', container: '#editor-footer'}" class="btn-editor" @click="printLetter">
-                    <img :src="print" alt="Imprimir" class="icon">
-                </b-button>
-            </div>
-            <!-- Modal Place Holder -->
-            <b-modal id="modal-center" ref="modal-center" v-model="modalShow" centered title="Apagar carta e começar uma nova" hide-footer>
-                <p class="my-4">Tem certeza de que deseja começar uma nova carta? O que você já escreveu será descartado se não for salvo antes</p>
-                <div class="modal-footer">
-                    <b-button class="btn-newletter" @click="newLetter2">Sim! Começar nova carta</b-button>
-                    <b-button class="btn-closemodal" @click="closeModal">Cancelar</b-button>
-                </div>
-            </b-modal>
+        <div id="toolbar" class="customToolbar">
+            <vue-editor v-model="content" :editor-toolbar="customToolbar"></vue-editor>
         </div>
+        <div id="editor-footer" class="linha">
+            <b-button class="btn-editor" @click="newLetter">
+                <img v-b-tooltip="{ title:'Novo', trigger: 'hover', container: '#editor-footer'}" :src="newText" alt="Novo" class="icon">
+            </b-button>
+            <b-button v-b-tooltip="{ title:'Salvar', trigger: 'hover', container: '#editor-footer'}" class="btn-editor" @click="saveLetter">
+                <img :src="save" alt="Salvar" class="icon">
+            </b-button>
+            <b-button v-b-tooltip="{ title:'Imprimir', trigger: 'hover', container: '#editor-footer'}" class="btn-editor" @click="printLetter">
+                <img :src="print" alt="Imprimir" class="icon">
+            </b-button>
+        </div>
+        <!-- Modal Place Holder -->
+        <b-modal id="modal-center" ref="modal-center" v-model="modalShow" centered title="Apagar carta e começar uma nova" hide-footer>
+            <p class="my-4">Tem certeza de que deseja começar uma nova carta? O que você já escreveu será descartado se não for salvo antes</p>
+            <div class="modal-footer">
+                <b-button class="btn-newletter" @click="newLetter2">Sim! Começar nova carta</b-button>
+                <b-button class="btn-closemodal" @click="closeModal">Cancelar</b-button>
+            </div>
+        </b-modal>
     </div>
 </template>
 
@@ -51,6 +49,11 @@ export default {
     data() {
         return {
             content: '<p>Insira seu texto aqui</p>',
+            customToolbar: [
+                [{ 'font': [] }],
+                [{ 'size': ['small', false, 'large', 'huge'] }],
+                [{ 'color': [] }, { 'background': [] }],
+            ],
             modalShow: false
         }
     },
@@ -95,4 +98,25 @@ export default {
         }
     }
 }
-</script>
+</script>linha
+
+<style lang="scss">
+
+.customToolbar {
+    padding: 50px 5%;
+
+    & > .quillWrapper {
+        width: 100%;
+
+        .ql-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .ql-formats {
+                flex: 1;
+            }
+        }
+    }
+}
+</style>
