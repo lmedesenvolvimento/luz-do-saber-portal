@@ -1,7 +1,7 @@
 <template>
     <b-modal
         ref="alert-success-modal"
-        :modal-class="$context"
+        :modal-class="[$context, renderModuleSlug]"
         content-class="feedback"
         :centered="true"
         :header-class="renderModuleSlug"
@@ -12,6 +12,7 @@
     >
         <template slot="modal-header">
             <div class="feedback-header">
+                <div class="btn-report"></div>
                 <div class="feedback-stars feedback-header-item">
                     <img :src="star(0)" class="feedback-small-stars" alt="star" />
                     <img :src="star(1)" alt="star" />
