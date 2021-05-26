@@ -1,13 +1,44 @@
 @each $t in get-themes-keys() {
     .#{$t} {
+        &.comecar {
+            .feedback {
+                background-image: url('~@/assets/images/components/feedback/comecar/background-comecar.png');
+            }
+        }
+        &.ler {
+            .feedback {
+                background-image: url('~@/assets/images/components/feedback/ler/background-ler.png');
+            }
+        }
+        &.escrever {
+            .feedback {
+                background-image: url('~@/assets/images/components/feedback/escrever/background-escrever.png');
+            }
+        }
+        &.biblioteca {
+            .feedback {
+                background-image: url('~@/assets/images/components/feedback/biblioteca/background-biblioteca.png');
+            }
+        }
+        &.karaoke {
+            .feedback {
+                background-image: url('~@/assets/images/components/feedback/ler/background-ler.png');
+            }
+        }
         .feedback {
-            background: url('~@/assets/images/components/feedback/comecar/background-comecar.png');
             background-position-x: -80px;
             border: hidden;
+            border-radius: 1em;
             .feedback-header {
                 margin: 0 auto;
                 display: flex;
                 flex-direction: column;
+                .btn-report {
+                    @include embed_image('~@/assets/images/icons/btn-relatorio.png', 62px, 62px);
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                }
              }
             .feedback-header-item {        
                 display: inline-flex;
@@ -26,15 +57,18 @@
                 margin-top: -100px;
             }
             .feedback-small-stars {
-                width: 128px;
-                margin-top: 10px;
+                width: 108px;
+                height: 106px;
+                margin-top: 35px;
             }
             .modal-header {   
                  
-                 color: #ddd;  
+                 color: #fdfdfd;  
                  height: 140px; 
                  background-image: url('~@/assets/images/components/feedback/texture.png');
                  background-repeat: repeat-x;
+                 @include baloo_bhaina;
+                 border-radius: 1em 1em 0 0;
         
                  @each $color, $value in get-value-theme($t, theme-colors) {
                     &.#{$color} {
@@ -50,6 +84,7 @@
                 justify-content: center;
                 padding: 0px 8px;
                 flex: 1;
+                @include baloo_bhaina;
                 .feedback-itim {
                     font-family: "Itim Regular", Helvetica, sans-serif;
                 }
