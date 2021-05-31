@@ -1,8 +1,32 @@
 <template>
-    <div id="custom-editor">
-        <div id="toolbar" class="customToolbar">
-            <vue-editor v-model="content" :editor-toolbar="customToolbar"></vue-editor>
-        </div>
+    <div id="editor-wrapper">
+        <quill-editor 
+            v-model="content" 
+            class="editor" 
+            :options="editorOption" 
+            @blur="onEditorBlur($event)"
+            @focus="onEditorFocus($event)"
+            @ready="onEditorReady($event)"
+        >
+            <div id="toolbar" slot="toolbar">
+                <!-- <ls-card-display class="ql-font-Montserrat" @change="fontChange"> -->
+                <select ref="select" class="ql-font" @change="fontChange">
+                    <option selected class="ql-font-Montserrat">Montserrat</option>
+                    <option value="Roboto" class="ql-font-Roboto">Roboto</option>
+                </select>
+                <!-- </ls-card-display> -->
+                    
+                    
+                <!-- <ls-card-display class="ql-font-Montserrat"> -->
+                <select class="ql-size">
+                    <option value="small">12</option>
+                    <option selected>18</option>
+                    <option value="large">24</option>
+                    <option value="huge">40</option>
+                </select>
+                <!-- </ls-card-display> -->
+            </div>
+        </quill-editor>
         <div id="editor-footer" class="linha">
             <b-button class="btn-editor" @click="newLetter">
                 <img v-b-tooltip="{ title:'Novo', trigger: 'hover', container: '#editor-footer'}" :src="newText" alt="Novo" class="icon">
@@ -28,7 +52,19 @@
 <script>
 import Vue from 'vue'
 import VueHtmlToPaper from 'vue-html-to-paper'
-import { VueEditor } from 'vue2-editor'
+import FormProps from '@ui/form'
+import { quillEditor, Quill } from 'vue-quill-editor'
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+
+const Font = Quill.import('formats/font')
+
+Font.whitelist = ['Montserrat', 'Roboto']
+Quill.register(Font, true)
+
+const Size = Quill.import('attributors/style/size')
+Size.whitelist = ['12px', '18px', '20px', '24px', '40px']
+Quill.register(Size, true)
 
 const options = {
     name: '_blank',
@@ -43,21 +79,25 @@ Vue.use(VueHtmlToPaper, options)
 
 export default {
     components: {
-        VueEditor
+        ...FormProps,
+        quillEditor
     },
 
     data() {
         return {
             content: '<p>Insira seu texto aqui</p>',
-            customToolbar: [
-                [{ 'font': [] }],
-                [{ 'size': ['small', false, 'large', 'huge'] }],
-                [{ 'color': [] }, { 'background': [] }],
-            ],
-            modalShow: false
+            editorOption: {
+                modules: {
+                    toolbar: [
+                        [{ 'font': ['Montserrat', 'Roboto'] }],
+                        [{ 'size': ['12px', '18px','20px', '24px', '48px'] }],
+                        [{ 'color': [] }, { 'background': [] }],
+                    ]
+                }
+            },
+            modalShow: false,
         }
     },
-
     computed: {
         newText() {
             return require('@/assets/images/icons/escrever/editor/novo escrever.png')
@@ -69,7 +109,35 @@ export default {
             return require('@/assets/images/icons/escrever/editor/imprimir escrever.png')
         },
     },
+    /* mounted() {
+        this.quill = new Quill('#editor', {
+            modules: {
+                toolbar: '#toolbar'
+            },
+            placeholder: 'Insira seu texto aqui!'
+        })
+        this.quill.focus()
+    }, */
     methods: {
+        onEditorBlur(editor) {
+        // console.log('editor blur!', editor)
+        },
+        onEditorFocus(editor) {
+        // console.log('editor focus!', editor)
+        },
+        onEditorReady(editor) {
+        // console.log('editor ready!', editor)
+        },
+        fontChange(el) {
+            if(el.srcElement.value === 'Roboto'){
+                el.srcElement.classList.remove('ql-font-Montserrat')
+                el.srcElement.classList.add('ql-font-Roboto')
+
+            } else if (el.srcElement.value === 'Montserrat') {
+                el.srcElement.classList.remove('ql-font-Roboto')
+                el.srcElement.classList.add('ql-font-Montserrat')
+            }
+        },
         closeModal(){
             this.$refs['modal-center'].hide()
         },
@@ -101,22 +169,25 @@ export default {
 </script>linha
 
 <style lang="scss">
+#editor-wrapper {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    height: 30rem;
+    overflow: hidden;
+    
+    $toolbar-height: 41px;
 
-.customToolbar {
-    padding: 50px 5%;
-
-    & > .quillWrapper {
-        width: 100%;
-
-        .ql-toolbar {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            .ql-formats {
-                flex: 1;
-            }
-        }
+    .ql-container {
+        background-color: #fff;
+        min-height: 473px;
     }
+
+    .editor {
+      .ql-custom-button {
+        width: 100px;
+      }
+    }
+    
 }
 </style>
