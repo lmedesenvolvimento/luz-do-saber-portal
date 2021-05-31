@@ -31,15 +31,44 @@
             border-radius: 1em;
             .feedback-header {
                 margin: 0 auto;
+                position: absolute;
                 display: flex;
+                align-items: center;
+                justify-content: flex-end;
                 flex-direction: column;
+                height: 110px;
+                width: 468px;
                 .btn-report {
                     @include embed_image('~@/assets/images/icons/btn-relatorio.png', 62px, 62px);
                     position: absolute;
-                    top: 10px;
-                    right: 10px;
+                    top: 3px;
+                    right: 0px;
+                    cursor: pointer;
                 }
-             }
+                .btn-back {
+                    @include embed_image('~@/assets/images/icons/comecar/icon-prev.png', 62px, 62px);
+                    position: absolute;
+                    top: 3px;
+                    left: 0px;
+                    cursor: pointer;
+                }
+                .btn-close {
+                    @include embed_image('~@/assets/images/icons/btn-fechar.png', 62px, 62px);
+                    position: absolute;
+                    top: 3px;
+                    right: 0px;
+                    cursor: pointer;
+                }
+                &.report {
+                    justify-content: center;
+                    height: 100%;
+                    height: 67px;
+                    .feedback-header-item h5 {
+                        font-size: 1.5em;
+                        margin-bottom: 0;
+                    }
+                }
+            }
             .feedback-header-item {        
                 display: inline-flex;
                 margin: 0 auto;
@@ -54,7 +83,8 @@
                 border-radius: 50%;
             }
             .feedback-stars {
-                margin-top: -100px;
+                position: absolute;
+                top: -120px;
             }
             .feedback-small-stars {
                 width: 108px;
@@ -62,40 +92,90 @@
                 margin-top: 35px;
             }
             .modal-header {   
-                 
-                 color: #fdfdfd;  
-                 height: 140px; 
-                 background-image: url('~@/assets/images/components/feedback/texture.png');
-                 background-repeat: repeat-x;
-                 @include baloo_bhaina;
-                 border-radius: 1em 1em 0 0;
-        
-                 @each $color, $value in get-value-theme($t, theme-colors) {
+                
+                color: #fdfdfd;  
+                height: 140px;
+                background-image: url('~@/assets/images/components/feedback/texture.png');
+                background-repeat: repeat-x;
+                border-radius: 1em 1em 0 0;
+                @include baloo_bhaina;
+                transition: height 0.2s;
+                &.is-report {
+                    height: 100px;
+                }
+                
+                .transition {
+                    width: 100%;
+                    height: 100%;
+                }
+                
+                @each $color, $value in get-value-theme($t, theme-colors) {
                     &.#{$color} {
                         background-color: $value;
                     }
                 }                 
             }
-            .feedback-content {        
-                display: flex;
-                text-transform: uppercase;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                padding: 0px 8px;
-                flex: 1;
-                @include baloo_bhaina;
+            .feedback-content {
+                height: 310px;
+                transition: height 0.2s;
+                .content-feedback,
+                .content-report {
+                    display: flex;
+                    text-transform: uppercase;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 0px 8px;
+                    flex: 1;
+                    @include baloo_bhaina;                    
+                }
+                .content-report .report-table {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    width: 100%;
+                    .report-table-row {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-around;
+                        width: 100%;
+                    }
+                }     
                 .feedback-itim {
                     font-family: "Itim Regular", Helvetica, sans-serif;
                 }
                 .feedback-golden {
                     color: goldenrod;
                 }
+                &.report {
+                    height: 350px;
+                }
             }
             .feedback-footer-buttons {
-                display: flex;
-                justify-content: center;
+                .feedback-buttons,
+                .report-buttons {
+                    display: flex;
+                    justify-content: center;
+                }
+                .report-buttons {
+                    .btn-subir {
+                        @include embed_image('~@/assets/images/icons/btn-subir.png', 62px, 62px);
+                        cursor: pointer;
+                    }
+                    .btn-baixar {
+                        @include embed_image('~@/assets/images/icons/btn-baixar.png', 62px, 62px);
+                        cursor: pointer;
+                    }
+                }
             }
         }
     }
-}    
+}
+
+.fade-feedback-enter-active, .fade-feedback-leave-active {
+    transition: opacity .2s;
+}
+.fade-feedback-enter, .fade-feedback-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+}
