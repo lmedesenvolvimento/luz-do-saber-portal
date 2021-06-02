@@ -1,39 +1,106 @@
 <template>
     <b-modal
         ref="alert-success-modal"
-        :modal-class="$context"
+        :modal-class="[$context, renderModuleSlug, { 'is-report' : currentShow === 'report' }]"
         content-class="feedback"
         :centered="true"
-        :header-class="renderModuleSlug"
+        :header-class="[renderModuleSlug, { 'is-report' : currentShow === 'report' }]"
         :hide-footer="true"
         :no-close-on-backdrop="true"
         @show="onShow"
         @hide="onHidden"
     >
         <template slot="modal-header">
-            <div class="feedback-header">
-                <div class="feedback-stars feedback-header-item">
-                    <img :src="star(0)" class="feedback-small-stars" alt="star" />
-                    <img :src="star(1)" alt="star" />
-                    <img :src="star(2)" class="feedback-small-stars" alt="star" />
+            <transition-group name="fade-feedback" class="transition">
+                <div v-if="currentShow === 'feedback'" key="feedback" class="feedback-header">
+                    <div class="btn-report" @click="showReport"></div>
+                    <div class="feedback-stars feedback-header-item">
+                        <img :src="star(0)" class="feedback-small-stars" alt="star" />
+                        <img :src="star(1)" alt="star" />
+                        <img :src="star(2)" class="feedback-small-stars" alt="star" />
+                    </div>
+                    <div class="feedback-header-item "><h5 class="feedback-rounded-number">{{ renderActivityPosition }}</h5></div>
+                    <div class="feedback-header-item"><h5>{{ renderActivityName }}</h5></div>
                 </div>
-                <div class="feedback-header-item "><h5 class="feedback-rounded-number">{{ renderActivityPosition }}</h5></div>
-                <div class="feedback-header-item"><h5>{{ renderActivityName }}</h5></div>
-            </div>
+                <div v-if="currentShow === 'report'" key="report" class="feedback-header report">
+                    <div class="btn-back" @click="showFeedback"></div>
+                    <div class="feedback-header-item"><h5>Relatório de atividades</h5></div>
+                    <div class="btn-close" @click="nextActivity"></div>
+                </div>
+            </transition-group>
         </template>
         <br>
-        <div class="feedback-content">
-            <img :src="expressionStar" alt="expression-star" />
-            <br>
-            <h5>{{ feedbackText1 }}</h5>
-            <div v-if="totalStars==3" class="feedback-itim"><h5>{{ feedbackText5 }}</h5></div>
-            <div class="feedback-itim"><h5>{{ feedbackText2 }} <span class="feedback-golden">{{ feedbackText3 }}</span>{{ feedbackText4 }}</h5></div>
-            <div v-if="totalStars!=3" class="feedback-itim"><h5>{{ feedbackText5 }}</h5></div>
+        <div class="feedback-content" :class="{ 'report' : currentShow === 'report' }">
+            <div v-if="currentShow === 'feedback'" class="content-feedback">
+                <img :src="expressionStar" alt="expression-star" />
+                <br>
+                <h5>{{ feedbackText1 }}</h5>
+                <div v-if="totalStars==3" class="feedback-itim"><h5>{{ feedbackText5 }}</h5></div>
+                <div class="feedback-itim"><h5>{{ feedbackText2 }} <span class="feedback-golden">{{ feedbackText3 }}</span>{{ feedbackText4 }}</h5></div>
+                <div v-if="totalStars!=3" class="feedback-itim"><h5>{{ feedbackText5 }}</h5></div>
+            </div>
+            <div v-if="currentShow === 'report'" class="content-report">
+                <div class="report-table">
+                    <div class="report-table-row title">
+                        <div>
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        </div>
+                        <div>
+                            <span>Estrelas</span>
+                        </div>
+                        <div>
+                            <span>Tempo</span>
+                        </div>
+                        <div>
+                            <span>Tentativas</span>
+                        </div>
+                    </div>
+                    <div class="report-table-row average">
+                        <div>
+                            <span>Média</span>
+                        </div>
+                        <div :class="`total-${getStarsAvg()}-stars`">
+                            <span class="stars">
+                                <span class="star"></span>
+                                <span class="star"></span>
+                                <span class="star"></span>
+                            </span>
+                        </div>
+                        <div>
+                            <span>{{ getTimeAvg() }}</span>
+                        </div>
+                        <div>
+                            <span>{{ getErrorsAvg() }}</span>
+                        </div>
+                    </div>
+                    <div v-for="atividade in currentActivities" :key="atividade.id" class="report-table-row">
+                        <div>
+                            <span>{{ atividade.title.text }}</span>
+                        </div>
+                        <div :class="`total-${atividade.pointings.totalStars}-stars`">
+                            <span class="stars">
+                                <span class="star"></span>
+                                <span class="star"></span>
+                                <span class="star"></span>
+                            </span>
+                        </div>
+                        <div>
+                            <span>{{ treatTime(atividade.timer.totalSeconds) }}</span>
+                        </div>
+                        <div>
+                            <span>{{ atividade.errors.total }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <br>
         <div class="feedback-footer-buttons" :class="$route.params.module_slug">
-            <div class="icon-redo" @click="resetActivity"></div>
-            <div class="icon-next" @click="nextActivity"></div>
+            <div v-if="currentShow === 'feedback'" class="feedback-buttons">
+                <div class="icon-redo" @click="resetActivity"></div>
+                <div class="icon-next" @click="nextActivity"></div>
+            </div>
+            <div v-if="currentShow === 'report'" class="report-buttons"></div>
         </div>
     </b-modal>
 </template>
@@ -42,6 +109,7 @@ import { mapState, mapActions, mapGetters } from 'vuex'
 import { find } from 'lodash'
 
 import AudioReader from '@/services/AudioReader'
+import { time } from 'uniqid'
 
 const feedbackAudios  = [
     new Audio(require('@/assets/audios/feedback/0-star.mp3')),
@@ -54,9 +122,15 @@ export default {
     data(){
         return {
             isVisible: false,
+            currentShow: 'feedback',
         }
     },
     computed: {
+        currentActivities() {
+            const { theme_id, unit_id, module_id } = this.activity || {theme_id: 0, unit_id: 0, module_id: 0}
+            const allActivities = Object.values(this.activities)
+            return allActivities.filter((a) => a.theme_id === theme_id && a.unit_id === unit_id && a.module_id === module_id)
+        },
         feedbackText1: function () {
             switch(this.totalStars){
             case 0:
@@ -146,12 +220,14 @@ export default {
             isVisibleActivityAlertSuccess: state => state.Alert.isVisibleActivityAlertSuccess
         }),
         ...mapState('Unit',['unit']),
+        ...mapState('Pointings',['activities']),
         ...mapState('Activity',['activity','log']),
         ...mapGetters('Activity',['totalStars'])
     },
     watch: {
         isVisibleActivityAlertSuccess(value){
             value ? this.$refs['alert-success-modal'].show() : this.$refs['alert-success-modal'].hide()
+            if(value) this.showFeedback()
         },
     },
     methods: {
@@ -187,6 +263,12 @@ export default {
 
             this.onHidden()
         },
+        showReport() {
+            this.currentShow = 'report'
+        },
+        showFeedback() {
+            this.currentShow = 'feedback'
+        },
         nextActivity(){
             this.$store.dispatch('Unit/nextActivity')
             this.destroyActivity()
@@ -208,6 +290,26 @@ export default {
                     console.warn(error)
                 }
             })
+        },
+        getRandomNumber(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) + min)
+        },
+        getStarsAvg() {
+            return Math.floor(this.currentActivities.reduce((acc, { pointings }) => pointings.totalStars + acc, 0) / this.currentActivities.length)
+        },
+        getTimeAvg() {
+            const timeAvg = this.currentActivities.reduce((acc, { timer }) => timer.totalSeconds + acc, 0) / this.currentActivities.length
+            return this.treatTime(timeAvg)
+        },
+        getErrorsAvg() {
+            return Math.round(this.currentActivities.reduce((acc, { errors }) => errors.total + acc, 0) / this.currentActivities.length)    
+        },
+        treatTime(number) {
+            let minutes = Math.floor(number / 60)
+            let seconds = number % 60
+            minutes = minutes > 10 ? minutes : `0${minutes}`
+            seconds = seconds > 10 ? seconds : `0${seconds}`
+            return `${minutes}:${seconds}`
         },
         ...mapActions(['hideAlertActivitySuccess']),
         ...mapActions('Activity',['fetchActivity','destroyActivity'])
