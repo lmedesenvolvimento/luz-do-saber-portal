@@ -306,9 +306,9 @@ export default {
         },
         treatTime(number) {
             let minutes = Math.floor(number / 60)
-            let seconds = number % 60
-            minutes = minutes > 10 ? minutes : `0${minutes}`
-            seconds = seconds > 10 ? seconds : `0${seconds}`
+            let seconds = Math.floor(number % 60)
+            minutes = minutes > 9 ? minutes : `0${minutes}`
+            seconds = seconds > 9 ? seconds : `0${seconds}`
             return `${minutes}:${seconds}`
         },
         ...mapActions(['hideAlertActivitySuccess']),
