@@ -59,8 +59,12 @@
                         <div>
                             <span>Média</span>
                         </div>
-                        <div>
-                            <span>{{ getStarsAvg() }}</span>
+                        <div :class="`total-${getStarsAvg()}-stars`">
+                            <span class="stars">
+                                <span class="star"></span>
+                                <span class="star"></span>
+                                <span class="star"></span>
+                            </span>
                         </div>
                         <div>
                             <span>{{ getTimeAvg() }}</span>
@@ -73,8 +77,12 @@
                         <div>
                             <span>{{ atividade.title.text }}</span>
                         </div>
-                        <div>
-                            <span>{{ atividade.pointings.totalStars }}</span>
+                        <div :class="`total-${atividade.pointings.totalStars}-stars`">
+                            <span class="stars">
+                                <span class="star"></span>
+                                <span class="star"></span>
+                                <span class="star"></span>
+                            </span>
                         </div>
                         <div>
                             <span>{{ treatTime(atividade.timer.totalSeconds) }}</span>

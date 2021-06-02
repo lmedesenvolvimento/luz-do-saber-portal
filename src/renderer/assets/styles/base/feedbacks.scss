@@ -177,14 +177,45 @@
                             align-items: center;
                             justify-content: center;
                             text-align: center;
+                            .stars {
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                width: 90%!important;
+                                border-radius: 15px!important;
+                            }
+                            .star {
+                                @include embed_image('~@/assets/images/components/feedback/report-star.png', 25px, 23px);
+                            }
+                            &.total-0-stars {
+                                .star {
+                                    opacity: 0.2;
+                                    filter: grayscale(80%);
+                                }
+                            }
+                            &.total-1-stars {
+                                .star:last-child,
+                                .star:nth-child(2) {
+                                    opacity: 0.2;
+                                    filter: grayscale(80%);
+                                }
+                            }
+                            &.total-2-stars {
+                                .star:last-child {
+                                    opacity: 0.2;
+                                    filter: grayscale(80%);
+                                }
+                            }
                         }
                         &:not(.title){
-                            div:not(:first-child) span {                                
+                            div:not(:first-child) > span {                                
                                 background-color: rgba(224, 224, 224, 0.6);
                                 width: 80%;
                                 padding: 5px 0px;
                                 color: #25B9CF;
                                 border-radius: 20px;
+                                height: 35px;
+                                line-height: 25px;
                             }
                         }
                         &.average {
