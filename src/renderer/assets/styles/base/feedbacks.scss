@@ -1,32 +1,60 @@
 @each $t in get-themes-keys() {
     .#{$t} {
+        .modal-dialog {
+            max-width: 560px;   
+        }
         &.comecar {
+            &.is-report {
+                .feedback {
+                    background: #FFFAFA;
+                }
+            }
             .feedback {
                 background-image: url('~@/assets/images/components/feedback/comecar/background-comecar.png');
             }
         }
         &.ler {
+            &.is-report {
+                .feedback {
+                    background: #FFFAFA;
+                }
+            }
             .feedback {
                 background-image: url('~@/assets/images/components/feedback/ler/background-ler.png');
             }
         }
         &.escrever {
+            &.is-report {
+                .feedback {
+                    background: #FFFAFA;
+                }
+            }
             .feedback {
                 background-image: url('~@/assets/images/components/feedback/escrever/background-escrever.png');
             }
         }
         &.biblioteca {
+            &.is-report {
+                .feedback {
+                    background: #FFFAFA;
+                }
+            }
             .feedback {
                 background-image: url('~@/assets/images/components/feedback/biblioteca/background-biblioteca.png');
             }
         }
         &.karaoke {
+            &.is-report {
+                .feedback {
+                    background: #FFFAFA;
+                }
+            }
             .feedback {
                 background-image: url('~@/assets/images/components/feedback/ler/background-ler.png');
             }
         }
         .feedback {
-            background-position-x: -80px;
+            background-position-x: -60px;
             border: hidden;
             border-radius: 1em;
             .feedback-header {
@@ -37,7 +65,7 @@
                 justify-content: flex-end;
                 flex-direction: column;
                 height: 110px;
-                width: 468px;
+                width: 530px;
                 .btn-report {
                     @include embed_image('~@/assets/images/icons/btn-relatorio.png', 62px, 62px);
                     position: absolute;
@@ -136,10 +164,36 @@
                     justify-content: center;
                     width: 100%;
                     .report-table-row {
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-around;
                         width: 100%;
+                        height: 50px;
+                        font-size: 18px;
+                        display: grid;
+                        grid-template-columns: 1.5fr 1fr 1fr 1fr;
+                        grid-template-rows: 1fr;
+                        gap: 0px 0px;
+                        grid-template-areas: ". . . .";
+                        div {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            text-align: center;
+                        }
+                        &:not(.title){
+                            div:not(:first-child) span {                                
+                                background-color: rgba(224, 224, 224, 0.6);
+                                width: 80%;
+                                padding: 5px 0px;
+                                color: #25B9CF;
+                                border-radius: 20px;
+                            }
+                        }
+                        &.average {
+                            box-shadow: 0px 0px 20px 2px rgba(156, 156, 156, 0.35);
+                            border-radius: 10px;
+                            background: #FFFFFF;
+                            margin-bottom: 10px;
+                            height: 60px;
+                        }
                     }
                 }     
                 .feedback-itim {
@@ -159,6 +213,7 @@
                     justify-content: center;
                 }
                 .report-buttons {
+                    height: 62px;
                     .btn-subir {
                         @include embed_image('~@/assets/images/icons/btn-subir.png', 62px, 62px);
                         cursor: pointer;

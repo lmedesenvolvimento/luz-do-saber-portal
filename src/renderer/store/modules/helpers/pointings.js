@@ -14,9 +14,14 @@ export function findIndexById(state, id, type){
 }
 
 export function mapActivity(activity){
-    let result = pick(activity, ['id', 'pointings', 'timer', 'theme_id', 'unit_id', 'module_id'])
+    const result = pick(activity, ['errors', 'id', 'module_id', 'pointings', 'theme_id', 'timer', 'title', 'unit_id'])
+    // for(const key in result) {
+    //     result[key] = observerClean(result[key])
+    // }
     result.pointings = observerClean(result.pointings)
     result.timer = observerClean(result.timer)
+    result.errors = observerClean(result.errors)
+    result.title = observerClean(result.title)
     return result
 }
 

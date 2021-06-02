@@ -1,7 +1,7 @@
 <template>
     <b-modal
         ref="alert-success-modal"
-        :modal-class="[$context, renderModuleSlug]"
+        :modal-class="[$context, renderModuleSlug, { 'is-report' : currentShow === 'report' }]"
         content-class="feedback"
         :centered="true"
         :header-class="[renderModuleSlug, { 'is-report' : currentShow === 'report' }]"
@@ -42,16 +42,46 @@
             <div v-if="currentShow === 'report'" class="content-report">
                 <div class="report-table">
                     <div class="report-table-row title">
-                        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                        <div>Estrelas</div>
-                        <div>Tempo</div>
-                        <div>Tentativas</div>
+                        <div>
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        </div>
+                        <div>
+                            <span>Estrelas</span>
+                        </div>
+                        <div>
+                            <span>Tempo</span>
+                        </div>
+                        <div>
+                            <span>Tentativas</span>
+                        </div>
                     </div>
-                    <div v-for="atividade in activities" :key="atividade.id" class="report-table-row">
-                        <div>Atividade</div>
-                        <div>{{ atividade.pointings.totalStars }}</div>
-                        <div>{{ atividade.timer.totalSeconds }}s</div>
-                        <div>Tentativas</div>
+                    <div class="report-table-row average">
+                        <div>
+                            <span>Média</span>
+                        </div>
+                        <div>
+                            <span>{{ getStarsAvg() }}</span>
+                        </div>
+                        <div>
+                            <span>{{ getTimeAvg() }}</span>
+                        </div>
+                        <div>
+                            <span>{{ getErrorsAvg() }}</span>
+                        </div>
+                    </div>
+                    <div v-for="atividade in currentActivities" :key="atividade.id" class="report-table-row">
+                        <div>
+                            <span>{{ atividade.title.text }}</span>
+                        </div>
+                        <div>
+                            <span>{{ atividade.pointings.totalStars }}</span>
+                        </div>
+                        <div>
+                            <span>{{ treatTime(atividade.timer.totalSeconds) }}</span>
+                        </div>
+                        <div>
+                            <span>{{ atividade.errors.total }}</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -62,10 +92,7 @@
                 <div class="icon-redo" @click="resetActivity"></div>
                 <div class="icon-next" @click="nextActivity"></div>
             </div>
-            <div v-if="currentShow === 'report'" class="report-buttons">
-                <div class="btn-subir"></div>
-                <div class="btn-baixar"></div>
-            </div>
+            <div v-if="currentShow === 'report'" class="report-buttons"></div>
         </div>
     </b-modal>
 </template>
@@ -74,6 +101,7 @@ import { mapState, mapActions, mapGetters } from 'vuex'
 import { find } from 'lodash'
 
 import AudioReader from '@/services/AudioReader'
+import { time } from 'uniqid'
 
 const feedbackAudios  = [
     new Audio(require('@/assets/audios/feedback/0-star.mp3')),
@@ -86,10 +114,15 @@ export default {
     data(){
         return {
             isVisible: false,
-            currentShow: 'feedback'
+            currentShow: 'feedback',
         }
     },
     computed: {
+        currentActivities() {
+            const { theme_id, unit_id, module_id } = this.activity || {theme_id: 0, unit_id: 0, module_id: 0}
+            const allActivities = Object.values(this.activities)
+            return allActivities.filter((a) => a.theme_id === theme_id && a.unit_id === unit_id && a.module_id === module_id)
+        },
         feedbackText1: function () {
             switch(this.totalStars){
             case 0:
@@ -249,6 +282,26 @@ export default {
                     console.warn(error)
                 }
             })
+        },
+        getRandomNumber(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) + min)
+        },
+        getStarsAvg() {
+            return Math.floor(this.currentActivities.reduce((acc, { pointings }) => pointings.totalStars + acc, 0) / this.currentActivities.length)
+        },
+        getTimeAvg() {
+            const timeAvg = this.currentActivities.reduce((acc, { timer }) => timer.totalSeconds + acc, 0) / this.currentActivities.length
+            return this.treatTime(timeAvg)
+        },
+        getErrorsAvg() {
+            return Math.round(this.currentActivities.reduce((acc, { errors }) => errors.total + acc, 0) / this.currentActivities.length)    
+        },
+        treatTime(number) {
+            let minutes = Math.floor(number / 60)
+            let seconds = number % 60
+            minutes = minutes > 10 ? minutes : `0${minutes}`
+            seconds = seconds > 10 ? seconds : `0${seconds}`
+            return `${minutes}:${seconds}`
         },
         ...mapActions(['hideAlertActivitySuccess']),
         ...mapActions('Activity',['fetchActivity','destroyActivity'])
