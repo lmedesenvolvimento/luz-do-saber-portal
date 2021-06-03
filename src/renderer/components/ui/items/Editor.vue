@@ -71,6 +71,7 @@ export default {
                         [{ 'font': fontArr }],
                         [{ 'size': fontSizeArr }],
                         [{ 'color': [] }],
+                        ['bold', 'italic', 'underline']
                     ],      
                 },
                 theme: 'snow',
