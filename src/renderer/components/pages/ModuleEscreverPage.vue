@@ -17,7 +17,7 @@
         <div v-else-if="getModule.key === 'gibi'">
             <gibi></gibi>
         </div>
-        <div v-else class="page-container-wrap-spacing">
+        <div v-else class="page-container">
             <div v-if="getModule.key === 'editor'">
                 <editor></editor>
             </div>
