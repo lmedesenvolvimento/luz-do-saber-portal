@@ -8,7 +8,7 @@
         />
         <div class="page-container-wrap-spacing">
             <b-row v-if="theme">
-                <b-col v-for="unit in theme.units" :key="unit.id" cols="6">
+                <b-col v-for="unit in getUnits" :key="unit.id" cols="6">
                     <div class="theme-unit-box">
                         <router-link
                             :to="{
@@ -58,6 +58,12 @@ export default {
             }
 
             return correctThemeName
+        },
+        getUnits() {
+            console.log(this.theme.units)
+            if (!this.theme.units)
+                return []
+            return this.theme.units.filter((u) => u.status === 'active')
         },
         renderNavTitle(){
             return this.theme.title ? 'Tema ' + this.theme.title : ''
