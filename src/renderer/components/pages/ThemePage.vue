@@ -63,7 +63,7 @@ export default {
             console.log(this.theme.units)
             if (!this.theme.units)
                 return []
-            return this.theme.units.filter((u) => u.status === 0)
+            return this.theme.units.filter((u) => u.status === 'active')
         },
         renderNavTitle(){
             return this.theme.title ? 'Tema ' + this.theme.title : ''
