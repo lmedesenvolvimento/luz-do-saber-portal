@@ -1,6 +1,7 @@
 const state = {
     isVisibleActivityAlertFail: false,
-    isVisibleActivityAlertSuccess: false
+    isVisibleActivityAlertSuccess: false,
+    moduleIdClicked: { unit_id: 0, theme_id: 0, module_id: 0 },
 }
 
 const mutations = {    
@@ -10,6 +11,10 @@ const mutations = {
 
     SET_ALERT_ACTIVITY_FAIL(state, isVisible){
         state.isVisibleActivityAlertFail = isVisible
+    },
+
+    setModuleIdClicked(state, moduleId){
+        state.moduleIdClicked = moduleId
     }
 }
 

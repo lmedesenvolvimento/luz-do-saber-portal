@@ -8,7 +8,7 @@ export default {
             let img = new Image()
 
             img.onload = () => {
-                console.log(`Log: loaded ${asset}`)
+                console.debug(`Log: loaded ${asset}`)
             }
 
             img.src = asset
