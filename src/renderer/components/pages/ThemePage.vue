@@ -20,12 +20,13 @@
                                 }
                             }"
                         >
-                            <themes-box :unit="unit" :theme-color="getThemeColor(theme)" />
+                            <themes-box :unit="unit" :theme-color="getThemeColor(theme)" :theme="theme" />
                         </router-link>
                     </div>
                 </b-col>
             </b-row>
         </div>
+        <ls-alert-activity-success></ls-alert-activity-success>
     </div>
 </template>
 
@@ -34,6 +35,7 @@ import { omit, filter } from 'lodash'
 import { mapState, mapActions, mapGetters } from 'vuex'
 import { RouteMixin } from './index'
 
+import alerts from '@/components/alerts'
 import ThemesBox from '../ui/ThemesBox'
 import Navbar from '../ui/navbars/Navbar'
 
@@ -41,6 +43,7 @@ export default {
     components: {
         ThemesBox,
         Navbar,
+        ...alerts
     },
     mixins: [RouteMixin],
     data() {
@@ -116,8 +119,6 @@ export default {
             const { module_slug } = this.$route.params
 
             if (module_slug !== 'comecar') return false
-
-            console.log('Pass')
 
             this.fetchModule(module_slug).then(_module => {
                 _module.themes.forEach((theme) => {
