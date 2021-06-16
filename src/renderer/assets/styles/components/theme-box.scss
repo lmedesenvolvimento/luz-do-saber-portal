@@ -4,6 +4,7 @@ a:hover {
 
 .theme-unit-box {
 	transition: transform 0.2s ease-in-out;
+	transform: scale(1);
 	margin: ( $spacer * 2) ($spacer * 8);
 	.header-unit {
 		display: flex;

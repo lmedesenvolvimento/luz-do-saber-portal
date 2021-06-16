@@ -23,7 +23,7 @@
                     <div class="feedback-header-item"><h5>{{ renderActivityName }}</h5></div>
                 </div>
                 <div v-if="currentShow === 'report'" key="report" class="feedback-header report">
-                    <div class="btn-back" @click="showFeedback"></div>
+                    <div v-if="!isTheme" class="btn-back" @click="showFeedback"></div>
                     <div class="feedback-header-item"><h5>Relatório de atividades</h5></div>
                     <div class="btn-close" @click="nextActivity"></div>
                 </div>
@@ -122,12 +122,14 @@ export default {
     data(){
         return {
             isVisible: false,
+            isTheme: false,
             currentShow: 'feedback',
+            moduleByPath: '',
         }
     },
     computed: {
         currentActivities() {
-            const { theme_id, unit_id, module_id } = this.activity || {theme_id: 0, unit_id: 0, module_id: 0}
+            const { theme_id, unit_id, module_id } = this.activity || this.unitClicked
             const allActivities = Object.values(this.activities)
             return allActivities.filter((a) => a.theme_id === theme_id && a.unit_id === unit_id && a.module_id === module_id)
         },
@@ -208,13 +210,16 @@ export default {
             }
         },
         renderModuleSlug(){
-            return this.activity ? this.activity.module.slug : ''
+            return this.activity ? this.activity.module.slug : this.moduleByPath
         },
         renderActivityPosition(){
             return this.activity ? this.activity.position : ''
         },
         renderActivityName(){
             return this.activity ? this.activity.title.text : ''
+        },
+        unitClicked() {
+            return this.$store.state.Alert.moduleIdClicked
         },
         ...mapState({
             isVisibleActivityAlertSuccess: state => state.Alert.isVisibleActivityAlertSuccess
@@ -229,6 +234,15 @@ export default {
             value ? this.$refs['alert-success-modal'].show() : this.$refs['alert-success-modal'].hide()
             if(value) this.showFeedback()
         },
+    },
+    mounted() {
+        if (this.$route.name === 'theme'){
+            this.isTheme = true
+            this.showReport()
+        } else if (this.$route.name === 'activity') {
+            this.isTheme = false
+        }
+        this.moduleByPath = this.$route.path.split('/')[2]
     },
     methods: {
         star: function (num) {
@@ -267,12 +281,18 @@ export default {
             this.currentShow = 'report'
         },
         showFeedback() {
-            this.currentShow = 'feedback'
+            if (!this.isTheme){
+                this.currentShow = 'feedback'
+            }
         },
         nextActivity(){
-            this.$store.dispatch('Unit/nextActivity')
-            this.destroyActivity()
-            this.onHidden()
+            if (!this.isTheme){
+                this.$store.dispatch('Unit/nextActivity')
+                this.destroyActivity()
+                this.onHidden()
+            } else {
+                this.onHidden()
+            }
         },
         triggerPlayAudioFeedback(){
             try {                

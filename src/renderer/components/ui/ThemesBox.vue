@@ -1,5 +1,6 @@
 <template>
     <div id="themes-box">
+        <div v-if="totalQuestionsComplete > 0" class="report-button btn-report" @click.prevent="showSuccess"></div>
         <b-row class="mx-4 p-2 header-unit" :style="{ backgroundColor: themeColor }"> 
             <h2 class="unit-title">{{ unit.title }}</h2>
         </b-row>
@@ -27,7 +28,7 @@
 
 <script>
 import AsyncImage from '@ui/AsyncImage'
-import { mapState, mapGetters } from 'vuex'
+import { mapActions, mapMutations, mapState, mapGetters } from 'vuex'
 import { mean, find } from 'lodash'
 
 const MAX_STARS = 3
@@ -41,6 +42,9 @@ export default {
         },
         themeColor: {
             type: String
+        },
+        theme: {
+            type: Object
         }
     },
     computed: {
@@ -64,10 +68,35 @@ export default {
             return this.completeQuestions[index] 
                 ? this.completeQuestions[index].pointings.totalStars 
                 : 0 
-        }
+        },
+        showSuccess() {
+            this.showAlertActivitySuccess(null)
+            const unit = {
+                unit_id: this.unit.id,
+                theme_id: this.unit.theme_id,
+                module_id: this.theme.modulo_id
+            }
+            this.setModuleIdClicked(unit)
+            // this.$store.dispatch('showAlertActivitySuccess', null, { root: true })
+        },
+        ...mapMutations(['setModuleIdClicked']),
+        ...mapActions(['showAlertActivitySuccess', 'hideAlertActivitySuccess']),
     }
 }
 </script>
-<style>
+<style lang="scss" scoped>
+    .btn-report {
+        @include embed_image('~@/assets/images/icons/btn-relatorio.png', 62px, 62px);
+        position: absolute;
+        top: 44px;
+        right: -13px;
+        cursor: pointer;
+        z-index: 10;
+        transition: all 0.2s;
+        &:hover {
+            filter: drop-shadow(-3px 3px 3px #fcd55d);
+            transform: scale(1.05);
+        }
+    }
 
 </style>
