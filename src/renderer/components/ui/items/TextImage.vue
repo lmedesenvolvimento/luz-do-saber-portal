@@ -6,7 +6,7 @@
             </b-col>
             <b-col>
                 <async-image
-                    :src="item.images[0].url"
+                    :src="srcImage"
                     :alt="item.text"
                     :disable-zoom="true"
                 />
@@ -21,6 +21,11 @@ import AsyncImage from "@ui/AsyncImage";
 export default {
     components: {
         AsyncImage,
+    },
+    computed: {
+        srcImage() {
+            return this.item.images[0] ? this.item.images[0].url : ''
+        }
     },
     mixins: [ItemProps],
 };
