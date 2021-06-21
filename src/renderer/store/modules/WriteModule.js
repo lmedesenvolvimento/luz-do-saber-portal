@@ -32,13 +32,13 @@ const state = {
             completed: false,
             data: {}
         },
-        gibi: {
-            key: 'gibi',
-            title: 'Gibi',
-            icon: require('@/assets/images/write-module-icon-cartao-visita.png'),
-            completed: false,
-            data: {}
-        }
+        // gibi: {
+        //     key: 'gibi',
+        //     title: 'Gibi',
+        //     icon: require('@/assets/images/write-module-icon-cartao-visita.png'),
+        //     completed: false,
+        //     data: {}
+        // }
     }
 }
 
