@@ -179,11 +179,12 @@ export default {
                 })
                 this.splitedSentence.push(writtenSentence2)
             } else { //código como estava antes
-                values.forEach(element => {    
+                values.forEach(element => {
                     let hiddenElement = {
                         text: element.text
-                    }       
-                    this.hiddenElements.push(hiddenElement)
+                    }
+                    if(element.key_id)
+                        this.hiddenElements.push(hiddenElement)
                 })
                 this.splitSentence(this.hiddenElements, this.sentence) 
                 let sentences = {
