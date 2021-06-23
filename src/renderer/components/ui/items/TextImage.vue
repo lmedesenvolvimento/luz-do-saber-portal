@@ -35,12 +35,13 @@ export default {
     display: flex;
     font-size: 34px;
     justify-content: center;
-    padding-bottom: 16px;
+    padding-bottom: 40px;
 }
 .image {
     width: 240px;
     padding-top: 8px;
     /deep/img {
+        display: flex;
         max-height: 220px;
     }
 }
