@@ -265,6 +265,18 @@ export default {
         }
     }
 
+    .key-pieces, .item {
+        .silaba {
+            &.texto {
+                .card {
+                    display: inline-block;
+                    min-width: 100px;
+                }                
+                
+            }
+        }
+    }
+
     .item {
         pointer-events: none;
     }
