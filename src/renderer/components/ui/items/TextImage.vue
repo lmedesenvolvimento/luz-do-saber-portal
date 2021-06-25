@@ -35,7 +35,7 @@ export default {
     display: flex;
     font-size: 34px;
     justify-content: center;
-    padding-bottom: 40px;
+    padding-bottom: 16px;
 }
 .image {
     width: 240px;
