@@ -41,6 +41,7 @@ export default {
     width: 240px;
     padding-top: 8px;
     /deep/img {
+        display: flex;
         max-height: 220px;
     }
 }
