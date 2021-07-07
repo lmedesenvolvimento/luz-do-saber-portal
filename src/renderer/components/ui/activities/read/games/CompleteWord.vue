@@ -253,6 +253,8 @@ export default {
 <style lang="scss">
 .complete-word {
     .key-pieces {
+        padding-right: 0.2rem !important;
+        padding-left: 0.2rem !important;
         .silaba {
             .card {
                 &.valid,
@@ -284,7 +286,7 @@ export default {
     .image {
         img {
             max-width: 400px;
-            max-height: 250px;
+            max-height: 220px;
         }
     }
 

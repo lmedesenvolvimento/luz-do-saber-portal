@@ -101,6 +101,12 @@
         .card-checkmark{
             @include custom-card($t, true);
         }
+
+        .card-input.card--draggable, .card-input.card--droppable {
+            .card-body {
+                font-size: 18px !important;
+            }
+        }
         // DECREPTED
         // .card-input.card--draggable{
         //     @include custom-card(true);
