@@ -14,8 +14,7 @@
                     <div
                         v-for="(letter, index) in keyLetters"
                         :key="index"
-                        class="item"
-                        style="margin-right: 10px"
+                        class="item key-letters"
                     >
                         <div class="letra texto" :class="activity.item_template.key.font_size">
                             <ls-card-display>
@@ -163,6 +162,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.key-letters {
+    padding: 0 .2rem;
+}
+
 .alphabet{
     .letra{
         margin: auto 8px;
