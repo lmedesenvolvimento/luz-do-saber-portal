@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   .key-syllables {
-    padding: 0 0.5rem;
+    padding: 0 0.4rem;
   }
   .image-container {
     margin: 0.5rem;
@@ -17,11 +17,11 @@
 
   .image {
     img {
-      max-width: 70px;
-      max-height: 60px;
+      max-width: 60px;
+      max-height: 50px;
     }
   }
   .activity-values {
-    max-width: 300px;
+    max-width: 265px;
   }
 }
