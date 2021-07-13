@@ -74,7 +74,7 @@
                         </div>
                     </div>
                     <div v-for="atividade in currentActivities" :key="atividade.id" class="report-table-row">
-                        <div>
+                        <div class="activity-report-title">
                             <span>{{ atividade.title.text }}</span>
                         </div>
                         <div :class="`total-${atividade.pointings.totalStars}-stars`">
