@@ -192,7 +192,7 @@
                                 border-radius: 15px!important;
                             }
                             .star {
-                                @include embed_image('~@/assets/images/components/feedback/report-star.png', 25px, 23px);
+                                @include embed_image('~@/assets/images/components/feedback/relatorio/report-star.png', 25px, 23px);
                             }
                             &.total-0-stars {
                                 .star {
