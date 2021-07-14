@@ -42,7 +42,7 @@ const mutations = {
     reset(state){
         Vue.set(state, 'activities', {})
         Vue.set(state, 'units', {})
-        Vue.set(state, 'themes', {},)
+        Vue.set(state, 'themes', {})
         Vue.set(state, 'modules', {})
     }
 }
