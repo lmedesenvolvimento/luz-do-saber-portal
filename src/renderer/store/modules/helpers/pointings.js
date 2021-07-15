@@ -14,7 +14,7 @@ export function findIndexById(state, id, type){
 }
 
 export function mapActivity(activity){
-    const result = pick(activity, ['errors', 'id', 'module_id', 'pointings', 'theme_id', 'timer', 'title', 'unit_id'])
+    const result = pick(activity, ['errors', 'id', 'module', 'module_id', 'order', 'pointings', 'theme', 'theme_id', 'timer', 'title', 'unit', 'unit_id'])
     // for(const key in result) {
     //     result[key] = observerClean(result[key])
     // }
