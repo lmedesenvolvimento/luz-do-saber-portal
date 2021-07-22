@@ -136,7 +136,8 @@ export default {
     .uppercase-letters{
         .image img {
             max-width: inherit;
-            width: 400px;
+            width: 100%;
+            max-height: inherit;
         }
         .image {
             width: 300px;
