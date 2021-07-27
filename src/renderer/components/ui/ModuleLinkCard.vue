@@ -116,6 +116,7 @@ export default {
             return total || 5
         },
         getRouterName() {
+            console.log(this.data)
             if(this.fixedModules.includes(this.data.slug)) return this.getEnglishName(this.data.slug)
             else if(!this.data.themes || this.data.themes.length > 1)
                 return 'module'
