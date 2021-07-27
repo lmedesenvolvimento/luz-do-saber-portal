@@ -33,7 +33,7 @@
                                 </a>
                                 <transition name="fader" mode="out-in">
                                     <b-row v-if="slide === 1" :key="1" class="slider1">
-                                        <div v-for="targetAudience in targetAudiences" :key="targetAudience.id" class="ml-2 mr-2">
+                                        <div v-for="targetAudience in activeTargetAudience" :key="targetAudience.id" class="ml-2 mr-2">
                                             <ModuleLinkCard
                                                 :data="targetAudience"
                                                 :image="getImage(targetAudience)"
@@ -186,6 +186,9 @@ export default {
         },
         isVisibleSubModule() {
             return Object.values(this.subModules).some((visible) => visible)
+        },
+        activeTargetAudience() {
+            return this.targetAudiences.filter(({status}) => status !== 'inactive')
         },
         ...mapState('Modules', ['modules']),
         ...mapState('User', ['currentUser'])

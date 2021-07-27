@@ -1,0 +1,6 @@
+
+# Routes
+☐ Refatorar rotas para o acesso dos temas e das unidades e suas questões
+✔ Refatorar moduleLinkCard para não fazer distinção entre o começar e o ler @done (7/27/2021, 5:57:21 PM)
+✔ Passar direto se só tiver um target_audience @done (7/27/2021, 2:08:15 PM)
+☐ Refatorar barra de progresso para não considerar unidades ou temas vazios
