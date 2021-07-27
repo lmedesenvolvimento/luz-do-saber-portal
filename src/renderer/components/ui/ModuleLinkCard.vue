@@ -56,9 +56,10 @@ export default {
         }
     },
     computed: {
+        fixedModules() {
+            return ['escrever', 'karaoke', 'biblioteca']
+        },
         getModuleImage(){
-            console.log(this.image)
-            console.log(this.data.slug)
             if (this.image) return this.image
 
             switch (this.data.slug) {
@@ -115,21 +116,15 @@ export default {
             return total || 5
         },
         getRouterName() {
-            switch (this.data.slug) {
-            case 'escrever':
-                return 'write'
-            case 'biblioteca':
-                return 'books'
-            case 'karaoke':
-                return 'karaoke'
-            default:
+            if(this.fixedModules.includes(this.data.slug)) return this.getEnglishName(this.data.slug)
+            else if(!this.data.themes || this.data.themes.length > 1)
                 return 'module'
-            }
+            else return 'theme'
         },
         getRouterParams() {
-            if(this.data.themes)
-                return { module_slug: this.data.slug, target_audience: this.data.themes[0].target_audience || 'geral' }
-            else return { module_slug: this.data.module_slug, target_audience: this.data.slug}
+            if(!this.data.themes)
+                return { module_slug: this.data.module_slug, target_audience: this.data.slug }
+            else return { module_slug: this.data.slug, target_audience: this.data.themes[0].target_audience, theme_slug: this.data.themes[0].slug }
         },
         getComecarUnitRoute() {
             return '/game/comecar/' + this.data.themes[0].slug + '/' + this.data.themes[0].slug
@@ -147,6 +142,18 @@ export default {
         getProgressThemesByModuleId(m){
             return this.$store.getters['Pointings/getThemesByModuleId'](m.id, this.targetAudience)
         },
+        getEnglishName(name) {
+            switch (name) {
+            case 'escrever':
+                return 'write'
+            case 'biblioteca':
+                return 'books'
+            case 'karaoke':
+                return 'karaoke'
+            default:
+                return 'module'
+            }
+        }
     }
 }
 </script>
