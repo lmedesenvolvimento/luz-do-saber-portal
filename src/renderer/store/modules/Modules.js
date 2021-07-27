@@ -25,8 +25,8 @@ const mutations = {
 }
 
 const actions = {
-    async fetchModule({ commit }, slug){
-        let { data } = await Http.axios.get(`/game/${slug}.json`)
+    async fetchModule({ commit }, {module_slug, target_audience}){
+        let { data } = await Http.axios.get(`/game/${module_slug}/${target_audience}.json`)
         commit('SET_ACTIVE_MODULE', data)
         return data
 

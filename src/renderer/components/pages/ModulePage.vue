@@ -66,7 +66,7 @@ export default {
     },
     created(){
         console.log(this.$route.params)
-        this.fetchModule(this.$route.params.module_slug).then(this.registerUserProgress)
+        this.fetchModule(this.$route.params).then(this.registerUserProgress)
     },
     beforeDestroy(){
         this.destroyModule()
