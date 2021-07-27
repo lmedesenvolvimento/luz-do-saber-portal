@@ -1,41 +1,30 @@
 <template>
     <div>
         <a
-            v-if="data.slug === 'ler' && !targetAudience"
+            v-if="hasMoreTargetAudience"
             class="clean-links"
-            @click="toggleVisibleLerSubModule"
+            @click="() => toggleVisibleSubModule(data.slug)"
         >
             <vue-circle
                 :label="data.title"
+                :image="getModuleImage"
                 :slug="slug"
                 :progress="getProgress"
                 :color="getModuleColor"                
             />
         </a>
         <router-link
-            v-else-if="data.slug == 'comecar'"
-            class="clean-links"
-            :to="getComecarUnitRoute"
-            replace
-        >
-            <vue-circle
-                :label="label || data.title"
-                :slug="slug"
-                :color="getModuleColor"
-                :progress="getProgress"
-            />
-        </router-link>
-        <router-link
             v-else
             class="clean-links"
             :to="{
                 name: getRouterName,
-                params: { module_slug: data.slug, target_audience: targetAudience || 'geral' }
+                params: getRouterParams
             }"
             replace
-        >
+        >   
             <vue-circle
                 :label="label || data.title"
+                :image="getModuleImage"
                 :slug="slug"
                 :color="getModuleColor"
                 :progress="getProgress"
@@ -45,7 +34,7 @@
 </template>
 
 <script>
-import { filter } from 'lodash'
+import { filter, uniqBy } from 'lodash'
 import VueCircle from '@/components/ui/CircleProgress'
 export default {
     components: { VueCircle },
@@ -53,7 +42,6 @@ export default {
         label: String,
         image: String,
         color: Object,
-        targetAudience: String,
         data: {
             type: Object,
             required: true
@@ -62,13 +50,15 @@ export default {
             type: String,
             default: 'ler'
         },
-        toggleVisibleLerSubModule: {
+        toggleVisibleSubModule: {
             type: Function,
             required: false
         }
     },
     computed: {
         getModuleImage(){
+            console.log(this.image)
+            console.log(this.data.slug)
             if (this.image) return this.image
 
             switch (this.data.slug) {
@@ -83,7 +73,7 @@ export default {
             case 'karaoke':
                 return require('@/assets/images/btn-karaoke.png')
             default:
-                return ''
+                return undefined
             }
         },
         getModuleColor(){
@@ -112,9 +102,12 @@ export default {
             }
         },
         getProgressModule(target_audience){
-            const themes = this.getProgressThemesByModuleId(this.data)
-            const total = ( filter(themes, { completed: true }).length / this.data.themes.length ) * 100
-            return  total || 5
+            if(this.data.themes) {
+                const themes = this.getProgressThemesByModuleId(this.data)
+                const total = ( filter(themes, { completed: true }).length / this.data.themes.length ) * 100
+                return  total || 5
+            } else return  5
+
         },
         getProgressLibrary(){
             const books = this.$store.getters['Books/getBooks']
@@ -133,9 +126,22 @@ export default {
                 return 'module'
             }
         },
-        getComecarUnitRoute() {
-            return this.data.themes[0].units_url + '/' + this.data.themes[0].slug
+        getRouterParams() {
+            if(this.data.themes)
+                return { module_slug: this.data.slug, target_audience: this.data.themes[0].target_audience || 'geral' }
+            else return { module_slug: this.data.module_slug, target_audience: this.data.slug}
         },
+        getComecarUnitRoute() {
+            return '/game/comecar/' + this.data.themes[0].slug + '/' + this.data.themes[0].slug
+        },
+        getTargetAudience() {
+            if(this.data.themes)
+                return uniqBy(this.data.themes.map(({ theme_audience }) => ({ ...theme_audience })), 'id').filter(({ status }) => status !== 'inactive')
+            else return []
+        },
+        hasMoreTargetAudience() {
+            return this.getTargetAudience.length > 1
+        }
     },
     methods: {
         getProgressThemesByModuleId(m){
