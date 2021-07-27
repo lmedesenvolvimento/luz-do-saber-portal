@@ -136,6 +136,7 @@ export default {
 
 <style lang="scss"> 
     .accentuation-item {
+        align-items: center;
         margin: 5px 0 5px 0;
     } 
 
