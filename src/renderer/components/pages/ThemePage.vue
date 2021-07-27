@@ -120,7 +120,7 @@ export default {
 
             if (module_slug !== 'comecar') return false
 
-            this.fetchModule(module_slug).then(_module => {
+            this.fetchModule(this.$route.params).then(_module => {
                 _module.themes.forEach((theme) => {
                     const units = this.getProgressUnitsByThemeId(theme)
                     const completed = filter(units, { completed: true }).length === theme.units.length
