@@ -1,7 +1,7 @@
 <template>
     <div id="dragging-syllables" class="container-fluid">
         <b-container>
-            <b-row align-h="center" align-v="center" class="flex-nowrap">
+            <b-row align-h="center" align-v="center" class="flex-nowrap flex-column">
                 <b-col class="activity-values" md="auto">
                     <ls-card-display id="values-container-display">
                         <b-row class="values-container" align-h="center">
