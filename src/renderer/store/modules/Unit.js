@@ -25,7 +25,8 @@ const mutations = {
 
 const actions = {
     async fetchUnit({ commit }, params){
-        let { data } = await Http.axios.get(`/game/${params.module_slug}/${params.theme_slug}/${params.unit_slug}.json`)
+        console.log(params)
+        let { data } = await Http.axios.get(`/game/${params.module_slug}/${params.target_audience}/${params.theme_slug}/${params.unit_slug}.json`)
         commit('SET_UNIT', data)
         commit('SET_NAVIGATOR_PARAMS', params)
     },
