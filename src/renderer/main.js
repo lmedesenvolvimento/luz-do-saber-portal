@@ -31,6 +31,7 @@ Vue.config.productionTip = false
 
 Vue.prototype.Splitting = Splitting
 Vue.prototype.$context = process.env.CONTEXT || 'fundamental'
+Vue.prototype.$isProduction = process.env.NODE_ENV === 'production'
 
 asyncAxios(({ GA }) => {
     Assets.loadCache()

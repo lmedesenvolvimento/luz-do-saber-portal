@@ -98,6 +98,9 @@ export default {
             firstClick: true
         }
     },
+    computed: {
+        ...mapState('User', ['currentUser'])
+    },
     created() {
         this.cards = this.createArray(this.activity.items)
         this.createAnswersArray()
@@ -124,6 +127,10 @@ export default {
         },
         createArray(items) {
             let cards = []
+            let friends = Object.values(this.currentUser.friends)
+
+            const isFriends = friends.reduce((acc, friend) => acc && items.keys.findIndex((item) => item.text.toUpperCase() === friend.name.toUpperCase()) >= 0, true)
+
 
             let values = items.keys.map(function(k) {
                 let { id, text, images, value_ids } = k
@@ -132,7 +139,10 @@ export default {
             })
 
             let values2 = items.values.map(function(k) {
-                let { id, images, key_id, first_letter } = k
+                let { id, images, text, key_id, first_letter } = k
+                if (isFriends) {
+                    images = [{ url: friends.find(({ name }) => name.toUpperCase() === text.toUpperCase()).imgSrc }]
+                }
                 let aux = {
                     id,
                     value: images,

@@ -65,7 +65,8 @@ export default {
         ...mapState('Modules', ['activeModule'])
     },
     created(){
-        this.fetchModule(this.$route.params.module_slug).then(this.registerUserProgress)
+        console.log(this.$route.params)
+        this.fetchModule(this.$route.params).then(this.registerUserProgress)
     },
     beforeDestroy(){
         this.destroyModule()

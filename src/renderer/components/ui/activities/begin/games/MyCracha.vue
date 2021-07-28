@@ -34,6 +34,7 @@
     </div>
 </template>
 <script>
+import { mapState, mapActions } from 'vuex'
 import { MapMixins, ListMixin, CreateAnswersMixins } from '@ui/activities/mixins'
 import FormProps from '@ui/form'
 import Vue from 'vue'
@@ -62,6 +63,7 @@ export default {
             this.userName = this.getKeys[0]
     },
     methods: {
+        ...mapActions('Activity', ['triggerSuccess']),
         handleFileUpload(index) {
             let file = this.$refs[`file${index}`].files[0]
             let reader = new FileReader()
@@ -70,6 +72,7 @@ export default {
                 Vue.set(this.userName, 'imgSrc',e.target.result)
                 //adicionando o background liso após a foto ser carregada
                 this.$refs['imgContainer'].classList.add('grey-bg')
+                setTimeout(this.triggerSuccess, 400)
             }
             reader.onerror = function(error) {
                 console.log(error)

@@ -118,7 +118,8 @@ const actions = {
             const { 
                 module_slug, 
                 theme_slug, 
-                unit_slug, 
+                target_audience,
+                unit_slug,
                 position 
             } = payload.params
 
@@ -127,6 +128,7 @@ const actions = {
             const req = [
                 '/game',
                 module_slug,
+                target_audience,
                 theme_slug,
                 unit_slug,
                 `${position}.json`
