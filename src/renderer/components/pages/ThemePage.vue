@@ -63,7 +63,6 @@ export default {
             return correctThemeName
         },
         getUnits() {
-            console.log(this.theme.units)
             if (!this.theme.units)
                 return []
             return this.theme.units.filter((u) => u.status === 'active')
@@ -82,6 +81,7 @@ export default {
 
     },
     created(){
+        console.log(this.$route.params)
         this.fetchTheme(this.$route.params).then(this.registerUserProgress)
     },
     beforeDestroy(){
@@ -120,7 +120,7 @@ export default {
 
             if (module_slug !== 'comecar') return false
 
-            this.fetchModule(module_slug).then(_module => {
+            this.fetchModule(this.$route.params).then(_module => {
                 _module.themes.forEach((theme) => {
                     const units = this.getProgressUnitsByThemeId(theme)
                     const completed = filter(units, { completed: true }).length === theme.units.length

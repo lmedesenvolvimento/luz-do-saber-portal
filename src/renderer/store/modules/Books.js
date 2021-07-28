@@ -58,7 +58,7 @@ const getters = {
 
 const convertBooksToHashMap = books => {
     let payload = {}
-    books.forEach(b => {
+    books && books.forEach(b => {
         const ref = uniqid()
         b.ref = ref
         payload[ref] = b
