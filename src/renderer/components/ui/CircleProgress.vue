@@ -13,7 +13,8 @@
 
             <div class="radial-container">
                 <div class="img-container" :style="{'background-color': color.color }">
-                    <figure>
+                    <async-image v-if="image" :src="image" :alt="image" class="img-fluid"></async-image>
+                    <figure v-else>
                         <div class="image" :class="slug" :title="label"></div>
                     </figure>
                 </div>
@@ -38,14 +39,17 @@
 
 <script>
 import VueCircle from 'vue2-circle-progress'
+import AsyncImage from '@ui/AsyncImage'
 
 export default {
     components: {
+        AsyncImage,
         VueCircle
     },
     props: {
         label: String,
         slug: String,
+        image: String,
         color: Object,
         progress: {
             type: Number,
