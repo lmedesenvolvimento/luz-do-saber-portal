@@ -12,7 +12,7 @@ const mutations = {
 
 const actions = {
     async fetchTheme({ commit }, params){
-        let { data } = await Http.axios.get(`/game/${params.module_slug}/${params.theme_slug}.json`)
+        let { data } = await Http.axios.get(`/game/${params.module_slug}/${params.target_audience}/${params.theme_slug}.json`)
         commit('SET_THEME',data)
         return data
     },

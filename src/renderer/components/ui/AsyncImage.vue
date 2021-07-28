@@ -5,11 +5,11 @@
             <div v-else>
                 <viewer v-if="!disableZoom" :options="viewerOpts">
                     <slot name="image">
-                        <img :src="src" :alt="[alt ? altImage(alt) : altImage(src)]" />
+                        <img :src="computedSrc" :alt="[alt ? altImage(alt) : altImage(src)]" />
                     </slot>
                 </viewer>
                 <slot v-else name="image">
-                    <img :src="src" />
+                    <img :src="computedSrc" />
                 </slot>
             </div>
         </transition>
@@ -36,12 +36,19 @@ export default {
             viewerOpts
         }
     },      
+    computed: {
+        computedSrc() {
+            // if(this.$isProduction)
+            return this.src
+            // else return this.src.split('/')[1] === 'system' ? `http://localhost:3000${this.src}` : this.src
+        }
+    },
     mounted(){
         const image = new Image()
         image.onload = event => {
             return this.ready = true
         }
-        image.src = this.src
+        image.src = this.computedSrc
     },
     methods: {
         altImage: function(src){
