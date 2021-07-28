@@ -14,7 +14,7 @@
                         <div v-else-if="!isAuthorized" key="login">
                             <SignupForm :on-submit="onSubmit" />
                         </div>
-                        <div v-else-if="isAuthorized && !isVisibleLerSubModule" key="frontpage-modules">
+                        <div v-else-if="isAuthorized && !isVisibleSubModule" key="frontpage-modules">
                             <b-row align-v="center" class="justify-space-evenly">
                                 <div class="icon-exit" @click="showExitModal"></div>
                                 <ModuleLinkCard
@@ -22,28 +22,28 @@
                                     :key="m.id"
                                     :slug="m.slug"
                                     :data="m"
-                                    :toggle-visible-ler-sub-module="toggleVisibleLerSubModule"
+                                    :toggle-visible-sub-module="toggleVisibleSubModule"
                                 />                                
                             </b-row>
                         </div>
-                        <div v-else-if="isAuthorized && isVisibleLerSubModule" key="frontpage-ler">
+                        <div v-else-if="isAuthorized && isVisibleSubModule" key="frontpage-ler">
                             <b-row align-v="center" align-h="center">
                                 <a v-if="$context === 'more-than-five'" class="d-block btn margin-prev" :class="{disabled : slide===1}" @click="clickPrev">
                                     <b-img center :src="require('@/assets/images/icons/escrever/icon-prev.png')" width="61" height="61" />
                                 </a>
                                 <transition name="fader" mode="out-in">
                                     <b-row v-if="slide === 1" :key="1" class="slider1">
-                                        <div class="ml-2 mr-2">
+                                        <div v-for="targetAudience in activeTargetAudience" :key="targetAudience.id" class="ml-2 mr-2">
                                             <ModuleLinkCard
-                                                :data="read"
-                                                :image="require('@/assets/images/btn-first-year.png')"
-                                                :color="{ color: '#00963F' }"
-                                                :label="$context === 'eja' ? 'Ciclo EJA' : '1º Ano'"
-                                                slug="ler-1"
-                                                target-audience="primeiro-ano"
+                                                :data="targetAudience"
+                                                :image="getImage(targetAudience)"
+                                                :color="getColor(targetAudience)"
+                                                :label="targetAudience.title"
+                                                :slug="targetAudience.slug"
+                                                :target-audience="targetAudience.slug"
                                             />
                                         </div>
-                                        <div v-if="$context === 'fundamental'" class="ml-2 mr-2">
+                                        <!-- <div v-if="$context === 'fundamental'" class="ml-2 mr-2">
                                             <ModuleLinkCard
                                                 :data="read"
                                                 :image="require('@/assets/images/btn-first-year.png')"
@@ -93,7 +93,7 @@
                                                 slug="ler-3"
                                                 target-audience="terceiro-ano-complementar"
                                             />
-                                        </div>
+                                        </div> -->
                                     </b-row>
                                     <b-row v-else :key="2" class="slider2">
                                         <!-- <div v-if="$context === 'fundamental'" class="ml-2 mr-2">
@@ -133,7 +133,7 @@
                                     <b-img center :src="require('@/assets/images/icons/escrever/icon-next.png')" width="61" height="61" />
                                 </a>
                                 <b-col cols="12" class="my-1">
-                                    <a class="d-block btn" @click="toggleVisibleLerSubModule">
+                                    <a class="d-block btn" @click="hideSubModule">
                                         <b-img center :src="require('@/assets/images/btn-close.png')" width="61" height="61" />
                                     </a>
                                 </b-col>
@@ -147,7 +147,8 @@
     </div>
 </template>
 <script>
-import { find, filter } from 'lodash'
+import { find, uniqBy } from 'lodash'
+import Vue from 'vue'
 import { mapActions, mapState } from 'vuex'
 import alerts from '@/components/alerts'
 
@@ -166,13 +167,14 @@ export default {
     },
     data(){
         return {
-            isVisibleLerSubModule: false,
+            subModules: {},
             user: { name: '' },
             canStart: false,
             read: null,
             loading: false,
             isExitModalVisible: false,
-            slide: 1
+            slide: 1,
+            targetAudiences: []
         }
     },
     computed: {
@@ -182,6 +184,12 @@ export default {
         isLoading(){
             return this.loading
         },
+        isVisibleSubModule() {
+            return Object.values(this.subModules).some((visible) => visible)
+        },
+        activeTargetAudience() {
+            return this.targetAudiences.filter(({status}) => status !== 'inactive')
+        },
         ...mapState('Modules', ['modules']),
         ...mapState('User', ['currentUser'])
     },
@@ -190,7 +198,6 @@ export default {
             this.getModules()
         }
     },
-    mounted() {},
     methods: {
         clickPrev() {
             if(this.slide === 2) {
@@ -211,20 +218,37 @@ export default {
         onSubmit(){
             this.getModules()
         },
-        toggleVisibleLerSubModule(){
-            this.isVisibleLerSubModule = !this.isVisibleLerSubModule
+        toggleVisibleSubModule(module){
+            Vue.set(this.subModules, module, true)
+            this.fetchTargetAudiences(module).then(({ theme_audiences}) => this.targetAudiences = uniqBy(theme_audiences.map((el) => ({ ...el, module_slug: module})), 'id'))
+        },
+        hideSubModule() {
+            for(const module in this.subModules) {
+                this.subModules[module] = false
+            }
         },
         getModules() {
             this.loading = true
             this.fetchModules().then(({ modulos }) => {
                 this.read = find(modulos, { slug: 'ler' })
-                this.modules.pop()
                 setTimeout(() => {
                     this.loading = false
                 }, 3000)
             })
         },
-        ...mapActions('Modules',['fetchModules']),
+        getColor(targetAudience) {
+            switch (targetAudience.module_slug) {
+            case 'ler':
+                return { color: '#00963F' }
+            default:
+                return { color: '#fff' }
+            }
+        },
+        getImage(targetAudience) {
+            console.log(targetAudience.cover_full_url)
+            return targetAudience.cover_full_url
+        },
+        ...mapActions('Modules',['fetchModules', 'fetchTargetAudiences']),
         ...mapActions('User',['createUserDatabase', 'destroyUserDatabase']),
     }
 }
