@@ -25,18 +25,22 @@ const mutations = {
 }
 
 const actions = {
-    async fetchModule({ commit }, slug){
-        let { data } = await Http.axios.get(`/game/${slug}.json`)
+    async fetchModule({ commit }, {module_slug, target_audience}){
+        let { data } = await Http.axios.get(`/game/${module_slug}/${target_audience}.json`)
         commit('SET_ACTIVE_MODULE', data)
         return data
 
     },
+
+    async fetchTargetAudiences(state, slug) {
+        console.log(slug)
+        let { data } = await Http.axios.get(`/game/${slug}.json`)
+        return data
+    },
+
     async fetchModules({ commit }){
         let { data } = await Http.axios.get('/game.json')
         
-        // remover quando o novo módulo vinher do servidor
-        data.modulos.push(karaokeModule)
-
         commit('SET_MODULES', data.modulos)
         return data
     },
