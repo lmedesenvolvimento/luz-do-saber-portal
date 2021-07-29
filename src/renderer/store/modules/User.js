@@ -30,14 +30,15 @@ const actions = {
     createUserDatabase({ commit, dispatch }, payload){
         let snapshot = db.value()
         const path = Vue.$cookies.get('redirectPath')
-
         if (snapshot.data && !snapshot.data.name) {
             db.set('data.name', payload.name).write()
+            db.set('data.code', payload.code).write()
 
             commit('SET_USER', db.value())
             
             // Update Cookies
             Vue.$cookies.set('userName', payload.name)
+            Vue.$cookies.set('userCode', payload.code)
 
             // Redirects
             if (path) {
@@ -84,7 +85,7 @@ const actions = {
         // delete cookies
         Vue.$cookies.remove('userName')
         // go to first
-        router.replace({ name: 'home-page'}) 
+        // router.replace({ name: 'home-page'}) 
     },
 
     recoveryUserDatabase({ commit, dispatch }){
