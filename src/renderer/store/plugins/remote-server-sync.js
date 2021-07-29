@@ -9,6 +9,7 @@ const persistRemote = debounce(function(mutation, state) {
 
     Http.axios.post('/game/user_game', {
         name: data.name,
+        code: data.code,
         unique_session_id: data.unique_sessison_id,
         game: pointings
     })
