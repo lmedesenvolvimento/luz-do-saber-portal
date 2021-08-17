@@ -1,7 +1,7 @@
 <template>
     <div>
         <a
-            v-if="hasMoreTargetAudience"
+            v-if="!isTargetAudience && hasMoreTargetAudience"
             class="clean-links"
             @click="() => toggleVisibleSubModule(data.slug)"
         >
@@ -116,27 +116,31 @@ export default {
             return total || 5
         },
         getRouterName() {
-            console.log(this.data)
             if(this.fixedModules.includes(this.data.slug)) return this.getEnglishName(this.data.slug)
-            else if(!this.data.themes || this.data.themes.length > 1)
+            else if(!this.data.themes || this.hasMoreTargetAudience)
                 return 'module'
             else return 'theme'
         },
         getRouterParams() {
-            if(!this.data.themes)
+            if(this.hasMoreTargetAudience)
                 return { module_slug: this.data.module_slug, target_audience: this.data.slug }
+            else if(this.isTargetAudience) return { module_slug: this.data.module_slug, target_audience: this.data.slug, theme_slug: this.data.themes[0].slug }
             else return { module_slug: this.data.slug, target_audience: this.data.themes[0].target_audience, theme_slug: this.data.themes[0].slug }
         },
         getComecarUnitRoute() {
             return '/game/comecar/' + this.data.themes[0].slug + '/' + this.data.themes[0].slug
         },
         getTargetAudience() {
-            if(this.data.themes)
+            if(this.data.themes && this.data.themes.some((t) => t.theme_audience))
                 return uniqBy(this.data.themes.map(({ theme_audience }) => ({ ...theme_audience })), 'id').filter(({ status }) => status !== 'inactive')
+            else if (this.data.themes.some((t) => t.theme_audience_id)) return this.data.themes
             else return []
         },
         hasMoreTargetAudience() {
             return this.getTargetAudience.length > 1
+        },
+        isTargetAudience() {
+            return this.data.themes.some((t) => t.theme_audience_id)
         }
     },
     methods: {

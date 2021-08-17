@@ -53,8 +53,8 @@ export default {
 
             if(!this.activeModule) return
 
-            if (params.target_audience !== 'geral'){
-                return filter(this.activeModule.themes, { target_audience: params.target_audience, status: 'active' })
+             if (params.target_audience !== 'geral'){                
+                return this.activeModule.themes.filter(({theme_audience, status}) => status === 'active' && theme_audience.slug === params.target_audience)
             } else {
                 return filter(this.activeModule.themes, { status: 'active'})
             }
@@ -65,7 +65,6 @@ export default {
         ...mapState('Modules', ['activeModule'])
     },
     created(){
-        console.log(this.$route.params)
         this.fetchModule(this.$route.params).then(this.registerUserProgress)
     },
     beforeDestroy(){

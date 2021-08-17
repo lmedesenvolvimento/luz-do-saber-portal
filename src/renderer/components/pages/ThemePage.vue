@@ -81,7 +81,6 @@ export default {
 
     },
     created(){
-        console.log(this.$route.params)
         this.fetchTheme(this.$route.params).then(this.registerUserProgress)
     },
     beforeDestroy(){
