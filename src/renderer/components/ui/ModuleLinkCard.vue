@@ -120,17 +120,26 @@ export default {
         },
         getRouterName() {
             if(this.fixedModules.includes(this.data.slug)) return this.getEnglishName(this.data.slug)
+<<<<<<< HEAD
             else if(!this.data.themes || this.hasMoreTargetAudience || this.hasMoreThemes)
+=======
+            else if(!this.data.themes || this.hasMoreTargetAudience)
+>>>>>>> ec460b47 (Merged in fix/module-routes-history (pull request #290))
                 return 'module'
             else return 'theme'
         },
         getRouterParams() {
             if(this.hasMoreTargetAudience)
                 return { module_slug: this.data.module_slug, target_audience: this.data.slug }
+<<<<<<< HEAD
             else if(this.isTargetAudience && this.data.themes) return { module_slug: this.data.module_slug, target_audience: this.data.slug, theme_slug: this.data.themes[0].slug }
             else if(this.hasMoreThemes && this.data.themes) return { module_slug: this.data.slug, target_audience: this.data.themes[0].target_audience }
             else if(this.data.themes) return { module_slug: this.data.slug, target_audience: this.data.themes[0].target_audience, theme_slug: this.data.themes[0].slug }
             else return false
+=======
+            else if(this.isTargetAudience) return { module_slug: this.data.module_slug, target_audience: this.data.slug, theme_slug: this.data.themes[0].slug }
+            else return { module_slug: this.data.slug, target_audience: this.data.themes[0].target_audience, theme_slug: this.data.themes[0].slug }
+>>>>>>> ec460b47 (Merged in fix/module-routes-history (pull request #290))
         },
         getComecarUnitRoute() {
             return '/game/comecar/' + this.data.themes[0].slug + '/' + this.data.themes[0].slug
@@ -138,7 +147,11 @@ export default {
         getTargetAudience() {
             if(this.data.themes && this.data.themes.some((t) => t.theme_audience))
                 return uniqBy(this.data.themes.map(({ theme_audience }) => ({ ...theme_audience })), 'id').filter(({ status }) => status !== 'inactive')
+<<<<<<< HEAD
             else if (this.data.themes && this.data.themes.some((t) => t.theme_audience_id)) return this.data.themes
+=======
+            else if (this.data.themes.some((t) => t.theme_audience_id)) return this.data.themes
+>>>>>>> ec460b47 (Merged in fix/module-routes-history (pull request #290))
             else return []
         },
         hasMoreThemes() {
@@ -148,9 +161,14 @@ export default {
             return this.getTargetAudience.length > 1
         },
         isTargetAudience() {
+<<<<<<< HEAD
             return !!this.data.themes ? this.data.themes.some((t) => t.theme_audience_id) : false
         },
         ...mapGetters('Pointings',['getThemesByModuleId'])
+=======
+            return this.data.themes.some((t) => t.theme_audience_id)
+        }
+>>>>>>> ec460b47 (Merged in fix/module-routes-history (pull request #290))
     },
     methods: {
         getProgressThemesByModuleId(m){
