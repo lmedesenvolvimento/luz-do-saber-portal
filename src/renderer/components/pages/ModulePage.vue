@@ -53,11 +53,7 @@ export default {
 
             if(!this.activeModule) return
 
-<<<<<<< HEAD
-            if (params.target_audience !== 'geral'){                
-=======
-             if (params.target_audience !== 'geral'){                
->>>>>>> ec460b47 (Merged in fix/module-routes-history (pull request #290))
+            if (params.target_audience !== 'geral'){
                 return this.activeModule.themes.filter(({theme_audience, status}) => status === 'active' && theme_audience.slug === params.target_audience)
             } else {
                 return filter(this.activeModule.themes, { status: 'active'})
