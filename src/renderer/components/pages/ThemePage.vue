@@ -78,6 +78,7 @@ export default {
         },
         ...mapState('Theme', ['theme']),
         ...mapState('Pointings', ['units']),
+        ...mapGetters('Pointings',['getPointingsActivitiesByUnitId', 'getUnitsByThemeId'])
 
     },
     created(){
@@ -99,14 +100,21 @@ export default {
                 break
             }
         },
+        calculatePercentage(sample, total) {
+            const percent = sample / total
+            return Math.floor(percent * 100)
+        },
         registerUserProgress(theme){
             theme.units.forEach((unit) => {
                 const activities = this.getActivitiesProgressByUnitId(unit)
-                const completed = activities.length === unit.questions.length
+                const completed = unit.questions.length > 0 ? activities.length === unit.questions.length : false
+                const percentage = unit.questions.length > 0 ? this.calculatePercentage(activities.length, unit.questions.length) : 100
                 const payload = {
                     data: {
                         ...omit(unit, ['questions']),
-                        completed
+                        questions: unit.questions.map(({ id, order }) => ({ id, order })),
+                        completed,
+                        percentage
                     },
                     type: 'units',
                 }
@@ -115,18 +123,22 @@ export default {
             this.registerReadProgress()
         },
         registerReadProgress(){
-            const { module_slug } = this.$route.params
+            // const { module_slug } = this.$route.params
 
-            if (module_slug !== 'comecar') return false
+            // if (module_slug !== 'comecar') return false
 
             this.fetchModule(this.$route.params).then(_module => {
-                _module.themes.forEach((theme) => {
+                console.log(_module)
+                _module.themes.forEach((theme) => {                    
                     const units = this.getProgressUnitsByThemeId(theme)
-                    const completed = filter(units, { completed: true }).length === theme.units.length
+                    const unitsWithActivities = units.filter(({ questions }) => questions.length > 0)
+                    const completed = unitsWithActivities.findIndex(({ completed }) => !completed) < 0
+                    const totalPercentage = units.reduce((acc, { percentage }) => acc + percentage, 0) / units.length
                     const payload = {
                         data: {
                             ...omit(theme, ['units']),
-                            completed
+                            completed,
+                            percentage : Math.floor(totalPercentage)
                         },
                         type: 'themes',
                     }
@@ -135,10 +147,10 @@ export default {
             })
         },
         getActivitiesProgressByUnitId(unit){
-            return this.$store.getters['Pointings/getPointingsActivitiesByUnitId'](unit.id)
+            return this.getPointingsActivitiesByUnitId(unit.id)
         },
         getProgressUnitsByThemeId(theme){
-            return this.$store.getters['Pointings/getUnitsByThemeId'](theme.id)
+            return this.getUnitsByThemeId(theme.id)
         },
         ...mapActions('Theme', ['fetchTheme','destroyTheme']),
         ...mapActions('Modules', ['fetchModule']),

@@ -36,6 +36,8 @@
 <script>
 import { filter, uniqBy } from 'lodash'
 import VueCircle from '@/components/ui/CircleProgress'
+
+import { mapGetters } from 'vuex'
 export default {
     components: { VueCircle },
     props: {
@@ -102,7 +104,8 @@ export default {
                 return this.getProgressModule
             }
         },
-        getProgressModule(target_audience){
+        getProgressModule(){
+            console.log(this.data)
             if(this.data.themes) {
                 const themes = this.getProgressThemesByModuleId(this.data)
                 const total = ( filter(themes, { completed: true }).length / this.data.themes.length ) * 100
@@ -141,11 +144,12 @@ export default {
         },
         isTargetAudience() {
             return this.data.themes.some((t) => t.theme_audience_id)
-        }
+        },
+        ...mapGetters('Pointings',['getThemesByModuleId'])
     },
     methods: {
         getProgressThemesByModuleId(m){
-            return this.$store.getters['Pointings/getThemesByModuleId'](m.id, this.targetAudience)
+            return this.getThemesByModuleId(m.id, this.targetAudience)
         },
         getEnglishName(name) {
             switch (name) {
