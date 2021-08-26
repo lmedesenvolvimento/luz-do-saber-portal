@@ -76,6 +76,9 @@ export default {
         themeImage(){
             return this.theme.cover_url ? this.theme.cover_url : ''
         },
+        fixedModules() {
+            return ['escrever', 'karaoke', 'livros']
+        },
         ...mapState('Theme', ['theme']),
         ...mapState('Pointings', ['units']),
         ...mapGetters('Pointings',['getPointingsActivitiesByUnitId', 'getUnitsByThemeId'])
@@ -125,11 +128,12 @@ export default {
         registerReadProgress(){
             // const { module_slug } = this.$route.params
 
-            // if (module_slug !== 'comecar') return false
-
             this.fetchModule(this.$route.params).then(_module => {
-                console.log(_module)
-                _module.themes.forEach((theme) => {                    
+                _module.themes.forEach((theme) => {
+                    // fixed modules não tem atividades, logo, não tem progresso
+                    if(this.fixedModules.includes(theme.slug)) {
+                        return false
+                    }
                     const units = this.getProgressUnitsByThemeId(theme)
                     const unitsWithActivities = units.filter(({ questions }) => questions.length > 0)
                     const completed = unitsWithActivities.findIndex(({ completed }) => !completed) < 0

@@ -105,11 +105,11 @@ export default {
             }
         },
         getProgressModule(){
-            console.log(this.data)
             if(this.data.themes) {
                 const themes = this.getProgressThemesByModuleId(this.data)
-                const total = ( filter(themes, { completed: true }).length / this.data.themes.length ) * 100
-                return  total || 5
+                const percentage = themes.reduce((acc, { percentage }) => percentage ? acc + percentage : acc + 0, 0) / this.data.themes.length
+                // const total = ( filter(themes, { completed: true }).length / this.data.themes.length ) * 100
+                return  percentage > 5 ? percentage : 5
             } else return  5
 
         },

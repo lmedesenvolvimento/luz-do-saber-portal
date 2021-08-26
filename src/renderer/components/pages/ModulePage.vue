@@ -102,8 +102,10 @@ export default {
         }, 
         getProgressTheme(theme){
             const units = this.getProgressUnitsByThemeId(theme)
-            const total = ( filter(units, { completed: true }).length / theme.units.length ) * 100
-            return  total || 5
+            console.log('unidades: ', units)
+            // const total = ( filter(units, { completed: true }).length / theme.units.length ) * 100
+            const percentage = units.reduce((acc, { percentage }) => percentage ? acc + percentage : acc + 0, 0) / theme.units.length
+            return  percentage > 5 ? percentage : 5
         },
         registerUserProgress(_module){
             _module.themes.forEach((theme) => {

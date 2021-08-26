@@ -98,7 +98,6 @@ const getters = {
     },
     getThemesByModuleId (state) {
         return (id, target_audience) => {
-            console.log(state.themes)
             const response = chain(state.themes)
                 .values()
                 .filter({ modulo_id: id })

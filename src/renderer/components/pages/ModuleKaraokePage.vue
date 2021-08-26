@@ -154,8 +154,8 @@ export default {
     },
     async created() {
         await this.getKaraokes()
+        console.log(this.karaokesData)
         this.karaokesData.map(async (el)=> {
-            console.log(this.removeUrlParameters(el.audio))
             const obj = {
                 title: el.title,
                 arstist: '',
@@ -202,7 +202,7 @@ export default {
             this.$set(this, 'progress', progress * 100)
         },
         async getKaraokes(){
-            let { data } = await Http.axios.get('https://editorluzdosaber.seduc.ce.gov.br/game/karaoke')
+            let { data } = await Http.axios.get('https://editorluzdosaber.seduc.ce.gov.br/game/karaoke/geral')
             this.karaokesData = data.karaokes
         },
         removeUrlParameters(url) {
