@@ -135,12 +135,8 @@ export default {
         toggleVisibleSubModule(module){
             Vue.set(this.subModules, module, true)
             this.fetchTargetAudiences(module).then(({ theme_audiences}) => {
-<<<<<<< HEAD
                 this.targetAudiences = uniqBy(theme_audiences.map((el) => ({ ...el, module_slug: module})), 'id').filter(({status}) => status !== 'inactive').sort(this.sortByOrder)
                 console.log(this.targetAudiences)
-=======
-                this.targetAudiences = uniqBy(theme_audiences.map((el) => ({ ...el, module_slug: module})), 'id').filter(({status}) => status !== 'inactive')
->>>>>>> ec460b47 (Merged in fix/module-routes-history (pull request #290))
                 this.hasPagination = this.targetAudiences.length > 5
                 this.pagination = this.divideInPages(this.targetAudiences, 5, 4)
             })
@@ -179,13 +175,10 @@ export default {
             }
             return [itemArray]
         },
-<<<<<<< HEAD
         sortByOrder(a, b) {
             return a.order - b.order
 
         },
-=======
->>>>>>> ec460b47 (Merged in fix/module-routes-history (pull request #290))
         getImage(targetAudience) {
             return targetAudience.cover_full_url
         },
