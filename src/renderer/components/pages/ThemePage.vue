@@ -136,7 +136,7 @@ export default {
                     }
                     const units = this.getProgressUnitsByThemeId(theme)
                     const unitsWithActivities = units.filter(({ questions }) => questions.length > 0)
-                    const completed = unitsWithActivities.findIndex(({ completed }) => !completed) < 0
+                    const completed = unitsWithActivities.length > 0 ? unitsWithActivities.every(({ completed }) => completed) : false
                     const totalPercentage = units.reduce((acc, { percentage }) => acc + percentage, 0) / units.length
                     const payload = {
                         data: {

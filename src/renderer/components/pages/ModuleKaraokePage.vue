@@ -154,7 +154,6 @@ export default {
     },
     async created() {
         await this.getKaraokes()
-        console.log(this.karaokesData)
         this.karaokesData.map(async (el)=> {
             const obj = {
                 title: el.title,

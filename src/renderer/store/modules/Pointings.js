@@ -50,6 +50,7 @@ const mutations = {
 const actions = {
     add({ commit, dispatch }, payload){
         const { data, type } = payload
+        if (type === 'units' && data.percentage < 0) return false
         if (!findById(state, data.id, type)) {
             return commit('add', payload)
         }
@@ -57,6 +58,7 @@ const actions = {
     },
     update({ commit }, payload) {
         const { data, type } = payload
+        if (type === 'units' && data.percentage < 0) return false
         const indexOf = findIndexById(state, data.id, type)
         const uid = keys(state[type])[indexOf]
         commit('update', { ...payload, uid })

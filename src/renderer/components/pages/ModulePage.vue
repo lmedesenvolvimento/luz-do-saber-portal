@@ -102,7 +102,6 @@ export default {
         }, 
         getProgressTheme(theme){
             const units = this.getProgressUnitsByThemeId(theme)
-            console.log('unidades: ', units)
             // const total = ( filter(units, { completed: true }).length / theme.units.length ) * 100
             const percentage = units.reduce((acc, { percentage }) => percentage ? acc + percentage : acc + 0, 0) / theme.units.length
             return  percentage > 5 ? percentage : 5
