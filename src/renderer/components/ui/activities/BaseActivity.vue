@@ -2,28 +2,7 @@
     <div id="base">
         <div v-if="isActivity || isJoinActivity" class="activity">
             <ls-activity-default
-                v-if="activitySubtypes.row === activity.subtype.slug"
-                :value-col-size="valueColSize"
-                :key-col-size="keyColSize"
-            />
-            <ls-activity-default
-                v-else-if="activitySubtypes.rowReverse === activity.subtype.slug"
-                :value-col-size="valueColSize"
-                :key-col-size="keyColSize"
-                :reverse="true"
-            />
-            <ls-activity-default
-                v-else-if="activitySubtypes.column === activity.subtype.slug"
-                :value-col-size="valueColSize"
-                :key-col-size="keyColSize"
-                :horizontal="false"
-            />
-            <ls-activity-default
-                v-else-if="activitySubtypes.columnReverse === activity.subtype.slug"
-                :value-col-size="valueColSize"
-                :key-col-size="keyColSize"
-                :horizontal="false"
-                :reverse="true"
+                v-bind="activityProps"
             />
         </div>
         <div v-else-if="isQuestionnaire" class="activity">
@@ -241,6 +220,15 @@ export default {
         },
         valueColSize(){
             return Math.abs(TOTAL_COLUMNS / this.activity.item_template.value.total_per_line)
+        },
+        activityProps(){
+            const [ _, direction, reverse ] = this.activity.subtype.slug.split('-')
+            return {
+                valueColSize: this.valueColSize,
+                keyColSize: this.keyColSize,
+                horizontal: direction === 'linha',
+                reverse: reverse === 'reverso'
+            }
         },
         ...mapState('Activity', ['activity'])
     }
