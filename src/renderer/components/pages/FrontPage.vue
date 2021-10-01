@@ -135,7 +135,8 @@ export default {
         toggleVisibleSubModule(module){
             Vue.set(this.subModules, module, true)
             this.fetchTargetAudiences(module).then(({ theme_audiences}) => {
-                this.targetAudiences = uniqBy(theme_audiences.map((el) => ({ ...el, module_slug: module})), 'id').filter(({status}) => status !== 'inactive')
+                this.targetAudiences = uniqBy(theme_audiences.map((el) => ({ ...el, module_slug: module})), 'id').filter(({status}) => status !== 'inactive').sort(this.sortByOrder)
+                console.log(this.targetAudiences)
                 this.hasPagination = this.targetAudiences.length > 5
                 this.pagination = this.divideInPages(this.targetAudiences, 5, 4)
             })
@@ -173,6 +174,10 @@ export default {
                 return pagesArray
             }
             return [itemArray]
+        },
+        sortByOrder(a, b) {
+            return a.order - b.order
+
         },
         getImage(targetAudience) {
             return targetAudience.cover_full_url
