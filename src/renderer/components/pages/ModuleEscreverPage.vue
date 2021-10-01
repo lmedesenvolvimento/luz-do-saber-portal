@@ -41,7 +41,6 @@ export default {
             return require('@/assets/images/btn-write.png')
         },
         getModule() {
-            console.log(this.$route.params)
             return this.$store.getters['WriteModule/getWriteModuleByRef'](
                 this.$route.params.escrever_id
             )
