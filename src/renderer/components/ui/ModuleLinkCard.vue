@@ -120,7 +120,7 @@ export default {
         },
         getRouterName() {
             if(this.fixedModules.includes(this.data.slug)) return this.getEnglishName(this.data.slug)
-            else if(!this.data.themes || this.hasMoreTargetAudience)
+            else if(!this.data.themes || this.hasMoreTargetAudience || this.hasMoreThemes)
                 return 'module'
             else return 'theme'
         },
@@ -128,6 +128,7 @@ export default {
             if(this.hasMoreTargetAudience)
                 return { module_slug: this.data.module_slug, target_audience: this.data.slug }
             else if(this.isTargetAudience) return { module_slug: this.data.module_slug, target_audience: this.data.slug, theme_slug: this.data.themes[0].slug }
+            else if(this.hasMoreThemes) return { module_slug: this.data.slug, target_audience: this.data.themes[0].target_audience }
             else return { module_slug: this.data.slug, target_audience: this.data.themes[0].target_audience, theme_slug: this.data.themes[0].slug }
         },
         getComecarUnitRoute() {
@@ -138,6 +139,9 @@ export default {
                 return uniqBy(this.data.themes.map(({ theme_audience }) => ({ ...theme_audience })), 'id').filter(({ status }) => status !== 'inactive')
             else if (this.data.themes.some((t) => t.theme_audience_id)) return this.data.themes
             else return []
+        },
+        hasMoreThemes() {
+            return this.data.themes.length > 1
         },
         hasMoreTargetAudience() {
             return this.getTargetAudience.length > 1
