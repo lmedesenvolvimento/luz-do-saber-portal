@@ -151,14 +151,6 @@ export default {
         },
         ...mapGetters('Pointings',['getThemesByModuleId'])
     },
-    mounted() {
-        console.log('-------info-------')
-        console.log(this.data.title)
-        console.log('themes: ', this.getThemes)
-        console.log('getTargetAudience: ', this.getTargetAudience)
-        console.log('router params: ', this.getRouterParams)
-        console.log('--------end-------')
-    },
     methods: {
         getProgressThemesByModuleId(m){
             return this.getThemesByModuleId(m.id, this.targetAudience)
