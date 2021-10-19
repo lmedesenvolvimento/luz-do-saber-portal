@@ -101,13 +101,12 @@ export const viewerOpts = {
     'toolbar': false,
     'tooltip': false,
     'movable': false,
-    'zoomable': false,
+    'zoomable': true,
     'rotatable': false,
     'scalable': false,
     'transition': true,
     'fullscreen': false,
     'keyboard': false,
-    'url': 'data-source'
 }
 
 
