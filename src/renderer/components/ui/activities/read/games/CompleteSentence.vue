@@ -196,7 +196,12 @@ export default {
         multipleCorrectItem(){
             this.sentence = this.sentence.split(' ')//separando as palavras da frase em um vetor
             let words = []//
-            let values = clone(this.getValues)
+            let values = []
+            
+            this.getValues.forEach((item) => {
+                item.text = item.text.replace(/[,\.\;\:]/g, '') //removendo vírgulas das palavras quem vem como resposta
+            })
+            values = clone(this.getValues)
             this.sentence.forEach((word, w) => {
                 let objectWord = {
                     text: word,
@@ -281,11 +286,12 @@ export default {
             }
         },
         checkAwnser(event, item, position) {
+            let textItemNormal = item.text.normalize('NFD').replace(/[\u0300-\u036f]/g, '') //Retirando palavras com acentos
             const updates = clone(this.splitedSentence)
             if (event.target.value === ''){
                 return
             }
-            if (event.target.value.toLowerCase() === item.text.toLowerCase()){
+            if (event.target.value.toLowerCase() === textItemNormal.toLowerCase()){
                 this.setAnswer({
                     type: 'value',
                     data: item.id,
@@ -308,12 +314,13 @@ export default {
             Vue.set(this, 'splitedSentence', updates)
         },
         checkAwnserInput(event, item, position) {
-            if (event.target.value.length >= item.text.length) {
+            let textItemNormal = item.text.normalize('NFD').replace(/[\u0300-\u036f]/g, '')//Retirando palavras com acentos
+            if (event.target.value.length >= textItemNormal.length) {
                 const updates = clone(this.splitedSentence)
                 if (event.target.value === ''){
                     return
                 }
-                if (event.target.value.toLowerCase() === item.text.toLowerCase()){
+                if (event.target.value.toLowerCase() === textItemNormal.toLowerCase()){
                     this.setAnswer({
                         type: 'value',
                         data: item.id,
