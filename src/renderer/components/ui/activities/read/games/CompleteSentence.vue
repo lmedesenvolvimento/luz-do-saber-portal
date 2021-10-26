@@ -291,7 +291,7 @@ export default {
             if (event.target.value === ''){
                 return
             }
-            if (event.target.value.toLowerCase() === textItemNormal.toLowerCase()){
+            if (event.target.value.toLowerCase() === textItemNormal.toLowerCase() || event.target.value.toLowerCase() === item.text.toLowerCase()) {
                 this.setAnswer({
                     type: 'value',
                     data: item.id,
@@ -320,7 +320,7 @@ export default {
                 if (event.target.value === ''){
                     return
                 }
-                if (event.target.value.toLowerCase() === textItemNormal.toLowerCase()){
+                if (event.target.value.toLowerCase() === textItemNormal.toLowerCase() || event.target.value.toLowerCase() === item.text.toLowerCase()){
                     this.setAnswer({
                         type: 'value',
                         data: item.id,
