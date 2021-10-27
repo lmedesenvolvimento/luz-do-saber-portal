@@ -61,7 +61,7 @@
                                     <input
                                         :ref="`input-${position}`"
                                         type="value"
-                                        maxlength="13"
+                                        :maxlength="item.text.length"
                                         autocomplete="off"
                                         @input="checkAwnserInput(...arguments, item, position)"
                                         @blur="checkAwnser(...arguments, item, position)"
@@ -170,7 +170,6 @@ export default {
                             this.splitedSentence.push(values[0]) //adiciona ao vetor que vai ser renderizado
                             adicionou = true
                         } else {
-                            console.log(element)
                             writtenSentence1.text+= ' ' + element
                         }
                     } else {
@@ -237,6 +236,7 @@ export default {
                     this.joinNonInteractiveWords(words, splitedSentence, lastPosition, words.length)
                 }
             })
+       
             return splitedSentence
         },
         makeCompleteSentence(words, values){
@@ -291,7 +291,7 @@ export default {
             if (event.target.value === ''){
                 return
             }
-            if (event.target.value.toLowerCase() === textItemNormal.toLowerCase()){
+            if (event.target.value.toLowerCase() === textItemNormal.toLowerCase() || event.target.value.toLowerCase() === item.text.toLowerCase()){
                 this.setAnswer({
                     type: 'value',
                     data: item.id,
@@ -315,12 +315,13 @@ export default {
         },
         checkAwnserInput(event, item, position) {
             let textItemNormal = item.text.normalize('NFD').replace(/[\u0300-\u036f]/g, '')//Retirando palavras com acentos
+        
             if (event.target.value.length >= textItemNormal.length) {
                 const updates = clone(this.splitedSentence)
                 if (event.target.value === ''){
                     return
                 }
-                if (event.target.value.toLowerCase() === textItemNormal.toLowerCase()){
+                if (event.target.value.toLowerCase() === textItemNormal.toLowerCase() || event.target.value.toLowerCase() === item.text.toLowerCase()){
                     this.setAnswer({
                         type: 'value',
                         data: item.id,
