@@ -27,8 +27,9 @@
                                                 <input
                                                     :ref="position"
                                                     type="text"
-                                                    maxlength="11"
+                                                    :maxlength="item.text.length"
                                                     autocomplete="off"
+                                                    @input="checkAwnserInput(...arguments, item, position)"
                                                     @blur="checkAwnser(...arguments, item, position)"
                                                 />
                                             </b-card-body>
@@ -47,7 +48,7 @@
 import Vue from 'vue'
 import { MapMixins, ListMixin, CreateAnswersMixins } from '@ui/activities/mixins'
 import { mapActions } from 'vuex'
-import { clone, shuffle } from 'lodash'
+import { clone, shuffle, findIndex} from 'lodash'
 import FormProps from '@ui/form'
 
 export default {
@@ -90,12 +91,49 @@ export default {
         getRndInteger(min, max) {
             return Math.floor(Math.random() * (max - min + 1) ) + min
         },
+        checkAwnserInput(event, item, position) {
+            let textItemNormal = item.text.normalize('NFD').replace(/[\u0300-\u036f]/g, '')//Retirando palavras com acentos
+
+            if (event.target.value.length >= textItemNormal.length) {
+                const updates = clone(this.shuffleValues)
+                if (event.target.value === ''){
+                    return
+                }
+                if (event.target.value.toLowerCase() === textItemNormal.toLowerCase() || event.target.value.toLowerCase() === item.text.toLowerCase()){
+                    
+                    this.setAnswer({
+                        type: 'value',
+                        data: item.id,
+                        vm: {}
+                    })
+
+                    const toFocusIndex = updates.findIndex((item, index) => item.isInteractive && index > position && !item.valid)
+                   
+                    if (this.$refs[`input-${toFocusIndex}`]!=null) {
+                        this.$refs[`input-${toFocusIndex}`][0].focus()
+                    }
+                    updates[position].valid = true
+                    event.target.disabled = true
+                } 
+                else {
+                    this.setAnswer({
+                        type: 'value',
+                        data: -1,
+                        vm: {}
+                    })
+                    updates[position].invalid = true
+                    this.removeInvalid(item, 1, position)
+                }
+                Vue.set(this, 'shuffleValues', updates)
+            }            
+        },
         checkAwnser(event, item, position) {
+            let textItemNormal = item.text.normalize('NFD').replace(/[\u0300-\u036f]/g, '')//Retirando palavras com acentos
             const updates = clone(this.shuffleValues)
             if (event.target.value === ''){
                 return
             }
-            if (event.target.value.toLowerCase() === item.text.toLowerCase()){
+            if (event.target.value.toLowerCase() === item.text.toLowerCase() || event.target.value.toLowerCase() === textItemNormal.toLowerCase() ){
                 this.setAnswer({
                     type: item.type,
                     data: item.id,
@@ -106,6 +144,7 @@ export default {
                 updates[position].valid = true
                 event.target.disabled = true
             } else {
+                
                 this.setAnswer({
                     type: 'value',
                     data: -1,
@@ -113,6 +152,8 @@ export default {
                 })
                 updates[position].invalid = true
                 this.removeInvalid(item, 1, position)
+
+                console.log(this.setAnswer)
             }
             Vue.set(this, 'shuffleValues', updates)
         },
