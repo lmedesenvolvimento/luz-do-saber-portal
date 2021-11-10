@@ -127,9 +127,10 @@ export default {
         getRouterParams() {
             if(this.hasMoreTargetAudience)
                 return { module_slug: this.data.module_slug, target_audience: this.data.slug }
-            else if(this.isTargetAudience) return { module_slug: this.data.module_slug, target_audience: this.data.slug, theme_slug: this.data.themes[0].slug }
-            else if(this.hasMoreThemes) return { module_slug: this.data.slug, target_audience: this.data.themes[0].target_audience }
-            else return { module_slug: this.data.slug, target_audience: this.data.themes[0].target_audience, theme_slug: this.data.themes[0].slug }
+            else if(this.isTargetAudience && this.data.themes) return { module_slug: this.data.module_slug, target_audience: this.data.slug, theme_slug: this.data.themes[0].slug }
+            else if(this.hasMoreThemes && this.data.themes) return { module_slug: this.data.slug, target_audience: this.data.themes[0].target_audience }
+            else if(this.data.themes) return { module_slug: this.data.slug, target_audience: this.data.themes[0].target_audience, theme_slug: this.data.themes[0].slug }
+            else return false
         },
         getComecarUnitRoute() {
             return '/game/comecar/' + this.data.themes[0].slug + '/' + this.data.themes[0].slug
@@ -137,17 +138,17 @@ export default {
         getTargetAudience() {
             if(this.data.themes && this.data.themes.some((t) => t.theme_audience))
                 return uniqBy(this.data.themes.map(({ theme_audience }) => ({ ...theme_audience })), 'id').filter(({ status }) => status !== 'inactive')
-            else if (this.data.themes.some((t) => t.theme_audience_id)) return this.data.themes
+            else if (this.data.themes && this.data.themes.some((t) => t.theme_audience_id)) return this.data.themes
             else return []
         },
         hasMoreThemes() {
-            return this.data.themes.length > 1
+            return !!this.data.themes ? this.data.themes.length > 1 : false
         },
         hasMoreTargetAudience() {
             return this.getTargetAudience.length > 1
         },
         isTargetAudience() {
-            return this.data.themes.some((t) => t.theme_audience_id)
+            return !!this.data.themes ? this.data.themes.some((t) => t.theme_audience_id) : false
         },
         ...mapGetters('Pointings',['getThemesByModuleId'])
     },
