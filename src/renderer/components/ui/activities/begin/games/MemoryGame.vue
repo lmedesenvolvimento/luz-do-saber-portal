@@ -127,7 +127,7 @@ export default {
         },
         createArray(items) {
             let cards = []
-            let friends = this.currentUser ? Object.values(this.currentUser.friends) : []
+            let friends = this.currentUser && this.currentUser.friends ? Object.values(this.currentUser.friends) : []
             console.log(friends)
             console.log(items.keys)
 
