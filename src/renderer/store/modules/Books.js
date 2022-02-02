@@ -27,7 +27,7 @@ const actions = {
     async fetchBooks({ commit, state }) {
         let books = db.get('books').value()
         if (!values(books).length) {
-            let { data } = await Http.axios.get('/game/biblioteca')
+            let { data } = await Http.axios.get('/game/biblioteca/geral')
             let payload = convertBooksToHashMap(data.livros)
             // write in session
             db.set('books', payload).write()

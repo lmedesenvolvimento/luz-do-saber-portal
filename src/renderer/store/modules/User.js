@@ -52,7 +52,8 @@ const actions = {
         db.defaults({
             data: {
                 name: payload.name,
-                unique_sessison_id: uniqid()
+                unique_sessison_id: uniqid(),
+                code: payload.code
             },
             friends: {},
             books: {},

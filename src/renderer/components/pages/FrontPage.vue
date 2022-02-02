@@ -28,12 +28,12 @@
                         </div>
                         <div v-else-if="isAuthorized && isVisibleSubModule" key="frontpage-ler">
                             <b-row align-v="center" align-h="center">
-                                <a v-if="$context === 'more-than-five'" class="d-block btn margin-prev" :class="{disabled : slide===1}" @click="clickPrev">
+                                <a v-if="hasPagination" class="d-block btn margin-prev" :class="{disabled : slide === 0}" @click="clickPrev">
                                     <b-img center :src="require('@/assets/images/icons/escrever/icon-prev.png')" width="61" height="61" />
                                 </a>
                                 <transition name="fader" mode="out-in">
-                                    <b-row v-if="slide === 1" :key="1" class="slider1">
-                                        <div v-for="targetAudience in activeTargetAudience" :key="targetAudience.id" class="ml-2 mr-2">
+                                    <b-row class="slider">
+                                        <div v-for="targetAudience in currentPage" :key="targetAudience.id" class="ml-2 mr-2">
                                             <ModuleLinkCard
                                                 :data="targetAudience"
                                                 :image="getImage(targetAudience)"
@@ -43,93 +43,9 @@
                                                 :target-audience="targetAudience.slug"
                                             />
                                         </div>
-                                        <!-- <div v-if="$context === 'fundamental'" class="ml-2 mr-2">
-                                            <ModuleLinkCard
-                                                :data="read"
-                                                :image="require('@/assets/images/btn-first-year.png')"
-                                                :color="{ color: '#00963F' }"
-                                                :label="$context === 'eja' ? 'EJA 1 complementar' : '1º Ano complementar'"
-                                                slug="ler-1"
-                                                target-audience="primeiro-ano-complementar"
-                                            />
-                                        </div>
-                                        <div v-if="$context === 'fundamental'" class="ml-2 mr-2">
-                                            <ModuleLinkCard
-                                                :data="read"
-                                                :image="require('@/assets/images/btn-second-year.png')"
-                                                :color="{ color: '#00963F' }"
-                                                :label="$context === 'eja' ? 'EJA 2' : '2º Ano'"
-                                                slug="ler-2"
-                                                target-audience="segundo-ano"
-                                            />
-                                        </div>
-                                        <div v-if="$context === 'fundamental'" class="ml-2 mr-2">
-                                            <ModuleLinkCard
-                                                :data="read"
-                                                :image="require('@/assets/images/btn-second-year.png')"
-                                                :color="{ color: '#00963F' }"
-                                                :label="$context === 'eja' ? 'EJA 2 complementar' : '2º Ano complementar'"
-                                                :complemento="true"
-                                                slug="ler-2"
-                                                target-audience="segundo-ano-complementar"
-                                            />
-                                        </div>
-                                        <div v-if="$context === 'terceiro-ano'" class="ml-2 mr-2">
-                                            <ModuleLinkCard
-                                                :data="read"
-                                                :image="require('@/assets/images/btn-third-year.png')"
-                                                :color="{ color: '#00963F' }"
-                                                :label="'3º Ano'"
-                                                slug="ler-3"
-                                                target-audience="terceiro-ano"
-                                            />
-                                        </div>
-                                        <div v-if="$context === 'fundamental'" class="ml-2 mr-2">
-                                            <ModuleLinkCard
-                                                :data="read"
-                                                :image="require('@/assets/images/btn-third-year.png')"
-                                                :color="{ color: '#00963F' }"
-                                                :label="'3º Ano complementar'"
-                                                slug="ler-3"
-                                                target-audience="terceiro-ano-complementar"
-                                            />
-                                        </div> -->
-                                    </b-row>
-                                    <b-row v-else :key="2" class="slider2">
-                                        <!-- <div v-if="$context === 'fundamental'" class="ml-2 mr-2">
-                                            <ModuleLinkCard
-                                                :data="read"
-                                                :image="require('@/assets/images/btn-second-year.png')"
-                                                :color="{ color: '#00963F' }"
-                                                :label="$context === 'eja' ? 'EJA 2 complementar' : '2º Ano complementar'"
-                                                :complemento="true"
-                                                slug="ler-2"
-                                                target-audience="segundo-ano-complementar"
-                                            />
-                                        </div>
-                                        <div v-if="$context === 'terceiro-ano'" class="ml-2 mr-2">
-                                            <ModuleLinkCard
-                                                :data="read"
-                                                :image="require('@/assets/images/btn-third-year.png')"
-                                                :color="{ color: '#00963F' }"
-                                                :label="'3º Ano'"
-                                                slug="ler-3"
-                                                target-audience="terceiro-ano"
-                                            />
-                                        </div>
-                                        <div v-if="$context === 'fundamental'" class="ml-2 mr-2">
-                                            <ModuleLinkCard
-                                                :data="read"
-                                                :image="require('@/assets/images/btn-third-year.png')"
-                                                :color="{ color: '#00963F' }"
-                                                :label="'3º Ano complementar'"
-                                                slug="ler-3"
-                                                target-audience="terceiro-ano-complementar"
-                                            />
-                                        </div> -->
                                     </b-row>
                                 </transition>
-                                <a v-if="$context === 'more-than-five'" :class="{disabled : slide===2}" class="d-block btn margin-next" @click="clickNext">
+                                <a v-if="hasPagination" :class="{disabled : slide === pagination.length - 1}" class="d-block btn margin-next" @click="clickNext">
                                     <b-img center :src="require('@/assets/images/icons/escrever/icon-next.png')" width="61" height="61" />
                                 </a>
                                 <b-col cols="12" class="my-1">
@@ -173,8 +89,10 @@ export default {
             read: null,
             loading: false,
             isExitModalVisible: false,
-            slide: 1,
-            targetAudiences: []
+            slide: 0,
+            targetAudiences: [],
+            pagination: [],
+            hasPagination: false
         }
     },
     computed: {
@@ -187,8 +105,8 @@ export default {
         isVisibleSubModule() {
             return Object.values(this.subModules).some((visible) => visible)
         },
-        activeTargetAudience() {
-            return this.targetAudiences.filter(({status}) => status !== 'inactive')
+        currentPage() {
+            return this.pagination[this.slide]
         },
         ...mapState('Modules', ['modules']),
         ...mapState('User', ['currentUser'])
@@ -200,14 +118,10 @@ export default {
     },
     methods: {
         clickPrev() {
-            if(this.slide === 2) {
-                this.slide--
-            }
+            if(this.slide > 0) this.slide--
         },
         clickNext() {
-            if(this.slide === 1) {
-                this.slide++
-            }
+            if(this.slide < this.pagination.length - 1) this.slide++
         },
         showExitModal(){           
             this.isExitModalVisible = !this.isExitModalVisible
@@ -220,7 +134,12 @@ export default {
         },
         toggleVisibleSubModule(module){
             Vue.set(this.subModules, module, true)
-            this.fetchTargetAudiences(module).then(({ theme_audiences}) => this.targetAudiences = uniqBy(theme_audiences.map((el) => ({ ...el, module_slug: module})), 'id'))
+            this.fetchTargetAudiences(module).then(({ theme_audiences}) => {
+                this.targetAudiences = uniqBy(theme_audiences.map((el) => ({ ...el, module_slug: module})), 'id').filter(({status}) => status !== 'inactive').sort(this.sortByOrder)
+                console.log(this.targetAudiences)
+                this.hasPagination = this.targetAudiences.length > 5
+                this.pagination = this.divideInPages(this.targetAudiences, 5, 4)
+            })
         },
         hideSubModule() {
             for(const module in this.subModules) {
@@ -244,8 +163,23 @@ export default {
                 return { color: '#fff' }
             }
         },
+        calcPagination(itemArray, max) {
+            return itemArray.length > max
+        },
+        divideInPages(itemArray, max, chunk) {
+            if(this.calcPagination(itemArray, max)) {
+                const pagesArray = []
+                for(let i = 0; i < itemArray.length; i+=chunk)
+                    pagesArray.push(itemArray.slice(i, i+chunk))
+                return pagesArray
+            }
+            return [itemArray]
+        },
+        sortByOrder(a, b) {
+            return a.order - b.order
+
+        },
         getImage(targetAudience) {
-            console.log(targetAudience.cover_full_url)
             return targetAudience.cover_full_url
         },
         ...mapActions('Modules',['fetchModules', 'fetchTargetAudiences']),
@@ -279,13 +213,13 @@ export default {
     right: 4%;
 }
 
-.margin-prev {
-    margin-right: 100px;
-}
+// .margin-prev {
+//     margin-right: 100px;
+// }
 
-.margin-next {
-    margin-left: 100px;
-}
+// .margin-next {
+//     margin-left: 100px;
+// }
 
 .disabled {
    filter: grayscale(100%);  

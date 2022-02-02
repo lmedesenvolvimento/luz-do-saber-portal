@@ -1,7 +1,7 @@
 <template>
     <div>
         <a
-            v-if="hasMoreTargetAudience"
+            v-if="!isTargetAudience && hasMoreTargetAudience"
             class="clean-links"
             @click="() => toggleVisibleSubModule(data.slug)"
         >
@@ -36,6 +36,8 @@
 <script>
 import { filter, uniqBy } from 'lodash'
 import VueCircle from '@/components/ui/CircleProgress'
+
+import { mapGetters } from 'vuex'
 export default {
     components: { VueCircle },
     props: {
@@ -102,11 +104,12 @@ export default {
                 return this.getProgressModule
             }
         },
-        getProgressModule(target_audience){
+        getProgressModule(){
             if(this.data.themes) {
                 const themes = this.getProgressThemesByModuleId(this.data)
-                const total = ( filter(themes, { completed: true }).length / this.data.themes.length ) * 100
-                return  total || 5
+                const percentage = themes.reduce((acc, { percentage }) => percentage ? acc + percentage : acc + 0, 0) / this.data.themes.length
+                // const total = ( filter(themes, { completed: true }).length / this.data.themes.length ) * 100
+                return  percentage > 5 ? percentage : 5
             } else return  5
 
         },
@@ -116,32 +119,42 @@ export default {
             return total || 5
         },
         getRouterName() {
-            console.log(this.data)
             if(this.fixedModules.includes(this.data.slug)) return this.getEnglishName(this.data.slug)
-            else if(!this.data.themes || this.data.themes.length > 1)
+            else if(!this.data.themes || this.hasMoreTargetAudience || this.hasMoreThemes)
                 return 'module'
             else return 'theme'
         },
         getRouterParams() {
-            if(!this.data.themes)
+            if(this.hasMoreTargetAudience)
                 return { module_slug: this.data.module_slug, target_audience: this.data.slug }
-            else return { module_slug: this.data.slug, target_audience: this.data.themes[0].target_audience, theme_slug: this.data.themes[0].slug }
+            else if(this.isTargetAudience && this.data.themes) return { module_slug: this.data.module_slug, target_audience: this.data.slug, theme_slug: this.data.themes[0].slug }
+            else if(this.hasMoreThemes && this.data.themes) return { module_slug: this.data.slug, target_audience: this.data.themes[0].target_audience }
+            else if(this.data.themes) return { module_slug: this.data.slug, target_audience: this.data.themes[0].target_audience, theme_slug: this.data.themes[0].slug }
+            else return false
         },
         getComecarUnitRoute() {
             return '/game/comecar/' + this.data.themes[0].slug + '/' + this.data.themes[0].slug
         },
         getTargetAudience() {
-            if(this.data.themes)
+            if(this.data.themes && this.data.themes.some((t) => t.theme_audience))
                 return uniqBy(this.data.themes.map(({ theme_audience }) => ({ ...theme_audience })), 'id').filter(({ status }) => status !== 'inactive')
+            else if (this.data.themes && this.data.themes.some((t) => t.theme_audience_id)) return this.data.themes
             else return []
+        },
+        hasMoreThemes() {
+            return !!this.data.themes ? this.data.themes.length > 1 : false
         },
         hasMoreTargetAudience() {
             return this.getTargetAudience.length > 1
-        }
+        },
+        isTargetAudience() {
+            return !!this.data.themes ? this.data.themes.some((t) => t.theme_audience_id) : false
+        },
+        ...mapGetters('Pointings',['getThemesByModuleId'])
     },
     methods: {
         getProgressThemesByModuleId(m){
-            return this.$store.getters['Pointings/getThemesByModuleId'](m.id, this.targetAudience)
+            return this.getThemesByModuleId(m.id, this.targetAudience)
         },
         getEnglishName(name) {
             switch (name) {

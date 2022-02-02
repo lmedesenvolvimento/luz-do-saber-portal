@@ -38,9 +38,9 @@ export default {
     },      
     computed: {
         computedSrc() {
-            // if(this.$isProduction)
-            return this.src
-            // else return this.src.split('/')[1] === 'system' ? `http://localhost:3000${this.src}` : this.src
+            if(this.$isProduction)
+                return this.src
+            else return this.src.split('/')[1] === 'system' ? `http://localhost:3000${this.src}` : this.src
         }
     },
     mounted(){
@@ -62,7 +62,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .image{
     position: relative;
     display: inline-block;

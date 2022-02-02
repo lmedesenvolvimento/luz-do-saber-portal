@@ -55,6 +55,8 @@ export const GameSubtypes = {
     assembleWord: 'monte-a-palavra',
     myCracha: 'meu-cracha',
     uppercaseLetters: 'texto-letras-maiusculas',
+    numericSequence: 'sequencia-numerica',
+    sequenceAntecessor: 'sequencia-antecessor',
 }
 
 export const ItemTypes = {
@@ -101,17 +103,16 @@ export const viewerOpts = {
     'toolbar': false,
     'tooltip': false,
     'movable': false,
-    'zoomable': false,
+    'zoomable': true,
     'rotatable': false,
     'scalable': false,
     'transition': true,
     'fullscreen': false,
     'keyboard': false,
-    'url': 'data-source'
 }
 
 
-export const alphabet = [ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+export const alphabet = [ 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'Ç']
 
 export const acents = ['Á', 'À', 'Ã', 'Â', 'É', 'Ê', 'Í', 'Ó', 'Ô', 'Ú']
 

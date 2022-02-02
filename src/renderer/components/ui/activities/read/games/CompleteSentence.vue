@@ -61,7 +61,7 @@
                                     <input
                                         :ref="`input-${position}`"
                                         type="value"
-                                        maxlength="13"
+                                        :maxlength="item.text.length"
                                         autocomplete="off"
                                         @input="checkAwnserInput(...arguments, item, position)"
                                         @blur="checkAwnser(...arguments, item, position)"
@@ -170,7 +170,6 @@ export default {
                             this.splitedSentence.push(values[0]) //adiciona ao vetor que vai ser renderizado
                             adicionou = true
                         } else {
-                            console.log(element)
                             writtenSentence1.text+= ' ' + element
                         }
                     } else {
@@ -196,7 +195,12 @@ export default {
         multipleCorrectItem(){
             this.sentence = this.sentence.split(' ')//separando as palavras da frase em um vetor
             let words = []//
-            let values = clone(this.getValues)
+            let values = []
+            
+            this.getValues.forEach((item) => {
+                item.text = item.text.replace(/[,\.\;\:]/g, '') //removendo vírgulas das palavras quem vem como resposta
+            })
+            values = clone(this.getValues)
             this.sentence.forEach((word, w) => {
                 let objectWord = {
                     text: word,
@@ -232,6 +236,7 @@ export default {
                     this.joinNonInteractiveWords(words, splitedSentence, lastPosition, words.length)
                 }
             })
+       
             return splitedSentence
         },
         makeCompleteSentence(words, values){
@@ -281,11 +286,12 @@ export default {
             }
         },
         checkAwnser(event, item, position) {
+            let textItemNormal = item.text.normalize('NFD').replace(/[\u0300-\u036f]/g, '') //Retirando palavras com acentos
             const updates = clone(this.splitedSentence)
             if (event.target.value === ''){
                 return
             }
-            if (event.target.value.toLowerCase() === item.text.toLowerCase()){
+            if (event.target.value.toLowerCase() === textItemNormal.toLowerCase() || event.target.value.toLowerCase() === item.text.toLowerCase()){
                 this.setAnswer({
                     type: 'value',
                     data: item.id,
@@ -308,12 +314,14 @@ export default {
             Vue.set(this, 'splitedSentence', updates)
         },
         checkAwnserInput(event, item, position) {
-            if (event.target.value.length >= item.text.length) {
+            let textItemNormal = item.text.normalize('NFD').replace(/[\u0300-\u036f]/g, '')//Retirando palavras com acentos
+        
+            if (event.target.value.length >= textItemNormal.length) {
                 const updates = clone(this.splitedSentence)
                 if (event.target.value === ''){
                     return
                 }
-                if (event.target.value.toLowerCase() === item.text.toLowerCase()){
+                if (event.target.value.toLowerCase() === textItemNormal.toLowerCase() || event.target.value.toLowerCase() === item.text.toLowerCase()){
                     this.setAnswer({
                         type: 'value',
                         data: item.id,

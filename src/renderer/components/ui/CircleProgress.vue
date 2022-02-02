@@ -63,6 +63,9 @@ export default {
             } else return false
 
         }
+    },
+    mounted() {
+        // console.log(this.$props)
     }
 }
 </script>
