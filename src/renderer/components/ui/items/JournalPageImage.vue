@@ -20,9 +20,7 @@
         </div>
     </div>
 </template>
-
 <script>
-
 export default {
     props: {
         imageType: String

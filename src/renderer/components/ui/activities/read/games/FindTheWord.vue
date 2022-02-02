@@ -27,7 +27,7 @@
                                                     <input
                                                         id="input-name"
                                                         type="text"
-                                                        maxlength="11"
+                                                        :maxlength="item.text.length"
                                                         autocomplete="off"
                                                         @input="checkAwnserInput(...arguments, item, position, position2)"
                                                         @blur="checkAwnser(...arguments, item, position, position2)"
@@ -94,11 +94,12 @@ export default {
             })
         },
         checkAwnser(event, item, linePosition, itemPosition) {
+            let textItemNormal = item.text.normalize('NFD').replace(/[\u0300-\u036f]/g, '') //Retirando palavras com acentos
             const updates = clone(this.lines)
             if (event.target.value === ''){
                 return
             }
-            if (event.target.value.toLowerCase() === item.text.toLowerCase()){
+            if (event.target.value.toLowerCase() === item.text.toLowerCase() || event.target.value.toLowerCase() === textItemNormal.toLowerCase()){
                 this.setAnswer({
                     type: 'value',
                     data: item.value_ids[0],
@@ -119,13 +120,14 @@ export default {
             Vue.set(this, 'lines', updates)
         },
         checkAwnserInput(event, item, linePosition, itemPosition) {
+            let textItemNormal = item.text.normalize('NFD').replace(/[\u0300-\u036f]/g, '') //Retirando palavras com acentos
             if (event.target.value.length >= item.text.length ) {
                 const updates = clone(this.lines)
                 if (event.target.value === ''){
                     return
                 }
             
-                if (event.target.value.toLowerCase() === item.text.toLowerCase()){
+                if (event.target.value.toLowerCase() === item.text.toLowerCase() || event.target.value.toLowerCase() === textItemNormal.toLowerCase()){
                     this.setAnswer({
                         type: 'value',
                         data: item.value_ids[0],

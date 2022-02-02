@@ -127,9 +127,9 @@ export default {
         },
         createArray(items) {
             let cards = []
-            let friends = Object.values(this.currentUser.friends)
+            let friends = this.currentUser && this.currentUser.friends ? Object.values(this.currentUser.friends) : []
 
-            const isFriends = friends.reduce((acc, friend) => acc && items.keys.findIndex((item) => item.text.toUpperCase() === friend.name.toUpperCase()) >= 0, true)
+            const isFriends = friends.length && friends.reduce((acc, friend) => acc && items.keys.findIndex((item) => item.text.toUpperCase() === friend.name.toUpperCase()) >= 0, true)
 
 
             let values = items.keys.map(function(k) {
