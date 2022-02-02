@@ -6,7 +6,7 @@
             <div class="journal-decoration-1" />
             <div class="journal-decoration-2" />
             <div class="journal-content">
-                <div v-show="haveTitle" class="journal-cover-title">
+                <div v-show="haveTitle" class="journal-cover-title  journal-text-uppercase journal-text-bold">
                     <input 
                         v-model="title" 
                         type="text" 
@@ -17,7 +17,7 @@
                     <b-col>
                         <div
                             v-for="i in 2" :key="i"      
-                            class="journal-story-header"                
+                            :class="{'journal-story-header': true, 'journal-text-uppercase': isEja !== true, 'journal-text-bold': isEja == true }"                
                         >
                             <input                             
                                 :v-model="{storyTitle: i == 1, storySubtitle: i == 2}" 
@@ -40,7 +40,7 @@
                 <div v-show="haveLeftAndRightStory">
                     <b-row>
                         <b-col v-for="i in 2" :key="i" :class="{'journal-story-left': i == 1, 'journal-story-right': i == 2}">
-                            <div v-for="j in 2" :key="j" :class="{'journal-story-title': j == 1, 'journal-story-subtitle': j == 2}">
+                            <div v-for="j in 2" :key="j" :class="{'journal-story-title': j == 1, 'journal-story-subtitle': j == 2, 'journal-text-uppercase': isEja !== true, 'journal-text-bold': isEja == true}">
                                 <textarea 
                                     :v-model="{storyLeftTitle: i == 1 && j == 1, storyRightTitle: i == 2 && j == 1,
                                                storyLeftText: i == 1 && j == 2, storyRightText: i == 2 && j == 2}" 
@@ -67,7 +67,7 @@
                     <b-row>
                         <b-col>
                             <div class="left">
-                                <div class="journal-story-title">
+                                <div :class="{'journal-story-title': true, 'journal-text-uppercase': isEja !== true, 'journal-text-bold': isEja == true}">
                                     <textarea                                         
                                         cols="10" rows="2" 
                                         class="journal-input-story-title" 
@@ -75,7 +75,7 @@
                                         placeholder="Título superior"
                                     />
                                 </div>
-                                <div class="journal-story-subtitle">
+                                <div :class="{'journal-story-subtitle': true, 'journal-text-uppercase': isEja !== true}">
                                     <textarea                                         
                                         cols="12" rows="11"
                                         class="journal-input-story-text"
@@ -90,7 +90,7 @@
                                 <journal-page-image 
                                     image-type="three-parts"
                                 />                                            
-                                <div class="journal-story-cont">
+                                <div :class="{'journal-story-cont': true, 'journal-text-uppercase': isEja !== true}">
                                     <textarea                                         
                                         cols="11" rows="6"
                                         class="journal-input-story-text"
@@ -102,7 +102,7 @@
                         </b-col>
                         <b-col>
                             <div class="right">
-                                <div class="journal-story-cont">
+                                <div :class="{'journal-story-cont': true, 'journal-text-uppercase': isEja !== true}">
                                     <textarea                                          
                                         cols="12" rows="13"
                                         class="journal-input-story-text"
@@ -124,7 +124,7 @@
                 <div
                     v-show="footerText"
                 >
-                    <div class="journal-story-cont">
+                    <div :class="{'journal-story-cont': true, 'journal-text-uppercase': isEja !== true}">
                         <textarea 
                             v-model="storyFooterText" 
                             cols="44" rows="2"
@@ -170,6 +170,11 @@ export default {
             storyFooterText: ''
         }
     },    
+    computed: {
+        isEja() {
+            return process.env.CONTEXT === 'eja'
+        },
+    },
     methods: {
         placeholderTitle(i){
             if(i == 1) return 'Matéria de destaque'

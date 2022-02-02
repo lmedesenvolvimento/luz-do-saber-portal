@@ -53,8 +53,8 @@ export default {
 
             if(!this.activeModule) return
 
-            if (params.target_audience !== 'geral'){
-                return filter(this.activeModule.themes, { target_audience: params.target_audience, status: 'active' })
+            if (params.target_audience !== 'geral'){                
+                return this.activeModule.themes.filter(({theme_audience, status}) => status === 'active' && theme_audience.slug === params.target_audience)
             } else {
                 return filter(this.activeModule.themes, { status: 'active'})
             }
@@ -65,7 +65,6 @@ export default {
         ...mapState('Modules', ['activeModule'])
     },
     created(){
-        console.log(this.$route.params)
         this.fetchModule(this.$route.params).then(this.registerUserProgress)
     },
     beforeDestroy(){
@@ -103,8 +102,9 @@ export default {
         }, 
         getProgressTheme(theme){
             const units = this.getProgressUnitsByThemeId(theme)
-            const total = ( filter(units, { completed: true }).length / theme.units.length ) * 100
-            return  total || 5
+            // const total = ( filter(units, { completed: true }).length / theme.units.length ) * 100
+            const percentage = units.reduce((acc, { percentage }) => percentage ? acc + percentage : acc + 0, 0) / theme.units.length
+            return  percentage > 5 ? percentage : 5
         },
         registerUserProgress(_module){
             _module.themes.forEach((theme) => {

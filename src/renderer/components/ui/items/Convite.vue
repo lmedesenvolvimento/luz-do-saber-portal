@@ -1,129 +1,16 @@
 <template>
     <div id="convite" class="fill container convite">
-        <div class="page-container">
-            <div class="gameplay flex-center">
-                <div class="gameplay-body flex-center">
-                    <div id="convite-card" class="convite-card flex-center">
-                        <div class="convite-text">
-                            <div class="text title">Convite</div>
-                            <div class="text data">Data:</div>
-                            <div class="text hora">Hora:</div>
-                            <div class="text local">Local:</div>
-                            <div
-                                v-for="text in texts"
-                                :key="text.nome"
-                                class="input-text"
-                                :class="text.nome"
-                            >
-                                <textarea
-                                    v-if="text.type === 'textarea'"
-                                    :id="text.nome"
-                                    :placeholder="text.placeholder"
-                                    maxlength="100"
-                                ></textarea>
-                                <input
-                                    v-else
-                                    :id="text.nome"
-                                    v-model="text.value"
-                                    type="text"
-                                    :placeholder="text.placeholder"
-                                    :maxlength="text.maxLength"
-                                    :class="[text.nome, 'input']"
-                                    @keypress.enter="focusNext(text.nome)"
-                                />
-                            </div>
-                        </div>
-                        <div class="photo-input">
-                            <label class="flex-center">
-                                <div class="flex-center">
-                                    <div
-                                        v-if="convitePhoto !== ''"
-                                        class="image"
-                                    >
-                                        <img
-                                            :src="convitePhoto"
-                                            class="photo"
-                                        />
-                                    </div>
-                                    <div v-else class="photo-holder"></div>
-                                    <input
-                                        id="file-convite"
-                                        ref="file-convite"
-                                        type="file"
-                                        name="convite-image"
-                                        accept="image/jpeg, image/png"
-                                        autocomplete="off"
-                                        @change="
-                                            handleFileUpload('file-convite')
-                                        "
-                                    />
-                                </div>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="gameplay-footer">
-                    <div class="footer-info flex-center">
-                        <div
-                            v-b-tooltip="{
-                                title: 'Novo Convite',
-                                container: '.footer-info'
-                            }"
-                            class="btn-convite novo"
-                            @click="newLetter"
-                        ></div>
-                        <div
-                            v-b-tooltip="{
-                                title: 'Salvar',
-                                trigger: 'hover',
-                                container: '.footer-info'
-                            }"
-                            class="btn-convite salvar"
-                        ></div>
-                        <div
-                            v-b-tooltip="{
-                                title: 'Imprimir',
-                                container: '.footer-info'
-                            }"
-                            class="btn-convite imprimir"
-                            @click="printLetter"
-                        ></div>
-                        <div
-                            v-b-tooltip="{
-                                title: 'Galeria',
-                                container: '.footer-info'
-                            }"
-                            class="btn-convite galeria"
-                        ></div>
-                    </div>
-                </div>
-            </div>
+        <div v-if="isEja" class="page-container">
+            <convite-eja :texts="listItemsText" />
         </div>
-        <!-- Modal Place Holder -->
-        <b-modal
-            id="modal-center"
-            ref="modal-center"
-            v-model="modalShow"
-            centered
-            title="Apagar convite e começar um novo"
-            hide-footer
-        >
-            <p class="my-4">
-                Tem certeza de que deseja escrever um novo convite? O que você
-                já escreveu será descartado se não for salvo antes
-            </p>
-            <div class="modal-footer">
-                <b-button class="btn-newletter" @click="newLetter2">
-                    Sim! Escrever um novo convite
-                </b-button>
-                <b-button class="btn-closemodal" @click="closeModal">
-                    Cancelar
-                </b-button>
-            </div>
-        </b-modal>
+        <div v-else class="page-container">
+            <convite-fund :texts="listItemsText" />
+        </div>
     </div>
 </template>
 <script>
+import ConviteFund from './ConviteFund.vue'
+import ConviteEja from './ConviteEja.vue'
 import { cloneDeep } from 'lodash'
 import Vue from 'vue'
 import VueHtmlToPaper from 'vue-html-to-paper'
@@ -133,6 +20,10 @@ const options = {
 }
 Vue.use(VueHtmlToPaper, options)
 export default {
+    components:{
+        ConviteFund,
+        ConviteEja
+    },
     data() {
         return {
             texts: [
@@ -168,26 +59,51 @@ export default {
                     value: '',
                     placeholder: 'Insira o local',
                     type: 'text',
-                    maxLength: 24
+                    maxLength: 26
+                },
+                {
+                    nome: 'local-second-line-input',
+                    value: '',
+                    placeholder: '',
+                    type: 'text',
+                    maxLength: 37
                 },
                 {
                     nome: 'agradecimento-input',
                     value: '',
                     placeholder: 'Agradecimento',
                     type: 'text',
-                    maxLength: 14
+                    maxLength: 37
                 },
                 {
                     nome: 'assinatura-input',
                     value: '',
                     placeholder: '',
                     type: 'text',
-                    maxLength: 14
+                    maxLength: 37
                 }
             ],
             convitePhoto: '',
             initialStateText: '',
             modalShow: false
+        }
+    },
+    computed: {
+        isEja() {
+            return process.env.CONTEXT === 'eja'
+        },
+        listItemsText() {
+            const excludeItemsTextEja = ['local-second-line-input']
+
+            if(!this.isEja){
+                const arrayListItemsEja = this.texts.filter((item) => {
+                    return !excludeItemsTextEja.includes(item.nome)
+                })
+
+                return arrayListItemsEja
+            }else{
+                return this.texts
+            }
         }
     },
     mounted() {

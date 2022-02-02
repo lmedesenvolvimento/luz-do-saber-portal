@@ -37,6 +37,7 @@
                                             :disabled="answer.valid"
                                             autocomplete="off"
                                             required
+                                            @input="checkAnswerInput()"
                                             @keyup.enter="checkAnswer()"
                                             @blur="checkAnswer()"
                                         />
@@ -99,12 +100,62 @@ export default {
         this.wrongWords.length = 0 // Zera o array de palavras erradas
     },
     methods: {
+        checkAnswerInput(){
+            let textItemNormal = this.getValues[0].text.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+            let rxp = /^\S(?!\s*$).+/
+            
+            if (event.target.value.length >= textItemNormal.length) {
+                if (rxp.test(this.answer.text)) {
+                    // Checa se a palavra escrita é idêntica a resposta correta
+                    if (this.answer.text.toLowerCase() === this.getValues[0].text.toLowerCase() || 
+                        this.answer.text.toLowerCase() === textItemNormal.toLowerCase()) {
+                        Vue.set(this.answer, 'valid', true)
+                        
+                        setTimeout(() => {
+                            this.setAnswer({
+                                type: 'value',
+                                data: this.getValues[0].id,
+                                vm: {}
+                            })
+                        }, 1000)
+
+                        return
+                    }
+                    this.wrongWords.push({ text: this.answer.text, id: this.initialID })
+                    this.initialID++
+                    const ids = this.wrongWords.map(({ id }) => id)
+                    if(this.wrongWords.length > this.maxListLength) {
+                        this.wrongWords.shift()
+                        if(this.initialID > this.maxListLength) this.initialID = 0
+                    }
+                    Vue.set(this.answer, 'invalid', true)
+                    
+                    this.setAnswer({
+                        type: 'value',
+                        data: -1,
+                        vm: {}
+                    })
+
+                    setTimeout(() => {
+                        this.answer.text = ''
+                        Vue.set(this.answer, 'invalid', false)
+                    }, 1000)
+
+                    return
+                } else {
+                    this.answer.text = ''
+                }
+            }
+               
+        },
         checkAnswer() {
+            let textItemNormal = this.getValues[0].text.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
             let rxp = /^\S(?!\s*$).+/
 
             if (rxp.test(this.answer.text)) {
                 // Checa se a palavra escrita é idêntica a resposta correta
-                if (this.answer.text.toLowerCase() === this.getValues[0].text.toLowerCase()) {
+                if (this.answer.text.toLowerCase() === this.getValues[0].text.toLowerCase() || 
+                    this.answer.text.toLowerCase() === textItemNormal.toLowerCase()) {
                     Vue.set(this.answer, 'valid', true)
                     
                     setTimeout(() => {
@@ -120,7 +171,6 @@ export default {
                 this.wrongWords.push({ text: this.answer.text, id: this.initialID })
                 this.initialID++
                 const ids = this.wrongWords.map(({ id }) => id)
-                console.log(ids)
                 if(this.wrongWords.length > this.maxListLength) {
                     this.wrongWords.shift()
                     if(this.initialID > this.maxListLength) this.initialID = 0
