@@ -21,6 +21,7 @@
     "dev:eja": "env-cmd -e development:eja node .electron-vue/dev-runner.js",
     "dev:desv": "env-cmd -e development:desv node .electron-vue/dev-runner.js",
     "dev:localhost": "env-cmd -e development:localhost node .electron-vue/dev-runner.js",
+    "dev:ejalocalhost": "env-cmd -e development:ejalocalhost node .electron-vue/dev-runner.js",
     "pack": "npm run pack:main && npm run pack:renderer",
     "pack:main": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.main.config.js",
     "pack:renderer": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.renderer.config.js",
