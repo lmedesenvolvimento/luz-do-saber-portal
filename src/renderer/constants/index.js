@@ -55,6 +55,8 @@ export const GameSubtypes = {
     assembleWord: 'monte-a-palavra',
     myCracha: 'meu-cracha',
     uppercaseLetters: 'texto-letras-maiusculas',
+    numericSequence: 'sequencia-numerica',
+    sequenceAntecessor: 'sequencia-antecessor',
 }
 
 export const ItemTypes = {

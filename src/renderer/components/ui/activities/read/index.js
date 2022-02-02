@@ -13,4 +13,5 @@ export default{
     'ls-activity-find-the-word': require('@ui/activities/read/games/FindTheWord.vue').default,
     'ls-activity-assemble-word': require('@ui/activities/read/games/AssembleWord.vue').default,
     'ls-activity-uppercase-letters': require('@ui/activities/read/games/UppercaseLetters.vue').default,
+    'ls-activity-numeric-sequence': require('@ui/activities/read/games/NumericSequence.vue').default,
 }

@@ -1,6 +1,32 @@
 $bd-color: #cccccc;
 $primary-font-color: #007CB2;
 
+.journal-text-uppercase {
+    input {
+        text-transform: uppercase;
+    }
+    textarea {
+        text-transform: uppercase;
+    }
+}
+.journal-text-bold {
+    input {
+        font-weight: bold;
+    }
+}   
+
+.journal-story-title {
+
+    &.journal-text-bold {
+        input {
+            font-weight: bold;
+        }
+        & > textarea {
+            font-weight: bold;
+        }
+    }
+}
+
 .journal-container{
     margin-top: 40px;
     box-shadow: 1px 1px 20px #3a3a3a;
@@ -78,7 +104,6 @@ $primary-font-color: #007CB2;
         font-size: 32px;
         border: none;
         background: none;
-        text-transform: uppercase;
         text-align: center;
     }      
 } 
@@ -107,7 +132,6 @@ $primary-font-color: #007CB2;
     font-size: 20px;
     border: none;
     background: none;
-    text-transform: uppercase;
     overflow: hidden;
     resize: none;
 }
@@ -115,14 +139,12 @@ $primary-font-color: #007CB2;
     font-size: 20px;
     border: none;
     background: none;
-    text-transform: uppercase;
     text-align: center;
 }
 .journal-input-story-text{
     font-size: 16px;
     border: none;
     background: none;
-    text-transform: uppercase;
     overflow: hidden;
     resize: none;
 }
@@ -205,7 +227,6 @@ $primary-font-color: #007CB2;
     font-size: 28px;
     border: none;
     background: none;
-    text-transform: uppercase;
     text-align: center;
 }
 .journal-left-page{

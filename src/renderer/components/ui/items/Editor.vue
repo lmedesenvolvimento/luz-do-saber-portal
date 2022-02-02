@@ -48,7 +48,8 @@ const options = {
 Vue.use(VueHtmlToPaper, options)
 
 const Font = Quill.import('attributors/class/font')
-const fontArr = ['Montserrat', 'Roboto']
+console.log('here', Font)
+const fontArr = ['Montserrat', 'Roboto', 'Arial', 'times-new-roman', 'Pacifico']
 Font.whitelist = fontArr
 Quill.register(Font, true)
 
@@ -68,10 +69,13 @@ export default {
             editorOption: {
                 modules: {
                     toolbar: [
+                        [{ 'align': [] }],
                         [{ 'font': fontArr }],
                         [{ 'size': fontSizeArr }],
-                        [{ 'color': [] }],
-                        ['bold', 'italic', 'underline']
+                        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+                        [{ 'color': [] }, { 'background': [] }],
+                        ['bold', 'italic', 'underline'],
+                        ['image']
                     ],      
                 },
                 theme: 'snow',
@@ -123,7 +127,7 @@ export default {
 </script>
 
 <style lang="scss">
-
+// @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 #editor-wrapper {
     margin-top: 50px;
 
@@ -174,10 +178,26 @@ export default {
     }
     
     .ql-editor {
-        font-family: Montserrat;
+    
         .ql-font-Roboto {
-            font-family: Roboto;
+            font-family: "Roboto";
         }
+        .ql-font-MontSerrat {
+            font-family: "Montserrat";
+        }
+        // .ql-font-times-new-roman {
+        // font-family: 'Times New Roman';
+        // }
+        .ql-font-Arial {
+            font-family: Arial;
+        }
+        .ql-font-Times-New-Roman {
+            font-family: 'Times New Roman';
+        }
+        .ql-font-Pacifico {
+            font-family: 'Pacifico';
+        }
+
     }
 }
 </style>
