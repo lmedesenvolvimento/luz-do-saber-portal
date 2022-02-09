@@ -1,0 +1,18 @@
+{
+    "name": "docker_web_app",
+    "version": "0.2.0",
+    "description": "Node.js on Docker",
+    "author": "Damis Garcia",
+    "main": "server.js",
+    "scripts": {
+        "dev": "node server.js",
+        "start": "node server.js"
+    },
+    "dependencies": {
+        "cross-env": "^5.1.6",
+        "dotenv": "^8.2.0",
+        "ecstatic": "^4.1.2",
+        "express": "^4.16.1",
+        "express-static-gzip": "^1.1.3"
+    }
+}
