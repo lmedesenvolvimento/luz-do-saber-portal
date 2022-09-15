@@ -9,7 +9,7 @@
                                 class="cracha" 
                             >
                                 <div class="outer">
-                                    <div class="card-input card--input-image">
+                                    <div class="card-input card--input-image" :class="{'no-photo-warning' : hasNoImage }">
                                         <div class="icon-photo">
                                             <input 
                                                 :ref="`file${name.text}`"
@@ -28,6 +28,20 @@
                             </ls-card-input-cracha>
                         </div>
                     </b-col>
+                    <div class="mx-1">
+                        <div class="card--display btn-continue-container" @click="continueGame()">
+                            <img class="btn-continue" src="@/assets/images/icons/escrever/icon-next.png" alt="Botão jogar">
+                            <b-card
+                                no-body
+                            >
+                                <b-card-body>
+                                    <span class="span-spacing">Continuar</span>
+                                </b-card-body>
+                            </b-card>
+                        </div>
+                    </div>
+                    <!-- <div class="icon-next" @click="continueGame()">Continuar</div> -->
+                    <!-- <button @click="continueGame()">Continuar</button> -->
                 </b-row>
             </b-col>
         </b-row>
@@ -46,7 +60,9 @@ export default {
     mixins: [MapMixins, ListMixin, CreateAnswersMixins,],
     data() {
         return {
-            userName: null
+            userName: null,
+            hasImage: false,
+            hasNoImage: false,
         }
     },
     computed: {
@@ -65,6 +81,7 @@ export default {
     methods: {
         ...mapActions('Activity', ['triggerSuccess']),
         handleFileUpload(index) {
+            this.hasNoImage = false
             let file = this.$refs[`file${index}`].files[0]
             let reader = new FileReader()
 
@@ -72,7 +89,8 @@ export default {
                 Vue.set(this.userName, 'imgSrc',e.target.result)
                 //adicionando o background liso após a foto ser carregada
                 this.$refs['imgContainer'].classList.add('grey-bg')
-                setTimeout(this.triggerSuccess, 400)
+                this.hasImage = true
+       
             }
             reader.onerror = function(error) {
                 console.log(error)
@@ -80,6 +98,14 @@ export default {
             if (file)
                 reader.readAsDataURL(file)
         },
+        continueGame(){
+            if(this.hasImage){
+                setTimeout(this.triggerSuccess, 400)
+            }else{
+                this.hasNoImage = true
+                
+            }
+        }
     },
 }
 </script>
@@ -105,6 +131,7 @@ export default {
             z-index: 99;
             height: 95px;
             .icon-photo {
+     
                 width: 49px;
                 position: absolute;
                 height: 44px;
@@ -142,5 +169,25 @@ export default {
         .grey-bg{
             background-color: #ececec;
         }
+        .no-photo-warning{
+            border: 2px solid red;
+        }
+
+        .btn-continue-container {
+            position: relative;
+            cursor: pointer;
+        }
+        .btn-continue {
+            position: absolute;
+            z-index: 10;
+            left: 0px;
+            top: 10px;
+            width: 64px;
+            height: 64px;
+        }
+        .span-spacing {
+            padding-left: 50px;
+        }
     }
+   
 </style>
