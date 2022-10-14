@@ -63,11 +63,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.img-flex {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 .image{
     position: relative;
     display: inline-block;
