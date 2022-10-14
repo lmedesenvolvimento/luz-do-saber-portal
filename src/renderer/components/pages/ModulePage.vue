@@ -84,18 +84,13 @@ export default {
             }
         },
         getModuleColor(module){
-            switch (module.slug) {
-            case 'comecar':
-                return  { color: '#C72929' }
-            case 'ler':
-                return { color: '#00963F' }
-            case 'escrever':
-                return { color: '#007CB2' }
-            case 'biblioteca':
-                return { color: 'black' }
-            default:
-                break
+            const colors = {
+                comecar: '#C72929',
+                ler: '#00963F',
+                escrever: '#007CB2',
+                biblioteca: 'black'
             }
+            return { color: colors[module.slug] } || { color: '#469d9e' }
         },
         getThemeImage(theme) {
             return theme.cover_url ? theme.cover_url : 'http://pngimg.com/uploads/book/book_PNG51049.png'

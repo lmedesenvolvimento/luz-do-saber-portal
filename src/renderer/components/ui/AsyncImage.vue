@@ -2,7 +2,7 @@
     <div class="image" :class="$attrs.class">
         <transition name="fade" mode="out-in">
             <ImageLoader v-if="!ready" :color="color" />
-            <div v-else>
+            <div v-else class="img-flex">
                 <viewer v-if="!disableZoom" :options="viewerOpts">
                     <slot name="image">
                         <img :src="computedSrc" :alt="[alt ? altImage(alt) : altImage(src)]" />
@@ -63,6 +63,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.img-flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .image{
     position: relative;
     display: inline-block;
