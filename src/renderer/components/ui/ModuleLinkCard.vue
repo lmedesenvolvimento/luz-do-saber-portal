@@ -105,7 +105,7 @@ export default {
                 biblioteca:  '#F8A728',
                 karaoke: '#910281'
             }
-            return colors[this.slug] || '#469D9E'
+            return colors[this.slug] || '#0fa7a1'
         },
         getProgress(){
             switch (this.type) {

@@ -90,7 +90,7 @@ export default {
                 escrever: '#007CB2',
                 biblioteca: 'black'
             }
-            return { color: colors[module.slug] } || { color: '#469d9e' }
+            return colors[module.slug] ? { color: colors[module.slug] } : { color: '#469d9e' }
         },
         getThemeImage(theme) {
             return theme.cover_url ? theme.cover_url : 'http://pngimg.com/uploads/book/book_PNG51049.png'

@@ -80,5 +80,10 @@ export default {
         margin: auto;
         max-width: 80%;
     }
+    .img-flex {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 }
 </style>

@@ -119,12 +119,14 @@ export default {
         },
         toggleVisibleSubModule(module){
             this.fetchTargetAudiences(module).then(({ theme_audiences }) => {
+                this.slide = 0
                 this.isVisibleSubModule = true
                 this.targetAudiences = uniqBy(theme_audiences.map((el) => ({ ...el, module_slug: module})), 'id').filter(({status}) => status !== 'inactive').sort(this.sortByOrder)
                 this.pagination = this.divideInPages(this.targetAudiences, 5, 4)
             })
         },
         hideSubModule() {
+            this.slide = 0
             this.isVisibleSubModule = false
             this.pagination = this.divideInPages(this.activeModules, 5, 4)
         },
