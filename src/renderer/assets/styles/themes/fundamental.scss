@@ -1,16 +1,16 @@
-$fundamental: (    
+$fundamental: (
     /******
     *
     * Theme
     *
     *****/
-    
+
     bg-color: #fff,
     bg-image: url('~@/assets/images/tema-ferias-luz-do-saber.png'),
-    
+
     text-color: #5F4343,
     text-invert: #fff,
-    
+
     navbar-bgcolor: #b03333,
     navbar-title-size: 32px,
 
@@ -27,23 +27,25 @@ $fundamental: (
         biblioteca: '~@/assets/images/btn-books.png',
         karaoke: '~@/assets/images/btn-karaoke.png'
     ),
-    
+
     theme-colors: (
         comecar: #b03333,
         ler: #1b9f49,
         escrever: #0b84ac,
         biblioteca: #F8A728,
-        karaoke: #910281
+        karaoke: #910281,
+        default: #0fa7a1
     ),
-        
+
     icon-themes: (
         comecar: '~@/assets/images/icons/comecar/',
         ler: '~@/assets/images/icons/ler/',
         escrever: '~@/assets/images/icons/escrever/',
         biblioteca: '~@/assets/images/icons/biblioteca/',
         karaoke: '~@/assets/images/icons/biblioteca/',
+        default: '~@/assets/images/icons/biblioteca/'
     ),
-    
+
     // Cards
     card-input-dark-border-color: #2B1F17,
     card-input-box-shadow-intesity: 6px,
@@ -52,10 +54,9 @@ $fundamental: (
     card-input-box-shadow-danger-color: #C72929,
     card-empty-color: #CDCBCB,
     card-empty-shadow-color: #ABABAB,
-    card-border-radius: 1.15rem,  
-    card-body-weight: normal,     
-    
-    
+    card-border-radius: 1.15rem,
+    card-body-weight: normal,
+
     // Gameplay
     gameplay-heading-bg-color: lighten(#f4f4f4, 2.5),
     gameplay-heading-bottom-color: #ddd,
@@ -69,8 +70,7 @@ $fundamental: (
     gameplay-border-radius: 8px,
     gameplay-height: 640px,
     gameplay-max-height: 640px,
-        
-    
+
     item-types-width: (
         default: (
             letra: $base-fontsize-letter,
@@ -97,7 +97,7 @@ $fundamental: (
             substantivo_proprio: ( $substantive-fontsize / 1.31 )
         )
     ),
-    
+
     item-types-card-padding: (
         default: 0.125rem,
         medium: ( 0.2rem / 1.60 ),
@@ -105,7 +105,7 @@ $fundamental: (
     ),
 
     item-types-card-border-radius: item-types-card-border-radius('fundamental'),
-    
+
     item-types-card-body-padding: (
         default: 1rem,
         medium: ( 1rem / 1.25 ),

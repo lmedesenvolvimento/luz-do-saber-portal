@@ -1,18 +1,15 @@
 <template>
     <div>
-        <a
+        <vue-circle
             v-if="!isTargetAudience && hasMoreTargetAudience"
             class="clean-links"
-            @click="() => toggleVisibleSubModule(data.slug)"
-        >
-            <vue-circle
-                :label="data.title"
-                :image="getModuleImage"
-                :slug="slug"
-                :progress="getProgress"
-                :color="getModuleColor"                
-            />
-        </a>
+            :label="title"
+            :image="getModuleImage"
+            :slug="slug"
+            :progress="getProgress"
+            :color="getModuleColor"
+            @click="$emit('toggle-visible-sub-module', slug)"
+        />
         <router-link
             v-else
             class="clean-links"
@@ -21,9 +18,9 @@
                 params: getRouterParams
             }"
             replace
-        >   
+        >
             <vue-circle
-                :label="label || data.title"
+                :label="title"
                 :image="getModuleImage"
                 :slug="slug"
                 :color="getModuleColor"
@@ -41,30 +38,49 @@ import { mapGetters } from 'vuex'
 export default {
     components: { VueCircle },
     props: {
-        label: String,
-        image: String,
-        color: Object,
-        data: {
-            type: Object,
-            required: true
+        title: {
+            type: String,
+            default: ''
+        },
+        image: {
+            type: String,
+            default: ''
+        },
+        color: {
+            type: String,
+            default: ''
         },
         slug: {
             type: String,
             default: 'ler'
         },
-        toggleVisibleSubModule: {
-            type: Function,
-            required: false
-        }
+        themes: {
+            type: Array,
+            default: () => []
+        },
+        id: {
+            type: [Number, String],
+            default: 0
+        }, 
+        moduleSlug: {
+            type: String,
+            default: ''
+        },
+        coverFullUrl: {
+            type: String,
+            default: ''
+        },
     },
     computed: {
         fixedModules() {
             return ['escrever', 'karaoke', 'biblioteca']
         },
         getModuleImage(){
+            console.log(this.image, this.coverFullUrl)
             if (this.image) return this.image
+            else if (this.coverFullUrl) return this.coverFullUrl
 
-            switch (this.data.slug) {
+            switch (this.slug) {
             case 'comecar':
                 return require('@/assets/images/btn-start.png')
             case 'ler':
@@ -76,28 +92,23 @@ export default {
             case 'karaoke':
                 return require('@/assets/images/btn-karaoke.png')
             default:
-                return undefined
+                return require('@/assets/images/components/journal/photo-holder.png')
             }
         },
         getModuleColor(){
             if (this.color) return this.color
-            switch (this.data.slug) {
-            case 'comecar':
-                return  { color: '#EC2727' }
-            case 'ler':
-                return { color: '#00963F' }
-            case 'escrever':
-                return { color: '#007CB2' }
-            case 'biblioteca':
-                return  { color: '#F8A728' }
-            case 'karaoke':
-                return  { color: '#910281' }
-            default:
-                return ''
+            else if (this.moduleSlug === 'ler') return '#00963F'
+            const colors = {
+                comecar:'#EC2727',
+                ler: '#00963F',
+                escrever: '#007CB2',
+                biblioteca:  '#F8A728',
+                karaoke: '#910281'
             }
+            return colors[this.slug] || '#0fa7a1'
         },
         getProgress(){
-            switch (this.data.type) {
+            switch (this.type) {
             case 'library':
                 return this.getProgressLibrary
             default:
@@ -105,11 +116,10 @@ export default {
             }
         },
         getProgressModule(){
-            if(this.data.themes) {
-                const themes = this.getProgressThemesByModuleId(this.data)
-                const percentage = themes.reduce((acc, { percentage }) => percentage ? acc + percentage : acc + 0, 0) / this.data.themes.length
-                // const total = ( filter(themes, { completed: true }).length / this.data.themes.length ) * 100
-                return  percentage > 5 ? percentage : 5
+            if(this.themes) {
+                const themes = this.getProgressThemesByModuleId(this.id)
+                const percentage = themes.reduce((acc, { percentage }) => percentage ? acc + percentage : acc + 0, 0) / this.themes.length
+                return percentage > 5 ? percentage : 5
             } else return  5
 
         },
@@ -119,42 +129,42 @@ export default {
             return total || 5
         },
         getRouterName() {
-            if(this.fixedModules.includes(this.data.slug)) return this.getEnglishName(this.data.slug)
-            else if(!this.data.themes || this.hasMoreTargetAudience || this.hasMoreThemes)
+            if(this.fixedModules.includes(this.slug)) return this.getEnglishName(this.slug)
+            else if(!this.themes || this.hasMoreTargetAudience || this.hasMoreThemes)
                 return 'module'
             else return 'theme'
         },
         getRouterParams() {
             if(this.hasMoreTargetAudience)
-                return { module_slug: this.data.module_slug, target_audience: this.data.slug }
-            else if(this.isTargetAudience && this.data.themes) return { module_slug: this.data.module_slug, target_audience: this.data.slug, theme_slug: this.data.themes[0].slug }
-            else if(this.hasMoreThemes && this.data.themes) return { module_slug: this.data.slug, target_audience: this.data.themes[0].target_audience }
-            else if(this.data.themes) return { module_slug: this.data.slug, target_audience: this.data.themes[0].target_audience, theme_slug: this.data.themes[0].slug }
+                return { module_slug: this.moduleSlug, target_audience: this.slug }
+            else if(this.isTargetAudience && this.themes) return { module_slug: this.moduleSlug, target_audience: this.slug, theme_slug: this.themes[0].slug }
+            else if(this.hasMoreThemes && this.themes) return { module_slug: this.slug, target_audience: this.themes[0].target_audience }
+            else if(this.themes) return { module_slug: this.slug, target_audience: this.themes[0].target_audience, theme_slug: this.themes[0].slug }
             else return false
         },
         getComecarUnitRoute() {
-            return '/game/comecar/' + this.data.themes[0].slug + '/' + this.data.themes[0].slug
+            return '/game/comecar/' + this.themes[0].slug + '/' + this.themes[0].slug
         },
         getTargetAudience() {
-            if(this.data.themes && this.data.themes.some((t) => t.theme_audience))
-                return uniqBy(this.data.themes.map(({ theme_audience }) => ({ ...theme_audience })), 'id').filter(({ status }) => status !== 'inactive')
-            else if (this.data.themes && this.data.themes.some((t) => t.theme_audience_id)) return this.data.themes
+            if(this.themes && this.themes.some((t) => t.theme_audience))
+                return uniqBy(this.themes.map(({ theme_audience }) => ({ ...theme_audience })), 'id').filter(({ status }) => status !== 'inactive')
+            else if (this.themes && this.themes.some((t) => t.theme_audience_id)) return this.themes
             else return []
         },
         hasMoreThemes() {
-            return !!this.data.themes ? this.data.themes.length > 1 : false
+            return !!this.themes ? this.themes.length > 1 : false
         },
         hasMoreTargetAudience() {
             return this.getTargetAudience.length > 1
         },
         isTargetAudience() {
-            return !!this.data.themes ? this.data.themes.some((t) => t.theme_audience_id) : false
+            return !!this.themes ? this.themes.some((t) => t.theme_audience_id) : false
         },
         ...mapGetters('Pointings',['getThemesByModuleId'])
     },
     methods: {
-        getProgressThemesByModuleId(m){
-            return this.getThemesByModuleId(m.id, this.targetAudience)
+        getProgressThemesByModuleId(id){
+            return this.getThemesByModuleId(id, this.targetAudience)
         },
         getEnglishName(name) {
             switch (name) {
@@ -171,7 +181,3 @@ export default {
     }
 }
 </script>
-
-<style>
-
-</style>

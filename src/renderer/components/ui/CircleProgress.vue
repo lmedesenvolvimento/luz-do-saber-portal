@@ -1,9 +1,9 @@
 <template>
-    <div class="chart-progress">
+    <div class="chart-progress" @click="$emit('click')">
         <b-card class="shadow">
             <div
                 v-if="label"
-                :style="{'background-color': color.color, 'color': color.color }"
+                :style="{'background-color': color, 'color': color }"
                 :class="{complementar: isComplementar}"
                 class="chart-progress-label shitzu-porko p2"
             >
@@ -12,7 +12,7 @@
             </div>
 
             <div class="radial-container">
-                <div class="img-container" :style="{'background-color': color.color }">
+                <div class="img-container" :style="{'background-color': color }">
                     <async-image v-if="image" :src="image" :alt="image" class="img-fluid"></async-image>
                     <figure v-else>
                         <div class="image" :class="slug" :title="label"></div>
@@ -24,7 +24,7 @@
                     :size="190"
                     :reverse="false"
                     line-cap="round"
-                    :fill="color"
+                    :fill="{ color }"
                     empty-fill="rgba(0, 0, 0, .1)"
                     :animation-start-value="0.0"
                     :start-angle="30"
@@ -50,7 +50,7 @@ export default {
         label: String,
         slug: String,
         image: String,
-        color: Object,
+        color: String,
         progress: {
             type: Number,
             default: 0
@@ -65,13 +65,19 @@ export default {
         }
     },
     mounted() {
-        // console.log(this.$props)
+        console.log({ label: this.label, slug: this.slug, color: this.color })
     }
 }
 </script>
-<style>
+<style scoped>
 .complementar{
     font-size: 18px !important;
     margin-bottom: -13px !important;
+}
+
+.img-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 </style>

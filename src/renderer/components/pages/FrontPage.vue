@@ -14,33 +14,17 @@
                         <div v-else-if="!isAuthorized" key="login">
                             <SignupForm :on-submit="onSubmit" />
                         </div>
-                        <div v-else-if="isAuthorized && !isVisibleSubModule" key="frontpage-modules">
-                            <b-row align-v="center" class="justify-space-evenly">
-                                <div class="icon-exit" @click="showExitModal"></div>
-                                <ModuleLinkCard
-                                    v-for="m in modules"
-                                    :key="m.id"
-                                    :slug="m.slug"
-                                    :data="m"
-                                    :toggle-visible-sub-module="toggleVisibleSubModule"
-                                />                                
-                            </b-row>
-                        </div>
-                        <div v-else-if="isAuthorized && isVisibleSubModule" key="frontpage-ler">
+                        <div v-else key="frontpage-modules">
                             <b-row align-v="center" align-h="center">
                                 <a v-if="hasPagination" class="d-block btn margin-prev" :class="{disabled : slide === 0}" @click="clickPrev">
                                     <b-img center :src="require('@/assets/images/icons/escrever/icon-prev.png')" width="61" height="61" />
                                 </a>
                                 <transition name="fader" mode="out-in">
                                     <b-row class="slider">
-                                        <div v-for="targetAudience in currentPage" :key="targetAudience.id" class="ml-2 mr-2">
+                                        <div v-for="module in currentPage" :key="module.slug" class="ml-2 mr-2">
                                             <ModuleLinkCard
-                                                :data="targetAudience"
-                                                :image="getImage(targetAudience)"
-                                                :color="getColor(targetAudience)"
-                                                :label="targetAudience.title"
-                                                :slug="targetAudience.slug"
-                                                :target-audience="targetAudience.slug"
+                                                v-bind="camelCaseKeys(module)"
+                                                @toggle-visible-sub-module="toggleVisibleSubModule"
                                             />
                                         </div>
                                     </b-row>
@@ -48,7 +32,7 @@
                                 <a v-if="hasPagination" :class="{disabled : slide === pagination.length - 1}" class="d-block btn margin-next" @click="clickNext">
                                     <b-img center :src="require('@/assets/images/icons/escrever/icon-next.png')" width="61" height="61" />
                                 </a>
-                                <b-col cols="12" class="my-1">
+                                <b-col v-if="isVisibleSubModule" cols="12" class="my-1">
                                     <a class="d-block btn" @click="hideSubModule">
                                         <b-img center :src="require('@/assets/images/btn-close.png')" width="61" height="61" />
                                     </a>
@@ -83,16 +67,14 @@ export default {
     },
     data(){
         return {
-            subModules: {},
             user: { name: '' },
             canStart: false,
-            read: null,
             loading: false,
             isExitModalVisible: false,
             slide: 0,
             targetAudiences: [],
             pagination: [],
-            hasPagination: false
+            isVisibleSubModule: false,
         }
     },
     computed: {
@@ -102,11 +84,14 @@ export default {
         isLoading(){
             return this.loading
         },
-        isVisibleSubModule() {
-            return Object.values(this.subModules).some((visible) => visible)
-        },
         currentPage() {
             return this.pagination[this.slide]
+        },
+        hasPagination() {
+            return this.pagination.length > 1
+        },
+        activeModules() {
+            return this.modules.filter(({status}) => status !== 'inactive')
         },
         ...mapState('Modules', ['modules']),
         ...mapState('User', ['currentUser'])
@@ -123,9 +108,9 @@ export default {
         clickNext() {
             if(this.slide < this.pagination.length - 1) this.slide++
         },
-        showExitModal(){           
+        showExitModal() {
             this.isExitModalVisible = !this.isExitModalVisible
-        },        
+        },
         onGameStart(){
             this.canStart = true
         },
@@ -133,35 +118,26 @@ export default {
             this.getModules()
         },
         toggleVisibleSubModule(module){
-            Vue.set(this.subModules, module, true)
-            this.fetchTargetAudiences(module).then(({ theme_audiences}) => {
+            this.fetchTargetAudiences(module).then(({ theme_audiences }) => {
+                this.slide = 0
+                this.isVisibleSubModule = true
                 this.targetAudiences = uniqBy(theme_audiences.map((el) => ({ ...el, module_slug: module})), 'id').filter(({status}) => status !== 'inactive').sort(this.sortByOrder)
-                console.log(this.targetAudiences)
-                this.hasPagination = this.targetAudiences.length > 5
                 this.pagination = this.divideInPages(this.targetAudiences, 5, 4)
             })
         },
         hideSubModule() {
-            for(const module in this.subModules) {
-                this.subModules[module] = false
-            }
+            this.slide = 0
+            this.isVisibleSubModule = false
+            this.pagination = this.divideInPages(this.activeModules, 5, 4)
         },
         getModules() {
             this.loading = true
             this.fetchModules().then(({ modulos }) => {
-                this.read = find(modulos, { slug: 'ler' })
+                this.pagination = this.divideInPages(this.activeModules, 5, 4)
                 setTimeout(() => {
                     this.loading = false
                 }, 3000)
             })
-        },
-        getColor(targetAudience) {
-            switch (targetAudience.module_slug) {
-            case 'ler':
-                return { color: '#00963F' }
-            default:
-                return { color: '#fff' }
-            }
         },
         calcPagination(itemArray, max) {
             return itemArray.length > max
@@ -177,10 +153,17 @@ export default {
         },
         sortByOrder(a, b) {
             return a.order - b.order
-
         },
-        getImage(targetAudience) {
-            return targetAudience.cover_full_url
+        camelCaseKeys(ob) {
+            const n = {}
+            Object.keys(ob).forEach((k) => {
+                n[k.replace(/([-_][a-z])/ig, ($1) => {
+                    return $1.toUpperCase()
+                        .replace('-', '')
+                        .replace('_', '')
+                })] = ob[k]
+            })
+            return n
         },
         ...mapActions('Modules',['fetchModules', 'fetchTargetAudiences']),
         ...mapActions('User',['createUserDatabase', 'destroyUserDatabase']),
