@@ -185,6 +185,7 @@ export default {
         justify-content: center;
 
         img {
+            width: inherit;
             margin: unset;
         }
     }
