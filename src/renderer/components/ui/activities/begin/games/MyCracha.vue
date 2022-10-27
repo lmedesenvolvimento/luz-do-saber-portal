@@ -39,7 +39,7 @@
                             </ls-card-input-cracha>
                         </div>
                     </b-col>
-                    <div>
+                    <div :class="{hidden: hiddenButton}">
                         <div class="btn-container">
                             <div class="btn-container--border">
                                 <b-button class="btn-continue" @click="continueGame()">
@@ -69,6 +69,7 @@ export default {
             userName: null,
             hasImage: false,
             hasNoImage: false,
+            hiddenButton: true,
         }
     },
     computed: {
@@ -85,6 +86,9 @@ export default {
     },
     methods: {
         ...mapActions('Activity', ['triggerSuccess']),
+        handleHiddenButton() {
+            this.hiddenButton = false
+        },
         handleFileUpload(index) {
             this.hasNoImage = false
             let file = this.$refs[`file${index}`].files[0]
@@ -99,7 +103,10 @@ export default {
             reader.onerror = function (error) {
                 console.log(error)
             }
-            if (file) reader.readAsDataURL(file)
+            if (file) {
+                reader.readAsDataURL(file) 
+                this.handleHiddenButton()
+            }
         },
         continueGame() {
             if (this.hasImage) {
@@ -207,6 +214,10 @@ export default {
   }
   .btn-container:hover {
     transform: scale(1.02);
+  }
+
+  .hidden {
+    display: none;
   }
 }
 </style>
