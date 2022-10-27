@@ -109,11 +109,7 @@ export default {
             }
         },
         continueGame() {
-            if (this.hasImage) {
-                setTimeout(this.triggerSuccess, 400)
-            } else {
-                this.hasNoImage = true
-            }
+            if (this.hasImage) setTimeout(this.triggerSuccess, 400)
         },
     },
 }
