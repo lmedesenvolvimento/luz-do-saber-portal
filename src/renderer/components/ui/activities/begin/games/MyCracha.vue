@@ -42,7 +42,7 @@
                     <div :class="{hidden: hiddenButton}">
                         <div class="btn-container">
                             <div class="btn-container--border">
-                                <b-button class="btn-continue" @click="continueGame()">
+                                <b-button class="btn-continue" v-if="!hasNoImage" @click="continueGame()">
                                     confirmar
                                 </b-button>
                             </div>
