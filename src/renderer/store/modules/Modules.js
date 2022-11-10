@@ -48,9 +48,18 @@ const actions = {
     }
 }
 
+const getters = {
+    moduleThemeColor(state) {
+        const slug = state.activeModule && state.activeModule.slug
+        const isNamed = ['comecar', 'ler', 'escrever', 'biblioteca', 'karaoke'].includes(slug)
+        return isNamed ? slug : 'default'
+    }
+}
+
 export default {
     namespaced: true,
     state,
     mutations,
-    actions
+    actions,
+    getters
 }

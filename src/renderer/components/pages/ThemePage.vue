@@ -100,7 +100,7 @@ export default {
             case 3:
                 return '#007CB2'
             default:
-                break
+                return '#188f8a'
             }
         },
         calculatePercentage(sample, total) {
