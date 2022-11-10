@@ -21,7 +21,7 @@
         position: relative;
         width: 80px;
         height: 80px;
-            
+
         & > div {
             position: absolute;
             top: 33px;
@@ -48,9 +48,7 @@
             }
         }
     }
-}           
-
-
+}
 
 @keyframes lds-ellipsis1 {
   0% {

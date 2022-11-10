@@ -1,15 +1,15 @@
 <template>
-    <div class="image" :class="$attrs.class">
+    <div class="image" :class="[$attrs.class, fitContainer && 'fit-container']">
         <transition name="fade" mode="out-in">
-            <ImageLoader v-if="!ready" :color="color" />
+            <ImageLoader v-if="!ready" :color="color" class="loader" />
             <div v-else class="img-flex">
                 <viewer v-if="!disableZoom" :options="viewerOpts">
                     <slot name="image">
-                        <img :src="computedSrc" :alt="[alt ? altImage(alt) : altImage(src)]" />
+                        <img :src="computedSrc" :alt="altImage" />
                     </slot>
                 </viewer>
                 <slot v-else name="image">
-                    <img :src="computedSrc" />
+                    <img :src="computedSrc" :alt="altImage" />
                 </slot>
             </div>
         </transition>
@@ -25,10 +25,26 @@ export default {
     },
     inheritAttrs: false,
     props: {
-        color: String,
-        src: String,
-        disableZoom: Boolean,
-        alt: String
+        color: {
+            type: String,
+            default: '#fff'
+        },
+        src: {
+            type: String,
+            required: true,
+        },
+        disableZoom: {
+            type: Boolean,
+            default: true,
+        },
+        alt: {
+            type: String,
+            default: ''
+        },
+        fitContainer: {
+            type: Boolean,
+            default: false,
+        },
     },
     data(){
         return {
@@ -41,24 +57,19 @@ export default {
             if(this.$isProduction)
                 return this.src
             else return this.src.split('/')[1] === 'system' ? `http://localhost:3000${this.src}` : this.src
+        },
+        altImage(){
+            if (this.alt) return this.alt
+            else return this.src.split('/').pop().split('.')[0]
         }
     },
     mounted(){
         const image = new Image()
         image.onload = event => {
-            return this.ready = true
+            this.ready = true
         }
         image.src = this.computedSrc
     },
-    methods: {
-        altImage: function(src){
-            if(src != null){
-                return src.split('/')[src.split('/').length - 1].split('.')[0]
-            }else {
-                return 'default'
-            }            
-        }
-    }
 }
 </script>
 
@@ -69,6 +80,12 @@ export default {
     width: 100%;
     max-width: 100%;
     margin: auto;
+    &.fit-container {
+        img, .loader {
+            max-height: 100%;
+            height: 220px;
+        }
+    }
     img {
         display: inline-block;
         max-width: 100%;
