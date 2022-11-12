@@ -1,10 +1,10 @@
 <template>
     <b-modal
         ref="alert-success-modal"
-        :modal-class="[$context, renderModuleSlug, { 'is-report' : currentShow === 'report' }]"
+        :modal-class="[$context, moduleThemeColor, { 'is-report' : currentShow === 'report' }]"
         content-class="feedback"
         :centered="true"
-        :header-class="[renderModuleSlug, { 'is-report' : currentShow === 'report' }]"
+        :header-class="[moduleThemeColor, { 'is-report' : currentShow === 'report' }]"
         :hide-footer="true"
         :no-close-on-backdrop="true"
         @show="onShow"
@@ -95,7 +95,7 @@
             </div>
         </div>
         <br>
-        <div class="feedback-footer-buttons" :class="$route.params.module_slug">
+        <div class="feedback-footer-buttons" :class="moduleThemeColor">
             <div v-if="currentShow === 'feedback'" class="feedback-buttons">
                 <div class="icon-redo" @click="resetActivity"></div>
                 <div class="icon-next" @click="nextActivity"></div>
@@ -209,9 +209,6 @@ export default {
                 return ''
             }
         },
-        renderModuleSlug(){
-            return this.activity ? this.activity.module.slug : this.moduleByPath
-        },
         renderActivityPosition(){
             return this.activity ? this.activity.position : ''
         },
@@ -227,7 +224,8 @@ export default {
         ...mapState('Unit',['unit']),
         ...mapState('Pointings',['activities']),
         ...mapState('Activity',['activity','log']),
-        ...mapGetters('Activity',['totalStars'])
+        ...mapGetters('Activity',['totalStars']),
+        ...mapGetters('Modules',['moduleThemeColor'])
     },
     watch: {
         isVisibleActivityAlertSuccess(value){
