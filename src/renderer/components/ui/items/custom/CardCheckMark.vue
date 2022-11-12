@@ -13,21 +13,19 @@
 
             <b-card
                 class="limited-width-input"
-                no-body
                 :class="{ 'invalid': invalid, 'valid': valid, 'selected': selected }"
             >
-                <fill-background :bg-color="bgColor">
-                    <b-card-body>
-                        <slot>
-                            <div v-if="template.type === 'imagem'" class="image">
-                                <b-aspect aspect="1">
-                                    <async-image :src="item.images.length ? item.images[0].url : ''" :disable-zoom="true" />
-                                </b-aspect>
-                            </div>
-                            <div v-else class="text">{{ item.text }}</div>
-                        </slot>
-                    </b-card-body>
-                </fill-background>
+                <slot>
+                    <div v-if="template.type === 'imagem'" class="image">
+                        <async-image 
+                            :src="item.images.length ? item.images[0].url : ''"
+                            :disable-zoom="true"
+                            color="#999"
+                            fit-container
+                        />
+                    </div>
+                    <div v-else class="text">{{ item.text }}</div>
+                </slot>
             </b-card>
 
             <input
@@ -70,11 +68,7 @@ export default {
         }
     }
     .image {
-        max-height: 220px;
-        max-width: 220px;
-        /deep/.image img {
-            max-height: 220px;
-            max-width: 250px;
-        }
+        height: auto;
+        max-width: 100%;
     }
 </style>
