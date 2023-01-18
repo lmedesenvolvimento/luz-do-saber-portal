@@ -23,9 +23,6 @@ export default {
         AsyncImage,
     },
     mixins: [ItemProps],
-    mounted() {
-        console.log(this.item)
-    },
 };
 </script>
 <style lang="scss" scoped>

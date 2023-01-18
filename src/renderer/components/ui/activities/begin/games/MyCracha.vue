@@ -42,7 +42,7 @@
                     <div :class="{hidden: hiddenButton}">
                         <div class="btn-container">
                             <div class="btn-container--border">
-                                <b-button class="btn-continue" v-if="!hasNoImage" @click="continueGame()">
+                                <b-button v-if="!hasNoImage" class="btn-continue" @click="continueGame()">
                                     confirmar
                                 </b-button>
                             </div>
@@ -101,7 +101,7 @@ export default {
                 this.hasImage = true
             }
             reader.onerror = function (error) {
-                console.log(error)
+                console.error(error)
             }
             if (file) {
                 reader.readAsDataURL(file) 

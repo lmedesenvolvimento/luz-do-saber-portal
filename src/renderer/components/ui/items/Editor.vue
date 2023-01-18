@@ -48,7 +48,6 @@ const options = {
 Vue.use(VueHtmlToPaper, options)
 
 const Font = Quill.import('attributors/class/font')
-console.log('here', Font)
 const fontArr = ['Montserrat', 'Roboto', 'Arial', 'times-new-roman', 'Pacifico']
 Font.whitelist = fontArr
 Quill.register(Font, true)
@@ -101,7 +100,6 @@ export default {
         },
         newLetter(){
             this.length = this.quill.getLength()
-            console.log(this.length)
             if  (this.quill.getText() !== '\n' && this.length > gi1){
                 this.modalShow = !this.modalShow               
             }

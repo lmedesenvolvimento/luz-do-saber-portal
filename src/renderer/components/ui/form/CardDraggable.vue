@@ -5,7 +5,6 @@
         :data-transfer="item"
         :is-absolute="false"
         has-empty-slot
-        @onstartEvent="onDrag"
         @onendEvent="onDragEnd"
     >
         <template slot="image">
@@ -102,11 +101,6 @@ export default {
         },
         getElementHeight() {
             return this.$el.offsetHeight
-        },
-        onDrag(transferData, nativeElement) {
-            // this.dragging = true
-            // console.log(transferData)
-            // console.log(this.item)
         },
         onDragEnd(transferData, nativeElement) {
             if (transferData.valid) {

@@ -73,7 +73,6 @@ const getters = {
     },
     getWriteModuleByRef(state) {
         return ref => {
-            console.log(ref)
             return state.modules[ref]
         }
     }

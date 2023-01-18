@@ -144,7 +144,7 @@ export default {
                 this.friendsAux[index].imgSrc = e.target.result
             }
             reader.onerror = function(error) {
-                console.log(error)
+                console.error(error)
             }
             if (file)
                 reader.readAsDataURL(file)

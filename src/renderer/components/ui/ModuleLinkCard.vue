@@ -76,7 +76,6 @@ export default {
             return ['escrever', 'karaoke', 'biblioteca']
         },
         getModuleImage(){
-            console.log(this.image, this.coverFullUrl)
             if (this.image) return this.image
             else if (this.coverFullUrl) return this.coverFullUrl
 

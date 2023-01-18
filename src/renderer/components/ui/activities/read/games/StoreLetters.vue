@@ -82,7 +82,6 @@ export default {
         for(let i = 0; i < this.letters.length; i++){
             this.letters[i].color = this.getColorsArray[i]
         }
-        console.log()
     }   
 }
 </script>
