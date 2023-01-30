@@ -47,7 +47,6 @@
                             :type="'value'"
                             :template="activity.item_template.value"
                             :size="'big'"
-                            
                         />
                     </b-col>                    
                 </b-row>
@@ -124,7 +123,6 @@ export default {
             this.selectItem = item
         },
         clearIncompleteWord(arr) {
-            console.log(this.isPredecessor)
             let correct = cloneDeep(arr)
             let pieces = this.incompleteSequence
 

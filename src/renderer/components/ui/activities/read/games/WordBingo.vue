@@ -142,9 +142,6 @@ export default {
             }
         },
         shuffleOpponentsCard() {
-            // Debug
-            // console.log('shuffleOpponentsCard', new Date)
-
             const shuffleValues = shuffle(this.getValues)
 
             const opponents = chunk(shuffleValues, this.totalOpponentsPerCard)

@@ -6,7 +6,6 @@ const MAX_WAIT = 15000
 
 const persistRemote = debounce(function(mutation, state) {
     const { data, pointings } = state.User.currentUser
-    console.log(data, pointings)
     Http.axios.post('/game/user_game', {
         name: data.name,
         code: data.code,

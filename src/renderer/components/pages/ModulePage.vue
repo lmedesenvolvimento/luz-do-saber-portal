@@ -14,9 +14,10 @@
                 <b-col v-for="theme in getThemes" :key="theme.id" cols="6">
                     <div class="my-2 circle-box">
                         <router-link :to="{ name: 'theme', params: { module_slug: $route.params.module_slug, theme_slug: theme.slug } }">
-                            <vue-circle
+                            <circle-progress-themes
                                 class=""
                                 :label="theme.title"
+                                :subtitle="theme.subtitle || theme.description"
                                 :image="getThemeImage(theme)"
                                 :progress="getProgressTheme(theme)"
                                 :color="getModuleColor(activeModule)"
@@ -33,12 +34,12 @@
 import { mapActions, mapState } from 'vuex'
 import { filter, omit } from 'lodash'
 import { RouteMixin } from './index'
-import VueCircle from '../ui/CircleProgressThemes'
+import CircleProgressThemes from '../ui/CircleProgressThemes'
 import Navbar from '../ui/navbars/Navbar'
 
 export default {
     components: {
-        VueCircle,
+        CircleProgressThemes,
         Navbar,
     },
     mixins: [RouteMixin],

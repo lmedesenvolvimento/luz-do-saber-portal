@@ -274,16 +274,13 @@ export default {
                     for (let l = 0; l < word.length; l++) {
                         let g = grid[transversal][beginIndex + l]
                         g.value = word[l] === ' ' ? '&nbsp;' : word[l]
-                        console.log({value: g.value})
                         g.free = false
                     }
                 } else if (dir === 'ver') {
                     for (let l = 0; l < word.length; l++) {
                         let g = grid[beginIndex + l][transversal]
                         // onde ele passa as letras pro grid
-                        
                         g.value = word[l] === ' ' ? '&nbsp;' : word[l]
-                        console.log({value: g.value})
                         g.free = false
                     }
                 }

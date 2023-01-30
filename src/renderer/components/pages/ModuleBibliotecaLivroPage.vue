@@ -17,7 +17,7 @@
                         <figure class="image fill">
                             <transition-group class="transition-span" name="fade">
                                 <div v-for="image in images" v-show="isVisible(image)" :key="image.key" class="img-wrap fill">
-                                    <div v-if="image.loaded" class="lazy-load" :class="{'division' : !notSingle(image)}">
+                                    <div v-if="image.loaded" class="lazy-load" :class="{'division' : image.hasCenterDivision}">
                                         <viewer :options="viewerOpts">
                                             <slot name="image">
                                                 <img :src="image.source">
@@ -103,16 +103,17 @@ export default {
     created() {
         for (let i = 0; i < this.book.pages.length; i++) {
             let image = {
-                key: 'imagem ' + (i + 1),
+                key: `imagem ${(i + 1)}`,
                 source: this.book.pages[i].url,
                 loaded: false
             }
             this.images.push(image)
 
-            let picture =  new Image()
-            
+            let picture = new Image()
+
             picture.onload = () => {
                 image.loaded = true
+                image.hasCenterDivision = picture.width > picture.height
             }
 
             picture.src = this.book.pages[i].url
@@ -130,9 +131,6 @@ export default {
     methods: {
         isVisible( image ){
             return image === this.images[this.getPosition]
-        },
-        notSingle( image ){
-            return image === this.images[0] || image === this.images[this.images.length-1]
         },
         next () {
             if (this.getPosition < this.images.length - 1) {

@@ -64,9 +64,6 @@ export default {
 
         }
     },
-    mounted() {
-        console.log({ label: this.label, slug: this.slug, color: this.color })
-    }
 }
 </script>
 <style scoped>

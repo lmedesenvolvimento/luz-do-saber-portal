@@ -123,7 +123,7 @@ export default {
                     this.convitePhoto = e.target.result
                 }
                 reader.onerror = function(error) {
-                    console.log(error)
+                    console.error(error)
                 }
                 if (file) reader.readAsDataURL(file)
             }
@@ -168,7 +168,6 @@ export default {
             this.$refs['modal-center'].hide()
         },
         newLetter2() {
-            console.log(this.initialStateText)
             this.texts = cloneDeep(this.initialStateText)
             document.querySelector('textarea').value = ''
             this.$refs['file-convite'].value = ''

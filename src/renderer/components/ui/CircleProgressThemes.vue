@@ -23,6 +23,9 @@
             <h3>
                 {{ label }}
             </h3>
+            <span>
+                {{ subtitle }}
+            </span>
         </b-col>
     </div>
 </template>
@@ -44,6 +47,10 @@ export default {
             type: Number,
             default: 5
         },
+        subtitle: {
+            type: String,
+            default: ''
+        }
     },
 }
 </script>

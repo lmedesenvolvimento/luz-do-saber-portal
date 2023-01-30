@@ -56,11 +56,6 @@ export default {
             accept: '.drag-el',
             overlap: 'center',
             checker(dragEvent, event, dropped) {
-                // if (dropped) {
-                //     console.log('canDrop')
-                // } else {
-                //     console.log('not dropped')
-                // }
                 return dropped && droppedArr.length < maxItems
             },
             snap: {

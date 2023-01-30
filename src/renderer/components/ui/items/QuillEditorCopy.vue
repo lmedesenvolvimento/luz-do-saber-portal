@@ -132,32 +132,11 @@ export default {
         this.quill.focus()
     }, */
     methods: {
-        onEditorBlur(editor) {
-        // console.log('editor blur!', editor)
-        },
-        onEditorFocus(editor) {
-        // console.log('editor focus!', editor)
-        },
-        onEditorReady(editor) {
-        // console.log('editor ready!', editor)
-        },
-        // fontChange(el) {
-        //     console.log(el.srcElement.value === 'Montserrat')
-        //     if(el.srcElement.value === 'Roboto'){
-        //         el.srcElement.classList.remove('ql-font-Montserrat')
-        //         el.srcElement.classList.add('ql-font-Roboto')
-
-        //     } else if (el.srcElement.value === 'Montserrat') {
-        //         el.srcElement.classList.remove('ql-font-Roboto')
-        //         el.srcElement.classList.add('ql-font-Montserrat')
-        //     }
-        // },
         closeModal(){
             this.$refs['modal-center'].hide()
         },
         newLetter(){
             this.length = this.quill.getLength()
-            console.log(this.length)
             if  (this.quill.getText() !== '\n' && this.length > gi1){
                 this.modalShow = !this.modalShow               
             }

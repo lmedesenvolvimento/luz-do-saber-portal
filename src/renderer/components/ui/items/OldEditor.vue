@@ -183,7 +183,6 @@ export default {
             }
         },
         selectButton(btn){
-            console.log(btn.srcElement.parentNode)
             if (btn.srcElement.classList.contains('btn-image')){
                 if (!btn.srcElement.parentNode.classList.contains('btn-selected'))
                     btn.srcElement.parentNode.classList.add('btn-selected')
@@ -193,7 +192,6 @@ export default {
         },
         newLetter(){
             this.length = this.quill.getLength()
-            console.log(this.length)
             if  (this.quill.getText() !== '\n' && this.length > gi1){
                 this.modalShow = !this.modalShow               
             }

@@ -51,14 +51,6 @@ export default {
             customRouteLink: ''
         }
     },
-    mounted() {
-        customRoute: {
-            // if (this.$route.path === '/game/comecar/meu-nome/meu-nome') {
-            //     console.log(this.$route.path);
-            //     this.customRouteLink = false;
-            // }
-        }
-    },
     methods: {
         ...mapActions('User', ['destroyUserDatabase'])
     }

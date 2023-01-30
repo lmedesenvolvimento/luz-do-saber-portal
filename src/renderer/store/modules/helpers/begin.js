@@ -21,9 +21,6 @@ const comecar = {
 }
 
 export function mapBeginDesktopActivity(data) {
-    console.log('question_id', data.question.id)
-    console.log('question_items', data.question.items)
-
     switch (data.question.id) {
     case comecar.bingo:
         bingo(data)

@@ -204,7 +204,6 @@ export default {
             }
         },
         onChangeElement() {
-            console.log(this.page)
             this.updatePage(this.page)
         },
         selectCategory(newCategory) {

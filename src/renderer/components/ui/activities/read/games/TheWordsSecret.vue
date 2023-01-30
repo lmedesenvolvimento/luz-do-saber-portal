@@ -144,7 +144,7 @@ export default {
                 updates[position].valid = true
                 event.target.disabled = true
             } else {
-                
+
                 this.setAnswer({
                     type: 'value',
                     data: -1,
@@ -152,8 +152,6 @@ export default {
                 })
                 updates[position].invalid = true
                 this.removeInvalid(item, 1, position)
-
-                console.log(this.setAnswer)
             }
             Vue.set(this, 'shuffleValues', updates)
         },

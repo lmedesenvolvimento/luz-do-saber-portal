@@ -87,7 +87,7 @@ export default {
             params: {
                 position: position || this.unit.questions[0].order
             }
-        }).catch(e => console.log(e))
+        })
     },
     methods: {
         ...mapActions('Unit', ['goActivity', 'nextActivity', 'prevActivity','setNavigatorOrder'])
